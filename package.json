@@ -1,0 +1,25 @@
+{
+  "name": "wow-forever-ultimate-calculator",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Calculadora/simulador de WoW Forever (talentos, raza, estadisticas, habilidades, dano y curacion)",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "pipeline": "npm run build-data -w @wfuc/data-pipeline",
+    "contrast": "npm run contrast -w @wfuc/data-pipeline",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "tsx": "4.19.2",
+    "typescript": "5.7.2",
+    "vitest": "2.1.8"
+  }
+}

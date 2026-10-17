@@ -1,0 +1,58 @@
+{
+  "_readme": "Habilidades que Talents Forever (spellbook.gone en su export) da por RETIRADAS de Forever, con el nombre que les da nuestro cliente (esES). null = no hay equivalente en nuestros datos del libro de hechizos (no se ha encontrado en el cliente o la clase aun no esta revisada). Si el nombre existe, la habilidad se conserva (el cliente manda: la fila de SkillLineAbility sigue ahi) pero se marca 'retirada segun Talents Forever'. Clasificacion nuestra (assumption).",
+  "classes": {
+    "paladin": {
+      "Blessing of Sanctuary": null,
+      "Greater Blessing of Sanctuary": null,
+      "Sanctity Aura": null
+    },
+    "priest": {
+      "Lightwell": "Pozo de Luz"
+    },
+    "mage": {
+      "Detect Magic": null
+    },
+    "shaman": {
+      "Fire Nova Totem": null
+    },
+    "hunter": {
+      "Wyvern Sting": null
+    },
+    "warlock": {
+      "Curse of Shadow": null,
+      "Dark Pact": null
+    },
+    "druid": {
+      "Faerie Fire (Feral)": null,
+      "Tiger's Fury": "Furia del tigre"
+    },
+    "warrior": {},
+    "rogue": {}
+  },
+  "clientCheck": {
+    "_readme": "Comprobacion contra el cliente (SpellName/SkillLineAbility/SpellLevels, 2026-10-16) de cada habilidad que TF da por retirada.",
+    "Lightwell": "CONTRADICCION: el cliente mantiene Pozo de Luz (724, 27870, 27871) en la SkillLine 56, AcquireMethod 0, niveles 40/50/60: se conserva marcada 'retirada segun Talents Forever'. Confirmar en el entrenador del juego.",
+    "Sanctity Aura": "Coherente: el cliente tiene el hechizo 20218 (Aura de santidad, nivel 30) pero sin fila en SkillLineAbility, asi que no esta en el libro de hechizos.",
+    "Curse of Shadow": "Coherente: el cliente solo trae 402791 (Maldicion de las Sombras) sin fila en SkillLineAbility. Clase aun sin revisar.",
+    "Tiger's Fury": "CONTRADICCION: el cliente trae Furia del tigre (5217 nivel 24 y 417045) en la SkillLine 134 con AcquireMethod 3 (runa), no como habilidad aprendible de entrenador; se conserva marcada 'retirada segun Talents Forever'.",
+    "Detect Magic": "Sin hechizo con ese nombre en el cliente (esES).",
+    "Blessing of Sanctuary": "Sin hechizo con ese nombre en el cliente (esES).",
+    "Greater Blessing of Sanctuary": "Sin hechizo con ese nombre en el cliente (esES).",
+    "Fire Nova Totem": "Coherente: el cliente trae el hechizo 27623 (Totem Nova de Fuego) sin fila en SkillLineAbility, asi que no esta en el libro de hechizos. La 'Nova de Fuego' de 5 rangos (408341..408345) es otra habilidad que TF si lista.",
+    "Wyvern Sting": "Sin hechizo con ese nombre en el cliente (esES): no se encontro 'dragon alado'.",
+    "Dark Pact": "Sin hechizo 'Pacto oscuro' en el cliente (esES).",
+    "Faerie Fire (Feral)": "Sin hechizo 'Fuego feerico (feral)' en el cliente; el Fuego feerico del Druida (770, 778, 9749, 9907) esta listado por TF."
+  },
+  "official": {
+    "priest": {
+      "Lightwell": "Class Deep Dive Sacerdote y Guerrero, «Removed talents: Improved Prayer of Healing, Lightwell» (worldofwarcraft.blizzard.com/news/24301514). El cliente la conserva aprendible a los 40/50/60: es un resto"
+    },
+    "druid": {
+      "Tiger's Fury": "Class Deep Dive Cazador y Druida, «Tiger's Fury: (Removed.) replaced with Shifting Power» (news.blizzard.com/en-gb/article/24301515)"
+    },
+    "hunter": {
+      "Wyvern Sting": "Class Deep Dive Cazador y Druida, combinada en el talento Resourcefulness (news.blizzard.com/en-gb/article/24301515)"
+    }
+  },
+  "_official": "Retiradas que ademas confirma una fuente oficial de Blizzard (consultadas el 2026-10-17). Se anaden a la nota de la habilidad."
+}

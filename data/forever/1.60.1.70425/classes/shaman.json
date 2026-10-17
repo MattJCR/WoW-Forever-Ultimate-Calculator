@@ -1,0 +1,3887 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70425",
+  "locale": "esES",
+  "classId": 7,
+  "className": "Chamán",
+  "classToken": "SHAMAN",
+  "iconFileDataId": 626006,
+  "traitTreeId": 1082,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Elemental",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136048,
+      "backgroundFile": "ShamanElementalCombat",
+      "talents": [
+        {
+          "nodeId": 104773,
+          "spellId": 16039,
+          "name": "Convección",
+          "iconFileDataId": 136116,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                -1877999613,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2
+            ],
+            [
+              -4
+            ],
+            [
+              -6
+            ],
+            [
+              -8
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 2% el coste de maná de tus hechizos Choque, Descarga de relámpagos, Ráfaga de lava y Cadena de relámpagos.",
+            "Reduce un 4% el coste de maná de tus hechizos Choque, Descarga de relámpagos, Ráfaga de lava y Cadena de relámpagos.",
+            "Reduce un 6% el coste de maná de tus hechizos Choque, Descarga de relámpagos, Ráfaga de lava y Cadena de relámpagos.",
+            "Reduce un 8% el coste de maná de tus hechizos Choque, Descarga de relámpagos, Ráfaga de lava y Cadena de relámpagos.",
+            "Reduce un 10% el coste de maná de tus hechizos Choque, Descarga de relámpagos, Ráfaga de lava y Cadena de relámpagos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85214
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104772,
+          "spellId": 16035,
+          "name": "Concusión",
+          "iconFileDataId": 136026,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1048579,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% el daño que infligen tus hechizos Descarga de relámpagos, Cadena de relámpagos y Choque de tierra.",
+            "Aumenta un 2% el daño que infligen tus hechizos Descarga de relámpagos, Cadena de relámpagos y Choque de tierra.",
+            "Aumenta un 3% el daño que infligen tus hechizos Descarga de relámpagos, Cadena de relámpagos y Choque de tierra.",
+            "Aumenta un 4% el daño que infligen tus hechizos Descarga de relámpagos, Cadena de relámpagos y Choque de tierra.",
+            "Aumenta un 5% el daño que infligen tus hechizos Descarga de relámpagos, Cadena de relámpagos y Choque de tierra."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85215
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104769,
+          "spellId": 30160,
+          "name": "Devastación elemental",
+          "iconFileDataId": 135791,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ]
+          ],
+          "descriptions": [
+            "Tus golpes críticos con hechizos de daño directo aumentan un 3% tu probabilidad de asestar un golpe crítico con ataques cuerpo a cuerpo durante 10 s.",
+            "Tus golpes críticos con hechizos de daño directo aumentan un 6% tu probabilidad de asestar un golpe crítico con ataques cuerpo a cuerpo durante 10 s.",
+            "Tus golpes críticos con hechizos de daño directo aumentan un 9% tu probabilidad de asestar un golpe crítico con ataques cuerpo a cuerpo durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85219
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104767,
+          "spellId": 16040,
+          "name": "Reverberación",
+          "iconFileDataId": 135850,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                -1877999616,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -200
+            ],
+            [
+              -400
+            ],
+            [
+              -600
+            ],
+            [
+              -800
+            ],
+            [
+              -1000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,2 s el tiempo de reutilización de tus hechizos de Choque.",
+            "Reduce 0,4 s el tiempo de reutilización de tus hechizos de Choque.",
+            "Reduce 0,6 s el tiempo de reutilización de tus hechizos de Choque.",
+            "Reduce 0,8 s el tiempo de reutilización de tus hechizos de Choque.",
+            "Reduce 1,0 s el tiempo de reutilización de tus hechizos de Choque."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85220
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104771,
+          "spellId": 16578,
+          "name": "Prontitud elemental",
+          "iconFileDataId": 135990,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                3,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -170
+            ],
+            [
+              -330
+            ],
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,17 s el tiempo de lanzamiento de tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava.",
+            "Reduce 0,33 s el tiempo de lanzamiento de tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava.",
+            "Reduce 0,50 s el tiempo de lanzamiento de tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85216
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104770,
+          "spellId": 16038,
+          "name": "Llamada de la llama",
+          "iconFileDataId": 135817,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1342177280,
+                4096,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                268435456,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                268435456,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              5,
+              3000
+            ],
+            [
+              10,
+              10,
+              6000
+            ],
+            [
+              15,
+              15,
+              9000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño infligido con tus tótems de Fuego y tus hechizos Choque de llamas, Nova de Fuego y Ráfaga de lava. Además, aumenta 3 s la duración de tu hechizo Choque de llamas.",
+            "Aumenta un 10% el daño infligido con tus tótems de Fuego y tus hechizos Choque de llamas, Nova de Fuego y Ráfaga de lava. Además, aumenta 6 s la duración de tu hechizo Choque de llamas.",
+            "Aumenta un 15% el daño infligido con tus tótems de Fuego y tus hechizos Choque de llamas, Nova de Fuego y Ráfaga de lava. Además, aumenta 9 s la duración de tu hechizo Choque de llamas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85218
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85217
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 126024
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104768,
+          "spellId": 16164,
+          "name": "Enfoque elemental",
+          "iconFileDataId": 136170,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Te otorga un 10% de probabilidades de entrar en el estado Lanzamiento libre después de lanzar cualquier hechizo de daño de Naturaleza, Fuego o Escarcha. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104767,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104765,
+          "spellId": 28996,
+          "name": "Custodia elemental",
+          "iconFileDataId": 136094,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 87,
+              "miscValue": 28,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3
+            ],
+            [
+              -7
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 3% el daño recibido de efectos de Fuego, Escarcha y Naturaleza.",
+            "Reduce un 7% el daño recibido de efectos de Fuego, Escarcha y Naturaleza.",
+            "Reduce un 10% el daño recibido de efectos de Fuego, Escarcha y Naturaleza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104767,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85228
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104764,
+          "spellId": 16086,
+          "name": "Prueba de fuego",
+          "iconFileDataId": 135824,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                262144,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                262144,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                4096,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              -2000,
+              10000
+            ],
+            [
+              20,
+              -4000,
+              20000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el daño infligido por tu hechizo Nova de Fuego, reduce 2 s su tiempo de reutilización y aumenta 10 s la duración de tu Tótem de magma.",
+            "Aumenta un 20% el daño infligido por tu hechizo Nova de Fuego, reduce 4 s su tiempo de reutilización y aumenta 20 s la duración de tu Tótem de magma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85223
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85222
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 126023
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104763,
+          "spellId": 29062,
+          "name": "Ojo de la tormenta",
+          "iconFileDataId": 136032,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                3,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              23
+            ],
+            [
+              47
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava un 23% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava un 47% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85224
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104762,
+          "spellId": 1222988,
+          "name": "Vinculado a la tierra",
+          "iconFileDataId": 136100,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Al lanzarlo, tu Tótem Nexo Terrestre inmoviliza a los enemigos cercanos durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104761,
+          "spellId": 28999,
+          "name": "Alcance elemental",
+          "iconFileDataId": 136099,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                3,
+                266240,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                128
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              8,
+              -10000
+            ],
+            [
+              6,
+              15,
+              -20000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 3 m el alcance de tus hechizos Descarga de relámpagos, Cadena de relámpagos, Nova de Fuego y Ráfaga de lava, y reduce en 10 s el tiempo de reutilización de Proyección totémica.",
+            "Aumenta 6 m el alcance de tus hechizos Descarga de relámpagos, Cadena de relámpagos, Nova de Fuego y Ráfaga de lava, y reduce en 20 s el tiempo de reutilización de Proyección totémica."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104762,
+              104763,
+              104764,
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85226
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85225
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 126022
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104760,
+          "spellId": 408490,
+          "name": "Ráfaga de lava",
+          "iconFileDataId": 237582,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              123,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Arrojas lava fundida al objetivo para infligirle 123 p. de daño de Fuego. Si tu objetivo tiene Choque de llamas, Ráfaga de lava le inflige un 20% más de daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104762,
+              104763,
+              104764,
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104759,
+          "spellId": 408438,
+          "name": "Sobrecarga de relámpagos",
+          "iconFileDataId": 136050,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              7
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos Descarga de relámpagos y Cadena de relámpagos un 3% de probabilidad de lanzar un segundo hechizo similar sobre el mismo objetivo sin coste adicional. Este hechizo inflige la mitad de daño y no genera amenaza.",
+            "Da a tus hechizos Descarga de relámpagos y Cadena de relámpagos un 7% de probabilidad de lanzar un segundo hechizo similar sobre el mismo objetivo sin coste adicional. Este hechizo inflige la mitad de daño y no genera amenaza.",
+            "Da a tus hechizos Descarga de relámpagos y Cadena de relámpagos un 10% de probabilidad de lanzar un segundo hechizo similar sobre el mismo objetivo sin coste adicional. Este hechizo inflige la mitad de daño y no genera amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104762,
+              104763,
+              104764,
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104771,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85227
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104766,
+          "spellId": 16089,
+          "name": "Furia elemental",
+          "iconFileDataId": 135830,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                -785382397,
+                4096,
+                0,
+                1073741824
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 20% el bonus de daño de golpe crítico de tu tótem de magma y tu tótem abrasador, y también de tus hechizos de Naturaleza, Fuego y Escarcha.",
+            "Aumenta un 40% el bonus de daño de golpe crítico de tu tótem de magma y tu tótem abrasador, y también de tus hechizos de Naturaleza, Fuego y Escarcha.",
+            "Aumenta un 60% el bonus de daño de golpe crítico de tu tótem de magma y tu tótem abrasador, y también de tus hechizos de Naturaleza, Fuego y Escarcha.",
+            "Aumenta un 80% el bonus de daño de golpe crítico de tu tótem de magma y tu tótem abrasador, y también de tus hechizos de Naturaleza, Fuego y Escarcha.",
+            "Aumenta un 100% el bonus de daño de golpe crítico de tu tótem de magma y tu tótem abrasador, y también de tus hechizos de Naturaleza, Fuego y Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104759,
+              104760,
+              104761,
+              104762,
+              104763,
+              104764,
+              104765,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104759,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85221
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104758,
+          "spellId": 16166,
+          "name": "Maestría elemental",
+          "iconFileDataId": 136115,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                4096,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -500,
+              -100
+            ]
+          ],
+          "descriptions": [
+            "Obtienes maestría de Fuego y Relámpago, lo que reduce en 0,5 s el tiempo de lanzamiento de Descarga de relámpagos y Ráfaga de lava y elimina el tiempo de reutilización de Cadena de relámpagos. Dura 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104758,
+              104759,
+              104760,
+              104761,
+              104762,
+              104763,
+              104764,
+              104765,
+              104766,
+              104767,
+              104768,
+              104769,
+              104770,
+              104771,
+              104772,
+              104773
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104760,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Mejora",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136051,
+      "backgroundFile": "ShamanEnhancement",
+      "talents": [
+        {
+          "nodeId": 104757,
+          "spellId": 16043,
+          "name": "Garra de la Tierra",
+          "iconFileDataId": 136097,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                8,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 6,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                1,
+                16384,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25,
+              10
+            ],
+            [
+              50,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 25% la salud de tu Tótem Garra de Piedra y un 10% el radio de tu Tótem Nexo Terrestre.",
+            "Aumenta un 50% la salud de tu Tótem Garra de Piedra y un 20% el radio de tu Tótem Nexo Terrestre."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85264
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85265
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104753,
+          "spellId": 16255,
+          "name": "Golpes de trueno",
+          "iconFileDataId": 132325,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Mejora un 1% tus probabilidades de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 2% tus probabilidades de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 3% tus probabilidades de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 4% tus probabilidades de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 5% tus probabilidades de conseguir un golpe crítico con todos los hechizos y ataques."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85275
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104756,
+          "spellId": 17485,
+          "name": "Conocimiento ancestral",
+          "iconFileDataId": 136162,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 8,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu intelecto.",
+            "Aumenta un 4% tu intelecto.",
+            "Aumenta un 6% tu intelecto.",
+            "Aumenta un 8% tu intelecto.",
+            "Aumenta un 10% tu intelecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85266
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104754,
+          "spellId": 16258,
+          "name": "Tótems del Guardián",
+          "iconFileDataId": 136098,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                32768,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                262144,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              -1000
+            ],
+            [
+              20,
+              -2000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% la cantidad de daño que reducen tus Tótems Piel de Piedra y Muralla de viento, y reduce en 1 s el tiempo de reutilización de Tótem derribador.",
+            "Aumenta un 20% la cantidad de daño que reducen tus Tótems Piel de Piedra y Muralla de viento, y reduce en 2 s el tiempo de reutilización de Tótem derribador."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104753,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85274
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85273
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104755,
+          "spellId": 415140,
+          "name": "Maña mental",
+          "iconFileDataId": 136055,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 598,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33,
+              20
+            ],
+            [
+              67,
+              20
+            ],
+            [
+              100,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un valor equivalente al 33% de tu intelecto tu poder de ataque.",
+            "Aumenta un valor equivalente al 67% de tu intelecto tu poder de ataque.",
+            "Aumenta un valor equivalente al 100% de tu intelecto tu poder de ataque."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104753,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85272
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104752,
+          "spellId": 16262,
+          "name": "Lobo fantasmal mejorado",
+          "iconFileDataId": 136095,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                2048,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 332,
+              "miscValue": 2645,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 332,
+              "miscValue": 1271481,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -1000,
+              1238640,
+              1282241
+            ],
+            [
+              -3000,
+              1238640,
+              1282241
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1,0 s el tiempo de lanzamiento de tu hechizo Lobo fantasmal, que ahora se puede utilizar en lugares cerrados.",
+            "Reduce 3,0 s el tiempo de lanzamiento de tu hechizo Lobo fantasmal, que ahora se puede utilizar en lugares cerrados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104753,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85293
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104751,
+          "spellId": 16261,
+          "name": "Escudo de relámpagos mejorado",
+          "iconFileDataId": 136051,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1024,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño infligido por tus orbes de Escudo de relámpagos.",
+            "Aumenta un 10% el daño infligido por tus orbes de Escudo de relámpagos.",
+            "Aumenta un 15% el daño infligido por tus orbes de Escudo de relámpagos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104753,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85295
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104750,
+          "spellId": 16266,
+          "name": "Armas elementales",
+          "iconFileDataId": 135814,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                4194304,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                18874368,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                8388608,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              7,
+              5,
+              13
+            ],
+            [
+              13,
+              10,
+              27
+            ],
+            [
+              20,
+              15,
+              40
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 7% el bonus de poder de ataque cuerpo a cuerpo de tu Arma Muerdepiedras, un 13% el efecto de tu Arma Viento Furioso y un 5% el daño infligido por tu Arma Lengua de Fuego y tu Arma Estigma de Escarcha.",
+            "Aumenta un 13% el bonus de poder de ataque cuerpo a cuerpo de tu Arma Muerdepiedras, un 27% el efecto de tu Arma Viento Furioso y un 10% el daño infligido por tu Arma Lengua de Fuego y tu Arma Estigma de Escarcha.",
+            "Aumenta un 20% el bonus de poder de ataque cuerpo a cuerpo de tu Arma Muerdepiedras, un 40% el efecto de tu Arma Viento Furioso y un 15% el daño infligido por tu Arma Lengua de Fuego y tu Arma Estigma de Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 85296
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85297
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85298
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104749,
+          "spellId": 1223030,
+          "name": "Enfoque chamanístico",
+          "iconFileDataId": 136027,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                -1877998592,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -45
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 45% el coste de maná de tus hechizos Choque y Escudo de relámpagos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104748,
+          "spellId": 16254,
+          "name": "Anticipación",
+          "iconFileDataId": 136056,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 49,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% más tu probabilidad de esquivar.",
+            "Aumenta un 4% más tu probabilidad de esquivar.",
+            "Aumenta un 6% más tu probabilidad de esquivar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85299
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104746,
+          "spellId": 16252,
+          "name": "Dureza",
+          "iconFileDataId": 135892,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 4,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu aguante.",
+            "Aumenta un 4% tu aguante.",
+            "Aumenta un 6% tu aguante.",
+            "Aumenta un 8% tu aguante.",
+            "Aumenta un 10% tu aguante."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85301
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104747,
+          "spellId": 16256,
+          "name": "Aluvión",
+          "iconFileDataId": 132152,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ],
+            [
+              20
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% la velocidad de ataque de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 10% la velocidad de ataque de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 15% la velocidad de ataque de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 20% la velocidad de ataque de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 25% la velocidad de ataque de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104755,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85300
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104743,
+          "spellId": 17364,
+          "name": "Golpe de tormenta",
+          "iconFileDataId": 132314,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 271,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1048579,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Asesta un golpe que inflige el daño con arma normal y aumenta un 20% el daño que infliges al objetivo con tu siguiente hechizo Descarga de relámpagos, Cadena de relámpagos o Choque de tierra durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104745,
+          "spellId": 16268,
+          "name": "Armas de espíritu",
+          "iconFileDataId": 132269,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 10,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                4194304,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -30,
+              86,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Da la posibilidad de parar los ataques enemigos cuerpo a cuerpo, reduce un 30% toda la amenaza que generan tus ataques mientras no está activa Arma Muerdepiedras y aumenta un 30% toda la amenaza generada mientras Arma Muerdepiedras está activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104743,
+              104746,
+              104747,
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104744,
+          "spellId": 30812,
+          "name": "Presura mental",
+          "iconFileDataId": 136090,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 175,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 174,
+              "miscValue": 126,
+              "miscValueB": 3,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              15
+            ],
+            [
+              30,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta hasta un 15% de tu intelecto tu daño con hechizos y tu sanación.",
+            "Aumenta hasta un 30% de tu intelecto tu daño con hechizos y tu sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104743,
+              104746,
+              104747,
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85302
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85303
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 87358
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104742,
+          "spellId": 1223031,
+          "name": "Golpe de tormenta mejorado",
+          "iconFileDataId": 237581,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              50,
+              20
+            ],
+            [
+              100,
+              100,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Cuando ejecutas Golpe de tormenta, tienes un 50% de probabilidad de obtener un 50% de regeneración de maná mientras lanzas hechizos durante 15 s. Además, el tiempo de reutilización de Golpe de tormenta tiene un 50% de probabilidad de reiniciarse cada vez que esquivas o paras.",
+            "Cuando ejecutas Golpe de tormenta, tienes un 100% de probabilidad de obtener un 50% de regeneración de maná mientras lanzas hechizos durante 15 s. Además, el tiempo de reutilización de Golpe de tormenta tiene un 100% de probabilidad de reiniciarse cada vez que esquivas o paras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104743,
+              104746,
+              104747,
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104743,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85305
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85304
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104741,
+          "spellId": 408498,
+          "name": "Arma vorágine",
+          "iconFileDataId": 237584,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -4,
+              50,
+              5
+            ],
+            [
+              -8,
+              50,
+              5
+            ],
+            [
+              -12,
+              50,
+              5
+            ],
+            [
+              -16,
+              50,
+              5
+            ],
+            [
+              -20,
+              50,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Cuando infliges daño con un ataque cuerpo a cuerpo, tienes la probabilidad de reducir un 4% el tiempo de lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos. Se acumula hasta 5 veces. Dura 30 s.",
+            "Cuando infliges daño con un ataque cuerpo a cuerpo, tienes la probabilidad de reducir un 8% el tiempo de lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos. Se acumula hasta 5 veces. Dura 30 s.",
+            "Cuando infliges daño con un ataque cuerpo a cuerpo, tienes la probabilidad de reducir un 12% el tiempo de lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos. Se acumula hasta 5 veces. Dura 30 s.",
+            "Cuando infliges daño con un ataque cuerpo a cuerpo, tienes la probabilidad de reducir un 16% el tiempo de lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos. Se acumula hasta 5 veces. Dura 30 s.",
+            "Cuando infliges daño con un ataque cuerpo a cuerpo, tienes la probabilidad de reducir un 20% el tiempo de lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos. Se acumula hasta 5 veces. Dura 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104742,
+              104743,
+              104744,
+              104745,
+              104746,
+              104747,
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85306
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104740,
+          "spellId": 425336,
+          "name": "Ira del clarividente",
+          "iconFileDataId": 136012,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 342,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 61,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 30% tu velocidad de ataque durante 25 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104740,
+              104741,
+              104742,
+              104743,
+              104744,
+              104745,
+              104746,
+              104747,
+              104748,
+              104749,
+              104750,
+              104751,
+              104752,
+              104753,
+              104754,
+              104755,
+              104756,
+              104757
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104744,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Recuperación",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136052,
+      "backgroundFile": "ShamanRestoration",
+      "talents": [
+        {
+          "nodeId": 104739,
+          "spellId": 16182,
+          "name": "Onda de curación mejorada",
+          "iconFileDataId": 136052,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ],
+            [
+              -200
+            ],
+            [
+              -300
+            ],
+            [
+              -400
+            ],
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tu hechizo Ola de sanación.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tu hechizo Ola de sanación.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tu hechizo Ola de sanación.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tu hechizo Ola de sanación.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tu hechizo Ola de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85307
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104729,
+          "spellId": 16179,
+          "name": "Enfoque de las mareas",
+          "iconFileDataId": 135859,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                448,
+                0,
+                16,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 55,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -1,
+              1,
+              1
+            ],
+            [
+              -2,
+              2,
+              2
+            ],
+            [
+              -3,
+              3,
+              3
+            ],
+            [
+              -4,
+              4,
+              4
+            ],
+            [
+              -5,
+              5,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 1% el coste de maná de tus hechizos de sanación y aumenta un 1% la probabilidad de golpear.",
+            "Reduce un 2% el coste de maná de tus hechizos de sanación y aumenta un 2% la probabilidad de golpear.",
+            "Reduce un 3% el coste de maná de tus hechizos de sanación y aumenta un 3% la probabilidad de golpear.",
+            "Reduce un 4% el coste de maná de tus hechizos de sanación y aumenta un 4% la probabilidad de golpear.",
+            "Reduce un 5% el coste de maná de tus hechizos de sanación y aumenta un 5% la probabilidad de golpear."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85321
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 126021
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 126020
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104734,
+          "spellId": 1223033,
+          "name": "Conciencia",
+          "iconFileDataId": 136090,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              17
+            ],
+            [
+              33
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Permite que un 17% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 33% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 50% de la regeneración de maná continúe mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104729,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85316
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104736,
+          "spellId": 29187,
+          "name": "Gracia natural",
+          "iconFileDataId": 136041,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 10,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5
+            ],
+            [
+              -10
+            ],
+            [
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 5% la amenaza generada por tus hechizos.",
+            "Reduce un 10% la amenaza generada por tus hechizos.",
+            "Reduce un 15% la amenaza generada por tus hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104729,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85314
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104735,
+          "spellId": 16173,
+          "name": "Enfoque totémico",
+          "iconFileDataId": 136057,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                537399320,
+                0,
+                0,
+                2176
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5
+            ],
+            [
+              -10
+            ],
+            [
+              -15
+            ],
+            [
+              -20
+            ],
+            [
+              -25
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 5% el coste de maná de tus tótems y de los hechizos que los invocan o los mueven.",
+            "Reduce un 10% el coste de maná de tus tótems y de los hechizos que los invocan o los mueven.",
+            "Reduce un 15% el coste de maná de tus tótems y de los hechizos que los invocan o los mueven.",
+            "Reduce un 20% el coste de maná de tus tótems y de los hechizos que los invocan o los mueven.",
+            "Reduce un 25% el coste de maná de tus tótems y de los hechizos que los invocan o los mueven."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104729,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85315
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104737,
+          "spellId": 16184,
+          "name": "Reencarnación mejorada",
+          "iconFileDataId": 136080,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                512,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 133,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                512,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -600000,
+              2,
+              10
+            ],
+            [
+              -1200000,
+              4,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de reutilización de tu hechizo Reencarnación en 10 min, aumenta un 2% tu salud máxima y aumenta 10 p. más la cantidad de salud y maná con la que te reencarnas.",
+            "Reduce el tiempo de reutilización de tu hechizo Reencarnación en 20 min, aumenta un 4% tu salud máxima y aumenta 20 p. más la cantidad de salud y maná con la que te reencarnas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104729,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85310
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85311
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 85309
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104731,
+          "spellId": 16176,
+          "name": "Curación ancestral",
+          "iconFileDataId": 136109,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8
+            ],
+            [
+              17
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 8% el valor de armadura de tu objetivo durante 15 s después de recibir un efecto crítico de uno de tus hechizos de sanación.",
+            "Aumenta un 17% el valor de armadura de tu objetivo durante 15 s después de recibir un efecto crítico de uno de tus hechizos de sanación.",
+            "Aumenta un 25% el valor de armadura de tu objetivo durante 15 s después de recibir un efecto crítico de uno de tus hechizos de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104729,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85318
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104733,
+          "spellId": 16181,
+          "name": "Enfoque curativo",
+          "iconFileDataId": 136043,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                448,
+                0,
+                1048576,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              23
+            ],
+            [
+              47
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos de sanación un 23% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos de sanación un 47% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos de sanación un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104729,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85317
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104732,
+          "spellId": 408510,
+          "name": "Escudo de agua",
+          "iconFileDataId": 132315,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100,
+              1
+            ]
+          ],
+          "descriptions": [
+            "El taumaturgo queda rodeado por 3 esferas de agua. Cuando un hechizo o ataque cuerpo a cuerpo o a distancia golpea al taumaturgo, o cuando un hechizo del taumaturgo consigue un resultado crítico, restaura un 2% del maná máximo del taumaturgo y consume una de las esferas. Solo se activará una esfera cada varios segundos. Dura 10 min.\r\n\r\nUn chamán solo puede tener un Escudo elemental activo a la vez."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104729,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104738,
+          "spellId": 16194,
+          "name": "Maestría de las mareas",
+          "iconFileDataId": 136107,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                1472,
+                0,
+                16,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% la probabilidad de efecto crítico de tus hechizos de sanación.",
+            "Aumenta un 2% la probabilidad de efecto crítico de tus hechizos de sanación.",
+            "Aumenta un 3% la probabilidad de efecto crítico de tus hechizos de sanación.",
+            "Aumenta un 4% la probabilidad de efecto crítico de tus hechizos de sanación.",
+            "Aumenta un 5% la probabilidad de efecto crítico de tus hechizos de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104729,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85308
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104730,
+          "spellId": 16187,
+          "name": "Tótens restauradores",
+          "iconFileDataId": 136053,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                16384,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                8192,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              10
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              15,
+              30
+            ],
+            [
+              20,
+              40
+            ],
+            [
+              25,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el efecto de Tótem Fuente de maná y un 10% el efecto de tu Tótem Corriente de sanación.",
+            "Aumenta un 10% el efecto de Tótem Fuente de maná y un 20% el efecto de tu Tótem Corriente de sanación.",
+            "Aumenta un 15% el efecto de Tótem Fuente de maná y un 30% el efecto de tu Tótem Corriente de sanación.",
+            "Aumenta un 20% el efecto de Tótem Fuente de maná y un 40% el efecto de tu Tótem Corriente de sanación.",
+            "Aumenta un 25% el efecto de Tótem Fuente de maná y un 50% el efecto de tu Tótem Corriente de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104729,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85319
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85320
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104728,
+          "spellId": 16190,
+          "name": "Tótem de marea de maná",
+          "iconFileDataId": 135861,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Invoca un Tótem de marea de maná con 5 p. de salud que restaura 88 p. de maná a los miembros del grupo que estén en un radio de 30 metros cada 3 segundos. Dura 12."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104729,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104727,
+          "spellId": 29206,
+          "name": "Forma curativa",
+          "iconFileDataId": 136044,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8
+            ],
+            [
+              17
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 8% la cantidad sanada por tu hechizo Ola de sanación.",
+            "Aumenta un 17% la cantidad sanada por tu hechizo Ola de sanación.",
+            "Aumenta un 25% la cantidad sanada por tu hechizo Ola de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104728,
+              104729,
+              104730,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104738,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85322
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104726,
+          "spellId": 16188,
+          "name": "Rapidez de la Naturaleza",
+          "iconFileDataId": 136076,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                2499,
+                0,
+                1048576,
+                65536
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ]
+          ],
+          "descriptions": [
+            "Tu próximo hechizo de Naturaleza con un tiempo de lanzamiento inferior a 10 segundos se convertirá en un hechizo de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104728,
+              104729,
+              104730,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104738,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104725,
+          "spellId": 16178,
+          "name": "Purificación",
+          "iconFileDataId": 135865,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                448,
+                0,
+                16,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                16,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% la efectividad de tus hechizos de sanación.",
+            "Aumenta un 4% la efectividad de tus hechizos de sanación.",
+            "Aumenta un 6% la efectividad de tus hechizos de sanación.",
+            "Aumenta un 8% la efectividad de tus hechizos de sanación.",
+            "Aumenta un 10% la efectividad de tus hechizos de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104726,
+              104727,
+              104728,
+              104729,
+              104730,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104738,
+              104739
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85323
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87379
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104724,
+          "spellId": 408521,
+          "name": "Mareas vivas",
+          "iconFileDataId": 252995,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 8,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              480,
+              89,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Sana 480 p. a un objetivo amistoso y 445 p. más durante 15 s. Aumenta un 25% la efectividad de tu Sanación en cadena al lanzarla directamente sobre ese objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104724,
+              104725,
+              104726,
+              104727,
+              104728,
+              104729,
+              104730,
+              104731,
+              104732,
+              104733,
+              104734,
+              104735,
+              104736,
+              104737,
+              104738,
+              104739
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104727,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": []
+}

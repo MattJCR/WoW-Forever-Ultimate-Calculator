@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70425",
+  "classId": 5,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 1309969,
+      "name": "Poder en la Luz",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Poder en la Luz: +{v} % de daño de Acometida y Penitencia contra objetivos afectados por tu Fuego Sagrado o tu Palabra de las Sombras: Dolor",
+          "scope": {
+            "spells": [
+              "Acometida",
+              "Penitencia"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 425280,
+      "name": "Esperanza renovada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": -0.001
+            }
+          },
+          "label": "Esperanza renovada: +{v} % de probabilidad de crítico al sanar a objetivos con Alma debilitada y reduce {w} s su duración restante",
+          "scope": {
+            "spells": [
+              "Curación inferior",
+              "Curar",
+              "Curación superior",
+              "Destello curativo",
+              "Sanación conjunta",
+              "Penitencia",
+              "Rezo de curación"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 431622,
+      "name": "Égida divina",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Égida divina: tus sanaciones críticas no periódicas crean un escudo que absorbe un {v} % de lo sanado (hasta 1200 p. a nivel 60, 12 s)",
+          "scope": {
+            "spells": [
+              "Curación inferior",
+              "Curar",
+              "Curación superior",
+              "Destello curativo",
+              "Sanación conjunta",
+              "Penitencia",
+              "Rezo de curación"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1317006,
+      "name": "Letanía de la Luz",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Letanía de la Luz: al lanzar un hechizo de sanación recuperas maná igual a un {v} % del coste base si tu sanación anterior fue de otro hechizo",
+          "scope": {
+            "spells": [
+              "Curación inferior",
+              "Curar",
+              "Curación superior",
+              "Destello curativo",
+              "Sanación conjunta",
+              "Penitencia",
+              "Rezo de curación"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 14892,
+      "name": "Inspiración",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Inspiración: tus sanaciones críticas no periódicas aumentan un {v} % la armadura del objetivo durante 15 s",
+          "scope": {
+            "spells": [
+              "Curación inferior",
+              "Curar",
+              "Curación superior",
+              "Destello curativo",
+              "Sanación conjunta",
+              "Penitencia",
+              "Rezo de curación"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 15326,
+      "name": "Desmayo",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Desmayo: {v} % de probabilidad de que tus hechizos de daño de las Sombras aturdan al objetivo 3 s",
+          "scope": {
+            "schools": [
+              32
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1225139,
+      "name": "Tortura mental mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Tortura mental mejorada: cada vez que Despelleje mental inflige daño, inflige un {v} % más que la vez anterior",
+          "scope": {
+            "spells": [
+              "Despelleje mental"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 15257,
+      "name": "Tejido de las Sombras",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Tejido de las Sombras: {v} % de probabilidad de que tus hechizos de daño de las Sombras aumenten un 2 % el daño de las Sombras que recibe el objetivo (15 s, hasta 5 veces)",
+          "scope": {
+            "schools": [
+              32
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1310076,
+      "name": "Muerte prematura",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Muerte prematura: +{v} % de probabilidad de crítico de Palabra de las Sombras: muerte contra objetivos con un {w} % de salud o menos",
+          "scope": {
+            "spells": [
+              "Palabra de las Sombras: muerte"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1326159,
+      "name": "Inspiración macabra",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Inspiración macabra: tu Explosión mental y tus canalizaciones completas de Despelleje mental aumentan un {v} % el espíritu tuyo y de tu grupo durante 10 s",
+          "scope": {
+            "spells": [
+              "Explosión mental",
+              "Despelleje mental"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

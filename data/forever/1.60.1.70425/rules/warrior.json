@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70425",
+  "classId": 1,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 12834,
+      "name": "Heridas profundas",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Heridas profundas: tus golpes críticos cuerpo a cuerpo hacen sangrar al enemigo por un {v} % del daño medio de tu arma durante 12 s",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1289682,
+      "name": "Fragor de la sangre",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Fragor de la sangre: {v} % de probabilidad de poder usar Abrumar al atacar con el arma de mano principal a un enemigo afectado por tu Desgarrar",
+          "scope": {
+            "spells": [
+              "Abrumar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1290261,
+      "name": "Maestro de armas",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            },
+            "x": {
+              "index": 2,
+              "factor": 1
+            }
+          },
+          "label": "Maestro de armas: hacha o arma de asta, +{v} % de probabilidad de crítico; maza o bastón, ignoras un {w} % de la armadura del objetivo; espada, {x} % de probabilidad de un ataque extra",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 12289,
+      "name": "Seccionar mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Seccionar mejorado: {v} % de probabilidad de inmovilizar al objetivo durante 5 s",
+          "scope": {
+            "spells": [
+              "Seccionar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 12322,
+      "name": "Cólera desbocada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Cólera desbocada: {v} % de probabilidad de generar 1 p. de ira adicional al infligir daño con un ataque cuerpo a cuerpo con arma",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 12319,
+      "name": "Aluvión",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Aluvión: +{v} % de velocidad de ataque cuerpo a cuerpo en tus 3 siguientes golpes tras un crítico cuerpo a cuerpo",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 20500,
+      "name": "Ira rabiosa mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 0.1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Ira rabiosa mejorada: genera {v} p. de ira al instante y tiene un {w} % de probabilidad de eliminar los efectos de reducción de movimiento",
+          "scope": {
+            "spells": [
+              "Ira rabiosa"
+            ]
+          },
+          "action": "none",
+          "unit": "puntos"
+        }
+      ]
+    },
+    {
+      "spellId": 1323967,
+      "name": "Bebedor de entrañas",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Bebedor de entrañas: tras usarla, recuperas un {v} % de tu salud máxima con cada uno de tus 3 siguientes ataques cuerpo a cuerpo",
+          "scope": {
+            "spells": [
+              "Ira rabiosa",
+              "Sanguinario",
+              "Deseo de la Muerte",
+              "Sed de sangre"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 12311,
+      "name": "Azote de escudo mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Azote de escudo mejorado: {v} % de probabilidad de silenciar al objetivo durante 3 s",
+          "scope": {
+            "spells": [
+              "Azote de escudo"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

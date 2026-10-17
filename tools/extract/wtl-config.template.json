@@ -1,0 +1,24 @@
+{
+  "config": {
+    "definitionDir": "",
+    "listfileURL": "https://github.com/wowdev/wow-listfile/releases/latest/download/community-listfile-withcapitals.csv",
+    "tactKeyURL": "https://github.com/wowdev/TACTKeys/raw/master/WoW.txt",
+    "wowFolder": "C:\\World of Warcraft",
+    "dbcFolder": "dbcs",
+    "manifestFolder": "manifests",
+    "extractionDir": "extract",
+    "cdnFolder": "",
+    "wowProduct": "wow_classic_beta",
+    "region": "us",
+    "showAllFiles": "false",
+    "locale": "esES",
+    "additionalCDNs": "casc.wago.tools,cdn.arctium.tools,archive.wow.tools",
+    "defaultFilesSearch": "",
+    "tagRepo": "",
+    "readOnly": "true",
+    "bnetClientID": "",
+    "bnetClientSecret": "",
+    "useWago": "false",
+    "useTACTChannels": "false"
+  }
+}

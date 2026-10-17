@@ -1,0 +1,4098 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70425",
+  "locale": "esES",
+  "classId": 9,
+  "className": "Brujo",
+  "classToken": "WARLOCK",
+  "iconFileDataId": 626007,
+  "traitTreeId": 1116,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Aflicción",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136145,
+      "backgroundFile": "WarlockCurses",
+      "talents": [
+        {
+          "nodeId": 105921,
+          "spellId": 18182,
+          "name": "Transfusión de  vida mejorada",
+          "iconFileDataId": 136126,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el maná generado por tu hechizo Transfusión de vida en un 10%.",
+            "Aumenta el maná generado por tu hechizo Transfusión de vida en un 20%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83225
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2120
+          }
+        },
+        {
+          "nodeId": 105925,
+          "spellId": 18174,
+          "name": "Supresión",
+          "iconFileDataId": 136230,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 55,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 10,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              1,
+              -4
+            ],
+            [
+              2,
+              2,
+              -8
+            ],
+            [
+              3,
+              3,
+              -12
+            ],
+            [
+              4,
+              4,
+              -16
+            ],
+            [
+              5,
+              5,
+              -20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% tu probabilidad de golpear y reduce un 4% toda la amenaza que generas.",
+            "Aumenta un 2% tu probabilidad de golpear y reduce un 8% toda la amenaza que generas.",
+            "Aumenta un 3% tu probabilidad de golpear y reduce un 12% toda la amenaza que generas.",
+            "Aumenta un 4% tu probabilidad de golpear y reduce un 16% toda la amenaza que generas.",
+            "Aumenta un 5% tu probabilidad de golpear y reduce un 20% toda la amenaza que generas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83231
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 88021
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 88020
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105924,
+          "spellId": 17810,
+          "name": "Corrupción mejorado",
+          "iconFileDataId": 136118,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -400,
+              2
+            ],
+            [
+              -800,
+              4
+            ],
+            [
+              -1200,
+              6
+            ],
+            [
+              -1600,
+              8
+            ],
+            [
+              -2000,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,4 s el tiempo de lanzamiento de tu hechizo Corrupción y aumenta un 2% el daño que inflige.",
+            "Reduce 0,8 s el tiempo de lanzamiento de tu hechizo Corrupción y aumenta un 4% el daño que inflige.",
+            "Reduce 1,2 s el tiempo de lanzamiento de tu hechizo Corrupción y aumenta un 6% el daño que inflige.",
+            "Reduce 1,6 s el tiempo de lanzamiento de tu hechizo Corrupción y aumenta un 8% el daño que inflige.",
+            "Reduce 2 s el tiempo de lanzamiento de tu hechizo Corrupción y aumenta un 10% el daño que inflige."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83229
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83228
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105923,
+          "spellId": 18218,
+          "name": "Alcance macabro",
+          "iconFileDataId": 136127,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                -2142714854,
+                262145,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% el alcance de tus hechizos de Aflicción.",
+            "Aumenta en un 20% el alcance de tus hechizos de Aflicción."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105921,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83227
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105922,
+          "spellId": 437032,
+          "name": "Cosecha de almas",
+          "iconFileDataId": 132851,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              50
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Matar a un objetivo no trivial afectado por Drenar alma aumenta un 50% tu regeneración de maná durante 10 s y permite que perdure un 50% de la regeneración de maná normal mientras se lanza.",
+            "Matar a un objetivo no trivial afectado por Drenar alma aumenta un 100% tu regeneración de maná durante 10 s y permite que perdure un 100% de la regeneración de maná normal mientras se lanza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105921,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83226
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 111989
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105920,
+          "spellId": 403511,
+          "name": "Drenajes mejorados",
+          "iconFileDataId": 136163,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                16392,
+                262144,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              7
+            ],
+            [
+              13
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la salud drenada o el daño infligido por tus hechizos Drenar vida, Drenar alma y Arruinar un 7%.",
+            "Aumenta la salud drenada o el daño infligido por tus hechizos Drenar vida, Drenar alma y Arruinar un 13%.",
+            "Aumenta la salud drenada o el daño infligido por tus hechizos Drenar vida, Drenar alma y Arruinar un 20%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105921,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83224
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105919,
+          "spellId": 18827,
+          "name": "Terror de agonía mejorado",
+          "iconFileDataId": 136139,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                1024,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño infligido por tu Terror de agonía.",
+            "Aumenta un 10% el daño infligido por tu Terror de agonía."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83222
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105918,
+          "spellId": 17783,
+          "name": "Concentración vil",
+          "iconFileDataId": 136157,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                16408,
+                262144,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              23
+            ],
+            [
+              47
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos Drenar vida, Drenar maná, Drenar alma y Devastar un 23% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Drenar vida, Drenar maná, Drenar alma y Devastar un 47% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Drenar vida, Drenar maná, Drenar alma y Devastar un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83221
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105916,
+          "spellId": 18288,
+          "name": "Amplificar maldición",
+          "iconFileDataId": 136132,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                33792,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 50% el efecto de tu siguiente Maldición de debilidad o Terror de agonía, o el efecto de tu siguiente Maldición de agotamiento un 50%. Dura 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2220,
+            "posY": 3320
+          }
+        },
+        {
+          "nodeId": 105917,
+          "spellId": 427712,
+          "name": "Pandemia",
+          "iconFileDataId": 136227,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                17418,
+                262147,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33
+            ],
+            [
+              67
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 33% el bonus de daño de golpe crítico de tus hechizos Corrupción, Terror de agonía, Terror de fatalidad, Drenar alma, Drenar vida, Succionar vida y Arruinar.",
+            "Aumenta un 67% el bonus de daño de golpe crítico de tus hechizos Corrupción, Terror de agonía, Terror de fatalidad, Drenar alma, Drenar vida, Succionar vida y Arruinar.",
+            "Aumenta un 100% el bonus de daño de golpe crítico de tus hechizos Corrupción, Terror de agonía, Terror de fatalidad, Drenar alma, Drenar vida, Succionar vida y Arruinar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 86666
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 110876,
+          "spellId": 1310949,
+          "name": "Malevolencia",
+          "iconFileDataId": 136158,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                550027,
+                262147,
+                0,
+                4325376
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% la probabilidad de efecto crítico de tus hechizos de las Sombras.",
+            "Aumenta un 2% la probabilidad de efecto crítico de tus hechizos de las Sombras.",
+            "Aumenta un 3% la probabilidad de efecto crítico de tus hechizos de las Sombras.",
+            "Aumenta un 4% la probabilidad de efecto crítico de tus hechizos de las Sombras.",
+            "Aumenta un 5% la probabilidad de efecto crítico de tus hechizos de las Sombras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110330
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105914,
+          "spellId": 18094,
+          "name": "Ocaso",
+          "iconFileDataId": 136223,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ]
+          ],
+          "descriptions": [
+            "Da a los hechizos Corrupción, Drenar alma, Drenar vida y Arruinar un 2% de probabilidad de hacerte entrar en trance de las Sombras después de infligir daño a un oponente. El trance de las Sombras reduce un 100% el tiempo de lanzamiento de tu próximo hechizo de Descarga de las Sombras.",
+            "Da a los hechizos Corrupción, Drenar alma, Drenar vida y Arruinar un 4% de probabilidad de hacerte entrar en trance de las Sombras después de infligir daño a un oponente. El trance de las Sombras reduce un 100% el tiempo de lanzamiento de tu próximo hechizo de Descarga de las Sombras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83218
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105913,
+          "spellId": 18223,
+          "name": "Maldición de agotamiento",
+          "iconFileDataId": 136162,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 33,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce la velocidad de movimiento del objetivo en un 30% durante 12 s. Cada brujo solo puede tener una maldición activa sobre cada objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105916,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105912,
+          "spellId": 18265,
+          "name": "Succionar vida",
+          "iconFileDataId": 136188,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 53,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              11
+            ]
+          ],
+          "descriptions": [
+            "Transfiere 11 p. de salud del objetivo al taumaturgo cada 3 s. Dura 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105913,
+              105914,
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925,
+              110876
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105911,
+          "spellId": 17804,
+          "name": "Succión de alma",
+          "iconFileDataId": 136169,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño infligido o la salud drenada por tus hechizos Drenar vida, Drenar alma y Arruinar un 4% por cada efecto de aflicción en el objetivo, hasta un máximo de un 12%.",
+            "Aumenta el daño infligido o la salud drenada por tus hechizos Drenar vida, Drenar alma y Arruinar un 8% por cada efecto de aflicción en el objetivo, hasta un máximo de un 24%.",
+            "Aumenta el daño infligido o la salud drenada por tus hechizos Drenar vida, Drenar alma y Arruinar un 12% por cada efecto de aflicción en el objetivo, hasta un máximo de un 36%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105913,
+              105914,
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925,
+              110876
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83217
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105910,
+          "spellId": 18271,
+          "name": "Maestría de las Sombras",
+          "iconFileDataId": 136195,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                524435,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                17418,
+                262147,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 2% el daño causado o el drenaje de vida con tus hechizos de Sombras.",
+            "Aumenta en un 4% el daño causado o el drenaje de vida con tus hechizos de Sombras.",
+            "Aumenta en un 6% el daño causado o el drenaje de vida con tus hechizos de Sombras.",
+            "Aumenta en un 8% el daño causado o el drenaje de vida con tus hechizos de Sombras.",
+            "Aumenta en un 10% el daño causado o el drenaje de vida con tus hechizos de Sombras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105911,
+              105912,
+              105913,
+              105914,
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925,
+              110876
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83215
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 88067
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105909,
+          "spellId": 1316697,
+          "name": "Arruinar",
+          "iconFileDataId": 460687,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 3,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 271,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1026,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              36,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Desgarra al objetivo desde el interior, lo que inflige 36 p. de daño de las Sombras cada 1 s y aumenta un 10% el daño recibido a causa de tus otros efectos de daño de las Sombras en el tiempo durante 6 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105909,
+              105910,
+              105911,
+              105912,
+              105913,
+              105914,
+              105916,
+              105917,
+              105918,
+              105919,
+              105920,
+              105921,
+              105922,
+              105923,
+              105924,
+              105925,
+              110876
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105912,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Demonología",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136172,
+      "backgroundFile": "WarlockSummoning",
+      "talents": [
+        {
+          "nodeId": 105905,
+          "spellId": 18703,
+          "name": "Cauce de salud mejorado",
+          "iconFileDataId": 136168,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 108,
+              "miscValue": 32,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              -15,
+              -50,
+              -15
+            ],
+            [
+              40,
+              -30,
+              -100,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 20% la salud transferida por tu hechizo Cauce de salud, reduce un 15% su coste de salud y reduce un 50% la generación de amenaza de tu hechizo Cauce de salud. Permite utilizar Cauce de salud independientemente de la salud de tu demonio.",
+            "Aumenta un 40% la salud transferida por tu hechizo Cauce de salud, reduce un 30% su coste de salud y reduce un 100% la generación de amenaza de tu hechizo Cauce de salud. Permite utilizar Cauce de salud independientemente de la salud de tu demonio."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83208
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83207
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 103073
+            },
+            {
+              "effectIndex": 3,
+              "operationType": 0,
+              "curveId": 111673
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105908,
+          "spellId": 18694,
+          "name": "Diablillo mejorado",
+          "iconFileDataId": 136218,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                8388608,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                4096,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              10,
+              -300
+            ],
+            [
+              20,
+              20,
+              -700
+            ],
+            [
+              30,
+              30,
+              -1000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el daño infligido con el hechizo Descarga de Fuego de tu diablillo y un 10% el efecto de su hechizo Escudo de Fuego.",
+            "Aumenta un 20% el daño infligido con el hechizo Descarga de Fuego de tu diablillo y un 20% el efecto de su hechizo Escudo de Fuego.",
+            "Aumenta un 30% el daño infligido con el hechizo Descarga de Fuego de tu diablillo y un 30% el efecto de su hechizo Escudo de Fuego."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83214
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83213
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 88072
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105907,
+          "spellId": 18697,
+          "name": "Abrazo demoníaco",
+          "iconFileDataId": 136172,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 4,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu aguante total un 3%.",
+            "Aumenta tu aguante total un 6%.",
+            "Aumenta tu aguante total un 9%.",
+            "Aumenta tu aguante total un 12%.",
+            "Aumenta tu aguante total un 15%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83212
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105906,
+          "spellId": 18769,
+          "name": "Poder profano",
+          "iconFileDataId": 136206,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                67108864,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% todo el daño infligido por tus mascotas diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 4% todo el daño infligido por tus mascotas diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 6% todo el daño infligido por tus mascotas diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 8% todo el daño infligido por tus mascotas diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 10% todo el daño infligido por tus mascotas diablillo, abisario, súcubo, íncubo y manáfago."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 3,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83209
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105902,
+          "spellId": 1235316,
+          "name": "Égida demoníaca",
+          "iconFileDataId": 136185,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                32,
+                16,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% la efectividad de tus hechizos Piel de demonio y Armadura demoníaca.",
+            "Aumenta un 30% la efectividad de tus hechizos Piel de demonio y Armadura demoníaca."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83204
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105904,
+          "spellId": 18705,
+          "name": "Abisario mejorado",
+          "iconFileDataId": 136221,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                33554432,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% la efectividad de los hechizos Tormento, Consumir sombras, Sacrificio y Sufrimiento de tu abisario.",
+            "Aumenta un 20% la efectividad de los hechizos Tormento, Consumir sombras, Sacrificio y Sufrimiento de tu abisario.",
+            "Aumenta un 30% la efectividad de los hechizos Tormento, Consumir sombras, Sacrificio y Sufrimiento de tu abisario."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83206
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105903,
+          "spellId": 18731,
+          "name": "Vitalidad vil",
+          "iconFileDataId": 136150,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                402653184,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 178,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              5
+            ],
+            [
+              10,
+              10
+            ],
+            [
+              15,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% tu maná máximo y un 5% la salud y el maná máximos de tu diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 10% tu maná máximo y un 10% la salud y el maná máximos de tu diablillo, abisario, súcubo, íncubo y manáfago.",
+            "Aumenta un 15% tu maná máximo y un 15% la salud y el maná máximos de tu diablillo, abisario, súcubo, íncubo y manáfago."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83205
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103061
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105899,
+          "spellId": 1225214,
+          "name": "Energías demoníacas",
+          "iconFileDataId": 237564,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8,
+              50
+            ],
+            [
+              15,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Sanas a tu mascota un 8% de todo el daño con hechizos que inflijas. Cuando obtienes maná de Transfusión de vida, tu demonio obtiene un 50% del maná que obtengas.",
+            "Sanas a tu mascota un 15% de todo el daño con hechizos que inflijas. Cuando obtienes maná de Transfusión de vida, tu demonio obtiene un 100% del maná que obtengas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83198
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103070
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105901,
+          "spellId": 18754,
+          "name": "Sayaad mejorado",
+          "iconFileDataId": 4352493,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                1073750016,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                1073741824,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              10
+            ],
+            [
+              20,
+              20
+            ],
+            [
+              30,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% el efecto de los hechizos Látigo doloroso y Beso calmante de tu súcubo y tu íncubo, y en un 10% la duración de los hechizos Seducción e Invisibilidad inferior de tu súcubo y tu íncubo.",
+            "Aumenta en un 20% el efecto de los hechizos Látigo doloroso y Beso calmante de tu súcubo y tu íncubo, y en un 20% la duración de los hechizos Seducción e Invisibilidad inferior de tu súcubo y tu íncubo.",
+            "Aumenta en un 30% el efecto de los hechizos Látigo doloroso y Beso calmante de tu súcubo y tu íncubo, y en un 30% la duración de los hechizos Seducción e Invisibilidad inferior de tu súcubo y tu íncubo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105899,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83201
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83200
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105900,
+          "spellId": 18788,
+          "name": "Sacrificio demoníaco",
+          "iconFileDataId": 136184,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Cuando se activa, sacrifica a tu demonio invocado para mejorar el aspecto opuesto de tu poder, lo que te otorga un efecto que dura 2 h. El efecto se cancela si se invoca a cualquier demonio.\r\n\r\nDiablillo: Aumenta un 15% tu daño de las Sombras.\r\n\r\nAbisario: Restaura un 2% de tu maná total cada 4 s.\r\n\r\nSúcubo/Íncubo: Aumenta tu daño de Fuego un 15%.\r\n\r\nManáfago: Restaura un 3% de tu salud total cada 4 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105899,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105898,
+          "spellId": 18709,
+          "name": "Maestro invocador",
+          "iconFileDataId": 136164,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2000,
+              -20
+            ],
+            [
+              -4000,
+              -40
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de lanzamiento de los hechizos de invocación de tu diablillo, abisario, súcubo, íncubo y manáfago en 2 s y el coste de maná en un 20%.",
+            "Reduce el tiempo de lanzamiento de los hechizos de invocación de tu diablillo, abisario, súcubo, íncubo y manáfago en 4 s y el coste de maná en un 40%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105899,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83199
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103071
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105897,
+          "spellId": 440870,
+          "name": "Exterminio",
+          "iconFileDataId": 135808,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                128,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                257,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -20,
+              -45,
+              35,
+              3
+            ],
+            [
+              -40,
+              -90,
+              35,
+              6
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 45% el tiempo de reutilización de tu hechizo Fuego de alma. Cuando lanzas Descarga de las Sombras y Dolor abrasador contra un objetivo por debajo del 35% de salud, infligen un 3% más de daño y, durante los siguientes 10 s, el tiempo de lanzamiento de tu hechizo Fuego de alma se reduce un 20% y no cuesta fragmentos de alma.",
+            "Reduce un 90% el tiempo de reutilización de tu hechizo Fuego de alma. Cuando lanzas Descarga de las Sombras y Dolor abrasador contra un objetivo por debajo del 35% de salud, infligen un 6% más de daño y, durante los siguientes 10 s, el tiempo de lanzamiento de tu hechizo Fuego de alma se reduce un 40% y no cuesta fragmentos de alma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83197
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83196
+            },
+            {
+              "effectIndex": 3,
+              "operationType": 0,
+              "curveId": 110390
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105895,
+          "spellId": 18708,
+          "name": "Dominio de lo maldito",
+          "iconFileDataId": 136082,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5500,
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Tu próximo hechizo de invocación a un diablillo, abisario, súcubo, íncubo o manáfago reducirá en 5,5 s el tiempo de lanzamiento y su coste de maná se reducirá en un 50%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105898,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105896,
+          "spellId": 1293695,
+          "name": "Marca demoníaca",
+          "iconFileDataId": 4226151,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                256,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 4,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                1073872896
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -17,
+              2
+            ],
+            [
+              -33,
+              4
+            ],
+            [
+              -50,
+              6
+            ]
+          ],
+          "descriptions": [
+            "Tu Dolor abrasador genera un 17% menos de amenaza y marca al objetivo durante 10 s. Los siguientes 2 ataques de tu mascota contra el objetivo infligen de 65 a 68 de daño de Fuego o de las Sombras según la mascota. Si inflige daño de las Sombras, genera gran amenaza.",
+            "Tu Dolor abrasador genera un 33% menos de amenaza y marca al objetivo durante 10 s. Los siguientes 4 ataques de tu mascota contra el objetivo infligen de 65 a 68 de daño de Fuego o de las Sombras según la mascota. Si inflige daño de las Sombras, genera gran amenaza.",
+            "Tu Dolor abrasador genera un 50% menos de amenaza y marca al objetivo durante 10 s. Los siguientes 6 ataques de tu mascota contra el objetivo infligen de 65 a 68 de daño de Fuego o de las Sombras según la mascota. Si inflige daño de las Sombras, genera gran amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 3,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83195
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103069
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105894,
+          "spellId": 1225217,
+          "name": "Manáfago mejorado",
+          "iconFileDataId": 136217,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                2048,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                1024,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              -2000
+            ],
+            [
+              20,
+              -4000
+            ],
+            [
+              30,
+              -6000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% la reducción de poder de ataque de la facultad Sangre mácula de tu manáfago, la sanación de su Devorar magia y el nivel de detección de su Paranoia, y reduce 2 s el tiempo de reutilización de Bloqueo de hechizo.",
+            "Aumenta un 20% la reducción de poder de ataque de la facultad Sangre mácula de tu manáfago, la sanación de su Devorar magia y el nivel de detección de su Paranoia, y reduce 4 s el tiempo de reutilización de Bloqueo de hechizo.",
+            "Aumenta un 30% la reducción de poder de ataque de la facultad Sangre mácula de tu manáfago, la sanación de su Devorar magia y el nivel de detección de su Paranoia, y reduce 6 s el tiempo de reutilización de Bloqueo de hechizo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105895,
+              105896,
+              105897,
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83194
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83193
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105892,
+          "spellId": 19028,
+          "name": "Vínculo de alma",
+          "iconFileDataId": 136160,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Cuando está activo, tu diablillo, abisario, súcubo, íncubo o manáfago reciben un 30% de todo el daño recibido en lugar del taumaturgo. Además, tanto el demonio como el maestro infligirán un 3% más de daño. Dura mientras el demonio esté activo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105895,
+              105896,
+              105897,
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105900,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105893,
+          "spellId": 412732,
+          "name": "Conocimiento demoníaco",
+          "iconFileDataId": 136165,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33
+            ],
+            [
+              67
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta hasta un 33% de tu nivel tu daño con hechizos y el daño con hechizos de tu mascota demoníaca mientras esta está activa.",
+            "Aumenta hasta un 67% de tu nivel tu daño con hechizos y el daño con hechizos de tu mascota demoníaca mientras esta está activa.",
+            "Aumenta hasta un 100% de tu nivel tu daño con hechizos y el daño con hechizos de tu mascota demoníaca mientras esta está activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105895,
+              105896,
+              105897,
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83192
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105891,
+          "spellId": 23785,
+          "name": "Maestro demonogista",
+          "iconFileDataId": 136203,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              -2,
+              2,
+              -2
+            ],
+            [
+              4,
+              -4,
+              4,
+              -4
+            ],
+            [
+              6,
+              -6,
+              6,
+              -6
+            ],
+            [
+              8,
+              -8,
+              8,
+              -8
+            ],
+            [
+              10,
+              -10,
+              10,
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Da al brujo y al demonio conjurado un efecto mientras el demonio está activo.\r\n\r\nDiablillo: aumenta un 2% el daño de Fuego infligido.\r\n\r\nAbisario: reduce un 2% el daño físico recibido.\r\n\r\nSúcubo/Íncubo: aumenta un 2% el daño de las Sombras infligido.\r\n\r\nManáfago: reduce un 2% el daño mágico recibido.",
+            "Da al brujo y al demonio conjurado un efecto mientras el demonio está activo.\r\n\r\nDiablillo: aumenta un 4% el daño de Fuego infligido.\r\n\r\nAbisario: reduce un 4% el daño físico recibido.\r\n\r\nSúcubo/Íncubo: aumenta un 4% el daño de las Sombras infligido.\r\n\r\nManáfago: reduce un 4% el daño mágico recibido.",
+            "Da al brujo y al demonio conjurado un efecto mientras el demonio está activo.\r\n\r\nDiablillo: aumenta un 6% el daño de Fuego infligido.\r\n\r\nAbisario: reduce un 6% el daño físico recibido.\r\n\r\nSúcubo/Íncubo: aumenta un 6% el daño de las Sombras infligido.\r\n\r\nManáfago: reduce un 6% el daño mágico recibido.",
+            "Da al brujo y al demonio conjurado un efecto mientras el demonio está activo.\r\n\r\nDiablillo: aumenta un 8% el daño de Fuego infligido.\r\n\r\nAbisario: reduce un 8% el daño físico recibido.\r\n\r\nSúcubo/Íncubo: aumenta un 8% el daño de las Sombras infligido.\r\n\r\nManáfago: reduce un 8% el daño mágico recibido.",
+            "Da al brujo y al demonio conjurado un efecto mientras el demonio está activo.\r\n\r\nDiablillo: aumenta un 10% el daño de Fuego infligido.\r\n\r\nAbisario: reduce un 10% el daño físico recibido.\r\n\r\nSúcubo/Íncubo: aumenta un 10% el daño de las Sombras infligido.\r\n\r\nManáfago: reduce un 10% el daño mágico recibido."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105892,
+              105893,
+              105894,
+              105895,
+              105896,
+              105897,
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83191
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85471
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 85470
+            },
+            {
+              "effectIndex": 3,
+              "operationType": 0,
+              "curveId": 85469
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105890,
+          "spellId": 425464,
+          "name": "Pacto demoníaco",
+          "iconFileDataId": 5927650,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Tu efecto de Sacrificio demoníaco deja de cancelarse al invocar una mascota demoníaca diferente. Al volver a invocar la mascota sacrificada, se seguirá cancelando el efecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105890,
+              105891,
+              105892,
+              105893,
+              105894,
+              105895,
+              105896,
+              105897,
+              105898,
+              105899,
+              105900,
+              105901,
+              105902,
+              105903,
+              105904,
+              105905,
+              105906,
+              105907,
+              105908
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105892,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Destrucción",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136186,
+      "backgroundFile": "WarlockDestruction",
+      "talents": [
+        {
+          "nodeId": 105881,
+          "spellId": 17917,
+          "name": "Alcance destructivo",
+          "iconFileDataId": 136133,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                997,
+                320,
+                0,
+                4194304
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el alcance de tus hechizos de Destrucción.",
+            "Aumenta un 20% el alcance de tus hechizos de Destrucción."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83179
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 125544
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105889,
+          "spellId": 17793,
+          "name": "Descarga de Sombras mejorada",
+          "iconFileDataId": 136197,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ],
+            [
+              16
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Los golpes críticos de tu Descarga de las Sombras aumentan un 4% el daño de las Sombras que infligen tus ataques al objetivo durante 12 s.",
+            "Los golpes críticos de tu Descarga de las Sombras aumentan un 8% el daño de las Sombras que infligen tus ataques al objetivo durante 12 s.",
+            "Los golpes críticos de tu Descarga de las Sombras aumentan un 12% el daño de las Sombras que infligen tus ataques al objetivo durante 12 s.",
+            "Los golpes críticos de tu Descarga de las Sombras aumentan un 16% el daño de las Sombras que infligen tus ataques al objetivo durante 12 s.",
+            "Los golpes críticos de tu Descarga de las Sombras aumentan un 20% el daño de las Sombras que infligen tus ataques al objetivo durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83190
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105888,
+          "spellId": 17788,
+          "name": "Aterrar",
+          "iconFileDataId": 136146,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                5,
+                65600,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100,
+              -400
+            ],
+            [
+              -200,
+              -800
+            ],
+            [
+              -300,
+              -1200
+            ],
+            [
+              -400,
+              -1600
+            ],
+            [
+              -500,
+              -2000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tus hechizos Descarga de las Sombras, Inmolar e Incinerar, y el de tu hechizo Fuego de alma en 0,4 s.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tus hechizos Descarga de las Sombras, Inmolar e Incinerar, y el de tu hechizo Fuego de alma en 0,8 s.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tus hechizos Descarga de las Sombras, Inmolar e Incinerar, y el de tu hechizo Fuego de alma en 1,2 s.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tus hechizos Descarga de las Sombras, Inmolar e Incinerar, y el de tu hechizo Fuego de alma en 1,6 s.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tus hechizos Descarga de las Sombras, Inmolar e Incinerar, y el de tu hechizo Fuego de alma en 2 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83189
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83188
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105885,
+          "spellId": 1225220,
+          "name": "Piel de arrabio",
+          "iconFileDataId": 132221,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 87,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2
+            ],
+            [
+              -4
+            ],
+            [
+              -6
+            ],
+            [
+              -8
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 2% todo el daño recibido.",
+            "Reduce un 4% todo el daño recibido.",
+            "Reduce un 6% todo el daño recibido.",
+            "Reduce un 8% todo el daño recibido.",
+            "Reduce un 10% todo el daño recibido."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105881,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83187
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105887,
+          "spellId": 17778,
+          "name": "Cataclismo",
+          "iconFileDataId": 135831,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                997,
+                196672,
+                131072,
+                4194304
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3
+            ],
+            [
+              -6
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce el coste de maná de tu hechizo Destrucción en un 3%.",
+            "Reduce el coste de maná de tu hechizo Destrucción en un 6%.",
+            "Reduce el coste de maná de tu hechizo Destrucción en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105881,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83186
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105886,
+          "spellId": 18119,
+          "name": "Secuelas",
+          "iconFileDataId": 135805,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                4,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              10
+            ],
+            [
+              40,
+              20
+            ],
+            [
+              60,
+              30
+            ],
+            [
+              80,
+              40
+            ],
+            [
+              100,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el daño inicial de tu hechizo Inmolar y, además, Conflagrar tiene un 20% de probabilidades de atontar al objetivo, lo que reduce un 50% su velocidad de movimiento durante 5 s.",
+            "Aumenta un 20% el daño inicial de tu hechizo Inmolar y, además, Conflagrar tiene un 40% de probabilidades de atontar al objetivo, lo que reduce un 50% su velocidad de movimiento durante 5 s.",
+            "Aumenta un 30% el daño inicial de tu hechizo Inmolar y, además, Conflagrar tiene un 60% de probabilidades de atontar al objetivo, lo que reduce un 50% su velocidad de movimiento durante 5 s.",
+            "Aumenta un 40% el daño inicial de tu hechizo Inmolar y, además, Conflagrar tiene un 80% de probabilidades de atontar al objetivo, lo que reduce un 50% su velocidad de movimiento durante 5 s.",
+            "Aumenta un 50% el daño inicial de tu hechizo Inmolar y, además, Conflagrar tiene un 100% de probabilidades de atontar al objetivo, lo que reduce un 50% su velocidad de movimiento durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105881,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83185
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83184
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105883,
+          "spellId": 17959,
+          "name": "Ruina",
+          "iconFileDataId": 136207,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                997,
+                196672,
+                131072,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 20% el daño extra de golpe crítico con tus hechizos de Destrucción.",
+            "Aumenta en un 40% el daño extra de golpe crítico con tus hechizos de Destrucción.",
+            "Aumenta en un 60% el daño extra de golpe crítico con tus hechizos de Destrucción.",
+            "Aumenta en un 80% el daño extra de golpe crítico con tus hechizos de Destrucción.",
+            "Aumenta en un 100% el daño extra de golpe crítico con tus hechizos de Destrucción."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105881,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83183
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105884,
+          "spellId": 17877,
+          "name": "Quemadura de las Sombras",
+          "iconFileDataId": 136191,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 86,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              66
+            ]
+          ],
+          "descriptions": [
+            "Revienta instantáneamente al objetivo e inflige 66 p. de daño de las Sombras. Si un objetivo no trivial muere en 8 s tras ser golpeado por Quemadura de las Sombras, el taumaturgo obtendrá un fragmento de alma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105881,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105882,
+          "spellId": 18135,
+          "name": "Intensidad",
+          "iconFileDataId": 135819,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                997,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              23
+            ],
+            [
+              47
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos de Destrucción un 23% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos de Destrucción un 47% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos de Destrucción un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105881,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83182
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105879,
+          "spellId": 17927,
+          "name": "Llamas agonizantes",
+          "iconFileDataId": 135827,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                256,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                421,
+                8388800,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                36,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              3,
+              3
+            ],
+            [
+              7,
+              7,
+              7
+            ],
+            [
+              10,
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% la probabilidad de golpe crítico de tu hechizo Dolor abrasador y un 3% el daño infligido por todos tus hechizos de Destrucción.",
+            "Aumenta un 7% la probabilidad de golpe crítico de tu hechizo Dolor abrasador y un 7% el daño infligido por todos tus hechizos de Destrucción.",
+            "Aumenta un 10% la probabilidad de golpe crítico de tu hechizo Dolor abrasador y un 10% el daño infligido por todos tus hechizos de Destrucción."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105881,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83181
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83180
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 103096
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105880,
+          "spellId": 1293817,
+          "name": "Conflagrar",
+          "iconFileDataId": 135807,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              95
+            ]
+          ],
+          "descriptions": [
+            "Inflama un objetivo que ya está afectado por tu hechizo Inmolar, lo que le inflige 95 p. de daño de Fuego y consume tu efecto de Inmolar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105881,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105878,
+          "spellId": 18073,
+          "name": "Piroclasma",
+          "iconFileDataId": 135830,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              13,
+              0
+            ],
+            [
+              26,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Da a tu hechizo Fuego de alma un 13% de probabilidades de aturdir al objetivo durante 3 s, y a tus hechizos Lluvia de Fuego y Llamas infernales un 13% de probabilidades mientras duran de aturdir durante 3 s a los objetivos a los que causan daño.",
+            "Da a tu hechizo Fuego de alma un 26% de probabilidades de aturdir al objetivo durante 3 s, y a tus hechizos Lluvia de Fuego y Llamas infernales un 26% de probabilidades mientras duran de aturdir durante 3 s a los objetivos a los que causan daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105879,
+              105880,
+              105881,
+              105882,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105882,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83178
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105876,
+          "spellId": 1225228,
+          "name": "Terror de caos",
+          "iconFileDataId": 460695,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aflige al objetivo durante 5 min, lo que hace que un 15% de todo el daño que el brujo inflige a otros objetivos también se dirija hacia el objetivo maldito. Terror de caos está limitado a un objetivo y cada brujo solo puede tener un terror activo sobre un mismo objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105879,
+              105880,
+              105881,
+              105882,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105877,
+          "spellId": 412751,
+          "name": "Fuego y azufre",
+          "iconFileDataId": 135821,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                8388608,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              8
+            ],
+            [
+              7,
+              17
+            ],
+            [
+              10,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 8% la probabilidad de golpe crítico de tu hechizo Conflagrar.",
+            "Aumenta un 17% la probabilidad de golpe crítico de tu hechizo Conflagrar.",
+            "Aumenta un 25% la probabilidad de golpe crítico de tu hechizo Conflagrar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105879,
+              105880,
+              105881,
+              105882,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105880,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83177
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83176
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105875,
+          "spellId": 426316,
+          "name": "Sombras y llamas",
+          "iconFileDataId": 135823,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4,
+              20,
+              2,
+              2
+            ],
+            [
+              8,
+              40,
+              4,
+              4
+            ],
+            [
+              12,
+              60,
+              6,
+              6
+            ],
+            [
+              16,
+              80,
+              8,
+              8
+            ],
+            [
+              20,
+              100,
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Golpear a un enemigo con Conflagrar aumenta un 2% todo el daño de las Sombras que infliges durante 20 s. Golpear a un enemigo con Quemadura de las Sombras aumenta un 2% todo el daño de Fuego que infliges durante 20 s. Además, Conflagrar tiene un 20% de probabilidad de no consumir Inmolar, y Quemadura de las Sombras tiene un 20% de probabilidad de devolver al instante un fragmento de alma.",
+            "Golpear a un enemigo con Conflagrar aumenta un 4% todo el daño de las Sombras que infliges durante 20 s. Golpear a un enemigo con Quemadura de las Sombras aumenta un 4% todo el daño de Fuego que infliges durante 20 s. Además, Conflagrar tiene un 40% de probabilidad de no consumir Inmolar, y Quemadura de las Sombras tiene un 40% de probabilidad de devolver al instante un fragmento de alma.",
+            "Golpear a un enemigo con Conflagrar aumenta un 6% todo el daño de las Sombras que infliges durante 20 s. Golpear a un enemigo con Quemadura de las Sombras aumenta un 6% todo el daño de Fuego que infliges durante 20 s. Además, Conflagrar tiene un 60% de probabilidad de no consumir Inmolar, y Quemadura de las Sombras tiene un 60% de probabilidad de devolver al instante un fragmento de alma.",
+            "Golpear a un enemigo con Conflagrar aumenta un 8% todo el daño de las Sombras que infliges durante 20 s. Golpear a un enemigo con Quemadura de las Sombras aumenta un 8% todo el daño de Fuego que infliges durante 20 s. Además, Conflagrar tiene un 80% de probabilidad de no consumir Inmolar, y Quemadura de las Sombras tiene un 80% de probabilidad de devolver al instante un fragmento de alma.",
+            "Golpear a un enemigo con Conflagrar aumenta un 10% todo el daño de las Sombras que infliges durante 20 s. Golpear a un enemigo con Quemadura de las Sombras aumenta un 10% todo el daño de Fuego que infliges durante 20 s. Además, Conflagrar tiene un 100% de probabilidad de no consumir Inmolar, y Quemadura de las Sombras tiene un 100% de probabilidad de devolver al instante un fragmento de alma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105876,
+              105877,
+              105878,
+              105879,
+              105880,
+              105881,
+              105882,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83175
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103097
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 111672
+            },
+            {
+              "effectIndex": 3,
+              "operationType": 0,
+              "curveId": 111671
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105874,
+          "spellId": 412758,
+          "name": "Incinerar",
+          "iconFileDataId": 135789,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              97,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Inflige 97 p. de daño de Fuego a tu objetivo y un 25% de daño extra si el objetivo sufre Inmolar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105874,
+              105875,
+              105876,
+              105877,
+              105878,
+              105879,
+              105880,
+              105881,
+              105882,
+              105883,
+              105884,
+              105885,
+              105886,
+              105887,
+              105888,
+              105889
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105876,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": [
+    "2 nodos con desfase de Y respecto a la rejilla (se redondean a la fila mas cercana)"
+  ]
+}

@@ -1,0 +1,26 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.tools/
+*.log
+.playwright-mcp/
+
+# Volcados en bruto del cliente de Blizzard: no se redistribuyen. Se regeneran con tools/extract.
+# (La web solo necesita data/forever/, que SI se versiona.) Ver docs/DEPLOY.md.
+data/raw/
+
+# Datos copiados para servir la web; se regeneran con `npm run sync-data -w @wfuc/web`
+apps/web/public/data/
+
+# Salida regenerable de la variante sin hotfixes
+data/forever/*-static/
+
+# Ficheros de trabajo locales (no forman parte del proyecto publicado)
+CLAUDE.md
+.claude/
+
+# Documentación interna del mantenedor: no se publica
+docs/
+
+# Copias locales de datos de terceros solo para contraste: no se publican
+data/external/

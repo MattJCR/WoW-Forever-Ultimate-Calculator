@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70425",
+  "classId": 4,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 14144,
+      "name": "Ataques implacables",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Ataques implacables: tras matar a un enemigo no trivial, tu siguiente Golpe siniestro, Puñalada, Emboscada, Mutilar o Golpe fantasmal tiene +{v} % de probabilidad de crítico (20 s)",
+          "scope": {
+            "spells": [
+              "Golpe siniestro",
+              "Puñalada",
+              "Emboscada",
+              "Mutilar",
+              "Golpe fantasmal"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 14156,
+      "name": "Crueldad",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Crueldad: {v} % de probabilidad de que tus remates añadan un punto de combo",
+          "scope": {
+            "spells": [
+              "Eviscerar",
+              "Ruptura",
+              "Exponer armadura",
+              "Hacer picadillo",
+              "Golpe a los riñones",
+              "Entre ceja y ceja",
+              "Danza de hojas"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 14179,
+      "name": "Golpes despiadados",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Golpes despiadados: {v} % de probabilidad por punto de combo de restaurar 25 de energía con tus remates",
+          "scope": {
+            "spells": [
+              "Eviscerar",
+              "Ruptura",
+              "Exponer armadura",
+              "Hacer picadillo",
+              "Golpe a los riñones",
+              "Entre ceja y ceja",
+              "Danza de hojas"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 14168,
+      "name": "Exponer armadura mejorado",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Exponer armadura mejorado: devuelve {v} puntos de combo si se lanza con 5 puntos de combo",
+          "scope": {
+            "spells": [
+              "Exponer armadura"
+            ]
+          },
+          "action": "none",
+          "unit": "puntos"
+        }
+      ]
+    },
+    {
+      "spellId": 14113,
+      "name": "Venenos mejorados",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Venenos mejorados: {v} % de probabilidad de no consumir una carga de veneno al aplicarlo",
+          "scope": {
+            "spells": [
+              "Veneno entorpecedor",
+              "Veneno instantáneo",
+              "Veneno de aturdimiento mental",
+              "Veneno mortal",
+              "Envenenar herida",
+              "Veneno paralizante",
+              "Veneno oculto",
+              "Veneno atrófico",
+              "Veneno entumecedor",
+              "Veneno sebáceo"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 14186,
+      "name": "Sello del destino",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Sello del destino: {v} % de probabilidad de un punto de combo extra con tus golpes críticos que generan puntos de combo",
+          "scope": {
+            "spells": [
+              "Golpe siniestro",
+              "Puñalada",
+              "Emboscada",
+              "Garrote",
+              "Hemorragia",
+              "Golpe bajo",
+              "Golpe fantasmal",
+              "Tajo de sable",
+              "Mutilar",
+              "Tenebrosa",
+              "Desenvainado rápido",
+              "Lanzamiento de shuriken",
+              "Puyazo",
+              "Cuchillo envenenado"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1224716,
+      "name": "Heridas punzantes",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Heridas punzantes: {v} % de probabilidad de que Puñalada dé un punto de combo extra",
+          "scope": {
+            "spells": [
+              "Puñalada"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13743,
+      "name": "Correr mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Correr mejorado: {v} % de probabilidad de eliminar los efectos de reducción de movimiento al activar Correr",
+          "scope": {
+            "spells": [
+              "Correr"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13754,
+      "name": "Patada mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Patada mejorada: {v} % de probabilidad de silenciar al objetivo 2 s",
+          "scope": {
+            "spells": [
+              "Patada"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13715,
+      "name": "Especialización en doble empuñadura",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Especialización en doble empuñadura: +{v} % de daño de tu arma de la mano derecha",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13960,
+      "name": "Cortar y rebanar",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Cortar y rebanar (hacha o espada): {v} % de probabilidad de que tus ataques cuerpo a cuerpo desencadenen un ataque extra",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        },
+        {
+          "index": 2,
+          "factor": 1,
+          "extras": {},
+          "label": "Cortar y rebanar (daga o arma de puño): +{v} % de probabilidad de golpe crítico",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        },
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Cortar y rebanar (maza): tus ataques ignoran un {v} % de la armadura del objetivo",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13983,
+      "name": "Establecer",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Establecer: {v} % de probabilidad de añadir un punto de combo tras esquivar un ataque o resistir un hechizo",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 13976,
+      "name": "Iniciativa",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Iniciativa: {v} % de probabilidad de +1 punto de combo con Golpe bajo, Emboscada o Garrote",
+          "scope": {
+            "spells": [
+              "Golpe bajo",
+              "Emboscada",
+              "Garrote"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1310728,
+      "name": "Quietus",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Quietus: +{v} % de daño de Golpe siniestro, Golpe fantasmal y Hemorragia contra objetivos con menos del {w} % de salud",
+          "scope": {
+            "spells": [
+              "Golpe siniestro",
+              "Golpe fantasmal",
+              "Hemorragia"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 462708,
+      "name": "Degollador",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Degollador: {v} % de probabilidad de que Puñalada haga que tu siguiente Emboscada no requiera sigilo (10 s)",
+          "scope": {
+            "spells": [
+              "Puñalada"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1310721,
+      "name": "Mil cortes",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Mil cortes: cuando Ruptura inflige daño periódico, reduce {v} la energía de tu siguiente Hemorragia o Puñalada (10 s, hasta 5 veces)",
+          "scope": {
+            "spells": [
+              "Ruptura"
+            ]
+          },
+          "action": "none",
+          "unit": "puntos"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

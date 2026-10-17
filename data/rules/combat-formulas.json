@@ -1,0 +1,19 @@
+{
+  "_readme": "Tablas de FALLO y tope de impacto de CLASSIC ERA 1.12 (fuente 'community', confianza BAJA): el cliente de Forever no trae las tablas de fallo ni sus reglas de impacto. Fuentes: Allakhazam (fallo de hechizo 4 % mismo nivel y 17 % contra +3; cuerpo a cuerpo 5 % y 9 %). Warcraft Tavern (Forever, sin build) da 5 %/9 % cuerpo a cuerpo y 3 %/16 % hechizos, ForeverDB da topes de 8 % cuerpo a cuerpo, 17 % hechizos y 27 % con dos armas: las fuentes externas de Forever discrepan entre si y con Classic, asi que se conserva Classic hasta medirlo en el juego. El CRITICO por atributo ya no esta aqui: sale del cliente (PlayerExpectedStat) en client-stats.json.",
+  "provenance": "community",
+  "confidence": "low",
+  "miss": {
+    "spell": {
+      "same": 4,
+      "boss": 17
+    },
+    "melee": {
+      "same": 5,
+      "boss": 9
+    }
+  },
+  "hitCap": {
+    "spell": 99,
+    "melee": 100
+  }
+}

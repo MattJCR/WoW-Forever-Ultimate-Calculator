@@ -1,0 +1,278 @@
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { buildClassTalents } from "./build.js";
+import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
+import { openRawTables } from "./csv.js";
+import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, Manifest, Races, Unassigned } from "./model.js";
+import { buildAbilities } from "./abilities.js";
+import { buildRules } from "./rules.js";
+import { buildLegacy } from "./legacy.js";
+import { buildRaces } from "./races.js";
+import { buildBaseStats, type ClassicEra } from "./stats.js";
+import { buildClientStats } from "./client-stats.js";
+import { buildUnassigned } from "./unassigned.js";
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
+const DEFAULT_BUILD = "1.60.1.70425";
+const DEFAULT_LOCALE = "esES";
+
+function arg(name: string, fallback: string): string {
+  const i = process.argv.indexOf(`--${name}`);
+  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1]! : fallback;
+}
+
+const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
+const stableJson = (v: unknown) => `${JSON.stringify(v, null, 2)}\n`;
+
+/**
+ * --source hotfix (por defecto): data/raw/<build>-hotfix -> data/forever/<build>
+ * --source static: datos estaticos del cliente sin hotfixes -> data/forever/<build>-static
+ */
+function sourceDirs(buildId: string): { rawDir: string; outDir: string; hotfixes: boolean } {
+  const hotfixes = arg("source", "hotfix") !== "static";
+  return {
+    hotfixes,
+    rawDir: resolve(arg("raw", join(repoRoot, "data", "raw", hotfixes ? `${buildId}-hotfix` : buildId))),
+    outDir: resolve(arg("out", join(repoRoot, "data", "forever", hotfixes ? buildId : `${buildId}-static`))),
+  };
+}
+
+function build(): void {
+  const buildId = arg("build", DEFAULT_BUILD);
+  const locale = arg("locale", DEFAULT_LOCALE);
+  const { rawDir, outDir, hotfixes } = sourceDirs(buildId);
+
+  const raw = openRawTables(rawDir);
+  const { classes, unresolved, spells, trait } = buildClassTalents(raw, buildId, locale);
+
+  mkdirSync(join(outDir, "classes"), { recursive: true });
+  const entries: Manifest["classes"] = [];
+  for (const cls of classes) {
+    ClassTalents.parse(cls);
+    const file = `classes/${(cls.classToken ?? `class-${cls.classId}`).toLowerCase()}.json`;
+    const text = stableJson(cls);
+    writeFileSync(join(outDir, file), text);
+    entries.push({
+      classId: cls.classId,
+      className: cls.className,
+      iconFileDataId: cls.iconFileDataId ?? null,
+      traitTreeId: cls.traitTreeId,
+      talentCount: cls.specs.reduce((s, sp) => s + sp.talents.length, 0),
+      inactiveCount: cls.inactiveTalents.length,
+      file,
+      sha256: sha256(text),
+      warnings: cls.warnings.length,
+    });
+  }
+  const legacy = ClassTalents.parse(buildLegacy(raw, buildId, locale, spells, trait));
+  const legacyText = stableJson(legacy);
+  writeFileSync(join(outDir, "legacy.json"), legacyText);
+
+  const unassigned = Unassigned.parse(buildUnassigned(raw, classes, legacy, buildId, locale, spells, trait));
+  const unassignedText = stableJson(unassigned);
+  writeFileSync(join(outDir, "unassigned.json"), unassignedText);
+
+  const races = Races.parse(buildRaces(raw, buildId, locale, spells));
+  const racesText = stableJson(races);
+  writeFileSync(join(outDir, "races.json"), racesText);
+
+  // Talents Forever (solo contraste) y sus habilidades retiradas
+  const tfDir = resolve(arg("tf", join(repoRoot, "data", "external", "talentsforever")));
+  const goneFile = resolve(repoRoot, "data", "rules", "tf-gone.json");
+  const goneFileData = existsSync(goneFile) ? (JSON.parse(readFileSync(goneFile, "utf8")) as { classes: Record<string, Record<string, string | null>>; official?: Record<string, Record<string, string>> }) : null;
+  const goneByClass: Record<string, Record<string, string | null>> = goneFileData?.classes ?? {};
+  const officialByClass = goneFileData?.official ?? {};
+
+  // Habilidades (libro de hechizos) de las clases ya revisadas
+  mkdirSync(join(outDir, "abilities"), { recursive: true });
+  const abilityEntries: Manifest["abilities"] = [];
+  const abilityIcons = new Set<number>();
+  const ruleEntries: Manifest["rules"] = [];
+  mkdirSync(join(outDir, "rules"), { recursive: true });
+  for (const cls of classes) {
+    const data = buildAbilities(raw, spells, cls.classId, buildId, locale, cls);
+    if (!data) continue;
+    // Contraste con Talents Forever: cada habilidad lleva su estado (lista / parcial / no la lista / retirada)
+    const token = (cls.classToken ?? "").toLowerCase();
+    const contrasted = contrastAbilities(Abilities.parse(data), token, tfDir, goneByClass[token] ?? {}, officialByClass[token] ?? {});
+    if (contrasted) {
+      const r = contrasted.report;
+      console.log(`   contraste TF ${cls.className}: ${r.listed} listadas, ${r.partial.length} parciales, ${r.notListed.length} que TF no lista, ${r.retired.length} retiradas; TF lista y no tenemos: ${r.tfOnly.length ? r.tfOnly.join(", ") : "ninguna"}`);
+    }
+    const parsed = contrasted ? contrasted.abilities : Abilities.parse(data);
+    const text = stableJson(parsed);
+    const file = `abilities/${(cls.classToken ?? `class-${cls.classId}`).toLowerCase()}.json`;
+    writeFileSync(join(outDir, file), text);
+    for (const a of parsed.abilities) if (a.iconFileDataId) abilityIcons.add(a.iconFileDataId);
+    const rules = buildRules(cls, parsed, buildId);
+    if (rules) {
+      const parsedRules = TalentRules.parse(rules);
+      const rulesText = stableJson(parsedRules);
+      const rulesFile = `rules/${(cls.classToken ?? `class-${cls.classId}`).toLowerCase()}.json`;
+      writeFileSync(join(outDir, rulesFile), rulesText);
+      ruleEntries.push({ classId: cls.classId, file: rulesFile, sha256: sha256(rulesText), ruleCount: parsedRules.rules.length });
+      for (const w of parsedRules.warnings) console.log(`   aviso (reglas ${cls.className}): ${w}`);
+    }
+    abilityEntries.push({ classId: cls.classId, file, sha256: sha256(text), abilityCount: parsed.abilities.length, rankCount: parsed.abilities.reduce((n, a) => n + a.ranks.length, 0) });
+    for (const w of parsed.warnings) console.log(`   aviso (habilidades ${cls.className}): ${w}`);
+  }
+
+  // Formulas de combate de Classic (estimacion): se validan y se publican tal cual
+  const formulasSource = resolve(repoRoot, "data", "rules", "combat-formulas.json");
+  let formulasEntry: Manifest["combatFormulas"];
+  if (existsSync(formulasSource)) {
+    const { _readme: _ignored, ...raw } = JSON.parse(readFileSync(formulasSource, "utf8")) as Record<string, unknown>;
+    const formulasText = stableJson(CombatFormulas.parse(raw));
+    writeFileSync(join(outDir, "combat-formulas.json"), formulasText);
+    formulasEntry = { file: "combat-formulas.json", sha256: sha256(formulasText) };
+  }
+
+  // Critico por atributo, mana base y poder de ataque por atributo: SI estan en el cliente (PlayerExpectedStat, ChrClasses)
+  const clientStats = ClientStats.parse(buildClientStats(raw, buildId));
+  const clientStatsText = stableJson(clientStats);
+  writeFileSync(join(outDir, "client-stats.json"), clientStatsText);
+
+  // Estadisticas base: los atributos por raza y clase no estan en el cliente; salen de Classic Era (tools/extract/fetch-classic-stats.mjs)
+  const classicFile = resolve(arg("classic", join(repoRoot, "data", "external", "classic-stats", "classic-era.json")));
+  const classic = JSON.parse(readFileSync(classicFile, "utf8")) as ClassicEra;
+  const stats = BaseStats.parse(buildBaseStats(races, classic, buildId));
+  const statsText = stableJson(stats);
+  writeFileSync(join(outDir, "stats.json"), statsText);
+
+  // Iconos que necesita la web; tools/extract/fetch-icons.mjs los descarga del cliente (solo lectura).
+  const iconIds = new Set<number>(abilityIcons);
+  for (const c of classes) {
+    if (c.iconFileDataId) iconIds.add(c.iconFileDataId);
+    for (const s of c.specs) if (s.iconFileDataId) iconIds.add(s.iconFileDataId);
+    for (const t of c.specs.flatMap((s) => s.talents)) if (t.iconFileDataId) iconIds.add(t.iconFileDataId);
+    for (const t of c.inactiveTalents) if (t.iconFileDataId) iconIds.add(t.iconFileDataId);
+  }
+  for (const t of legacy.specs.flatMap((s) => s.talents)) if (t.iconFileDataId) iconIds.add(t.iconFileDataId);
+  for (const r of races.races) for (const a of r.racials) if (a.iconFileDataId) iconIds.add(a.iconFileDataId);
+  for (const e of unassigned.orphanEntries) if (e.iconFileDataId) iconIds.add(e.iconFileDataId);
+  for (const t of unassigned.alternativeTrees) for (const n of t.nodes) if (n.iconFileDataId) iconIds.add(n.iconFileDataId);
+  const iconsText = stableJson({ build: buildId, ids: [...iconIds].sort((a, b) => a - b) });
+  writeFileSync(join(outDir, "icons.json"), iconsText);
+
+  const manifest: Manifest = Manifest.parse({
+    schemaVersion: 1,
+    build: buildId,
+    locale,
+    generatedAt: new Date().toISOString(),
+    hotfixesApplied: hotfixes,
+    source: "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
+    classes: entries,
+    legacy: {
+      file: "legacy.json",
+      sha256: sha256(legacyText),
+      talentCount: legacy.specs.reduce((s, sp) => s + sp.talents.length, 0),
+      unplacedEntries: unassigned.orphanEntries.filter((e) => e.isLegacy && !e.legacyPlaced).length,
+    },
+    abilities: abilityEntries,
+    combatFormulas: formulasEntry,
+    clientStats: { file: "client-stats.json", sha256: sha256(clientStatsText) },
+    rules: ruleEntries,
+    stats: { file: "stats.json", sha256: sha256(statsText), comboCount: stats.combos.length, missingCount: stats.missing.length },
+    races: { file: "races.json", sha256: sha256(racesText), raceCount: races.races.length },
+    icons: { file: "icons.json", count: iconIds.size, sha256: sha256(iconsText) },
+    unassigned: {
+      file: "unassigned.json",
+      sha256: sha256(unassignedText),
+      orphanEntries: unassigned.orphanEntries.length,
+      alternativeTrees: unassigned.alternativeTrees.length,
+    },
+    unresolvedTrees: unresolved,
+    inputs: raw.inputs(),
+  });
+  writeFileSync(join(outDir, "manifest.json"), stableJson(manifest));
+
+  for (const e of entries) {
+    console.log(`${(e.className ?? "?").padEnd(10)} arbol ${e.traitTreeId}  ${String(e.talentCount).padStart(3)} talentos  ${e.inactiveCount} no activos  avisos: ${e.warnings}`);
+  }
+  for (const u of unresolved) console.log(`SIN CLASE  arbol ${u.traitTreeId}  ${u.nodeCount} nodos  (${u.reason})`);
+  console.log(`\nLegacy: ${manifest.legacy.talentCount} ventajas en ${legacy.specs.length} arboles, ${legacy.rules.maxPoints} puntos, ${manifest.legacy.unplacedEntries} sin colocar (legacy.json)`);
+  console.log(`Sin asignar: ${unassigned.orphanEntries.length} entradas sin nodo (${unassigned.orphanEntries.filter((e) => !e.isLegacy).length} no Legacy, ${unassigned.orphanEntries.filter((e) => e.isLegacy && e.legacyPlaced).length} duplicados de ventajas colocadas) y ${unassigned.alternativeTrees.length} arboles descartados (unassigned.json)`);
+  for (const a of abilityEntries) console.log(`Habilidades clase ${a.classId}: ${a.abilityCount} habilidades, ${a.rankCount} rangos (${a.file})`);
+  console.log(`Razas: ${races.races.length} (${races.races.map((r) => r.name).join(", ")}), ${races.warnings.length} avisos (races.json)`);
+  console.log(`Estadisticas del cliente (client-stats.json): ${clientStats.classes.length} clases x ${clientStats.maxLevel} niveles (critico por atributo, mana base, poder de ataque)`);
+  console.log(`Estadisticas base (Classic Era): ${stats.combos.filter((c) => c.provenance === "community").length} combinaciones exactas, ${stats.combos.filter((c) => c.provenance === "assumption").length} estimadas, ${stats.missing.length} sin datos (stats.json)`);
+  for (const w of stats.warnings) console.log(`   aviso: ${w}`);
+  for (const w of races.warnings) console.log(`   aviso: ${w}`);
+  console.log(`Escrito en ${outDir}`);
+}
+
+function contrast(): void {
+  const buildId = arg("build", DEFAULT_BUILD);
+  const dataDir = resolve(arg("data", sourceDirs(buildId).outDir));
+  const tfDir = resolve(arg("tf", join(repoRoot, "data", "external", "talentsforever")));
+  const manifest = Manifest.parse(JSON.parse(readFileSync(join(dataDir, "manifest.json"), "utf8")));
+  let allOk = true;
+  for (const e of manifest.classes) {
+    const cls = ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, e.file), "utf8")));
+    const r = contrastClass(cls, tfDir);
+    if (!r) {
+      console.log(`${e.className}: sin export de Talents Forever en ${tfDir}`);
+      continue;
+    }
+    allOk &&= r.ok;
+    console.log(`${r.ok ? "OK " : "DIF"} ${(r.className ?? "?").padEnd(10)} cliente ${r.totals.ours} vs web ${r.totals.theirs}`);
+    for (const s of r.specs) {
+      const bad = s.maxRankMismatches.length + s.positionOnlyOurs.length + s.positionOnlyTheirs.length;
+      if (s.ours !== s.theirs || bad > 0) {
+        console.log(`   spec ${s.index} (${s.theirsName}): ${s.ours} vs ${s.theirs}`);
+        for (const m of s.maxRankMismatches) console.log(`     rango  ${m}`);
+        for (const p of s.positionOnlyOurs) console.log(`     solo cliente: ${p}`);
+        for (const p of s.positionOnlyTheirs) console.log(`     solo web:     ${p}`);
+      }
+    }
+  }
+  // Habilidades: lo que TF no lista se conserva y se cuenta aparte (no es un fallo: el cliente manda)
+  for (const e of manifest.abilities) {
+    const ab = Abilities.parse(JSON.parse(readFileSync(join(dataDir, e.file), "utf8")));
+    const by = (st: string) => ab.abilities.filter((a) => a.talentsForever?.status === st);
+    if (!ab.abilities.some((a) => a.talentsForever)) continue;
+    console.log(`
+Habilidades ${e.file.replace(/^abilities\//, "").replace(/\.json$/, "")}: ${by("listed").length} en TF, ${by("partial").length} parciales, ${by("not-listed").length} que TF no lista, ${by("retired").length} retiradas`);
+    for (const a of [...by("partial"), ...by("retired"), ...by("not-listed")]) console.log(`   ${a.talentsForever!.status.padEnd(10)} ${a.name}: ${a.talentsForever!.note}`);
+  }
+  if (existsSync(join(dataDir, "legacy.json"))) {
+    const lc = contrastLegacy(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, "legacy.json"), "utf8"))), tfDir);
+    if (lc) {
+      console.log(`
+${lc.diffs.length ? "DIF" : "OK "} Legacy: ${lc.matchedPositions} de ${lc.perks} ventajas de TF en su posición (TF dice venir de: ${lc.tfSource})`);
+      for (const d of lc.diffs) console.log(`   ${d}`);
+    }
+  }
+  if (existsSync(join(dataDir, "unassigned.json"))) {
+    const un = JSON.parse(readFileSync(join(dataDir, "unassigned.json"), "utf8")) as { orphanEntries: { name: string | null; descriptions: string[] }[] };
+    const oc = contrastOrphans(un.orphanEntries, tfDir);
+    if (oc) {
+      console.log(`
+Entradas de talento sin nodo del cliente: ${oc.total}; ${oc.withTfTwin} con una gemela en TF (mismas cifras) y ${oc.withoutTfTwin.length} que TF no lista:`);
+      for (const o of oc.withoutTfTwin) console.log(`   ${o.name}${o.numbers ? ` (${o.numbers})` : ""}`);
+    }
+  }
+  const races = Races.parse(JSON.parse(readFileSync(join(dataDir, manifest.races.file), "utf8")));
+  const rc = contrastRaces(
+    races,
+    manifest.classes.map((e) => ({ classId: e.classId, className: e.className ?? "?", token: e.file.replace(/^classes\//, "").replace(/\.json$/, "") })),
+    tfDir,
+  );
+  if (rc) {
+    allOk &&= rc.ok;
+    console.log(`\n${rc.ok ? "OK " : "DIF"} razas: matriz raza/clase y numero de raciales vs Talents Forever`);
+    for (const c of rc.classes) if (c.onlyClient.length || c.onlyWeb.length) console.log(`   ${c.className}: solo cliente [${c.onlyClient}] solo web [${c.onlyWeb}]`);
+    for (const m of rc.racialCountMismatches) console.log(`   raciales ${m}`);
+  }
+  console.log(allOk ? "\nTodo coincide con Talents Forever." : "\nHay diferencias (el cliente manda; revisar a mano).");
+}
+
+const cmd = process.argv[2];
+if (cmd === "build") build();
+else if (cmd === "contrast") contrast();
+else {
+  console.error("Uso: tsx src/cli.ts build|contrast [--build X] [--raw dir] [--out dir] [--tf dir]");
+  process.exit(1);
+}
