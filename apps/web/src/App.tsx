@@ -37,11 +37,13 @@ function Layout({ manifest }: { manifest: Manifest }) {
     <>
       <header className="topbar">
         <a className="brand" href={href("", q)}>
-          <span className="brand-mark" aria-hidden="true">
-            ✦
-          </span>
+          <img
+            className="brand-mark"
+            src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt527dd61848a757c7/6aa3316cad92093ee45628fd/camelot-logo-gamepage.png"
+            alt="WoW Forever"
+          />
           <span className="brand-text">
-            <b>Calculadora Forever</b>
+            <b>WoW Forever Ultimate Calculator</b>
             <small>
               Calculadora de talentos de WoW Forever · datos de la beta {manifest.build} · {manifest.generatedAt.slice(0, 10)}
             </small>

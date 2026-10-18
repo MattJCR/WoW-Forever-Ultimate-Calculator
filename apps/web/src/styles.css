@@ -99,15 +99,11 @@ main {
   color: var(--text);
 }
 .brand-mark {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  font-size: 17px;
-  color: #1a1405;
-  background: radial-gradient(circle at 35% 30%, var(--gold-2), var(--gold) 60%, #8a6414);
-  border-radius: 50%;
-  border: 2px solid #6b4f16;
+  display: block;
+  width: auto;
+  max-width: 120px;
+  height: 42px;
+  object-fit: contain;
 }
 .brand-text {
   display: flex;

@@ -34,7 +34,7 @@ type View = "race" | "legacy" | "talents" | "summary";
 const VIEWS: { id: View; n: number; label: string }[] = [
   { id: "race", n: 1, label: "Raza" },
   { id: "legacy", n: 2, label: "Legacy" },
-  { id: "talents", n: 3, label: "Clase y talentos" },
+  { id: "talents", n: 3, label: "Talentos" },
   { id: "summary", n: 4, label: "Resumen" },
 ];
 const isView = (v: string | null): v is View => v === "race" || v === "legacy" || v === "talents" || v === "summary";
