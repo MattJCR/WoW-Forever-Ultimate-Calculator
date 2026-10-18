@@ -56,8 +56,8 @@ export function TreePanel({ idx, build, specIndex, focus, onFocus, onAdd, onRemo
 
   return (
     <section className="tree" aria-label={`${spec.name ?? "Arbol"}`}>
-      {spec.backgroundFile && <Background name={spec.backgroundFile} />}
       <div className="tree-inner">
+        {spec.backgroundFile && <Background name={spec.backgroundFile} />}
         <header className="tree-head">
           <Icon id={spec.iconFileDataId} name={spec.name} />
           <div className="tree-title">

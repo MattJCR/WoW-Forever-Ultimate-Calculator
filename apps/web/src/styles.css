@@ -529,6 +529,7 @@ button.big {
 .bg {
   position: absolute;
   inset: 0;
+  z-index: -1;
   display: grid;
   grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
   grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
@@ -557,6 +558,7 @@ button.big {
 .tree-inner {
   position: relative;
   z-index: 1;
+  isolation: isolate;
   padding: 8px 12px 14px;
 }
 .tree-head {
