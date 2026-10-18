@@ -530,7 +530,7 @@ button.big {
   position: absolute;
   inset: 0;
   z-index: 0;
-  container-type: size;
+  container-type: inline-size;
   overflow: hidden;
   opacity: 0.7;
   pointer-events: none;
