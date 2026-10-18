@@ -6,13 +6,13 @@ const base = import.meta.env.BASE_URL;
  */
 export function Background({ name }: { name: string }) {
   const src = (part: string) => `${base}data/backgrounds/${name}-${part}.png`;
-  const img = (part: string, style: React.CSSProperties) => <img className="bg-part" alt="" src={src(part)} style={style} draggable={false} loading="lazy" decoding="async" />;
+  const img = (part: string, className: string) => <img className={`bg-part ${className}`} alt="" src={src(part)} draggable={false} decoding="async" />;
   return (
     <div className="bg" aria-hidden="true">
-      {img("TopLeft", { left: 0, top: 0, width: "80%", height: "66.667%" })}
-      {img("TopRight", { left: "80%", top: 0, width: "20%", height: "66.667%" })}
-      {img("BottomLeft", { left: 0, top: "66.667%", width: "80%", height: "33.333%" })}
-      {img("BottomRight", { left: "80%", top: "66.667%", width: "20%", height: "33.333%" })}
+      {img("TopLeft", "top-left")}
+      {img("TopRight", "top-right")}
+      {img("BottomLeft", "bottom-left")}
+      {img("BottomRight", "bottom-right")}
     </div>
   );
 }
