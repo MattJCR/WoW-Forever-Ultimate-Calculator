@@ -39,7 +39,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
         <a className="brand" href={href("", q)}>
           <img
             className="brand-mark"
-            src={`${import.meta.env.BASE_URL}logo-forever.jpg`}
+            src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`}
             alt="WoW Forever"
           />
           <span className="brand-text">
