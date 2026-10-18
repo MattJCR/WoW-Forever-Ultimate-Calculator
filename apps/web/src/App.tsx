@@ -39,7 +39,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
         <a className="brand" href={href("", q)}>
           <img
             className="brand-mark"
-            src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt527dd61848a757c7/6aa3316cad92093ee45628fd/camelot-logo-gamepage.png"
+            src={`${import.meta.env.BASE_URL}favicon-talentos.png`}
             alt="WoW Forever"
           />
           <span className="brand-text">
