@@ -204,7 +204,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       {view === "legacy" &&
         (legacy ? (
           <>
-            <Banner idx={legacy} build={legacyBuild} title="PUNTOS DE LEGADO" hint={`Ventajas de cuenta · se eligen antes que los talentos: Talentoso adelanta el primer punto de talento`} legacy />
+            <Banner idx={legacy} build={legacyBuild} title="Puntos de Legado" hint={`Ventajas de cuenta · se eligen antes que los talentos: Talentoso adelanta el primer punto de talento`} legacy />
             <Workspace key="legacy" idx={legacy} build={legacyBuild} setBuild={setLegacyBuild} />
           </>
         ) : (

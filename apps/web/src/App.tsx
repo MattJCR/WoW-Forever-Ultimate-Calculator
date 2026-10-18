@@ -43,7 +43,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
             alt="WoW Forever"
           />
           <span className="brand-text">
-            <b>WoW Forever Ultimate Calculator</b>
+            <b>WOW FOREVER ULTIMATE CALCULATOR</b>
             <small>
               Calculadora de talentos de WoW Forever · datos de la beta {manifest.build} · {manifest.generatedAt.slice(0, 10)}
             </small>
