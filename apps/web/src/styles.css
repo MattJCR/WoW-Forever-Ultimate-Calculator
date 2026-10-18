@@ -533,14 +533,14 @@ button.big {
   grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
   grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
   overflow: hidden;
-  opacity: 0.55;
+  opacity: 0.7;
   pointer-events: none;
 }
 .bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(10, 8, 5, 0.55), rgba(10, 8, 5, 0.25) 40%, rgba(10, 8, 5, 0.6));
+  background: linear-gradient(rgba(10, 8, 5, 0.45), rgba(10, 8, 5, 0.2) 40%, transparent 82%);
 }
 .bg-part {
   display: block;
