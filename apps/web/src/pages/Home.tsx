@@ -18,7 +18,7 @@ export function Home({ manifest }: { manifest: Manifest }) {
             <b>Raza</b> <span className="muted">(las que el cliente permite para tu clase, con sus raciales)</span>
           </li>
           <li>
-            <b>Legacy</b> <span className="muted">(ventajas de cuenta: Talentoso adelanta el primer punto de talento)</span>
+            <b>Puntos de Legado</b> <span className="muted">(ventajas de cuenta: Talentoso adelanta el primer punto de talento)</span>
           </li>
           <li>
             <b>Clase y talentos</b>
@@ -51,7 +51,7 @@ export function Home({ manifest }: { manifest: Manifest }) {
         <h3>Qué hay y qué viene</h3>
         <ul>
           <li>
-            <strong>Ya:</strong> árboles de las 9 clases con iconos y descripción por rango, Legacy (16 puntos de cuenta que se suman a los de clase), reglas de puntos del cliente, enlace compartible y «Copiar build para IA».
+            <strong>Ya:</strong> árboles de las 9 clases con iconos y descripción por rango, Puntos de Legado (16 puntos de cuenta que se suman a los de clase), reglas de puntos del cliente, enlace compartible y «Copiar build para IA».
           </li>
           <li>
             <strong>Pronto:</strong> bonificaciones de la raza en cifras, estadísticas, y cambios en daño, curación, coste y enfriamiento según el nivel.

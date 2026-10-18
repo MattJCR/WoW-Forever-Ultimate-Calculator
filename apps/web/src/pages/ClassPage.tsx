@@ -33,7 +33,7 @@ type View = "race" | "legacy" | "talents" | "summary";
 // Talentoso (Legacy) adelanta el primer punto de talento y cambia el nivel que exigen.
 const VIEWS: { id: View; n: number; label: string }[] = [
   { id: "race", n: 1, label: "Raza" },
-  { id: "legacy", n: 2, label: "Legacy" },
+  { id: "legacy", n: 2, label: "Puntos de Legado" },
   { id: "talents", n: 3, label: "Talentos" },
   { id: "summary", n: 4, label: "Resumen" },
 ];
@@ -204,11 +204,11 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       {view === "legacy" &&
         (legacy ? (
           <>
-            <Banner idx={legacy} build={legacyBuild} title="Legacy" hint={`Ventajas de cuenta · se eligen antes que los talentos: Talentoso adelanta el primer punto de talento`} legacy />
+            <Banner idx={legacy} build={legacyBuild} title="PUNTOS DE LEGADO" hint={`Ventajas de cuenta · se eligen antes que los talentos: Talentoso adelanta el primer punto de talento`} legacy />
             <Workspace key="legacy" idx={legacy} build={legacyBuild} setBuild={setLegacyBuild} />
           </>
         ) : (
-          <p className="status">Cargando Legacy…</p>
+          <p className="status">Cargando Puntos de Legado…</p>
         ))}
       {view === "talents" && (
         <>
@@ -234,7 +234,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
         </button>
         <span className="share-sep" aria-hidden="true" />
         <span className="share-label">Theorycraft</span>
-        <button type="button" className="gold" id="copyAI" onClick={copyForAI} title="Copia este build con el texto completo de cada talento (clase y Legacy), para pegarlo en una IA y preguntarle algo">
+        <button type="button" className="gold" id="copyAI" onClick={copyForAI} title="Copia este build con el texto completo de cada talento (clase y Puntos de Legado), para pegarlo en una IA y preguntarle algo">
           Copiar build para IA
         </button>
         <a className="btn" href={`${import.meta.env.BASE_URL}data/classes/${token}.json`} target="_blank" rel="noreferrer" title="Esta clase como JSON: cada talento a cada rango">
@@ -378,7 +378,7 @@ function Workspace({
   return (
     <>
       <div className="panel-head">
-        <h3>{isClass ? "Talentos" : "Ventajas de Legacy"}</h3>
+        <h3>{isClass ? "Talentos" : "Ventajas de Puntos de Legado"}</h3>
         <span className="split" title="Puntos por árbol">
           {idx.data.specs.map((s) => specPoints(idx, build, s.index)).join(" / ")}
         </span>
@@ -460,15 +460,15 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       <div className="panel-head">
         <h3>Resumen</h3>
         <span className="left">
-          Clase <b>{summary.classPoints}/{summary.classMax}</b> · Legacy <b>{summary.legacyPoints}/{summary.legacyMax}</b>
+          Clase <b>{summary.classPoints}/{summary.classMax}</b> · Puntos de Legado <b>{summary.legacyPoints}/{summary.legacyMax}</b>
         </span>
         <span className="lvl">
           Rango de nivel <b>{minLevel}–60</b>
         </span>
       </div>
       <p className="muted small">
-        {summary.firstPointFromLegacy && `Con Talentoso (Legacy) el primer punto de talento llega al nivel ${summary.firstPointLevel}. `}
-        Los efectos valen desde el nivel {minLevel} (el que exigen los {summary.classPoints} puntos de clase gastados) hasta el 60. Las ventajas de Legacy no dependen del nivel: se ganan con desafíos de cuenta.
+        {summary.firstPointFromLegacy && `Con Talentoso (Puntos de Legado) el primer punto de talento llega al nivel ${summary.firstPointLevel}. `}
+        Los efectos valen desde el nivel {minLevel} (el que exigen los {summary.classPoints} puntos de clase gastados) hasta el 60. Las ventajas de Puntos de Legado no dependen del nivel: se ganan con desafíos de cuenta.
       </p>
       <div className="summary-toolbar">
         <button type="button" onClick={() => setAll(true)}>Expandir todo</button>
@@ -482,7 +482,7 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       )}
       {race && section("race-totals", "Bonificaciones de la raza", <RaceTotals race={race} classId={idx.data.classId} />)}
       {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} minLevel={minLevel} fx={fx} />)}
-      {section("effects", "Efectos sumados de tus talentos, Legacy y raza", <StatEffectsView fx={fx} loading={fxLoading} />)}
+      {section("effects", "Efectos sumados de tus talentos, Puntos de Legado y raza", <StatEffectsView fx={fx} loading={fxLoading} />)}
       {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} minLevel={minLevel} />)}
       {section(
         "class-talents",
@@ -492,8 +492,8 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       )}
       {section(
         "legacy-talents",
-        "Ventajas de Legacy",
-        <SummaryList items={legacyTalents} empty={legacyLoaded ? "Aún no has gastado puntos de Legacy." : "Cargando Legacy…"} />,
+        "Ventajas de Puntos de Legado",
+        <SummaryList items={legacyTalents} empty={legacyLoaded ? "Aún no has gastado Puntos de Legado." : "Cargando Puntos de Legado…"} />,
         `${legacyTalents.length}`,
       )}
 

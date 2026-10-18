@@ -81,7 +81,7 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
       </table>
       {derived && (
         <>
-          <h5 className="fx-sub">Con tus talentos, Legacy y raza</h5>
+          <h5 className="fx-sub">Con tus talentos, Puntos de Legado y raza</h5>
           <table className="stats-table">
             <thead>
               <tr>

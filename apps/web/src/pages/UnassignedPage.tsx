@@ -192,7 +192,7 @@ export function UnassignedPage() {
     <div className="unassigned">
       <h2>Datos del cliente sin asignar</h2>
       <p className="muted">
-        Lo que el cliente (build {build}) trae pero no forma parte de un árbol de clase activo ni de Legacy. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos{" "}
+        Lo que el cliente (build {build}) trae pero no forma parte de un árbol de clase activo ni de Puntos de Legado. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos{" "}
         <strong>gratis</strong>: no cuesta puntos, no tiene requisitos y no cuenta en ningún build.
       </p>
 
@@ -236,9 +236,9 @@ export function UnassignedPage() {
       </section>
 
       <section aria-labelledby="legacy-title">
-        <h3 id="legacy-title">Ventajas de Legacy que no están en ningún árbol ({legacyFree.length})</h3>
+        <h3 id="legacy-title">Ventajas de Puntos de Legado que no están en ningún árbol ({legacyFree.length})</h3>
         <p className="muted">
-          Ventajas de la calculadora de Legacy que el cliente define pero no coloca en ninguno de sus 3 árboles (se reconocen por su rango de hechizos, contiguo al de las colocadas). Cada una suele tener dos versiones de entrada; aquí se muestra una sola tarjeta por ventaja.
+          Ventajas de Puntos de Legado que el cliente define pero no coloca en ninguno de sus 3 árboles (se reconocen por su rango de hechizos, contiguo al de las colocadas). Cada una suele tener dos versiones de entrada; aquí se muestra una sola tarjeta por ventaja.
         </p>
         <ul className="entry-grid">
           {legacyFree.map(({ first, versions }) => (
@@ -248,7 +248,7 @@ export function UnassignedPage() {
         {legacyDup.length > 0 && (
           <details className="dup-details">
             <summary>Entradas repetidas de ventajas que sí están colocadas ({legacyDup.length})</summary>
-            <p className="muted small">Son versiones antiguas o duplicadas de ventajas que ya aparecen en los árboles de Legacy (mismo hechizo). Se conservan por si hace falta compararlas.</p>
+            <p className="muted small">Son versiones antiguas o duplicadas de ventajas que ya aparecen en los árboles de Puntos de Legado (mismo hechizo). Se conservan por si hace falta compararlas.</p>
             <ul className="entry-grid">
               {legacyDup.map((e) => (
                 <EntryCard key={e.entryId} e={e} />

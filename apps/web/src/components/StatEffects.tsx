@@ -16,7 +16,7 @@ const valueText = (t: StatTotal): string => {
 };
 
 const sourceText = (s: StatSource): string => (s.maxRank > 1 ? `${s.name} ${s.rank}/${s.maxRank}` : s.name);
-const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Legacy", race: "raza" };
+const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Puntos de Legado", race: "raza" };
 
 export interface EffectsInput {
   manifest: Manifest;
@@ -51,7 +51,7 @@ export function StatEffectsView({ fx, loading }: { fx: StatEffects | null; loadi
   return (
     <>
       {byCategory.length === 0 ? (
-        <p className="muted">Aún no hay cifras que sumar: gasta puntos en talentos o Legacy, o elige una raza.</p>
+        <p className="muted">Aún no hay cifras que sumar: gasta puntos en talentos o Puntos de Legado, o elige una raza.</p>
       ) : (
         <table className="stats-table fx-table">
           <thead>

@@ -314,7 +314,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
 
       {lines.length > 0 && (
         <section>
-          <h5>Con tus talentos, Legacy y raza</h5>
+          <h5>Con tus talentos, Puntos de Legado y raza</h5>
           <ul className="ab-sum">
             {lines.map((l) => (
               <li key={`${l.category}-${l.label}`}>
@@ -525,7 +525,7 @@ export function AbilitiesTable({
       </div>
       <p className="muted small">
         <span className="tag tag-unassigned">Cliente</span> Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; el número junto al nombre cuenta los efectos de
-        talentos, Legacy y raza que le afectan. Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El poder con hechizos aún no se suma: depende de
+        talentos, Puntos de Legado y raza que le afectan. Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El poder con hechizos aún no se suma: depende de
         las estadísticas de Forever, que no están en el cliente.
       </p>
       {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId } : null} />}
