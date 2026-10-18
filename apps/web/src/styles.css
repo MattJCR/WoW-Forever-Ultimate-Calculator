@@ -529,10 +529,8 @@ button.big {
 .bg {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
-  grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
+  z-index: 0;
+  container-type: size;
   overflow: hidden;
   opacity: 0.7;
   pointer-events: none;
@@ -544,22 +542,30 @@ button.big {
   background: linear-gradient(rgba(10, 8, 5, 0.45), rgba(10, 8, 5, 0.2) 40%, transparent 82%);
 }
 .bg-part {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
+  position: absolute;
   object-fit: fill;
 }
-.bg-part.top-left { grid-area: 1 / 1; }
-.bg-part.top-right { grid-area: 1 / 2; }
-.bg-part.bottom-left { grid-area: 2 / 1; }
-.bg-part.bottom-right { grid-area: 2 / 2; }
+.bg-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 83.3333cqh);
+  height: max(100cqh, 120cqw);
+  transform: translate(-50%, -50%);
+}
+.bg-part.top-left { left: 0; top: 0; width: 80%; height: 66.6667%; }
+.bg-part.top-right { left: 80%; top: 0; width: 20%; height: 66.6667%; }
+.bg-part.bottom-left { left: 0; top: 66.6667%; width: 80%; height: 33.3333%; }
+.bg-part.bottom-right { left: 80%; top: 66.6667%; width: 20%; height: 33.3333%; }
 .tree-inner {
   position: relative;
   z-index: 1;
   isolation: isolate;
   padding: 8px 12px 14px;
+}
+.tree-inner > :not(.bg) {
+  position: relative;
+  z-index: 1;
 }
 .tree-head {
   display: flex;

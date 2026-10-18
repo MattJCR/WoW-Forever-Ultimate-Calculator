@@ -9,10 +9,12 @@ export function Background({ name }: { name: string }) {
   const img = (part: string, className: string) => <img className={`bg-part ${className}`} alt="" src={src(part)} draggable={false} decoding="async" />;
   return (
     <div className="bg" aria-hidden="true">
-      {img("TopLeft", "top-left")}
-      {img("TopRight", "top-right")}
-      {img("BottomLeft", "bottom-left")}
-      {img("BottomRight", "bottom-right")}
+      <div className="bg-art">
+        {img("TopLeft", "top-left")}
+        {img("TopRight", "top-right")}
+        {img("BottomLeft", "bottom-left")}
+        {img("BottomRight", "bottom-right")}
+      </div>
     </div>
   );
 }
