@@ -530,8 +530,9 @@ button.big {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: 4fr 1fr;
-  grid-template-rows: 2fr 1fr;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 2fr) minmax(0, 1fr);
+  overflow: hidden;
   opacity: 0.55;
   pointer-events: none;
 }
@@ -545,6 +546,8 @@ button.big {
   display: block;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   object-fit: fill;
 }
 .bg-part.top-left { grid-area: 1 / 1; }
