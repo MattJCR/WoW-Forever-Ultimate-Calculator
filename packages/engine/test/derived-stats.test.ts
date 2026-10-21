@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, deriveStats, healthFromStamina, indexClass, manaFromIntellect, type StatTotal } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 const src = { from: "class" as const, name: "Talento", rank: 1, maxRank: 1 };
@@ -83,7 +83,7 @@ describe("estadísticas con talentos", () => {
 });
 
 describe("poder de ataque y poder con hechizos de talentos (cliente + notas de Blizzard)", () => {
-  const D2 = join(root, "data", "forever", "1.60.1.70425");
+  const D2 = join(root, "data", "forever", "1.60.1.70450");
   const j = (f: string) => JSON.parse(readFileSync(join(D2, f), "utf8"));
   const client = ClientStats.parse(j("client-stats.json"));
   const cls = (token: string) => ({
@@ -101,9 +101,9 @@ describe("poder de ataque y poder con hechizos de talentos (cliente + notas de B
     return { perStrength: c.attackPowerPerStrength, perAgility: c.attackPowerPerAgility, rangedPerAgility: c.rangedAttackPowerPerAgility };
   };
 
-  it("Campeón de la Luz 3/3 = 30 % del intelecto como poder con hechizos (Blizzard, 16 oct: «10/20/30 % del intelecto»)", () => {
+  it("Campeón de la Luz 3/3 = 60 % del intelecto como poder con hechizos (hotfix del 16/10: vuelve a 20/40/60 %; la nota de desarrollo del 15/10 decía 10/20/30 %)", () => {
     const { rows } = deriveStats({ attributes: [100, 80, 120, 200, 150], hpBase: 0, manaBase: 0, totals: totalsOf("paladin", "Campeón de la Luz"), attackPower: ap(2) });
-    expect(rows.find((r) => r.key === "spell-damage")!.final).toBe(60); // 30 % de 200
+    expect(rows.find((r) => r.key === "spell-damage")!.final).toBe(120); // 60 % de 200
     expect(rows.find((r) => r.key === "spell-healing")).toBeUndefined();
   });
 

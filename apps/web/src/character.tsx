@@ -1,4 +1,4 @@
-import { decodeBuild, encodeBuild, indexClass, type Build, type ClassIndex } from "@wfuc/engine";
+import { decodeBuildReport, encodeBuild, indexClass, type Build, type ClassIndex, type DecodeReport } from "@wfuc/engine";
 import type { Manifest } from "@wfuc/schema";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { loadLegacy, useAsync } from "./data";
@@ -14,6 +14,8 @@ interface CharacterState {
   legacyCode: string;
   /** true cuando Legacy ya se cargo y se aplico el enlace: hasta entonces nadie debe reescribir `l` en el enlace. */
   legacyReady: boolean;
+  /** Lo que el enlace (o lo guardado) de Legacy no pudo conservar al leerlo con los datos actuales; null si encajaba. */
+  legacyReport: DecodeReport | null;
   setLegacyBuild: (update: (b: Build) => Build) => void;
 }
 
@@ -42,6 +44,13 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
   const legacy = useMemo(() => (state.status === "ready" ? indexClass(state.value) : null), [state]);
   const [build, setBuild] = useState<Build>({});
   const [ready, setReady] = useState(false);
+  const [legacyReport, setLegacyReport] = useState<DecodeReport | null>(null);
+  /** Aplica un codigo de Legacy: conserva lo valido y guarda el informe solo si algo no encajo. */
+  const applyCode = useCallback((idx: ClassIndex, code: string) => {
+    const r = decodeBuildReport(idx, code);
+    setBuild(r.build);
+    setLegacyReport(r.lost.length > 0 || r.malformed ? r : null);
+  }, []);
   const hydrated = useRef(false);
   // El `l` del enlace se lee al montar, ANTES de que la pagina de clase (aun sin Legacy cargado) reescriba el enlace sin el
   const initialL = useRef(parseHash(window.location.hash).query.get("l"));
@@ -51,9 +60,9 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
     if (!legacy || hydrated.current) return;
     hydrated.current = true;
     const code = initialL.current ?? readStored();
-    if (code) setBuild(decodeBuild(legacy, code) ?? {});
+    if (code) applyCode(legacy, code);
     setReady(true);
-  }, [legacy]);
+  }, [legacy, applyCode]);
 
   // Un enlace nuevo con otro `l` (p. ej. pegado en la misma pestana) manda sobre el estado actual. Los cambios internos usan
   // replaceState y no disparan hashchange.
@@ -61,11 +70,11 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
     if (!legacy) return;
     const on = () => {
       const code = parseHash(window.location.hash).query.get("l");
-      if (code !== null) setBuild(decodeBuild(legacy, code) ?? {});
+      if (code !== null) applyCode(legacy, code);
     };
     window.addEventListener("hashchange", on);
     return () => window.removeEventListener("hashchange", on);
-  }, [legacy]);
+  }, [legacy, applyCode]);
 
   const legacyCode = useMemo(() => (legacy ? encodeBuild(legacy, build) : ""), [legacy, build]);
   useEffect(() => {
@@ -78,7 +87,7 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
   }, [legacy, legacyCode]);
 
   const setLegacyBuild = useCallback((update: (b: Build) => Build) => setBuild((b) => update(b)), []);
-  const value = useMemo(() => ({ manifest, legacy, legacyBuild: build, legacyCode, legacyReady: ready, setLegacyBuild }), [manifest, legacy, build, legacyCode, ready, setLegacyBuild]);
+  const value = useMemo(() => ({ manifest, legacy, legacyBuild: build, legacyCode, legacyReady: ready, legacyReport, setLegacyBuild }), [manifest, legacy, build, legacyCode, ready, legacyReport, setLegacyBuild]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

@@ -1,0 +1,1789 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70450",
+  "locale": "esES",
+  "playableProvenance": "client-db2",
+  "races": [
+    {
+      "id": 1,
+      "token": "Human",
+      "name": "Humano",
+      "nameFemale": "Humana",
+      "faction": "alliance",
+      "classIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "racialSkillLineId": 754,
+      "racials": [
+        {
+          "name": "Voluntad de supervivencia",
+          "kind": "active",
+          "description": "Elimina al instante todos los efectos de aturdimiento.",
+          "iconFileDataId": 136129,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259718,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "name": "Percepción",
+          "kind": "active",
+          "description": "Mejora la detección de los enemigos en modo de sigilo.",
+          "iconFileDataId": 136090,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20600,
+              "classMask": 0,
+              "durationMs": 20000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 17,
+                  "value": 50,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Crueldad",
+          "kind": "passive",
+          "description": "Aumenta la probabilidad de golpe crítico un 2%.",
+          "iconFileDataId": 132292,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20597,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "crit-chance",
+                  "aura": 290,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "El espíritu humano",
+          "kind": "passive",
+          "description": "Aumenta un 5% el espíritu.",
+          "iconFileDataId": 132874,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20598,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spirit-pct",
+                  "aura": 137,
+                  "value": 5,
+                  "miscValue": 4,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "token": "Dwarf",
+      "name": "Enano",
+      "nameFemale": "Enana",
+      "faction": "alliance",
+      "classIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7
+      ],
+      "racialSkillLineId": 101,
+      "racials": [
+        {
+          "name": "Forma de piedra",
+          "kind": "active",
+          "description": "Reduce el daño físico recibido y elimina al instante el sangrado, el veneno y las enfermedades.",
+          "iconFileDataId": 136225,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20594,
+              "classMask": 0,
+              "durationMs": 8000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-taken-pct",
+                  "aura": 87,
+                  "value": -10,
+                  "miscValue": 1,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 41,
+                  "value": 0,
+                  "miscValue": 3,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 41,
+                  "value": 0,
+                  "miscValue": 4,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 0,
+                  "miscValue": 15,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Encontrar tesoro",
+          "kind": "active",
+          "description": "Rastrea arquetas cercanas en el minimapa.",
+          "iconFileDataId": 135725,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 2481,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 45,
+                  "value": 0,
+                  "miscValue": 6,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Furia de la tierra",
+          "kind": "passive",
+          "description": "El daño crítico y la sanación aumentan un 2%.",
+          "iconFileDataId": 462325,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259719,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "crit-damage-bonus",
+                  "aura": 163,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "crit-healing-bonus",
+                  "aura": 50,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Caza mayor",
+          "kind": "passive",
+          "description": "Daño infligido contra bestias aumentado un 5%.",
+          "iconFileDataId": 135614,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259721,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-vs-creature",
+                  "aura": 168,
+                  "value": 5,
+                  "miscValue": 1,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "token": "NightElf",
+      "name": "Elfo de la noche",
+      "nameFemale": "Elfa de la noche",
+      "faction": "alliance",
+      "classIds": [
+        1,
+        3,
+        4,
+        5,
+        11
+      ],
+      "racialSkillLineId": 126,
+      "racials": [
+        {
+          "name": "Luz de Elune",
+          "kind": "active",
+          "description": "Aumenta un 10% la probabilidad de golpe crítico.",
+          "iconFileDataId": 136057,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259799,
+              "classMask": 0,
+              "durationMs": 15000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "crit-chance",
+                  "aura": 290,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Fusión de las Sombras",
+          "kind": "active",
+          "description": "Obtienes sigilo al estar inmóvil.",
+          "iconFileDataId": 132089,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20580,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": 10000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 16,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 103,
+                  "value": -999999,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Presura",
+          "kind": "passive",
+          "description": "Probabilidad de esquivar aumentada un 1%, y velocidad de movimiento aumentada un 2%.",
+          "iconFileDataId": 132279,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20582,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "dodge-pct",
+                  "aura": 49,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "movement-speed-pct",
+                  "aura": 129,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Espíritu de fuego fatuo",
+          "kind": "passive",
+          "description": "Velocidad de movimiento aumentada un 75% mientras estás muerto.",
+          "iconFileDataId": 136116,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20585,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "movement-speed-pct",
+                  "aura": 31,
+                  "value": 75,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": 20584
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "token": "Gnome",
+      "name": "Gnomo",
+      "nameFemale": "Gnoma",
+      "faction": "alliance",
+      "classIds": [
+        1,
+        4,
+        5,
+        8,
+        9
+      ],
+      "racialSkillLineId": 753,
+      "racials": [
+        {
+          "name": "Artista del escape",
+          "kind": "active",
+          "description": "Inmune a los efectos de reducción de movimiento durante 3 s.",
+          "iconFileDataId": 132309,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20589,
+              "classMask": 0,
+              "durationMs": 3000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 10,
+                  "miscValue": 7,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 10,
+                  "miscValue": 11,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "¡Eureka!",
+          "kind": "active",
+          "description": "Reducción de coste y 10% más de daño o sanación durante 8 s.",
+          "iconFileDataId": 4226119,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259812,
+              "classMask": 8,
+              "durationMs": 8000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": -10,
+                  "miscValue": 14,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259813,
+              "classMask": 1,
+              "durationMs": 8000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": -10,
+                  "miscValue": 14,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259817,
+              "classMask": 128,
+              "durationMs": 8000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": -10,
+                  "miscValue": 14,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": 22,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259821,
+              "classMask": 256,
+              "durationMs": 8000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": -10,
+                  "miscValue": 14,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": 22,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259823,
+              "classMask": 16,
+              "durationMs": 8000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": -10,
+                  "miscValue": 14,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-modifier-pct",
+                  "aura": 108,
+                  "value": 10,
+                  "miscValue": 22,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mente expansiva",
+          "kind": "passive",
+          "description": "Maná, ira o energía máximos amentados un 5%.",
+          "iconFileDataId": 132864,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20591,
+              "classMask": 400,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "max-power-pct",
+                  "aura": 178,
+                  "value": 5,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259802,
+              "classMask": 1,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "max-power-pct",
+                  "aura": 178,
+                  "value": 5,
+                  "miscValue": 1,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1259803,
+              "classMask": 8,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "max-power-pct",
+                  "aura": 178,
+                  "value": 5,
+                  "miscValue": 3,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Especialización de ingeniería",
+          "kind": "passive",
+          "description": "Probabilidad de que fallen los dispositivos de ingeniería reducida un 20%.",
+          "iconFileDataId": 134063,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20593,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 20,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "token": "Skyborne",
+      "name": "Cielonato de la Orden Eminente",
+      "nameFemale": "Cielonata de la Orden Eminente",
+      "faction": "alliance",
+      "classIds": [
+        1,
+        3,
+        4,
+        8,
+        11
+      ],
+      "racialSkillLineId": 2980,
+      "racials": [
+        {
+          "name": "Caminar sobre el aire",
+          "kind": "active",
+          "description": "Planeas hacia abajo en el aire durante 10 s",
+          "iconFileDataId": 132845,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259416,
+              "classMask": 0,
+              "durationMs": 10000,
+              "cooldownMs": 90000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 105,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 409,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2402,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2403,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2754,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Leer línea Ley",
+          "kind": "active",
+          "description": "Activa una línea Ley que aumenta un 100% la regeneración de salud y de maná durante 5 min",
+          "iconFileDataId": 236219,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259705,
+              "classMask": 0,
+              "durationMs": 30000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "mana-regen-pct",
+                  "aura": 110,
+                  "value": 100,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": 1259691
+                },
+                {
+                  "kind": "health-regen-pct",
+                  "aura": 88,
+                  "value": 100,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": 1259691
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Bendición del viento",
+          "kind": "passive",
+          "description": "Obtienes un 3% de celeridad.",
+          "iconFileDataId": 463565,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259710,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "haste-melee-ranged-pct",
+                  "aura": 342,
+                  "value": 3,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "haste-spell-pct",
+                  "aura": 65,
+                  "value": 3,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Perspicacia elemental",
+          "kind": "passive",
+          "description": "Daño infligido a elementales aumentado un 5%",
+          "iconFileDataId": 4630367,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259707,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-vs-creature",
+                  "aura": 168,
+                  "value": 5,
+                  "miscValue": 8,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "token": "Orc",
+      "name": "Orco",
+      "nameFemale": "Orca",
+      "faction": "horde",
+      "classIds": [
+        1,
+        3,
+        4,
+        7,
+        8,
+        9
+      ],
+      "racialSkillLineId": 125,
+      "racials": [
+        {
+          "name": "Furia sangrienta",
+          "kind": "active",
+          "description": "Aumenta un 10% el poder de ataque y el poder con hechizos.",
+          "iconFileDataId": 135726,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20572,
+              "classMask": 0,
+              "durationMs": 15000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "attack-power-pct",
+                  "aura": 166,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "ranged-attack-power-pct",
+                  "aura": 167,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "spell-power-pct",
+                  "aura": 317,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Trizar maldición",
+          "kind": "active",
+          "description": "Elimina los terrores y las maldiciones, y reduce el daño mágico recibido durante 8 s.",
+          "iconFileDataId": 136082,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1299026,
+              "classMask": 0,
+              "durationMs": 8000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-taken-pct",
+                  "aura": 87,
+                  "value": -5,
+                  "miscValue": 126,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Salvajismo",
+          "kind": "passive",
+          "description": "Aumenta la probabilidad de golpe crítico un 1%.",
+          "iconFileDataId": 132393,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20574,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "crit-chance",
+                  "aura": 290,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Firmeza",
+          "kind": "passive",
+          "description": "Duración del aturdimiento reducida un 20%.",
+          "iconFileDataId": 133125,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20573,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "stun-duration-pct",
+                  "aura": 232,
+                  "value": -20,
+                  "miscValue": 12,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "token": "Scourge",
+      "name": "No-muerto",
+      "nameFemale": "No-muerta",
+      "faction": "horde",
+      "classIds": [
+        1,
+        2,
+        4,
+        5,
+        8,
+        9
+      ],
+      "racialSkillLineId": 220,
+      "racials": [
+        {
+          "name": "Voluntad de los Renegados",
+          "kind": "active",
+          "description": "Elimina al instante todos los efectos de embelesamiento, miedo y sueño.",
+          "iconFileDataId": 136187,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 7744,
+              "classMask": 0,
+              "durationMs": 100,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 1,
+                  "miscValue": 1,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 1,
+                  "miscValue": 5,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 77,
+                  "value": 1,
+                  "miscValue": 10,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Canibalismo",
+          "kind": "active",
+          "description": "Consume un cadáver no-muerto o humanoide para regenerar un 35% de la salud y el maná durante 10 s.",
+          "iconFileDataId": 132278,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20577,
+              "classMask": 0,
+              "durationMs": 10000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "periodic-health-pct",
+                  "aura": 20,
+                  "value": 7,
+                  "miscValue": null,
+                  "periodMs": 2000,
+                  "fromSpellId": 20578
+                },
+                {
+                  "kind": "periodic-mana-pct",
+                  "aura": 21,
+                  "value": 7,
+                  "miscValue": null,
+                  "periodMs": 2000,
+                  "fromSpellId": 20578
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Respiración subacuática",
+          "kind": "passive",
+          "description": "La respiración bajo el agua dura un 300% más.",
+          "iconFileDataId": 136148,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 5227,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 155,
+                  "value": 300,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Toque de la tumba",
+          "kind": "passive",
+          "description": "Tus ataques a veces drenan salud del objetivo.",
+          "iconFileDataId": 136157,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1260189,
+              "classMask": 11,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": 20,
+              "procCooldownMs": 25000,
+              "effects": [
+                {
+                  "kind": "proc-drain-health-pct",
+                  "aura": 4,
+                  "value": 5,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            },
+            {
+              "spellId": 1260201,
+              "classMask": 400,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": 30,
+              "procCooldownMs": 25000,
+              "effects": [
+                {
+                  "kind": "proc-drain-health-pct",
+                  "aura": 4,
+                  "value": 5,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "token": "Tauren",
+      "name": "Tauren",
+      "nameFemale": "Tauren",
+      "faction": "horde",
+      "classIds": [
+        1,
+        3,
+        7,
+        11
+      ],
+      "racialSkillLineId": 124,
+      "racials": [
+        {
+          "name": "Pisotón de guerra",
+          "kind": "active",
+          "description": "Aturde a un máximo de 5 enemigos cercanos durante 2 s.",
+          "iconFileDataId": 132368,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20549,
+              "classMask": 0,
+              "durationMs": 2000,
+              "cooldownMs": 90000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 12,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Cultivo",
+          "kind": "active",
+          "description": "Cultiva más hierbas que puedes recoger sin necesidad de herboristería.",
+          "iconFileDataId": 133938,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20552,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": []
+            }
+          ]
+        },
+        {
+          "name": "Correr planicies",
+          "kind": "passive",
+          "description": "Acumulas velocidad de movimiento aumentada mientras te desplazas y te mueves más rápido al montar.",
+          "iconFileDataId": 236717,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259918,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 226,
+                  "value": 1,
+                  "miscValue": null,
+                  "periodMs": 1000,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 5,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 4,
+                  "value": 30,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "mounted-speed-pct",
+                  "aura": 130,
+                  "value": 3,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Robustez",
+          "kind": "passive",
+          "description": "La salud total aumenta un 5% y el daño crítico y la sanación aumentan un 2%.",
+          "iconFileDataId": 136112,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20550,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "health-pct",
+                  "aura": 133,
+                  "value": 5,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "crit-damage-bonus",
+                  "aura": 163,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "crit-healing-bonus",
+                  "aura": 50,
+                  "value": 2,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "token": "Troll",
+      "name": "Trol",
+      "nameFemale": "Trol",
+      "faction": "horde",
+      "classIds": [
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+      ],
+      "racialSkillLineId": 733,
+      "racials": [
+        {
+          "name": "Rabiar",
+          "kind": "active",
+          "description": "Aumenta un 10% la velocidad de ataque y lanzamiento.",
+          "iconFileDataId": 135727,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20554,
+              "classMask": 0,
+              "durationMs": 10000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "haste-melee-pct",
+                  "aura": 319,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "haste-ranged-pct",
+                  "aura": 140,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "haste-spell-pct",
+                  "aura": 65,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Regeneración rápida",
+          "kind": "active",
+          "description": "Regeneras un 50% de la salud máxima durante 6 s.",
+          "iconFileDataId": 1850550,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1260270,
+              "classMask": 0,
+              "durationMs": 6000,
+              "cooldownMs": 180000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "periodic-health-pct",
+                  "aura": 20,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": 1200,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Matanza de bestias",
+          "kind": "passive",
+          "description": "Daño infligido contra bestias aumentado un 5%.",
+          "iconFileDataId": 134357,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20557,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-vs-creature",
+                  "aura": 168,
+                  "value": 5,
+                  "miscValue": 1,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Regeneración",
+          "kind": "passive",
+          "description": "El 20% de regeneración de salud continúa durante el combate y aumenta un 20% en todo momento.",
+          "iconFileDataId": 136077,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 20555,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "health-regen-pct",
+                  "aura": 88,
+                  "value": 20,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "health-regen-combat-pct",
+                  "aura": 116,
+                  "value": 20,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "token": "Skyborne",
+      "name": "Cielonato Formavientos",
+      "nameFemale": "Cielonata Formavientos",
+      "faction": "horde",
+      "classIds": [
+        1,
+        3,
+        4,
+        7,
+        11
+      ],
+      "racialSkillLineId": 2980,
+      "racials": [
+        {
+          "name": "Caminar sobre el aire",
+          "kind": "active",
+          "description": "Planeas hacia abajo en el aire durante 10 s",
+          "iconFileDataId": 132845,
+          "order": 0,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259416,
+              "classMask": 0,
+              "durationMs": 10000,
+              "cooldownMs": 90000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": null,
+                  "aura": 105,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 409,
+                  "value": 0,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2402,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2403,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": null,
+                  "aura": 139,
+                  "value": 0,
+                  "miscValue": 2754,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Visión cielonata",
+          "kind": "active",
+          "description": "Recibes una bendición elemental que aumenta un 10% la velocidad de movimiento durante 5 min",
+          "iconFileDataId": 1029587,
+          "order": 1,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259686,
+              "classMask": 0,
+              "durationMs": 30000,
+              "cooldownMs": 120000,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "movement-speed-pct",
+                  "aura": 31,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": 1259688
+                },
+                {
+                  "kind": "mounted-speed-pct",
+                  "aura": 172,
+                  "value": 10,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": 1259688
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Bendición del viento",
+          "kind": "passive",
+          "description": "Obtienes un 3% más de celeridad.",
+          "iconFileDataId": 463565,
+          "order": 2,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259710,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "haste-melee-ranged-pct",
+                  "aura": 342,
+                  "value": 3,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                },
+                {
+                  "kind": "haste-spell-pct",
+                  "aura": 65,
+                  "value": 3,
+                  "miscValue": null,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Perspicacia elemental",
+          "kind": "passive",
+          "description": "Daño infligido a elementales aumentado un 5%",
+          "iconFileDataId": 4630367,
+          "order": 3,
+          "textOrigin": "client",
+          "spells": [
+            {
+              "spellId": 1259707,
+              "classMask": 0,
+              "durationMs": null,
+              "cooldownMs": null,
+              "procChance": null,
+              "procCooldownMs": null,
+              "effects": [
+                {
+                  "kind": "damage-vs-creature",
+                  "aura": 168,
+                  "value": 5,
+                  "miscValue": 8,
+                  "periodMs": null,
+                  "fromSpellId": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityChances, abilityEffectSummary, collectStatEffects, decodeBuild, findAbility, indexClass } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -19,8 +19,8 @@ const clientStats = ClientStats.parse(json("client-stats.json"));
 const cs = (classId: number, level: number) => clientStats.classes.find((c) => c.classId === classId)!.levels.find((l) => l.level === level) ?? null;
 const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
 
-const classBuild = decodeBuild(mage, "0002-0355200000003-0055300301020301251")!;
-const legacyBuild = decodeBuild(legacy, "255000002-02-")!;
+const classBuild = decodeBuild(mage, "V229luA1E1B2A1A1C2B4C3E1C1E6C8B1E1E1C6B")!;
+const legacyBuild = decodeBuild(legacy, "V22d3uE3E2B2B8B")!;
 const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race: human, abilities, rules });
 const row = stats.combos.find((c) => c.raceId === 1 && c.classId === 8)!.stats[59]!; // nivel 60
 const base = { str: row[0]!, agi: row[1]!, sta: row[2]!, int: row[3]!, spi: row[4]! };
@@ -35,15 +35,15 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(formulas.confidence).toBe("low");
   });
 
-  it("impacto contra el mismo nivel: 100 - 4 % de fallo + 5 de Enfoque elemental = 101, con tope 99", () => {
+  it("impacto contra el mismo nivel: 100 - 4 % de fallo + 6 de Enfoque elemental (hotfix 20/10: 3 rangos de 2 %) = 102, con tope 99", () => {
     const c = abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines });
     expect(c.kind).toBe("spell");
-    expect(c.hit).toMatchObject({ missPct: 4, bonusPct: 5, cap: 99, total: 99, capped: true });
+    expect(c.hit).toMatchObject({ missPct: 4, bonusPct: 6, cap: 99, total: 99, capped: true });
   });
 
-  it("impacto contra un jefe (+3): 100 - 17 + 5 = 88", () => {
+  it("impacto contra un jefe (+3): 100 - 17 + 6 = 89", () => {
     const c = abilityChances({ rank, classId: 8, level: 60, target: "boss", formulas, stats: base, classStats: cs(8, 60), lines });
-    expect(c.hit).toMatchObject({ missPct: 17, bonusPct: 5, total: 88, capped: false });
+    expect(c.hit).toMatchObject({ missPct: 17, bonusPct: 6, total: 89, capped: false });
   });
 
   it("sin talentos el impacto es la tabla de Classic (96 % contra el mismo nivel)", () => {

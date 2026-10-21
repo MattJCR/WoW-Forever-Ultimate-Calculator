@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityChances, abilityEffectSummary, canCrit, collectStatEffects, dealsDamage, findAbility, indexClass } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const rogue = indexClass(ClassTalents.parse(json("classes/rogue.json")));
 const abilities = Abilities.parse(json("abilities/rogue.json"));

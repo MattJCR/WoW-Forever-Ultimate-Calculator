@@ -1,38 +1,12 @@
 {
   "_readme": "Traducciones PROPIAS al español de textos que el cliente de la beta trae todavía en inglés (los hotfixes de Forever no estan localizados). Solo se usan mientras el texto del cliente siga en ingles: en cuanto el cliente traiga el español, manda el del cliente. Se marcan en la web como 'traduccion propia'. Mantienen los marcadores del cliente ($m1, $s1, ${$m1/2}...) y los nombres de hechizo en español del propio cliente.",
   "spells": {
-    "400588": "Da a tu hechizo Explosión Arcana un $m1% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha y Descarga de Pirofrío un ${$m1/2}% de probabilidad, de reducir un $400589s1% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un $400589s3% y hacer que los misiles se lancen cada ${$m2/10}.1 s.",
-    "17063": "Da a tus hechizos Arcanos y de Naturaleza un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "1310627": "Aumenta un $s1% el daño crítico de tus habilidades cuerpo a cuerpo y un $s2% el daño de tu arma de la mano izquierda.",
-    "11237": "Da a tu hechizo Misiles Arcanos un $m1% de probabilidad, y a tus hechizos Explosión Arcana y Cólera Arcana un $m2% de probabilidad, de no perder tiempo de lanzamiento cuando recibes daño.",
-    "11180": "Da a tus hechizos Descarga de Escarcha, Explosión de Escarcha y Lanza de hielo potenciada por Dedos de Escarcha un $m2% de probabilidad de aplicar Escalofrío del invierno, lo que aumenta un $12579s1% el daño que el objetivo recibe de tu siguiente Cono de frío y le suma un $s3% adicional de tu daño con hechizos, acumulándose hasta $s1 veces.",
-    "20177": "Te da un $m1% de probabilidad tras bloquear y un ${$m1*2.5}% de probabilidad tras recibir un golpe crítico no periódico de ganar un ataque extra. Almacena hasta $1326084u ataques extra. No puede ocurrir por bloqueos más de una vez cada ${$proccooldown}.1 s.",
-    "1309969": "Tus hechizos Acometida y Penitencia infligen un $m1% más de daño a los objetivos afectados por tu Fuego Sagrado o tu Palabra de las Sombras: Dolor.",
-    "14913": "Da a tus hechizos un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "29062": "Da a tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "16181": "Da a tus hechizos de sanación un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "17783": "Da a tus hechizos Drenar vida, Drenar maná, Drenar alma y Devastar un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "17917": "Aumenta un $s1% el alcance de tus hechizos de Destrucción.",
-    "18135": "Da a tus hechizos de Destrucción un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
-    "467": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "782": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "1075": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "8914": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "9756": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "9910": "Brotan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando lo golpean. Dura $d.",
-    "1326054": "Lanza rápidamente una débil ráfaga de escarcha contra el enemigo, lo que inflige $s2 p. de daño de Escarcha y ralentiza un $s1% su velocidad de movimiento durante $d.",
     "24118": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "24119": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "24120": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
-    "6495": "Invoca un tótem centinela inmóvil con $s1 p. de salud a tus pies durante $d que permite ver la zona cercana y avisa de los enemigos que lo ataquen. Haz clic derecho en la mejora para alternar entre la visión del tótem y la del chamán."
+    "400588": "Da a tu hechizo Explosión Arcana un $m1% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha, Explosión de Escarcha y Descarga de Pirofrío un ${$m1/2}% de probabilidad, de reducir un $400589s1% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un $400589s3% y hacer que los misiles se lancen cada ${$m2/10}.1 s.",
+    "1225435": "Descubres un $s1% más de materiales escasos con minería, herboristería y desuello."
   },
-  "names": {
-    "Frost Blast": "Explosión de Escarcha"
-  },
-  "racials": {
-    "Read Leyline": {
-      "name": "Leer línea ley",
-      "description": "Intentas aprovechar el poder de una línea ley cercana, lo que aumenta un 100% tu regeneración de salud y de maná. Dura 30 s si no hay ninguna línea ley cerca y 15 min si se encuentra una."
-    }
-  }
+  "names": {},
+  "racials": {}
 }

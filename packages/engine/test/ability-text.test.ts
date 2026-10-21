@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, decodeBuild, findAbility, indexClass, rankAtLevel, renderAbilityText, ruleAbilityDetail, ruleAppliesTo, ruleLines, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -28,16 +28,16 @@ describe("texto de la habilidad con las mejoras", () => {
     expect(renderAbilityText(r12, m).every((p) => !p.changed)).toBe(true);
   });
 
-  it("con Hielo penetrante 3/3 la Descarga de Escarcha sube un 6 % y las cifras cambiadas se marcan", () => {
+  it("con Inestabilidad Arcana 3/3 la Descarga de Escarcha sube un 3 % y las cifras cambiadas se marcan (Hielo penetrante se retiró el 20/10)", () => {
     const frostbolt = findAbility(abilities, "Descarga de Escarcha")!.ranks.at(-1)!;
     const none = text(renderAbilityText(frostbolt, applyModifiers(frostbolt, 60, [])));
-    const mods = spellModifiersOf(mage, full("Hielo penetrante"));
+    const mods = spellModifiersOf(mage, full("Inestabilidad Arcana"));
     const withTalent = renderAbilityText(frostbolt, applyModifiers(frostbolt, 60, mods));
     const nums = (s: string) => (s.match(/\d[\d.]*/g) ?? []).map((x) => Number(x.replace(/\./g, "")));
     const [lo0, hi0] = nums(none);
     const [lo1, hi1] = nums(text(withTalent));
-    expect(lo1! / lo0!).toBeCloseTo(1.06, 1);
-    expect(hi1! / hi0!).toBeCloseTo(1.06, 1);
+    expect(lo1! / lo0!).toBeCloseTo(1.03, 1);
+    expect(hi1! / hi0!).toBeCloseTo(1.03, 1);
     expect(withTalent.some((p) => p.changed)).toBe(true);
     expect(none).toMatch(/de \d+ a \d+ p\. de daño de Escarcha/);
   });
@@ -109,8 +109,8 @@ describe("reglas de talentos clasificadas a mano (Ignicion, Maestro de los eleme
   });
 
   it("los talentos con regla salen en los efectos sumados con su alcance y ya no en el texto suelto", () => {
-    const classBuild = decodeBuild(mage, "0002-0355200000003-0055300301020301251")!;
-    const legacyBuild = decodeBuild(legacy, "255000002-02-")!;
+    const classBuild = decodeBuild(mage, "V229luA1E1B2A1A1C2B4C3E1C1E6C8B1E1E1C6B")!;
+    const legacyBuild = decodeBuild(legacy, "V22d3uE3E2B2B8B")!;
     const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race: null, abilities, rules });
     const ign = fx.ruleEffects.find((r) => r.source.name === "Ignición")!;
     expect(ign.scope).toEqual(expect.arrayContaining(["Bola de Fuego", "Chamuscar", "Piroexplosión"]));
@@ -123,19 +123,19 @@ describe("reglas de talentos clasificadas a mano (Ignicion, Maestro de los eleme
 });
 
 describe("resumen de efectos por habilidad (tarjeta)", () => {
-  const classBuild = decodeBuild(mage, "0002-0355200000003-0055300301020301251")!;
-  const legacyBuild = decodeBuild(legacy, "255000002-02-")!;
+  const classBuild = decodeBuild(mage, "V229luA1E1B2A1A1C2B4C3E1C1E6C8B1E1E1C6B")!;
+  const legacyBuild = decodeBuild(legacy, "V22d3uE3E2B2B8B")!;
   const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
   const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race: human, abilities, rules });
 
-  it("Descarga de Escarcha suma crítico (+2 de la raza), impacto +5, bonus de crítico +100 y daño +6", () => {
+  it("Descarga de Escarcha suma crítico (+2 de la raza), impacto +6 y bonus de crítico +100 (sin daño: Hielo penetrante se retiró el 20/10)", () => {
     const s = abilityEffectSummary("Descarga de Escarcha", fx);
     const get = (cat: string) => s.lines.find((l) => l.category === cat)!;
     expect(get("Probabilidad de crítico")).toMatchObject({ value: 2, unit: "puntos porcentuales" });
     expect(get("Probabilidad de crítico").sources.map((x) => x.name)).toEqual(["Humano: Crueldad"]);
-    expect(get("Probabilidad de impacto").value).toBe(5);
+    expect(get("Probabilidad de impacto").value).toBe(6);
     expect(get("Bonus de daño crítico").value).toBe(100);
-    expect(get("Daño y curación").value).toBe(6);
+    expect(s.lines.some((l) => l.category === "Daño y curación")).toBe(false);
   });
 
   it("Explosión de Fuego suma el crítico de la raza y el de Incineración en una sola línea (+8)", () => {

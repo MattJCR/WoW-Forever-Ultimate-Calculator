@@ -14,7 +14,7 @@ import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70425";
+const BUILD = "1.60.1.70450";
 const load = (dir: string) => buildClassTalents(openRawTables(join(root, "data", "raw", dir)), BUILD, "esES");
 
 /** Con los hotfixes de la cache del juego aplicados: la verdad "en vivo". */
@@ -25,7 +25,7 @@ const legacyData = buildLegacy(openRawTables(join(root, "data", "raw", `${BUILD}
 const byToken = (r: typeof live, t: string) => r.classes.find((c) => c.classToken === t)!;
 const TOKENS = ["DRUID", "HUNTER", "MAGE", "PALADIN", "PRIEST", "ROGUE", "SHAMAN", "WARLOCK", "WARRIOR"];
 
-describe("arboles de talentos de Forever (cliente 1.60.1.70425, con hotfixes)", () => {
+describe("arboles de talentos de Forever (cliente 1.60.1.70450, con hotfixes)", () => {
   it("cumple el esquema en todas las clases", () => {
     for (const c of live.classes) expect(() => ClassTalents.parse(c)).not.toThrow();
   });
@@ -41,10 +41,10 @@ describe("arboles de talentos de Forever (cliente 1.60.1.70425, con hotfixes)", 
     expect(live.unresolved.map((u) => u.traitTreeId)).toEqual([1066, 1083]);
   });
 
-  it("el Mago tiene 55 talentos en 3 especializaciones (19/17/19) con la rejilla de 7x4", () => {
+  it("el Mago tiene 54 talentos en 3 especializaciones (19/17/18; Piercing Ice se retiró con el hotfix del 20/10) con la rejilla de 7x4", () => {
     const mage = byToken(live, "MAGE");
     expect(mage.traitTreeId).toBe(1112);
-    expect(mage.specs.map((s) => s.talents.length)).toEqual([19, 17, 19]);
+    expect(mage.specs.map((s) => s.talents.length)).toEqual([19, 17, 18]);
     for (const t of mage.specs.flatMap((s) => s.talents)) {
       expect(t.row).toBeGreaterThanOrEqual(0);
       expect(t.row).toBeLessThanOrEqual(6);
@@ -259,7 +259,7 @@ describe("seccion aparte: datos sin asignar", () => {
     const entries = raw.table("TraitNodeEntry").length;
     const linked = new Set(raw.table("TraitNodeXTraitNodeEntry").map((l) => l.TraitNodeEntryID)).size;
     expect(un.orphanEntries).toHaveLength(entries - linked);
-    expect(un.orphanEntries.length).toBe(98);
+    expect(un.orphanEntries.length).toBe(99); // 98 + Hielo penetrante (Piercing Ice), retirado el 20/10: se conserva sin nodo
     for (const e of un.orphanEntries) expect(e.selectable).toBe(false);
     expect(new Set(un.orphanEntries.map((e) => e.entryId)).size).toBe(un.orphanEntries.length);
   });
@@ -290,11 +290,11 @@ describe("seccion aparte: datos sin asignar", () => {
     for (const e of unplaced) expect(inTrees.has(e.spellId!)).toBe(false);
   });
 
-  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 44)", () => {
+  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 45)", () => {
     const legacyOnes = un.orphanEntries.filter((e) => e.isLegacy);
     const others = un.orphanEntries.filter((e) => !e.isLegacy);
     expect(legacyOnes).toHaveLength(54);
-    expect(others).toHaveLength(44);
+    expect(others).toHaveLength(45);
     const legacyIds = legacyData.specs.flatMap((s) => s.talents.map((t) => t.spellId)).filter((id) => id < 1_300_000);
     const lo = Math.min(...legacyIds);
     for (const e of legacyOnes) expect(e.spellId!).toBeGreaterThanOrEqual(lo);
@@ -344,9 +344,9 @@ describe("contraste con Talents Forever (CC BY 4.0)", () => {
     expect(report!.ok).toBe(true);
   });
 
-  it("suman 466 talentos en total", () => {
+  it("suman 465 talentos en total", () => {
     const total = live.classes.reduce((s, c) => s + c.specs.reduce((n, sp) => n + sp.talents.length, 0), 0);
-    expect(total).toBe(466);
+    expect(total).toBe(465);
   });
 });
 
@@ -377,7 +377,7 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
       expect(r.racials.map((a) => a.order)).toEqual([0, 1, 2, 3]);
     }
     expect(byId(1).racials.map((a) => `${a.kind}:${a.name}`)).toContain("passive:Crueldad");
-    expect(byId(95).racials.find((a) => a.name === "Leer línea ley")?.kind).toBe("active");
+    expect(byId(95).racials.find((a) => a.name === "Leer línea Ley")?.kind).toBe("active");
   });
 
   it("interpreta los nombres de raciales en espanol e ingles", () => {
@@ -576,7 +576,7 @@ describe("raciales cuyo valor esta en otro hechizo o es un proc", () => {
   });
 
   it("Leyline remite a 'Energizado': +100 % de regeneracion de salud y de mana, sin duplicados", () => {
-    const e = spells(95, "Leer línea ley")[0]!.effects;
+    const e = spells(95, "Leer línea Ley")[0]!.effects;
     expect(e.map((x) => x.kind).sort()).toEqual(["health-regen-pct", "mana-regen-pct"]);
     expect(e.every((x) => x.value === 100 && x.fromSpellId !== null)).toBe(true);
   });
@@ -672,9 +672,10 @@ describe("idioma: el cliente trae algunos textos de Forever en ingles", () => {
     expect(looksEnglish("")).toBe(false);
   });
 
-  it("ningun talento de clase se muestra en ingles: los 13 que el cliente trae sin traducir llevan traduccion propia marcada", () => {
+  it("ningun talento de clase se muestra en ingles: los que el cliente trae sin traducir llevan traduccion propia marcada (hoy solo Tromba de misiles)", () => {
     const own = all.filter(({ t }) => t.textOrigin === "translated-by-us").map(({ cls, t }) => `${cls}: ${t.name}`);
-    expect(own).toHaveLength(13);
+    // Hasta el 17/10 eran 13; los hotfixes del 19/10 traducen 12 y dejan Tromba de misiles en ingles (y le anaden Explosion de Escarcha)
+    expect(own).toEqual(["Mago: Tromba de misiles"]);
     expect(all.filter(({ t }) => t.textOrigin === "untranslated")).toEqual([]);
     for (const { t } of all) for (const d of t.descriptions) expect(looksEnglish(d), `${t.name}: ${d}`).toBe(false);
   });
@@ -688,7 +689,8 @@ describe("idioma: el cliente trae algunos textos de Forever en ingles", () => {
   it("las raciales de Cielonato salen en espanol: nombres de sus hechizos y Leer linea ley con traduccion propia", () => {
     const skyborne = racesData.races.filter((r) => r.id >= 95).flatMap((r) => r.racials);
     expect(skyborne.map((a) => a.name)).not.toContain("Walk on Air");
-    expect(skyborne.find((a) => a.name === "Leer línea ley")!.textOrigin).toBe("translated-by-us");
+    // Desde el hotfix del 19/10 el cliente trae el nombre y el texto en espanol (antes eran traduccion propia)
+    expect(skyborne.find((a) => a.name === "Leer línea Ley")!.textOrigin).toBe("client");
     expect(skyborne.filter((a) => looksEnglish(a.description))).toEqual([]);
     expect(skyborne.filter((a) => a.name === "Caminar sobre el aire")).toHaveLength(2);
   });
@@ -896,20 +898,21 @@ describe("textos de los talentos del Paladin frente a Talents Forever", () => {
           total++;
           if (nums(t.desc[r]) !== nums(o.descriptions[r])) {
             diff.push(`${o.name} r${r + 1}`);
-            expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de TF y no esta marcado como valor base`).toBe(true);
+            // Campeon de la Luz: hotfix del servidor del 16/10 (10/20/30 -> 20/40/60 % del intelecto); TF aun trae 10/20/30
+            if (o.name !== "Campeón de la Luz") expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de TF y no esta marcado como valor base`).toBe(true);
           }
         }
       }
     });
     expect(total).toBe(138);
     // Choque Sagrado, Vigilia de la Luz, Sello de orden (nivel), Sello de furia mejorado (1 p. por nivel), Reivindicacion x3 (poder de ataque por nivel)
-    expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1"]);
+    expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1", "Campeón de la Luz r1", "Campeón de la Luz r2", "Campeón de la Luz r3"]);
   });
 
   it("$proccooldown sale del cliente: Especializacion en escudos 3 s y La hora de la verdad 1,5 s (como TF)", () => {
     const text = (name: string) => ours.specs.flatMap((s) => s.talents).find((t) => t.name === name)!.descriptions.at(-1)!;
     expect(text("Especialización en escudos")).toMatch(/una vez cada 3 s\.$/);
-    expect(text("La hora de la verdad")).toMatch(/una vez cada 1,5 s\.$/);
+    expect(text("La hora de la verdad")).toMatch(/una vez cada 1,5 s( tras un bloqueo)?\.$/);
     for (const c of live.classes) for (const t of c.specs.flatMap((s) => s.talents)) expect(t.descriptions.join(" "), `${c.classToken} ${t.name}`).not.toMatch(/proccooldown/i);
   });
 });
@@ -995,7 +998,8 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a Tal
   const CASES = [
     { token: "SHAMAN", file: "shaman", total: 148, diff: ["Ráfaga de lava r1", "Mareas vivas r1"], notApprox: [] as string[] },
     { token: "HUNTER", file: "hunter", total: 148, diff: ["Contraataque r1"], notApprox: ["Contraataque r1"] },
-    { token: "WARLOCK", file: "warlock", total: 146, diff: ["Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Terror de caos r1"] },
+    // Amplificar maldición r1: hotfix del servidor del 16/10 (Maldición de agotamiento 50 % → 20 %); TF aún trae el 50 %.
+    { token: "WARLOCK", file: "warlock", total: 146, diff: ["Amplificar maldición r1", "Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Amplificar maldición r1", "Terror de caos r1"] },
     { token: "DRUID", file: "druid", total: 148, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
   ];
   for (const c of CASES) {
@@ -1026,7 +1030,7 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a Tal
 
   it("los marcadores de referencia ya no salen crudos: $@spelltooltip, $c, $s2 de un hechizo de un efecto y el poder de ataque a distancia", () => {
     const text = (token: string, name: string) => byToken(live, token).specs.flatMap((s) => s.talents).find((t) => t.name === name)!.descriptions[0]!;
-    expect(text("WARLOCK", "Amplificar maldición")).toContain("siguiente Maldición de agotamiento un 50%");
+    expect(text("WARLOCK", "Amplificar maldición")).toContain("siguiente Maldición de agotamiento un 20%");
     expect(text("DRUID", "Poder cambiante")).toContain("55 % del maná base en 40 p. de energía");
     expect(text("DRUID", "Carga feral")).not.toContain("$@");
     expect(text("HUNTER", "Invocar halcón")).toContain("32 (más un 5% de tu poder de ataque a distancia)");
@@ -1115,8 +1119,8 @@ describe("entradas de talento sin nodo frente a Talents Forever", () => {
   it("la mayoria tiene gemela en TF (mismas cifras); las que no, quedan listadas con su nombre", () => {
     const un = JSON.parse(readFileSync(join(root, "data", "forever", BUILD, "unassigned.json"), "utf8")) as { orphanEntries: { name: string | null; descriptions: string[] }[] };
     const oc = contrastOrphans(un.orphanEntries, join(root, "data", "external", "talentsforever"))!;
-    expect(oc.total).toBe(98);
-    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(98);
+    expect(oc.total).toBe(99);
+    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(99);
     expect(oc.withTfTwin).toBeGreaterThanOrEqual(60);
     // Las ventajas de Legacy sin colocar con otras cifras que las de TF (TF viene de un cliente mas antiguo)
     expect(oc.withoutTfTwin.map((o) => o.name)).toContain("Estudio dedicado");

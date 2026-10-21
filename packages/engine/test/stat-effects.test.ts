@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, decodeBuild, indexClass, rankOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -14,8 +14,8 @@ const abilities = Abilities.parse(json("abilities/mage.json"));
 const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
 
 // Build de un usuario (Mago Humano, Escarcha/Fuego + Legacy completo)
-const classBuild = decodeBuild(mage, "0002-0355200000003-0055300301020301251")!;
-const legacyBuild = decodeBuild(legacy, "255000002-02-")!;
+const classBuild = decodeBuild(mage, "V229luA1E1B2A1A1C2B4C3E1C1E6C8B1E1E1C6B")!;
+const legacyBuild = decodeBuild(legacy, "V22d3uE3E2B2B8B")!;
 
 describe("suma de los efectos de talentos, Legacy y raza", () => {
   const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race: human, abilities });
@@ -35,10 +35,10 @@ describe("suma de los efectos de talentos, Legacy y raza", () => {
     expect(incin.sources.map((s) => s.name)).toEqual(["Incineración"]);
   });
 
-  it("suma el impacto (+5 de Enfoque elemental), el bonus de daño critico (+100 % de Fragmentos de hielo) y el daño de Escarcha", () => {
-    expect(find("Probabilidad de impacto", "probabilidad de impacto")[0]!.value).toBe(5);
+  it("suma el impacto (+6 de Enfoque elemental), y el bonus de daño critico (+100 % de Fragmentos de hielo); sin daño de Escarcha (Hielo penetrante se retiró el 20/10)", () => {
+    expect(find("Probabilidad de impacto", "probabilidad de impacto")[0]!.value).toBe(6);
     expect(find("Bonus de daño crítico", "bonus de daño crítico").find((t) => t.scope !== null)!.value).toBe(100);
-    expect(find("Daño y curación", "daño y curación")[0]!.value).toBe(6);
+    expect(find("Daño y curación", "daño y curación")).toHaveLength(0);
   });
 
   it("tiempo de lanzamiento -0,5 s (Bola de Fuego mejorada) y alcance +6 m (Lanzallamas) con sus habilidades", () => {

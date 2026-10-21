@@ -1079,6 +1079,30 @@ dd {
   cursor: pointer;
   color: var(--muted);
 }
+.link-notice {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 10px 0;
+  padding: 10px 14px;
+  background: #2a2010;
+  color: var(--gold-2);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.link-notice ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  color: var(--text);
+}
+.link-notice button {
+  flex: none;
+  padding: 0 8px;
+  font-size: 18px;
+  line-height: 1.4;
+}
 .toast {
   position: fixed;
   left: 50%;

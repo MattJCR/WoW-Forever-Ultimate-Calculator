@@ -3,9 +3,9 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ClassTalents } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
-import { addPoint, canAdd, canRemove, decodeBuild, encodeBuild, indexClass, removePoint, requiredLevel, totalPoints, validateBuild, type Build, type ClassIndex } from "../src/index.js";
+import { addPoint, canAdd, canRemove, decodeBuild, decodeBuildReport, encodeBuild, indexClass, removePoint, requiredLevel, totalPoints, validateBuild, type Build, type ClassIndex } from "../src/index.js";
 
-const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70425/classes");
+const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70450/classes");
 const load = (file: string): ClassIndex => indexClass(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, `${file}.json`), "utf8"))));
 const mage = load("mage");
 const hunter = load("hunter");
@@ -81,23 +81,72 @@ describe("reglas de talentos (Mago, datos reales del cliente)", () => {
     expect(canRemove(mage, b2, focus.nodeId).ok).toBe(true);
   });
 
-  it("codifica y decodifica un build sin perder nada", () => {
+  it("codifica y decodifica un build sin perder nada (formato 2: por nodo)", () => {
     const b = fill(mage, 51);
     const code = encodeBuild(mage, b);
-    expect(code).toMatch(/^[0-9]*-[0-9]*-[0-9]*$/);
+    expect(code).toMatch(/^V2([0-9a-z]+[A-E])+$/);
     expect(decodeBuild(mage, code)).toEqual(b);
-    expect(encodeBuild(mage, {})).toBe("--");
-    expect(decodeBuild(mage, "--")).toEqual({});
+    expect(decodeBuildReport(mage, code)).toMatchObject({ lost: [], malformed: false, legacyFormat: false });
+    expect(encodeBuild(mage, {})).toBe("");
+    expect(decodeBuild(mage, "")).toEqual({});
   });
 
-  it("rechaza codigos invalidos", () => {
-    expect(decodeBuild(mage, "")).toBeNull();
+  it("el codigo identifica cada talento por su nodo: no depende del orden ni de la rejilla", () => {
+    const first = mage.ordered[0]!.talent;
+    const code = encodeBuild(mage, { [first.nodeId]: 1 });
+    expect(code).toBe(`V2${first.nodeId.toString(36)}A`);
+    // dos talentos: el segundo va como diferencia con el primero
+    const second = mage.ordered[1]!.talent;
+    const [lo, hi] = [first.nodeId, second.nodeId].sort((a, b) => a - b);
+    expect(encodeBuild(mage, { [first.nodeId]: 1, [second.nodeId]: 2 })).toBe(`V2${lo!.toString(36)}${lo === first.nodeId ? "A" : "B"}${(hi! - lo!).toString(36)}${hi === first.nodeId ? "A" : "B"}`);
+  });
+
+  it("un hotfix que quita un talento no descoloca los demas: se conservan y se cuenta lo perdido", () => {
+    const b = fill(mage, 30);
+    const code = encodeBuild(mage, b);
+    const victim = mage.ordered.find((i) => b[i.talent.nodeId] && i.talent.row === 0 && i.specIndex === 0)!.talent;
+    // mismos datos sin ese talento (como Hielo penetrante el 20/10)
+    const data = JSON.parse(JSON.stringify(mage.data)) as typeof mage.data;
+    for (const s of data.specs) s.talents = s.talents.filter((t) => t.nodeId !== victim.nodeId);
+    const patched = indexClass(data);
+    const r = decodeBuildReport(patched, code);
+    expect(r.malformed).toBe(false);
+    expect(r.lost.find((l) => l.nodeId === victim.nodeId)).toMatchObject({ name: null, wanted: b[victim.nodeId], kept: 0, reason: "removed" });
+    // los talentos de las filas de arriba que dependian del quitado pueden perderse; el resto se conserva con su rango exacto
+    expect(totalPoints(r.build)).toBeGreaterThan(0);
+    expect(validateBuild(patched, r.build).ok).toBe(true);
+    for (const [id, rank] of Object.entries(r.build)) expect(rank).toBe(b[Number(id)]);
+    expect(decodeBuild(patched, code)).toBeNull(); // la lectura estricta no acepta perdidas
+  });
+
+  it("recorta un rango que bajo (Enfoque elemental 5 -> 3) y avisa", () => {
+    const t = mage.ordered.find((i) => i.talent.maxRank >= 3 && i.talent.row === 0)!.talent;
+    const data = JSON.parse(JSON.stringify(mage.data)) as typeof mage.data;
+    for (const s of data.specs) for (const x of s.talents) if (x.nodeId === t.nodeId) x.maxRank = 2;
+    const r = decodeBuildReport(indexClass(data), encodeBuild(mage, { [t.nodeId]: 3 }));
+    expect(r.build[t.nodeId]).toBe(2);
+    expect(r.lost).toEqual([{ nodeId: t.nodeId, name: t.name ?? null, wanted: 3, kept: 2, reason: "max-rank-lowered" }]);
+  });
+
+  it("rechaza lo que no es un codigo y lo que no cumple las reglas", () => {
+    expect(decodeBuildReport(mage, "x--").malformed).toBe(true);
+    expect(decodeBuildReport(mage, "V2zz").malformed).toBe(true);
     expect(decodeBuild(mage, "x--")).toBeNull();
-    expect(decodeBuild(mage, "9--")).toBeNull(); // rango fuera de rango
-    // un talento de fila 1 sin puntos arriba incumple la regla de 5 puntos por fila
-    const arcane = mage.ordered.filter((i) => i.specIndex === 0);
-    const i = arcane.findIndex((x) => x.talent.row === 1);
-    expect(decodeBuild(mage, `${"0".repeat(i)}1--`)).toBeNull();
+    // un talento de fila 1 sin puntos arriba: se descarta y se avisa en vez de invalidar todo el enlace
+    const row1 = mage.ordered.find((i) => i.specIndex === 0 && i.talent.row === 1)!.talent;
+    const r = decodeBuildReport(mage, encodeBuild(mage, { [row1.nodeId]: 1 }));
+    expect(r.build).toEqual({});
+    expect(r.lost).toMatchObject([{ nodeId: row1.nodeId, wanted: 1, kept: 0, reason: "row-locked" }]);
+  });
+
+  it("sigue leyendo los codigos del formato 1 (un digito por posicion) si encajan con los datos", () => {
+    const b = fill(mage, 20);
+    const old = ["0", "1", "2"].map((s) => mage.ordered.filter((i) => i.specIndex === Number(s)).map((i) => b[i.talent.nodeId] ?? 0).join("").replace(/0+$/, "")).join("-");
+    const r = decodeBuildReport(mage, old);
+    expect(r).toMatchObject({ legacyFormat: true, malformed: false, lost: [] });
+    expect(r.build).toEqual(b);
+    expect(decodeBuild(mage, "--")).toEqual({});
+    expect(decodeBuildReport(mage, "9--").lost[0]).toMatchObject({ reason: "max-rank-lowered" });
   });
 });
 

@@ -1,0 +1,4101 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70450",
+  "locale": "esES",
+  "classId": 3,
+  "className": "Cazador",
+  "classToken": "HUNTER",
+  "iconFileDataId": 626000,
+  "traitTreeId": 1091,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Dominio de bestias",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132164,
+      "backgroundFile": "HunterBeastMastery",
+      "talents": [
+        {
+          "nodeId": 104960,
+          "spellId": 19552,
+          "name": "Aspectos letales",
+          "iconFileDataId": 136076,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 18,
+              "miscValueB": 0,
+              "classMask": [
+                1048576,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 18,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                16,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Mientras Aspecto del halcón está activo, Disparo automático tiene un 2% de probabilidad de aumentar la velocidad de ataque a distancia un 30% durante 12 s. Mientras Aspecto de la bestia está activo, todos los ataques automáticos cuerpo a cuerpo tienen un 2% de probabilidad de aumentar la velocidad de ataque cuerpo a cuerpo un 30% durante 12 s.",
+            "Mientras Aspecto del halcón está activo, Disparo automático tiene un 4% de probabilidad de aumentar la velocidad de ataque a distancia un 30% durante 12 s. Mientras Aspecto de la bestia está activo, todos los ataques automáticos cuerpo a cuerpo tienen un 4% de probabilidad de aumentar la velocidad de ataque cuerpo a cuerpo un 30% durante 12 s.",
+            "Mientras Aspecto del halcón está activo, Disparo automático tiene un 6% de probabilidad de aumentar la velocidad de ataque a distancia un 30% durante 12 s. Mientras Aspecto de la bestia está activo, todos los ataques automáticos cuerpo a cuerpo tienen un 6% de probabilidad de aumentar la velocidad de ataque cuerpo a cuerpo un 30% durante 12 s.",
+            "Mientras Aspecto del halcón está activo, Disparo automático tiene un 8% de probabilidad de aumentar la velocidad de ataque a distancia un 30% durante 12 s. Mientras Aspecto de la bestia está activo, todos los ataques automáticos cuerpo a cuerpo tienen un 8% de probabilidad de aumentar la velocidad de ataque cuerpo a cuerpo un 30% durante 12 s.",
+            "Mientras Aspecto del halcón está activo, Disparo automático tiene un 10% de probabilidad de aumentar la velocidad de ataque a distancia un 30% durante 12 s. Mientras Aspecto de la bestia está activo, todos los ataques automáticos cuerpo a cuerpo tienen un 10% de probabilidad de aumentar la velocidad de ataque cuerpo a cuerpo un 30% durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82832
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 104809
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104976,
+          "spellId": 19583,
+          "name": "Entrenamiento en aguante",
+          "iconFileDataId": 136080,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                201326592,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% la salud y la armadura de tus mascotas.",
+            "Aumenta un 6% la salud y la armadura de tus mascotas.",
+            "Aumenta un 9% la salud y la armadura de tus mascotas.",
+            "Aumenta un 12% la salud y la armadura de tus mascotas.",
+            "Aumenta un 15% la salud y la armadura de tus mascotas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82831
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110241
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104975,
+          "spellId": 1223755,
+          "name": "Fuego enfocado",
+          "iconFileDataId": 135539,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ]
+          ],
+          "descriptions": [
+            "Aumenta todo el daño que infligís tú y tu mascota un 1% mientras tu mascota está activa.",
+            "Aumenta todo el daño que infligís tú y tu mascota un 2% mientras tu mascota está activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104960,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82830
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104974,
+          "spellId": 19549,
+          "name": "Aspecto del Mono mejorado",
+          "iconFileDataId": 132159,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                524288,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              6,
+              7
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el bonus al esquivar de tu Aspecto del mono. Además, tu mascota obtiene un 50% del efecto de tu facultad Aspecto del mono.",
+            "Aumenta un 4% el bonus al esquivar de tu Aspecto del mono. Además, tu mascota obtiene un 50% del efecto de tu facultad Aspecto del mono.",
+            "Aumenta un 6% el bonus al esquivar de tu Aspecto del mono. Además, tu mascota obtiene un 50% del efecto de tu facultad Aspecto del mono."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104960,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82828
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110242
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104973,
+          "spellId": 19559,
+          "name": "Encontrar camino",
+          "iconFileDataId": 132242,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                2097152,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 3% el bonus de velocidad de tu Aspecto del guepardo y de tu Aspecto de la manada.",
+            "Aumenta en un 6% el bonus de velocidad de tu Aspecto del guepardo y de tu Aspecto de la manada."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104960,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82827
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104972,
+          "spellId": 24443,
+          "name": "Revivir mascota mejorado",
+          "iconFileDataId": 132163,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                16777216,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3000,
+              -20,
+              15
+            ],
+            [
+              -6000,
+              -40,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de lanzamiento de Revivir mascota en 3 s., reduce el coste de maná en un 20% y aumenta la salud de tu mascota en un 15%.",
+            "Reduce el tiempo de lanzamiento de Revivir mascota en 6 s., reduce el coste de maná en un 40% y aumenta la salud de tu mascota en un 30%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104960,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 82824
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82826
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82825
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104970,
+          "spellId": 19596,
+          "name": "Rapidez de bestias",
+          "iconFileDataId": 132120,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                268435456,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 30% la velocidad de movimiento de tus mascotas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104960,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104969,
+          "spellId": 19616,
+          "name": "Furia desatada",
+          "iconFileDataId": 132091,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                33554432,
+                0,
+                8192,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% el daño infligido por tus mascotas y halcones.",
+            "Aumenta un 6% el daño infligido por tus mascotas y halcones.",
+            "Aumenta un 9% el daño infligido por tus mascotas y halcones.",
+            "Aumenta un 12% el daño infligido por tus mascotas y halcones.",
+            "Aumenta un 15% el daño infligido por tus mascotas y halcones."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104960,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82822
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104968,
+          "spellId": 19572,
+          "name": "Sanar mascota mejorado",
+          "iconFileDataId": 132179,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                8388608,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              -10
+            ],
+            [
+              50,
+              -20
+            ]
+          ],
+          "descriptions": [
+            "Otorga a tu hechizo Aliviar mascota un 15% de probabilidad de purificar 1 efecto de maldición, enfermedad, magia o veneno de tu mascota cada vez que se cura, además de reducir un 10% el coste de maná.",
+            "Otorga a tu hechizo Aliviar mascota un 50% de probabilidad de purificar 1 efecto de maldición, enfermedad, magia o veneno de tu mascota cada vez que se cura, además de reducir un 20% el coste de maná."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104960,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82821
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110240
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104967,
+          "spellId": 19598,
+          "name": "Ferocidad",
+          "iconFileDataId": 134297,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                1073741824,
+                0,
+                8192,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% la probabilidad de golpe crítico de tus mascotas y halcones.",
+            "Aumenta un 4% la probabilidad de golpe crítico de tus mascotas y halcones.",
+            "Aumenta un 6% la probabilidad de golpe crítico de tus mascotas y halcones.",
+            "Aumenta un 8% la probabilidad de golpe crítico de tus mascotas y halcones.",
+            "Aumenta un 10% la probabilidad de golpe crítico de tus mascotas y halcones."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104960,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82820
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104966,
+          "spellId": 1293241,
+          "name": "Invocar halcón",
+          "iconFileDataId": 132158,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              32,
+              0,
+              2,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Ordena a un halcón que se lance contra tu enemigo objetivo, infligiendo 32 (más un 5% de tu poder de ataque a distancia) p. de daño físico. El ataque continúa durante 18 s. Solo puede haber 2 halcones activos a la vez. Invocar halcón comparte su tiempo de reutilización con Disparo Arcano."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104960,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104965,
+          "spellId": 19578,
+          "name": "Vínculo de espíritu",
+          "iconFileDataId": 132121,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              10
+            ],
+            [
+              1,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Mientras tu mascota está activa, tu mascota y tú regeneráis un 1% de la salud total cada 10 s.",
+            "Mientras tu mascota está activa, tu mascota y tú regeneráis un 1% de la salud total cada 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104960,
+              104966,
+              104967,
+              104968,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82819
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82818
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104964,
+          "spellId": 19577,
+          "name": "Intimidación",
+          "iconFileDataId": 132111,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Ordena a tu mascota que aturda al objetivo durante 3 s con su siguiente ataque que impacte, lo que también le aumenta un 100% la probabilidad de golpe crítico. Genera una gran cantidad de amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104960,
+              104966,
+              104967,
+              104968,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104970,
+              "edgeType": 2
+            },
+            {
+              "nodeId": 104961,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104963,
+          "spellId": 19590,
+          "name": "Disciplina de bestias",
+          "iconFileDataId": 136006,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              25
+            ],
+            [
+              20,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% la regeneración de enfoque de tus mascotas y permite que continúe un 25% de tu regeneración de maná mientras lanzas hechizos.",
+            "Aumenta un 20% la regeneración de enfoque de tus mascotas y permite que continúe un 50% de tu regeneración de maná mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104960,
+              104966,
+              104967,
+              104968,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82816
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82817
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104962,
+          "spellId": 19621,
+          "name": "Frenesí",
+          "iconFileDataId": 134296,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 18,
+              "miscValueB": 0,
+              "classMask": [
+                -2147483648,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Da a tu mascota un 20% probabilidad de aumentar en 30 p. su velocidad de ataque durante 8 s después de dar un golpe crítico.",
+            "Da a tu mascota un 40% probabilidad de aumentar en 30 p. su velocidad de ataque durante 8 s después de dar un golpe crítico.",
+            "Da a tu mascota un 60% probabilidad de aumentar en 30 p. su velocidad de ataque durante 8 s después de dar un golpe crítico.",
+            "Da a tu mascota un 80% probabilidad de aumentar en 30 p. su velocidad de ataque durante 8 s después de dar un golpe crítico.",
+            "Da a tu mascota un 100% probabilidad de aumentar en 30 p. su velocidad de ataque durante 8 s después de dar un golpe crítico."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104960,
+              104963,
+              104964,
+              104965,
+              104966,
+              104967,
+              104968,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104967,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82815
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104961,
+          "spellId": 19574,
+          "name": "Ira de bestias",
+          "iconFileDataId": 132127,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 61,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 79,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 77,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 77,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 4,
+              "aura": 77,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 5,
+              "aura": 77,
+              "miscValue": 17,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 6,
+              "aura": 77,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 7,
+              "aura": 77,
+              "miscValue": 13,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 8,
+              "aura": 77,
+              "miscValue": 24,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 9,
+              "aura": 77,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 10,
+              "aura": 77,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 11,
+              "aura": 77,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 12,
+              "aura": 77,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              50,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Hace que tu mascota se enfurezca e inflija un 50% más de daño durante 18 s. Mientras está iracunda, la bestia no siente pena ni remordimientos ni miedo y no se la puede detener a menos que la maten."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104960,
+              104961,
+              104962,
+              104963,
+              104964,
+              104965,
+              104966,
+              104967,
+              104968,
+              104969,
+              104970,
+              104972,
+              104973,
+              104974,
+              104975,
+              104976
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104964,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Puntería",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132222,
+      "backgroundFile": "HunterMarksmanship",
+      "talents": [
+        {
+          "nodeId": 105013,
+          "spellId": 19498,
+          "name": "Ojo de águila",
+          "iconFileDataId": 132327,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                522753,
+                -2147483648,
+                8192,
+                8388608
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en 2 metros el alcance de tus armas a distancia.",
+            "Aumenta en 4 metros el alcance de tus armas a distancia.",
+            "Aumenta en 6 metros el alcance de tus armas a distancia."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82814
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105012,
+          "spellId": 19407,
+          "name": "Disparo de concusión mejorado",
+          "iconFileDataId": 135860,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ],
+            [
+              16
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Da a tu Disparo de concusión un 4% de probabilidad de aturdir el objetivo durante 3 s.",
+            "Da a tu Disparo de concusión un 8% de probabilidad de aturdir el objetivo durante 3 s.",
+            "Da a tu Disparo de concusión un 12% de probabilidad de aturdir el objetivo durante 3 s.",
+            "Da a tu Disparo de concusión un 16% de probabilidad de aturdir el objetivo durante 3 s.",
+            "Da a tu Disparo de concusión un 20% de probabilidad de aturdir el objetivo durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82813
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105011,
+          "spellId": 19426,
+          "name": "Ataques letales",
+          "iconFileDataId": 132312,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% tu probabilidad de golpe crítico con todos los ataques.",
+            "Aumenta un 2% tu probabilidad de golpe crítico con todos los ataques.",
+            "Aumenta un 3% tu probabilidad de golpe crítico con todos los ataques.",
+            "Aumenta un 4% tu probabilidad de golpe crítico con todos los ataques.",
+            "Aumenta un 5% tu probabilidad de golpe crítico con todos los ataques."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82812
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 110870,
+          "spellId": 1310661,
+          "name": "Picaduras mejoradas",
+          "iconFileDataId": 132204,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                16384,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                128,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                32768,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              6,
+              -2000,
+              15000
+            ],
+            [
+              13,
+              -4000,
+              30000
+            ],
+            [
+              20,
+              -6000,
+              45000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 6% el daño de tu facultad Picadura de serpiente, reduce 2 s el tiempo de reutilización de tu facultad Picadura de víbora y aumenta 15 s la duración de tu facultad Picadura de escórpido.",
+            "Aumenta un 13% el daño de tu facultad Picadura de serpiente, reduce 4 s el tiempo de reutilización de tu facultad Picadura de víbora y aumenta 30 s la duración de tu facultad Picadura de escórpido.",
+            "Aumenta un 20% el daño de tu facultad Picadura de serpiente, reduce 6 s el tiempo de reutilización de tu facultad Picadura de víbora y aumenta 45 s la duración de tu facultad Picadura de escórpido."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105011,
+              105012,
+              105013
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110239
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110238
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 110237
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105009,
+          "spellId": 19416,
+          "name": "Eficacia",
+          "iconFileDataId": 135865,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                522818,
+                -2146955264,
+                8192,
+                8388608
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3
+            ],
+            [
+              -6
+            ],
+            [
+              -9
+            ],
+            [
+              -12
+            ],
+            [
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 3% el coste de maná de tus disparos, picaduras y facultades cuerpo a cuerpo.",
+            "Reduce un 6% el coste de maná de tus disparos, picaduras y facultades cuerpo a cuerpo.",
+            "Reduce un 9% el coste de maná de tus disparos, picaduras y facultades cuerpo a cuerpo.",
+            "Reduce un 12% el coste de maná de tus disparos, picaduras y facultades cuerpo a cuerpo.",
+            "Reduce un 15% el coste de maná de tus disparos, picaduras y facultades cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105011,
+              105012,
+              105013
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82809
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105008,
+          "spellId": 1223984,
+          "name": "Afinar la puntería",
+          "iconFileDataId": 132217,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 580,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 598,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              20
+            ],
+            [
+              40,
+              40
+            ],
+            [
+              60,
+              60
+            ],
+            [
+              80,
+              80
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu poder de ataque un 20% de tu intelecto.",
+            "Aumenta tu poder de ataque un 40% de tu intelecto.",
+            "Aumenta tu poder de ataque un 60% de tu intelecto.",
+            "Aumenta tu poder de ataque un 80% de tu intelecto.",
+            "Aumenta tu poder de ataque un 100% de tu intelecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105011,
+              105012,
+              105013
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82810
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 104810
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105005,
+          "spellId": 415405,
+          "name": "Matanza rápida",
+          "iconFileDataId": 132205,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                32,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -60000,
+              10
+            ],
+            [
+              -120000,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 min el tiempo de reutilización de tu facultad Fuego rápido. Además, obtienes Matanza rápida cuando matas a un enemigo no trivial o este muere mientras sufre el efecto de tu Picadura de serpiente, lo que aumenta un 10% el daño de la siguiente facultad de disparo que uses en 20 s.",
+            "Reduce 2 min el tiempo de reutilización de tu facultad Fuego rápido. Además, obtienes Matanza rápida cuando matas a un enemigo no trivial o este muere mientras sufre el efecto de tu Picadura de serpiente, lo que aumenta un 20% el daño de la siguiente facultad de disparo que uses en 20 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82807
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82806
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105006,
+          "spellId": 19454,
+          "name": "Disparo Arcano mejorado",
+          "iconFileDataId": 132218,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                2048,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -300
+            ],
+            [
+              -600
+            ],
+            [
+              -900
+            ],
+            [
+              -1200
+            ],
+            [
+              -1500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,3 s el tiempo de reutilización de Disparo Arcano. No afecta al tiempo de reutilización de facultades que comparten un tiempo de reutilización con Disparo Arcano.",
+            "Reduce 0,6 s el tiempo de reutilización de Disparo Arcano. No afecta al tiempo de reutilización de facultades que comparten un tiempo de reutilización con Disparo Arcano.",
+            "Reduce 0,9 s el tiempo de reutilización de Disparo Arcano. No afecta al tiempo de reutilización de facultades que comparten un tiempo de reutilización con Disparo Arcano.",
+            "Reduce 1,2 s el tiempo de reutilización de Disparo Arcano. No afecta al tiempo de reutilización de facultades que comparten un tiempo de reutilización con Disparo Arcano.",
+            "Reduce 1,5 s el tiempo de reutilización de Disparo Arcano. No afecta al tiempo de reutilización de facultades que comparten un tiempo de reutilización con Disparo Arcano."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82808
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105007,
+          "spellId": 415370,
+          "name": "Lobo solitario",
+          "iconFileDataId": 132266,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Infliges un 20% más de daño con todos los ataques mientras no tengas una mascota activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105004,
+          "spellId": 1299346,
+          "name": "Aura de disparo certero",
+          "iconFileDataId": 132329,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 124,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en 30 p. el poder de ataque a distancia de los miembros del grupo o de la banda en un radio de 45 m."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105002,
+          "spellId": 19485,
+          "name": "Disparos mortales",
+          "iconFileDataId": 132271,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                424449,
+                -2147483648,
+                268435968,
+                8388608
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              6
+            ],
+            [
+              12
+            ],
+            [
+              18
+            ],
+            [
+              24
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 6% el bonus de daño de golpe crítico de todas tus facultades a distancia.",
+            "Aumenta un 12% el bonus de daño de golpe crítico de todas tus facultades a distancia.",
+            "Aumenta un 18% el bonus de daño de golpe crítico de todas tus facultades a distancia.",
+            "Aumenta un 24% el bonus de daño de golpe crítico de todas tus facultades a distancia.",
+            "Aumenta un 30% el bonus de daño de golpe crítico de todas tus facultades a distancia."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105008,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82804
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104999,
+          "spellId": 1223987,
+          "name": "Recuperación rápida",
+          "iconFileDataId": 236201,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25,
+              50
+            ],
+            [
+              50,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Al aplicar Aguijón de serpiente a un objetivo, permite que un 25% de tu regeneración de maná continúe mientras lanzas hechizos durante 15 s, o un 50% cuando se consume Matanza rápida.",
+            "Al aplicar Aguijón de serpiente a un objetivo, permite que un 50% de tu regeneración de maná continúe mientras lanzas hechizos durante 15 s, o un 100% cuando se consume Matanza rápida."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105002,
+              105004,
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105005,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82801
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82802
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105001,
+          "spellId": 19461,
+          "name": "Aluvión",
+          "iconFileDataId": 132330,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                143360,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              15
+            ],
+            [
+              7,
+              15
+            ],
+            [
+              10,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% el daño infligido por tus facultades Multidisparo, Disparo de puntería y Salva.",
+            "Aumenta un 7% el daño infligido por tus facultades Multidisparo, Disparo de puntería y Salva.",
+            "Aumenta un 10% el daño infligido por tus facultades Multidisparo, Disparo de puntería y Salva."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105002,
+              105004,
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82803
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105000,
+          "spellId": 19503,
+          "name": "Disparo disperso",
+          "iconFileDataId": 132153,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 5,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Un disparo a corta distancia que inflige un 50% de daño de arma y desorienta al objetivo durante 4 s. Cualquier daño causado con posterioridad anulará su efecto. Desactiva tu ataque al ser utilizado."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105002,
+              105004,
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6820,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104998,
+          "spellId": 19507,
+          "name": "Especialización en armas a distancia",
+          "iconFileDataId": 135615,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 1% el daño infligido con las armas a distancia.",
+            "Aumenta en un 2% el daño infligido con las armas a distancia.",
+            "Aumenta en un 3% el daño infligido con las armas a distancia.",
+            "Aumenta en un 4% el daño infligido con las armas a distancia.",
+            "Aumenta en un 5% el daño infligido con las armas a distancia."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104999,
+              105000,
+              105001,
+              105002,
+              105004,
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82800
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104997,
+          "spellId": 1310687,
+          "name": "Disparo de francotirador",
+          "iconFileDataId": 1412205,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                399873,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              160,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Un tiro de largo alcance que inflige daño a distancia más 160 p. de daño y aumenta el alcance de tus próximos 3 disparos a 10 m durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104997,
+              104998,
+              104999,
+              105000,
+              105001,
+              105002,
+              105003,
+              105004,
+              105005,
+              105006,
+              105007,
+              105008,
+              105009,
+              105011,
+              105012,
+              105013,
+              110870
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105004,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Supervivencia",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132215,
+      "backgroundFile": "HunterSurvival",
+      "talents": [
+        {
+          "nodeId": 104996,
+          "spellId": 24293,
+          "name": "Rastreo mejorado",
+          "iconFileDataId": 134154,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                2,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Mientras rastreas bestias, demonios, dragonantes, elementales, gigantes, humanoides o no-muertos, todo el daño que inflijas al tipo de criatura rastreada aumenta un 1%.",
+            "Mientras rastreas bestias, demonios, dragonantes, elementales, gigantes, humanoides o no-muertos, todo el daño que inflijas al tipo de criatura rastreada aumenta un 2%.",
+            "Mientras rastreas bestias, demonios, dragonantes, elementales, gigantes, humanoides o no-muertos, todo el daño que inflijas al tipo de criatura rastreada aumenta un 3%.",
+            "Mientras rastreas bestias, demonios, dragonantes, elementales, gigantes, humanoides o no-muertos, todo el daño que inflijas al tipo de criatura rastreada aumenta un 4%.",
+            "Mientras rastreas bestias, demonios, dragonantes, elementales, gigantes, humanoides o no-muertos, todo el daño que inflijas al tipo de criatura rastreada aumenta un 5%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82794
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82793
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104995,
+          "spellId": 19295,
+          "name": "Desvío",
+          "iconFileDataId": 132269,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 47,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu probabilidad de parar en un 1%.",
+            "Aumenta tu probabilidad de parar en un 2%.",
+            "Aumenta tu probabilidad de parar en un 3%.",
+            "Aumenta tu probabilidad de parar en un 4%.",
+            "Aumenta tu probabilidad de parar en un 5%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82792
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104994,
+          "spellId": 19184,
+          "name": "Atrapamiento",
+          "iconFileDataId": 136100,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1000
+            ],
+            [
+              2000
+            ],
+            [
+              3000
+            ],
+            [
+              4000
+            ],
+            [
+              5000
+            ]
+          ],
+          "descriptions": [
+            "Cuando se activan tus trampas, todos los objetivos afectados sufren Retenido, lo que les impide moverse durante 1 s.",
+            "Cuando se activan tus trampas, todos los objetivos afectados sufren Retenido, lo que les impide moverse durante 2 s.",
+            "Cuando se activan tus trampas, todos los objetivos afectados sufren Retenido, lo que les impide moverse durante 3 s.",
+            "Cuando se activan tus trampas, todos los objetivos afectados sufren Retenido, lo que les impide moverse durante 4 s.",
+            "Cuando se activan tus trampas, todos los objetivos afectados sufren Retenido, lo que les impide moverse durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82791
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104993,
+          "spellId": 19159,
+          "name": "Golpes salvajes",
+          "iconFileDataId": 132277,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                66,
+                528384,
+                2097152,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% la probabilidad de golpe crítico de todas tus facultades cuerpo a cuerpo.",
+            "Aumenta un 4% la probabilidad de golpe crítico de todas tus facultades cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82790
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104992,
+          "spellId": 19255,
+          "name": "Sobrevividor",
+          "iconFileDataId": 136223,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 133,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu salud total un 2%.",
+            "Aumenta tu salud total un 4%.",
+            "Aumenta tu salud total un 6%.",
+            "Aumenta tu salud total un 8%.",
+            "Aumenta tu salud total un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82789
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104990,
+          "spellId": 19228,
+          "name": "Cortar alas mejorado",
+          "iconFileDataId": 132309,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              7
+            ],
+            [
+              13
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Da a tu facultad Cortar alas un 7% de probabilidad de inmovilizar el objetivo durante 5 s.",
+            "Da a tu facultad Cortar alas un 13% de probabilidad de inmovilizar el objetivo durante 5 s.",
+            "Da a tu facultad Cortar alas un 20% de probabilidad de inmovilizar el objetivo durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82786
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104991,
+          "spellId": 19239,
+          "name": "Trampas inteligentes",
+          "iconFileDataId": 136106,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                24,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                4,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              15
+            ],
+            [
+              30,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 15% la duración de los efectos de Congelación y de Trampa de Escarcha y en un 15% el daño de los efectos de Inmolación y de Trampa explosiva.",
+            "Aumenta en un 30% la duración de los efectos de Congelación y de Trampa de Escarcha y en un 30% el daño de los efectos de Inmolación y de Trampa explosiva."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104990,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82787
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82788
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104987,
+          "spellId": 19290,
+          "name": "Pies de plomo",
+          "iconFileDataId": 132219,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 232,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 55,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10,
+              -10,
+              1,
+              3
+            ],
+            [
+              -20,
+              -20,
+              2,
+              3
+            ],
+            [
+              -30,
+              -30,
+              3,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu probabilidad de golpe un 1% y reduce un 10% la duración de los efectos de reducción de movimiento sobre ti.",
+            "Aumenta tu probabilidad de golpe un 2% y reduce un 20% la duración de los efectos de reducción de movimiento sobre ti.",
+            "Aumenta tu probabilidad de golpe un 3% y reduce un 30% la duración de los efectos de reducción de movimiento sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104990,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82784
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82783
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 88007
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104986,
+          "spellId": 19263,
+          "name": "Disuasión",
+          "iconFileDataId": 132369,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 47,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 49,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la probabilidad de esquivar y parar en un 25% durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104990,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104988,
+          "spellId": 19376,
+          "name": "Tácticas de supervivencia",
+          "iconFileDataId": 132149,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                284,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% tu probabilidad de golpear con tus facultades Trampa y Fingir muerte.",
+            "Aumenta un 10% tu probabilidad de golpear con tus facultades Trampa y Fingir muerte."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82785
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 110861,
+          "spellId": 1310627,
+          "name": "Filo de depredador",
+          "iconFileDataId": 132147,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                66,
+                528384,
+                1075904512,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 122,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              6,
+              10
+            ],
+            [
+              12,
+              20
+            ],
+            [
+              18,
+              30
+            ],
+            [
+              24,
+              40
+            ],
+            [
+              30,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 6% el daño de golpe crítico de facultades cuerpo a cuerpo y un 10% el daño con arma de la mano izquierda.",
+            "Aumenta un 12% el daño de golpe crítico de facultades cuerpo a cuerpo y un 20% el daño con arma de la mano izquierda.",
+            "Aumenta un 18% el daño de golpe crítico de facultades cuerpo a cuerpo y un 30% el daño con arma de la mano izquierda.",
+            "Aumenta un 24% el daño de golpe crítico de facultades cuerpo a cuerpo y un 40% el daño con arma de la mano izquierda.",
+            "Aumenta un 30% el daño de golpe crítico de facultades cuerpo a cuerpo y un 50% el daño con arma de la mano izquierda."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109721
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 109720
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104989,
+          "spellId": 19306,
+          "name": "Contraataque",
+          "iconFileDataId": 132336,
+          "effectInfo": [
+            {
+              "index": 2,
+              "aura": 26,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              26,
+              50,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Un golpe que se activa tras haber parado el ataque de un oponente. Este ataque inflige un 50% de daño de arma más 26 p. e inmoviliza al objetivo durante 5 s. El contrataque no se puede bloquear, esquivar ni parar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104986,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104983,
+          "spellId": 440529,
+          "name": "Ingenio",
+          "iconFileDataId": 132207,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                194,
+                524288,
+                2097152,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -30,
+              50
+            ],
+            [
+              -60,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Reduce el coste de maná de tus trampas y habilidades cuerpo a cuerpo un 30%, y otorga a los golpes críticos de tus habilidades a distancia y cuerpo a cuerpo un 50% de probabilidad de permitir que un 50% de tu regeneración de maná continúe mientras lanzas hechizos durante 30 s.",
+            "Reduce el coste de maná de tus trampas y habilidades cuerpo a cuerpo un 60%, y otorga a los golpes críticos de tus habilidades a distancia y cuerpo a cuerpo un 100% de probabilidad de permitir que un 50% de tu regeneración de maná continúe mientras lanzas hechizos durante 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110861
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85425
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82781
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 85425
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104985,
+          "spellId": 1310532,
+          "name": "Exponer presa",
+          "iconFileDataId": 132215,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Tus ataques cuerpo a cuerpo y a distancia contra enemigos afectados por tu Marca del cazador tienen un 5% de probabilidad de permitir la activación de Mordedura de mangosta. Dura 10 s.",
+            "Tus ataques cuerpo a cuerpo y a distancia contra enemigos afectados por tu Marca del cazador tienen un 10% de probabilidad de permitir la activación de Mordedura de mangosta. Dura 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110861
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82782
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110860,
+          "spellId": 1310496,
+          "name": "Disciplina de superviviente",
+          "iconFileDataId": 132178,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                0,
+                0,
+                134217728
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -20
+            ],
+            [
+              -40
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 20% el tiempo de reutilización de tus facultades Trampa y Disuasión.",
+            "Reduce un 40% el tiempo de reutilización de tus facultades Trampa y Disuasión."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110861
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109597
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104981,
+          "spellId": 1317257,
+          "name": "Patada de zancudo",
+          "iconFileDataId": 132198,
+          "effectInfo": [
+            {
+              "index": 2,
+              "aura": 31,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              100,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Una patada potente que inflige un 100% de daño con arma cuerpo a cuerpo y aumenta un 30% la velocidad de movimiento durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110861
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10880,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110859,
+          "spellId": 19168,
+          "name": "Reflejos de relámpago",
+          "iconFileDataId": 136047,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 2,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu agilidad en un 2%.",
+            "Aumenta tu agilidad en un 4%.",
+            "Aumenta tu agilidad en un 6%.",
+            "Aumenta tu agilidad en un 8%.",
+            "Aumenta tu agilidad en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104981,
+              104983,
+              104985,
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110860,
+              110861
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109548
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104984,
+          "spellId": 1310533,
+          "name": "Golpes lacerantes",
+          "iconFileDataId": 132155,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              40
+            ]
+          ],
+          "descriptions": [
+            "Tu Mordisco de mangosta también provoca una hemorragia al enemigo, lo que le inflige una cantidad de daño equivalente al 40% del infligido por Mordisco de mangosta durante 21 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104981,
+              104982,
+              104983,
+              104984,
+              104985,
+              104986,
+              104987,
+              104988,
+              104989,
+              104990,
+              104991,
+              104992,
+              104993,
+              104994,
+              104995,
+              104996,
+              110859,
+              110860,
+              110861
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104985,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [
+    {
+      "nodeId": 104982,
+      "spellId": 19168,
+      "name": "Reflejos de relámpago",
+      "iconFileDataId": 136047,
+      "effectInfo": [
+        {
+          "index": 0,
+          "aura": 137,
+          "miscValue": 0,
+          "miscValueB": 2,
+          "classMask": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "passive": true,
+      "textOrigin": "client",
+      "rankValues": [
+        [
+          3
+        ],
+        [
+          6
+        ],
+        [
+          9
+        ],
+        [
+          12
+        ],
+        [
+          15
+        ]
+      ],
+      "descriptions": [
+        "Aumenta tu agilidad en un 3%.",
+        "Aumenta tu agilidad en un 6%.",
+        "Aumenta tu agilidad en un 9%.",
+        "Aumenta tu agilidad en un 12%.",
+        "Aumenta tu agilidad en un 15%."
+      ],
+      "descriptionsComplete": true,
+      "descriptionsApproximate": false,
+      "maxRank": 5,
+      "selectable": false,
+      "inactiveReason": "off-grid",
+      "nearestSpecIndex": null,
+      "requiredPoints": 25,
+      "prerequisites": [],
+      "effectPoints": [
+        {
+          "effectIndex": 0,
+          "operationType": 0,
+          "curveId": 82778
+        }
+      ],
+      "raw": {
+        "posX": 102800,
+        "posY": 5740
+      }
+    },
+    {
+      "nodeId": 105003,
+      "spellId": 19464,
+      "name": "Aguijón de serpiente mejorado",
+      "iconFileDataId": 132204,
+      "effectInfo": [
+        {
+          "index": 0,
+          "aura": 108,
+          "miscValue": 22,
+          "miscValueB": 0,
+          "classMask": [
+            16384,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "aura": 108,
+          "miscValue": 0,
+          "miscValueB": 0,
+          "classMask": [
+            16384,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "passive": true,
+      "textOrigin": "client",
+      "rankValues": [
+        [
+          2,
+          10
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "descriptions": [
+        "Aumenta en un 2% el daño causado con tu Aguijón de serpiente.",
+        "Aumenta en un 4% el daño causado con tu Aguijón de serpiente.",
+        "Aumenta en un 6% el daño causado con tu Aguijón de serpiente.",
+        "Aumenta en un 8% el daño causado con tu Aguijón de serpiente.",
+        "Aumenta en un 10% el daño causado con tu Aguijón de serpiente."
+      ],
+      "descriptionsComplete": true,
+      "descriptionsApproximate": false,
+      "maxRank": 5,
+      "selectable": false,
+      "inactiveReason": "off-grid",
+      "nearestSpecIndex": 1,
+      "requiredPoints": 15,
+      "prerequisites": [],
+      "effectPoints": [
+        {
+          "effectIndex": 0,
+          "operationType": 0,
+          "curveId": 82805
+        }
+      ],
+      "raw": {
+        "posX": 6820,
+        "posY": 39300
+      }
+    }
+  ],
+  "warnings": [
+    "Nodo 104982 fuera de la rejilla (102800, 5740): Reflejos de relámpago (hechizo 19168); se conserva como nodo no activo",
+    "Nodo 105003 fuera de la rejilla (6820, 39300): Aguijón de serpiente mejorado (hechizo 19464); se conserva como nodo no activo"
+  ]
+}

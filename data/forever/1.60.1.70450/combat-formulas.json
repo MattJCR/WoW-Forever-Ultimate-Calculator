@@ -1,0 +1,18 @@
+{
+  "provenance": "community",
+  "confidence": "low",
+  "miss": {
+    "spell": {
+      "same": 4,
+      "boss": 17
+    },
+    "melee": {
+      "same": 5,
+      "boss": 9
+    }
+  },
+  "hitCap": {
+    "spell": 99,
+    "melee": 100
+  }
+}

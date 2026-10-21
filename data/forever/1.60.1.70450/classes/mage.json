@@ -1,0 +1,4019 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70450",
+  "locale": "esES",
+  "classId": 8,
+  "className": "Mago",
+  "classToken": "MAGE",
+  "iconFileDataId": 626001,
+  "traitTreeId": 1112,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Arcano",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135932,
+      "backgroundFile": "MageArcane",
+      "talents": [
+        {
+          "nodeId": 105815,
+          "spellId": 6057,
+          "name": "Especialización en varitas",
+          "iconFileDataId": 135463,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              13
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño con varitas en 13%.",
+            "Aumenta el daño con varitas en 25%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83116
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105814,
+          "spellId": 11222,
+          "name": "Enfoque Arcano",
+          "iconFileDataId": 135892,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                539230208,
+                32768,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% tu probabilidad de golpear con hechizos Arcanos.",
+            "Aumenta un 2% tu probabilidad de golpear con hechizos Arcanos.",
+            "Aumenta un 3% tu probabilidad de golpear con hechizos Arcanos.",
+            "Aumenta un 4% tu probabilidad de golpear con hechizos Arcanos.",
+            "Aumenta un 5% tu probabilidad de golpear con hechizos Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83115
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105813,
+          "spellId": 11237,
+          "name": "Canalización mejorada",
+          "iconFileDataId": 136096,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                2048,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                32768,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              14
+            ],
+            [
+              40,
+              28
+            ],
+            [
+              60,
+              42
+            ],
+            [
+              80,
+              56
+            ],
+            [
+              100,
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tu hechizo Misiles Arcanos un 20% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño, y un 14% a tus hechizos Explosión Arcana y Cólera Arcana.",
+            "Da a tu hechizo Misiles Arcanos un 40% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño, y un 28% a tus hechizos Explosión Arcana y Cólera Arcana.",
+            "Da a tu hechizo Misiles Arcanos un 60% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño, y un 42% a tus hechizos Explosión Arcana y Cólera Arcana.",
+            "Da a tu hechizo Misiles Arcanos un 80% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño, y un 56% a tus hechizos Explosión Arcana y Cólera Arcana.",
+            "Da a tu hechizo Misiles Arcanos un 100% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño, y un 70% a tus hechizos Explosión Arcana y Cólera Arcana."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83114
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85472
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105802,
+          "spellId": 400588,
+          "name": "Tromba de misiles",
+          "iconFileDataId": 236221,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              20,
+              5
+            ],
+            [
+              40,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Da a tu hechizo Explosión Arcana un 20% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha, Explosión de Escarcha y Descarga de Pirofrío un 10% de probabilidad, de reducir un 50% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un 100% y hacer que los misiles se lancen cada 0,5 s.",
+            "Da a tu hechizo Explosión Arcana un 40% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha, Explosión de Escarcha y Descarga de Pirofrío un 20% de probabilidad, de reducir un 50% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un 100% y hacer que los misiles se lancen cada 0,5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 3,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 126757
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105812,
+          "spellId": 11210,
+          "name": "Sutileza Arcana",
+          "iconFileDataId": 135894,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                539236352,
+                0,
+                4,
+                128
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 123,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -15,
+              -8
+            ],
+            [
+              -30,
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce la resistencia de tu objetivo a todos tus hechizos en 8 p. y reduce la amenaza causada por tus hechizos Arcanos en un 15%.",
+            "Reduce la resistencia de tu objetivo a todos tus hechizos en 15 p. y reduce la amenaza causada por tus hechizos Arcanos en un 30%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105802,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83113
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83112
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105811,
+          "spellId": 29441,
+          "name": "Absorción mágica",
+          "iconFileDataId": 136011,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 22,
+              "miscValue": 124,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              5
+            ],
+            [
+              2,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 5 p. todas tus resistencias y provoca que todos los hechizos que resistas por completo restauren el 1% del total de tu maná. No se puede activar más de una vez por segundo.",
+            "Aumenta 10 p. todas tus resistencias y provoca que todos los hechizos que resistas por completo restauren el 2% del total de tu maná. No se puede activar más de una vez por segundo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105802,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83111
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83110
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105810,
+          "spellId": 11213,
+          "name": "Concentración Arcana",
+          "iconFileDataId": 136170,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              0
+            ],
+            [
+              4,
+              0
+            ],
+            [
+              6,
+              0
+            ],
+            [
+              8,
+              0
+            ],
+            [
+              10,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Te otorga un 2% de probabilidades de entrar en el estado Lanzamiento libre después de que cualquier hechizo de daño golpee al objetivo. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño.",
+            "Te otorga un 4% de probabilidades de entrar en el estado Lanzamiento libre después de que cualquier hechizo de daño golpee al objetivo. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño.",
+            "Te otorga un 6% de probabilidades de entrar en el estado Lanzamiento libre después de que cualquier hechizo de daño golpee al objetivo. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño.",
+            "Te otorga un 8% de probabilidades de entrar en el estado Lanzamiento libre después de que cualquier hechizo de daño golpee al objetivo. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño.",
+            "Te otorga un 10% de probabilidades de entrar en el estado Lanzamiento libre después de que cualquier hechizo de daño golpee al objetivo. Lanzamiento libre reduce un 100% el coste de maná de tu siguiente hechizo de daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105802,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83109
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105809,
+          "spellId": 28574,
+          "name": "Recuperación Arcana",
+          "iconFileDataId": 135733,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 268,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu armadura un valor equivalente al 25% de tu intelecto.",
+            "Aumenta tu armadura un valor equivalente al 50% de tu intelecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105802,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83108
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105808,
+          "spellId": 11247,
+          "name": "Geometría Arcana",
+          "iconFileDataId": 6035311,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                -1608487936,
+                32768,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 3 m el alcance de tus hechizos Arcanos.",
+            "Aumenta 6 m el alcance de tus hechizos Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105802,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83107
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105807,
+          "spellId": 11242,
+          "name": "Impacto Arcano",
+          "iconFileDataId": 136116,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                538972160,
+                32768,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% la probabilidad de golpe crítico de tus hechizos Arcanos.",
+            "Aumenta un 4% la probabilidad de golpe crítico de tus hechizos Arcanos.",
+            "Aumenta un 6% la probabilidad de golpe crítico de tus hechizos Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105802,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83105
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105806,
+          "spellId": 400574,
+          "name": "Explosión Arcana",
+          "iconFileDataId": 135735,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              32
+            ]
+          ],
+          "descriptions": [
+            "Golpea al objetivo con energía e inflige 32 p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un 15% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un 175%. El efecto se acumula hasta 4 veces y dura 15 s desde el momento de la aplicación inicial."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105802,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105805,
+          "spellId": 11252,
+          "name": "Protección Arcana",
+          "iconFileDataId": 136153,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 27,
+              "miscValueB": 0,
+              "classMask": [
+                32768,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                268435456,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -17,
+              25
+            ],
+            [
+              -33,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 17% la pérdida de maná por punto de daño recibido cuando tu hechizo Escudo de maná está activo y aumenta un 25% las resistencias otorgadas por tu hechizo Armadura de mago.",
+            "Reduce un 33% la pérdida de maná por punto de daño recibido cuando tu hechizo Escudo de maná está activo y aumenta un 50% las resistencias otorgadas por tu hechizo Armadura de mago."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105802,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83104
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83103
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105804,
+          "spellId": 11255,
+          "name": "Contrahechizo mejorado",
+          "iconFileDataId": 135856,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2000
+            ],
+            [
+              4000
+            ]
+          ],
+          "descriptions": [
+            "Tu Contrahechizo también silenciará al objetivo durante 2 s.",
+            "Tu Contrahechizo también silenciará al objetivo durante 4 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105802,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83102
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105803,
+          "spellId": 18462,
+          "name": "Meditación Arcana",
+          "iconFileDataId": 136208,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              17
+            ],
+            [
+              33
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Permite que un 17% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 33% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 50% de la regeneración de maná continúe mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105802,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105810,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83101
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 113627,
+          "spellId": 1326079,
+          "name": "Cólera Arcana",
+          "iconFileDataId": 236222,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              120,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige 120 p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al 5% de tu maná máximo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105802,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105806,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105801,
+          "spellId": 12043,
+          "name": "Presencia mental",
+          "iconFileDataId": 136031,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                1073741824,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ]
+          ],
+          "descriptions": [
+            "Tu próximo hechizo de mago con un tiempo de lanzamiento inferior a 10 segundos se convertirá en un hechizo de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105802,
+              105803,
+              105804,
+              105805,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815,
+              113627
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105800,
+          "spellId": 11232,
+          "name": "Mente Arcana",
+          "iconFileDataId": 136129,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 8,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                538972160,
+                32768,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              20
+            ],
+            [
+              4,
+              40
+            ],
+            [
+              6,
+              60
+            ],
+            [
+              8,
+              80
+            ],
+            [
+              10,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu intelecto y un 20% el bonus de daño crítico de tus hechizos Arcanos.",
+            "Aumenta un 4% tu intelecto y un 40% el bonus de daño crítico de tus hechizos Arcanos.",
+            "Aumenta un 6% tu intelecto y un 60% el bonus de daño crítico de tus hechizos Arcanos.",
+            "Aumenta un 8% tu intelecto y un 80% el bonus de daño crítico de tus hechizos Arcanos.",
+            "Aumenta un 10% tu intelecto y un 100% el bonus de daño crítico de tus hechizos Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105802,
+              105803,
+              105804,
+              105805,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815,
+              113627
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83100
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83099
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105799,
+          "spellId": 15058,
+          "name": "Inestabilidad Arcana",
+          "iconFileDataId": 136222,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                551686903,
+                36864,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                4194437,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              3,
+              3,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño infligido con tus hechizos un 1% y tu probabilidad de golpe crítico un 1%.",
+            "Aumenta el daño infligido con tus hechizos un 2% y tu probabilidad de golpe crítico un 2%.",
+            "Aumenta el daño infligido con tus hechizos un 3% y tu probabilidad de golpe crítico un 3%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105800,
+              105801,
+              105802,
+              105803,
+              105804,
+              105805,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815,
+              113627
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83098
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83097
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 87508
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105798,
+          "spellId": 12042,
+          "name": "Poder Arcano",
+          "iconFileDataId": 136048,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                551686903,
+                36864,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                549591799,
+                36864,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                4194437,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30,
+              30,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Durante los siguientes 15 s, tus hechizos infligen un 30% más de daño y cuestan un 30% más de maná."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105798,
+              105799,
+              105800,
+              105801,
+              105802,
+              105803,
+              105804,
+              105805,
+              105806,
+              105807,
+              105808,
+              105809,
+              105810,
+              105811,
+              105812,
+              105813,
+              105814,
+              105815,
+              113627
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105801,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Fuego",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135810,
+      "backgroundFile": "MageFire",
+      "talents": [
+        {
+          "nodeId": 105797,
+          "spellId": 11078,
+          "name": "Explosión de Fuego mejorada",
+          "iconFileDataId": 135819,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -1000,
+              8
+            ],
+            [
+              -2000,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de reutilización de tu hechizo Explosión de Fuego en -1 s y su alcance aumenta 8 m.",
+            "Reduce el tiempo de reutilización de tu hechizo Explosión de Fuego en -2 s y su alcance aumenta 15 m."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83096
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 111697
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105796,
+          "spellId": 18459,
+          "name": "Incineración",
+          "iconFileDataId": 135813,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                537002002,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% la probabilidad de golpe crítico de tus hechizos Explosión de Fuego, Lanza de hielo, Explosión Arcana y Chamuscar.",
+            "Aumenta un 4% la probabilidad de golpe crítico de tus hechizos Explosión de Fuego, Lanza de hielo, Explosión Arcana y Chamuscar.",
+            "Aumenta un 6% la probabilidad de golpe crítico de tus hechizos Explosión de Fuego, Lanza de hielo, Explosión Arcana y Chamuscar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83095
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105795,
+          "spellId": 11069,
+          "name": "Bola de Fuego mejorada",
+          "iconFileDataId": 135812,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ],
+            [
+              -200
+            ],
+            [
+              -300
+            ],
+            [
+              -400
+            ],
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tus hechizos Bola de Fuego y Descarga de Pirofrío.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tus hechizos Bola de Fuego y Descarga de Pirofrío.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tus hechizos Bola de Fuego y Descarga de Pirofrío.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tus hechizos Bola de Fuego y Descarga de Pirofrío.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tus hechizos Bola de Fuego y Descarga de Pirofrío."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83094
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105794,
+          "spellId": 11119,
+          "name": "Ignición",
+          "iconFileDataId": 135818,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8
+            ],
+            [
+              16
+            ],
+            [
+              24
+            ],
+            [
+              32
+            ],
+            [
+              40
+            ]
+          ],
+          "descriptions": [
+            "Los golpes críticos de tus hechizos de daño de Fuego hacen que el enemigo arda y reciba un 8% del daño de tu hechizo durante 4 s.",
+            "Los golpes críticos de tus hechizos de daño de Fuego hacen que el enemigo arda y reciba un 16% del daño de tu hechizo durante 4 s.",
+            "Los golpes críticos de tus hechizos de daño de Fuego hacen que el enemigo arda y reciba un 24% del daño de tu hechizo durante 4 s.",
+            "Los golpes críticos de tus hechizos de daño de Fuego hacen que el enemigo arda y reciba un 32% del daño de tu hechizo durante 4 s.",
+            "Los golpes críticos de tus hechizos de daño de Fuego hacen que el enemigo arda y reciba un 40% del daño de tu hechizo durante 4 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83093
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105793,
+          "spellId": 11100,
+          "name": "Lanzallamas",
+          "iconFileDataId": 135815,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                4194327,
+                135168,
+                262400,
+                16384
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en 3 metros el alcance de tus hechizos de Fuego.",
+            "Aumenta en 6 metros el alcance de tus hechizos de Fuego."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83092
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105792,
+          "spellId": 11103,
+          "name": "Impacto",
+          "iconFileDataId": 135821,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              7
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos de Fuego un 3% de probabilidad de aturdir al objetivo durante 2 s.",
+            "Da a tus hechizos de Fuego un 7% de probabilidad de aturdir al objetivo durante 2 s.",
+            "Da a tus hechizos de Fuego un 10% de probabilidad de aturdir al objetivo durante 2 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83091
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105789,
+          "spellId": 11083,
+          "name": "Alma ardiente",
+          "iconFileDataId": 135805,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                4194325,
+                135168,
+                262400,
+                16384
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 10,
+              "miscValue": 4,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              23,
+              -10
+            ],
+            [
+              47,
+              -20
+            ],
+            [
+              70,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos de Fuego un 23% de probabilidad de no perder tiempo de lanzamiento cuando sufres daños y reduce la amenaza causada por tus hechizos de Fuego en un 10%.",
+            "Da a tus hechizos de Fuego un 47% de probabilidad de no perder tiempo de lanzamiento cuando sufres daños y reduce la amenaza causada por tus hechizos de Fuego en un 20%.",
+            "Da a tus hechizos de Fuego un 70% de probabilidad de no perder tiempo de lanzamiento cuando sufres daños y reduce la amenaza causada por tus hechizos de Fuego en un 30%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83089
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83088
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105791,
+          "spellId": 11108,
+          "name": "Fogonazo mejorado",
+          "iconFileDataId": 135826,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                4,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 5% la probabilidad de golpe crítico de tus hechizos de piroataque.",
+            "Aumenta en un 10% la probabilidad de golpe crítico de tus hechizos de piroataque.",
+            "Aumenta en un 15% la probabilidad de golpe crítico de tus hechizos de piroataque."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83090
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105790,
+          "spellId": 11366,
+          "name": "Piroexplosión",
+          "iconFileDataId": 135808,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 3,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              110,
+              11
+            ]
+          ],
+          "descriptions": [
+            "Lanza una inmensa roca abrasadora que causa 110 p. de daño de Fuego y 44 p. de daño de Fuego extra durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105788,
+          "spellId": 11095,
+          "name": "Chamuscar mejorado",
+          "iconFileDataId": 135827,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 109,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                16,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33
+            ],
+            [
+              67
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Tu hechizo Chamuscar tiene un 33% de probabilidad de volver al objetivo vulnerable al daño de Fuego, lo que aumenta un 3% todo el daño de Fuego que infliges al objetivo durante 30 s. Se acumula hasta 5 veces.",
+            "Tu hechizo Chamuscar tiene un 67% de probabilidad de volver al objetivo vulnerable al daño de Fuego, lo que aumenta un 3% todo el daño de Fuego que infliges al objetivo durante 30 s. Se acumula hasta 5 veces.",
+            "Tu hechizo Chamuscar tiene un 100% de probabilidad de volver al objetivo vulnerable al daño de Fuego, lo que aumenta un 3% todo el daño de Fuego que infliges al objetivo durante 30 s. Se acumula hasta 5 veces."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83087
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105787,
+          "spellId": 11094,
+          "name": "Custodia de Fuego mejorada",
+          "iconFileDataId": 135806,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                8,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Provoca que tu Custodia de Fuego tenga un 10% de probabilidad de reflejar hechizos de Fuego mientras permanece activa.",
+            "Provoca que tu Custodia de Fuego tenga un 20% de probabilidad de reflejar hechizos de Fuego mientras permanece activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83085
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105786,
+          "spellId": 400624,
+          "name": "Calentamiento",
+          "iconFileDataId": 135809,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Los golpes críticos no periódicos con Bola de Fuego, Descarga de Pirofrío, Explosión de Fuego y Chamuscar reducen el tiempo de lanzamiento de la próxima Piroexplosión que lances en un plazo de 20 s un 25%. Se acumula hasta 3 veces. Explosión de Fuego otorga una acumulación adicional cada vez que inflige daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105790,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105785,
+          "spellId": 29074,
+          "name": "Maestro de los elementos",
+          "iconFileDataId": 135820,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Tus golpes críticos de Fuego y Escarcha te devolverán un 10% de su coste de maná base.",
+            "Tus golpes críticos de Fuego y Escarcha te devolverán un 20% de su coste de maná base.",
+            "Tus golpes críticos de Fuego y Escarcha te devolverán un 30% de su coste de maná base."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83084
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105784,
+          "spellId": 11115,
+          "name": "Masa crítica",
+          "iconFileDataId": 136115,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                12582935,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 2% la probabilidad de golpe crítico de tus hechizos de Fuego.",
+            "Aumenta en un 4% la probabilidad de golpe crítico de tus hechizos de Fuego.",
+            "Aumenta en un 6% la probabilidad de golpe crítico de tus hechizos de Fuego.",
+            "Aumenta en un 8% la probabilidad de golpe crítico de tus hechizos de Fuego.",
+            "Aumenta en un 10% la probabilidad de golpe crítico de tus hechizos de Fuego."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105785,
+              105786,
+              105787,
+              105788,
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83083
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105783,
+          "spellId": 11113,
+          "name": "Ola explosiva",
+          "iconFileDataId": 135903,
+          "effectInfo": [
+            {
+              "index": 1,
+              "aura": 33,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              163,
+              -50
+            ]
+          ],
+          "descriptions": [
+            "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige 163 p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un 50% durante 6 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105785,
+              105786,
+              105787,
+              105788,
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105782,
+          "spellId": 11124,
+          "name": "Poder de Fuego",
+          "iconFileDataId": 135817,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño causado con tus hechizos de Fuego en un 1% por cada uno de tus efectos de Fuego en el objetivo, hasta un aumento máximo del 4%. Los efectos que combinan varias escuelas de magia no cuentan.",
+            "Aumenta el daño causado con tus hechizos de Fuego en un 2% por cada uno de tus efectos de Fuego en el objetivo, hasta un aumento máximo del 8%. Los efectos que combinan varias escuelas de magia no cuentan.",
+            "Aumenta el daño causado con tus hechizos de Fuego en un 3% por cada uno de tus efectos de Fuego en el objetivo, hasta un aumento máximo del 12%. Los efectos que combinan varias escuelas de magia no cuentan."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105783,
+              105784,
+              105785,
+              105786,
+              105787,
+              105788,
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83082
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105781,
+          "spellId": 11129,
+          "name": "Combustión",
+          "iconFileDataId": 135824,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Cuando se activa, este hechizo provoca que los golpes de tu hechizo de daño de Fuego aumenten un 10% la probabilidad de golpe crítico de los hechizos de daño de Fuego. Este efecto dura hasta que asestes 3 golpes críticos no periódicos con hechizos de Fuego."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105781,
+              105782,
+              105783,
+              105784,
+              105785,
+              105786,
+              105787,
+              105788,
+              105789,
+              105790,
+              105791,
+              105792,
+              105793,
+              105794,
+              105795,
+              105796,
+              105797
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105784,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Escarcha",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135846,
+      "backgroundFile": "MageFrost",
+      "talents": [
+        {
+          "nodeId": 105780,
+          "spellId": 11189,
+          "name": "Custodia de Escarcha",
+          "iconFileDataId": 135850,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                33554432,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                256,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                256,
+                1,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              10,
+              10
+            ],
+            [
+              30,
+              20,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% la armadura y las resistencias otorgadas por tus hechizos Armadura de Escarcha y Armadura de hielo. Además, otorga a tu Resguardo contra la Escarcha un 10% de probabilidad de eludir el hechizo de daño resguardado y aumenta un 10% la cantidad absorbida por tu Barrera de hielo y tu Resguardo contra la Escarcha.",
+            "Aumenta un 30% la armadura y las resistencias otorgadas por tus hechizos Armadura de Escarcha y Armadura de hielo. Además, otorga a tu Resguardo contra la Escarcha un 20% de probabilidad de eludir el hechizo de daño resguardado y aumenta un 20% la cantidad absorbida por tu Barrera de hielo y tu Resguardo contra la Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83081
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83080
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 127228
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105779,
+          "spellId": 11070,
+          "name": "Descarga de Escarcha mejorada",
+          "iconFileDataId": 135846,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                32,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ],
+            [
+              -200
+            ],
+            [
+              -300
+            ],
+            [
+              -400
+            ],
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tus hechizos Descarga de Escarcha y Explosión de Escarcha.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tus hechizos Descarga de Escarcha y Explosión de Escarcha.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tus hechizos Descarga de Escarcha y Explosión de Escarcha.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tus hechizos Descarga de Escarcha y Explosión de Escarcha.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tus hechizos Descarga de Escarcha y Explosión de Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83079
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105778,
+          "spellId": 29438,
+          "name": "Enfoque elemental",
+          "iconFileDataId": 135989,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                12714743,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu probabilidad de golpear con hechizos de Escarcha y de Fuego.",
+            "Aumenta un 4% tu probabilidad de golpear con hechizos de Escarcha y de Fuego.",
+            "Aumenta un 6% tu probabilidad de golpear con hechizos de Escarcha y de Fuego."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83078
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105777,
+          "spellId": 11207,
+          "name": "Fragmentos de hielo",
+          "iconFileDataId": 135855,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                131808,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 20% el daño extra de golpe crítico con tus hechizos de Escarcha.",
+            "Aumenta en un 40% el daño extra de golpe crítico con tus hechizos de Escarcha.",
+            "Aumenta en un 60% el daño extra de golpe crítico con tus hechizos de Escarcha.",
+            "Aumenta en un 80% el daño extra de golpe crítico con tus hechizos de Escarcha.",
+            "Aumenta en un 100% el daño extra de golpe crítico con tus hechizos de Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83077
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105774,
+          "spellId": 11071,
+          "name": "Mordiescarcha",
+          "iconFileDataId": 135842,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Da a tus efectos de escalofrío un 5% de probabilidad de congelar al objetivo durante 5 s.",
+            "Da a tus efectos de escalofrío un 10% de probabilidad de congelar al objetivo durante 5 s.",
+            "Da a tus efectos de escalofrío un 15% de probabilidad de congelar al objetivo durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83073
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105775,
+          "spellId": 11165,
+          "name": "Nova de Escarcha mejorada",
+          "iconFileDataId": 135840,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2000
+            ],
+            [
+              -4000
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de regeneración de tu hechizo Nova de Escarcha en 2 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Nova de Escarcha en 4 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83074
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105776,
+          "spellId": 11175,
+          "name": "Escarcha permanente",
+          "iconFileDataId": 135864,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                1048576,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                1048576,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              11,
+              -3
+            ],
+            [
+              22,
+              -7
+            ],
+            [
+              33,
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 11% la duración de los efectos de escalofrío y reduce un 3% más la velocidad del objetivo.",
+            "Aumenta un 22% la duración de los efectos de escalofrío y reduce un 7% más la velocidad del objetivo.",
+            "Aumenta un 33% la duración de los efectos de escalofrío y reduce un 10% más la velocidad del objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83076
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83075
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105772,
+          "spellId": 11160,
+          "name": "Canalización de Escarcha",
+          "iconFileDataId": 135860,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                655360,
+                4096,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 10,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5,
+              -10
+            ],
+            [
+              -10,
+              -20
+            ],
+            [
+              -15,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce el coste de maná de Hechizo de Escarcha en un 5% y reduce la amenaza causada por tu Hechizo de Escarcha en un 10%.",
+            "Reduce el coste de maná de Hechizo de Escarcha en un 10% y reduce la amenaza causada por tu Hechizo de Escarcha en un 20%.",
+            "Reduce el coste de maná de Hechizo de Escarcha en un 15% y reduce la amenaza causada por tu Hechizo de Escarcha en un 30%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110791
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110790
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105771,
+          "spellId": 11185,
+          "name": "Ventisca mejorada",
+          "iconFileDataId": 135857,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -15
+            ],
+            [
+              -25
+            ],
+            [
+              -40
+            ]
+          ],
+          "descriptions": [
+            "Añade un efecto de escalofrío al hechizo Ventisca. Este efecto disminuye un 15% la velocidad de movimiento durante 1,5 s.",
+            "Añade un efecto de escalofrío al hechizo Ventisca. Este efecto disminuye un 25% la velocidad de movimiento durante 1,5 s.",
+            "Añade un efecto de escalofrío al hechizo Ventisca. Este efecto disminuye un 40% la velocidad de movimiento durante 1,5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83071
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105767,
+          "spellId": 1312002,
+          "name": "Lanza de hielo",
+          "iconFileDataId": 135844,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              28,
+              200,
+              20,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Inflige 28 p. de daño de Escarcha a un objetivo enemigo. Inflige un 200% más de daño contra objetivos congelados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105770,
+          "spellId": 16757,
+          "name": "Alcance ártico",
+          "iconFileDataId": 136141,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                160,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 6,
+              "miscValueB": 0,
+              "classMask": [
+                576,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              10
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% el alcance de tus hechizos Descarga de Escarcha, Explosión de Escarcha y Ventisca, así como el radio de tus hechizos Nova de Escarcha y Cono de frío.",
+            "Aumenta en un 20% el alcance de tus hechizos Descarga de Escarcha, Explosión de Escarcha y Ventisca, así como el radio de tus hechizos Nova de Escarcha y Cono de frío."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105767,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83070
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87540
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105769,
+          "spellId": 11958,
+          "name": "Bloqueo de hielo",
+          "iconFileDataId": 135841,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 12,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 39,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 39,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5,
+              -10,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Te envuelve un bloque de hielo que te protege de todos los ataques físicos y hechizos durante 10 s, pero durante ese tiempo no puedes atacar, moverte ni usar hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105767,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83069
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83068
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105768,
+          "spellId": 11170,
+          "name": "Trizar",
+          "iconFileDataId": 135849,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              17
+            ],
+            [
+              33
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 17% la probabilidad de golpe crítico de todos tus hechizos contra objetivos congelados.",
+            "Aumenta un 33% la probabilidad de golpe crítico de todos tus hechizos contra objetivos congelados.",
+            "Aumenta un 50% la probabilidad de golpe crítico de todos tus hechizos contra objetivos congelados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105767,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83067
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105765,
+          "spellId": 11190,
+          "name": "Cono de frío mejorado",
+          "iconFileDataId": 135852,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                512,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              35
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 12% el daño causado con tu hechizo Cono de frío.",
+            "Aumenta en un 23% el daño causado con tu hechizo Cono de frío.",
+            "Aumenta en un 35% el daño causado con tu hechizo Cono de frío."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105767,
+              105768,
+              105769,
+              105770,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83066
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105766,
+          "spellId": 12472,
+          "name": "Mordedura helada",
+          "iconFileDataId": 135865,
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Termina el tiempo de reutilización restante de todos tus otros hechizos de Escarcha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105767,
+              105768,
+              105769,
+              105770,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105764,
+          "spellId": 400647,
+          "name": "Dedos de Escarcha",
+          "iconFileDataId": 236227,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              15
+            ],
+            [
+              2,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Da a tus efectos de enfriamiento un 15% de probabilidad de otorgarte el efecto de Dedos de Escarcha, que hace que tu(s) siguiente(s) 1 hechizo trate(n) al objetivo como si estuviese congelado. Dura 15 s.",
+            "Da a tus efectos de enfriamiento un 15% de probabilidad de otorgarte el efecto de Dedos de Escarcha, que hace que tu(s) siguiente(s) 2 hechizos trate(n) al objetivo como si estuviese congelado. Dura 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105767,
+              105768,
+              105769,
+              105770,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105767,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83065
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105763,
+          "spellId": 11180,
+          "name": "Escalofrío del invierno",
+          "iconFileDataId": 135836,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              20,
+              7
+            ],
+            [
+              5,
+              40,
+              7
+            ],
+            [
+              5,
+              60,
+              7
+            ],
+            [
+              5,
+              80,
+              7
+            ],
+            [
+              5,
+              100,
+              7
+            ]
+          ],
+          "descriptions": [
+            "Otorga a tus hechizos Lanza de hielo potenciados con Descarga de Escarcha, Explosión de Escarcha y Dedos de Escarcha un 20% de probabilidad de aplicar Escalofrío invernal, lo que aumenta un 5% el daño recibido por el objetivo de tu siguiente Cono de frío y obtiene un 7% adicional de tu daño con hechizos, acumulándose hasta 5 veces.",
+            "Otorga a tus hechizos Lanza de hielo potenciados con Descarga de Escarcha, Explosión de Escarcha y Dedos de Escarcha un 40% de probabilidad de aplicar Escalofrío invernal, lo que aumenta un 5% el daño recibido por el objetivo de tu siguiente Cono de frío y obtiene un 7% adicional de tu daño con hechizos, acumulándose hasta 5 veces.",
+            "Otorga a tus hechizos Lanza de hielo potenciados con Descarga de Escarcha, Explosión de Escarcha y Dedos de Escarcha un 60% de probabilidad de aplicar Escalofrío invernal, lo que aumenta un 5% el daño recibido por el objetivo de tu siguiente Cono de frío y obtiene un 7% adicional de tu daño con hechizos, acumulándose hasta 5 veces.",
+            "Otorga a tus hechizos Lanza de hielo potenciados con Descarga de Escarcha, Explosión de Escarcha y Dedos de Escarcha un 80% de probabilidad de aplicar Escalofrío invernal, lo que aumenta un 5% el daño recibido por el objetivo de tu siguiente Cono de frío y obtiene un 7% adicional de tu daño con hechizos, acumulándose hasta 5 veces.",
+            "Otorga a tus hechizos Lanza de hielo potenciados con Descarga de Escarcha, Explosión de Escarcha y Dedos de Escarcha un 100% de probabilidad de aplicar Escalofrío invernal, lo que aumenta un 5% el daño recibido por el objetivo de tu siguiente Cono de frío y obtiene un 7% adicional de tu daño con hechizos, acumulándose hasta 5 veces."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105764,
+              105765,
+              105766,
+              105767,
+              105768,
+              105769,
+              105770,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83064
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83063
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105762,
+          "spellId": 11426,
+          "name": "Barrera de hielo",
+          "iconFileDataId": 135988,
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 69,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                131808,
+                4096,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                4096,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              431,
+              3,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Te protege con un escudo que absorbe 431 p. de daño y aumenta un 3% tu daño de Escarcha durante 1 min. Mientras tengas la protección, tu daño de Escarcha aumenta un 3% más y no pierdes tiempo de lanzamiento por recibir daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105762,
+              105763,
+              105764,
+              105765,
+              105766,
+              105767,
+              105768,
+              105769,
+              105770,
+              105771,
+              105772,
+              105774,
+              105775,
+              105776,
+              105777,
+              105778,
+              105779,
+              105780
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105766,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": []
+}

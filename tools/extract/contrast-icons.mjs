@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const listfile = process.argv[2];
-const build = process.argv[3] ?? "1.60.1.70425";
+const build = process.argv[3] ?? "1.60.1.70450";
 if (!listfile || !fs.existsSync(listfile)) {
   console.error("Uso: node tools/extract/contrast-icons.mjs <listfile.csv> [build]");
   process.exit(1);

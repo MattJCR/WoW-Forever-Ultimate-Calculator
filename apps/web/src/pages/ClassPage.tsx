@@ -1,6 +1,6 @@
 import {
   addPoint,
-  decodeBuild,
+  decodeBuildReport,
   encodeBuild,
   formatBuildForAI,
   indexClass,
@@ -12,6 +12,7 @@ import {
   totalPoints,
   type Build,
   type ClassIndex,
+  type DecodeReport,
 } from "@wfuc/engine";
 import type { ClassTalents, Manifest, Race } from "@wfuc/schema";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
@@ -20,6 +21,7 @@ import { Detail } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
 import { StatEffectsView, useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
+import { LinkNotice } from "../components/LinkNotice";
 import { originNote } from "../components/Detail";
 import { RaceTotals, RacialList, racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
@@ -81,12 +83,14 @@ function useBuildActions(idx: ClassIndex | null, setBuild: (u: (b: Build) => Bui
 }
 
 function ClassView({ token, data, query }: { token: string; data: ClassTalents; query: URLSearchParams }) {
-  const { legacy, legacyBuild, legacyCode, legacyReady, setLegacyBuild, manifest } = useCharacter();
+  const { legacy, legacyBuild, legacyCode, legacyReady, legacyReport, setLegacyBuild, manifest } = useCharacter();
   const idx = useMemo(() => indexClass(data), [data]);
-  const [classBuild, setClassBuild] = useState<Build>(() => {
+  // El enlace puede ser de otra version de los datos (un hotfix quita o mueve talentos): se lee con tolerancia y lo perdido se avisa
+  const [initial] = useState<DecodeReport | null>(() => {
     const code = query.get("b");
-    return code ? (decodeBuild(idx, code) ?? {}) : {};
+    return code ? decodeBuildReport(idx, code) : null;
   });
+  const [classBuild, setClassBuild] = useState<Build>(() => initial?.build ?? {});
   const [view, setView] = useState<View>(() => {
     const v = query.get("v");
     if (isView(v)) return v;
@@ -177,6 +181,8 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   return (
     <div className="class-page" style={{ ["--accent" as string]: color }}>
       <ClassTabs current={token} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
+      <LinkNotice title={data.className ?? token} report={initial && (initial.lost.length > 0 || initial.malformed) ? initial : null} />
+      <LinkNotice title="Puntos de Legado" report={legacyReport} />
 
       <div className="toolbar">
         <nav className="steps" aria-label="Pasos del personaje">

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { applyModifiers, effectAt, findAbility, indexClass, rankAtLevel, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70425", "abilities", "mage.json"), "utf8")));
+const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70450", "abilities", "mage.json"), "utf8")));
 const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "mage.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
 
 describe("habilidades del Mago (libro de hechizos del cliente)", () => {
@@ -73,7 +73,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
 
 describe("talentos como modificadores de habilidades (Mago)", () => {
   // Se carga la clase y se simulan builds
-  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70425", "classes", "mage.json"), "utf8"));
+  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70450", "classes", "mage.json"), "utf8"));
   const idx = indexClass(ClassTalents.parse(cls));
   const nodeOf = (name: string) => idx.ordered.find((i) => i.talent.name === name)!.talent.nodeId;
   /** Build con esos talentos al rango maximo, saltandose los requisitos (solo para probar el calculo). */
@@ -107,12 +107,12 @@ describe("talentos como modificadores de habilidades (Mago)", () => {
     expect(m.cost).toBe(Math.round(rk.cost! * 0.85));
   });
 
-  it("Hielo penetrante 3/3 sube un 6 % el daño de Descarga de Escarcha (media y coeficiente)", () => {
+  it("Inestabilidad Arcana 3/3 sube un 3 % el daño de Descarga de Escarcha (media y coeficiente; Hielo penetrante, que daba el 6 %, se retiró el 20/10)", () => {
     const rk = findAbility(mage, "Descarga de Escarcha")!.ranks.at(-1)!;
-    const m = applyModifiers(rk, 60, spellModifiersOf(idx, full("Hielo penetrante")));
+    const m = applyModifiers(rk, 60, spellModifiersOf(idx, full("Inestabilidad Arcana")));
     const dmg = m.effects.find((e) => e.effect.kind === "direct-damage")!;
-    expect(dmg.final.average).toBeCloseTo(dmg.base.average * 1.06, 6);
-    expect(dmg.coefficient!).toBeCloseTo(dmg.effect.coefficient! * 1.06, 6);
+    expect(dmg.final.average).toBeCloseTo(dmg.base.average * 1.03, 6);
+    expect(dmg.coefficient!).toBeCloseTo(dmg.effect.coefficient! * 1.03, 6);
   });
 
   it("Explosión de Fuego mejorada 2/2 baja 2 s el enfriamiento de Explosión de Fuego", () => {

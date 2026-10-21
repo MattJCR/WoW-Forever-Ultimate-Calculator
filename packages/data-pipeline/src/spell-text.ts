@@ -289,6 +289,8 @@ function expandReferences(t: SpellTables, ctx: RenderContext, text: string, dept
   }
   // Multiplicador de un talento pasivo (`(1+$18182m1/100)` = Transfusion de vida mejorada): sin el talento vale 1
   out = out.replace(/\(1\+\$(\d+)[mMsS]\d\/100\)/g, (m, id: string) => (t.isPassive(Number(id)) ? "(1)" : m));
+  // Mismo multiplicador con el orden invertido (`($11189s3/100+1)` = Custodia de Escarcha en Barrera de hielo, hotfix del 20/10)
+  out = out.replace(/\(\$(\d+)[mMsS]\d\/100\+1\)/g, (m, id: string) => (t.isPassive(Number(id)) ? "(1)" : m));
   // Condicionales de talento/aura: `$?a12792[con talento][sin talento]` -> la rama sin talentos (aqui no hay talentos)
   out = out.replace(/\$\?\$?[sap]\d+(?:\|[sap]\d+)*\[([^\]]*)\]\[([^\]]*)\]/g, "$2");
   // Poder de ataque: `${1+$AP*$m3/100}` -> «un 15% de tu poder de ataque» (el poder no se calcula: no hay estadisticas de Forever)
@@ -414,7 +416,7 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
           i = end + 1;
           continue;
         }
-        let inner = rawInner.replace(/\$<mult>/g, "1").replace(/\$<\d+h>/g, "0").replace(/\$b[hc](?![A-Za-z])/g, "0").replace(/\$(?:SPI|STR|AGI|STA|INT)(?![A-Za-z])/g, "0");
+        let inner = rawInner.replace(/\$<mult>/g, "1").replace(/\$<\d+h>/g, "0").replace(/\$b[hc](?![A-Za-z])/g, "0").replace(/\$(?:SPI|STR|AGI|STA|INT|SP[A-Z]{2})(?![A-Za-z])/g, "0");
         if (ctx.slots && /\$<\w+>/.test(rawInner)) {
           const norm = inner.replace(/\$\*/g, "*").replace(/\$<\w+>/g, "1").replace(/\s+/g, "");
           const own = /^\$([mM])(\d+)\*1$/.exec(norm);

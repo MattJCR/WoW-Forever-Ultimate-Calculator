@@ -15,7 +15,7 @@ import { allModifiersFor, applyModifiers, canCrit, collectStatEffects, dealsDama
  * Cada lista de abajo es EXACTA: si cambia (para bien o para mal) la prueba falla y obliga a revisarla.
  */
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70425");
+const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const classes = readdirSync(join(D, "classes")).map((f) => {
   const token = f.replace(".json", "");
@@ -148,7 +148,10 @@ describe("habilidades que el texto de un talento nombra y su máscara (propia o 
   // «REAL» = el cliente no las incluye aunque el texto las nombre (decidir con el usuario / confirmar en el juego); «ruido» = el texto
   // nombra la habilidad como condición o es una palabra genérica (Venenos, Amenaza, Sentencia, formas…) y no es un hueco.
   const KNOWN: Record<string, string> = {
-    "warlock: Amplificar maldición → Maldición de agotamiento": "REAL: el texto la nombra y la máscara del talento (debilidad y agonía) no la incluye",
+    // Hotfix del 16/10 (cliente 70450): el talento ahora lleva dos efectos, el 0 con la máscara de Maldición de debilidad y el 1 (op. 8, −20) con la de
+    // Maldición de agotamiento (que sube su máscara a [4194304,0,262144,0]); el hueco anterior de Agotamiento queda cerrado. Terror de agonía ya no
+    // va por la máscara del talento: el propio hechizo trae un efecto 271 (valor $w2 que rellena el juego al activar el talento, que es ACTIVO).
+    "warlock: Amplificar maldición → Terror de agonía": "ruido: el mecanismo es un efecto 271 del propio Terror de agonía (valor en tiempo de ejecución); el talento es activo y no entra en el cálculo permanente",
     "hunter: Matanza rápida → Picadura de serpiente": "ruido: Picadura de serpiente es la condición, no la habilidad modificada",
     "paladin: Sellos mejorados → Sentencia": "ruido: Sentencia no hace daño; el daño está en el hechizo del sello",
     "paladin: Enjuiciador Sagrado → Sentencia": "ruido: idem",
@@ -201,7 +204,6 @@ describe("las cifras que se suman salen del texto del cliente y se aplican donde
 
   // Líneas sumadas cuya cifra no aparece en el texto del cliente (en valor absoluto, o minutos/ms), con el motivo
   const NOT_IN_TEXT: Record<string, string> = {
-    "mage: Hielo penetrante → daño y curación periódicos 2": "el cliente trae un +2 % periódico propio (Ventisca, Pirofrío) y el texto solo cita el 6 %",
   };
   it("cada línea sumada de un talento pasivo aparece en su texto (lista exacta de excepciones)", () => {
     const found: string[] = [];
