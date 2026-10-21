@@ -30,10 +30,18 @@ function chipsOf(a: RacialAbility, classId: number): string[] {
   return chips;
 }
 
+/** Aviso de enfriamiento compartido con la insignia de PvP (solo raciales que quitan el mismo control; sin confirmar). */
+function trinketNote(a: RacialAbility): string | null {
+  const t = a.pvpTrinket;
+  if (!t) return null;
+  return `Quita ${t.overlaps.join(" y ")}, igual que la insignia de PvP (${formatMs(t.trinketCooldownMs)}). Si comparte enfriamiento con ella, y cuántos segundos si es parcial, está sin confirmar: el cliente no lo indica; hay que medirlo en el juego.`;
+}
+
 /** Descripcion del cliente mas sus cifras, en una linea (para «Copiar build para IA»). */
 export function racialLine(a: RacialAbility, classId: number): string {
   const chips = chipsOf(a, classId);
-  return chips.length > 0 ? `${a.description} [client figures: ${chips.join("; ")}]` : a.description;
+  const base = chips.length > 0 ? `${a.description} [client figures: ${chips.join("; ")}]` : a.description;
+  return a.pvpTrinket ? `${base} [PvP trinket shared cooldown: unconfirmed; the client does not link this racial to the trinket's cooldown category]` : base;
 }
 
 /** Habilidades raciales: texto del cliente y, debajo, las cifras que salen de sus hechizos. */
@@ -49,6 +57,11 @@ export function RacialList({ race, classId }: { race: Race; classId: number }) {
               <b>{a.name}</b> <span className="rank-chip">{a.kind === "active" ? "activa" : "pasiva"}</span>
               <p>{a.description}</p>
               {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
+              {a.pvpTrinket && (
+                <p className="origin-note trinket-note">
+                  <span className="chip chip-unconfirmed">Insignia de PvP: enfriamiento compartido sin confirmar</span> {trinketNote(a)}
+                </p>
+              )}
               {chips.length > 0 && (
                 <p className="racial-chips" aria-label="Cifras del cliente">
                   {chips.map((c) => (

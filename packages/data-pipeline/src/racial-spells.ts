@@ -1,5 +1,5 @@
 import { int, type RawTables } from "./csv.js";
-import type { RacialEffect, RacialSpell } from "./model.js";
+import type { RacialEffect, RacialSpell, RacialTrinketShare } from "./model.js";
 import type { SpellTables } from "./spell-tables.js";
 
 /**
@@ -127,4 +127,47 @@ export function racialSpells(raw: RawTables, spells: SpellTables, raceId: number
       effects: [...effectsOf(spells, spellId), ...referencedEffects(spells, spellId)],
     };
   });
+}
+
+/** Categoria de enfriamiento del cliente de las insignias/abalorios de PvP ("PvP CC Removal Trinket", SpellCategory 2269). */
+export const PVP_TRINKET_CATEGORY = 2269;
+const AURA_MECHANIC_IMMUNITY = 77;
+const EFFECT_DISPEL_MECHANIC = 108;
+/** SpellMechanic del cliente -> nombre en espanol (solo los que quitan las insignias o raciales de control). */
+const MECHANIC_NAMES: Record<number, string> = { 1: "embelesamiento", 5: "miedo", 7: "inmovilización", 10: "sueño", 11: "ralentización", 12: "aturdimiento", 17: "polimorfia" };
+
+/** Mecanicas de control que quita un hechizo: inmunidad a la mecanica (aura 77) o disipar la mecanica (efecto 108). */
+function removedMechanics(spells: SpellTables, spellId: number): Set<number> {
+  const out = new Set<number>();
+  for (let i = 0; i < spells.effectCount(spellId); i++) {
+    const e = spells.effect(spellId, i)!;
+    if (int(e.EffectAura) === AURA_MECHANIC_IMMUNITY || int(e.Effect) === EFFECT_DISPEL_MECHANIC) {
+      const m = int(e["EffectMiscValue[0]"]);
+      if (m > 0) out.add(m);
+    }
+  }
+  return out;
+}
+
+/**
+ * Posible enfriamiento compartido de una racial activa con la insignia de PvP. El cliente no enlaza ninguna racial con la
+ * categoria de la insignia (se comprobo en las 1161 tablas DB2 del build 70450), asi que solo se avisa, como `assumption`,
+ * de las raciales que quitan el mismo control que la insignia: el calculo sale de las mecanicas del cliente, no de una lista a mano.
+ */
+export function pvpTrinketShare(raw: RawTables, spells: SpellTables, racialSpellIds: number[]): RacialTrinketShare | null {
+  const trinketSpells = raw.table("SpellCategories").filter((r) => int(r.Category) === PVP_TRINKET_CATEGORY).map((r) => int(r.SpellID));
+  if (trinketSpells.length === 0) return null;
+  const trinketMechanics = new Set<number>();
+  for (const id of trinketSpells) for (const m of removedMechanics(spells, id)) trinketMechanics.add(m);
+  const overlaps = new Set<number>();
+  for (const id of racialSpellIds) for (const m of removedMechanics(spells, id)) if (trinketMechanics.has(m)) overlaps.add(m);
+  if (overlaps.size === 0) return null;
+  // Insignia clasica: la de mayor enfriamiento entre las que usan la categoria (5 min)
+  const trinketCooldownMs = Math.max(...trinketSpells.map((id) => spells.cooldownMs(id) ?? 0));
+  return {
+    status: "unconfirmed",
+    provenance: "assumption",
+    overlaps: [...overlaps].sort((a, b) => a - b).map((m) => MECHANIC_NAMES[m] ?? `mecánica ${m}`),
+    trinketCooldownMs,
+  };
 }

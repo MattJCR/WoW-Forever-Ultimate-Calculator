@@ -1391,6 +1391,14 @@ select {
   background: color-mix(in srgb, var(--info) 13%, transparent);
   border: 1px solid color-mix(in srgb, var(--info) 40%, transparent);
 }
+.chip-unconfirmed {
+  color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 13%, transparent);
+  border-color: color-mix(in srgb, var(--warn) 40%, transparent);
+}
+.trinket-note {
+  margin: 6px 0 0;
+}
 .race-totals td {
   text-align: left;
 }

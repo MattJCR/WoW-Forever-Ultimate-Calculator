@@ -40,8 +40,20 @@ DEFAULT_TABLES=(
   # Critico por agilidad/intelecto, mana base y vida por aguante por clase y nivel (client-stats.json)
   PlayerExpectedStat
 )
+# Objetos y equipo (spike de Equipo, sesion 6). ITEMS=1 exporta solo estas, con hotfixes: la
+# mitad de los ItemSparse de Forever llegan por hotfix (ver DATA-FINDINGS, "Objetos").
+ITEM_TABLES=(
+  Item ItemSparse ItemSearchName ItemEffect ItemXItemEffect ItemSet ItemSetSpell ItemLimitCategory
+  ItemClass ItemSubClass ItemNameDescription SpellItemEnchantment
+  # Presupuesto de estadisticas, armadura y dano de arma por nivel de objeto
+  RandPropPoints ItemArmorTotal ItemArmorQuality ItemArmorShield ArmorLocation
+  ItemDamageOneHand ItemDamageOneHandCaster ItemDamageTwoHand ItemDamageTwoHandCaster
+  ItemDamageWand ItemDamageThrown ItemDamageAmmo
+)
 TABLES=("$@")
-[ ${#TABLES[@]} -eq 0 ] && TABLES=("${DEFAULT_TABLES[@]}")
+if [ ${#TABLES[@]} -eq 0 ]; then
+  if [ "${ITEMS:-0}" = "1" ]; then TABLES=("${ITEM_TABLES[@]}"); else TABLES=("${DEFAULT_TABLES[@]}"); fi
+fi
 
 for t in "${TABLES[@]}"; do
   code=$(curl -s -m 180 "http://localhost:5000/dbc/export/?name=$t&build=$BUILD$EXTRA" \

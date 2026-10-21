@@ -290,6 +290,22 @@ export const RacialSpell = z.object({
 });
 export type RacialSpell = z.infer<typeof RacialSpell>;
 
+/**
+ * Posible enfriamiento compartido de una racial activa con la insignia/abalorio de PvP. El cliente NO lo dice (las
+ * insignias usan la categoria 2269 y ninguna racial la usa), asi que `status` siempre es "unconfirmed" y la procedencia
+ * `assumption`: solo se marca que la racial quita el mismo tipo de control que la insignia (`overlaps`, mecanicas del
+ * cliente). Cuando se mida en el juego pasara a "shared" / "independent" con los segundos.
+ */
+export const RacialTrinketShare = z.object({
+  status: z.literal("unconfirmed"),
+  provenance: z.literal("assumption"),
+  /** Control que quita la racial y tambien la insignia (mecanicas de SpellEffect), en espanol. */
+  overlaps: z.array(z.string()),
+  /** Enfriamiento de la insignia de PvP clasica (ms), del cliente. */
+  trinketCooldownMs: z.number().int(),
+});
+export type RacialTrinketShare = z.infer<typeof RacialTrinketShare>;
+
 /** Habilidad racial tal como la lista el cliente (`ChrRaceRacialAbility`) y sus hechizos con los numeros. */
 export const RacialAbility = z.object({
   name: z.string(),
@@ -302,6 +318,8 @@ export const RacialAbility = z.object({
   textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
   /** Hechizos del cliente de esta racial (vacio si no se ha podido enlazar). */
   spells: z.array(RacialSpell),
+  /** Solo en raciales activas que quitan el mismo control que la insignia de PvP; null en el resto. */
+  pvpTrinket: RacialTrinketShare.nullable().default(null),
 });
 export type RacialAbility = z.infer<typeof RacialAbility>;
 
@@ -617,6 +635,156 @@ export const CombatFormulas = z.object({
 });
 export type CombatFormulas = z.infer<typeof CombatFormulas>;
 
+/** Una estadistica de un objeto. `key` es null cuando el tipo del cliente aun no se ha interpretado (se conserva el numero). */
+export const ItemStat = z.object({
+  /** ItemSparse.StatModifier_bonusStat (ITEM_MOD_*). */
+  type: z.number().int(),
+  key: z.string().nullable(),
+  value: z.number(),
+});
+export const ItemWeapon = z.object({
+  min: z.number(),
+  max: z.number(),
+  /** Velocidad en segundos. */
+  speed: z.number(),
+  dps: z.number(),
+  /** Tabla ItemDamage* de la que sale (a distancia = 0,6 x la de dos manos, medido). */
+  table: z.enum(["one-hand", "two-hand", "ranged", "wand", "thrown"]),
+  /** verified = contrastado con lecturas del juego; estimated = la tabla no reproduce las lecturas (armas de lanzador). */
+  confidence: z.enum(["verified", "estimated"]),
+});
+export const ItemEffectRef = z.object({
+  spellId: z.number().int(),
+  /** ItemEffect.TriggerType: 0 uso, 1 equipar, 2 probabilidad al golpear, 6 aprender... */
+  trigger: z.number().int(),
+  /** Nombre y texto del hechizo (esES del cliente, cifras al nivel base); vacios si el hechizo no tiene descripcion. */
+  name: z.string(),
+  text: z.string(),
+  /** false si algun valor del texto no se pudo calcular. */
+  textComplete: z.boolean(),
+});
+/** Conjunto de objetos con sus bonos (ItemSet + ItemSetSpell): cada bono es un hechizo que se activa con N piezas. */
+export const ItemSetDef = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  /** Habilidad de profesion que exige (0 = ninguna) y su rango. */
+  requiredSkill: z.number().int(),
+  requiredSkillRank: z.number().int(),
+  itemIds: z.array(z.number().int()),
+  bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable() })),
+});
+export const Item = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  quality: z.number().int(),
+  itemLevel: z.number().int(),
+  requiredLevel: z.number().int(),
+  /** Tipo de ranura del cliente (1 cabeza, 2 cuello, 3 hombros, 5 pecho, 13 una mano, 17 dos manos...). */
+  inventoryType: z.number().int(),
+  classId: z.number().int(),
+  subclassId: z.number().int(),
+  /** 0 ninguno, 1 al recoger, 2 al equipar, 3 al usar, 4 mision. */
+  bonding: z.number().int(),
+  iconFileDataId: z.number().int().nullable(),
+  /** Mascara de clases que pueden usarlo (-1 = todas). */
+  allowableClass: z.number().int(),
+  /** Mascara de razas (-1 = todas). */
+  allowableRace: z.number().int(),
+  itemSetId: z.number().int().nullable(),
+  limitCategory: z.number().int().nullable(),
+  /** Unidades maximas que se pueden tener (1 = unico). */
+  maxCount: z.number().int(),
+  /** Armadura base de las tablas (sin la estadistica de armadura extra). */
+  armor: z.number().nullable(),
+  weapon: ItemWeapon.nullable(),
+  /** Arma de lanzador (ItemSparse.Flags[4] bit 8): Forever le aplica un modificador de dano que las tablas no reproducen. */
+  casterWeapon: z.boolean(),
+  /** Objeto de prueba, marcador o retirado (nombre con [PH], TEST, OLD, Deprecated...): se conserva pero la UI no lo ofrece. */
+  placeholder: z.boolean(),
+  stats: z.array(ItemStat),
+  effects: z.array(ItemEffectRef),
+  /** client-db2 = tablas del cliente; community = wowsims/forever (objetos que nuestro volcado no trae). */
+  provenance: Provenance,
+  /** client = nombre del cliente (esES); untranslated = ingles de wowsims, pendiente de traducir. */
+  textOrigin: z.enum(["client", "untranslated"]),
+  /** Indice en `Items.suffixSets`: lista de sufijos aleatorios que puede llevar («del Mono»…); null = sin sufijo. */
+  randomSuffixSet: z.number().int().nullable(),
+});
+export const Items = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  /** Equipables (armas y armadura con ranura) con datos en el cliente. */
+  items: z.array(Item),
+  /** Equipables que estan en `Item` pero el cliente no trae `ItemSparse` (ni nombre ni estadisticas): llegan por hotfix al verlos en el juego. */
+  unavailable: z.array(z.object({ id: z.number().int(), classId: z.number().int(), subclassId: z.number().int(), inventoryType: z.number().int() })),
+  /** Conjuntos de objetos y sus bonos. */
+  sets: z.array(ItemSetDef),
+  /** Listas de sufijos aleatorios posibles (ids de `RandomSuffixes`), compartidas por muchos objetos. */
+  suffixSets: z.array(z.array(z.number().int())),
+  warnings: z.array(z.string()),
+});
+export type ItemStat = z.infer<typeof ItemStat>;
+export type ItemWeapon = z.infer<typeof ItemWeapon>;
+export type ItemSetDef = z.infer<typeof ItemSetDef>;
+export type Item = z.infer<typeof Item>;
+export type Items = z.infer<typeof Items>;
+
+/** Puntuacion necesaria por 1 % (defensa: por punto de habilidad) segun wowsims/forever (MIT), medida en la beta; `community`. */
+export const CombatRatings = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  source: z.string(),
+  /** true = los 123 niveles tienen las mismas cifras (comprobado al generar), asi que `ratings` vale para todos. */
+  constantAcrossLevels: z.boolean(),
+  levels: z.object({ min: z.number().int(), max: z.number().int() }),
+  /** Clave (defense, dodge, parry, block, hit-melee, hit-ranged, hit-spell, crit-*, haste-*, expertise...) -> puntuacion por 1 %. */
+  ratings: z.record(z.string(), z.number()),
+});
+export type CombatRatings = z.infer<typeof CombatRatings>;
+
+/** Encantamiento aplicable a una ranura. El nombre sale del cliente (SpellItemEnchantment, esES); las cifras, de wowsims. */
+export const Enchant = z.object({
+  /** SpellItemEnchantment.ID (el cliente lo llama effectId). */
+  effectId: z.number().int(),
+  spellId: z.number().int(),
+  itemId: z.number().int().nullable(),
+  name: z.string(),
+  nameEn: z.string(),
+  /** Tipo de ranura principal (ItemType de wowsims: 1 cabeza, 2 cuello, 3 hombros, 4 espalda, 5 pecho, 6 muñecas, 7 manos, 8 cintura, 9 piernas, 10 pies, 11 anillo, 12 abalorio, 13 arma, 14 distancia). */
+  slotType: z.number().int(),
+  extraSlotTypes: z.array(z.number().int()),
+  quality: z.number().int(),
+  level: z.number().int().nullable(),
+  stats: z.array(ItemStat),
+});
+export const Enchants = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  source: z.string(),
+  enchants: z.array(Enchant),
+});
+export type Enchant = z.infer<typeof Enchant>;
+export type Enchants = z.infer<typeof Enchants>;
+
+/** Sufijo aleatorio de objeto («del Mono»): reparto de estadisticas en diezmilesimas del presupuesto del objeto. No estan en el cliente (sin tabla), solo en wowsims. */
+export const RandomSuffix = z.object({
+  id: z.number().int(),
+  nameEn: z.string(),
+  textOrigin: z.enum(["untranslated"]),
+  allocations: z.array(ItemStat),
+});
+export const RandomSuffixes = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  source: z.string(),
+  suffixes: z.array(RandomSuffix),
+});
+export type RandomSuffixes = z.infer<typeof RandomSuffixes>;
+
 export const Manifest = z.object({
   schemaVersion: z.literal(1),
   build: z.string(),
@@ -649,6 +817,12 @@ export const Manifest = z.object({
   abilities: z.array(z.object({ classId: z.number().int(), file: z.string(), sha256: z.string(), abilityCount: z.number().int(), rankCount: z.number().int() })),
   /** Critico por atributo, mana base y poder de ataque por atributo por clase y nivel (client-db2). */
   clientStats: z.object({ file: z.string(), sha256: z.string() }).optional(),
+  /** Puntuacion por 1 % de combate, encantamientos y sufijos aleatorios (wowsims/forever, MIT; `community`). */
+  combatRatings: z.object({ file: z.string(), sha256: z.string() }).optional(),
+  enchants: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
+  randomSuffixes: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
+  /** Objetos equipables (armas y armadura) del cliente. */
+  items: z.object({ file: z.string(), sha256: z.string(), itemCount: z.number().int(), unavailableCount: z.number().int() }).optional(),
   /** Estadisticas base (Classic Era, estimacion). */
   stats: z.object({ file: z.string(), sha256: z.string(), comboCount: z.number().int(), missingCount: z.number().int() }),
   /** Razas jugables con su matriz de clases y raciales. */

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-21T06:20:18.062Z",
+  "generatedAt": "2026-10-21T07:32:21.492Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -241,6 +241,26 @@
     "file": "client-stats.json",
     "sha256": "9c839a40b18b917ba7e27ee137746a7d99a13774f0b9f2955f9b66957ee7b981"
   },
+  "combatRatings": {
+    "file": "combat-ratings.json",
+    "sha256": "135fa92143512814ee990afee35f18a17c00221a3a45f11fa63c1f3bc0cf13ff"
+  },
+  "enchants": {
+    "file": "enchants.json",
+    "sha256": "5294eef2f80eb88a15c08186c389ac0c4d292dbb6f5a6d0b744e18eef1cc14c2",
+    "count": 246
+  },
+  "randomSuffixes": {
+    "file": "random-suffixes.json",
+    "sha256": "19974da6c74393e34c1f1239887ac06a1ef694d094fb4304160fb2fcb4476358",
+    "count": 160
+  },
+  "items": {
+    "file": "items.json",
+    "sha256": "626f97276cd4d058b5a2a8ed7fc76fb28ce37328001c43616d5149f7f68e0a70",
+    "itemCount": 12514,
+    "unavailableCount": 6381
+  },
   "stats": {
     "file": "stats.json",
     "sha256": "40577c7a41d980f2f63ff57279cffb6b5f0f2d69b9120369c1ded927a4b71842",
@@ -249,7 +269,7 @@
   },
   "races": {
     "file": "races.json",
-    "sha256": "b70ab6b79aca62694ea985e8b5438cff1e34c84c0f163a6948ac4cac3a14b772",
+    "sha256": "4b31caef53e421f3e9bfc175cb50cf27df1e5214b08b0d7bab0dd369f4f611a9",
     "raceCount": 10
   },
   "icons": {
@@ -277,6 +297,10 @@
   ],
   "inputs": [
     {
+      "table": "ArmorLocation",
+      "sha256": "522620c34f43048642ba1b3cc8e056b04ac35c8634f28f76bb5b702cb849d180"
+    },
+    {
       "table": "CharBaseInfo",
       "sha256": "cdb85d024a429cfd3ba83373acc4d43751cbe9d6b5d4d1dd8f7059c3a010bba4"
     },
@@ -297,8 +321,64 @@
       "sha256": "147831ae428fd14785fc0fa9e76a16ef79983fec0340f3b5146b66101bf0f84e"
     },
     {
+      "table": "Item",
+      "sha256": "27c78e93e2ae20a074e50b7b564f4ea397286af93a16ad02f33b7627e9db312b"
+    },
+    {
+      "table": "ItemArmorQuality",
+      "sha256": "5ed97d2c16c482a11a3f8a39f2766d4ccc37d76b7753e1f81a990d92943634e8"
+    },
+    {
+      "table": "ItemArmorShield",
+      "sha256": "8e72b68a4fde4fe6e645696142591f51c67f75ea53e060ab63d5ae85918fa9ef"
+    },
+    {
+      "table": "ItemArmorTotal",
+      "sha256": "5ca71af99322153b7ff7a036285970b3c2eeddfed8d1607de9c83a26e13786be"
+    },
+    {
+      "table": "ItemDamageOneHand",
+      "sha256": "8fe09490706309d2681660588b276cb387b0b0ce66006de1dcb8c7bc0819a390"
+    },
+    {
+      "table": "ItemDamageThrown",
+      "sha256": "085ce6b3b06e93eac737a17b4e90e5b5d7d00d38f536aeea9c466e5d5e5daf54"
+    },
+    {
+      "table": "ItemDamageTwoHand",
+      "sha256": "38cfefde9ca85420816fbd2010fc6971a6d52d20dfdb2479f60ec06ed9f401a0"
+    },
+    {
+      "table": "ItemDamageWand",
+      "sha256": "1b730eeec0d91c5c9749b0c65a9b0002e206e751e5245f235e4d0c0f975f2d46"
+    },
+    {
+      "table": "ItemEffect",
+      "sha256": "604d3bc7e63c2a5cb6976b13483033cbaad2d28fc7889765bca7239aa39e4511"
+    },
+    {
+      "table": "ItemSet",
+      "sha256": "51027dae4018c924fff42ef8d8f241ae00fce0db827d5cbc3a3ae9d84645ff1c"
+    },
+    {
+      "table": "ItemSetSpell",
+      "sha256": "cce9dee5ab136c9bdbb633fed8d08b376d964340c9215b7903a9216fc4a9ef18"
+    },
+    {
+      "table": "ItemSparse",
+      "sha256": "7416bfbc7c2c27edbf07c982bd92df892fc2e70e0a0fb893de95733b12466048"
+    },
+    {
+      "table": "ItemXItemEffect",
+      "sha256": "dd4cfabed7e842c64ef58736a60583cdb8b63d4e48a2ac475d8d4ba974251015"
+    },
+    {
       "table": "PlayerExpectedStat",
       "sha256": "c058693230541acc583ec84541f810e04473325749dfb7e487844ce48be10c05"
+    },
+    {
+      "table": "RandPropPoints",
+      "sha256": "a0dbf24d8ff14a1f9f060eb29c6be08a8df73ed63c0ccec83156110707525acf"
     },
     {
       "table": "SkillLineAbility",
@@ -315,6 +395,10 @@
     {
       "table": "SpellCastTimes",
       "sha256": "ee67bc336db6c67f287cfaba0145ed67d54ec5ab843a97ac70089c13e2b704ce"
+    },
+    {
+      "table": "SpellCategories",
+      "sha256": "387d684ba770e688b5d286f2db8531a9c91b8ab14a399c338153cb07ad1247e2"
     },
     {
       "table": "SpellClassOptions",
@@ -335,6 +419,10 @@
     {
       "table": "SpellEffect",
       "sha256": "e68ed4b2347851a13164b107184626f23f9002a1d1236feca04a9f5b3f3f966d"
+    },
+    {
+      "table": "SpellItemEnchantment",
+      "sha256": "d715df840bfad396496e6f0abd167816a23e68dbfa70430d840636b5782a9efd"
     },
     {
       "table": "SpellLevels",

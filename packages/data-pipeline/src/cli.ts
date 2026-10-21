@@ -5,7 +5,9 @@ import { fileURLToPath } from "node:url";
 import { buildClassTalents } from "./build.js";
 import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
 import { openRawTables } from "./csv.js";
-import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, Manifest, Races, Unassigned } from "./model.js";
+import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { buildItems } from "./items.js";
+import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
@@ -77,6 +79,50 @@ function build(): void {
   const races = Races.parse(buildRaces(raw, buildId, locale, spells));
   const racesText = stableJson(races);
   writeFileSync(join(outDir, "races.json"), racesText);
+
+  // Objetos equipables (armas y armadura): solo si el volcado trae las tablas de objetos (ITEMS=1 export-tables.sh, con hotfixes)
+  const itemTables = ["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "RandPropPoints", "ItemArmorTotal", "ItemArmorQuality", "ItemArmorShield", "ArmorLocation", "ItemDamageOneHand", "ItemDamageTwoHand", "ItemDamageWand", "ItemDamageThrown"];
+  let itemsEntry: Manifest["items"];
+  let itemsData: Items | undefined;
+  let ratingsEntry: Manifest["combatRatings"];
+  let enchantsEntry: Manifest["enchants"];
+  let suffixesEntry: Manifest["randomSuffixes"];
+  if (itemTables.every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
+    let built = buildItems(raw, buildId, spells);
+    // wowsims/forever (MIT, data/external/wowsims): objetos nuevos, sufijos aleatorios, encantamientos y puntuaciones
+    const wsDir = resolve(arg("wowsims", join(repoRoot, "data", "external", "wowsims")));
+    if (existsSync(join(wsDir, "db.json")) && existsSync(join(wsDir, "CombatRatings.txt"))) {
+      const db = JSON.parse(readFileSync(join(wsDir, "db.json"), "utf8")) as WowsimsDb;
+      const merged = applyWowsims(built, db);
+      built = merged.items;
+      const ws: string[] = [];
+      const ratings = CombatRatings.parse(buildCombatRatings(readFileSync(join(wsDir, "CombatRatings.txt"), "utf8"), buildId));
+      const ratingsText = stableJson(ratings);
+      writeFileSync(join(outDir, "combat-ratings.json"), ratingsText);
+      ratingsEntry = { file: "combat-ratings.json", sha256: sha256(ratingsText) };
+      const enchants = Enchants.parse(buildEnchants(db, raw, buildId, ws));
+      const enchantsText = `${JSON.stringify(enchants)}
+`;
+      writeFileSync(join(outDir, "enchants.json"), enchantsText);
+      enchantsEntry = { file: "enchants.json", sha256: sha256(enchantsText), count: enchants.enchants.length };
+      const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, buildId));
+      const suffixesText = `${JSON.stringify(suffixes)}
+`;
+      writeFileSync(join(outDir, "random-suffixes.json"), suffixesText);
+      suffixesEntry = { file: "random-suffixes.json", sha256: sha256(suffixesText), count: suffixes.suffixes.length };
+      console.log(`wowsims/forever: ${merged.extra} objetos nuevos (${merged.skipped} sin ranura omitidos), ${enchants.enchants.length} encantamientos, ${suffixes.suffixes.length} sufijos aleatorios, puntuaciones ${ratings.constantAcrossLevels ? "constantes en los 123 niveles" : "que VARIAN por nivel"}`);
+      for (const w of ws) console.log(`   aviso (wowsims): ${w}`);
+    } else {
+      console.log("wowsims: sin data/external/wowsims (db.json y CombatRatings.txt); se omiten encantamientos, sufijos, puntuaciones y objetos nuevos");
+    }
+    itemsData = Items.parse(built);
+    const itemsText = `${JSON.stringify(itemsData)}\n`; // compacto: ~12 500 objetos
+    writeFileSync(join(outDir, "items.json"), itemsText);
+    itemsEntry = { file: "items.json", sha256: sha256(itemsText), itemCount: itemsData.items.length, unavailableCount: itemsData.unavailable.length };
+    for (const w of itemsData.warnings) console.log(`   aviso (objetos): ${w}`);
+  } else {
+    console.log("Objetos: sin tablas de objetos en el volcado (usa ITEMS=1 HOTFIXES=1 tools/extract/export-tables.sh); se omite items.json");
+  }
 
   // Talents Forever (solo contraste) y sus habilidades retiradas
   const tfDir = resolve(arg("tf", join(repoRoot, "data", "external", "talentsforever")));
@@ -173,6 +219,10 @@ function build(): void {
     abilities: abilityEntries,
     combatFormulas: formulasEntry,
     clientStats: { file: "client-stats.json", sha256: sha256(clientStatsText) },
+    items: itemsEntry,
+    combatRatings: ratingsEntry,
+    enchants: enchantsEntry,
+    randomSuffixes: suffixesEntry,
     rules: ruleEntries,
     stats: { file: "stats.json", sha256: sha256(statsText), comboCount: stats.combos.length, missingCount: stats.missing.length },
     races: { file: "races.json", sha256: sha256(racesText), raceCount: races.races.length },
@@ -196,6 +246,7 @@ function build(): void {
   console.log(`Sin asignar: ${unassigned.orphanEntries.length} entradas sin nodo (${unassigned.orphanEntries.filter((e) => !e.isLegacy).length} no Legacy, ${unassigned.orphanEntries.filter((e) => e.isLegacy && e.legacyPlaced).length} duplicados de ventajas colocadas) y ${unassigned.alternativeTrees.length} arboles descartados (unassigned.json)`);
   for (const a of abilityEntries) console.log(`Habilidades clase ${a.classId}: ${a.abilityCount} habilidades, ${a.rankCount} rangos (${a.file})`);
   console.log(`Razas: ${races.races.length} (${races.races.map((r) => r.name).join(", ")}), ${races.warnings.length} avisos (races.json)`);
+  if (itemsData) console.log(`Objetos (items.json): ${itemsData.items.length} equipables con datos, ${itemsData.items.filter((i) => i.placeholder).length} de prueba/retirados, ${itemsData.unavailable.length} sin ItemSparse en el cliente`);
   console.log(`Estadisticas del cliente (client-stats.json): ${clientStats.classes.length} clases x ${clientStats.maxLevel} niveles (critico por atributo, mana base, poder de ataque)`);
   console.log(`Estadisticas base (Classic Era): ${stats.combos.filter((c) => c.provenance === "community").length} combinaciones exactas, ${stats.combos.filter((c) => c.provenance === "assumption").length} estimadas, ${stats.missing.length} sin datos (stats.json)`);
   for (const w of stats.warnings) console.log(`   aviso: ${w}`);

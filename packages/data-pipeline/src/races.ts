@@ -1,7 +1,7 @@
 import { int, type RawTables } from "./csv.js";
 import type { RacialAbility, Races } from "./model.js";
 import { loadOverrides, looksEnglish } from "./language.js";
-import { RACIAL_SKILL_LINES, racialSpells } from "./racial-spells.js";
+import { RACIAL_SKILL_LINES, pvpTrinketShare, racialSpells } from "./racial-spells.js";
 import type { SpellTables } from "./spell-tables.js";
 
 /**
@@ -31,6 +31,7 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
       order: int(r.Order),
       textOrigin: "client" as const,
       spells: [],
+      pvpTrinket: null,
     });
     racialsByRace.set(int(r.ChrRacesID), list);
   }
@@ -43,6 +44,7 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
     const racials = (racialsByRace.get(id) ?? []).sort((a, b) => a.order - b.order);
     for (const a of racials) {
       a.spells = racialSpells(raw, spells, id, a.order, warnings);
+      if (a.kind === "active") a.pvpTrinket = pvpTrinketShare(raw, spells, a.spells.map((s) => s.spellId));
       // Cielonato trae los nombres de sus raciales en ingles en ChrRaceRacialAbility, pero sus hechizos si tienen nombre en espanol
       const spellName = spells.name(a.spells[0]?.spellId ?? 0);
       if ((id === 95 || id === 96) && spellName && spellName !== a.name) a.name = spellName;

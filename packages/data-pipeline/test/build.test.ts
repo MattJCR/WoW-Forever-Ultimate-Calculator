@@ -497,6 +497,33 @@ describe("estadisticas base: el +5 % de intelecto de Classic del Gnomo no existe
   });
 });
 
+describe("raciales que pueden compartir enfriamiento con la insignia de PvP (sin confirmar)", () => {
+  const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
+  const racesData = buildRaces(raw, BUILD, "esES", live.spells);
+  const marked = racesData.races.flatMap((r) => r.racials.filter((a) => a.pvpTrinket).map((a) => `${r.name}: ${a.name} (${a.pvpTrinket!.overlaps.join(", ")})`));
+
+  it("el cliente no enlaza ninguna racial con la categoria de enfriamiento de la insignia (2269): por eso va sin confirmar", () => {
+    const racialIds = new Set(racesData.races.flatMap((r) => r.racials.flatMap((a) => a.spells.map((s) => s.spellId))));
+    const inTrinketCategory = raw.table("SpellCategories").filter((r) => Number(r.Category) === 2269).map((r) => Number(r.SpellID));
+    expect(inTrinketCategory.length).toBeGreaterThan(0);
+    expect(inTrinketCategory.filter((id) => racialIds.has(id))).toEqual([]);
+  });
+
+  it("solo se marcan las raciales activas que quitan el mismo control que la insignia (lista exacta)", () => {
+    expect(marked).toEqual([
+      "Humano: Voluntad de supervivencia (aturdimiento)",
+      "Gnomo: Artista del escape (inmovilización, ralentización)",
+      "No-muerto: Voluntad de los Renegados (embelesamiento, miedo)",
+    ]);
+    for (const r of racesData.races) for (const a of r.racials) if (a.pvpTrinket) {
+      expect(a.kind).toBe("active");
+      expect(a.pvpTrinket.status).toBe("unconfirmed");
+      expect(a.pvpTrinket.provenance).toBe("assumption");
+      expect(a.pvpTrinket.trinketCooldownMs).toBe(300000);
+    }
+  });
+});
+
 describe("cifras de las raciales (hechizos del cliente)", () => {
   const racesData = buildRaces(openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`)), BUILD, "esES", live.spells);
   const spell = (raceId: number, name: string, spellId?: number) =>

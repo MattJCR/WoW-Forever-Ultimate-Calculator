@@ -38,7 +38,15 @@
               "procCooldownMs": null,
               "effects": []
             }
-          ]
+          ],
+          "pvpTrinket": {
+            "status": "unconfirmed",
+            "provenance": "assumption",
+            "overlaps": [
+              "aturdimiento"
+            ],
+            "trinketCooldownMs": 300000
+          }
         },
         {
           "name": "Percepción",
@@ -66,7 +74,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Crueldad",
@@ -94,7 +103,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "El espíritu humano",
@@ -122,7 +132,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -192,7 +203,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Encontrar tesoro",
@@ -220,7 +232,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Furia de la tierra",
@@ -256,7 +269,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Caza mayor",
@@ -284,7 +298,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -329,7 +344,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Fusión de las Sombras",
@@ -365,7 +381,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Presura",
@@ -401,7 +418,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Espíritu de fuego fatuo",
@@ -429,7 +447,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -482,7 +501,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": {
+            "status": "unconfirmed",
+            "provenance": "assumption",
+            "overlaps": [
+              "inmovilización",
+              "ralentización"
+            ],
+            "trinketCooldownMs": 300000
+          }
         },
         {
           "name": "¡Eureka!",
@@ -702,7 +730,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Mente expansiva",
@@ -766,7 +795,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Especialización de ingeniería",
@@ -794,7 +824,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -871,7 +902,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Leer línea Ley",
@@ -907,7 +939,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Bendición del viento",
@@ -943,7 +976,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Perspicacia elemental",
@@ -971,7 +1005,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -1033,7 +1068,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Trizar maldición",
@@ -1061,7 +1097,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Salvajismo",
@@ -1089,7 +1126,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Firmeza",
@@ -1117,7 +1155,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -1179,7 +1218,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": {
+            "status": "unconfirmed",
+            "provenance": "assumption",
+            "overlaps": [
+              "embelesamiento",
+              "miedo"
+            ],
+            "trinketCooldownMs": 300000
+          }
         },
         {
           "name": "Canibalismo",
@@ -1215,7 +1263,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Respiración subacuática",
@@ -1243,7 +1292,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Toque de la tumba",
@@ -1289,7 +1339,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -1333,7 +1384,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Cultivo",
@@ -1352,7 +1404,8 @@
               "procCooldownMs": null,
               "effects": []
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Correr planicies",
@@ -1404,7 +1457,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Robustez",
@@ -1448,7 +1502,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -1511,7 +1566,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Regeneración rápida",
@@ -1539,7 +1595,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Matanza de bestias",
@@ -1567,7 +1624,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Regeneración",
@@ -1603,7 +1661,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     },
@@ -1680,7 +1739,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Visión cielonata",
@@ -1716,7 +1776,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Bendición del viento",
@@ -1752,7 +1813,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         },
         {
           "name": "Perspicacia elemental",
@@ -1780,7 +1842,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "pvpTrinket": null
         }
       ]
     }
