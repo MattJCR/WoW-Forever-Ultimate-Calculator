@@ -500,8 +500,8 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
   // Un solo nivel para las estadisticas y las habilidades
   const [level, setLevel] = useState(60);
-  // Todas las secciones empiezan contraidas; el usuario abre las que quiere (o todas a la vez)
-  const [open, setOpen] = useState<Record<string, boolean>>({});
+  // Todas las secciones empiezan expandidas; el usuario contrae las que no quiere (o todas a la vez)
+  const [open, setOpen] = useState<Record<string, boolean>>({ stats: true, abilities: true });
   const section = (id: string, title: string, children: ReactNode, note?: string) => (
     <Collapsible key={id} title={title} note={note} open={!!open[id]} onToggle={(v) => setOpen((o) => ({ ...o, [id]: v }))}>
       {children}

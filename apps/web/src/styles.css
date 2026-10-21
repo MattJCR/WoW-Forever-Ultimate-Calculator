@@ -2088,3 +2088,57 @@ p.gear-warn {
     grid-template-columns: 1fr;
   }
 }
+
+/* Tarjeta flotante de una racial: breve, con las cifras en lista y avisos en bloque (no en pildoras que se parten) */
+.racial-tip .desc-text {
+  margin: 6px 0 8px;
+}
+.tip-facts {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.tip-facts li {
+  white-space: nowrap;
+  padding: 1px 9px;
+  border-radius: 999px;
+  font-size: calc(12px * var(--fit, 1));
+  color: var(--info);
+  background: color-mix(in srgb, var(--info) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--info) 40%, transparent);
+}
+.tip-warn {
+  margin: 6px 0 0;
+  padding: 5px 9px;
+  border-left: 3px solid var(--warn);
+  border-radius: 0 6px 6px 0;
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  color: var(--text);
+  font-size: calc(12.5px * var(--fit, 1));
+  line-height: 1.4;
+}
+.tip-warn b {
+  display: block;
+  color: var(--warn);
+  font-weight: 600;
+}
+.tip-warn-soft {
+  color: var(--muted);
+  border-left-color: var(--muted);
+  background: transparent;
+}
+.detail .racial-tip h4 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--gold-2);
+}
+.detail .racial-tip .detail-head .icon,
+.detail .racial-tip .detail-head .initials {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+}

@@ -56,7 +56,7 @@ export function Notes({ approximate, complete, origin }: { approximate: boolean;
  * Tarjeta junto al talento enfocado (como el tooltip del juego): aparece mientras el cursor o el foco estan sobre el
  * talento y desaparece al salir. En pantallas con raton no recibe clics; en tactiles si (lleva + y −).
  */
-export function FloatingCard({ anchor, className, children }: { anchor: Anchor; className?: string; children: ReactNode }) {
+export function FloatingCard({ anchor, className, placement = "side", children }: { anchor: Anchor; className?: string; /** «side»: a un lado del elemento; «below»: debajo (o encima si no cabe), para no tapar los elementos vecinos de una fila de iconos. */ placement?: "side" | "below"; children: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
 
@@ -68,11 +68,19 @@ export function FloatingCard({ anchor, className, children }: { anchor: Anchor; 
     const h = el.offsetHeight;
     const vw = document.documentElement.clientWidth;
     const vh = window.innerHeight;
+    if (placement === "below") {
+      const cx = (anchor.left + anchor.right) / 2;
+      const left = Math.min(Math.max(8, cx - w / 2), Math.max(8, vw - w - 8));
+      const below = anchor.bottom + 8;
+      const top = below + h <= vh - 8 ? below : Math.max(8, anchor.top - 8 - h); // no cabe debajo: encima
+      setPos({ left, top });
+      return;
+    }
     let left = anchor.right + 12;
     if (left + w > vw - 8) left = Math.max(8, anchor.left - 12 - w); // no cabe a la derecha: a la izquierda
     const top = Math.min(Math.max(8, anchor.top - 8), Math.max(8, vh - h - 8));
     setPos({ left, top });
-  }, [anchor]);
+  }, [anchor, placement]);
 
   return (
     <aside ref={ref} className={`detail${className ? ` ${className}` : ""}`} style={{ left: pos?.left ?? 0, top: pos?.top ?? 0, visibility: pos ? "visible" : "hidden" }} aria-live="polite">
