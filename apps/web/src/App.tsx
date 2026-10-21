@@ -48,11 +48,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
       <header className="topbar">
         <div className="topbar-in">
           <a className="brand" href={href("", q)}>
-            <span className="brand-mark" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
-                <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" />
-              </svg>
-            </span>
+            <img className="brand-mark" src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`} alt="" width={52} height={52} />
             <span className="brand-text">
               <b>WoW Forever</b>
               <small>Calculadora definitiva</small>
