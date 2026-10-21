@@ -7,6 +7,7 @@ import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, cont
 import { openRawTables } from "../src/csv.js";
 import { Abilities, BaseStats, ClassTalents, ClientStats, CombatFormulas, Races } from "../src/model.js";
 import { buildBaseStats, type ClassicEra } from "../src/stats.js";
+import { auditLevelStats } from "../src/stats-audit.js";
 import { buildAbilities } from "../src/abilities.js";
 import { looksEnglish } from "../src/language.js";
 import { buildRaces, parseRacialName } from "../src/races.js";
@@ -409,17 +410,53 @@ describe("estadisticas base (Classic Era, procedencia community)", () => {
     }
   });
 
-  it("Humano guerrero nivel 1 = 23/20/22/20/21 (valor conocido de Classic)", () => {
-    expect(combo(1, 1).stats[0]).toEqual([23, 20, 22, 20, 21]);
+  it("Humano guerrero nivel 1 = 23/20/22/20/20 (Classic menos el +5 % de espiritu, que en Forever es una racial)", () => {
+    expect(combo(1, 1).stats[0]).toEqual([23, 20, 22, 20, 20]);
     expect(combo(1, 1).provenance).toBe("community");
   });
 
-  it("36 combinaciones exactas de Classic, 10 estimadas (6 nuevas de Forever + 4 del Gnomo) y Cielonato sin datos", () => {
-    expect(stats.combos.filter((c) => c.provenance === "community")).toHaveLength(36);
+  it("50 combinaciones con fila en Classic o Cielonato (community), 6 estimadas (las nuevas de Forever) y ninguna sin datos", () => {
+    expect(stats.combos.filter((c) => c.provenance === "community")).toHaveLength(50);
     const est = stats.combos.filter((c) => c.provenance === "assumption").map((c) => `${c.raceId}/${c.classId}`).sort();
-    expect(est).toEqual(["1/3", "2/8", "3/7", "5/2", "7/1", "7/4", "7/5", "7/8", "7/9", "8/9"]);
-    expect(stats.missing.every((m) => m.raceId === 95 || m.raceId === 96)).toBe(true);
-    expect(stats.missing).toHaveLength(10);
+    expect(est).toEqual(["1/3", "2/8", "3/7", "5/2", "7/5", "8/9"]);
+    expect(stats.missing).toEqual([]);
+  });
+
+  it("las diferencias de raza son las de Forever (wowsims, hojas de nivel 1), no las de Classic, y ninguna cambia el espiritu", () => {
+    expect(stats.raceOffsets.source.commit).toBe("6296e8546d9c5a0b4670d18476bfd690eba9c687");
+    expect(stats.raceOffsets.provenance).toBe("community");
+    // Tauren guerrero nivel 1: Humano 23/20/22/20 + (2,-2,2,-2); Classic daba 28/15/24/15
+    expect(combo(6, 1).stats[0]).toEqual([25, 18, 24, 18, 20]);
+    expect(combo(2, 1).stats[0]!.slice(0, 4)).toEqual([26, 17, 23, 19]);
+    for (const c of stats.combos) {
+      // espiritu sin racial (tambien el Humano) = el mismo en todas las razas y niveles
+      const base = stats.combos.find((x) => x.raceId === 2 && x.classId === c.classId);
+      if (base) expect(c.stats.map((r) => r[4]), `${c.raceId}/${c.classId}`).toEqual(base.stats.map((r) => r[4]));
+    }
+  });
+
+  it("Cielonato (95 y 96) = base de la clase + (-1,+1,-1,+1) y comparte filas entre facciones", () => {
+    for (const classId of [1, 3, 4, 8]) {
+      const human = combo(1, classId).stats[0]!;
+      const sky = combo(95, classId).stats[0]!;
+      expect(sky.slice(0, 4)).toEqual([human[0]! - 1, human[1]! + 1, human[2]! - 1, human[3]! + 1]);
+      if (stats.combos.some((c) => c.raceId === 96 && c.classId === classId)) expect(combo(96, classId).stats).toEqual(combo(95, classId).stats);
+    }
+  });
+
+  it("a nivel 60 reproduce las bases de clase medidas por wowsims (fuerza/agilidad/aguante/intelecto/espiritu sin racial) en las 56 parejas", () => {
+    const WOWSIMS_L60: Record<number, number[]> = {
+      1: [120, 80, 110, 30, 45], 2: [105, 65, 100, 70, 75], 3: [55, 125, 90, 65, 70], 4: [80, 130, 75, 35, 50], 5: [35, 40, 50, 120, 125],
+      7: [85, 55, 95, 90, 100], 8: [30, 35, 45, 125, 120], 9: [45, 50, 65, 110, 115], 11: [65, 60, 70, 100, 110],
+    };
+    for (const c of stats.combos) {
+      const delta = stats.raceOffsets.offsets.find((o) => o.raceId === c.raceId)!.delta;
+      const row = c.stats[59]!;
+      const want = WOWSIMS_L60[c.classId]!;
+      for (let i = 0; i < 4; i++) expect(row[i]! - delta[i]!, `${c.raceId}/${c.classId} atributo ${i}`).toBe(want[i]);
+      // El espiritu es la base sin racial en todas las razas, tambien el Humano (su +5 % se aplica aparte)
+      expect(row[4], `${c.raceId}/${c.classId} espiritu`).toBe(want[4]);
+    }
   });
 
   it("la estimacion queda cerca de una combinacion real parecida (Humano cazador ~ Orco cazador +-5)", () => {
@@ -441,22 +478,22 @@ describe("estadisticas base: el +5 % de intelecto de Classic del Gnomo no existe
   const stats = buildBaseStats(racesData, classic, BUILD);
   const combo = (r: number, c: number) => stats.combos.find((x) => x.raceId === r && x.classId === c)!;
 
-  it("el intelecto del Gnomo es el del Humano + una constante (base sin el +5 % de Classic) y lleva aviso", () => {
+  it("el intelecto del Gnomo es el del Humano + 3 en los 60 niveles (base sin el +5 % de Classic) y lleva aviso", () => {
     const human = classic.levelStats[1]![8]!;
     const ours = combo(7, 8).stats.map((row) => row[3]!);
-    const offsets = new Set(ours.map((v, l) => v - human[l]![3]!));
-    expect(offsets.size).toBe(1); // exacto: una sola constante para los 60 niveles
-    expect([...offsets][0]).toBe(3);
+    expect(new Set(ours.map((v, l) => v - human[l]![3]!))).toEqual(new Set([3])); // exacto: una sola constante
     expect(ours[59]).toBeLessThan(classic.levelStats[7]![8]![59]![3]!);
     expect(combo(7, 8).note).toContain("Mente expansiva");
-    expect(combo(7, 8).note).toContain("reproduce 235 de 240");
-    // El resto de atributos no cambia
-    expect(combo(7, 8).stats[59]!.filter((_, i) => i !== 3)).toEqual(classic.levelStats[7]![8]![59]!.filter((_, i) => i !== 3));
   });
 
-  it("el espiritu del Humano no se toca (su +5 % sigue existiendo en Forever)", () => {
-    expect(combo(1, 8).stats[59]![4]).toBe(classic.levelStats[1]![8]![59]![4]);
-    expect(combo(1, 8).note).toBeNull();
+  it("el espiritu del Humano va SIN su +5 % (es una racial de Forever, se aplica aparte): Classic 126 = 120 x 1,05 hacia abajo", () => {
+    expect(classic.levelStats[1]![8]![59]![4]).toBe(126);
+    expect(combo(1, 8).stats[59]![4]).toBe(120);
+    expect(combo(1, 8).note).toContain("5 %");
+    for (const [cls, rows] of Object.entries(classic.levelStats[1]!)) {
+      // Classic no es exacto en todos los niveles (hay valores que x * 1,05 hacia abajo no puede dar): +-1 como mucho
+      rows.forEach((row, l) => expect(Math.abs(Math.floor(combo(1, Number(cls)).stats[l]![4]! * 1.05) - row[4]!), `clase ${cls} nivel ${l + 1}`).toBeLessThanOrEqual(1));
+    }
   });
 });
 
@@ -509,15 +546,11 @@ describe("auditoria de todas las clases y razas", () => {
   const stats = buildBaseStats(racesData, classic, BUILD);
   const pairs = racesData.races.flatMap((r) => r.classIds.map((c) => ({ raceId: r.id, classId: c })));
 
-  it("cada pareja raza/clase del cliente tiene estadisticas o esta en 'sin datos' (solo Cielonato), nunca las dos ni ninguna", () => {
+  it("cada pareja raza/clase del cliente tiene estadisticas (56 de 56) y ninguna esta en 'sin datos'", () => {
     expect(pairs).toHaveLength(56); // 40 de Classic + 6 nuevas + 10 de Cielonato
-    for (const p of pairs) {
-      const has = stats.combos.some((c) => c.raceId === p.raceId && c.classId === p.classId);
-      const miss = stats.missing.some((m) => m.raceId === p.raceId && m.classId === p.classId);
-      expect(has !== miss, `${p.raceId}/${p.classId}`).toBe(true);
-      if (miss) expect([95, 96]).toContain(p.raceId);
-    }
-    expect(stats.combos.length + stats.missing.length).toBe(pairs.length);
+    for (const p of pairs) expect(stats.combos.some((c) => c.raceId === p.raceId && c.classId === p.classId), `${p.raceId}/${p.classId}`).toBe(true);
+    expect(stats.missing).toEqual([]);
+    expect(stats.combos.length).toBe(pairs.length);
   });
 
   it("cada clase tiene vida/mana base y al menos una raza con estadisticas", () => {
@@ -540,9 +573,10 @@ describe("auditoria de la fuente de Classic (valores aislados que no encajan)", 
   const racesData = buildRaces(openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`)), BUILD, "esES", live.spells);
   const classic = JSON.parse(readFileSync(join(root, "data", "external", "classic-stats", "classic-era.json"), "utf8")) as ClassicEra;
   const stats = buildBaseStats(racesData, classic, BUILD);
+  const audit = auditLevelStats(classic.levelStats);
 
-  it("detecta exactamente los 5 puntos anomalos conocidos (si la fuente cambia, este test avisa)", () => {
-    expect(stats.anomalies.map((a) => `${a.raceId}/${a.classId} L${a.level} ${a.stat}${a.corrected ? " corregido" : ""}`)).toEqual([
+  it("detecta exactamente los 5 puntos anomalos conocidos de la fuente (si cambia, este test avisa)", () => {
+    expect(audit.anomalies.map((a) => `${a.raceId}/${a.classId} L${a.level} ${a.stat}${a.corrected ? " corregido" : ""}`)).toEqual([
       "2/4 L19 agi",
       "2/4 L20 agi",
       "5/8 L1 int corregido",
@@ -551,17 +585,20 @@ describe("auditoria de la fuente de Classic (valores aislados que no encajan)", 
     ]);
   });
 
-  it("corrige el intercambio de intelecto/espiritu del No-muerto mago a nivel 1 y no toca los demas valores", () => {
-    const row = stats.combos.find((c) => c.raceId === 5 && c.classId === 8)!.stats;
+  it("corrige el intercambio de intelecto/espiritu del No-muerto mago a nivel 1 en la copia auditada, no en la fuente", () => {
     expect(classic.levelStats[5]![8]![0]!.slice(3)).toEqual([27, 21]); // fuente: intercambiados
-    expect(row[0]!.slice(3)).toEqual([21, 27]);
-    expect(row[1]).toEqual(classic.levelStats[5]![8]![1]);
+    expect(audit.levelStats[5]![8]![0]!.slice(3)).toEqual([21, 27]);
+    expect(audit.levelStats[5]![8]![1]).toEqual(classic.levelStats[5]![8]![1]);
   });
 
-  it("los valores dudosos no corregidos se conservan tal cual vienen de la fuente (no se inventan numeros)", () => {
-    expect(stats.combos.find((c) => c.raceId === 2 && c.classId === 4)!.stats[18]![1]).toBe(43);
-    expect(stats.combos.find((c) => c.raceId === 7 && c.classId === 9)!.stats[58]![4]).toBe(111);
+  it("stats.json solo informa de dudosos en filas de Classic que usa (hoy ninguna: la base de cada clase es la del Humano o de una raza sin anomalias)", () => {
+    expect(stats.anomalies).toEqual([]);
+    // Las filas dudosas del Orco pícaro y del Gnomo brujo ya no entran en ninguna cifra
+    expect(stats.combos.find((c) => c.raceId === 2 && c.classId === 4)!.stats[18]![1]).toBe(combo(1, 4).stats[18]![1]! - 3);
   });
+  function combo(r: number, c: number) {
+    return stats.combos.find((x) => x.raceId === r && x.classId === c)!;
+  }
 });
 
 describe("raciales cuyo valor esta en otro hechizo o es un proc", () => {

@@ -72,7 +72,7 @@ export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
   const pct = (v: number) => `${v > 0 ? "+" : ""}${v} %`;
   const rows: { label: string; value: string; note?: string }[] = [];
   if (b.critChancePct) rows.push({ label: "Probabilidad de crítico", value: pct(b.critChancePct) });
-  if (b.spiritPct) rows.push({ label: "Espíritu", value: pct(b.spiritPct), note: "ya incluido en las estadísticas base de arriba" });
+  if (b.spiritPct) rows.push({ label: "Espíritu", value: pct(b.spiritPct), note: "se aplica sobre el espíritu base; mira «Con tus talentos, Puntos de Legado y raza»" });
   for (const [power, label] of [["mana", "Maná máximo"], ["rage", "Ira máxima"], ["energy", "Energía máxima"]] as const) {
     if (b.maxPowerPct[power]) rows.push({ label, value: pct(b.maxPowerPct[power]) });
   }

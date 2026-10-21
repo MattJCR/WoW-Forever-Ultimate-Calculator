@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-21T05:31:30.802Z",
+  "generatedAt": "2026-10-21T06:20:18.062Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -243,9 +243,9 @@
   },
   "stats": {
     "file": "stats.json",
-    "sha256": "f4df1aca08999d59c063fa5e7170d78d96346eeae4418356684465f75e8a9631",
-    "comboCount": 46,
-    "missingCount": 10
+    "sha256": "40577c7a41d980f2f63ff57279cffb6b5f0f2d69b9120369c1ded927a4b71842",
+    "comboCount": 56,
+    "missingCount": 0
   },
   "races": {
     "file": "races.json",

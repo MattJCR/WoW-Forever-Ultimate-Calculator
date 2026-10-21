@@ -334,12 +334,24 @@ export type Races = z.infer<typeof Races>;
 
 /**
  * Estadisticas base por raza, clase y nivel. El cliente de Forever NO las trae (en Classic viven en el servidor):
- * salen de Classic Era 1.12 (`community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
+ * la base de la clase sale de Classic Era 1.12 (`community`), las diferencias de raza son las medidas en la beta por
+ * wowsims/forever (`raceOffsets`, `community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
  */
 export const BaseStats = z.object({
   schemaVersion: z.literal(1),
   build: z.string(),
   source: z.object({ name: z.string(), url: z.string(), commit: z.string(), license: z.string() }),
+  /**
+   * Diferencia de atributos de cada raza respecto al Humano en Forever (medida por un tercero en la beta, `community`).
+   * Las filas de `combos` son la base de la clase (Classic, como Humano sin racial) mas este desplazamiento.
+   */
+  raceOffsets: z.object({
+    source: z.object({ name: z.string(), url: z.string(), commit: z.string(), date: z.string(), license: z.string() }),
+    provenance: Provenance,
+    note: z.string(),
+    /** `delta` = [fue, agi, aguante, int, esp] respecto al Humano. */
+    offsets: z.array(z.object({ raceId: z.number().int(), delta: z.tuple([z.number(), z.number(), z.number(), z.number(), z.number()]) })),
+  }),
   /** Orden de cada fila de `stats`: fuerza, agilidad, aguante, intelecto, espiritu. */
   statNames: z.array(z.string()),
   /** Niveles cubiertos (1..maxLevel). La beta de Forever solo llega al nivel `betaMaxLevel` (dato del usuario). */

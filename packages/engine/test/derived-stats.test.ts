@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Abilities, ClassTalents, ClientStats, TalentRules } from "@wfuc/schema";
+import { Abilities, ClassTalents, ClientStats, Races, TalentRules } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import { collectStatEffects, deriveStats, healthFromStamina, indexClass, manaFromIntellect, type StatTotal } from "../src/index.js";
 
@@ -118,5 +118,25 @@ describe("poder de ataque y poder con hechizos de talentos (cliente + notas de B
     expect(warrior.rows.find((r) => r.key === "ap")!.final).toBe(300);
     const shaman = deriveStats({ attributes: [100, 60, 100, 180, 90], hpBase: 0, manaBase: 0, totals: totalsOf("shaman", "Maña mental"), attackPower: ap(7) });
     expect(shaman.rows.find((r) => r.key === "ap")!.final).toBe(100 * 2 + 180); // 2 por fuerza + 100 % del intelecto
+  });
+});
+
+describe("El espíritu humano (+5 %) es una racial, no parte de la base", () => {
+  const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
+  const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
+  const abilities = Abilities.parse(json("abilities/mage.json"));
+  const spirit = (race: typeof human | null, base: number) => {
+    const fx = collectStatEffects({ cls: mage, classBuild: {}, legacy: null, legacyBuild: {}, race, abilities });
+    return deriveStats({ attributes: [30, 35, 45, 125, base], hpBase: 1000, manaBase: 500, totals: fx.totals }).rows.find((r) => r.key === "spi")!;
+  };
+
+  it("el Humano suma +5 % al espíritu base (120 -> 126, 20 -> 21) y lo muestra con su origen", () => {
+    expect(spirit(human, 120)).toMatchObject({ base: 120, final: 126, bonusPct: 5 });
+    expect(spirit(human, 20).final).toBe(21);
+    expect(spirit(human, 120).sources.map((s) => s.name)).toContain("Humano: El espíritu humano");
+  });
+
+  it("otras razas no reciben ese bono", () => {
+    expect(spirit(null, 120)).toMatchObject({ base: 120, final: 120, bonusPct: 0 });
   });
 });

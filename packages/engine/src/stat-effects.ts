@@ -419,7 +419,7 @@ function raceLine(kind: string | null, value: number, misc: number | null): Omit
     case "crit-chance":
       return { category: "Probabilidad de crítico", label: "probabilidad de crítico", value, unit: "puntos porcentuales", scope: null };
     case "spirit-pct":
-      return { category: "Atributos, salud y recursos", label: "Espíritu (ya incluido en las estadísticas base)", value, unit: "%", scope: null };
+      return { category: "Atributos, salud y recursos", label: "Espíritu", value, unit: "%", scope: null, target: "spi" };
     case "max-power-pct": {
       const power = misc === 1 ? "ira" : misc === 3 ? "energía" : "maná";
       return { category: "Atributos, salud y recursos", label: `${power} máximo`, value, unit: "%", scope: null, ...(POWER_TARGETS[misc ?? 0] ? { target: POWER_TARGETS[misc ?? 0] } : {}) };

@@ -129,14 +129,15 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
       )}
       <p className="muted small">
         <span className={`tag ${combo.provenance === "community" ? "tag-unassigned" : "tag-inactive"}`}>
-          {combo.provenance === "community" ? "Classic Era · estimación" : combo.derivedFromRaceId !== null ? "Combinación nueva · estimada" : "Classic Era · ajustada"}
+          {combo.provenance === "community" ? "Classic + Forever · estimación" : "Combinación nueva · estimada"}
         </span>{" "}
         {combo.provenance === "community"
-          ? "Valores de Classic Era: el cliente de la beta no trae las estadísticas base. "
-          : combo.derivedFromRaceId !== null
-            ? "Esta raza/clase no existía en Classic: se calcula con la diferencia racial sobre otra raza (error típico ±1). "
-            : "Valores de Classic Era con un ajuste. "}
-        {combo.note ? `${combo.note} ` : ""}
+          ? "Base de la clase de Classic Era (el cliente de la beta no trae las estadísticas base) más la diferencia de raza medida en la beta por "
+          : "Esta raza/clase no existía en Classic: base de la clase de Classic más la diferencia de raza medida en la beta por "}
+        <a href={data.raceOffsets.source.url} target="_blank" rel="noreferrer">
+          {data.raceOffsets.source.name}
+        </a>{" "}
+        ({data.raceOffsets.source.date}, hojas de personaje de nivel 1; lectura de un tercero, sin confirmar por nosotros). {combo.note ? `${combo.note} ` : ""}
         {issues.length > 0 && (
           <>
             Fuente de Classic con {issues.some((a) => !a.corrected) ? "valores dudosos" : "un error corregido"}:{" "}

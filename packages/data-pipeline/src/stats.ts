@@ -1,4 +1,5 @@
 import type { BaseStats, Races } from "./model.js";
+import { FOREVER_RACE_OFFSETS, RACE_OFFSETS_SOURCE } from "./race-offsets.js";
 import { auditLevelStats } from "./stats-audit.js";
 
 /** Contenido de data/external/classic-stats/classic-era.json (lo genera tools/extract/fetch-classic-stats.mjs). */
@@ -16,122 +17,116 @@ export interface ClassicEra {
 const BETA_MAX_LEVEL = 30;
 
 /**
- * Las tablas de Classic llevan ya aplicado el porcentaje racial de atributo. Auditados todos los atributos de las 8 razas
- * (la diferencia entre razas deberia ser constante por nivel): solo hay dos, el espiritu del Humano (+5 %, sigue igual en
- * Forever: no hay que sumarlo otra vez) y el intelecto del Gnomo (+5 %, Mente expansiva).
- *
- * En Forever la Mente expansiva del Gnomo da +5 % de mana maximo (client-db2), NO de intelecto, asi que su intelecto debe
- * ser el de la base sin bono. Se reconstruye exacto, no dividiendo: la base racial es una constante respecto al Humano,
- * `intelectoGnomo(nivel) = intelectoHumano(nivel) + D`, y el valor de Classic es esa base * 1,05 redondeada. Se busca la
- * D que reproduce los valores de Classic de todas las clases y niveles; si no llega al umbral, se cae a dividir entre 1,05.
+ * Las tablas de Classic llevan ya aplicado el +5 % del espiritu del Humano; en Forever es una racial ("El espiritu humano",
+ * client-db2) que el motor aplica aparte, asi que se retira de TODAS las filas, tambien de las del Humano. `unbake` busca la x
+ * cuyo `bake(x)` (x * 1,05 hacia abajo) es el valor de Classic.
  */
-const GNOME = 7;
 const HUMAN = 1;
-const FIT_THRESHOLD = 0.95;
-/** Redondeo al entero mas cercano de x * 1,05 con aritmetica entera (sin errores de coma flotante). */
-const bake = (x: number): number => Math.floor((21 * x + 10) / 20);
-
-/** D tal que bake(humano + D) = gnomo en el mayor numero de (clase, nivel); devuelve D y cuantos aciertos de cuantos. */
-function fitGnomeIntOffset(levelStats: ClassicEra["levelStats"]): { d: number; hits: number; total: number } | null {
-  const gnome = levelStats[GNOME];
-  const human = levelStats[HUMAN];
-  if (!gnome || !human) return null;
-  let best: { d: number; hits: number; total: number } | null = null;
-  for (let d = -10; d <= 10; d++) {
-    let hits = 0;
-    let total = 0;
-    for (const [cls, rows] of Object.entries(gnome)) {
-      const h = human[cls];
-      if (!h) continue;
-      for (let l = 0; l < rows.length; l++) {
-        total++;
-        if (bake(h[l]![3]! + d) === rows[l]![3]) hits++;
-      }
-    }
-    if (total > 0 && (!best || hits > best.hits)) best = { d, hits, total };
-  }
-  return best;
-}
+/** x * 1,05 hacia abajo con aritmetica entera: asi sale el espiritu del Humano en Classic (Paladin 75 -> 78, Brujo 115 -> 120, Picaro 50 -> 52). */
+const bake = (x: number): number => Math.floor((21 * x) / 20);
+const unbake = (v: number): number => {
+  for (let x = v; x >= v - 12; x--) if (bake(x) === v) return x;
+  return Math.round(v / 1.05);
+};
 
 const median = (xs: number[]): number => {
   const s = [...xs].sort((a, b) => a - b);
   return s[Math.floor(s.length / 2)]!;
 };
 
+const GNOME = 7;
+
 /**
- * Estadisticas base de cada raza/clase de Forever a partir de Classic Era. Las combinaciones que Classic no tenia
- * (Humano cazador, Enano chaman, Gnomo sacerdote, Orco mago, No-muerto paladin, Trol brujo) se estiman: la clase de
- * otra raza mas la diferencia racial (mediana sobre todas las clases y niveles que comparten). Error tipico: +-1.
- * Cielonato (95/96) no tiene ningun dato y queda en `missing`.
+ * Estadisticas base de cada raza/clase de Forever.
+ *
+ * Modelo (el de Forever segun wowsims/forever, contrastado con Classic): atributos de la raza = base de la clase "como Humano,
+ * sin racial" + desplazamiento de la raza (`race-offsets.ts`, constante por nivel). La base de la clase sale de las tablas de
+ * Classic Era del Humano (coinciden con las hojas de Forever a nivel 60 en las clases que comparten); el espiritu del Humano de
+ * Classic lleva su +5 % ya aplicado y se retira (en Forever es una racial que el motor aplica aparte). Las clases sin Humano en Classic (Cazador, Chaman, Druida)
+ * toman la base de otra raza de Classic restandole la diferencia racial de Classic (mediana sobre las clases compartidas con el
+ * Humano). Intelecto del Gnomo = base + 3 (exacto: su +5 % de Classic no existe en Forever, la Mente expansiva da +5 % de mana).
  */
 export function buildBaseStats(races: Races, classic: ClassicEra, build: string): BaseStats {
   const warnings: string[] = [];
   const maxLevel = 60;
   // Auditoria de la fuente: se corrigen los intercambios inequivocos y se informa del resto (ver stats-audit.ts)
-  const { levelStats, anomalies } = auditLevelStats(classic.levelStats);
-  // Intelecto del Gnomo sin el +5 % que Classic ya traia (ver arriba)
-  const fit = fitGnomeIntOffset(levelStats);
-  const exactFit = !!fit && fit.hits / fit.total >= FIT_THRESHOLD;
-  for (const [cls, rows] of Object.entries(levelStats[GNOME] ?? {})) {
-    const human = levelStats[HUMAN]?.[cls];
-    rows.forEach((row, l) => {
-      row[3] = exactFit && human ? human[l]![3]! + fit!.d : Math.round(row[3]! / 1.05);
-    });
-  }
-  const gnomeNote = exactFit
-    ? `Forever: Mente expansiva del Gnomo da +5 % de mana maximo, no de intelecto. Intelecto sin ese bono = intelecto del Humano ${fit!.d >= 0 ? "+" : "-"} ${Math.abs(fit!.d)} (reproduce ${fit!.hits} de ${fit!.total} valores de Classic al aplicarle el +5 %; la base exacta de Forever solo se sabra con datos de Forever).`
-    : "Forever: Mente expansiva del Gnomo da +5 % de mana maximo, no de intelecto; se retira del intelecto de Classic (valor / 1,05, aproximado).";
-  if (fit && !exactFit) warnings.push(`Intelecto del Gnomo: la base exacta solo reproduce ${fit.hits}/${fit.total} valores de Classic (< ${FIT_THRESHOLD * 100} %); se usa la division por 1,05`);
-  const exact = (race: number, cls: number) => levelStats[race]?.[cls] ?? null;
+  const { levelStats, anomalies: sourceAnomalies } = auditLevelStats(classic.levelStats);
+  const classicRow = (race: number, cls: number): number[][] | null => levelStats[race]?.[cls] ?? null;
   const racesWithData = Object.keys(levelStats).map(Number);
 
-  const raceDelta = (race: number, ref: number): number[] | null => {
+  // Base "Humano sin racial" de las clases que el Humano tiene en Classic
+  const humanPre = (cls: number): number[][] | null => {
+    const rows = classicRow(HUMAN, cls);
+    return rows ? rows.map((r) => [r[0]!, r[1]!, r[2]!, r[3]!, unbake(r[4]!)]) : null;
+  };
+  const sharedWithHuman = Object.keys(levelStats[HUMAN] ?? {}).map(Number);
+  /** Diferencia racial de Classic respecto al Humano (sin racial): mediana de todos los niveles y clases compartidas. */
+  const classicDelta = (race: number): number[] | null => {
     const diffs: number[][] = [[], [], [], [], []];
-    for (const cls of Object.keys(levelStats[race] ?? {})) {
-      const a = levelStats[race]![cls]!;
-      const b = levelStats[ref]?.[cls];
-      if (!b) continue;
-      for (let l = 0; l < maxLevel; l++) for (let i = 0; i < 5; i++) diffs[i]!.push(a[l]![i]! - b[l]![i]!);
+    for (const cls of sharedWithHuman) {
+      const a = classicRow(race, cls);
+      const h = humanPre(cls);
+      if (!a || !h) continue;
+      for (let l = 0; l < maxLevel; l++) for (let i = 0; i < 5; i++) diffs[i]!.push(a[l]![i]! - h[l]![i]!);
     }
     return diffs[0]!.length === 0 ? null : diffs.map(median);
   };
 
-  const combos: BaseStats["combos"] = [];
-  const missing: BaseStats["missing"] = [];
-  for (const race of races.races) {
-    for (const classId of race.classIds) {
-      const hit = exact(race.id, classId);
-      if (hit) {
-        const gnome = race.id === GNOME;
-        combos.push({ raceId: race.id, classId, provenance: gnome ? "assumption" : "community", derivedFromRaceId: null, note: gnome ? gnomeNote : null, stats: hit });
-        continue;
-      }
-      // Sin fila en Classic: otra raza con esa clase + diferencia racial
-      let made = false;
-      if (racesWithData.includes(race.id)) {
-        for (const ref of racesWithData) {
-          const base = exact(ref, classId);
-          const delta = base ? raceDelta(race.id, ref) : null;
-          if (!base || !delta) continue;
-          combos.push({
-            raceId: race.id,
-            classId,
-            provenance: "assumption",
-            derivedFromRaceId: ref,
-            note: race.id === GNOME ? gnomeNote : null,
-            stats: base.map((row) => row.map((v, i) => Math.max(0, v + delta[i]!))),
-          });
-          made = true;
-          break;
-        }
-      }
-      if (!made) missing.push({ raceId: race.id, classId });
+  // Base de cada clase y, si no es la del Humano, de que raza de Classic se dedujo
+  const basePre = new Map<number, { rows: number[][]; derivedFrom: number | null }>();
+  const classIds = [...new Set(races.races.flatMap((r) => r.classIds))].sort((a, b) => a - b);
+  for (const cls of classIds) {
+    const own = humanPre(cls);
+    if (own) {
+      basePre.set(cls, { rows: own, derivedFrom: null });
+      continue;
+    }
+    // El intelecto del Gnomo lleva el +5 % de Classic: no sirve de referencia
+    for (const ref of racesWithData.filter((r) => r !== HUMAN && r !== GNOME)) {
+      const rows = classicRow(ref, cls);
+      const delta = rows ? classicDelta(ref) : null;
+      if (!rows || !delta) continue;
+      basePre.set(cls, { rows: rows.map((row) => row.map((v, i) => Math.max(0, v - delta[i]!))), derivedFrom: ref });
+      break;
     }
   }
-  const unknown = [...new Set(missing.map((m) => m.raceId))].filter((id) => !racesWithData.includes(id));
-  if (unknown.length > 0) warnings.push(`Sin estadisticas para las razas ${unknown.join(", ")} (no existen en Classic Era)`);
 
-  const classIds = [...new Set(races.races.flatMap((r) => r.classIds))].sort((a, b) => a - b);
+  const combos: BaseStats["combos"] = [];
+  const missing: BaseStats["missing"] = [];
+  const usedSources = new Set<string>();
+  for (const race of races.races) {
+    const offset = FOREVER_RACE_OFFSETS[race.id];
+    for (const classId of race.classIds) {
+      const base = basePre.get(classId);
+      if (!base || !offset) {
+        missing.push({ raceId: race.id, classId });
+        continue;
+      }
+      usedSources.add(`${base.derivedFrom ?? HUMAN}/${classId}`);
+      // El espiritu del Humano va SIN su +5 %: en Forever es una racial ("El espiritu humano") que el motor aplica aparte
+      const stats = base.rows.map((row) => row.map((v, i) => Math.max(0, v + offset[i]!)));
+      const hadClassicRow = !!classicRow(race.id, classId);
+      const isNew = race.id <= 8 && !hadClassicRow; // combinacion que Classic no tenia (las 6 nuevas de Forever)
+      const notes: string[] = [];
+      if (race.id === GNOME) notes.push("Forever: Mente expansiva del Gnomo da +5 % de mana maximo, no de intelecto (el +5 % de Classic se retira: intelecto = base del Humano + 3).");
+      if (race.id === HUMAN) notes.push("Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).");
+      if (race.id >= 95) notes.push("Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).");
+      if (base.derivedFrom !== null) notes.push(`La base de esta clase no existia para el Humano en Classic: se deduce de la raza ${base.derivedFrom} de Classic.`);
+      combos.push({
+        raceId: race.id,
+        classId,
+        provenance: isNew ? "assumption" : "community",
+        derivedFromRaceId: isNew || base.derivedFrom !== null ? base.derivedFrom : null,
+        note: notes.length > 0 ? notes.join(" ") : null,
+        stats,
+      });
+    }
+  }
+
+  // Solo se informa de los valores dudosos de las filas de Classic que de verdad se usan
+  const anomalies = sourceAnomalies.filter((a) => usedSources.has(`${a.raceId}/${a.classId}`));
+  if (missing.length > 0) warnings.push(`Sin estadisticas para ${missing.length} combinaciones raza/clase`);
+
   const classBase = classIds.flatMap((classId) => {
     const c = classic.classBase[classId];
     if (!c) {
@@ -145,6 +140,12 @@ export function buildBaseStats(races: Races, classic: ClassicEra, build: string)
     schemaVersion: 1,
     build,
     source: { name: classic.source, url: classic.url, commit: classic.commit, license: classic.license },
+    raceOffsets: {
+      source: RACE_OFFSETS_SOURCE,
+      provenance: "community",
+      note: "Diferencias de raza medidas en la beta por wowsims en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
+      offsets: Object.entries(FOREVER_RACE_OFFSETS).map(([raceId, delta]) => ({ raceId: Number(raceId), delta })),
+    },
     statNames: classic.stats,
     maxLevel,
     betaMaxLevel: BETA_MAX_LEVEL,
