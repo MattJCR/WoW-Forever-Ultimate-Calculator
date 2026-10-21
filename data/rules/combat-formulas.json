@@ -1,5 +1,5 @@
 {
-  "_readme": "Tablas de FALLO y tope de impacto de CLASSIC ERA 1.12 (fuente 'community', confianza BAJA): el cliente de Forever no trae las tablas de fallo ni sus reglas de impacto. Fuentes: Allakhazam (fallo de hechizo 4 % mismo nivel y 17 % contra +3; cuerpo a cuerpo 5 % y 9 %). Warcraft Tavern (Forever, sin build) da 5 %/9 % cuerpo a cuerpo y 3 %/16 % hechizos, ForeverDB da topes de 8 % cuerpo a cuerpo, 17 % hechizos y 27 % con dos armas: las fuentes externas de Forever discrepan entre si y con Classic, asi que se conserva Classic hasta medirlo en el juego. El CRITICO por atributo ya no esta aqui: sale del cliente (PlayerExpectedStat) en client-stats.json.",
+  "_readme": "Reglas de combate que el cliente de Forever NO trae (procedencia community, confianza BAJA salvo donde se indica). Revisadas el 21/10/2026 contra la comunidad (hojas de personaje desnudas de nivel 60 leidas en la beta, tooltips del juego y registros de combate; solo se contrastan cifras, no se copia codigo). Tablas de FALLO: hechizos 4 % mismo nivel y 17 % contra +3 (coinciden Classic, la comunidad y las referencias externas); cuerpo a cuerpo 5 % mismo nivel y 8 % contra +3 (5 % + 15 puntos de habilidad de arma x 0,2 %): la comunidad y una referencia externa dan 8 %, Classic Era y otra referencia 9 %; sin medir en el juego, se usa 8. En Forever NO hay 1 % minimo de fallo, asi que el tope de impacto es 100 %. Contra un objetivo 3 o mas niveles superior se resta al critico fisico 3 % por habilidad de arma mas el critico de auras hasta 1,8 %; los hechizos no tienen supresion. Critico base y esquive base por clase, poder de ataque base (formula de Classic, comprobada a nivel 60) y regeneracion de mana por espiritu (tooltip del juego del Brujo, Sacerdote y Mago; se supone igual en el resto): ver cada bloque. El CRITICO por atributo, el mana base y el poder de ataque por atributo salen del cliente (client-stats.json) y COINCIDEN con la comunidad en las 9 clases.",
   "provenance": "community",
   "confidence": "low",
   "miss": {
@@ -9,11 +9,38 @@
     },
     "melee": {
       "same": 5,
-      "boss": 9
+      "boss": 8
     }
   },
   "hitCap": {
-    "spell": 99,
+    "spell": 100,
     "melee": 100
-  }
+  },
+  "dualWieldMissPenalty": 19,
+  "critSuppression": {
+    "meleeBossSkill": 3,
+    "meleeBossAuraMax": 1.8,
+    "spellBoss": 0
+  },
+  "critMultiplier": {
+    "spell": 1.5,
+    "physical": 2
+  },
+  "attackPowerPerDps": 14,
+  "armorPerAgility": 2,
+  "spiritManaRegen": {
+    "per5sBase": 31.25,
+    "per5sPerSpirit": 0.625
+  },
+  "classBase": [
+    { "classId": 1, "spellCritPct": 0, "physicalCritPct": 0, "dodgePct": 0, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 3, "flat": -20 }, "rangedAttackPower": null },
+    { "classId": 2, "spellCritPct": 3.5, "physicalCritPct": 0.7, "dodgePct": 0.7, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 3, "flat": -20 }, "rangedAttackPower": null },
+    { "classId": 3, "spellCritPct": 3.6, "physicalCritPct": 0, "dodgePct": 0, "dodgePerAgilityFactor": 2, "attackPower": { "perLevel": 2, "flat": -20 }, "rangedAttackPower": { "perLevel": 2, "flat": -10 } },
+    { "classId": 4, "spellCritPct": 0, "physicalCritPct": 0, "dodgePct": 0, "dodgePerAgilityFactor": 2, "attackPower": { "perLevel": 2, "flat": -20 }, "rangedAttackPower": null },
+    { "classId": 5, "spellCritPct": 0.8, "physicalCritPct": 3, "dodgePct": 3, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 0, "flat": -10 }, "rangedAttackPower": null },
+    { "classId": 7, "spellCritPct": 2.3, "physicalCritPct": 1.7, "dodgePct": 1.7, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 2, "flat": -20 }, "rangedAttackPower": null },
+    { "classId": 8, "spellCritPct": 0.2, "physicalCritPct": 3.2, "dodgePct": 3.2, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 0, "flat": -10 }, "rangedAttackPower": null },
+    { "classId": 9, "spellCritPct": 1.7, "physicalCritPct": 2, "dodgePct": 2, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 0, "flat": -10 }, "rangedAttackPower": null },
+    { "classId": 11, "spellCritPct": 1.8, "physicalCritPct": 0.9, "dodgePct": 0.9, "dodgePerAgilityFactor": 1, "attackPower": { "perLevel": 0, "flat": -20 }, "rangedAttackPower": null }
+  ]
 }

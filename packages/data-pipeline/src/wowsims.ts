@@ -168,14 +168,16 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
       itemSetId: null,
       limitCategory: null,
       maxCount: w.unique ? 1 : 0,
-      armor: null,
+      uniqueEquipped: false,
+      bonusArmor: 0,
+      armor: so.stats?.["27"] ?? null,
       weapon:
         isWeapon && !shield && delay > 0 && so.weaponDamageMin !== undefined
           ? { min: so.weaponDamageMin, max: so.weaponDamageMax ?? so.weaponDamageMin, speed: delay, dps: Math.round((so.unroundedDps ?? 0) * 100) / 100, table, confidence: "estimated" }
           : null,
       casterWeapon: false,
       placeholder: false,
-      stats: wsStats(so.stats),
+      stats: wsStats(so.stats).filter((s) => s.key !== "armor"),
       statBudget: 0,
       effects: [],
       provenance: "community",
@@ -188,8 +190,25 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
 
 /** Completa `items.json` con lo de la comunidad: objetos que el volcado no trae y las listas de sufijos aleatorios de cada objeto. */
 export function applyWowsims(base: Items, db: WowsimsDb): { items: Items; extra: number; skipped: number } {
-  const known = new Set([...base.items.map((i) => i.id), ...base.unavailable.map((u) => u.id)]);
+  // Los que el cliente lista pero sin datos (`unavailable`) y la comunidad si trae pasan a ser objetos `community`
+  const known = new Set(base.items.map((i) => i.id));
   const { items: extra, skipped } = extraItems(db, known);
+  const recovered = new Set(extra.map((i) => i.id));
+  const unavailable = base.unavailable.filter((u) => !recovered.has(u.id));
+  // Valor de bloqueo de los escudos: el cliente no lo trae (la comunidad lo saca de una tabla de objetos), asi que se anade marcado community
+  const blockOf = new Map<number, number>();
+  for (const w of db.items) {
+    const v = Object.values(w.scalingOptions ?? {})[0]?.stats?.["24"];
+    if (v) blockOf.set(w.id, v);
+  }
+  const withBlock = (item: Item): Item => {
+    const v = item.classId === 4 && item.subclassId === 6 ? blockOf.get(item.id) : undefined;
+    if (!v) return item;
+    // Si el objeto ya trae un bono de bloqueo propio (suma al valor base del escudo) se sustituye por el total de la comunidad
+    const own = item.stats.find((x) => x.key === "block-value");
+    if (own && own.value >= v) return item;
+    return { ...item, stats: [...item.stats.filter((x) => x.key !== "block-value"), { type: 48, key: "block-value", value: v, source: "community" as const }] };
+  };
   const suffixOptions = new Map(db.items.filter((i) => i.randomSuffixOptions?.length).map((i) => [i.id, i.randomSuffixOptions!]));
   const sets: number[][] = [];
   const setIndex = new Map<string, number>();
@@ -205,6 +224,6 @@ export function applyWowsims(base: Items, db: WowsimsDb): { items: Items; extra:
     }
     return { ...item, randomSuffixSet: idx };
   };
-  const items = [...base.items, ...extra].map(withSuffix).sort((a, b) => a.id - b.id);
-  return { items: { ...base, items, suffixSets: sets }, extra: extra.length, skipped };
+  const items = [...base.items.map(withBlock), ...extra].map(withSuffix).sort((a, b) => a.id - b.id);
+  return { items: { ...base, items, unavailable, suffixSets: sets }, extra: extra.length, skipped };
 }

@@ -1,4 +1,5 @@
-import type { ClassStatLevel, CombatRatings } from "@wfuc/schema";
+import type { ClassStatLevel, CombatFormulas, CombatRatings } from "@wfuc/schema";
+import { classBaseOf, dodgePerAgility, spiritManaPer5s } from "./class-base.js";
 import type { DerivedStats } from "./derived-stats.js";
 import { ratingPercents } from "./gear.js";
 import type { StatSource, StatTotal } from "./stat-effects.js";
@@ -10,8 +11,8 @@ import type { StatSource, StatTotal } from "./stat-effects.js";
  *
  * Procedencia mezclada y separada siempre en `parts`: las cifras de talentos, Legacy y raza son del cliente (`client-db2`); el critico
  * por atributo tambien (`PlayerExpectedStat`); la conversion puntuacion → % es de la comunidad (`community`, 10 / 14 / 10 por 1 %, constante
- * por nivel); lo que Forever no trae en el cliente (critico base de la clase, esquive base, armadura por agilidad, regeneracion por espiritu)
- * NO se inventa: cada fila lo dice en `note`.
+ * por nivel); lo que Forever no trae en el cliente (critico base y esquive base de la clase, armadura por agilidad, regeneracion por espiritu)
+ * sale de la comunidad (`community`, hojas de personaje y tooltips del juego; `combat-formulas.json`) y cada fila lo dice en `parts` y `note`.
  */
 
 export type CombatGroup = "Ataque" | "Defensa" | "Poder" | "Recursos" | "Resistencias" | "Otros bonos";
@@ -46,11 +47,13 @@ export interface CombatGearInput {
   stats: Record<string, number>;
   /** Armadura base de las piezas (`summarizeGear().armor`). */
   armor: number;
+  /** Parte de `armor` que es armadura extra de piezas verdes (no recibe el % de los talentos). */
+  bonusArmor?: number;
   ratings: Pick<CombatRatings, "ratings"> | null;
 }
 
-const NOTE_BASE_CRIT = "No incluye el crítico base de la clase (el cliente no lo trae y las fuentes se contradicen).";
-const NOTE_DEFENSE = "No incluye el valor base de la clase ni el de la agilidad (no están en el cliente).";
+const NOTE_BASE_CRIT = "Incluye el crítico base de la clase (comunidad, hojas de personaje de nivel 60): el cliente no lo trae.";
+const NOTE_DEFENSE = "No incluye el 5 % base de la tabla de ataque ni la habilidad de defensa base (no están en el cliente).";
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
 const PP = "puntos porcentuales";
@@ -99,8 +102,11 @@ export function deriveCombatStats(input: {
   gear?: CombatGearInput | null;
   /** Critico por atributo del cliente (clase y nivel); null = sin datos. */
   classStats: ClassStatLevel | null;
+  /** Reglas de la comunidad (critico y esquive base de la clase, armadura por agilidad, regeneracion por espiritu); sin ellas esas filas no se calculan. */
+  rules?: { formulas: CombatFormulas; classId: number } | null;
 }): CombatStats {
   const { derived, totals, classStats } = input;
+  const classBase = input.rules ? classBaseOf(input.rules.formulas, input.rules.classId) : null;
   const gear = input.gear ?? null;
   const gearStats = gear?.stats ?? {};
   const ratings = gear?.ratings ? ratingPercents(gearStats, gear.ratings) : [];
@@ -122,14 +128,16 @@ export function deriveCombatStats(input: {
   const critSpellOnly = take((t) => t.category === "Probabilidad de crítico" && t.label === "probabilidad de crítico con hechizos" && isPct(t));
   const critGear = rating("crit-rating");
   const common = [...part("talentos, Legacy y raza", sum(critAll)), ...part("puntuación de tu equipo", critGear)];
+  const baseCritPhysical = classBase?.physicalCritPct ?? 0;
+  const baseCritSpell = classBase?.spellCritPct ?? 0;
   const agiCrit = classStats && classStats.critPerAgility > 0 ? round2(final("agi") * classStats.critPerAgility * 100) : 0;
   const intCrit = classStats && classStats.spellCritPerIntellect > 0 ? round2(final("int") * classStats.spellCritPerIntellect * 100) : 0;
   if ((classStats && classStats.critPerAgility > 0) || sum(critMelee) !== 0) {
-    const parts = [...part(`agilidad (${final("agi")})`, agiCrit), ...part("crítico cuerpo a cuerpo de talentos y raza", sum(critMelee)), ...common];
+    const parts = [...part("base de la clase", baseCritPhysical), ...part(`agilidad (${final("agi")})`, agiCrit), ...part("crítico cuerpo a cuerpo de talentos y raza", sum(critMelee)), ...common];
     add({ key: "crit-melee", group: "Ataque", label: "Crítico (cuerpo a cuerpo y a distancia)", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: NOTE_BASE_CRIT, sources: [...sourcesOf(critAll), ...sourcesOf(critMelee)] });
   }
   if ((classStats && classStats.spellCritPerIntellect > 0) || sum(critSpellOnly) !== 0) {
-    const parts = [...part(`intelecto (${final("int")})`, intCrit), ...part("crítico con hechizos de talentos, equipo y raza", sum(critSpellOnly)), ...common];
+    const parts = [...part("base de la clase", baseCritSpell), ...part(`intelecto (${final("int")})`, intCrit), ...part("crítico con hechizos de talentos, equipo y raza", sum(critSpellOnly)), ...common];
     add({ key: "crit-spell", group: "Ataque", label: "Crítico con hechizos", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: NOTE_BASE_CRIT, sources: [...sourcesOf(critAll), ...sourcesOf(critSpellOnly)] });
   }
   // Sin atributo que de critico (Guerrero o Mago sin la otra via) pero con bonos: se enseñan igual para no perderlos
@@ -178,10 +186,12 @@ export function deriveCombatStats(input: {
   const pieces = gear?.armor ?? 0;
   const extra = gearStats["extra-armor"] ?? 0;
   const noMods = gearStats["armor-no-mods"] ?? 0;
-  if (pieces + extra + noMods > 0) {
-    const fromPieces = pieces * (1 + sum(armorPct) / 100);
-    const parts = [...part("piezas", pieces), ...part(`+${sum(armorPct)} % de talentos a la armadura de las piezas`, round2(fromPieces - pieces)), ...part("armadura extra de objetos y encantamientos", extra), ...part("armadura sin modificadores", noMods)];
-    add({ key: "armor", group: "Defensa", label: "Armadura", value: Math.round(fromPieces + extra + noMods), unit: "pts", parts, note: "No incluye la armadura por agilidad (no está en el cliente).", sources: sourcesOf(armorPct) });
+  const agiArmor = input.rules ? Math.floor(final("agi") * input.rules.formulas.armorPerAgility) : 0;
+  if (pieces + extra + noMods + agiArmor > 0) {
+    const bonus = Math.min(gear?.bonusArmor ?? 0, pieces);
+    const fromPieces = (pieces - bonus) * (1 + sum(armorPct) / 100) + bonus;
+    const parts = [...part("piezas", pieces), ...part(`+${sum(armorPct)} % de talentos a la armadura de las piezas`, round2(fromPieces - pieces)), ...part("armadura extra de objetos y encantamientos", extra), ...part("armadura sin modificadores", noMods), ...part(`agilidad (${final("agi")} × ${input.rules?.formulas.armorPerAgility ?? 0})`, agiArmor)];
+    add({ key: "armor", group: "Defensa", label: "Armadura", value: Math.round(fromPieces + extra + noMods + agiArmor), unit: "pts", parts, note: input.rules ? "Incluye la armadura por agilidad (comunidad, `community`)." : "No incluye la armadura por agilidad (no está en el cliente).", sources: sourcesOf(armorPct) });
   } else if (armorPct.length > 0) {
     add({ key: "armor-pct", group: "Defensa", label: "Armadura de tus objetos", value: sum(armorPct), unit: "%", parts: part("talentos, Legacy y raza", sum(armorPct)), sources: sourcesOf(armorPct) });
   }
@@ -194,7 +204,17 @@ export function deriveCombatStats(input: {
     if (sum(lines) + fromGear === 0) return;
     add({ key, group: "Defensa", label, value: round2(sum(lines) + fromGear), unit: "%", parts: [...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", fromGear)], note: NOTE_DEFENSE, sources: sourcesOf(lines) });
   };
-  avoid("dodge", "Esquivar", "probabilidad de esquivar", "dodge-rating");
+  // Esquivar: base de la clase + agilidad (critico por agilidad del cliente; pícaro y cazador el doble) + talentos + puntuacion del equipo
+  if (classBase) {
+    const lines = take((t) => t.category === "Defensa" && t.label === "probabilidad de esquivar");
+    const fromGear = rating("dodge-rating");
+    const perAgi = dodgePerAgility(classBase, classStats);
+    const fromAgi = round2(final("agi") * perAgi);
+    const parts = [...part("base de la clase", classBase.dodgePct), ...part(`agilidad (${final("agi")})`, fromAgi), ...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", fromGear)];
+    add({ key: "dodge", group: "Defensa", label: "Esquivar", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: "Esquive base de la clase (comunidad, hojas de nivel 60) y de la agilidad (critico por agilidad del cliente; pícaro y cazador el doble). No incluye la habilidad de defensa base.", sources: sourcesOf(lines) });
+  } else {
+    avoid("dodge", "Esquivar", "probabilidad de esquivar", "dodge-rating");
+  }
   avoid("parry", "Parar", "probabilidad de parar", "parry-rating");
   avoid("block", "Bloquear", "probabilidad de bloquear", "block-rating");
   if ((gearStats["block-value"] ?? 0) !== 0) add({ key: "block-value", group: "Defensa", label: "Valor de bloqueo", value: gearStats["block-value"]!, unit: "pts", parts: part("tu equipo", gearStats["block-value"]!) });
@@ -209,9 +229,16 @@ export function deriveCombatStats(input: {
     if (v !== 0) add({ key, group: "Poder", label: `Poder con hechizos de ${name} (equipo)`, value: v, unit: "pts", parts: part("tu equipo", v), note: "Se suma al poder con hechizos solo en los hechizos de esa escuela." });
   }
 
+  const physical = gearStats["physical-damage"] ?? 0;
+  if (physical !== 0) add({ key: "physical-damage", group: "Poder", label: "Daño físico (equipo)", value: physical, unit: "pts", parts: part("tu equipo", physical), note: "«+N de daño»: se suma a cada golpe físico. Aún no entra en el daño de las habilidades." });
+
   // --- Recursos ---------------------------------------------------------------------------------------------------
+  if (input.rules && derived.rows.some((r) => r.key === "mana")) {
+    const spi = final("spi");
+    add({ key: "spirit-regen", group: "Recursos", label: "Maná cada 5 s por espíritu (sin lanzar hechizos)", value: spiritManaPer5s(input.rules.formulas, spi), unit: "pts", parts: [{ label: `espíritu (${spi})`, value: spiritManaPer5s(input.rules.formulas, spi) }], note: "Fórmula de la comunidad medida con el tooltip del juego (igual para todas las clases; `community`, confianza baja). Mientras lanzas hechizos (regla de los 5 segundos) solo cuenta la parte que den talentos y objetos." });
+  }
   const mp5 = gearStats["mana-per-5"] ?? 0;
-  if (mp5 !== 0) add({ key: "mp5", group: "Recursos", label: "Maná cada 5 s (equipo)", value: mp5, unit: "pts", parts: part("tu equipo", mp5), note: "No incluye la regeneración por espíritu (no está en el cliente)." });
+  if (mp5 !== 0) add({ key: "mp5", group: "Recursos", label: "Maná cada 5 s (equipo)", value: mp5, unit: "pts", parts: part("tu equipo", mp5), note: "Se suma a la regeneración por espíritu (también mientras lanzas hechizos)." });
   const hp5 = gearStats["health-regen"] ?? 0;
   if (hp5 !== 0) add({ key: "hp5", group: "Recursos", label: "Vida cada 5 s (equipo)", value: hp5, unit: "pts", parts: part("tu equipo", hp5) });
   for (const t of take((x) => x.category === "Regeneración" && x.scope === null)) {

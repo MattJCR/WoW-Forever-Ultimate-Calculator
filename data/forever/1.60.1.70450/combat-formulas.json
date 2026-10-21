@@ -8,11 +8,140 @@
     },
     "melee": {
       "same": 5,
-      "boss": 9
+      "boss": 8
     }
   },
   "hitCap": {
-    "spell": 99,
+    "spell": 100,
     "melee": 100
-  }
+  },
+  "dualWieldMissPenalty": 19,
+  "critSuppression": {
+    "meleeBossSkill": 3,
+    "meleeBossAuraMax": 1.8,
+    "spellBoss": 0
+  },
+  "critMultiplier": {
+    "spell": 1.5,
+    "physical": 2
+  },
+  "attackPowerPerDps": 14,
+  "armorPerAgility": 2,
+  "spiritManaRegen": {
+    "per5sBase": 31.25,
+    "per5sPerSpirit": 0.625
+  },
+  "classBase": [
+    {
+      "classId": 1,
+      "spellCritPct": 0,
+      "physicalCritPct": 0,
+      "dodgePct": 0,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 3,
+        "flat": -20
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 2,
+      "spellCritPct": 3.5,
+      "physicalCritPct": 0.7,
+      "dodgePct": 0.7,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 3,
+        "flat": -20
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 3,
+      "spellCritPct": 3.6,
+      "physicalCritPct": 0,
+      "dodgePct": 0,
+      "dodgePerAgilityFactor": 2,
+      "attackPower": {
+        "perLevel": 2,
+        "flat": -20
+      },
+      "rangedAttackPower": {
+        "perLevel": 2,
+        "flat": -10
+      }
+    },
+    {
+      "classId": 4,
+      "spellCritPct": 0,
+      "physicalCritPct": 0,
+      "dodgePct": 0,
+      "dodgePerAgilityFactor": 2,
+      "attackPower": {
+        "perLevel": 2,
+        "flat": -20
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 5,
+      "spellCritPct": 0.8,
+      "physicalCritPct": 3,
+      "dodgePct": 3,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 0,
+        "flat": -10
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 7,
+      "spellCritPct": 2.3,
+      "physicalCritPct": 1.7,
+      "dodgePct": 1.7,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 2,
+        "flat": -20
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 8,
+      "spellCritPct": 0.2,
+      "physicalCritPct": 3.2,
+      "dodgePct": 3.2,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 0,
+        "flat": -10
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 9,
+      "spellCritPct": 1.7,
+      "physicalCritPct": 2,
+      "dodgePct": 2,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 0,
+        "flat": -10
+      },
+      "rangedAttackPower": null
+    },
+    {
+      "classId": 11,
+      "spellCritPct": 1.8,
+      "physicalCritPct": 0.9,
+      "dodgePct": 0.9,
+      "dodgePerAgilityFactor": 1,
+      "attackPower": {
+        "perLevel": 0,
+        "flat": -20
+      },
+      "rangedAttackPower": null
+    }
+  ]
 }

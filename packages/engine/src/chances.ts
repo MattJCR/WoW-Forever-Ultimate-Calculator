@@ -35,8 +35,14 @@ export interface Chances {
     bonusPct: number;
     /** Puntos porcentuales de crítico de la puntuación del equipo (una sola puntuación de crítico en Forever; `community`). 0 sin equipo o si no puede ser crítica. */
     gearPct: number;
-    /** fromStat + bonusPct + gearPct; NO incluye el critico base de la clase (el cliente no lo trae y las fuentes se contradicen). */
+    /** Critico base de la clase (hechizos o fisico segun la habilidad), de la comunidad: hojas de personaje de nivel 60 (`community`). 0 si la clase no tiene o no hay dato. */
+    baseClassPct: number;
+    /** baseClassPct + fromStat + bonusPct + gearPct: lo que enseña la hoja del personaje. null si no se puede calcular (ver `unavailable`). */
     total: number | null;
+    /** Critico que pierde esta habilidad contra el objetivo elegido (0 contra el mismo nivel y en hechizos): 3 % por habilidad de arma + critico de auras hasta 1,8 % contra un jefe (+3 niveles). */
+    suppressionPct: number;
+    /** total - suppressionPct (nunca negativo): el critico que tiene de verdad contra ese objetivo. null si total es null. */
+    vsTargetPct: number | null;
     unavailable: string | null;
   };
 }
@@ -55,7 +61,8 @@ export interface GearChanceBonus {
  *  - los bonos de talentos, Legacy y raza, que salen del cliente (`lines`), y el aporte del atributo al critico, que tambien sale del cliente
  *    (`PlayerExpectedStat`: critico por punto de agilidad o de intelecto, para cada clase y nivel; `client-db2`), y
  *  - la tabla de fallo, que es de Classic Era (estimacion de confianza baja: el cliente no trae las tablas de impacto de Forever).
- * No incluye el critico base de la clase (el cliente no lo trae; ForeverDB y Warcraft Tavern tampoco lo dan).
+ * El critico base de la clase y la supresion de critico contra un jefe son de la comunidad (`community`, confianza baja; ver `combat-formulas.json`).
+ * En Forever no hay 1 % minimo de fallo: el tope de impacto es 100 %.
  */
 export function abilityChances(input: {
   rank: AbilityRank;
@@ -71,6 +78,7 @@ export function abilityChances(input: {
   gear?: GearChanceBonus | null;
 }): Chances {
   const { rank, target, formulas, stats, classStats, lines } = input;
+  const classBase = formulas.classBase.find((c) => c.classId === input.classId) ?? null;
   const gearHit = input.gear?.hitPct ?? 0;
   // Daño fisico = cuerpo a cuerpo / a distancia; el resto, hechizos
   const kind: Chances["kind"] = rank.schoolMask === 1 ? "melee" : "spell";
@@ -91,6 +99,15 @@ export function abilityChances(input: {
   const statValue = perPoint > 0 && stats ? stats[statKey] : null;
   const fromStat = !unavailable && statValue !== null ? Math.round(statValue * perPoint * 10000) / 100 : null;
   const gearCrit = canCrit(rank) ? Math.round((input.gear?.critPct ?? 0) * 100) / 100 : 0;
+  const baseClassPct = canCrit(rank) && classBase ? (kind === "spell" ? classBase.spellCritPct : classBase.physicalCritPct) : 0;
+  const total = fromStat === null ? null : Math.round((baseClassPct + fromStat + bonusPct + gearCrit) * 100) / 100;
+  // Supresion de critico: solo fisica y contra un objetivo 3 o mas niveles superior (el cliente no trae la regla; comunidad)
+  const suppressionPct =
+    target === "boss" && canCrit(rank)
+      ? kind === "melee"
+        ? Math.round((formulas.critSuppression.meleeBossSkill + Math.min(Math.max(bonusPct + gearCrit, 0), formulas.critSuppression.meleeBossAuraMax)) * 100) / 100
+        : formulas.critSuppression.spellBoss
+      : 0;
   return {
     kind,
     hit,
@@ -101,7 +118,10 @@ export function abilityChances(input: {
       statPerPercent: perPoint > 0 ? Math.round((1 / (perPoint * 100)) * 10) / 10 : null,
       bonusPct,
       gearPct: gearCrit,
-      total: fromStat === null ? null : Math.round((fromStat + bonusPct + gearCrit) * 100) / 100,
+      baseClassPct,
+      total,
+      suppressionPct,
+      vsTargetPct: total === null ? null : Math.max(0, Math.round((total - suppressionPct) * 100) / 100),
       unavailable,
     },
   };

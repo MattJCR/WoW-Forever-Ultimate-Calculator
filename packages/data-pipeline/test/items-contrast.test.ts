@@ -100,14 +100,14 @@ describe.skipIf(!ready)("objetos frente a las lecturas del juego (solo contraste
     expect(r.rate).toBeGreaterThanOrEqual(0.95); // medido 97 %
   });
 
-  it("daño de arma estimado (a distancia x 0,6; de lanzador x 0,664 / x 0,741): >= 90 % coinciden y van marcadas estimated", () => {
+  it("daño de arma a distancia y de lanzador (tabla ItemDamageRanged del cliente; 2/3 y 29/39 de la tabla en armas de lanzador): >= 95 % coinciden con el juego", () => {
     const ranged = weaponAgreement((i) => i.weapon!.table === "ranged");
     const caster = weaponAgreement((i) => i.casterWeapon);
     expect(ranged.n).toBeGreaterThan(200);
-    expect(ranged.rate).toBeGreaterThanOrEqual(0.9); // medido 92,5 %
+    expect(ranged.rate).toBeGreaterThanOrEqual(0.95);
     expect(caster.n).toBeGreaterThan(150);
-    expect(caster.rate).toBeGreaterThanOrEqual(0.9); // medido 93,6 %
-    expect(data.items.filter((i) => i.weapon && (i.weapon.table === "ranged" || i.casterWeapon)).every((i) => i.weapon!.confidence === "estimated")).toBe(true);
+    expect(caster.rate).toBeGreaterThanOrEqual(0.95);
+    expect(data.items.filter((i) => i.weapon && i.weapon.confidence !== "verified")).toHaveLength(0);
   });
 
   it("no hay gemas: ninguna clase 3 ni ranura de engarce (el equipo no lleva gemas en Forever)", () => {

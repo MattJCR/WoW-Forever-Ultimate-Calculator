@@ -48,7 +48,7 @@ ITEM_TABLES=(
   # Presupuesto de estadisticas, armadura y dano de arma por nivel de objeto
   RandPropPoints ItemArmorTotal ItemArmorQuality ItemArmorShield ArmorLocation
   ItemDamageOneHand ItemDamageOneHandCaster ItemDamageTwoHand ItemDamageTwoHandCaster
-  ItemDamageWand ItemDamageThrown ItemDamageAmmo
+  ItemDamageWand ItemDamageThrown ItemDamageAmmo ItemDamageRanged
 )
 TABLES=("$@")
 if [ ${#TABLES[@]} -eq 0 ]; then

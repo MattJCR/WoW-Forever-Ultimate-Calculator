@@ -15,3 +15,4 @@ export * from "./gear.js";
 export * from "./gear-effects.js";
 export * from "./power-bonus.js";
 export * from "./combat-stats.js";
+export * from "./class-base.js";

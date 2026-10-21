@@ -141,9 +141,9 @@ export function canEquip(item: Item, slot: GearSlot, ctx: GearContext, data: Pic
     if (main?.inventoryType === TWO_HAND) reasons.push("La mano derecha lleva un arma a dos manos");
   }
   if (slot === "mainHand" && item.inventoryType === TWO_HAND && equipped.offHand) reasons.push("Un arma a dos manos deja libre la mano izquierda");
-  if (item.maxCount === 1) {
+  if (item.maxCount === 1 || item.uniqueEquipped) {
     const other = (Object.keys(equipped) as GearSlot[]).find((s) => s !== slot && equipped[s]?.itemId === item.id);
-    if (other) reasons.push(`Objeto único: ya lo llevas en «${SLOT_LABEL[other]}»`);
+    if (other) reasons.push(`Objeto único${item.maxCount === 1 ? "" : "-equipado"}: ya lo llevas en «${SLOT_LABEL[other]}»`);
   }
   return { ok: reasons.length === 0, reasons };
 }
@@ -265,8 +265,10 @@ export interface GearSummary {
   lines: GearStatLine[];
   /** Suma por clave, para consultar rapido. */
   stats: Record<string, number>;
-  /** Armadura base de las piezas (sin la estadistica «armadura extra», que va en `stats["extra-armor"]`). */
+  /** Armadura base de las piezas (la de las tablas, que ya incluye `bonusArmor`; sin la estadistica «armadura extra» de objetos y encantamientos, que va en `stats["extra-armor"]`). */
   armor: number;
+  /** Parte de `armor` que es armadura extra de piezas verdes: no recibe el % de armadura de los talentos. */
+  bonusArmor: number;
   weapons: GearWeapon[];
   sets: SetProgress[];
   /** Efectos al equipar, al usar y por probabilidad de los objetos (solo texto del cliente). */
@@ -300,6 +302,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
   const problems: GearProblem[] = [];
   const missing: GearSummary["missing"] = [];
   let armor = 0;
+  let bonusArmor = 0;
   let incomplete = false;
   const piecesBySet = new Map<number, Set<number>>();
 
@@ -325,6 +328,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
     if (enchant) for (const s of enchant.stats) add(statKey(s), s.value, source("enchant", s.value));
 
     if (item.armor) armor += item.armor;
+    bonusArmor += item.bonusArmor ?? 0;
     if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item) });
     for (const effect of item.effects) effects.push({ slot, itemName: item.name, effect });
     if (item.provenance === "community" && item.stats.length === 0) incomplete = true;
@@ -361,6 +365,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
     lines: sorted,
     stats: Object.fromEntries(sorted.map((l) => [l.key, l.value])),
     armor: Math.round(armor * 100) / 100,
+    bonusArmor,
     weapons,
     sets,
     effects,

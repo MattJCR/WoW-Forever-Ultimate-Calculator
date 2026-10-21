@@ -534,6 +534,16 @@
   height: max(100cqh, 120cqw);
   transform: translate(-50%, -50%);
 }
+.bg-legacy {
+  opacity: 1;
+}
+.bg-legacy-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .bg-part.top-left { left: 0; top: 0; width: 80%; height: 66.6667%; }
 .bg-part.top-right { left: 80%; top: 0; width: 20%; height: 66.6667%; }
 .bg-part.bottom-left { left: 0; top: 66.6667%; width: 80%; height: 33.3333%; }

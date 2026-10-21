@@ -102,10 +102,10 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
       <p className="item-line muted">
         Nivel de objeto {item.itemLevel} · {QUALITY_NAMES[item.quality] ?? "Común"}
       </p>
-      {(BONDING[item.bonding] || item.maxCount === 1) && (
+      {(BONDING[item.bonding] || item.maxCount === 1 || item.uniqueEquipped) && (
         <p className="item-line">
           {BONDING[item.bonding]}
-          {item.maxCount === 1 ? `${BONDING[item.bonding] ? " · " : ""}Único` : ""}
+          {item.maxCount === 1 || item.uniqueEquipped ? `${BONDING[item.bonding] ? " · " : ""}${item.maxCount === 1 ? "Único" : "Único-Equipado"}` : ""}
         </p>
       )}
       <p className="item-line item-type">
@@ -120,7 +120,7 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
           {item.weapon.confidence === "estimated" && <span className="tag tag-unassigned item-tag">estimación</span>}
         </p>
       )}
-      {item.casterWeapon && <p className="item-line muted">Arma de lanzador: Forever le aplica un modificador de daño que las tablas no reproducen exacto.</p>}
+      {item.casterWeapon && <p className="item-line muted">Arma de lanzador: el cliente le aplica un daño reducido (2/3 a una mano, 29/39 a dos manos) y puede llevar poder con hechizos propio.</p>}
       {item.armor ? <p className="item-line">{fmt(Math.round(item.armor))} de armadura</p> : null}
       {item.stats.length > 0 && (
         <ul className="item-stats">

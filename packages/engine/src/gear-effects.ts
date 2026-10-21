@@ -141,6 +141,12 @@ export function classifyGearAuras(auras: ItemSpellAura[], text: string): { stats
 export const remainingAuras = (auras: ItemSpellAura[], consumed: Set<number>): ItemSpellAura[] => auras.filter((a) => !consumed.has(a.index));
 
 /**
+ * Efectos que solo valen en un tipo de zona («… 7 p. más en una zona de bosque o pradera»): son un segundo hechizo que se suma al principal
+ * solo allí, así que NO son un bono permanente. Se conservan como texto, sin cifras (la comunidad los cuenta una sola vez, el principal).
+ */
+export const isZoneOnlyEffect = (text: string): boolean => /en una zona/i.test(text);
+
+/**
  * Bonos de conjunto activos (por piezas distintas del conjunto que llevas) y efectos «al equipar» de los objetos que llevas.
  * Un bono de conjunto cuenta una vez; un efecto de objeto cuenta por objeto (si dos objetos llevan el mismo hechizo se suma dos
  * veces: sin confirmar en el juego, `assumption`).
@@ -154,7 +160,7 @@ export function activeGearEffects(gear: GearSelection, data: GearData): GearEffe
     if (!item) continue;
     for (const e of item.effects) {
       if (e.trigger !== 1 || e.auras.length === 0) continue;
-      out.push({ kind: "item", name: e.name || item.name, origin: item.name, spellId: e.spellId, text: e.text, auras: e.auras, slot, itemId: item.id });
+      out.push({ kind: "item", name: e.name || item.name, origin: item.name, spellId: e.spellId, text: e.text, auras: isZoneOnlyEffect(e.text) ? [] : e.auras, slot, itemId: item.id });
     }
     if (item.itemSetId !== null) {
       const set = piecesBySet.get(item.itemSetId) ?? new Set<number>();

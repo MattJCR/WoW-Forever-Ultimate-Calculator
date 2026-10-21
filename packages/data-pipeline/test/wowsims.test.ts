@@ -76,15 +76,86 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
   it("objetos nuevos de la comunidad: solo los que el cliente no trae, marcados community y sin traducir", () => {
     const extra = merged.items.filter((i) => i.provenance === "community");
     expect(extra.length).toBeGreaterThan(5);
-    const clientIds = new Set([...client.items.map((i) => i.id), ...client.unavailable.map((u) => u.id)]);
+    const clientIds = new Set(client.items.map((i) => i.id));
     expect(extra.every((i) => !clientIds.has(i.id) && i.textOrigin === "untranslated")).toBe(true);
+    // los que el cliente lista sin datos y la comunidad si trae pasan a ser objetos community y salen de «sin datos»
+    expect(extra.map((i) => i.id)).toContain(1979);
+    expect(merged.unavailable.some((u) => u.id === 1979)).toBe(false);
     // lo del cliente no se toca
     expect(merged.items.filter((i) => i.provenance === "client-db2")).toHaveLength(client.items.length);
   });
 
-  it("la comunidad no trae ninguno de los equipables que faltan en el cliente (usan las mismas tablas)", () => {
+  it("de los 6 381 equipables que el cliente no trae solo uno lo trae la comunidad (Muro de los Muertos, hotfix posterior a nuestra caché)", () => {
     const wsIds = new Set(db.items.map((i) => i.id));
-    expect(client.unavailable.filter((u) => wsIds.has(u.id))).toHaveLength(0);
+    expect(client.unavailable.filter((u) => wsIds.has(u.id)).map((u) => u.id)).toEqual([1979]);
+    const wall = merged.items.find((i) => i.id === 1979)!;
+    expect(wall.provenance).toBe("community");
+    expect(wall.armor).toBe(1937);
+    expect(wall.stats.find((x) => x.key === "block-value")?.value).toBe(41);
+  });
+
+  describe("contraste exacto con sus objetos (8 589 comunes)", () => {
+    const common = db.items.filter((w) => client.items.some((i) => i.id === w.id));
+    const byId = new Map(client.items.map((i) => [i.id, i]));
+    const so = (w: (typeof db.items)[number]) => Object.values(w.scalingOptions ?? {})[0];
+
+    it("calidad y nivel de objeto coinciden en TODOS", () => {
+      expect(common.length).toBeGreaterThan(8500);
+      expect(common.filter((w) => byId.get(w.id)!.quality !== w.quality)).toHaveLength(0);
+      expect(common.filter((w) => so(w)?.ilvl !== undefined && so(w)!.ilvl !== byId.get(w.id)!.itemLevel)).toHaveLength(0);
+    });
+
+    it("daño y velocidad de arma coinciden (±1) salvo cañas de pescar y objetos sin tabla: armas de lanzador y a distancia con las reglas del cliente", () => {
+      let n = 0;
+      const bad: number[] = [];
+      for (const w of common) {
+        const o = so(w);
+        const mine = byId.get(w.id)!;
+        if (o?.weaponDamageMin === undefined || !mine.weapon) continue;
+        n++;
+        if (Math.abs(mine.weapon.min - o.weaponDamageMin) > 1 || Math.abs(mine.weapon.max - (o.weaponDamageMax ?? 0)) > 1 || Math.abs((w.weaponSpeed ?? mine.weapon.speed) - mine.weapon.speed) > 0.001) bad.push(w.id);
+      }
+      expect(n).toBeGreaterThan(1300);
+      expect(bad).toEqual([]);
+      // Ya no hay estimaciones: la tabla de daño a distancia es del cliente y el daño reducido de las armas de lanzador es 2/3 y 29/39
+      expect(client.items.filter((i) => i.weapon?.confidence === "estimated")).toHaveLength(0);
+    });
+
+    it("poder con hechizos de las armas de lanzador (bastones…): idéntico al de la comunidad", () => {
+      let n = 0;
+      for (const w of common) {
+        const mine = byId.get(w.id)!;
+        if (!mine.casterWeapon) continue;
+        const theirs = so(w)?.stats ?? {};
+        const ours = (key: string) => mine.stats.filter((x) => x.key === key).reduce((a, x) => a + x.value, 0);
+        // nuestro «spell-power» (45) = daño y sanación; el suyo reparte en 4 (sanación) y 5 (daño)
+        const dmg = ours("spell-power") + ours("spell-damage");
+        const heal = ours("spell-power") + ours("healing-power");
+        if ((theirs["5"] ?? 0) !== dmg || (theirs["4"] ?? 0) !== heal) continue;
+        n++;
+      }
+      expect(n).toBeGreaterThan(150);
+    });
+
+    it("«único-equipado» y valor de bloqueo: sin diferencias", () => {
+      expect(common.filter((w) => !!w.unique !== (byId.get(w.id)!.maxCount === 1 || byId.get(w.id)!.uniqueEquipped))).toHaveLength(0);
+      const shields = common.filter((w) => w.weaponType === 7 && so(w)?.stats?.["24"]);
+      expect(shields.length).toBeGreaterThan(200);
+      const merged2 = new Map(merged.items.map((i) => [i.id, i]));
+      expect(shields.filter((w) => merged2.get(w.id)!.stats.find((x) => x.key === "block-value")?.value !== so(w)!.stats!["24"])).toHaveLength(0);
+      // el valor de bloqueo es de la comunidad y va marcado
+      expect(merged2.get(1203)!.stats.find((x) => x.key === "block-value")?.source).toBe("community");
+    });
+
+    it("la armadura de las tablas coincide (±1) y la armadura extra de las piezas verdes es parte de ella", () => {
+      const bad = common.filter((w) => {
+        const mine = byId.get(w.id)!;
+        return mine.classId === 4 && Math.abs((mine.armor ?? 0) - (so(w)?.stats?.["27"] ?? 0)) > 1;
+      });
+      expect(bad).toHaveLength(0);
+      expect(byId.get(8198)!.bonusArmor).toBe(100);
+      expect(byId.get(8198)!.armor).toBeGreaterThan(100);
+    });
   });
 
   it("contraste con sus estadisticas de objeto: >= 97 % de los objetos comunes coinciden (+-1)", () => {

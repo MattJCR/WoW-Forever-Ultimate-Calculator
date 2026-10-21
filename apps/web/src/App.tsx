@@ -88,6 +88,17 @@ function Layout({ manifest }: { manifest: Manifest }) {
           <p>
             Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
           </p>
+          <p>
+            Tipografías Inter y Cinzel, con licencia SIL Open Font License 1.1:{" "}
+            <a href={`${import.meta.env.BASE_URL}licenses/Inter-OFL.txt`} target="_blank" rel="noreferrer">
+              Inter
+            </a>{" "}
+            ·{" "}
+            <a href={`${import.meta.env.BASE_URL}licenses/Cinzel-OFL.txt`} target="_blank" rel="noreferrer">
+              Cinzel
+            </a>
+            .
+          </p>
         </div>
       </footer>
     </>

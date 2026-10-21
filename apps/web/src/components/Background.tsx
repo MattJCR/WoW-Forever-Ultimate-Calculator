@@ -18,3 +18,15 @@ export function Background({ name }: { name: string }) {
     </div>
   );
 }
+
+/**
+ * Fondo de los arboles de Legacy: el cliente dibuja Legacy con un solo panel oscuro de pagina
+ * (atlas legacy-tree-frame-background-c60, recortado sin el marco por tools/extract/fetch-legacy-background.ps1).
+ */
+export function LegacyBackground() {
+  return (
+    <div className="bg bg-legacy" aria-hidden="true">
+      <img className="bg-legacy-img" alt="" src={`${base}data/backgrounds/LegacyTree-Panel.png`} draggable={false} decoding="async" />
+    </div>
+  );
+}

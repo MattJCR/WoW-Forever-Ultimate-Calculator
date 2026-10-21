@@ -630,8 +630,37 @@ export const CombatFormulas = z.object({
   confidence: z.enum(["low", "medium", "high"]),
   /** % de fallo contra un objetivo del mismo nivel ("same") o un jefe (+3 niveles, "boss"). */
   miss: z.object({ spell: z.object({ same: z.number(), boss: z.number() }), melee: z.object({ same: z.number(), boss: z.number() }) }),
-  /** Tope de probabilidad de impacto (%). */
+  /** Tope de probabilidad de impacto (%). En Forever no hay 1 % minimo de fallo: 100. */
   hitCap: z.object({ spell: z.number(), melee: z.number() }),
+  /** Penalizacion de fallo (puntos) de los ataques automaticos con dos armas. */
+  dualWieldMissPenalty: z.number(),
+  /** Critico (puntos) que pierde un ataque contra un jefe (+3 niveles): fisico = habilidad de arma + critico de auras hasta un tope; hechizos, ninguno. */
+  critSuppression: z.object({ meleeBossSkill: z.number(), meleeBossAuraMax: z.number(), spellBoss: z.number() }),
+  /** Multiplicador de un golpe critico (1,5 = +50 % de daño): hechizos y fisico. */
+  critMultiplier: z.object({ spell: z.number(), physical: z.number() }),
+  /** Poder de ataque por punto de daño por segundo del arma (golpe de arma = arma + velocidad x PA / este valor). */
+  attackPowerPerDps: z.number(),
+  /** Armadura por punto de agilidad. */
+  armorPerAgility: z.number(),
+  /** Mana cada 5 s por espiritu sin lanzar hechizos (regla del cuadro de los 5 segundos): base + espiritu x factor, redondeado hacia abajo. */
+  spiritManaRegen: z.object({ per5sBase: z.number(), per5sPerSpirit: z.number() }),
+  /** Valores base por clase que el cliente no trae: critico, esquive y poder de ataque base. */
+  classBase: z.array(
+    z.object({
+      classId: z.number().int(),
+      /** Critico con hechizos base de la clase (puntos porcentuales, antes del intelecto). */
+      spellCritPct: z.number(),
+      /** Critico fisico base de la clase (puntos porcentuales, antes de la agilidad). */
+      physicalCritPct: z.number(),
+      /** Esquive base de la clase (puntos porcentuales, antes de la agilidad). */
+      dodgePct: z.number(),
+      /** Esquive por agilidad = critico por agilidad del cliente x este factor (pícaro y cazador el doble). */
+      dodgePerAgilityFactor: z.number(),
+      /** Poder de ataque base = nivel x perLevel + flat (comprobado a nivel 60; en otros niveles es la formula de Classic). */
+      attackPower: z.object({ perLevel: z.number(), flat: z.number() }),
+      rangedAttackPower: z.object({ perLevel: z.number(), flat: z.number() }).nullable(),
+    }),
+  ),
 });
 export type CombatFormulas = z.infer<typeof CombatFormulas>;
 
@@ -641,6 +670,8 @@ export const ItemStat = z.object({
   type: z.number().int(),
   key: z.string().nullable(),
   value: z.number(),
+  /** Solo si la cifra no sale del cliente (p. ej. el valor de bloqueo de los escudos, que el cliente no trae): su origen. */
+  source: z.literal("community").optional(),
 });
 export const ItemWeapon = z.object({
   min: z.number(),
@@ -650,7 +681,7 @@ export const ItemWeapon = z.object({
   dps: z.number(),
   /** Tabla ItemDamage* de la que sale (a distancia = 0,6 x la de dos manos, medido). */
   table: z.enum(["one-hand", "two-hand", "ranged", "wand", "thrown"]),
-  /** verified = contrastado con lecturas del juego; estimated = la tabla no reproduce las lecturas (armas de lanzador). */
+  /** verified = contrastado con lecturas del juego; estimated = la tabla no reproduce las lecturas. */
   confidence: z.enum(["verified", "estimated"]),
 });
 /** Efecto de aura de un hechizo de objeto o de bono de conjunto, con su valor base (para cuantificar lo que suma). */
@@ -703,6 +734,10 @@ export const Item = z.object({
   limitCategory: z.number().int().nullable(),
   /** Unidades maximas que se pueden tener (1 = unico). */
   maxCount: z.number().int(),
+  /** Unico-equipado (ItemSparse.Flags[0] 0x80000): solo se puede llevar uno equipado, aunque MaxCount no sea 1. */
+  uniqueEquipped: z.boolean().default(false),
+  /** Armadura extra de las piezas verdes (ItemSparse.QualityModifier de la armadura): parte de `armor`, no recibe el % de armadura de los talentos. */
+  bonusArmor: z.number().default(0),
   /** Armadura base de las tablas (sin la estadistica de armadura extra). */
   armor: z.number().nullable(),
   weapon: ItemWeapon.nullable(),

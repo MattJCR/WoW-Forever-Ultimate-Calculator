@@ -1,6 +1,6 @@
 import { canAdd, rankOf, specPoints, type Build, type ClassIndex } from "@wfuc/engine";
 import type { Talent } from "@wfuc/schema";
-import { Background } from "./Background";
+import { Background, LegacyBackground } from "./Background";
 import { Icon } from "./Icon";
 
 export const CELL = 46;
@@ -61,7 +61,7 @@ export function TreePanel({ idx, build, specIndex, selected, active, onHover, on
   return (
     <section className={`tree${active ? " is-active" : ""}`} aria-label={`${spec.name ?? "Arbol"}`}>
       <div className="tree-inner">
-        {spec.backgroundFile && <Background name={spec.backgroundFile} />}
+        {spec.backgroundFile ? <Background name={spec.backgroundFile} /> : !isClass && <LegacyBackground />}
         <header className="tree-head">
           <Icon id={spec.iconFileDataId} name={spec.name} />
           <div className="tree-title">

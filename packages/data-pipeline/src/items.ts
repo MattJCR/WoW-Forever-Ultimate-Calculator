@@ -5,7 +5,7 @@ import type { Item, ItemSetDef, ItemSpellAura, Items, ItemStat, ItemWeapon } fro
 
 /**
  * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Interpretados contra las lecturas del juego que trae el
- * lecturas del juego instaladas (12 738 de 12 940 objetos coinciden); los tipos 83 y 90-139 no se han podido interpretar y salen con `key: null`.
+ * lecturas del juego instaladas (12 738 de 12 940 objetos coinciden); los tipos 90-139 (salvo el 124) no se han podido interpretar y salen con `key: null`.
  */
 export const ITEM_STAT_KEYS: Record<number, string> = {
   0: "mana",
@@ -39,6 +39,7 @@ export const ITEM_STAT_KEYS: Record<number, string> = {
   54: "shadow-resistance",
   55: "nature-resistance",
   56: "arcane-resistance",
+  83: "physical-damage", // «+N de daño» de las armas y objetos: se suma a todo el daño físico (comunidad)
   84: "holy-power",
   85: "fire-power",
   86: "nature-power",
@@ -46,6 +47,10 @@ export const ITEM_STAT_KEYS: Record<number, string> = {
   88: "shadow-power",
   89: "arcane-power",
 };
+
+/** Tipo 124 («todas las resistencias»): se reparte en las cinco escuelas magicas, sin Sagrado (confirmado con tres tooltips por la comunidad). */
+const ALL_RESISTANCES_TYPE = 124;
+const ALL_RESISTANCES = ["arcane-resistance", "fire-resistance", "frost-resistance", "nature-resistance", "shadow-resistance"];
 
 /** Cubo de ranura de RandPropPoints (0 cabeza/pecho/piernas/dos manos, 1 hombros/cintura/pies/manos, 2 cuello/muñecas/anillo/capa/escudo, 3 una mano, 4 varita/proyectil). */
 const SLOT_BUCKET: Record<number, number> = {
@@ -68,7 +73,7 @@ const CLOAK_SLOT = 16;
 const ROBE_SLOT = 20;
 const CHEST_SLOT = 5;
 
-/** Subclases de arma (clase 2) -> tabla de daño. A distancia = 0,6 x dos manos (medido: mediana 0,598, p10-p90 0,592-0,601). */
+/** Subclases de arma (clase 2) -> tabla de daño (a distancia: ItemDamageRanged, que el cliente SI trae). */
 const WEAPON_TABLE: Record<number, ItemWeapon["table"]> = {
   0: "one-hand", 4: "one-hand", 7: "one-hand", 13: "one-hand", 15: "one-hand",
   1: "two-hand", 5: "two-hand", 6: "two-hand", 8: "two-hand", 10: "two-hand",
@@ -76,10 +81,19 @@ const WEAPON_TABLE: Record<number, ItemWeapon["table"]> = {
   16: "thrown",
   19: "wand",
 };
-const RANGED_FACTOR = 0.6;
-/** Armas de lanzador (Flags[4] bit 8): DPS x 0,664 (una mano) o x 0,741 (dos manos); medido en 143 armas, p10-p90 +-0,5 %. */
-const CASTER_FACTOR: Partial<Record<ItemWeapon["table"], number>> = { "one-hand": 0.664, "two-hand": 0.741 };
-const CASTER_WEAPON_FLAG = 0x100; // ItemSparse.Flags[4]
+/**
+ * Armas de lanzador (ItemSparse.Flags[4] bit 0x100): infligen una parte fija de su tabla de daño, 2/3 una mano y 29/39 dos manos
+ * (reproducen el daño que enseña el juego en las 165 armas marcadas; comunidad, MIT, contrastado con las lecturas del juego).
+ * Las que llevan además el bit 0x200 (poder con hechizos) o 0x400 (sanación) tienen poder que ninguna ranura declara: se calcula
+ * del primer presupuesto de RandPropPoints (20 000 de poder con hechizos, o 37 600 de sanación y un tercio de eso como daño).
+ */
+const CASTER_SHARE: Record<number, number> = { 13: 2 / 3, 21: 2 / 3, 22: 2 / 3, 17: 29 / 39 };
+const REDUCED_CASTER_DPS = 0x100; // ItemSparse.Flags[4]
+const CASTER_SPELL_POWER = 0x200;
+const CASTER_HEALING_POWER = 0x400;
+const CASTER_SPELL_POWER_ALLOCATION = 20000;
+const CASTER_HEALING_POWER_ALLOCATION = 37600;
+const UNIQUE_EQUIPPABLE = 0x80000; // ItemSparse.Flags[0]
 
 const PLACEHOLDER = /^\[PH\]|\(TEST\)|\bTEST\b|^OLD|\(OLD\)|^zz|^Deprecated|^DEPRECATED|^Monster - |\(DEPRECATED\)|\(Deprecated\)/i;
 
@@ -91,8 +105,10 @@ const byLevel = (rows: Row[]): Map<number, Row> => new Map(rows.map((r) => [int(
  *  - Estadistica = round(StatPercentEditor / 10 000 x presupuesto de RandPropPoints[nivel][calidad][ranura]).
  *  - Armadura = ItemArmorTotal x ItemArmorQuality x ArmorLocation (escudos: ItemArmorShield).
  *  - Dano de arma = DPS de ItemDamage*[nivel][calidad] x velocidad, repartido +-DmgVariance/2.
- * Contrastado con las lecturas del juego instaladas (ver test): estadisticas 98,7 %, armadura (con la armadura extra) 99,5 %, armas
- * 92-99 % segun tabla. A distancia y de lanzador usan un factor medido sobre la tabla y van marcadas `estimated`.
+ * Contrastado con las lecturas del juego instaladas (ver test) y con la comunidad (ver wowsims-items-contrast.test.ts).
+ *  - `bonusArmor` (verdes con «+N de armadura»): ItemSparse.QualityModifier de la armadura. Es una PARTE de la armadura de la tabla (el juego
+ *    enseña el total: Brazales de escamas de tortuga 104 = 104,17 de la tabla), que no recibe el % de armadura de los talentos.
+ *  - Armas de lanzador: daño reducido y poder con hechizos desde los indicadores del cliente (ver CASTER_*).
  */
 export function buildItems(raw: RawTables, build: string, spells: SpellTables): Items {
   const spellText = (spellId: number) => {
@@ -132,6 +148,7 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
     "two-hand": byLevel(raw.table("ItemDamageTwoHand")),
     wand: byLevel(raw.table("ItemDamageWand")),
     thrown: byLevel(raw.table("ItemDamageThrown")),
+    ranged: byLevel(raw.table("ItemDamageRanged")),
   };
   const effectById = new Map(raw.table("ItemEffect").map((r) => [r.ID!, r]));
   const effectsByItem = new Map<string, Item["effects"]>();
@@ -173,9 +190,24 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
       const type = int(s[`StatModifier_bonusStat[${i}]`]);
       const key = ITEM_STAT_KEYS[type] ?? null;
       if (key === null) unknownTypes.set(type, (unknownTypes.get(type) ?? 0) + 1);
-      stats.push({ type, key, value: Math.round((alloc * budget) / 10000) });
+      const value = Math.round((alloc * budget) / 10000);
+      if (type === ALL_RESISTANCES_TYPE) for (const k of ALL_RESISTANCES) stats.push({ type, key: k, value });
+      else stats.push({ type, key, value });
     }
-    if (stats.length > 0 && budget === 0) warnings.push(`objeto ${it.ID}: sin presupuesto de RandPropPoints (nivel ${itemLevel}, ranura ${inventoryType})`);
+    const allocStats = stats.length;
+    const flags4 = int(s["Flags[4]"]);
+    // Poder con hechizos de las armas de lanzador (no hay ranura que lo declare): del primer presupuesto de RandPropPoints
+    if (classId === 2 && budgetRow && (flags4 & (CASTER_SPELL_POWER | CASTER_HEALING_POWER)) !== 0) {
+      const first = num(budgetRow[`${column}[0]`]);
+      if ((flags4 & CASTER_HEALING_POWER) !== 0) {
+        const healing = Math.floor((CASTER_HEALING_POWER_ALLOCATION * first) / 10000);
+        stats.push({ type: 41, key: "healing-power", value: healing }, { type: 42, key: "spell-damage", value: Math.floor(healing / 3) });
+      } else {
+        stats.push({ type: 45, key: "spell-power", value: Math.floor((CASTER_SPELL_POWER_ALLOCATION * first) / 10000) });
+      }
+    }
+    const qualityModifier = num(s.QualityModifier);
+    if (allocStats > 0 && budget === 0) warnings.push(`objeto ${it.ID}: sin presupuesto de RandPropPoints (nivel ${itemLevel}, ranura ${inventoryType})`);
 
     // --- armadura
     let armor: number | null = null;
@@ -192,24 +224,21 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
     }
 
     // --- arma
-    const casterWeapon = classId === 2 && (int(s["Flags[4]"]) & CASTER_WEAPON_FLAG) !== 0;
+    const casterWeapon = classId === 2 && (flags4 & REDUCED_CASTER_DPS) !== 0;
     let weapon: ItemWeapon | null = null;
     const table = classId === 2 ? WEAPON_TABLE[subclassId] : undefined;
     const delay = num(s.ItemDelay) / 1000;
     if (table && delay > 0) {
-      const row = damage[table === "ranged" ? "two-hand" : table].get(itemLevel);
+      const row = damage[table].get(itemLevel);
       if (row) {
-        const dps = num(row[`Quality[${quality}]`]) * (table === "ranged" ? RANGED_FACTOR : 1) * (casterWeapon ? (CASTER_FACTOR[table] ?? 1) : 1);
-        const avg = dps * delay;
+        const tableDps = num(row[`Quality[${quality}]`]) * (casterWeapon ? (CASTER_SHARE[inventoryType] ?? 1) : 1);
         const variance = num(s.DmgVariance);
-        weapon = {
-          min: round2(avg * (1 - variance / 2)),
-          max: round2(avg * (1 + variance / 2)),
-          speed: delay,
-          dps: round2(dps),
-          table,
-          confidence: casterWeapon || table === "ranged" ? "estimated" : "verified",
-        };
+        // El juego enseña el daño redondeado (minimo hacia abajo, maximo al entero mas cercano) con el modificador de calidad por segundo de velocidad
+        const low = tableDps * delay * (1 - variance / 2) + qualityModifier * delay;
+        const high = tableDps * delay * (1 + variance / 2) + qualityModifier * delay;
+        const min = Math.floor(low < 0 ? 1 : low);
+        const max = Math.floor((high < 0 ? 1 : high) + 0.5);
+        weapon = { min, max, speed: delay, dps: round2((min + max) / 2 / delay), table, confidence: "verified" };
       }
     }
 
@@ -230,6 +259,8 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
       itemSetId: int(s.ItemSet) || null,
       limitCategory: int(s.LimitCategory) || null,
       maxCount: int(s.MaxCount),
+      bonusArmor: classId === 4 ? qualityModifier : 0,
+      uniqueEquipped: (int(s["Flags[0]"]) & UNIQUE_EQUIPPABLE) !== 0,
       armor: armor === null ? null : round2(armor),
       weapon,
       casterWeapon,

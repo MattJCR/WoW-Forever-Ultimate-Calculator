@@ -25,20 +25,20 @@ const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race
 const row = stats.combos.find((c) => c.raceId === 1 && c.classId === 8)!.stats[59]!; // nivel 60
 const base = { str: row[0]!, agi: row[1]!, sta: row[2]!, int: row[3]!, spi: row[4]! };
 
-describe("probabilidades de impacto y critico por habilidad (estimacion de Classic)", () => {
+describe("probabilidades de impacto y critico por habilidad (cliente + comunidad)", () => {
   const frostbolt = findAbility(abilities, "Descarga de Escarcha")!;
   const rank = frostbolt.ranks.at(-1)!;
   const lines = abilityEffectSummary("Descarga de Escarcha", fx).lines;
 
-  it("las formulas son de Classic, procedencia community y confianza baja (no se presentan como de Forever)", () => {
+  it("las reglas son de la comunidad, procedencia community y confianza baja (no se presentan como medidas por el cliente)", () => {
     expect(formulas.provenance).toBe("community");
     expect(formulas.confidence).toBe("low");
   });
 
-  it("impacto contra el mismo nivel: 100 - 4 % de fallo + 6 de Enfoque elemental (hotfix 20/10: 3 rangos de 2 %) = 102, con tope 99", () => {
+  it("impacto contra el mismo nivel: 100 - 4 % de fallo + 6 de Enfoque elemental (hotfix 20/10: 3 rangos de 2 %) = 102, con tope 100 (en Forever no hay 1 % minimo de fallo)", () => {
     const c = abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines });
     expect(c.kind).toBe("spell");
-    expect(c.hit).toMatchObject({ missPct: 4, bonusPct: 6, cap: 99, total: 99, capped: true });
+    expect(c.hit).toMatchObject({ missPct: 4, bonusPct: 6, cap: 100, total: 100, capped: true });
   });
 
   it("impacto contra un jefe (+3): 100 - 17 + 6 = 89", () => {
@@ -51,13 +51,15 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(c.hit).toMatchObject({ bonusPct: 0, total: 96, capped: false });
   });
 
-  it("critico: aporte del intelecto segun el cliente (intelecto x critico por punto) + bonos de talentos y raza; no inventa el critico base de la clase", () => {
+  it("critico: base de la clase (comunidad: Mago 0,2 %) + intelecto segun el cliente (intelecto x critico por punto) + bonos de talentos y raza", () => {
     const c = abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines });
     expect(c.crit.stat).toBe("int");
     expect(c.crit.statPerPercent).toBe(59.5);
     expect(c.crit.fromStat).toBeCloseTo(base.int * cs(8, 60)!.spellCritPerIntellect * 100, 1);
     expect(c.crit.bonusPct).toBe(2); // Crueldad del Humano; Incineracion no afecta a Descarga de Escarcha
-    expect(c.crit.total).toBeCloseTo(c.crit.fromStat! + 2, 1);
+    expect(c.crit.baseClassPct).toBe(0.2);
+    expect(c.crit.total).toBeCloseTo(0.2 + c.crit.fromStat! + 2, 1);
+    expect(c.crit.suppressionPct).toBe(0); // contra el mismo nivel no hay supresion
     expect(c.crit.unavailable).toBeNull();
   });
 
@@ -67,7 +69,7 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(c.crit.statPerPercent).toBe(27.3);
     expect(c.crit.fromStat).toBeCloseTo(l30[3]! / 27.3, 0);
     expect(c.crit.bonusPct).toBe(2);
-    expect(c.hit.total).toBe(99);
+    expect(c.hit.total).toBe(100);
   });
 
   it("equipo: la puntuación de impacto y de crítico se suma (+1,5 % de impacto, +2 % de crítico), el impacto sigue con tope y el crítico sale aparte", () => {
@@ -78,8 +80,8 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(con.hit.total).toBeCloseTo(sin.hit.total + 1.5, 2);
     expect(con.crit.gearPct).toBe(2);
     expect(con.crit.total).toBeCloseTo(sin.crit.total! + 2, 2);
-    // contra el mismo nivel ya estamos en el tope de 99
-    expect(abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines, gear }).hit).toMatchObject({ total: 99, capped: true });
+    // contra el mismo nivel ya estamos en el tope de 100
+    expect(abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines, gear }).hit).toMatchObject({ total: 100, capped: true });
     // sin equipo no cambia nada
     expect(sin.hit.gearPct).toBe(0);
     expect(sin.crit.gearPct).toBe(0);
@@ -91,14 +93,32 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(c.crit.unavailable).toContain("raza");
   });
 
-  it("las habilidades fisicas usan la tabla cuerpo a cuerpo (5 % / 9 %) y la agilidad del Picaro del cliente (29 por 1 % a nivel 60)", async () => {
+  it("las habilidades fisicas usan la tabla cuerpo a cuerpo (5 % / 8 % contra +3) y la agilidad del Picaro del cliente (29 por 1 % a nivel 60)", async () => {
     const rogue = Abilities.parse(json("abilities/rogue.json"));
     const evis = findAbility(rogue, "Eviscerar")!.ranks.at(-1)!;
     const c = abilityChances({ rank: evis, classId: 4, level: 60, target: "boss", formulas, stats: { agi: 290, int: 20 }, classStats: cs(4, 60), lines: [] });
     expect(c.kind).toBe("melee");
-    expect(c.hit.missPct).toBe(9);
+    expect(c.hit.missPct).toBe(8);
     expect(c.crit.statPerPercent).toBe(29);
     expect(c.crit.fromStat).toBeCloseTo(10, 0);
+  });
+
+  it("supresion de critico contra un jefe: fisico 3 % por habilidad de arma + critico de auras hasta 1,8 %; hechizos ninguna", () => {
+    const rogue = Abilities.parse(json("abilities/rogue.json"));
+    const evis = findAbility(rogue, "Eviscerar")!.ranks.at(-1)!;
+    const stats = { agi: 290, int: 20 };
+    const same = abilityChances({ rank: evis, classId: 4, level: 60, target: "same", formulas, stats, classStats: cs(4, 60), lines: [] });
+    const boss = abilityChances({ rank: evis, classId: 4, level: 60, target: "boss", formulas, stats, classStats: cs(4, 60), lines: [] });
+    expect(same.crit.suppressionPct).toBe(0);
+    expect(boss.crit.suppressionPct).toBe(3);
+    expect(boss.crit.vsTargetPct).toBeCloseTo(boss.crit.total! - 3, 2);
+    // con 5 % de crítico de equipo (puntuacion), solo se suprimen 1,8 puntos de los 5 que vienen de auras
+    const geared = abilityChances({ rank: evis, classId: 4, level: 60, target: "boss", formulas, stats, classStats: cs(4, 60), lines: [], gear: { hitPct: 0, critPct: 5 } });
+    expect(geared.crit.suppressionPct).toBeCloseTo(3 + 1.8, 2);
+    // los hechizos no tienen supresion
+    const spell = abilityChances({ rank, classId: 8, level: 60, target: "boss", formulas, stats: base, classStats: cs(8, 60), lines });
+    expect(spell.crit.suppressionPct).toBe(0);
+    expect(spell.crit.vsTargetPct).toBe(spell.crit.total);
   });
 
   it("una clase sin critico de hechizo por intelecto (Guerrero) lo avisa en vez de inventarlo, y sin datos del cliente tambien", () => {

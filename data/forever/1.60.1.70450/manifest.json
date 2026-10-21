@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-21T11:08:48.340Z",
+  "generatedAt": "2026-10-21T12:56:16.076Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -159,7 +159,7 @@
   },
   "combatFormulas": {
     "file": "combat-formulas.json",
-    "sha256": "5b6b31fb4347dc468f010e0a919118187ebbd8d24064c1556e857bd42b54b032"
+    "sha256": "0f75ca9866e33d39bc47c8d3f1e035a2844441f6b7bdf3742e2e59f66cc14ae9"
   },
   "rules": [
     {
@@ -302,9 +302,9 @@
   },
   "items": {
     "file": "items.json",
-    "sha256": "8d1f75e0a7d4de2958608d6c692fac37d236e4722602ff2f5f0224e79d7dc566",
-    "itemCount": 12514,
-    "unavailableCount": 6381
+    "sha256": "9ea7c6fca66f69ea9f5c1ce8f61e2fd5792991122d65bd6af77d26c04695ab16",
+    "itemCount": 12515,
+    "unavailableCount": 6380
   },
   "equipRules": {
     "file": "equip-rules.json",
@@ -388,6 +388,10 @@
     {
       "table": "ItemDamageOneHand",
       "sha256": "8fe09490706309d2681660588b276cb387b0b0ce66006de1dcb8c7bc0819a390"
+    },
+    {
+      "table": "ItemDamageRanged",
+      "sha256": "241b1f4229c5183365ebd883fa2b905b7200975fe67cd601fe678f5970f2129e"
     },
     {
       "table": "ItemDamageThrown",

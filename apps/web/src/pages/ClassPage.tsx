@@ -710,7 +710,7 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
             <h3>Estadísticas</h3>
             <p className="muted small">A nivel {level}. En verde, lo que suman talentos, raza y equipo.</p>
           </header>
-          <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel, armor: gear.summary.armor, ratings: gear.ratings } : null} />
+          <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel, armor: gear.summary.armor, bonusArmor: gear.summary.bonusArmor, ratings: gear.ratings } : null} />
         </section>
         <section className="abilities-card" aria-label="Habilidades">
           <header>

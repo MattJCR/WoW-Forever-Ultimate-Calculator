@@ -58,8 +58,11 @@ export function deriveStats(input: {
   hpBase: number;
   manaBase: number;
   totals: StatTotal[];
-  /** Poder de ataque por atributo de la clase (ChrClasses, client-db2); sin él no hay filas de poder de ataque. */
-  attackPower?: { perStrength: number; perAgility: number; rangedPerAgility: number } | null;
+  /**
+   * Poder de ataque por atributo de la clase (ChrClasses, client-db2); sin él no hay filas de poder de ataque.
+   * `baseMelee` / `baseRanged`: poder de ataque base de la clase a ese nivel (`baseAttackPower`, `community`); 0 si se omiten.
+   */
+  attackPower?: { perStrength: number; perAgility: number; rangedPerAgility: number; baseMelee?: number; baseRanged?: number } | null;
   /**
    * Suma de estadisticas del equipo por clave de objeto (`summarizeGear().stats`: strength, stamina, health, mana, attack-power,
    * ranged-attack-power, spell-power, spell-damage, healing-power...). Orden: objetos primero, luego los % de talentos, luego
@@ -98,8 +101,8 @@ export function deriveStats(input: {
     rows.push({ key: "mana", label: "Maná máximo", base: manaBase + manaFromIntellect(plain[3]!) + manaGear, gear: manaGear, bonusPct: manaPct.value, flat: manaFlat.value, final: Math.floor(manaTotal * (1 + manaPct.value / 100) + 1e-9), sources: [...manaPct.sources, ...manaFlat.sources] });
   }
 
-  // Poder de ataque por atributo (ChrClasses) y lo que los talentos dan como % de un atributo (Maña mental: 100 % del intelecto).
-  // No incluye el poder de ataque base por nivel ni el del equipo (el cliente no los trae).
+  // Poder de ataque por atributo (ChrClasses) y lo que los talentos dan como % de un atributo (Maña mental: 100 % del intelecto),
+  // más el poder de ataque base de la clase (`community`: nivel × factor + constante, comprobado a nivel 60) y el del equipo.
   const fromStat = (target: StatTarget): { points: number; sources: StatSource[] } => {
     const lines = totals.filter((t) => t.target === target && t.ofStat);
     return { points: lines.reduce((n, t) => n + (t.value / 100) * (finalAttr[t.ofStat!] ?? 0), 0), sources: lines.flatMap((t) => t.sources) };
@@ -112,16 +115,18 @@ export function deriveStats(input: {
   if (attackPower) {
     // «Base» = sin talentos pero con el equipo (atributos y puntos de poder de ataque de los objetos)
     const apGear = gear["attack-power"] ?? 0;
-    const ap = plain[attrIndex.str]! * attackPower.perStrength + plain[attrIndex.agi]! * attackPower.perAgility + apGear;
-    const apFinal = finalAttr.str! * attackPower.perStrength + finalAttr.agi! * attackPower.perAgility + apGear;
+    const baseMelee = attackPower.baseMelee ?? 0;
+    const baseRanged = attackPower.baseRanged ?? 0;
+    const ap = plain[attrIndex.str]! * attackPower.perStrength + plain[attrIndex.agi]! * attackPower.perAgility + apGear + baseMelee;
+    const apFinal = finalAttr.str! * attackPower.perStrength + finalAttr.agi! * attackPower.perAgility + apGear + baseMelee;
     const melee = fromStat("attack-power");
     // Los atributos subidos por talentos entran en la base del poder de ataque: se muestra como «base» el valor sin talentos
-    rows.push({ key: "ap", label: "Poder de ataque (de atributos)", base: Math.floor(ap + 1e-9), gear: apGear, bonusPct: 0, flat: Math.floor(apFinal - ap + melee.points + 1e-9), final: Math.floor(apFinal + melee.points + 1e-9), sources: melee.sources });
+    rows.push({ key: "ap", label: "Poder de ataque", base: Math.floor(ap + 1e-9), gear: apGear, bonusPct: 0, flat: Math.floor(apFinal - ap + melee.points + 1e-9), final: Math.floor(apFinal + melee.points + 1e-9), sources: melee.sources });
     const rapGear = gear["ranged-attack-power"] ?? 0;
-    const rap = plain[attrIndex.agi]! * attackPower.rangedPerAgility + rapGear;
-    const rapFinal = finalAttr.agi! * attackPower.rangedPerAgility + rapGear;
+    const rap = plain[attrIndex.agi]! * attackPower.rangedPerAgility + rapGear + baseRanged;
+    const rapFinal = finalAttr.agi! * attackPower.rangedPerAgility + rapGear + baseRanged;
     const ranged = fromStat("ranged-attack-power");
-    if (attackPower.rangedPerAgility > 0 || ranged.points > 0 || rapGear > 0) rows.push({ key: "rap", label: "Poder de ataque a distancia (de atributos)", base: Math.floor(rap + 1e-9), gear: rapGear, bonusPct: 0, flat: Math.floor(rapFinal - rap + ranged.points + 1e-9), final: Math.floor(rapFinal + ranged.points + 1e-9), sources: ranged.sources });
+    if (attackPower.rangedPerAgility > 0 || ranged.points > 0 || rapGear > 0 || baseRanged > 0) rows.push({ key: "rap", label: "Poder de ataque a distancia", base: Math.floor(rap + 1e-9), gear: rapGear, bonusPct: 0, flat: Math.floor(rapFinal - rap + ranged.points + 1e-9), final: Math.floor(rapFinal + ranged.points + 1e-9), sources: ranged.sources });
   }
   const sd = fromStat("spell-damage");
   const sh = fromStat("spell-healing");

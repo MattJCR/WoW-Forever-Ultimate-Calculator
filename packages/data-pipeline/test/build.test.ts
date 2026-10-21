@@ -1220,10 +1220,28 @@ describe("formulas de combate de Classic (estimacion)", () => {
     expect(f.confidence).toBe("low");
   });
 
-  it("las tablas de fallo son las de Classic: hechizos 4 % / 17 % y cuerpo a cuerpo 5 % / 9 %", () => {
+  it("tablas de fallo de la comunidad: hechizos 4 % / 17 % y cuerpo a cuerpo 5 % / 8 % (5 % + 15 puntos de arma x 0,2 %); sin 1 % minimo de fallo: tope 100 %", () => {
     const f = CombatFormulas.parse(raw);
-    expect(f.miss).toEqual({ spell: { same: 4, boss: 17 }, melee: { same: 5, boss: 9 } });
-    expect(f.hitCap).toEqual({ spell: 99, melee: 100 });
+    expect(f.miss).toEqual({ spell: { same: 4, boss: 17 }, melee: { same: 5, boss: 8 } });
+    expect(f.miss.melee.boss).toBeCloseTo(f.miss.melee.same + 15 * 0.2, 6);
+    expect(f.hitCap).toEqual({ spell: 100, melee: 100 });
+    expect(f.dualWieldMissPenalty).toBe(19);
+    expect(f.critSuppression).toEqual({ meleeBossSkill: 3, meleeBossAuraMax: 1.8, spellBoss: 0 });
+    expect(f.critMultiplier).toEqual({ spell: 1.5, physical: 2 });
+  });
+
+  it("valores base por clase (comunidad): las 9 clases, y el critico/mana base coinciden con el cliente", () => {
+    const f = CombatFormulas.parse(raw);
+    expect(f.classBase.map((c) => c.classId).sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 7, 8, 9, 11]);
+    // La comunidad da el critico y el esquive base de las clases con mana distintos de 0 y 0 para guerrero, picaro y cazador (fisico)
+    const byClass = new Map(f.classBase.map((c) => [c.classId, c]));
+    expect(byClass.get(8)).toMatchObject({ spellCritPct: 0.2, physicalCritPct: 3.2, dodgePct: 3.2 });
+    expect(byClass.get(2)).toMatchObject({ spellCritPct: 3.5, physicalCritPct: 0.7 });
+    // El poder de ataque base (Classic) reproduce las cifras de la comunidad a nivel 60
+    const ap60 = (id: number) => byClass.get(id)!.attackPower.perLevel * 60 + byClass.get(id)!.attackPower.flat;
+    expect([1, 2, 3, 4, 5, 7, 8, 9, 11].map(ap60)).toEqual([160, 160, 100, 100, -10, 100, -10, -10, -20]);
+    const hunter = byClass.get(3)!.rangedAttackPower!;
+    expect(hunter.perLevel * 60 + hunter.flat).toBe(110);
   });
 
   it("ya no lleva ratios de critico: salen del cliente (client-stats.json)", () => {

@@ -1,5 +1,7 @@
 import {
   abilityChances,
+  baseAttackPower,
+  classBaseOf,
   abilityEffectSummary,
   applyModifiers,
   canCrit,
@@ -114,7 +116,7 @@ interface RowData {
   inline: ReturnType<typeof abilityEffectSummary>["inline"];
   ruleTexts: string[];
   count: number;
-  /** Crítico total (%) con atributo, talentos, raza y equipo; null si no puede ser crítica o faltan datos. No incluye el crítico base de la clase. */
+  /** Crítico (%) contra el objetivo elegido: base de la clase (comunidad) + atributo (cliente) + talentos, raza y equipo − supresión contra jefes; null si no puede ser crítica o faltan datos. */
   crit: number | null;
 }
 
@@ -360,7 +362,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       {chances && (
         <section>
           <h5>
-            Probabilidades <span className="tag tag-inactive" title="La tabla de fallo es de Classic Era (el cliente de Forever no trae las tablas de impacto); el crítico por atributo sí es del cliente (PlayerExpectedStat)">impacto: estimación Classic · crítico: cliente</span>
+            Probabilidades <span className="tag tag-inactive" title="La tabla de fallo, el crítico base de la clase y la supresión de crítico son de la comunidad (el cliente de Forever no trae las tablas de impacto); el crítico por atributo sí es del cliente (PlayerExpectedStat)">impacto y crítico base: comunidad · crítico por atributo: cliente</span>
           </h5>
           <ul className="ab-chances">
             {!(healsTarget(rank) && !dealsDamage(rank)) && (
@@ -376,17 +378,24 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
             </li>
             )}
             <li>
-              <span className="ab-sum-l">Crítico: lo que suman tus estadísticas, talentos y raza</span>
+              <span className="ab-sum-l">Crítico{chances.crit.total !== null ? " (lo que enseña tu hoja)" : ": lo que suman tus estadísticas, talentos y raza"}</span>
               {chances.crit.total !== null ? <b className="pos">{sign(chances.crit.total)} %</b> : chances.crit.bonusPct !== 0 ? <b className="pos">{sign(chances.crit.bonusPct)} %</b> : <b className="muted">—</b>}
               <span className="ab-sum-s">
+                {chances.crit.baseClassPct !== 0 ? `${fmt(chances.crit.baseClassPct, 1)} % base de tu clase · ` : ""}
                 {chances.crit.fromStat !== null && chances.crit.stat
                   ? `${sign(chances.crit.fromStat)} % por tu ${chances.crit.stat === "int" ? "intelecto" : "agilidad"} (${fmt(chances.crit.statValue ?? 0)} ÷ ${fmt(chances.crit.statPerPercent ?? 0, 1)})`
                   : chances.crit.unavailable}
                 {chances.crit.bonusPct !== 0 ? ` · ${sign(chances.crit.bonusPct)} % de talentos y raza` : ""}
                 {chances.crit.gearPct !== 0 ? ` · +${fmt(chances.crit.gearPct, 2)} % de la puntuación de tu equipo` : ""}
-                {canCrit(rank) ? " · se suma al crítico base de tu clase, que no está en el cliente" : ""}
               </span>
             </li>
+            {chances.crit.suppressionPct > 0 && chances.crit.vsTargetPct !== null && (
+              <li>
+                <span className="ab-sum-l">Crítico contra un jefe (+3 niveles)</span>
+                <b className="pos">{sign(chances.crit.vsTargetPct)} %</b>
+                <span className="ab-sum-s">−{fmt(chances.crit.suppressionPct, 1)} % de supresión (3 % por la diferencia de habilidad de arma y el crítico de auras hasta 1,8 %; los hechizos no la tienen)</span>
+              </li>
+            )}
           </ul>
         </section>
       )}
@@ -556,18 +565,19 @@ export function AbilitiesTable({
     if (clientStatsState.status !== "ready") return null;
     const clientClass = clientStatsState.value?.classes.find((c) => c.classId === idx.data.classId) ?? null;
     const row = race && statsState.status === "ready" ? statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1] : undefined;
+    const apBase = baseAttackPower(formulas ? classBaseOf(formulas, idx.data.classId) : null, level);
     const derived = deriveStats({
       attributes: (row ?? [0, 0, 0, 0, 0]) as [number, number, number, number, number],
       hpBase: 0,
       manaBase: 0,
       totals: fx.totals,
       gear: gearHere?.stats ?? null,
-      attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
+      attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility, baseMelee: apBase.melee, baseRanged: apBase.ranged } : null,
     });
     // La celeridad se suma como el resto de estadisticas de combate (puntuacion del equipo + talentos, Legacy y raza)
     const combat = deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: 0, ratings: gearHere.ratings } : null, classStats });
     return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? []), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
-  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere, classStats]);
+  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere, classStats, formulas]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
@@ -585,7 +595,7 @@ export function AbilitiesTable({
       // «Afectada por mis talentos»: cuentan las cifras de talentos de clase, de Legacy y del equipo (bonos de conjunto, efectos de objeto); la raza se aplica a todas
       const fromTalents = (l: AbilityEffectLine): boolean => l.sources.some((s) => s.from !== "race");
       const count = sum.lines.filter(fromTalents).length + Object.values(sum.inline).reduce((n, v) => n + (v?.filter(fromTalents).length ?? 0), 0) + ruleTexts.length;
-      const crit = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }).crit.total : null;
+      const crit = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }).crit.vsTargetPct : null;
       out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit });
     }
     return out;
