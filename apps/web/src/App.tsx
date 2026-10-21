@@ -92,6 +92,13 @@ function Layout({ manifest }: { manifest: Manifest }) {
             Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
           </p>
           <p>
+            Proyecto alojado en GitHub: puedes contribuir con correcciones, datos o ideas.{" "}
+            <a href="https://github.com/MattJCR/WoW-Forever-Ultimate-Calculator/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
+              Cómo contribuir
+            </a>
+            .
+          </p>
+          <p>
             Tipografías Inter y Cinzel, con licencia SIL Open Font License 1.1:{" "}
             <a href={`${import.meta.env.BASE_URL}licenses/Inter-OFL.txt`} target="_blank" rel="noreferrer">
               Inter
