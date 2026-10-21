@@ -143,7 +143,7 @@ export function buildBaseStats(races: Races, classic: ClassicEra, build: string)
     raceOffsets: {
       source: RACE_OFFSETS_SOURCE,
       provenance: "community",
-      note: "Diferencias de raza medidas en la beta por la comunidad en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
+      note: "Diferencias de raza: las del juego original para las 8 razas clásicas (la comunidad revirtió el 2026-10-21 unas menores que había leído el 2026-10-20) y las leídas en la beta para Cielonato. Se suponen constantes por nivel.",
       offsets: Object.entries(FOREVER_RACE_OFFSETS).map(([raceId, delta]) => ({ raceId: Number(raceId), delta })),
     },
     statNames: classic.stats,

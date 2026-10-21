@@ -114,6 +114,9 @@ export function classifyGearAuras(auras: ItemSpellAura[], text: string): { stats
       case 30: // habilidad: 95 = defensa
         if (a.miscValue === 95) take(a, { key: "defense", value: v });
         break;
+      case 674: // «+150 p. de armadura» (aura propia de Forever, valor confirmado por el texto)
+        if (a.miscValue === 1 && v > 0) take(a, { key: "extra-armor", value: v });
+        break;
       case 85: // regeneracion de maná cada 5 s
         if (a.miscValue === 0) take(a, { key: "mana-per-5", value: v });
         break;

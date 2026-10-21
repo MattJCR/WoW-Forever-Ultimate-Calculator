@@ -422,16 +422,35 @@ describe("estadisticas base (Classic Era, procedencia community)", () => {
     expect(stats.missing).toEqual([]);
   });
 
-  it("las diferencias de raza son las de Forever (la comunidad, hojas de nivel 1), no las de Classic, y ninguna cambia el espiritu", () => {
+  it("las diferencias de raza de las 8 razas clasicas son las del juego original (la comunidad revirtio las menores del 2026-10-20) y el espiritu si cambia", () => {
     expect(stats.raceOffsets.provenance).toBe("community");
-    // Tauren guerrero nivel 1: Humano 23/20/22/20 + (2,-2,2,-2); Classic daba 28/15/24/15
-    expect(combo(6, 1).stats[0]).toEqual([25, 18, 24, 18, 20]);
-    expect(combo(2, 1).stats[0]!.slice(0, 4)).toEqual([26, 17, 23, 19]);
+    expect(stats.raceOffsets.source.date).toBe("2026-10-21");
+    // Tauren guerrero nivel 1: Humano 23/20/22/20/20 + (5,-5,2,-5,2) = 28/15/24/15/22, igual que Classic
+    expect(combo(6, 1).stats[0]).toEqual([28, 15, 24, 15, 22]);
+    expect(combo(2, 1).stats[0]).toEqual([26, 17, 24, 17, 23]);
+    // Fuera de lo que Forever cambia a mano (espiritu del Humano, intelecto del Gnomo) cada raza reproduce la tabla de Classic
+    // (ya auditada): 8 287 de 8 400 celdas exactas, 101 con 1 de diferencia (redondeo de la fuente) y 12 con 2 o mas,
+    // que son el ruido de la propia fuente (hasta 3 en Orco picaro agilidad 19-20, Gnomo brujo espiritu 59, aguante del Orco brujo).
+    const audited = auditLevelStats(classic.levelStats).levelStats;
+    let cells = 0;
+    let exact = 0;
     for (const c of stats.combos) {
-      // espiritu sin racial (tambien el Humano) = el mismo en todas las razas y niveles
-      const base = stats.combos.find((x) => x.raceId === 2 && x.classId === c.classId);
-      if (base) expect(c.stats.map((r) => r[4]), `${c.raceId}/${c.classId}`).toEqual(base.stats.map((r) => r[4]));
+      if (c.provenance !== "community" || c.raceId > 8 || c.derivedFromRaceId !== null) continue;
+      const classicRows = audited[c.raceId]?.[c.classId];
+      if (!classicRows) continue;
+      c.stats.forEach((row, l) => {
+        for (let i = 0; i < 5; i++) {
+          if (c.raceId === 1 && i === 4) continue; // +5 % de espiritu: racial
+          if (c.raceId === 7 && i === 3) continue; // +5 % de intelecto: no existe en Forever
+          const diff = Math.abs(row[i]! - classicRows[l]![i]!);
+          expect(diff, `${c.raceId}/${c.classId} nivel ${l + 1} atributo ${i}`).toBeLessThanOrEqual(3);
+          cells++;
+          if (diff === 0) exact++;
+        }
+      });
     }
+    expect(cells).toBeGreaterThan(8000);
+    expect(exact / cells).toBeGreaterThan(0.98);
   });
 
   it("Cielonato (95 y 96) = base de la clase + (-1,+1,-1,+1) y comparte filas entre facciones", () => {
@@ -453,8 +472,8 @@ describe("estadisticas base (Classic Era, procedencia community)", () => {
       const row = c.stats[59]!;
       const want = WOWSIMS_L60[c.classId]!;
       for (let i = 0; i < 4; i++) expect(row[i]! - delta[i]!, `${c.raceId}/${c.classId} atributo ${i}`).toBe(want[i]);
-      // El espiritu es la base sin racial en todas las razas, tambien el Humano (su +5 % se aplica aparte)
-      expect(row[4], `${c.raceId}/${c.classId} espiritu`).toBe(want[4]);
+      // El espiritu de la base de la clase es el del Humano sin racial (su +5 % se aplica aparte); cada raza suma su desplazamiento
+      expect(row[4]! - delta[4]!, `${c.raceId}/${c.classId} espiritu`).toBe(want[4]);
     }
   });
 

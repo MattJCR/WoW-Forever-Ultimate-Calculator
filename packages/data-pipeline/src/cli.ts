@@ -63,6 +63,7 @@ function build(): void {
       iconFileDataId: cls.iconFileDataId ?? null,
       traitTreeId: cls.traitTreeId,
       talentCount: cls.specs.reduce((s, sp) => s + sp.talents.length, 0),
+      specNames: cls.specs.map((sp) => sp.name).filter((n): n is string => !!n),
       inactiveCount: cls.inactiveTalents.length,
       file,
       sha256: sha256(text),

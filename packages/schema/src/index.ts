@@ -352,8 +352,8 @@ export type Races = z.infer<typeof Races>;
 
 /**
  * Estadisticas base por raza, clase y nivel. El cliente de Forever NO las trae (en Classic viven en el servidor):
- * la base de la clase sale de Classic Era 1.12 (`community`), las diferencias de raza son las medidas en la beta por
- * La comunidad (`raceOffsets`, `community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
+ * la base de la clase sale de Classic Era 1.12 (`community`), las diferencias de raza son las del juego original (Cielonato,
+ * medida en la beta) segun La comunidad (`raceOffsets`, `community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
  */
 export const BaseStats = z.object({
   schemaVersion: z.literal(1),
@@ -841,6 +841,8 @@ export const Manifest = z.object({
       iconFileDataId: z.number().int().nullable(),
       traitTreeId: z.number().int(),
       talentCount: z.number().int(),
+      /** Nombres de los arboles de la clase, en orden (para mostrarlos en la portada sin cargar la clase). */
+      specNames: z.array(z.string()).default([]),
       /** Nodos del cliente que no estan activos (visibles pero no seleccionables). */
       inactiveCount: z.number().int(),
       file: z.string(),

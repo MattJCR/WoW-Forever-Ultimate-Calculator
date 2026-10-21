@@ -179,7 +179,9 @@ const COMPUTED_OPS = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 
  * "daño" (0) afecta a los efectos directos, "daño periodico" (22) a los periodicos, "efecto 1/2/3" a ese efecto y
  * "todos los efectos" (8) a todos. El porcentaje de daño tambien escala el coeficiente de poder con hechizos.
  */
-export function applyModifiers(rank: AbilityRank, level: number, all: SpellModifier[]): ModifiedAbility {
+export function applyModifiers(rank: AbilityRank, level: number, all: SpellModifier[], extra: { damageDonePct?: number } = {}): ModifiedAbility {
+  // Daño infligido por escuela (aura 79 de talentos, raza y equipo): multiplica el daño, no la sanación
+  const damageDone = 1 + (extra.damageDonePct ?? 0) / 100;
   const own = modifiersFor(rank, all);
   const applied = allModifiersFor(rank, all);
   // Un efecto de otro hechizo (disparado o citado) con mascara propia se modifica con lo que cruza ESA mascara; sin ella, con las
@@ -196,7 +198,8 @@ export function applyModifiers(rank: AbilityRank, level: number, all: SpellModif
       const mods = modsOf(e);
       const flat = sum(mods, "flat", ...ops);
       const pct = sum(mods, "pct", ...ops);
-      const factor = 1 + pct / 100;
+      const dealsDamage = e.kind === "direct-damage" || e.kind === "periodic-damage";
+      const factor = (1 + pct / 100) * (dealsDamage ? damageDone : 1);
       return {
         effect: e,
         base,
@@ -211,7 +214,7 @@ export function applyModifiers(rank: AbilityRank, level: number, all: SpellModif
     const ops = [8, 0, [3, 12, 23][e.index] ?? -1].filter((o) => o >= 0);
     const mods = modsOf(e);
     const flat = e.effect === WEAPON_PERCENT_EFFECT ? 0 : sum(mods, "flat", ...ops);
-    const factor = 1 + sum(mods, "pct", ...ops) / 100;
+    const factor = (1 + sum(mods, "pct", ...ops) / 100) * damageDone;
     return { effect: e, base, final: { min: (base.min + flat) * factor, max: (base.max + flat) * factor, average: (base.average + flat) * factor }, coefficient: null };
   });
   // Resto de efectos (reducciones de velocidad, aturdimientos, auras...): solo los modifican «todos los efectos» y «efecto 1/2/3»

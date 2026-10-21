@@ -1,0 +1,243 @@
+import type { ClassStatLevel, CombatRatings } from "@wfuc/schema";
+import type { DerivedStats } from "./derived-stats.js";
+import { ratingPercents } from "./gear.js";
+import type { StatSource, StatTotal } from "./stat-effects.js";
+
+/**
+ * Estadisticas de combate del personaje con TODO sumado: equipo (piezas, sufijo, encantamiento, conjuntos y efectos al equipar),
+ * talentos, Puntos de Legado y raza. Complementa a `deriveStats` (atributos, vida, maná, poder): armadura, critico, impacto,
+ * celeridad, defensa, regeneracion, resistencias y el resto de bonos que valen para todo el personaje.
+ *
+ * Procedencia mezclada y separada siempre en `parts`: las cifras de talentos, Legacy y raza son del cliente (`client-db2`); el critico
+ * por atributo tambien (`PlayerExpectedStat`); la conversion puntuacion → % es de la comunidad (`community`, 10 / 14 / 10 por 1 %, constante
+ * por nivel); lo que Forever no trae en el cliente (critico base de la clase, esquive base, armadura por agilidad, regeneracion por espiritu)
+ * NO se inventa: cada fila lo dice en `note`.
+ */
+
+export type CombatGroup = "Ataque" | "Defensa" | "Poder" | "Recursos" | "Resistencias" | "Otros bonos";
+
+export interface CombatPart {
+  label: string;
+  value: number;
+}
+
+export interface CombatRow {
+  key: string;
+  group: CombatGroup;
+  label: string;
+  value: number;
+  unit: "%" | "pts" | "";
+  /** De donde sale la cifra, por origen. */
+  parts: CombatPart[];
+  /** Lo que la cifra NO incluye (o su confianza). */
+  note?: string;
+  sources: StatSource[];
+}
+
+export interface CombatStats {
+  rows: CombatRow[];
+  /** Celeridad total (%) por tipo de ataque: puntuacion del equipo + talentos, Legacy y raza. */
+  haste: { spell: number; melee: number; ranged: number };
+}
+
+/** Equipo que se suma (lo que `summarizeGear` devuelve y la conversion de puntuaciones). */
+export interface CombatGearInput {
+  /** `summarizeGear().stats`. */
+  stats: Record<string, number>;
+  /** Armadura base de las piezas (`summarizeGear().armor`). */
+  armor: number;
+  ratings: Pick<CombatRatings, "ratings"> | null;
+}
+
+const NOTE_BASE_CRIT = "No incluye el crítico base de la clase (el cliente no lo trae y las fuentes se contradicen).";
+const NOTE_DEFENSE = "No incluye el valor base de la clase ni el de la agilidad (no están en el cliente).";
+const round2 = (n: number): number => Math.round(n * 100) / 100;
+
+const PP = "puntos porcentuales";
+const isPct = (t: StatTotal): boolean => t.unit === PP || t.unit === "%";
+const sum = (lines: StatTotal[]): number => round2(lines.reduce((n, l) => n + l.value, 0));
+const sourcesOf = (lines: StatTotal[]): StatSource[] => lines.flatMap((l) => l.sources);
+
+/** Resistencia y poder por escuela del equipo: clave de objeto -> nombre. */
+const RESISTANCES: [string, string][] = [
+  ["holy-resistance", "Sagrado"],
+  ["fire-resistance", "Fuego"],
+  ["nature-resistance", "Naturaleza"],
+  ["frost-resistance", "Escarcha"],
+  ["shadow-resistance", "Sombras"],
+  ["arcane-resistance", "Arcano"],
+];
+const SCHOOL_POWERS: [string, string][] = [
+  ["holy-power", "Sagrado"],
+  ["fire-power", "Fuego"],
+  ["nature-power", "Naturaleza"],
+  ["frost-power", "Escarcha"],
+  ["shadow-power", "Sombras"],
+  ["arcane-power", "Arcano"],
+];
+
+/**
+ * Cifras de talentos, Legacy, raza y equipo que valen para todo el personaje y que NO son un atributo ni una estadistica ya calculada
+ * en `deriveStats`, pero que no tienen fila propia: se listan tal cual en «Otros bonos» para que nada se pierda. Son auras que no dependen
+ * de una habilidad (el alcance en `scope` es de escuela o tipo de criatura, no de habilidades).
+ */
+const CHARACTER_WIDE_LABELS = new Set([
+  "daño infligido",
+  "daño recibido",
+  "amenaza generada",
+  "armadura del objetivo ignorada",
+  "daño del arma de la mano izquierda",
+]);
+
+/**
+ * `totals` debe haberse calculado con el libro de hechizos de la clase cargado: sin el, las cifras que afectan a habilidades concretas
+ * salen sin alcance (`scope: null`) y se confundirian con las del personaje entero.
+ */
+export function deriveCombatStats(input: {
+  derived: DerivedStats;
+  totals: StatTotal[];
+  gear?: CombatGearInput | null;
+  /** Critico por atributo del cliente (clase y nivel); null = sin datos. */
+  classStats: ClassStatLevel | null;
+}): CombatStats {
+  const { derived, totals, classStats } = input;
+  const gear = input.gear ?? null;
+  const gearStats = gear?.stats ?? {};
+  const ratings = gear?.ratings ? ratingPercents(gearStats, gear.ratings) : [];
+  const rating = (stat: string): number => ratings.find((r) => r.stat === stat)?.value ?? 0;
+  const final = (key: string): number => derived.rows.find((r) => r.key === key)?.final ?? 0;
+  const used = new Set<StatTotal>();
+  const take = (pred: (t: StatTotal) => boolean): StatTotal[] => {
+    const found = totals.filter((t) => !used.has(t) && pred(t));
+    for (const t of found) used.add(t);
+    return found;
+  };
+  const rows: CombatRow[] = [];
+  const add = (row: Omit<CombatRow, "sources"> & { sources?: StatSource[] }) => rows.push({ ...row, sources: row.sources ?? [] });
+  const part = (label: string, value: number): CombatPart[] => (value !== 0 ? [{ label, value: round2(value) }] : []);
+
+  // --- Ataque -----------------------------------------------------------------------------------------------------
+  const critAll = take((t) => t.category === "Probabilidad de crítico" && t.label === "probabilidad de crítico" && t.scope === null && isPct(t));
+  const critMelee = take((t) => t.category === "Probabilidad de crítico" && t.label === "probabilidad de crítico cuerpo a cuerpo" && isPct(t));
+  const critSpellOnly = take((t) => t.category === "Probabilidad de crítico" && t.label === "probabilidad de crítico con hechizos" && isPct(t));
+  const critGear = rating("crit-rating");
+  const common = [...part("talentos, Legacy y raza", sum(critAll)), ...part("puntuación de tu equipo", critGear)];
+  const agiCrit = classStats && classStats.critPerAgility > 0 ? round2(final("agi") * classStats.critPerAgility * 100) : 0;
+  const intCrit = classStats && classStats.spellCritPerIntellect > 0 ? round2(final("int") * classStats.spellCritPerIntellect * 100) : 0;
+  if ((classStats && classStats.critPerAgility > 0) || sum(critMelee) !== 0) {
+    const parts = [...part(`agilidad (${final("agi")})`, agiCrit), ...part("crítico cuerpo a cuerpo de talentos y raza", sum(critMelee)), ...common];
+    add({ key: "crit-melee", group: "Ataque", label: "Crítico (cuerpo a cuerpo y a distancia)", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: NOTE_BASE_CRIT, sources: [...sourcesOf(critAll), ...sourcesOf(critMelee)] });
+  }
+  if ((classStats && classStats.spellCritPerIntellect > 0) || sum(critSpellOnly) !== 0) {
+    const parts = [...part(`intelecto (${final("int")})`, intCrit), ...part("crítico con hechizos de talentos, equipo y raza", sum(critSpellOnly)), ...common];
+    add({ key: "crit-spell", group: "Ataque", label: "Crítico con hechizos", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: NOTE_BASE_CRIT, sources: [...sourcesOf(critAll), ...sourcesOf(critSpellOnly)] });
+  }
+  // Sin atributo que de critico (Guerrero o Mago sin la otra via) pero con bonos: se enseñan igual para no perderlos
+  if (!rows.some((r) => r.key.startsWith("crit-")) && (sum(critAll) !== 0 || critGear !== 0)) {
+    add({ key: "crit-other", group: "Ataque", label: "Crítico", value: round2(sum(critAll) + critGear), unit: "%", parts: common, note: NOTE_BASE_CRIT, sources: sourcesOf(critAll) });
+  }
+
+  const hitLines = take((t) => t.category === "Probabilidad de impacto" && t.label === "probabilidad de impacto" && t.scope === null && isPct(t));
+  const hitGear = rating("hit-rating");
+  if (sum(hitLines) !== 0 || hitGear !== 0) {
+    const parts = [...part("talentos, Legacy y raza", sum(hitLines)), ...part("puntuación de tu equipo", hitGear)];
+    add({ key: "hit", group: "Ataque", label: "Impacto (bonificación)", value: round2(sum(hitLines) + hitGear), unit: "%", parts, note: "Se suma a 100 % menos el fallo de la tabla contra el objetivo (cada habilidad lo calcula con su tipo de ataque).", sources: sourcesOf(hitLines) });
+  }
+  const evadeLines = take((t) => t.category === "Probabilidad de impacto" && t.label === "probabilidad de que el enemigo esquive o pare tus ataques");
+  if (evadeLines.length > 0) add({ key: "enemy-evade", group: "Ataque", label: "Esquive y parada del enemigo contra ti", value: sum(evadeLines), unit: "%", parts: part("talentos, Legacy y raza", sum(evadeLines)), sources: sourcesOf(evadeLines) });
+
+  // Celeridad: una sola puntuacion en Forever para hechizos, cuerpo a cuerpo y a distancia
+  const hasteGear = rating("haste-rating");
+  const hasteAll = take((t) => t.category === "Celeridad" && t.label === "celeridad de ataque y de lanzamiento");
+  const hasteSpell = [...take((t) => t.category === "Celeridad" && t.label === "celeridad con hechizos"), ...hasteAll];
+  const hasteMelee = [...take((t) => t.category === "Celeridad" && (t.label === "celeridad cuerpo a cuerpo" || t.label === "celeridad cuerpo a cuerpo y a distancia")), ...hasteAll];
+  const hasteRanged = take((t) => t.category === "Celeridad" && t.label === "celeridad a distancia");
+  const hasteBoth = [...hasteMelee.filter((t) => t.label === "celeridad cuerpo a cuerpo y a distancia"), ...hasteAll];
+  const haste = {
+    spell: round2(hasteGear + sum(hasteSpell)),
+    melee: round2(hasteGear + sum(hasteMelee)),
+    ranged: round2(hasteGear + sum(hasteRanged) + sum(hasteBoth)),
+  };
+  const hasteRow = (key: string, label: string, lines: StatTotal[], value: number) => {
+    if (value === 0) return;
+    add({ key, group: "Ataque", label, value, unit: "%", parts: [...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", hasteGear)], note: "Reduce el tiempo de lanzamiento y la velocidad de ataque (estimación: la puntuación por 1 % es de la comunidad).", sources: sourcesOf(lines) });
+  };
+  hasteRow("haste-spell", "Celeridad con hechizos", hasteSpell, haste.spell);
+  hasteRow("haste-melee", "Celeridad cuerpo a cuerpo", hasteMelee, haste.melee);
+  hasteRow("haste-ranged", "Celeridad a distancia", [...hasteRanged, ...hasteBoth], haste.ranged);
+
+  const expertise = rating("expertise-rating");
+  if (expertise !== 0) add({ key: "expertise", group: "Ataque", label: "Pericia", value: round2(expertise), unit: "pts", parts: part("puntuación de tu equipo", expertise) });
+  const penetration = gearStats["spell-penetration"] ?? 0;
+  if (penetration !== 0) add({ key: "spell-pen", group: "Ataque", label: "Penetración de hechizos", value: penetration, unit: "pts", parts: part("tu equipo", penetration) });
+  const armorIgnored = take((t) => t.label === "armadura del objetivo ignorada");
+  if (armorIgnored.length > 0) add({ key: "armor-ignored", group: "Ataque", label: "Armadura del objetivo ignorada", value: sum(armorIgnored), unit: "%", parts: part("talentos, Legacy y raza", sum(armorIgnored)), sources: sourcesOf(armorIgnored) });
+
+  // --- Defensa ----------------------------------------------------------------------------------------------------
+  const armorPct = take((t) => t.label === "armadura de tus objetos");
+  const pieces = gear?.armor ?? 0;
+  const extra = gearStats["extra-armor"] ?? 0;
+  const noMods = gearStats["armor-no-mods"] ?? 0;
+  if (pieces + extra + noMods > 0) {
+    const fromPieces = pieces * (1 + sum(armorPct) / 100);
+    const parts = [...part("piezas", pieces), ...part(`+${sum(armorPct)} % de talentos a la armadura de las piezas`, round2(fromPieces - pieces)), ...part("armadura extra de objetos y encantamientos", extra), ...part("armadura sin modificadores", noMods)];
+    add({ key: "armor", group: "Defensa", label: "Armadura", value: Math.round(fromPieces + extra + noMods), unit: "pts", parts, note: "No incluye la armadura por agilidad (no está en el cliente).", sources: sourcesOf(armorPct) });
+  } else if (armorPct.length > 0) {
+    add({ key: "armor-pct", group: "Defensa", label: "Armadura de tus objetos", value: sum(armorPct), unit: "%", parts: part("talentos, Legacy y raza", sum(armorPct)), sources: sourcesOf(armorPct) });
+  }
+  const defSkill = take((t) => t.label === "habilidad en defensa");
+  const defGear = rating("defense");
+  if (sum(defSkill) + defGear !== 0) add({ key: "defense", group: "Defensa", label: "Habilidad de defensa", value: round2(sum(defSkill) + defGear), unit: "pts", parts: [...part("talentos, Legacy y raza", sum(defSkill)), ...part("tu equipo", defGear)], note: NOTE_DEFENSE, sources: sourcesOf(defSkill) });
+  const avoid = (key: string, label: string, statLabel: string, stat: string) => {
+    const lines = take((t) => t.category === "Defensa" && t.label === statLabel);
+    const fromGear = rating(stat);
+    if (sum(lines) + fromGear === 0) return;
+    add({ key, group: "Defensa", label, value: round2(sum(lines) + fromGear), unit: "%", parts: [...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", fromGear)], note: NOTE_DEFENSE, sources: sourcesOf(lines) });
+  };
+  avoid("dodge", "Esquivar", "probabilidad de esquivar", "dodge-rating");
+  avoid("parry", "Parar", "probabilidad de parar", "parry-rating");
+  avoid("block", "Bloquear", "probabilidad de bloquear", "block-rating");
+  if ((gearStats["block-value"] ?? 0) !== 0) add({ key: "block-value", group: "Defensa", label: "Valor de bloqueo", value: gearStats["block-value"]!, unit: "pts", parts: part("tu equipo", gearStats["block-value"]!) });
+  // El resto de la categoria Defensa (duracion de controles, daño recibido, ser alcanzado a distancia...) va tal cual
+  for (const t of take((x) => x.category === "Defensa" && x.scope === null)) {
+    add({ key: `def:${t.label}`, group: "Defensa", label: t.label.charAt(0).toUpperCase() + t.label.slice(1), value: t.value, unit: isPct(t) ? "%" : "pts", parts: part("talentos, Legacy y raza", t.value), sources: t.sources });
+  }
+
+  // --- Poder por escuela del equipo -------------------------------------------------------------------------------
+  for (const [key, name] of SCHOOL_POWERS) {
+    const v = gearStats[key] ?? 0;
+    if (v !== 0) add({ key, group: "Poder", label: `Poder con hechizos de ${name} (equipo)`, value: v, unit: "pts", parts: part("tu equipo", v), note: "Se suma al poder con hechizos solo en los hechizos de esa escuela." });
+  }
+
+  // --- Recursos ---------------------------------------------------------------------------------------------------
+  const mp5 = gearStats["mana-per-5"] ?? 0;
+  if (mp5 !== 0) add({ key: "mp5", group: "Recursos", label: "Maná cada 5 s (equipo)", value: mp5, unit: "pts", parts: part("tu equipo", mp5), note: "No incluye la regeneración por espíritu (no está en el cliente)." });
+  const hp5 = gearStats["health-regen"] ?? 0;
+  if (hp5 !== 0) add({ key: "hp5", group: "Recursos", label: "Vida cada 5 s (equipo)", value: hp5, unit: "pts", parts: part("tu equipo", hp5) });
+  for (const t of take((x) => x.category === "Regeneración" && x.scope === null)) {
+    add({ key: `regen:${t.label}`, group: "Recursos", label: t.label.charAt(0).toUpperCase() + t.label.slice(1), value: t.value, unit: isPct(t) ? "%" : "pts", parts: part("talentos, Legacy y raza", t.value), sources: t.sources });
+  }
+
+  // --- Resistencias -----------------------------------------------------------------------------------------------
+  for (const [key, name] of RESISTANCES) {
+    const v = gearStats[key] ?? 0;
+    if (v !== 0) add({ key, group: "Resistencias", label: `Resistencia a ${name}`, value: v, unit: "pts", parts: part("tu equipo", v) });
+  }
+
+  // --- Otros bonos del personaje ----------------------------------------------------------------------------------
+  // Lo que queda y vale para todo el personaje: velocidad, daño infligido por escuela, amenaza... (las cifras de habilidades concretas van en la tarjeta de cada una)
+  const rest = take((t) => !t.target && !t.ofStat && (t.scope === null ? !["Coste", "Tiempo de lanzamiento", "Enfriamiento", "Alcance y radio", "Duración", "Efecto 1 / 2 / 3 de los hechizos", "Otros modificadores", "Retroceso al lanzar", "Daño periódico"].includes(t.category) : CHARACTER_WIDE_LABELS.has(t.label)));
+  for (const t of rest) {
+    const scope = t.scope && t.scope.length > 0 ? ` (${t.scope.join(", ")})` : "";
+    add({ key: `other:${t.category}:${t.label}:${scope}`, group: "Otros bonos", label: `${t.label.charAt(0).toUpperCase() + t.label.slice(1)}${scope}`, value: t.value, unit: isPct(t) ? "%" : t.unit === "s" || t.unit === "m" ? "" : "pts", parts: part("talentos, Legacy y raza", t.value), sources: t.sources });
+  }
+
+  return { rows, haste };
+}
+
+/** Celeridad (%) que se aplica a una habilidad: fisica = cuerpo a cuerpo (o a distancia si tiene alcance), el resto = hechizos. */
+export function hasteFor(haste: CombatStats["haste"], rank: { schoolMask: number; rangeYd: number | null }): number {
+  if (rank.schoolMask !== 1) return haste.spell;
+  const ranged = rank.rangeYd !== null && rank.rangeYd > 8 && rank.rangeYd < 1000;
+  return ranged ? haste.ranged : haste.melee;
+}

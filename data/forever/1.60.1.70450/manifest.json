@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-21T09:58:53.162Z",
+  "generatedAt": "2026-10-21T11:08:48.340Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -12,6 +12,11 @@
       "iconFileDataId": 626008,
       "traitTreeId": 1117,
       "talentCount": 52,
+      "specNames": [
+        "Armas",
+        "Furia",
+        "Protección"
+      ],
       "inactiveCount": 0,
       "file": "classes/warrior.json",
       "sha256": "53e8aebea2b939fde8bd2a2b173e3c7ce872a69c9e3fb58af060167a48bbd2a5",
@@ -23,6 +28,11 @@
       "iconFileDataId": 626003,
       "traitTreeId": 1100,
       "talentCount": 50,
+      "specNames": [
+        "Sagrado",
+        "Protección",
+        "Reprensión"
+      ],
       "inactiveCount": 0,
       "file": "classes/paladin.json",
       "sha256": "95589ef77f35f3d57a30499777ca52ca4f2284b203e6dd7a3bcbbf5f40f5ca56",
@@ -34,6 +44,11 @@
       "iconFileDataId": 626000,
       "traitTreeId": 1091,
       "talentCount": 50,
+      "specNames": [
+        "Dominio de bestias",
+        "Puntería",
+        "Supervivencia"
+      ],
       "inactiveCount": 2,
       "file": "classes/hunter.json",
       "sha256": "0891a2a028c2fc74c71b7bec940bd8173390fec5624324d5a23a534c9c76debb",
@@ -45,6 +60,11 @@
       "iconFileDataId": 626005,
       "traitTreeId": 1111,
       "talentCount": 53,
+      "specNames": [
+        "Asesinato",
+        "Combate",
+        "Sutileza"
+      ],
       "inactiveCount": 0,
       "file": "classes/rogue.json",
       "sha256": "1a481b65f0935e0a51b1001b92279d3c31fd9519f59a392d405a68560d3475c7",
@@ -56,6 +76,11 @@
       "iconFileDataId": 626004,
       "traitTreeId": 1114,
       "talentCount": 52,
+      "specNames": [
+        "Disciplina",
+        "Sagrado",
+        "Sombra"
+      ],
       "inactiveCount": 1,
       "file": "classes/priest.json",
       "sha256": "b00115ca070213e2a769cac7a195103a505055cadbd6b478a9353861584d6705",
@@ -67,6 +92,11 @@
       "iconFileDataId": 626006,
       "traitTreeId": 1082,
       "talentCount": 50,
+      "specNames": [
+        "Elemental",
+        "Mejora",
+        "Recuperación"
+      ],
       "inactiveCount": 0,
       "file": "classes/shaman.json",
       "sha256": "d2ffb3dd467bfdc45ce3a8bc901449dba0b92ad1f73c12d3f7531791899b1618",
@@ -78,6 +108,11 @@
       "iconFileDataId": 626001,
       "traitTreeId": 1112,
       "talentCount": 54,
+      "specNames": [
+        "Arcano",
+        "Fuego",
+        "Escarcha"
+      ],
       "inactiveCount": 0,
       "file": "classes/mage.json",
       "sha256": "aa12dd93a58aa3130609d2d8449fa26cf479b16a620111dfe0123280d2f2c11f",
@@ -89,6 +124,11 @@
       "iconFileDataId": 626007,
       "traitTreeId": 1116,
       "talentCount": 52,
+      "specNames": [
+        "Aflicción",
+        "Demonología",
+        "Destrucción"
+      ],
       "inactiveCount": 0,
       "file": "classes/warlock.json",
       "sha256": "879f0b0f33e8cbf74a6df743b75a13993e7613a244fd4d5b673884d719536ef2",
@@ -100,6 +140,11 @@
       "iconFileDataId": 625999,
       "traitTreeId": 1089,
       "talentCount": 52,
+      "specNames": [
+        "Equilibrio",
+        "Combate feral",
+        "Recuperación"
+      ],
       "inactiveCount": 0,
       "file": "classes/druid.json",
       "sha256": "652b58d823a7a5399701556ad829f9a65c17f1ec015697a16d77024592ede415",
@@ -267,7 +312,7 @@
   },
   "stats": {
     "file": "stats.json",
-    "sha256": "a1bd1bacfde76ee0a7fee3bc7bca50021d9eab481be89a8549986cf200bf3ef8",
+    "sha256": "87ec3899dc74e40ea35dba7d359570499070b7aa61f9a5d2925aa20d35d43b12",
     "comboCount": 56,
     "missingCount": 0
   },

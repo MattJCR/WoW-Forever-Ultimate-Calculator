@@ -25,6 +25,17 @@ const LISTED: StatCategory[] = [
   "Otros modificadores",
 ];
 
+/** «Daño infligido» por escuela (aura 79): solo vale para lo que hace daño. */
+const isDamageDone = (t: StatTotal): boolean => t.category === "Daño y curación" && t.label === "daño infligido";
+
+/**
+ * % de daño infligido que se aplica a una habilidad de esa escuela (aura 79 de talentos, Legacy, raza y equipo, solo los permanentes: los condicionados
+ * a un arma o estado quedan como texto). Se suma entre sí; multiplica el daño directo y el periódico.
+ */
+export function damageDonePct(fx: StatEffects, schoolMask: number): number {
+  return Math.round(fx.totals.filter((t) => isDamageDone(t) && t.schoolMask !== undefined && (t.schoolMask & schoolMask) !== 0).reduce((n, t) => n + t.value, 0) * 100) / 100;
+}
+
 const CRIT_CATEGORIES: StatCategory[] = ["Probabilidad de crítico", "Bonus de daño crítico"];
 
 export interface AbilityEffectSummary {
@@ -39,9 +50,11 @@ export interface AbilityEffectSummary {
  * que se aplican a esa habilidad (por su nombre). Las cifras de la misma categoria y etiqueta se suman, para que la
  * tarjeta de la habilidad dé el total directamente (p. ej. crítico = +6 % de Incineración + 2 % de la raza = +8 %).
  */
-export function abilityEffectSummary(abilityName: string, fx: StatEffects, options: { canCrit?: boolean } = {}): AbilityEffectSummary {
+export function abilityEffectSummary(abilityName: string, fx: StatEffects, options: { canCrit?: boolean; schoolMask?: number; dealsDamage?: boolean } = {}): AbilityEffectSummary {
   // Una habilidad que no hace daño ni sana no puede ser crítica: no recibe ni probabilidad ni bonus de crítico (aunque sean «de todo el personaje»)
-  const applicable = fx.totals.filter((t) => (t.scope === null || t.scope.includes(abilityName)) && (options.canCrit !== false || !CRIT_CATEGORIES.includes(t.category)));
+  // Daño infligido y amenaza por escuela (auras 79 y 10): llegan a las habilidades de esa escuela; el daño solo a las que lo hacen
+  const bySchool = (t: StatTotal): boolean => options.schoolMask !== undefined && t.schoolMask !== undefined && (t.schoolMask & options.schoolMask) !== 0 && (!isDamageDone(t) || options.dealsDamage !== false);
+  const applicable = fx.totals.filter((t) => (t.scope === null || t.scope.includes(abilityName) || bySchool(t)) && (options.canCrit !== false || !CRIT_CATEGORIES.includes(t.category)) && !(isDamageDone(t) && options.dealsDamage === false));
   const merged = new Map<string, AbilityEffectLine>();
   for (const t of applicable) {
     const key = [t.category, t.label, t.unit].join("#");

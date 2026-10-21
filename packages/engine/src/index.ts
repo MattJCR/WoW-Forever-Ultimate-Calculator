@@ -14,3 +14,4 @@ export * from "./derived-stats.js";
 export * from "./gear.js";
 export * from "./gear-effects.js";
 export * from "./power-bonus.js";
+export * from "./combat-stats.js";

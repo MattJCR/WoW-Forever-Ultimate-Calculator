@@ -1,7 +1,7 @@
 import type { Abilities, Race, Talent, TalentRules } from "@wfuc/schema";
 import { raceBonuses } from "./race.js";
 import { rankOf, type Build, type ClassIndex } from "./rules.js";
-import { ruleLines, ruleScopeNames, dealsDamage } from "./talent-rules.js";
+import { ruleLines, ruleScopeNames, dealsDamage, canCrit } from "./talent-rules.js";
 import { auraNumberInText, classifyGearAuras, remainingAuras, type GearEffectSource } from "./gear-effects.js";
 import { AURA_ADD_FLAT_MODIFIER, AURA_ADD_PCT_MODIFIER, opLabel } from "./spell-mods.js";
 
@@ -52,6 +52,11 @@ export interface StatLine {
   target?: StatTarget;
   /** Si el valor es un % de otra estadística (poder con hechizos o de ataque «= N % de tu intelecto»): cuál. */
   ofStat?: "int" | "spi" | "str" | "agi" | "sta";
+  /**
+   * Máscara de escuelas (1 físico, 2 Sagrado, 4 Fuego, 8 Naturaleza, 16 Escarcha, 32 Sombras, 64 Arcano) de las auras que dependen de la escuela del
+   * hechizo: daño infligido (79) y amenaza (10). Con ella el motor aplica la cifra a las habilidades de esa escuela (`scope` solo lleva los nombres para mostrar).
+   */
+  schoolMask?: number;
   source: StatSource;
 }
 
@@ -118,6 +123,8 @@ const SKILL_DEFENSE = 95;
 const POWER_NAMES: Record<number, string> = { 0: "maná", 1: "ira", 3: "energía" };
 /** Mecanicas de control (aura 232): numero de Mechanics del cliente -> nombre. Solo las comprobadas contra el texto de los talentos. */
 const MECHANICS: Record<number, string> = { 2: "desorientación", 5: "miedo", 7: "inmovilización", 9: "silencio", 11: "ralentización", 12: "aturdimiento" };
+/** Aura 117 (resistencia a que un efecto te golpee): las mecanicas de arriba y la interrupcion (26), comprobadas contra el texto del cliente. */
+const RESIST_MECHANICS: Record<number, string> = { ...MECHANICS, 26: "interrupción" };
 
 const matches = (mask: number[], rankMask: number[]): boolean => mask.some((m, i) => m !== 0 && (m & (rankMask[i] ?? 0)) !== 0);
 
@@ -125,6 +132,12 @@ const matches = (mask: number[], rankMask: number[]): boolean => mask.some((m, i
 function meleeDamageAbilities(abilities: Abilities | null): string[] | null {
   if (!abilities) return null;
   return abilities.abilities.filter((a) => a.ranks.some((r) => r.schoolMask === 1 && dealsDamage(r))).map((a) => a.name);
+}
+
+/** Habilidades de hechizo que pueden ser criticas (las que se benefician del critico con hechizos); null si no hay libro de hechizos. */
+function spellCritAbilities(abilities: Abilities | null): string[] | null {
+  if (!abilities) return null;
+  return abilities.abilities.filter((a) => a.ranks.some((r) => r.schoolMask !== 1 && canCrit(r))).map((a) => a.name);
 }
 
 /** Nombres de las habilidades a las que afecta una mascara de clase (null si no hay datos de habilidades de la clase). */
@@ -144,6 +157,9 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
   switch (aura) {
     case 290:
       return { category: "Probabilidad de crítico", label: "probabilidad de crítico", value, unit: "puntos porcentuales", scope: null };
+    case 57:
+      // Critico con hechizos: el alcance (habilidades de hechizo que pueden ser criticas) lo pone talentLines
+      return { category: "Probabilidad de crítico", label: "probabilidad de crítico con hechizos", value, unit: "puntos porcentuales", scope: null };
     case 52:
       // Cuerpo a cuerpo: el alcance (habilidades fisicas con dano) lo pone talentLines, que conoce el libro de hechizos
       return { category: "Probabilidad de crítico", label: "probabilidad de crítico cuerpo a cuerpo", value, unit: "puntos porcentuales", scope: null };
@@ -160,7 +176,7 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
     case 51:
       return { category: "Defensa", label: "probabilidad de bloquear", value, unit: "puntos porcentuales", scope: null };
     case 79:
-      return { category: "Daño y curación", label: "daño infligido", value, unit: "%", scope: schoolsOf(misc) };
+      return { category: "Daño y curación", label: "daño infligido", value, unit: "%", scope: schoolsOf(misc), schoolMask: misc };
     // Poder con hechizos / de ataque como % de un atributo (cliente: 174 daño [misc = escuela, miscB = atributo], 175 sanación, 598 poder de ataque, 580 a distancia;
     // comprobado con el texto «hasta un 30 % de tu intelecto» y las notas de Blizzard: Campeón de la Luz 10/20/30 % del intelecto)
     case 174:
@@ -193,7 +209,7 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
     case 87:
       return { category: "Defensa", label: "daño recibido", value, unit: "%", scope: schoolsOf(misc) };
     case 10:
-      return { category: "Amenaza", label: "amenaza generada", value, unit: "%", scope: schoolsOf(misc) };
+      return { category: "Amenaza", label: "amenaza generada", value, unit: "%", scope: schoolsOf(misc), schoolMask: misc };
     case 35:
       return { category: "Atributos, salud y recursos", label: `${POWER_NAMES[misc] ?? "recurso"} máximo`, value, unit: "puntos", scope: null, ...(POWER_TARGETS[misc] ? { target: POWER_TARGETS[misc] } : {}) };
     case 54:
@@ -201,6 +217,14 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
       return { category: "Probabilidad de impacto", label: value < 0 ? "probabilidad de impacto de los enemigos contra ti" : "probabilidad de impacto", value, unit: "puntos porcentuales", scope: null };
     case 240:
       return { category: "Probabilidad de impacto", label: "probabilidad de que el enemigo esquive o pare tus ataques", value: -value, unit: "puntos porcentuales", scope: null };
+    case 593:
+      // «Reduce un 2 % la probabilidad de que tus ataques se esquiven o paren» (el cliente guarda −2, una vez para esquivar y otra para parar)
+      return { category: "Probabilidad de impacto", label: "probabilidad de que el enemigo esquive o pare tus ataques", value: -Math.abs(value), unit: "puntos porcentuales", scope: null };
+    case 117:
+      // «Reduce un 8 % la probabilidad de golpearte de los efectos de miedo»
+      return RESIST_MECHANICS[misc] ? { category: "Defensa", label: `probabilidad de que te afecten los efectos de ${RESIST_MECHANICS[misc]}`, value: -Math.abs(value), unit: "puntos porcentuales", scope: null } : null;
+    case 342:
+      return { category: "Celeridad", label: "celeridad de ataque y de lanzamiento", value, unit: "%", scope: null };
     case 185:
     case 186:
       return { category: "Defensa", label: "probabilidad de ser alcanzado por hechizos y ataques a distancia", value, unit: "puntos porcentuales", scope: null };
@@ -291,6 +315,9 @@ const costTypeOf = (name: string, abilities: Abilities): string | null => abilit
 const generatesRage = (scope: string[], abilities: Abilities): boolean =>
   scope.length > 0 && scope.every((n) => abilities.abilities.find((a) => a.name === n)?.ranks.some((r) => r.effects.some((e) => e.effect === EFFECT_ENERGIZE && e.miscValue === POWER_RAGE)));
 
+/** Texto de un «daño infligido» condicionado al equipo o al estado del personaje (no es un bono permanente). */
+const CONDITIONAL_DAMAGE_TEXT = /con (las )?(varitas|armas)|armas (cuerpo a cuerpo|a distancia)|de (una|dos) manos?|mientras/i;
+
 function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descriptions">, rank: number, source: StatSource, abilities: Abilities | null): { lines: StatLine[]; unclassified: boolean } {
   const lines: StatLine[] = [];
   let unclassified = false;
@@ -331,8 +358,17 @@ function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descrip
     }
     // Impacto a distancia (55) junto a impacto cuerpo a cuerpo (54): el cliente lo guarda aparte (a veces con otra cifra); el texto da una sola
     if (info.aura === 55 && talent.effectInfo.some((e) => e.aura === 54)) continue;
+    // Celeridad de ataque y de lanzamiento (342) junto a la velocidad de lanzamiento (65): la misma cifra, el texto da una sola
+    if (info.aura === 65 && talent.effectInfo.some((e) => e.aura === 342)) continue;
+    // Daño infligido (79) que depende del equipo o de un estado (varitas, armas de una o dos manos, a distancia, escudo, sin mascota): el cliente no trae la condicion
+    // (SpellEquippedItems no esta exportada) pero el texto si; no se suma como un bono permanente del personaje, se conserva como texto
+    if (info.aura === 79 && CONDITIONAL_DAMAGE_TEXT.test(talent.descriptions[rank - 1] ?? "")) {
+      unclassified = true;
+      continue;
+    }
     const g = generalLine(info.aura, info.miscValue, value, info.miscValueB);
     if (g && info.aura === 52) lines.push({ ...g, scope: meleeDamageAbilities(abilities), source });
+    else if (g && info.aura === 57) lines.push({ ...g, scope: spellCritAbilities(abilities), source });
     else if (g) lines.push({ ...g, source });
     else unclassified = true;
   }
@@ -416,12 +452,12 @@ export function collectStatEffects(input: {
   // Suma: misma categoria, etiqueta, unidad y alcance
   const merged = new Map<string, StatTotal>();
   for (const l of lines) {
-    const key = [l.category, l.label, l.unit, l.scope?.join("|") ?? "*"].join("#");
+    const key = [l.category, l.label, l.unit, l.scope?.join("|") ?? "*", l.schoolMask ?? "-"].join("#");
     const hit = merged.get(key);
     if (hit) {
       hit.value += l.value;
       hit.sources.push(l.source);
-    } else merged.set(key, { category: l.category, label: l.label, value: l.value, unit: l.unit, scope: l.scope, ...(l.target ? { target: l.target } : {}), ...(l.ofStat ? { ofStat: l.ofStat } : {}), sources: [l.source] });
+    } else merged.set(key, { category: l.category, label: l.label, value: l.value, unit: l.unit, scope: l.scope, ...(l.target ? { target: l.target } : {}), ...(l.ofStat ? { ofStat: l.ofStat } : {}), ...(l.schoolMask !== undefined ? { schoolMask: l.schoolMask } : {}), sources: [l.source] });
   }
   const order = (c: StatCategory) => STAT_CATEGORIES.indexOf(c);
   const totals = [...merged.values()]

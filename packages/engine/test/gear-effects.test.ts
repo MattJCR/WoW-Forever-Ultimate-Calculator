@@ -82,6 +82,25 @@ describe.skipIf(!has)("bonos de conjunto y efectos de objeto (cliente 1.60.1.704
     expect(fx.conditional.some((c) => c.source.name === hit.name)).toBe(false);
   });
 
+  it("crítico con hechizos (57), armadura (674), celeridad (342 + 65), esquive/parada del enemigo (593) y resistencia a controles (117) también se reflejan", () => {
+    const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
+    const abilities = Abilities.parse(json("abilities/mage.json"));
+    const fx = collectStatEffects({ cls: mage, classBuild: {}, legacy: null, legacyBuild: {}, race: null, abilities, gearEffects: [bySpell(21092), bySpell(1300945), bySpell(1213289), bySpell(1301126)] });
+    const find = (label: string) => fx.totals.find((t) => t.label === label);
+    // «+2 % de crítico con hechizos»: solo a las habilidades de hechizo que pueden ser críticas (no a las físicas ni a los buffs)
+    const crit = find("probabilidad de crítico con hechizos")!;
+    expect(crit.value).toBe(2);
+    expect(crit.scope).toContain("Bola de Fuego");
+    expect(crit.scope).not.toContain("Armadura de mago");
+    expect(find("celeridad de ataque y de lanzamiento")).toMatchObject({ value: 1, unit: "%" });
+    expect(find("probabilidad de que el enemigo esquive o pare tus ataques")).toMatchObject({ value: -2 });
+    expect(find("probabilidad de que te afecten los efectos de miedo")).toMatchObject({ value: -8, category: "Defensa" });
+    // «+150 p. de armadura» suma a la armadura extra del equipo
+    expect(stats(15693)).toEqual({ "extra-armor": 150 });
+    // La velocidad de lanzamiento gemela (65) no duplica la celeridad ni queda como texto aparte
+    expect(fx.conditional.some((c) => c.source.name === bySpell(1300945).name)).toBe(false);
+  });
+
   it("modificadores de habilidades del equipo (auras 107/108) con su mascara, en el formato de los talentos", () => {
     const withMods = all.filter((e) => gearSpellModifiers([e]).length > 0);
     expect(withMods.length).toBeGreaterThan(50);
