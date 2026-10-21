@@ -46,6 +46,13 @@ const GNOME = 7;
  * toman la base de otra raza de Classic restandole la diferencia racial de Classic (mediana sobre las clases compartidas con el
  * Humano). Intelecto del Gnomo = base + 3 (exacto: su +5 % de Classic no existe en Forever, la Mente expansiva da +5 % de mana).
  */
+/**
+ * Vida base de clase a nivel 60 leida en hojas de personaje desnudas de la beta (comunidad, `community`). En 7 de 9 clases coincide con la
+ * tabla de Classic; en Sacerdote y Mago la tabla da 10 menos (1387 y 1360: la vida base de Classic es «total - aporte del aguante» y tiene
+ * ruido de uno o dos puntos de aguante). Ya no se puede medir en el juego (la beta cerro), asi que manda la lectura directa de Forever.
+ */
+const HP_LEVEL_60_MEASURED: Record<number, number> = { 5: 1397, 8: 1370 };
+
 export function buildBaseStats(races: Races, classic: ClassicEra, build: string): BaseStats {
   const warnings: string[] = [];
   const maxLevel = 60;
@@ -133,7 +140,13 @@ export function buildBaseStats(races: Races, classic: ClassicEra, build: string)
       warnings.push(`Sin vida/mana base para la clase ${classId}`);
       return [];
     }
-    return [{ classId, hp: c.hp, mana: c.mana }];
+    const hp = [...c.hp];
+    const measured = HP_LEVEL_60_MEASURED[classId];
+    if (measured !== undefined && hp[59] !== measured) {
+      warnings.push(`Vida base de la clase ${classId} a nivel 60: ${hp[59]} (Classic) sustituida por ${measured} (hojas de personaje de la beta leidas por la comunidad)`);
+      hp[59] = measured;
+    }
+    return [{ classId, hp, mana: c.mana }];
   });
 
   return {

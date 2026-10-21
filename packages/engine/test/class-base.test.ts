@@ -45,14 +45,9 @@ describe("contraste con la comunidad: lo que trae el cliente coincide en las 9 c
     });
   }
 
-  it("la vida base de clase a nivel 60 coincide en 7 de 9 clases; Sacerdote y Mago difieren en 10 (la comunidad 1397/1370, Classic 1387/1360): pendiente de una hoja real", () => {
+  it("la vida base de clase a nivel 60 coincide en las 9 clases (Sacerdote y Mago usan la lectura de la comunidad: 1397 y 1370; la tabla de Classic daba 10 menos)", () => {
     const stats = JSON.parse(readFileSync(join(D, "stats.json"), "utf8")) as { classBase: { classId: number; hp: number[] }[] };
-    const different = stats.classBase.filter((b) => COMMUNITY[b.classId] && b.hp[59] !== COMMUNITY[b.classId]!.hp).map((b) => b.classId);
-    expect(different.sort((a, b) => a - b)).toEqual([5, 8]);
-    for (const id of different) {
-      const ours = stats.classBase.find((b) => b.classId === id)!.hp[59]!;
-      expect(COMMUNITY[id]!.hp - ours).toBe(10);
-    }
+    for (const b of stats.classBase) if (COMMUNITY[b.classId]) expect(b.hp[59], `clase ${b.classId}`).toBe(COMMUNITY[b.classId]!.hp);
   });
 });
 
