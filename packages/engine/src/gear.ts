@@ -238,7 +238,7 @@ export interface SetProgress {
   /** Piezas distintas del conjunto que llevas. */
   count: number;
   total: number;
-  bonuses: { threshold: number; name: string; text: string; textComplete: boolean; active: boolean }[];
+  bonuses: { threshold: number; spellId: number; name: string; text: string; textComplete: boolean; active: boolean }[];
 }
 
 export interface GearEffect {
@@ -355,7 +355,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
       name: def.name,
       count: pieces.size,
       total: def.itemIds.length,
-      bonuses: def.bonuses.map((b) => ({ threshold: b.threshold, name: b.name, text: b.text, textComplete: b.textComplete, active: pieces.size >= b.threshold })),
+      bonuses: def.bonuses.map((b) => ({ threshold: b.threshold, spellId: b.spellId, name: b.name, text: b.text, textComplete: b.textComplete, active: pieces.size >= b.threshold })),
     });
   }
   sets.sort((a, b) => a.name.localeCompare(b.name));
@@ -478,7 +478,7 @@ export interface GearComparison {
   /** Daño por segundo del arma de esa ranura (0 si no hay arma). */
   weaponDps: { before: number; after: number };
   /** Conjuntos cuyo numero de piezas o bonos activos cambian. */
-  sets: { name: string; countBefore: number; countAfter: number; total: number; activeBefore: number; activeAfter: number; bonuses: SetProgress["bonuses"] }[];
+  sets: { setId: number; name: string; countBefore: number; countAfter: number; total: number; activeBefore: number; activeAfter: number; bonuses: SetProgress["bonuses"] }[];
 }
 
 /**
@@ -507,7 +507,7 @@ export function compareGear(gear: GearSelection, slot: GearSlot, item: Item, ctx
     const activeAfter = a?.bonuses.filter((x) => x.active).length ?? 0;
     if ((b?.count ?? 0) === (a?.count ?? 0) && activeBefore === activeAfter) continue;
     const ref = (a ?? b)!;
-    sets.push({ name: ref.name, countBefore: b?.count ?? 0, countAfter: a?.count ?? 0, total: ref.total, activeBefore, activeAfter, bonuses: ref.bonuses });
+    sets.push({ setId: id, name: ref.name, countBefore: b?.count ?? 0, countAfter: a?.count ?? 0, total: ref.total, activeBefore, activeAfter, bonuses: ref.bonuses });
   }
   return {
     stats,

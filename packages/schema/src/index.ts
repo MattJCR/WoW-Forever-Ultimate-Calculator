@@ -877,9 +877,23 @@ export const EnglishText = z.object({
   /** Talentos y ventajas de Legacy por `nodeId`: nombre y descripcion por rango (nivel 60). */
   talents: z.record(z.object({ name: z.string(), descriptions: z.array(z.string()) })),
   /** Hechizos (rangos de habilidades) por `spellId`: nombre y texto fijo a nivel 60 sin talentos ni equipo (no se recalcula). */
-  spells: z.record(z.object({ name: z.string(), description: z.string().nullable(), lines: z.array(z.string()) })),
+  spells: z.record(
+    z.object({
+      name: z.string(),
+      description: z.string().nullable(),
+      lines: z.array(z.string()),
+      /** Plantilla inglesa con huecos `{{tipo:hechizo:efecto|valor}}` (como `descriptionTemplate`): el motor la recalcula con el nivel y los talentos. */
+      template: z.string().optional(),
+    }),
+  ),
+  /** Talentos sin nodo (`UnassignedEntry`) por `entryId`: nombre y descripcion por rango. */
+  entries: z.record(z.object({ name: z.string(), descriptions: z.array(z.string()) })).default({}),
   /** Objetos por `id`. */
   items: z.record(z.string()),
+  /** Conjuntos de objetos por `id`. */
+  itemSets: z.record(z.string()).default({}),
+  /** Textos que son traduccion propia (data/i18n/enUS-overrides.json): `spell:<id>`, `talent:<nodeId>`, `entry:<entryId>`, `item:<id>`, `set:<id>`. La web los marca. */
+  ownTranslation: z.array(z.string()).default([]),
   /** Razas por `ChrRaces.ID`: nombre y raciales por `order`. */
   races: z.record(z.object({ name: z.string(), racials: z.array(z.object({ name: z.string(), description: z.string() })) })),
 });

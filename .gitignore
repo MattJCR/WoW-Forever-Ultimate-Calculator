@@ -24,3 +24,6 @@ docs/
 
 # Copias locales de datos de terceros solo para contraste: no se publican
 data/external/
+
+# Tablas del juego en inglés en bruto (se regeneran con tools/extract/fetch-enus-tables.mjs); no se redistribuyen
+data/external/enus/

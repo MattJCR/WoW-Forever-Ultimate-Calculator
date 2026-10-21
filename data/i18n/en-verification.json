@@ -1,0 +1,37 @@
+{
+  "build": "1.60.1.70450",
+  "tablesBuild": "1.60.1.70532",
+  "ranks": {
+    "total": 1724,
+    "templated": 1713,
+    "named": 1724,
+    "filledByOfficial": 181,
+    "own": 10
+  },
+  "nameDifferences": [],
+  "pending": [],
+  "ownMismatches": [],
+  "talents": {
+    "checked": 492,
+    "official": 34,
+    "reference": 1341,
+    "own": 8
+  },
+  "unassigned": {
+    "entries": 99,
+    "entriesNamed": 91,
+    "nodes": 62,
+    "nodesNamed": 58
+  },
+  "items": {
+    "total": 12515,
+    "filled": 3912,
+    "own": 12,
+    "stillMissing": [],
+    "qualityMismatch": []
+  },
+  "effectSpells": {
+    "total": 1479,
+    "filled": 1471
+  }
+}

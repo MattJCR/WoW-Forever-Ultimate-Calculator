@@ -252,6 +252,14 @@ export const ENGINE: Record<string, string> = {
   "«+N de daño»: se suma a cada golpe físico. Aún no entra en el daño de las habilidades.": "“+N damage”: added to every physical strike. It does not yet enter ability damage.",
   "Se suma a la regeneración por espíritu (también mientras lanzas hechizos).": "Added to spirit regeneration (also while casting spells).",
   "Fórmula de la comunidad medida con el tooltip del juego (igual para todas las clases; `community`, confianza baja).": "Community formula measured with the in-game tooltip (the same for all classes; `community`, low confidence).",
+  "Fórmula de la comunidad medida con el tooltip del juego (igual para todas las clases; `community`, confianza baja). Mientras lanzas hechizos (regla de los 5 segundos) solo cuenta la parte que den talentos y objetos.":
+    "Community formula measured with the in-game tooltip (the same for all classes; `community`, low confidence). While you cast spells (the five-second rule) only the part given by talents and items counts.",
+  "Esquive base de la clase (comunidad, hojas de nivel 60) y de la agilidad (misma cifra que el crítico por agilidad del cliente; el doble en pícaro y cazador). No incluye la habilidad de defensa base.":
+    "Base dodge of the class (community, level 60 sheets) and from agility (same figure as the client's crit per agility; double for rogues and hunters). Does not include the base defense skill.",
+  "Tu clase no obtiene crítico del intelecto (según el cliente).": "Your class gets no crit from intellect (according to the client).",
+  "Tu clase no obtiene crítico de hechizo del intelecto (según el cliente).": "Your class gets no spell crit from intellect (according to the client).",
+  "Tu clase no obtiene crítico de la agilidad (según el cliente).": "Your class gets no crit from agility (according to the client).",
+  "Tu clase no obtiene crítico de hechizo de la agilidad (según el cliente).": "Your class gets no spell crit from agility (according to the client).",
 
   // Habilidades: probabilidades
   "Esta habilidad no hace daño ni sana: no puede ser crítica.": "This ability does not deal damage or heal: it cannot crit.",

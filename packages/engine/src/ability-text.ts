@@ -49,15 +49,21 @@ function evalArithmetic(expr: string): number | null {
   }
 }
 
-/** Cifras pequenas con decimales (1,24), el resto enteras. */
-const fmtValue = (n: number): string => (Math.abs(n) < 10 ? n.toLocaleString("es-ES", { maximumFractionDigits: 2 }) : fmtNumber(n));
+export type TextLocale = "es" | "en";
 
-const fmtNumber = (n: number): string => Math.round(n).toLocaleString("es-ES");
-const fmtSeconds = (ms: number): string => {
-  const s = ms / 1000;
-  if (s >= 60) return `${(s / 60).toLocaleString("es-ES", { maximumFractionDigits: 1 })} min`;
-  return `${s.toLocaleString("es-ES", { maximumFractionDigits: 1 })} s`;
-};
+/** Formato de cifras de cada idioma: coma decimal y «s» en espanol, punto y «sec» en ingles. */
+function formatters(locale: TextLocale) {
+  const loc = locale === "en" ? "en-US" : "es-ES";
+  /** Cifras pequenas con decimales (1,24), el resto enteras. */
+  const fmtNumber = (n: number): string => Math.round(n).toLocaleString(loc);
+  const fmtValue = (n: number): string => (Math.abs(n) < 10 ? n.toLocaleString(loc, { maximumFractionDigits: 2 }) : fmtNumber(n));
+  const fmtSeconds = (ms: number): string => {
+    const s = ms / 1000;
+    if (s >= 60) return `${(s / 60).toLocaleString(loc, { maximumFractionDigits: 1 })} min`;
+    return `${s.toLocaleString(loc, { maximumFractionDigits: 1 })} ${locale === "en" ? "sec" : "s"}`;
+  };
+  return { loc, fmtNumber, fmtValue, fmtSeconds };
+}
 
 /**
  * Texto de la habilidad con las cifras recalculadas al nivel y con los talentos: el mismo texto del cliente, pero cada
@@ -65,8 +71,10 @@ const fmtSeconds = (ms: number): string => {
  * nivel) y con los modificadores de tus talentos. Si un hueco no se puede resolver se deja el valor base del cliente.
  * No incluye el poder con hechizos (depende de las estadisticas de Forever, que no estan en el cliente).
  */
-export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility): TextPart[] {
-  const template = rank.descriptionTemplate || rank.description;
+export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility, options: { template?: string; locale?: TextLocale } = {}): TextPart[] {
+  // En ingles se pasa la plantilla inglesa (mismos huecos que la del cliente) y las cifras salen con formato ingles
+  const template = options.template ?? (rank.descriptionTemplate || rank.description);
+  const { loc, fmtNumber, fmtValue, fmtSeconds } = formatters(options.locale ?? "es");
   const parts: TextPart[] = [];
   let last = 0;
   // Formulas del cliente con variables del personaje que no se pueden calcular (${$m1+(1*$b1*$<mult>)}) y variables sueltas
@@ -145,7 +153,7 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility): Text
         const b = evalArithmetic(fill(bases));
         if (v !== null) {
           // El daño de arma lleva decimales en el texto del cliente (17,25 p.): se conservan
-          exprRes = weaponExpr ? v.toLocaleString("es-ES", { maximumFractionDigits: 2 }) : fmtValue(v);
+          exprRes = weaponExpr ? v.toLocaleString(loc, { maximumFractionDigits: 2 }) : fmtValue(v);
           exprChanged = b !== null && (weaponExpr ? Math.abs(v - b) > 0.005 : Math.round(v) !== Math.round(b));
         }
       }
@@ -172,13 +180,13 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility): Text
       // Probabilidad de activacion (el 20 % de «cada golpe tiene un 20 % de probabilidad de envenenar»)
       const proc = mod.procs.find((x) => x.spellId === Number(refText));
       if (proc) {
-        text = proc.final.toLocaleString("es-ES", { maximumFractionDigits: 1 });
+        text = proc.final.toLocaleString(loc, { maximumFractionDigits: 1 });
         changed = Math.abs(proc.final - proc.base) > 0.05;
       }
     } else if (kind === "s" || kind === "m") {
       if (e) {
         const weaponPct = e.effect.effect === WEAPON_PERCENT_EFFECT;
-        text = weaponPct ? Math.abs(e.final.average * mul).toLocaleString("es-ES", { maximumFractionDigits: 1 }) : fmtNumber(Math.abs(e.final.average * mul));
+        text = weaponPct ? Math.abs(e.final.average * mul).toLocaleString(loc, { maximumFractionDigits: 1 }) : fmtNumber(Math.abs(e.final.average * mul));
         changed = weaponPct ? Math.abs(e.final.average - e.base.average) * mul > 0.05 : Math.round(e.final.average * mul) !== Math.round(e.base.average * mul);
       }
     } else if (kind === "l" || kind === "h") {
@@ -222,11 +230,11 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility): Text
         const flat = mod.applied.filter((x) => x.kind === "flat" && x.op === 6).reduce((n, x) => n + x.value, 0);
         const pct = mod.applied.filter((x) => x.kind === "pct" && x.op === 6).reduce((n, x) => n + x.value, 0);
         const radius = (base + flat) * (1 + pct / 100);
-        text = radius.toLocaleString("es-ES", { maximumFractionDigits: 1 });
+        text = radius.toLocaleString(loc, { maximumFractionDigits: 1 });
         changed = radius !== base;
       }
     } else if (kind === "t") {
-      if (e?.effect.periodMs) text = (e.effect.periodMs / 1000).toLocaleString("es-ES", { maximumFractionDigits: 1 });
+      if (e?.effect.periodMs) text = (e.effect.periodMs / 1000).toLocaleString(loc, { maximumFractionDigits: 1 });
     }
     push(text, changed);
   }

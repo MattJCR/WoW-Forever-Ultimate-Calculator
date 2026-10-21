@@ -39,15 +39,22 @@ export type TextOrigin = "client" | "translated-by-us" | "untranslated";
 
 /** Aviso cuando el texto no es el espanol del cliente: el cliente de la beta aun trae en ingles algunos textos nuevos de Forever. */
 export function originNote(origin: TextOrigin | undefined): string | null {
-  if (isEnglish()) return null; // en inglés el texto del cliente (ya en inglés) o el de la comunidad se ven tal cual
+  if (isEnglish()) return null; // en inglés el texto del cliente (ya en inglés) o el oficial en inglés se ven tal cual
   if (origin === "translated-by-us") return tr("Traducción propia: el cliente de la beta aún trae este texto en inglés. Los números sí son del cliente.");
   if (origin === "untranslated") return tr("Este texto está en inglés en el cliente de la beta y aún no tiene traducción.");
   return null;
 }
 
-export function Notes({ approximate, complete, origin, english = false, missingEnglish = false }: { approximate: boolean; complete: boolean; origin?: TextOrigin; /** El texto mostrado es el inglés de la comunidad (nivel 60). */ english?: boolean; /** English elegido pero este texto no tiene inglés: se ve el español. */ missingEnglish?: boolean }) {
+export function Notes({ approximate, complete, origin, english = false, ownEnglish = false, missingEnglish = false }: { approximate: boolean; complete: boolean; origin?: TextOrigin; /** El texto mostrado es el inglés del juego (nivel 60). */ english?: boolean; /** El texto inglés es traducción propia (el oficial trae otras cifras). */ ownEnglish?: boolean; /** English elegido pero este texto no tiene inglés: se ve el español. */ missingEnglish?: boolean }) {
   const note = originNote(origin);
-  if (english) return <ul className="notes"><li>{tr("Texto en inglés de la comunidad, a nivel 60.")}</li></ul>;
+  if (english) {
+    return (
+      <ul className="notes">
+        <li>{tr("Texto en inglés del juego, a nivel 60.")}</li>
+        {ownEnglish && <li className="origin-note">{tr("Traducción propia al inglés: el texto oficial trae otras cifras que el cliente. Las cifras son las del cliente.")}</li>}
+      </ul>
+    );
+  }
   if (complete && !approximate && !note && !missingEnglish) return null;
   return (
     <ul className="notes">
@@ -126,7 +133,7 @@ export function TalentInspector({ idx, build, shown, onAdd, onRemove, footer }: 
         <p className="small">{tr("El cliente trae este nodo, pero está fuera de la rejilla del árbol (posición {x}, {y}). No se puede seleccionar ni cuenta en los puntos.", { x: t.raw.posX, y: t.raw.posY })}</p>
         <h5>{tr("Rango 1")}</h5>
         <DescText text={loc.text} />
-        <Notes approximate={t.descriptionsApproximate} complete={t.descriptionsComplete} origin={t.textOrigin} english={loc.fromEnglish} missingEnglish={isEnglish() && !loc.fromEnglish} />
+        <Notes approximate={t.descriptionsApproximate} complete={t.descriptionsComplete} origin={t.textOrigin} english={loc.fromEnglish} ownEnglish={!!loc.own} missingEnglish={isEnglish() && !loc.fromEnglish} />
         <dl>
           <dt>{tr("Hechizo")}</dt>
           <dd>#{t.spellId}</dd>
@@ -196,7 +203,7 @@ export function TalentInspector({ idx, build, shown, onAdd, onRemove, footer }: 
           <DescText text={descNext!.text} />
         </>
       )}
-      <Notes approximate={talent.descriptionsApproximate} complete={talent.descriptionsComplete} origin={talent.textOrigin} english={!!showing?.fromEnglish} missingEnglish={isEnglish() && !showing?.fromEnglish} />
+      <Notes approximate={talent.descriptionsApproximate} complete={talent.descriptionsComplete} origin={talent.textOrigin} english={!!showing?.fromEnglish} ownEnglish={!!showing?.own} missingEnglish={isEnglish() && !showing?.fromEnglish} />
 
       <ul className="reqs">
         {talent.requiredPoints > 0 && (

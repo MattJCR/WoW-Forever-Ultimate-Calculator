@@ -11,6 +11,8 @@ import { buildItems } from "./items.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
 import { buildEnglish } from "./english.js";
+import { applyOfficialEnglish, loadEnglishOverrides } from "./english-apply.js";
+import { loadOfficialEnglish } from "./english-official.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
 import { buildRaces } from "./races.js";
@@ -206,6 +208,18 @@ function build(): void {
   let englishEntry: Manifest["english"];
   if (existsSync(tfDir)) {
     const { english, report } = buildEnglish(buildId, classes, legacy, races, abilityData, itemsData, tfDir, wsDb);
+    // Tablas oficiales del juego en inglés (data/external/enus): rellenan y contrastan lo que la referencia externa no trae
+    const enusDir = resolve(arg("enus", join(repoRoot, "data", "external", "enus")));
+    const official = loadOfficialEnglish(enusDir, raw, spells);
+    if (official) {
+      const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, unassigned, own: loadEnglishOverrides() });
+      console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);
+      console.log(`   pendientes de traducción propia (cifras distintas o sin inglés): ${o.pending.length}; traducciones propias con otras cifras: ${o.ownMismatches.length}`);
+      mkdirSync(join(repoRoot, "data", "i18n"), { recursive: true });
+      writeFileSync(join(repoRoot, "data", "i18n", "en-verification.json"), stableJson({ build: buildId, tablesBuild: official.tablesBuild, ...o }));
+    } else {
+      console.log("Inglés oficial: sin tablas en data/external/enus (tools/extract/fetch-enus-tables.mjs); solo la referencia externa");
+    }
     const englishText = `${JSON.stringify(EnglishText.parse(english))}
 `;
     mkdirSync(join(outDir, "i18n"), { recursive: true });

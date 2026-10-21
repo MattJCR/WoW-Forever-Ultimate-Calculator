@@ -19,8 +19,8 @@ export const UI: Record<string, string> = {
   "Datos del cliente de la beta de WoW Forever, build {build}": "Data from the WoW Forever beta client, build {build}",
   "(con hotfixes del servidor)": "(with server hotfixes)",
   "extraídos el {date}. Pueden cambiar durante la beta.": "extracted on {date}. They may change during the beta.",
-  "Los textos en inglés (nombres y descripciones del juego) proceden de datos de la comunidad, no del cliente, que solo está en español. Lo que no tiene versión en inglés se muestra en español.":
-    "The English texts (game names and descriptions) come from community data, not from the client, which is only available in Spanish. Anything without an English version is shown in Spanish.",
+  "Los textos en inglés (nombres y descripciones del juego) son los del propio juego, tomados de sus tablas en inglés, y sus cifras se comprueban contra las del cliente, que solo está en español. Las pocas traducciones propias se marcan como tales. Lo que no tenga versión en inglés se muestra en español.":
+    "The English texts (game names and descriptions) are the game's own English text, taken from its English tables, and their figures are checked against the client's, which is only available in Spanish. The few translations of our own are marked as such. Anything without an English version is shown in Spanish.",
   "Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.":
     "Unofficial fan project. Not affiliated with or endorsed by Blizzard Entertainment. World of Warcraft is a trademark of Blizzard Entertainment, Inc. Names, texts, icons and backgrounds © Blizzard.",
   "Proyecto alojado en GitHub: puedes contribuir con correcciones, datos o ideas.": "Project hosted on GitHub: you can contribute fixes, data or ideas.",
@@ -67,8 +67,10 @@ export const UI: Record<string, string> = {
   "Base sin talentos. Suelta Ctrl para ver tus mejoras.": "Base values without talents. Release Ctrl to see your improvements.",
   "Radio": "Radius",
   "Con {n} % de celeridad": "With {n} % haste",
-  "Texto en inglés de la comunidad a nivel 60, sin talentos ni equipo: no se recalcula. Las cifras de la tarjeta sí.":
-    "Community English text at level 60, without talents or gear: it is not recalculated. The figures on the card are.",
+  "Texto en inglés a nivel 60, sin talentos ni equipo: no se recalcula. Las cifras de la tarjeta sí.":
+    "English text at level 60, without talents or gear: it is not recalculated. The figures on the card are.",
+  "Traducción propia al inglés: el texto oficial trae otras cifras que el cliente. Las cifras son las del cliente.":
+    "Our own English translation: the official text has different figures from the client. The figures are the client's.",
   "Aún sin texto en inglés: se muestra el español del cliente.": "No English text yet: the client's Spanish text is shown.",
   "Efectos": "Effects",
   "Probabilidades": "Chances",
@@ -161,7 +163,7 @@ export const UI: Record<string, string> = {
   "Traducción propia: el cliente de la beta aún trae este texto en inglés. Los números sí son del cliente.":
     "Own translation: the beta client still ships this text in English. The numbers do come from the client.",
   "Este texto está en inglés en el cliente de la beta y aún no tiene traducción.": "This text is in English in the beta client and has no translation yet.",
-  "Texto en inglés de la comunidad, a nivel 60.": "Community English text, at level 60.",
+  "Texto en inglés del juego, a nivel 60.": "English game text, at level 60.",
   "Valores base del cliente: en el juego varían con tu nivel.": "Base values from the client: in game they vary with your level.",
   "Los valores subrayados dependen de tu personaje y aún no se calculan.": "Underlined values depend on your character and are not calculated yet.",
   "Detalle del talento": "Talent details",

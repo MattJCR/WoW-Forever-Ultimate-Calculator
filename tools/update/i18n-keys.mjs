@@ -40,6 +40,10 @@ for (const file of files) {
     if (ts.isCallExpression(n) && ["tr", "trn"].includes(n.expression.getText()) && n.arguments[0] && (ts.isStringLiteral(n.arguments[0]) || ts.isNoSubstitutionTemplateLiteral(n.arguments[0]))) {
       add(n.arguments[0].text, file, line(n));
     }
+    // plural(n, "nodo", "nodos"): los dos textos se traducen con tr dentro de plural
+    if (ts.isCallExpression(n) && n.expression.getText() === "plural") {
+      for (const a of n.arguments.slice(1, 3)) if (ts.isStringLiteral(a) || ts.isNoSubstitutionTemplateLiteral(a)) add(a.text, file, line(n));
+    }
     if (ts.isVariableDeclaration(n) && wanted.has(n.name.getText()) && n.initializer) {
       const grab = (x) => {
         if (ts.isStringLiteral(x) || ts.isNoSubstitutionTemplateLiteral(x)) {

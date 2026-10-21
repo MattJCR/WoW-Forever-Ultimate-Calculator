@@ -28,6 +28,7 @@ import {
   SLOT_ORDER_RIGHT,
   allowedClassNames,
   bondingLabel,
+  effectLabel,
   effectPrefix,
   iName,
   inventoryLabel,
@@ -35,6 +36,7 @@ import {
   nameOf,
   qualityColor,
   qualityName,
+  setLabel,
   shortStats,
   slotLabel,
   statLine,
@@ -147,19 +149,19 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
       {enchant && <p className="item-line good">{nameOf(enchant)}</p>}
       {item.effects.map((e, i) => (
         <p key={i} className="item-line good">
-          {effectPrefix(e.trigger)}: {e.text || e.name || tr("hechizo {id}", { id: e.spellId })}
+          {effectPrefix(e.trigger)}: {effectLabel(e)}
           {!e.textComplete && <span className="muted small"> {tr("(texto incompleto)")}</span>}
         </p>
       ))}
       {set && (
         <div className="item-set">
           <p className="item-line gold">
-            {set.name} ({wornInSet.size}/{set.itemIds.length})
+            {setLabel(set)} ({wornInSet.size}/{set.itemIds.length})
           </p>
           <ul>
             {set.bonuses.map((b) => (
               <li key={b.spellId} className={wornInSet.size >= b.threshold ? "good" : "muted"}>
-                ({b.threshold}) {b.text || b.name}
+                ({b.threshold}) {effectLabel(b)}
               </li>
             ))}
           </ul>
@@ -203,7 +205,7 @@ function CompareBlock({ cmp, wornName }: { cmp: GearComparison; wornName: string
           ))}
           {cmp.sets.map((s) => (
             <li key={s.name} className={s.activeAfter >= s.activeBefore ? "good" : "bad"}>
-              {s.name}: {s.countBefore} → {s.countAfter} {tr("de")} {s.total} {tr("piezas")} ({s.activeAfter - s.activeBefore >= 0 ? "+" : "−"}
+              {setLabel(s)}: {s.countBefore} → {s.countAfter} {tr("de")} {s.total} {tr("piezas")} ({s.activeAfter - s.activeBefore >= 0 ? "+" : "−"}
               {Math.abs(s.activeAfter - s.activeBefore)} {tr("bonos")})
             </li>
           ))}
@@ -623,12 +625,12 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
           {summary.sets.map((s) => (
             <div key={s.setId} className="gear-set">
               <b>
-                {s.name} ({s.count}/{s.total})
+                {setLabel(s)} ({s.count}/{s.total})
               </b>
               <ul>
                 {s.bonuses.map((b) => (
                   <li key={b.threshold + b.name} className={b.active ? "good" : "muted"}>
-                    ({b.threshold}) {b.text || b.name}
+                    ({b.threshold}) {effectLabel(b)}
                   </li>
                 ))}
               </ul>
@@ -643,7 +645,7 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
           <ul className="effects">
             {summary.effects.map((e, i) => (
               <li key={i} {...hover(e.slot)}>
-                <b>{e.itemName}</b> · {effectPrefix(e.effect.trigger)}: {e.effect.text || e.effect.name || tr("hechizo {id}", { id: e.effect.spellId })}
+                <b>{e.itemName}</b> · {effectPrefix(e.effect.trigger)}: {effectLabel(e.effect)}
               </li>
             ))}
           </ul>

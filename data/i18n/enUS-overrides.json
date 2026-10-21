@@ -1,0 +1,52 @@
+{
+  "spells": {
+    "1943": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 24.72 damage over 8 sec\n   2 points: 36.8 damage over 8 sec\n   3 points: 51.24 damage over 12 sec\n   4 points: 68.04 damage over 14 sec\n   5 points: 87.2 damage over 16 sec",
+    "8639": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 35.12 damage over 8 sec\n   2 points: 52.8 damage over 8 sec\n   3 points: 74.04 damage over 12 sec\n   4 points: 98.84 damage over 14 sec\n   5 points: 127.2 damage over 16 sec",
+    "8640": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 53.48 damage over 8 sec\n   2 points: 78.7 damage over 8 sec\n   3 points: 108.66 damage over 12 sec\n   4 points: 143.36 damage over 14 sec\n   5 points: 182.8 damage over 16 sec",
+    "11273": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 75.84 damage over 8 sec\n   2 points: 109.6 damage over 8 sec\n   3 points: 149.28 damage over 12 sec\n   4 points: 194.88 damage over 14 sec\n   5 points: 246.4 damage over 16 sec",
+    "11274": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 104.56 damage over 8 sec\n   2 points: 151.4 damage over 8 sec\n   3 points: 206.52 damage over 12 sec\n   4 points: 269.92 damage over 14 sec\n   5 points: 341.6 damage over 16 sec",
+    "11275": "Finishing move that causes damage over time, increased by your Attack Power. Lasts longer per combo point:\n   1 point: 158.92 damage over 8 sec\n   2 points: 222.3 damage over 8 sec\n   3 points: 295.14 damage over 12 sec\n   4 points: 377.44 damage over 14 sec\n   5 points: 469.2 damage over 16 sec",
+    "11426": "Shields you, absorbing 431 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
+    "13031": "Shields you, absorbing 542 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
+    "13032": "Shields you, absorbing 671 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
+    "13033": "Shields you, absorbing 811 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
+    "24658": "Increases your spell damage by up to 240 and your healing by up to 408 for 20 sec. Every time you cast a spell, the bonus is reduced by 17 spell damage and 34 healing."
+  },
+  "spellNames": {},
+  "talents": {
+    "104718": [
+      "Gives you a 10% chance to enter a Clearcasting state after casting any Nature, Fire or Frost damage spell. Clearcasting reduces the mana cost of your next damage spell by 100%."
+    ],
+    "105762": [
+      "Shields you, absorbing 431 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage."
+    ],
+    "105763": [
+      "Gives your Ice Lance spells empowered by Frostbolt, Frost Blast and Fingers of Frost a 20% chance to apply Winter's Chill, which increases the damage the target takes from your next Cone of Cold by 5% and gains an additional 7% of your spell damage, stacking up to 5 times.",
+      "Gives your Ice Lance spells empowered by Frostbolt, Frost Blast and Fingers of Frost a 40% chance to apply Winter's Chill, which increases the damage the target takes from your next Cone of Cold by 5% and gains an additional 7% of your spell damage, stacking up to 5 times.",
+      "Gives your Ice Lance spells empowered by Frostbolt, Frost Blast and Fingers of Frost a 60% chance to apply Winter's Chill, which increases the damage the target takes from your next Cone of Cold by 5% and gains an additional 7% of your spell damage, stacking up to 5 times.",
+      "Gives your Ice Lance spells empowered by Frostbolt, Frost Blast and Fingers of Frost a 80% chance to apply Winter's Chill, which increases the damage the target takes from your next Cone of Cold by 5% and gains an additional 7% of your spell damage, stacking up to 5 times.",
+      "Gives your Ice Lance spells empowered by Frostbolt, Frost Blast and Fingers of Frost a 100% chance to apply Winter's Chill, which increases the damage the target takes from your next Cone of Cold by 5% and gains an additional 7% of your spell damage, stacking up to 5 times."
+    ],
+    "105802": [
+      "Gives your Arcane Blast spell a 20% chance, and your Arcane Wrath, Fireball, Frostbolt, Frost Blast and Frostfire Bolt spells a 10% chance, to reduce the channeled duration of your next Arcane Missiles spell by 50%, reduce its mana cost by 100% and cause the missiles to fire every 0.5 sec.",
+      "Gives your Arcane Blast spell a 40% chance, and your Arcane Wrath, Fireball, Frostbolt, Frost Blast and Frostfire Bolt spells a 20% chance, to reduce the channeled duration of your next Arcane Missiles spell by 50%, reduce its mana cost by 100% and cause the missiles to fire every 0.5 sec."
+    ]
+  },
+  "talentNames": {},
+  "entries": {},
+  "items": {
+    "251932": "Sharpened Cirrus Fly Stinger",
+    "273828": "Spiral Twisted Bark Staff",
+    "273830": "Blackthorn Greatmace",
+    "280304": "Invisible Dagger",
+    "285094": "Shattered Fishing Pole",
+    "285362": "Red Wine Goblet",
+    "286728": "Kolkar Hammer",
+    "286729": "Kolkar Bow",
+    "286733": "Fighting Fish",
+    "286735": "Sentinel's Slicer",
+    "286740": "Proud Brave's Guard",
+    "286741": "Centaur Skull Flogger"
+  },
+  "itemSets": {}
+}

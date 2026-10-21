@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { DescText, Notes } from "../components/Detail";
 import { Icon } from "../components/Icon";
 import { loadUnassigned, useAsync } from "../data";
-import { isEnglish, tr, trn } from "../i18n";
+import { entryName, entryText, isEnglish, talentName, talentText, tr, trn, type Localized } from "../i18n";
 import { plural } from "../messages";
 
 const CELL = 46;
@@ -27,20 +27,27 @@ function Stepper({ rank, max, onChange, name }: { rank: number; max: number; onC
   );
 }
 
-/** Texto del rango mostrado: el del rango escogido o, con 0, el del primero (atenuado). */
-function RankText({ descriptions, rank, complete, approximate }: { descriptions: string[]; rank: number; complete: boolean; approximate: boolean }) {
-  const shown = descriptions[Math.max(rank, 1) - 1] ?? "";
+/** Texto del rango mostrado: el del rango escogido o, con 0, el del primero (atenuado). En inglés, `localize` da el texto inglés de cada rango. */
+function RankText({ descriptions, rank, complete, approximate, localize }: { descriptions: string[]; rank: number; complete: boolean; approximate: boolean; localize: (rankIndex: number, fallback: string) => Localized }) {
+  const index = Math.max(rank, 1) - 1;
+  const shown = localize(Math.min(index, Math.max(descriptions.length - 1, 0)), descriptions[index] ?? "");
   return (
     <div className={rank === 0 ? "dim-text" : undefined}>
       {descriptions.length > 1 && <h5>{rank === 0 ? tr("Rango 1") : tr("Rango {n}", { n: rank })}</h5>}
-      {shown ? <DescText text={shown} /> : <p className="muted">{tr("Sin descripción en el cliente.")}</p>}
-      <Notes approximate={approximate} complete={complete} />
+      {shown.text ? <DescText text={shown.text} /> : <p className="muted">{tr("Sin descripción en el cliente.")}</p>}
+      {isEnglish() ? (
+        <Notes approximate={approximate} complete={complete} english={shown.fromEnglish} ownEnglish={!!shown.own} missingEnglish={!!shown.text && !shown.fromEnglish} />
+      ) : (
+        <Notes approximate={approximate} complete={complete} />
+      )}
     </div>
   );
 }
 
 /** Un arbol descartado en cuadricula, con sus requisitos y prerrequisitos, para ver como seria. Todo gratis. */
 function PreviewTree({ tree }: { tree: UnassignedTree }) {
+  /** Nombre del nodo en el idioma elegido (null si el nodo no tiene hechizo). */
+  const nodeLabel = (n: { nodeId: number; name: string | null }): string | null => (n.name === null ? null : talentName(n.nodeId, n.name));
   const [ranks, setRanks] = useState<Record<number, number>>({});
   const [focus, setFocus] = useState<number | null>(null);
   const nodes = tree.nodes;
@@ -81,7 +88,7 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
                 type="button"
                 className={`talent ${state}${focus === n.nodeId ? " focus" : ""}`}
                 style={{ left: pos(n.col), top: pos(n.row), width: CELL, height: CELL }}
-                aria-label={tr("{name}, rango {r} de {max} (prueba libre)", { name: n.name ?? tr("Nodo sin hechizo"), r, max })}
+                aria-label={tr("{name}, rango {r} de {max} (prueba libre)", { name: nodeLabel(n) ?? tr("Nodo sin hechizo"), r, max })}
                 disabled={n.maxRank === null}
                 onMouseEnter={() => setFocus(n.nodeId)}
                 onFocus={() => setFocus(n.nodeId)}
@@ -91,7 +98,7 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
                   set(n.nodeId, Math.max(0, r - 1));
                 }}
               >
-                <Icon id={n.iconFileDataId} name={n.name} />
+                <Icon id={n.iconFileDataId} name={nodeLabel(n)} />
                 <span className="rank">
                   {r}/{max}
                 </span>
@@ -106,14 +113,16 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
         {active ? (
           <>
             <div className="detail-head">
-              <Icon id={active.iconFileDataId} name={active.name} />
+              <Icon id={active.iconFileDataId} name={nodeLabel(active)} />
               <div>
-                <h4>{active.name ?? tr("(nodo sin hechizo)")}</h4>
+                <h4>{nodeLabel(active) ?? tr("(nodo sin hechizo)")}</h4>
                 <p className="rank-line">{active.maxRank === null ? tr("sin entrada") : plural(active.maxRank, "rango", "rangos")}</p>
               </div>
             </div>
-            {active.maxRank !== null && <Stepper rank={ranks[active.nodeId] ?? 0} max={active.maxRank} onChange={(r) => set(active.nodeId, r)} name={active.name ?? tr("nodo")} />}
-            {active.maxRank !== null && <RankText descriptions={active.descriptions} rank={ranks[active.nodeId] ?? 0} complete={active.descriptionsComplete} approximate={active.descriptionsApproximate} />}
+            {active.maxRank !== null && <Stepper rank={ranks[active.nodeId] ?? 0} max={active.maxRank} onChange={(r) => set(active.nodeId, r)} name={nodeLabel(active) ?? tr("nodo")} />}
+            {active.maxRank !== null && (
+              <RankText descriptions={active.descriptions} rank={ranks[active.nodeId] ?? 0} complete={active.descriptionsComplete} approximate={active.descriptionsApproximate} localize={(i, es) => talentText(active.nodeId, i, es)} />
+            )}
             {active.requiredPoints > 0 && <p className="muted">{tr("Pediría")} {active.requiredPoints} {tr("puntos gastados en el árbol (no se aplica aquí")}).</p>}
             <dl>
               <dt>{tr("Nodo")}</dt>
@@ -144,15 +153,16 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
 /** Talento sin nodo (no esta colocado en ningun arbol): tarjeta con rangos gratis. */
 function EntryCard({ e, versions = [] }: { e: UnassignedEntry; versions?: number[] }) {
   const [rank, setRank] = useState(0);
+  const label = e.name === null ? null : entryName(e.entryId, e.name);
   return (
     <li className="entry-card">
-      <Icon id={e.iconFileDataId} name={e.name} />
+      <Icon id={e.iconFileDataId} name={label} />
       <div className="entry-body">
         <div className="entry-top">
-          <b>{e.name ?? tr("(sin nombre)")}</b>
-          <Stepper rank={rank} max={e.maxRank} onChange={setRank} name={e.name ?? tr("talento")} />
+          <b>{label ?? tr("(sin nombre)")}</b>
+          <Stepper rank={rank} max={e.maxRank} onChange={setRank} name={label ?? tr("talento")} />
         </div>
-        <RankText descriptions={e.descriptions} rank={rank} complete={e.descriptionsComplete} approximate={e.descriptionsApproximate} />
+        <RankText descriptions={e.descriptions} rank={rank} complete={e.descriptionsComplete} approximate={e.descriptionsApproximate} localize={(i, es) => entryText(e.entryId, i, es)} />
         <p className="muted small">
           {e.className ? tr(e.className) : tr("sin clase")} · {versions.length > 1 ? `${tr("entradas")} ${versions.map((v) => `#${v}`).join(", ")}` : `${tr("entrada")} #${e.entryId}`}
           {e.spellId !== null ? ` · ${tr("hechizo")} #${e.spellId}` : ""}
@@ -188,6 +198,8 @@ export function UnassignedPage() {
   const legacyDup = legacyEntries.filter((e) => e.legacyPlaced);
   const entries = orphanEntries.filter((e) => !e.isLegacy);
   const shown = entries.filter((e) => filter === "todas" || (e.className ?? "Sin clase") === filter);
+  // Con English elegido: cuántos talentos con texto siguen en español porque no tienen versión inglesa
+  const untranslated = isEnglish() ? orphanEntries.filter((e) => e.descriptions.some(Boolean) && !entryText(e.entryId, 0, "").fromEnglish).length : 0;
 
   return (
     <div className="unassigned">
@@ -197,7 +209,7 @@ export function UnassignedPage() {
         <strong>{tr("gratis")}</strong>: {tr("no cuesta puntos, no tiene requisitos y no cuenta en ningún build.")}
       </p>
 
-      {isEnglish() && <p className="muted small">{tr("Estos datos del cliente no tienen versión en inglés: se muestran en español.")}</p>}
+      {isEnglish() && untranslated > 0 && <p className="muted small">{tr("Algunos de estos datos del cliente no tienen versión en inglés: se muestran en español.")}</p>}
 
       <section aria-labelledby="trees-title">
         <h3 id="trees-title">{tr("Árboles descartados")} ({alternativeTrees.length})</h3>

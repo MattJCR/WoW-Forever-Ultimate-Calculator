@@ -1,6 +1,6 @@
 import { GEAR_SLOTS, SLOT_LABEL, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
 import type { CombatRatings, Item, ItemStat } from "@wfuc/schema";
-import { fmtNum, isEnglish, itemName, tr, trn } from "../i18n";
+import { fmtNum, isEnglish, itemName, itemSetName, spellEn, tr, trn } from "../i18n";
 
 /** Color de calidad del juego (0 pobre ... 6 artefacto). */
 export const QUALITY_COLORS = ["#9d9d9d", "#ffffff", "#1eff00", "#0070dd", "#a335ee", "#ff8000", "#e6cc80"];
@@ -10,6 +10,16 @@ export const qualityName = (q: number): string => tr(QUALITY_NAMES[q] ?? "Común
 
 /** Nombre de un objeto en el idioma elegido (el inglés es de la comunidad; si falta, el del cliente). */
 export const iName = (i: { id: number; name: string }): string => itemName(i.id, i.name);
+/** Nombre de un conjunto de objetos en el idioma elegido. */
+export const setLabel = (s: { id?: number; setId?: number; name: string }): string => itemSetName(s.id ?? s.setId ?? -1, s.name);
+/**
+ * Texto de un efecto de objeto o de un bonus de conjunto en el idioma elegido: el inglés del juego si lo hay (sus cifras ya se han
+ * contrastado con las del cliente); si no, el texto del cliente, y como último recurso el nombre del hechizo.
+ */
+export const effectLabel = (e: { spellId: number; text: string; name: string }): string => {
+  const en = isEnglish() ? spellEn(e.spellId) : null;
+  return en?.description || e.text || en?.name || e.name || tr("hechizo {id}", { id: e.spellId });
+};
 /** Nombre de un sufijo o encantamiento: el cliente no los trae; `nameEn` es el de la comunidad. */
 export const nameOf = (x: { name: string; nameEn?: string | null }): string => (isEnglish() && x.nameEn ? x.nameEn : x.name);
 /** Ranura en el idioma elegido. */
@@ -147,8 +157,8 @@ export function gearLinesForAI(args: { gear: GearSelection; summary: GearSummary
   if (totals.length) lines.push(`Gear totals: ${totals.join(", ")}.`);
   const pcts = ratings ? ratingPercents(summary.stats, ratings) : [];
   if (pcts.length) lines.push(`Ratings as percentages (one rating per hit/crit/haste in Forever, same at every level; community-measured, not confirmed): ${pcts.map((p) => `${p.label} ${fmtNum(p.value, 2)}${p.unit === "%" ? " %" : ""}`).join(", ")}.`);
-  for (const s of summary.sets) lines.push(`Set ${s.name} (${s.count}/${s.total}): ${s.bonuses.map((b) => `(${b.threshold})${b.active ? " [active]" : ""} ${b.text || b.name}`).join(" | ")}`);
-  for (const e of summary.effects) lines.push(`Item effect, ${e.itemName} (${EFFECT_PREFIX[e.effect.trigger] ?? "Efecto"}): ${(e.effect.text || e.effect.name || `spell ${e.effect.spellId}`).replace(/\s*\n+\s*/g, " ").trim()}`);
+  for (const s of summary.sets) lines.push(`Set ${setLabel(s)} (${s.count}/${s.total}): ${s.bonuses.map((b) => `(${b.threshold})${b.active ? " [active]" : ""} ${effectLabel(b)}`).join(" | ")}`);
+  for (const e of summary.effects) lines.push(`Item effect, ${e.itemName} (${EFFECT_PREFIX[e.effect.trigger] ?? "Efecto"}): ${effectLabel(e.effect).replace(/\s*\n+\s*/g, " ").trim()}`);
   for (const p of summary.problems) lines.push(`Warning: ${SLOT_LABEL[p.slot]} cannot be worn here (${p.reasons.join("; ")}); it is still counted.`);
   if (summary.incomplete) lines.push("Warning: some items come from the community without stats, so their contribution is missing.");
   lines.push("Hit/crit ratings feed the ability chances; spell power and attack power are shown apart as a Classic-style estimate in each ability card, not mixed into the base numbers.", "");

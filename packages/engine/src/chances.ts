@@ -94,7 +94,7 @@ export function abilityChances(input: {
   let unavailable: string | null = null;
   if (!canCrit(rank)) unavailable = "Esta habilidad no hace daño ni sana: no puede ser crítica.";
   else if (!classStats) unavailable = "No hay datos de crítico del cliente para esta clase y nivel.";
-  else if (perPoint <= 0) unavailable = `Tu clase no obtiene crítico ${kind === "spell" ? "de hechizo " : ""}del ${statKey === "int" ? "intelecto" : "la agilidad"} (según el cliente).`;
+  else if (perPoint <= 0) unavailable = `Tu clase no obtiene crítico ${kind === "spell" ? "de hechizo " : ""}${statKey === "int" ? "del intelecto" : "de la agilidad"} (según el cliente).`;
   else if (!stats) unavailable = "Elige una raza para usar tus estadísticas base.";
   const statValue = perPoint > 0 && stats ? stats[statKey] : null;
   const fromStat = !unavailable && statValue !== null ? Math.round(statValue * perPoint * 10000) / 100 : null;

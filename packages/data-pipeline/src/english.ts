@@ -71,7 +71,10 @@ export function buildEnglish(
     legacyTrees: [],
     talents: {},
     spells: {},
+    entries: {},
     items: {},
+    itemSets: {},
+    ownTranslation: [],
     races: {},
   };
   const report: EnglishReport = {

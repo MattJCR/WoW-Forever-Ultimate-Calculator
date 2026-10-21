@@ -204,14 +204,14 @@ export function deriveCombatStats(input: {
     if (sum(lines) + fromGear === 0) return;
     add({ key, group: "Defensa", label, value: round2(sum(lines) + fromGear), unit: "%", parts: [...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", fromGear)], note: NOTE_DEFENSE, sources: sourcesOf(lines) });
   };
-  // Esquivar: base de la clase + agilidad (critico por agilidad del cliente; pícaro y cazador el doble) + talentos + puntuacion del equipo
+  // Esquivar: base de la clase + agilidad (misma cifra que el crítico por agilidad del cliente; el doble en pícaro y cazador) + talentos + puntuación del equipo
   if (classBase) {
     const lines = take((t) => t.category === "Defensa" && t.label === "probabilidad de esquivar");
     const fromGear = rating("dodge-rating");
     const perAgi = dodgePerAgility(classBase, classStats);
     const fromAgi = round2(final("agi") * perAgi);
     const parts = [...part("base de la clase", classBase.dodgePct), ...part(`agilidad (${final("agi")})`, fromAgi), ...part("talentos, Legacy y raza", sum(lines)), ...part("puntuación de tu equipo", fromGear)];
-    add({ key: "dodge", group: "Defensa", label: "Esquivar", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: "Esquive base de la clase (comunidad, hojas de nivel 60) y de la agilidad (critico por agilidad del cliente; pícaro y cazador el doble). No incluye la habilidad de defensa base.", sources: sourcesOf(lines) });
+    add({ key: "dodge", group: "Defensa", label: "Esquivar", value: round2(parts.reduce((n, p) => n + p.value, 0)), unit: "%", parts, note: "Esquive base de la clase (comunidad, hojas de nivel 60) y de la agilidad (misma cifra que el crítico por agilidad del cliente; el doble en pícaro y cazador). No incluye la habilidad de defensa base.", sources: sourcesOf(lines) });
   } else {
     avoid("dodge", "Esquivar", "probabilidad de esquivar", "dodge-rating");
   }

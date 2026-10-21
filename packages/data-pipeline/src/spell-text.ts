@@ -30,14 +30,33 @@ interface Value {
   approx?: boolean;
 }
 
-/** 1 -> "1", 2.5 -> "2,5" (el cliente en espanol usa coma decimal). */
+export type RenderLocale = "es" | "en";
+let locale: RenderLocale = "es";
+
+/** Ejecuta `fn` renderizando en ese idioma (decimales, unidades y frases que añade el propio render). Es sincrono: no se mezclan idiomas. */
+export function withRenderLocale<T>(l: RenderLocale, fn: () => T): T {
+  const before = locale;
+  locale = l;
+  try {
+    return fn();
+  } finally {
+    locale = before;
+  }
+}
+
+/** 1 -> "1", 2.5 -> "2,5" (el cliente en espanol usa coma decimal; en ingles, punto). */
 export function formatNumber(v: number): string {
   const r = Math.round(v * 100) / 100;
-  return String(r).replace(".", ",");
+  return locale === "en" ? String(r) : String(r).replace(".", ",");
 }
 
 function formatDuration(ms: number): string {
   const s = ms / 1000;
+  if (locale === "en") {
+    if (s < 60) return `${formatNumber(s)} sec`;
+    if (s < 3600) return `${formatNumber(s / 60)} min`;
+    return `${formatNumber(s / 3600)} hr`;
+  }
   if (s < 60) return `${formatNumber(s)} s`;
   if (s < 3600) return `${formatNumber(s / 60)} min`;
   return `${formatNumber(s / 3600)} h`;
@@ -294,13 +313,17 @@ function expandReferences(t: SpellTables, ctx: RenderContext, text: string, dept
   // Condicionales de talento/aura: `$?a12792[con talento][sin talento]` -> la rama sin talentos (aqui no hay talentos)
   out = out.replace(/\$\?\$?[sap]\d+(?:\|[sap]\d+)*\[([^\]]*)\]\[([^\]]*)\]/g, "$2");
   // Poder de ataque: `${1+$AP*$m3/100}` -> «un 15% de tu poder de ataque» (el poder no se calcula: no hay estadisticas de Forever)
-  out = out.replace(/\$\{(?:(\d+(?:\.\d+)?)\+)?\$AP\*(\$\d*[mMsS]\d)\/100\}/g, (_m, k: string | undefined, ref: string) => `${k && Number(k) > 1 ? `\${${k}} más ` : ""}un \${${ref}}% de tu poder de ataque`);
-  out = out.replace(/\$c p\. de maná/g, () => {
+  const en = locale === "en";
+  out = out.replace(/\$\{(?:(\d+(?:\.\d+)?)\+)?\$AP\*(\$\d*[mMsS]\d)\/100\}/g, (_m, k: string | undefined, ref: string) =>
+    en ? `${k && Number(k) > 1 ? `\${${k}} plus ` : ""}\${${ref}}% of your attack power` : `${k && Number(k) > 1 ? `\${${k}} más ` : ""}un \${${ref}}% de tu poder de ataque`,
+  );
+  out = out.replace(en ? /\$c mana/g : /\$c p\. de maná/g, () => {
     const pw = t.powerCost(ctx.spellId);
-    if (pw && pw.pct > 0) return `${formatNumber(pw.pct)} % del maná base`;
-    return pw && pw.mana > 0 ? `${formatNumber(pw.mana)} p. de maná` : "$c p. de maná";
+    if (pw && pw.pct > 0) return en ? `${formatNumber(pw.pct)}% of base mana` : `${formatNumber(pw.pct)} % del maná base`;
+    if (pw && pw.mana > 0) return en ? `${formatNumber(pw.mana)} mana` : `${formatNumber(pw.mana)} p. de maná`;
+    return en ? "$c mana" : "$c p. de maná";
   });
-  out = out.replace(/\$\{(\$\d*s\d+)\+\(\$rap\*\((\$\d*s\d+)\/100\)\)\}/g, "${$1} (más un ${$2}% de tu poder de ataque a distancia)");
+  out = out.replace(/\$\{(\$\d*s\d+)\+\(\$rap\*\((\$\d*s\d+)\/100\)\)\}/g, en ? "${$1} (plus ${$2}% of your ranged attack power)" : "${$1} (más un ${$2}% de tu poder de ataque a distancia)");
   return out;
 }
 
@@ -463,7 +486,7 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
           i = end + 1;
         } else {
           const v = res.value;
-          out += decimals ? v.toFixed(Number(decimals[1])).replace(".", ",") : formatNumber(Math.abs(v) < 1e-9 ? 0 : v);
+          out += decimals ? (locale === "en" ? v.toFixed(Number(decimals[1])) : v.toFixed(Number(decimals[1])).replace(".", ",")) : formatNumber(Math.abs(v) < 1e-9 ? 0 : v);
           lastNumber = v;
           approximate ||= res.approx;
           i = end + 1 + (decimals ? decimals[0].length : 0);

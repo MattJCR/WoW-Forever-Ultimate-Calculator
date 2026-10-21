@@ -5,7 +5,7 @@ import { EN } from "./i18n-en";
 /**
  * Idioma de la web. El cliente instalado solo trae español, así que:
  *  - los textos de la interfaz salen de un diccionario propio (`i18n-en.ts`, clave = el texto en español);
- *  - los nombres y descripciones del juego en inglés salen de `i18n/en.json` (datos de la comunidad, `community`),
+ *  - los nombres y descripciones del juego en inglés salen de `i18n/en.json` (tablas del juego en inglés, contrastadas con las cifras del cliente),
  *    que solo se descarga al elegir English. Lo que no tenga inglés se muestra en español.
  */
 export type Lang = "es" | "en";
@@ -213,8 +213,10 @@ export function useLangRoot(englishFile: string | null): LangValue {
 
 export interface Localized {
   text: string;
-  /** true = el texto es el inglés de la comunidad. Con English elegido y `false`, no hay inglés y se muestra el español. */
+  /** true = el texto es el inglés del juego. Con English elegido y `false`, no hay inglés y se muestra el español. */
   fromEnglish: boolean;
+  /** true = traducción propia al inglés (el inglés oficial trae otras cifras que el cliente). */
+  own?: boolean;
 }
 
 const en = (): EnglishText | null => englishData();
@@ -274,7 +276,31 @@ export function talentText(nodeId: number, rankIndex: number, fallback: string):
   if (!e) return { text: fallback, fromEnglish: false };
   const d = e.talents[nodeId]?.descriptions ?? [];
   const t = d[Math.min(rankIndex, d.length - 1)];
-  return t ? { text: t, fromEnglish: true } : { text: fallback, fromEnglish: false };
+  return t ? { text: t, fromEnglish: true, own: isOwnTranslation("talent", nodeId) } : { text: fallback, fromEnglish: false };
+}
+
+/** El texto inglés es una traducción propia (`spell:<id>`, `talent:<nodeId>`, `entry:<entryId>`, `item:<id>`, `set:<id>`). */
+export function isOwnTranslation(kind: "spell" | "talent" | "entry" | "item" | "set", id: number): boolean {
+  return en()?.ownTranslation.includes(`${kind}:${id}`) ?? false;
+}
+
+/** Nombre de un talento sin nodo (`entryId`). */
+export function entryName(entryId: number, fallback: string): string {
+  return en()?.entries[entryId]?.name || fallback;
+}
+
+/** Descripción de un talento sin nodo al rango dado (0 = rango 1); el español si no hay inglés. */
+export function entryText(entryId: number, rankIndex: number, fallback: string): Localized {
+  const e = en();
+  if (!e) return { text: fallback, fromEnglish: false };
+  const d = e.entries[entryId]?.descriptions ?? [];
+  const t = d[Math.min(rankIndex, d.length - 1)];
+  return t ? { text: t, fromEnglish: true, own: isOwnTranslation("entry", entryId) } : { text: fallback, fromEnglish: false };
+}
+
+/** Nombre de un conjunto de objetos. */
+export function itemSetName(setId: number, fallback: string): string {
+  return en()?.itemSets[setId] || fallback;
 }
 
 /** Hechizo en inglés por id (nombre, texto fijo de nivel 60, líneas del tooltip). */

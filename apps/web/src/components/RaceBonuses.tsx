@@ -86,7 +86,7 @@ function RacialCard({ a, classId, raceId }: { a: RacialAbility; classId: number;
         </p>
       )}
       {translated && <p className="tip-warn tip-warn-soft">{tr("Traducción propia: el cliente aún trae este texto en inglés.")}</p>}
-      {txt.english && <p className="tip-warn tip-warn-soft">{tr("Texto en inglés de la comunidad.")}</p>}
+      {txt.english && <p className="tip-warn tip-warn-soft">{tr("Texto en inglés del juego.")}</p>}
     </div>
   );
 }

@@ -2,17 +2,21 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { Abilities, ClassTalents, EnglishText, Items, Races } from "../src/model.js";
+import { hideUnresolved, sameNumbers } from "../src/english-official.js";
+import { Abilities, ClassTalents, EnglishText, Items, Races, Unassigned } from "../src/model.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const DATA = join(root, "data", "forever", "1.60.1.70450");
 const ready = existsSync(join(DATA, "i18n", "en.json")) && existsSync(join(DATA, "classes", "mage.json"));
+const TOKENS = ["warrior", "paladin", "hunter", "rogue", "priest", "shaman", "mage", "warlock", "druid"];
 
-describe.skipIf(!ready)("textos en inglés (comunidad, no del cliente)", () => {
+describe.skipIf(!ready)("textos en inglés (del juego, contrastados con las cifras del cliente)", () => {
   const read = <T>(f: string): T => JSON.parse(readFileSync(join(DATA, f), "utf8")) as T;
   const en = EnglishText.parse(read("i18n/en.json"));
   const mage = ClassTalents.parse(read("classes/mage.json"));
   const races = Races.parse(read("races.json"));
+  const classes = TOKENS.map((t) => ClassTalents.parse(read(`classes/${t}.json`)));
+  const abilities = TOKENS.map((t) => Abilities.parse(read(`abilities/${t}.json`)));
 
   it("lleva la procedencia de la comunidad", () => {
     expect(en.provenance).toBe("community");
@@ -38,12 +42,47 @@ describe.skipIf(!ready)("textos en inglés (comunidad, no del cliente)", () => {
     for (const t of legacy.specs.flatMap((s) => s.talents)) expect(en.talents[t.nodeId], t.name ?? String(t.nodeId)).toBeDefined();
   });
 
-  it("las habilidades se nombran por id de hechizo; las que la comunidad no trae quedan sin inglés (se muestran en español)", () => {
-    const ab = Abilities.parse(read("abilities/mage.json"));
-    const fireball = ab.abilities.find((a) => a.ranks.some((r) => en.spells[r.spellId]?.name === "Fireball"));
-    expect(fireball).toBeDefined();
-    const named = ab.abilities.filter((a) => a.ranks.some((r) => en.spells[r.spellId]));
-    expect(named.length).toBeGreaterThan(ab.abilities.length / 2);
+  it("los talentos de las 9 clases tienen un texto inglés por rango con las mismas cifras que el del cliente", () => {
+    const bad: string[] = [];
+    for (const c of classes) {
+      for (const t of c.specs.flatMap((s) => s.talents)) {
+        const e = en.talents[t.nodeId];
+        if (!e || e.descriptions.length < t.descriptions.length) bad.push(`${t.name} (${t.nodeId}): sin inglés`);
+        else t.descriptions.forEach((es, i) => !sameNumbers(hideUnresolved(es), e.descriptions[i]!) && bad.push(`${t.name} (${t.nodeId}) rango ${i + 1}`));
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it("los nodos no activos tienen nombre y texto inglés (cuando el cliente trae hechizo)", () => {
+    for (const c of classes) {
+      for (const t of c.inactiveTalents) {
+        const e = en.talents[t.nodeId];
+        expect(e?.name, `${t.name} (${t.nodeId})`).toBeTruthy();
+        expect(e!.descriptions.length, `${t.name} (${t.nodeId})`).toBe(t.descriptions.length);
+      }
+    }
+  });
+
+  it("todos los rangos de habilidad de las 9 clases tienen nombre inglés y un texto con las cifras del español", () => {
+    const missing: string[] = [];
+    const differ: string[] = [];
+    for (const file of abilities) {
+      for (const a of file.abilities) {
+        for (const r of a.ranks) {
+          const e = en.spells[r.spellId];
+          if (!e?.name) {
+            missing.push(`${a.name} (${r.spellId})`);
+            continue;
+          }
+          const text = e.description ?? "";
+          if (r.description && !text) missing.push(`${a.name} (${r.spellId}): sin texto`);
+          else if (r.description && !sameNumbers(hideUnresolved(r.description), text)) differ.push(`${a.name} (${r.spellId})`);
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+    expect(differ).toEqual([]);
   });
 
   it("cada racial se empareja con la suya por nombre (el orden de las listas de la comunidad no coincide con el del cliente)", () => {
@@ -57,10 +96,51 @@ describe.skipIf(!ready)("textos en inglés (comunidad, no del cliente)", () => {
     expect(human.racials.map((a) => en.races[1]!.racials[a.order]!.name)).toEqual(["Will to Survive", "Perception", "Ruthless", "The Human Spirit"]);
   });
 
-  it("nombres de objeto en inglés para la mayoría de los equipables", () => {
+  it("los objetos visibles en la web tienen nombre inglés", () => {
     if (!existsSync(join(DATA, "items.json"))) return;
     const items = Items.parse(read("items.json"));
-    const withName = items.items.filter((i) => en.items[i.id]);
-    expect(withName.length).toBeGreaterThan(items.items.length / 2);
+    const unavailable = new Set(items.unavailable.map((u) => u.id));
+    const missing = items.items.filter((i) => !i.placeholder && !unavailable.has(i.id) && !en.items[i.id]).map((i) => `${i.id} ${i.name}`);
+    expect(missing).toEqual([]);
+  });
+
+  it("los efectos de objetos y los bonus de conjunto tienen nombre y texto en inglés, y los conjuntos su nombre", () => {
+    if (!existsSync(join(DATA, "items.json"))) return;
+    const items = Items.parse(read("items.json"));
+    const bad: string[] = [];
+    const effects = [...items.items.flatMap((i) => i.effects.map((e) => ({ ...e, what: `objeto ${i.id}` }))), ...items.sets.flatMap((s) => s.bonuses.map((b) => ({ ...b, what: `conjunto ${s.id}` })))];
+    for (const e of effects) {
+      if (!e.name && !e.text) continue; // el cliente no trae nada que traducir
+      const x = en.spells[e.spellId];
+      if (!x?.name && !x?.description) bad.push(`${e.what} hechizo ${e.spellId} ${e.name}`);
+      else if (e.text && !x.description) bad.push(`${e.what} hechizo ${e.spellId} ${e.name}: sin texto`);
+    }
+    for (const s of items.sets) if (!en.itemSets[s.id]) bad.push(`conjunto ${s.id} ${s.name}`);
+    expect(bad).toEqual([]);
+  });
+
+  it("los datos sin asignar tienen inglés (salvo los huecos que ni el cliente nombra)", () => {
+    const un = Unassigned.parse(read("unassigned.json"));
+    const bad: string[] = [];
+    for (const e of un.orphanEntries) {
+      if (!e.name) continue;
+      const x = en.entries[e.entryId];
+      if (!x?.name || x.descriptions.length !== e.descriptions.length) bad.push(`entrada ${e.entryId} ${e.name}`);
+    }
+    for (const t of un.alternativeTrees) {
+      for (const n of t.nodes) {
+        if (!n.name) continue;
+        const x = en.talents[n.nodeId];
+        if (!x?.name || x.descriptions.length !== n.descriptions.length) bad.push(`árbol ${t.traitTreeId} nodo ${n.nodeId} ${n.name}`);
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it("las traducciones propias están marcadas y no quedan textos pendientes de traducir", () => {
+    const report = JSON.parse(readFileSync(join(root, "data", "i18n", "en-verification.json"), "utf8")) as { pending: unknown[]; ownMismatches: unknown[] };
+    expect(report.pending).toEqual([]);
+    expect(report.ownMismatches).toEqual([]);
+    expect(en.ownTranslation.length).toBeGreaterThan(0);
   });
 });

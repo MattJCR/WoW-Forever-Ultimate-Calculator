@@ -109,7 +109,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
             {tr("Datos del cliente de la beta de WoW Forever, build {build}", { build: number || manifest.build })}
             {manifest.hotfixesApplied ? ` ${tr("(con hotfixes del servidor)")}` : ""} · {tr("extraídos el {date}. Pueden cambiar durante la beta.", { date: manifest.generatedAt.slice(0, 10) })}
           </p>
-          {lang === "en" && <p>{tr("Los textos en inglés (nombres y descripciones del juego) proceden de datos de la comunidad, no del cliente, que solo está en español. Lo que no tiene versión en inglés se muestra en español.")}</p>}
+          {lang === "en" && <p>{tr("Los textos en inglés (nombres y descripciones del juego) son los del propio juego, tomados de sus tablas en inglés, y sus cifras se comprueban contra las del cliente, que solo está en español. Las pocas traducciones propias se marcan como tales. Lo que no tenga versión en inglés se muestra en español.")}</p>}
           <p>
             {tr("Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.")}
           </p>

@@ -41,7 +41,7 @@ import { getJson, useAsync } from "../data";
 import { fitCardToViewport } from "./fit";
 import { Icon } from "./Icon";
 
-import { abilityName, classLabel, fmtNum, isEnglish, nm, registerAbilities, spellEn, tr, trn } from "../i18n";
+import { abilityName, classLabel, fmtNum, isEnglish, isOwnTranslation, nm, registerAbilities, spellEn, tr, trn } from "../i18n";
 const fmt = (n: number, digits = 0): string => fmtNum(n, digits);
 /** Nombre de la habilidad en el idioma elegido (el inglés es de la comunidad; sin él, el español del cliente). */
 const abilityLabel = (a: Ability): string => abilityName(a.ranks.map((r) => r.spellId), a.name);
@@ -262,7 +262,9 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
   const enText = isEnglish() ? spellEn(rank.spellId) : null;
   // Con Ctrl: la misma habilidad sin ningun talento
   const m = showBase ? row.base : row.m;
-  const parts = renderAbilityText(rank, m);
+  // Con la plantilla inglesa las cifras se recalculan igual que en español; sin ella, el texto fijo de nivel 60
+  const parts = renderAbilityText(rank, m, enText?.template ? { template: enText.template, locale: "en" } : {});
+  const ownEnglish = !!enText && isOwnTranslation("spell", rank.spellId);
   const lines = showBase ? [] : row.summaryLines;
   const rules = showBase ? [] : row.ruleTexts;
   const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines, gear: chancesInput.gear }) : null;
@@ -345,10 +347,11 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
         </ul>
       )}
 
-      {enText?.description ? (
+      {enText?.description && !enText.template ? (
         <>
           <p className="ab-text">{enText.description}</p>
-          <p className="muted small">{tr("Texto en inglés de la comunidad a nivel 60, sin talentos ni equipo: no se recalcula. Las cifras de la tarjeta sí.")}</p>
+          <p className="muted small">{tr("Texto en inglés a nivel 60, sin talentos ni equipo: no se recalcula. Las cifras de la tarjeta sí.")}</p>
+          {ownEnglish && <p className="muted small">{tr("Traducción propia al inglés: el texto oficial trae otras cifras que el cliente. Las cifras son las del cliente.")}</p>}
         </>
       ) : (
         <>
@@ -361,7 +364,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
               <span key={i}>{p.text}</span>
             )))}
           </p>
-          {isEnglish() && <p className="muted small">{tr("Aún sin texto en inglés: se muestra el español del cliente.")}</p>}
+          {isEnglish() && !enText?.template && <p className="muted small">{tr("Aún sin texto en inglés: se muestra el español del cliente.")}</p>}
         </>
       )}
 
@@ -479,7 +482,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       </div>
 
       <p className="muted small ab-foot">
-        {rank.descriptionTemplate.includes("$") && !enText?.description ? `${tr("Alguna cifra depende de tu personaje y no se calcula.")} ` : ""}
+        {(enText?.template ?? rank.descriptionTemplate).includes("$") && !(enText?.description && !enText.template) ? `${tr("Alguna cifra depende de tu personaje y no se calcula.")} ` : ""}
       {tr("Las cifras de arriba no incluyen el poder con hechizos ni el de ataque (ver «Con tu poder», estimación")}). {!showBase && row.count > 0 ? `${tr("Mantén Ctrl para ver la base.")} ` : ""}
         {tip.pinned ? tr("Clic en la habilidad para cerrar.") : tr("Clic en la habilidad para fijar la tarjeta.")}
       </p>

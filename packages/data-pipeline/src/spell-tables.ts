@@ -64,6 +64,15 @@ export class SpellTables {
     for (const [id, arr] of points) this.curves.set(id, arr.sort((a, b) => a.order - b.order).map((p) => [p.x, p.y]));
   }
 
+  /**
+   * Copia con los textos (descripcion, aura y nombre) de otro idioma y los mismos datos de efectos, duraciones y costes:
+   * sirve para renderizar la plantilla inglesa con las cifras del cliente. Sin traducciones propias (`overrides`).
+   */
+  withTexts(texts: { descriptions: Map<string, string>; auraDescriptions: Map<string, string>; names: Map<string, string> }): SpellTables {
+    const copy = Object.create(SpellTables.prototype) as SpellTables;
+    return Object.assign(copy, this, texts, { overrides: { spells: {}, names: {}, racials: {} } });
+  }
+
   /** SpellDescriptionVariables + SpellXDescriptionVariables (opcionales: sin ellas las variables $<...> quedan sin resolver). */
   private loadDescriptionVariables(raw: RawTables): void {
     let blocks: Map<string, string>;
