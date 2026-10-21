@@ -1,10 +1,19 @@
 import { GEAR_SLOTS, SLOT_LABEL, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
 import type { CombatRatings, Item, ItemStat } from "@wfuc/schema";
+import { fmtNum, isEnglish, itemName, tr, trn } from "../i18n";
 
 /** Color de calidad del juego (0 pobre ... 6 artefacto). */
 export const QUALITY_COLORS = ["#9d9d9d", "#ffffff", "#1eff00", "#0070dd", "#a335ee", "#ff8000", "#e6cc80"];
 export const QUALITY_NAMES = ["Pobre", "Común", "Poco común", "Raro", "Épico", "Legendario", "Artefacto"];
 export const qualityColor = (q: number): string => QUALITY_COLORS[q] ?? QUALITY_COLORS[1]!;
+export const qualityName = (q: number): string => tr(QUALITY_NAMES[q] ?? "Común");
+
+/** Nombre de un objeto en el idioma elegido (el inglés es de la comunidad; si falta, el del cliente). */
+export const iName = (i: { id: number; name: string }): string => itemName(i.id, i.name);
+/** Nombre de un sufijo o encantamiento: el cliente no los trae; `nameEn` es el de la comunidad. */
+export const nameOf = (x: { name: string; nameEn?: string | null }): string => (isEnglish() && x.nameEn ? x.nameEn : x.name);
+/** Ranura en el idioma elegido. */
+export const slotLabel = (s: GearSlot): string => tr(SLOT_LABEL[s]);
 
 /** Nombre de cada estadistica de objeto (ItemStat.key). Las puntuaciones se llaman «puntuación» como en la pestaña de ratings de Forever. */
 export const STAT_LABELS: Record<string, string> = {
@@ -51,7 +60,11 @@ export const STAT_LABELS: Record<string, string> = {
 /** Nombre corto de la estadistica para tablas («Fuerza», «Puntuación de crítico»…). */
 export const statName = (key: string): string => {
   const raw = STAT_LABELS[key];
-  if (!raw) return key.startsWith("type:") ? `Estadística sin interpretar (tipo ${key.slice(5)})` : key;
+  if (!raw) return key.startsWith("type:") ? tr("Estadística sin interpretar (tipo {n})", { n: key.slice(5) }) : key;
+  if (isEnglish()) {
+    const en = tr(raw);
+    return en.charAt(0).toUpperCase() + en.slice(1);
+  }
   const s = raw.replace(/^de /, "").replace(/^p\. de /, "");
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
@@ -61,8 +74,8 @@ export const statLine = (s: { key: string | null; type: number; value: number })
   const key = s.key ?? `type:${s.type}`;
   const label = STAT_LABELS[key];
   const sign = s.value < 0 ? "" : "+";
-  if (!label) return `${sign}${s.value} (estadística sin interpretar, tipo ${s.type})`;
-  return `${sign}${s.value} ${label}`;
+  if (!label) return `${sign}${s.value} ${tr("(estadística sin interpretar, tipo {n})", { n: s.type })}`;
+  return `${sign}${s.value} ${tr(label)}`;
 };
 
 export const SLOT_ORDER_LEFT: GearSlot[] = ["head", "neck", "shoulder", "back", "chest", "shirt", "tabard", "wrist"];
@@ -81,7 +94,13 @@ const WEAPON_TYPE: Record<number, string> = {
   13: "Arma de puño", 15: "Daga", 16: "Arrojadiza", 18: "Ballesta", 19: "Varita",
 };
 
-export const itemTypeLabel = (i: Pick<Item, "classId" | "subclassId">): string | null => (i.classId === 4 ? ARMOR_TYPE[i.subclassId] : i.classId === 2 ? WEAPON_TYPE[i.subclassId] : null) ?? null;
+export const itemTypeLabel = (i: Pick<Item, "classId" | "subclassId">): string | null => {
+  const es = (i.classId === 4 ? ARMOR_TYPE[i.subclassId] : i.classId === 2 ? WEAPON_TYPE[i.subclassId] : null) ?? null;
+  return es ? tr(es) : null;
+};
+export const inventoryLabel = (n: number): string => tr(INVENTORY_LABEL[n] ?? "—");
+export const bondingLabel = (n: number): string | undefined => (BONDING[n] ? tr(BONDING[n]!) : undefined);
+export const effectPrefix = (n: number): string => tr(EFFECT_PREFIX[n] ?? "Efecto");
 
 export const BONDING: Record<number, string> = { 1: "Se liga al recogerlo", 2: "Se liga al equiparlo", 3: "Se liga al usarlo", 4: "Objeto de misión" };
 
@@ -92,14 +111,13 @@ const CLASS_NAMES: Record<number, string> = { 1: "Guerrero", 2: "Paladín", 3: "
 /** Clases que pueden usar el objeto segun su mascara (null = todas). */
 export function allowedClassNames(mask: number): string[] | null {
   if (mask === -1 || mask === 0) return null;
-  const names = Object.entries(CLASS_NAMES).filter(([id]) => (mask & (1 << (Number(id) - 1))) !== 0).map(([, n]) => n);
+  const names = Object.entries(CLASS_NAMES).filter(([id]) => (mask & (1 << (Number(id) - 1))) !== 0).map(([, n]) => tr(n));
   return names.length >= 9 ? null : names;
 }
 
 /** Resumen corto de las estadisticas de un objeto para la lista del selector. */
 export const shortStats = (stats: ItemStat[], max = 4): string => stats.slice(0, max).map(statLine).join(" · ");
 
-const fmtNum = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
 
 /**
  * Líneas del equipo para «Copiar build para IA»: cada ranura con su objeto, sufijo y encantamiento, los totales con su
@@ -124,11 +142,11 @@ export function gearLinesForAI(args: { gear: GearSelection; summary: GearSummary
     lines.push(`- ${SLOT_LABEL[slot]}: ${item.name}${extra.length ? ` [${extra.join("; ")}]` : ""} (item level ${item.itemLevel}${item.requiredLevel ? `, requires level ${item.requiredLevel}` : ""})${stats.length ? `: ${stats.join(", ")}` : ""}`);
   }
   const armor = summary.armor + (summary.stats["extra-armor"] ?? 0);
-  const totals = [...summary.lines].filter((l) => l.key !== "extra-armor").map((l) => `${fmtNum(l.value)} ${statName(l.key)}`);
-  if (armor > 0) totals.unshift(`${fmtNum(Math.round(armor))} Armor`);
+  const totals = [...summary.lines].filter((l) => l.key !== "extra-armor").map((l) => `${fmtNum(l.value, 2)} ${statName(l.key)}`);
+  if (armor > 0) totals.unshift(`${fmtNum(Math.round(armor), 2)} Armor`);
   if (totals.length) lines.push(`Gear totals: ${totals.join(", ")}.`);
   const pcts = ratings ? ratingPercents(summary.stats, ratings) : [];
-  if (pcts.length) lines.push(`Ratings as percentages (one rating per hit/crit/haste in Forever, same at every level; community-measured, not confirmed): ${pcts.map((p) => `${p.label} ${fmtNum(p.value)}${p.unit === "%" ? " %" : ""}`).join(", ")}.`);
+  if (pcts.length) lines.push(`Ratings as percentages (one rating per hit/crit/haste in Forever, same at every level; community-measured, not confirmed): ${pcts.map((p) => `${p.label} ${fmtNum(p.value, 2)}${p.unit === "%" ? " %" : ""}`).join(", ")}.`);
   for (const s of summary.sets) lines.push(`Set ${s.name} (${s.count}/${s.total}): ${s.bonuses.map((b) => `(${b.threshold})${b.active ? " [active]" : ""} ${b.text || b.name}`).join(" | ")}`);
   for (const e of summary.effects) lines.push(`Item effect, ${e.itemName} (${EFFECT_PREFIX[e.effect.trigger] ?? "Efecto"}): ${(e.effect.text || e.effect.name || `spell ${e.effect.spellId}`).replace(/\s*\n+\s*/g, " ").trim()}`);
   for (const p of summary.problems) lines.push(`Warning: ${SLOT_LABEL[p.slot]} cannot be worn here (${p.reasons.join("; ")}); it is still counted.`);

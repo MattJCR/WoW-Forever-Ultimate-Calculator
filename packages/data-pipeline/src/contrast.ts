@@ -60,7 +60,7 @@ export function contrastClass(cls: ClassTalents, tfDir: string): ContrastReport 
 }
 
 /** Nombre de raza de la referencia -> ChrRaces.ID del cliente. */
-const TF_RACE_IDS: Record<string, number> = {
+export const TF_RACE_IDS: Record<string, number> = {
   Human: 1, Orc: 2, Dwarf: 3, "Night Elf": 4, Undead: 5, Tauren: 6, Gnome: 7, Troll: 8,
   "Skyborne (High Order)": 95, "Skyborne (Windshaper)": 96,
 };

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { DescText, Notes } from "../components/Detail";
 import { Icon } from "../components/Icon";
 import { loadUnassigned, useAsync } from "../data";
+import { isEnglish, tr, trn } from "../i18n";
 import { plural } from "../messages";
 
 const CELL = 46;
@@ -12,14 +13,14 @@ const pos = (n: number) => n * (CELL + GAP);
 /** Control de prueba libre: sube y baja rangos sin coste ni limites de puntos. */
 function Stepper({ rank, max, onChange, name }: { rank: number; max: number; onChange: (r: number) => void; name: string }) {
   return (
-    <span className="stepper" role="group" aria-label={`Rango de ${name} (prueba libre)`}>
-      <button type="button" onClick={() => onChange(Math.max(0, rank - 1))} disabled={rank <= 0} aria-label="Bajar rango">
+    <span className="stepper" role="group" aria-label={tr("Rango de {name} (prueba libre)", { name })}>
+      <button type="button" onClick={() => onChange(Math.max(0, rank - 1))} disabled={rank <= 0} aria-label={tr("Bajar rango")}>
         −
       </button>
       <b>
         {rank}/{max}
       </b>
-      <button type="button" onClick={() => onChange(Math.min(max, rank + 1))} disabled={rank >= max} aria-label="Subir rango">
+      <button type="button" onClick={() => onChange(Math.min(max, rank + 1))} disabled={rank >= max} aria-label={tr("Subir rango")}>
         +
       </button>
     </span>
@@ -31,8 +32,8 @@ function RankText({ descriptions, rank, complete, approximate }: { descriptions:
   const shown = descriptions[Math.max(rank, 1) - 1] ?? "";
   return (
     <div className={rank === 0 ? "dim-text" : undefined}>
-      {descriptions.length > 1 && <h5>{rank === 0 ? "Rango 1" : `Rango ${rank}`}</h5>}
-      {shown ? <DescText text={shown} /> : <p className="muted">Sin descripción en el cliente.</p>}
+      {descriptions.length > 1 && <h5>{rank === 0 ? tr("Rango 1") : tr("Rango {n}", { n: rank })}</h5>}
+      {shown ? <DescText text={shown} /> : <p className="muted">{tr("Sin descripción en el cliente.")}</p>}
       <Notes approximate={approximate} complete={complete} />
     </div>
   );
@@ -80,7 +81,7 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
                 type="button"
                 className={`talent ${state}${focus === n.nodeId ? " focus" : ""}`}
                 style={{ left: pos(n.col), top: pos(n.row), width: CELL, height: CELL }}
-                aria-label={`${n.name ?? "Nodo sin hechizo"}, rango ${r} de ${max} (prueba libre)`}
+                aria-label={tr("{name}, rango {r} de {max} (prueba libre)", { name: n.name ?? tr("Nodo sin hechizo"), r, max })}
                 disabled={n.maxRank === null}
                 onMouseEnter={() => setFocus(n.nodeId)}
                 onFocus={() => setFocus(n.nodeId)}
@@ -101,39 +102,39 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
       </div>
 
       <aside className="preview-detail" aria-live="polite">
-        <div className="tag tag-unassigned">sin asignar · prueba libre</div>
+        <div className="tag tag-unassigned">{tr("sin asignar · prueba libre")}</div>
         {active ? (
           <>
             <div className="detail-head">
               <Icon id={active.iconFileDataId} name={active.name} />
               <div>
-                <h4>{active.name ?? "(nodo sin hechizo)"}</h4>
-                <p className="rank-line">{active.maxRank === null ? "sin entrada" : plural(active.maxRank, "rango", "rangos")}</p>
+                <h4>{active.name ?? tr("(nodo sin hechizo)")}</h4>
+                <p className="rank-line">{active.maxRank === null ? tr("sin entrada") : plural(active.maxRank, "rango", "rangos")}</p>
               </div>
             </div>
-            {active.maxRank !== null && <Stepper rank={ranks[active.nodeId] ?? 0} max={active.maxRank} onChange={(r) => set(active.nodeId, r)} name={active.name ?? "nodo"} />}
+            {active.maxRank !== null && <Stepper rank={ranks[active.nodeId] ?? 0} max={active.maxRank} onChange={(r) => set(active.nodeId, r)} name={active.name ?? tr("nodo")} />}
             {active.maxRank !== null && <RankText descriptions={active.descriptions} rank={ranks[active.nodeId] ?? 0} complete={active.descriptionsComplete} approximate={active.descriptionsApproximate} />}
-            {active.requiredPoints > 0 && <p className="muted">Pediría {active.requiredPoints} puntos gastados en el árbol (no se aplica aquí).</p>}
+            {active.requiredPoints > 0 && <p className="muted">{tr("Pediría")} {active.requiredPoints} {tr("puntos gastados en el árbol (no se aplica aquí")}).</p>}
             <dl>
-              <dt>Nodo</dt>
+              <dt>{tr("Nodo")}</dt>
               <dd>#{active.nodeId}</dd>
               {active.spellId !== null && (
                 <>
-                  <dt>Hechizo</dt>
+                  <dt>{tr("Hechizo")}</dt>
                   <dd>#{active.spellId}</dd>
                 </>
               )}
-              <dt>Posición</dt>
+              <dt>{tr("Posición")}</dt>
               <dd>
                 ({active.posX}, {active.posY})
               </dd>
             </dl>
           </>
         ) : (
-          <p className="muted">Pasa el cursor por un nodo. Clic: subir rango · Clic derecho: bajar · Mayús + clic: al máximo.</p>
+          <p className="muted">{tr("Pasa el cursor por un nodo. Clic: subir rango · Clic derecho: bajar · Mayús + clic: al máximo.")}</p>
         )}
         <p className="muted small">
-          Prueba libre: {spent} {spent === 1 ? "rango" : "rangos"} probados. No cuesta puntos, no tiene requisitos y no cuenta para el cálculo.
+         {tr("Prueba libre")}: {spent} {spent === 1 ? tr("rango") : tr("rangos")} {tr("probados. No cuesta puntos, no tiene requisitos y no cuenta para el cálculo.")}
         </p>
       </aside>
     </div>
@@ -148,13 +149,13 @@ function EntryCard({ e, versions = [] }: { e: UnassignedEntry; versions?: number
       <Icon id={e.iconFileDataId} name={e.name} />
       <div className="entry-body">
         <div className="entry-top">
-          <b>{e.name ?? "(sin nombre)"}</b>
-          <Stepper rank={rank} max={e.maxRank} onChange={setRank} name={e.name ?? "talento"} />
+          <b>{e.name ?? tr("(sin nombre)")}</b>
+          <Stepper rank={rank} max={e.maxRank} onChange={setRank} name={e.name ?? tr("talento")} />
         </div>
         <RankText descriptions={e.descriptions} rank={rank} complete={e.descriptionsComplete} approximate={e.descriptionsApproximate} />
         <p className="muted small">
-          {e.className ?? "sin clase"} · {versions.length > 1 ? `entradas ${versions.map((v) => `#${v}`).join(", ")}` : `entrada #${e.entryId}`}
-          {e.spellId !== null ? ` · hechizo #${e.spellId}` : ""}
+          {e.className ? tr(e.className) : tr("sin clase")} · {versions.length > 1 ? `${tr("entradas")} ${versions.map((v) => `#${v}`).join(", ")}` : `${tr("entrada")} #${e.entryId}`}
+          {e.spellId !== null ? ` · ${tr("hechizo")} #${e.spellId}` : ""}
         </p>
       </div>
     </li>
@@ -178,7 +179,7 @@ export function UnassignedPage() {
   const data = state.status === "ready" ? state.value : null;
   const classes = useMemo(() => (data ? [...new Set(data.orphanEntries.filter((e) => !e.isLegacy).map((e) => e.className ?? "Sin clase"))].sort() : []), [data]);
 
-  if (state.status === "loading") return <p className="status">Cargando datos sin asignar…</p>;
+  if (state.status === "loading") return <p className="status">{tr("Cargando datos sin asignar…")}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
   const { orphanEntries, alternativeTrees, build } = state.value;
   const legacyEntries = orphanEntries.filter((e) => e.isLegacy);
@@ -190,40 +191,42 @@ export function UnassignedPage() {
 
   return (
     <div className="unassigned">
-      <h2>Datos del cliente sin asignar</h2>
+      <h2>{tr("Datos del cliente sin asignar")}</h2>
       <p className="muted">
-        Lo que el cliente (build {build}) trae pero no forma parte de un árbol de clase activo ni de Puntos de Legado. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos{" "}
-        <strong>gratis</strong>: no cuesta puntos, no tiene requisitos y no cuenta en ningún build.
+       {tr("Lo que el cliente (build")} {build}) {tr("trae pero no forma parte de un árbol de clase activo ni de Puntos de Legado. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos")}{" "}
+        <strong>{tr("gratis")}</strong>: {tr("no cuesta puntos, no tiene requisitos y no cuenta en ningún build.")}
       </p>
 
+      {isEnglish() && <p className="muted small">{tr("Estos datos del cliente no tienen versión en inglés: se muestran en español.")}</p>}
+
       <section aria-labelledby="trees-title">
-        <h3 id="trees-title">Árboles descartados ({alternativeTrees.length})</h3>
+        <h3 id="trees-title">{tr("Árboles descartados")} ({alternativeTrees.length})</h3>
         <div className="tree-cards">
           {alternativeTrees.map((t) => (
             <details key={t.traitTreeId} className="tree-card" open={t.nodeCount > 1 && t.nodeCount <= 40 && t.traitTreeId === alternativeTrees.find((x) => x.nodeCount > 1)?.traitTreeId}>
               <summary>
-                <span className="tag tag-unassigned">sin asignar</span>
-                <strong>Árbol {t.traitTreeId}</strong>
-                <span>{t.className ?? "clase desconocida"}</span>
+                <span className="tag tag-unassigned">{tr("sin asignar")}</span>
+                <strong>{tr("Árbol")} {t.traitTreeId}</strong>
+                <span>{t.className ? tr(t.className) : tr("clase desconocida")}</span>
                 <span className="muted">{plural(t.nodeCount, "nodo", "nodos")}</span>
               </summary>
-              <p className="muted">{t.reason}.</p>
-              {t.nodes.length === 0 ? <p className="muted">Sin nodos.</p> : <PreviewTree tree={t} />}
+              <p className="muted">{trn(t.reason)}.</p>
+              {t.nodes.length === 0 ? <p className="muted">{tr("Sin nodos.")}</p> : <PreviewTree tree={t} />}
             </details>
           ))}
         </div>
       </section>
 
       <section aria-labelledby="entries-title">
-        <h3 id="entries-title">Talentos sin nodo ({entries.length})</h3>
-        <p className="muted">Entradas de talento que el cliente define pero que ningún nodo usa, así que no tienen posición. Sube y baja su rango para ver cómo se leen.</p>
+        <h3 id="entries-title">{tr("Talentos sin nodo")} ({entries.length})</h3>
+        <p className="muted">{tr("Entradas de talento que el cliente define pero que ningún nodo usa, así que no tienen posición. Sube y baja su rango para ver cómo se leen.")}</p>
         <label className="filter">
-          Clase{" "}
+         {tr("Clase")}{" "}
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
-            <option value="todas">Todas ({entries.length})</option>
+            <option value="todas">{tr("Todas")} ({entries.length})</option>
             {classes.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {tr(c)}
               </option>
             ))}
           </select>
@@ -236,9 +239,9 @@ export function UnassignedPage() {
       </section>
 
       <section aria-labelledby="legacy-title">
-        <h3 id="legacy-title">Ventajas de Puntos de Legado que no están en ningún árbol ({legacyFree.length})</h3>
+        <h3 id="legacy-title">{tr("Ventajas de Puntos de Legado que no están en ningún árbol")} ({legacyFree.length})</h3>
         <p className="muted">
-          Ventajas de Puntos de Legado que el cliente define pero no coloca en ninguno de sus 3 árboles (se reconocen por su rango de hechizos, contiguo al de las colocadas). Cada una suele tener dos versiones de entrada; aquí se muestra una sola tarjeta por ventaja.
+         {tr("Ventajas de Puntos de Legado que el cliente define pero no coloca en ninguno de sus 3 árboles (se reconocen por su rango de hechizos, contiguo al de las colocadas). Cada una suele tener dos versiones de entrada; aquí se muestra una sola tarjeta por ventaja.")}
         </p>
         <ul className="entry-grid">
           {legacyFree.map(({ first, versions }) => (
@@ -247,8 +250,8 @@ export function UnassignedPage() {
         </ul>
         {legacyDup.length > 0 && (
           <details className="dup-details">
-            <summary>Entradas repetidas de ventajas que sí están colocadas ({legacyDup.length})</summary>
-            <p className="muted small">Son versiones antiguas o duplicadas de ventajas que ya aparecen en los árboles de Puntos de Legado (mismo hechizo). Se conservan por si hace falta compararlas.</p>
+            <summary>{tr("Entradas repetidas de ventajas que sí están colocadas")} ({legacyDup.length})</summary>
+            <p className="muted small">{tr("Son versiones antiguas o duplicadas de ventajas que ya aparecen en los árboles de Puntos de Legado (mismo hechizo). Se conservan por si hace falta compararlas.")}</p>
             <ul className="entry-grid">
               {legacyDup.map((e) => (
                 <EntryCard key={e.entryId} e={e} />

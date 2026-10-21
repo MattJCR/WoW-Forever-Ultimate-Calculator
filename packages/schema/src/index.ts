@@ -861,6 +861,30 @@ export const EquipRules = z.object({
 export type Proficiency = z.infer<typeof Proficiency>;
 export type EquipRules = z.infer<typeof EquipRules>;
 
+/**
+ * Textos en ingles (el cliente instalado solo trae esES): nombres y descripciones que la web muestra al elegir «English».
+ * No salen del cliente sino de datos de la comunidad (`community`); lo que falta se muestra en español, marcado.
+ */
+export const EnglishText = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  source: z.string(),
+  /** Por token de clase (`MAGE`…): nombre y nombres de sus arboles (en orden). */
+  classes: z.record(z.object({ name: z.string(), specs: z.array(z.string()) })),
+  /** Arboles de Legacy, en orden. */
+  legacyTrees: z.array(z.string()),
+  /** Talentos y ventajas de Legacy por `nodeId`: nombre y descripcion por rango (nivel 60). */
+  talents: z.record(z.object({ name: z.string(), descriptions: z.array(z.string()) })),
+  /** Hechizos (rangos de habilidades) por `spellId`: nombre y texto fijo a nivel 60 sin talentos ni equipo (no se recalcula). */
+  spells: z.record(z.object({ name: z.string(), description: z.string().nullable(), lines: z.array(z.string()) })),
+  /** Objetos por `id`. */
+  items: z.record(z.string()),
+  /** Razas por `ChrRaces.ID`: nombre y raciales por `order`. */
+  races: z.record(z.object({ name: z.string(), racials: z.array(z.object({ name: z.string(), description: z.string() })) })),
+});
+export type EnglishText = z.infer<typeof EnglishText>;
+
 export const Manifest = z.object({
   schemaVersion: z.literal(1),
   build: z.string(),
@@ -909,6 +933,8 @@ export const Manifest = z.object({
   races: z.object({ file: z.string(), sha256: z.string(), raceCount: z.number().int() }),
   /** Iconos que necesita la web (FileDataIDs unicos); se descargan con tools/extract/fetch-icons.mjs. */
   icons: z.object({ file: z.string(), count: z.number().int(), sha256: z.string() }),
+  /** Textos en ingles (community). */
+  english: z.object({ file: z.string(), sha256: z.string() }).optional(),
   unassigned: z.object({
     file: z.string(),
     sha256: z.string(),

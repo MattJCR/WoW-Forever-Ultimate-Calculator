@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-21T13:22:25.140Z",
+  "generatedAt": "2026-10-21T18:10:33.001Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -325,6 +325,10 @@
     "file": "icons.json",
     "count": 1771,
     "sha256": "41117adfee19d698ff15de35b5fb11b479d484fb7a0a0dd9a575f3bf3de5b956"
+  },
+  "english": {
+    "file": "i18n/en.json",
+    "sha256": "5b5ae8a6415cba71f76f901a2f5a25bc1cc1b77da65f3024967e7d0d592511af"
   },
   "unassigned": {
     "file": "unassigned.json",

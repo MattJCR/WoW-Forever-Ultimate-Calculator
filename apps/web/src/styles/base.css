@@ -241,6 +241,33 @@ main {
   white-space: nowrap;
 }
 
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lang-switch button {
+  min-height: 32px;
+  min-width: 40px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.lang-switch button:hover {
+  color: var(--text);
+}
+.lang-switch button[aria-pressed="true"] {
+  background: var(--panel-2);
+  color: var(--gold-2);
+}
+
 footer {
   border-top: 1px solid var(--line);
   padding: 24px 0 32px;

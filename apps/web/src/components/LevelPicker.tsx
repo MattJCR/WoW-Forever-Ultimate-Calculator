@@ -1,12 +1,13 @@
 import type { CSSProperties, ReactNode } from "react";
+import { tr } from "../i18n";
 
 /** Nivel del personaje del Resumen: lo comparten las estadísticas y las habilidades. `children` es la nota que explica el rango. */
 export function LevelPicker({ level, setLevel, minLevel, children }: { level: number; setLevel: (l: number) => void; minLevel: number; children?: ReactNode }) {
   const mine = Math.max(1, minLevel);
   return (
-    <section className="card level-card" aria-label="Nivel del personaje">
+    <section className="card level-card" aria-label={tr("Nivel del personaje")}>
       <div className="level-main">
-        <label htmlFor="level-range">Nivel</label>
+        <label htmlFor="level-range">{tr("Nivel")}</label>
         <output htmlFor="level-range" className="level-out">
           {level}
         </output>
@@ -23,11 +24,11 @@ export function LevelPicker({ level, setLevel, minLevel, children }: { level: nu
           onChange={(e) => setLevel(Math.max(1, Math.min(60, Number(e.target.value) || 1)))}
         />
         <div className="level-presets">
-          <button type="button" className={`chip chip-link${level === mine ? " on" : ""}`} onClick={() => setLevel(mine)} title="El nivel que exigen tus puntos de talento">
-            Mi nivel ({mine})
+          <button type="button" className={`chip chip-link${level === mine ? " on" : ""}`} onClick={() => setLevel(mine)} title={tr("El nivel que exigen tus puntos de talento")}>
+            {tr("Mi nivel")} ({mine})
           </button>
-          <button type="button" className={`chip chip-link${level === 30 ? " on" : ""}`} onClick={() => setLevel(30)} title="El nivel máximo de la beta">
-            30 (tope de la beta)
+          <button type="button" className={`chip chip-link${level === 30 ? " on" : ""}`} onClick={() => setLevel(30)} title={tr("El nivel máximo de la beta")}>
+            {tr("30 (tope de la beta)")}
           </button>
           <button type="button" className={`chip chip-link${level === 60 ? " on" : ""}`} onClick={() => setLevel(60)}>
             60

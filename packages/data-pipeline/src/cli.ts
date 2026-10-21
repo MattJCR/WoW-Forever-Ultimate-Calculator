@@ -5,11 +5,12 @@ import { fileURLToPath } from "node:url";
 import { buildClassTalents } from "./build.js";
 import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
 import { openRawTables } from "./csv.js";
-import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, EquipRules, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { ClientStats, CombatFormulas, EnglishText, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, EquipRules, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
 import { buildEquipRules } from "./equip-rules.js";
 import { buildItems } from "./items.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
+import { buildEnglish } from "./english.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
 import { buildRaces } from "./races.js";
@@ -90,12 +91,14 @@ function build(): void {
   let ratingsEntry: Manifest["combatRatings"];
   let enchantsEntry: Manifest["enchants"];
   let suffixesEntry: Manifest["randomSuffixes"];
+  let wsDb: WowsimsDb | null = null;
   if (itemTables.every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
     let built = buildItems(raw, buildId, spells);
     // La comunidad (MIT, data/external/wowsims): objetos nuevos, sufijos aleatorios, encantamientos y puntuaciones
     const wsDir = resolve(arg("wowsims", join(repoRoot, "data", "external", "wowsims")));
     if (existsSync(join(wsDir, "db.json")) && existsSync(join(wsDir, "CombatRatings.txt"))) {
       const db = JSON.parse(readFileSync(join(wsDir, "db.json"), "utf8")) as WowsimsDb;
+      wsDb = db;
       const merged = applyWowsims(built, db);
       built = merged.items;
       const ws: string[] = [];
@@ -145,6 +148,7 @@ function build(): void {
   mkdirSync(join(outDir, "abilities"), { recursive: true });
   const abilityEntries: Manifest["abilities"] = [];
   const abilityIcons = new Set<number>();
+  const abilityData: Abilities[] = [];
   const ruleEntries: Manifest["rules"] = [];
   mkdirSync(join(outDir, "rules"), { recursive: true });
   for (const cls of classes) {
@@ -158,6 +162,7 @@ function build(): void {
       console.log(`   contraste externo ${cls.className}: ${r.listed} listadas, ${r.partial.length} parciales, ${r.notListed.length} que la referencia no lista, ${r.retired.length} retiradas; la referencia lista y no tenemos: ${r.tfOnly.length ? r.tfOnly.join(", ") : "ninguna"}`);
     }
     const parsed = contrasted ? contrasted.abilities : Abilities.parse(data);
+    abilityData.push(parsed);
     const text = stableJson(parsed);
     const file = `abilities/${(cls.classToken ?? `class-${cls.classId}`).toLowerCase()}.json`;
     writeFileSync(join(outDir, file), text);
@@ -196,6 +201,21 @@ function build(): void {
   const stats = BaseStats.parse(buildBaseStats(races, classic, buildId));
   const statsText = stableJson(stats);
   writeFileSync(join(outDir, "stats.json"), statsText);
+
+  // Textos en ingles (opcion «English» de la web): de la referencia externa y de la comunidad, no del cliente
+  let englishEntry: Manifest["english"];
+  if (existsSync(tfDir)) {
+    const { english, report } = buildEnglish(buildId, classes, legacy, races, abilityData, itemsData, tfDir, wsDb);
+    const englishText = `${JSON.stringify(EnglishText.parse(english))}
+`;
+    mkdirSync(join(outDir, "i18n"), { recursive: true });
+    writeFileSync(join(outDir, "i18n", "en.json"), englishText);
+    englishEntry = { file: "i18n/en.json", sha256: sha256(englishText) };
+    console.log(`Inglés (i18n/en.json): talentos ${report.talents.matched}/${report.talents.ours}, Legacy ${report.legacy.matched}/${report.legacy.ours}, habilidades con nombre ${report.abilities.named}/${report.abilities.ours} (con texto ${report.abilities.described}), objetos ${report.items.matched}/${report.items.ours}, razas ${report.races.matched}/${report.races.ours}`);
+    for (const w of report.racialWarnings) console.log(`   aviso (raciales en inglés): ${w}`);
+  } else {
+    console.log("Inglés: sin export de la referencia; se omite i18n/en.json");
+  }
 
   // Iconos que necesita la web; tools/extract/fetch-icons.mjs los descarga del cliente (solo lectura).
   const iconIds = new Set<number>(abilityIcons);
@@ -236,6 +256,7 @@ function build(): void {
     combatRatings: ratingsEntry,
     enchants: enchantsEntry,
     randomSuffixes: suffixesEntry,
+    english: englishEntry,
     rules: ruleEntries,
     stats: { file: "stats.json", sha256: sha256(statsText), comboCount: stats.combos.length, missingCount: stats.missing.length },
     races: { file: "races.json", sha256: sha256(racesText), raceCount: races.races.length },

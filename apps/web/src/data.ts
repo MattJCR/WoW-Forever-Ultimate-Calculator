@@ -1,12 +1,13 @@
 import { indexGearData, type GearData } from "@wfuc/engine";
 import { ClassTalents, CombatRatings, Enchants, EquipRules, Items, Manifest, RandomSuffixes, Races, Unassigned } from "@wfuc/schema";
 import { useEffect, useState } from "react";
+import { tr } from "./i18n";
 
 const base = import.meta.env.BASE_URL;
 
 export async function getJson<T>(path: string, parse: (v: unknown) => T): Promise<T> {
   const res = await fetch(`${base}data/${path}`);
-  if (!res.ok) throw new Error(`No se pudo cargar ${path} (${res.status})`);
+  if (!res.ok) throw new Error(tr("No se pudo cargar {path} ({status})", { path, status: res.status }));
   return parse(await res.json());
 }
 

@@ -41,7 +41,10 @@ import { getJson, useAsync } from "../data";
 import { fitCardToViewport } from "./fit";
 import { Icon } from "./Icon";
 
-const fmt = (n: number, digits = 0): string => n.toLocaleString("es-ES", { maximumFractionDigits: digits });
+import { abilityName, classLabel, fmtNum, isEnglish, nm, registerAbilities, spellEn, tr, trn } from "../i18n";
+const fmt = (n: number, digits = 0): string => fmtNum(n, digits);
+/** Nombre de la habilidad en el idioma elegido (el inglés es de la comunidad; sin él, el español del cliente). */
+const abilityLabel = (a: Ability): string => abilityName(a.ranks.map((r) => r.spellId), a.name);
 const seconds = (ms: number): string => `${fmt(ms / 1000, 1)} s`;
 const sign = (v: number): string => `${v > 0 ? "+" : ""}${fmt(v, 1)}`;
 
@@ -62,16 +65,16 @@ const range = (min: number, max: number): string => (Math.round(min) === Math.ro
 const costAmount = (m: ModifiedAbility): number => (m.costType === "rage" ? m.cost! / 10 : m.cost!);
 
 const costText = (m: ModifiedAbility): string =>
-  m.cost !== null ? `${fmt(costAmount(m), 1)} ${POWER_LABEL[m.costType ?? "other"]}`.trim() : m.costPctOfBase !== null ? `${fmt(m.costPctOfBase, 1)} % del maná base` : "—";
+  m.cost !== null ? `${fmt(costAmount(m), 1)} ${tr(POWER_LABEL[m.costType ?? "other"] ?? "")}`.trim() : m.costPctOfBase !== null ? tr("{n} % del maná base", { n: fmt(m.costPctOfBase, 1) }) : "—";
 const castText = (m: ModifiedAbility): string => {
-  if (!m.rank.channeled) return m.castMs === 0 ? "Instantáneo" : seconds(m.castMs);
+  if (!m.rank.channeled) return m.castMs === 0 ? tr("Instantáneo") : seconds(m.castMs);
   // Control mental: 3 s de lanzamiento y luego se canaliza
-  const channel = `Canalizado${m.durationMs ? ` ${seconds(m.durationMs)}` : ""}`;
+  const channel = `${tr("Canalizado")}${m.durationMs ? ` ${seconds(m.durationMs)}` : ""}`;
   return m.castMs > 0 ? `${seconds(m.castMs)} + ${channel.toLowerCase()}` : channel;
 };
 const radiusText = (m: ModifiedAbility): string => (m.radiusYd === null ? "—" : `${fmt(m.radiusYd, 1)} m`);
 const cooldownText = (m: ModifiedAbility): string => (m.cooldownMs !== null ? seconds(m.cooldownMs) : "—");
-const rangeText = (m: ModifiedAbility): string => (m.rangeYd === null ? "—" : m.rangeYd >= 1000 ? "Sin límite" : `${fmt(m.rangeYd)} m`);
+const rangeText = (m: ModifiedAbility): string => (m.rangeYd === null ? "—" : m.rangeYd >= 1000 ? tr("Sin límite") : `${fmt(m.rangeYd)} m`);
 
 /** Valor de una linea sumada con su unidad: +8 %, -0,5 s, +6 m... */
 const lineValue = (l: AbilityEffectLine): string => {
@@ -80,7 +83,7 @@ const lineValue = (l: AbilityEffectLine): string => {
   if (l.unit === "%" || l.unit === "puntos porcentuales") return `${sign(l.value)} %`;
   return sign(l.value);
 };
-const sourceName = (s: StatSource): string => (s.maxRank > 1 ? `${s.name} ${s.rank}/${s.maxRank}` : s.name);
+const sourceName = (s: StatSource): string => (s.maxRank > 1 ? `${nm(s.name)} ${s.rank}/${s.maxRank}` : nm(s.name));
 
 /** Efecto principal de la habilidad (daño, curación, periodico) con su cifra ya con talentos. */
 function EffectLine({ m, durationMs, detailed }: { m: ModifiedEffect; durationMs: number | null; detailed: boolean }) {
@@ -92,16 +95,16 @@ function EffectLine({ m, durationMs, detailed }: { m: ModifiedEffect; durationMs
   const ticks = periodic && effectDuration && e.periodMs ? Math.round(effectDuration / e.periodMs) : null;
   return (
     <div className={`ab-effect${changed ? " changed" : ""}`}>
-      <span className="ab-kind">{KIND_LABEL[e.kind] ?? e.kind}</span> <b>{range(m.final.min, m.final.max)}</b>
+      <span className="ab-kind">{tr(KIND_LABEL[e.kind] ?? e.kind)}</span> <b>{range(m.final.min, m.final.max)}</b>
       {periodic && e.periodMs ? (
         <span className="muted">
           {" "}
-          cada {seconds(e.periodMs)}
+        {tr("cada")} {seconds(e.periodMs)}
           {ticks ? ` × ${ticks} = ${fmt(m.final.average * ticks)}` : ""}
         </span>
       ) : null}
-      {detailed && m.coefficient !== null && <span className="muted"> · {fmt(m.coefficient * 100, 1)} % del poder con hechizos</span>}
-      {detailed && changed && <small className="was"> (sin talentos {range(m.base.min, m.base.max)})</small>}
+      {detailed && m.coefficient !== null && <span className="muted"> · {fmt(m.coefficient * 100, 1)} % {tr("del poder con hechizos")}</span>}
+      {detailed && changed && <small className="was">  ({tr("sin talentos")} {range(m.base.min, m.base.max)})</small>}
     </div>
   );
 }
@@ -144,7 +147,7 @@ interface Tip {
 function improvedBy(d: RowData): string[] {
   const names: string[] = [];
   const add = (l: AbilityEffectLine) => {
-    for (const s of l.sources) if (s.from !== "race" && !names.includes(s.name)) names.push(s.name);
+    for (const s of l.sources) if (s.from !== "race" && !names.includes(nm(s.name))) names.push(nm(s.name));
   };
   d.summaryLines.forEach(add);
   Object.values(d.inline).forEach((v) => v?.forEach(add));
@@ -166,6 +169,7 @@ function Tile({ label, value, changed, tone }: { label: string; value: string; c
 function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean; onHover: (e: { x: number; y: number } | null) => void; onToggle: (e: { x: number; y: number }) => void }) {
   const { m, ability, base } = d;
   const mods = improvedBy(d);
+  const name = abilityLabel(ability);
   // Con teclado: Intro o Espacio fijan la tarjeta junto a la habilidad
   const onKey = (e: ReactKeyboardEvent<HTMLElement>) => {
     if (e.key !== "Enter" && e.key !== " ") return;
@@ -178,7 +182,7 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
       <article
         className={`ab-item${selected ? " sel" : ""}`}
         tabIndex={0}
-        aria-label={`${ability.name}, rango ${m.rank.rank}. Intro para ver la tarjeta completa`}
+        aria-label={tr("{name}, rango {rank}. Intro para ver la tarjeta completa", { name, rank: m.rank.rank })}
         onMouseEnter={(e) => onHover({ x: e.clientX, y: e.clientY })}
         onMouseMove={(e) => onHover({ x: e.clientX, y: e.clientY })}
         onMouseLeave={() => onHover(null)}
@@ -187,25 +191,25 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
       >
         <div className="ab-top">
           <div className="ab-name">
-            <Icon id={ability.iconFileDataId} name={ability.name} />
+            <Icon id={ability.iconFileDataId} name={name} />
             <div>
-              <h4>{ability.name}</h4>
+              <h4>{name}</h4>
               <p className="ab-sub">
-                <span className="rank-chip">rango {m.rank.rank}</span>
+                <span className="rank-chip">{tr("rango")} {m.rank.rank}</span>
                 {ability.talentsForever && ability.talentsForever.status !== "listed" && (
-                  <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ?? undefined}>
-                    {ability.talentsForever.status === "retired" ? "retirada según la referencia" : "sin referencia"}
+                  <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ? trn(ability.talentsForever.note) : undefined}>
+                    {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
                   </span>
                 )}
               </p>
             </div>
           </div>
           <dl className="ab-tiles">
-            <Tile label="Coste" value={costText(m)} changed={costText(m) !== costText(base)} />
-            <Tile label="Lanzamiento" value={castText(m)} changed={castText(m) !== castText(base)} />
-            <Tile label="Reutilización" value={cooldownText(m)} changed={cooldownText(m) !== cooldownText(base)} />
-            <Tile label="Alcance" value={rangeText(m)} changed={rangeText(m) !== rangeText(base)} />
-            <Tile label="Crítico" value={d.crit !== null ? `${fmt(d.crit, 1)} %` : "—"} tone={d.crit !== null ? "pos" : "muted"} />
+            <Tile label={tr("Coste")} value={costText(m)} changed={costText(m) !== costText(base)} />
+            <Tile label={tr("Lanzamiento")} value={castText(m)} changed={castText(m) !== castText(base)} />
+            <Tile label={tr("Reutilización")} value={cooldownText(m)} changed={cooldownText(m) !== cooldownText(base)} />
+            <Tile label={tr("Alcance")} value={rangeText(m)} changed={rangeText(m) !== rangeText(base)} />
+            <Tile label={tr("Crítico")} value={d.crit !== null ? `${fmt(d.crit, 1)} %` : "—"} tone={d.crit !== null ? "pos" : "muted"} />
           </dl>
         </div>
         {m.effects.length > 0 && (
@@ -216,15 +220,15 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
           </div>
         )}
         {d.count > 0 && (
-          <div className="ab-mods" title="Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos">
-            <span>Mejorada por</span>
+          <div className="ab-mods" title={tr("Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos")}>
+            <span>{tr("Mejorada por")}</span>
             {mods.slice(0, MODS_SHOWN).map((n) => (
               <span key={n} className="chip">
                 {n}
               </span>
             ))}
-            {mods.length > MODS_SHOWN && <span className="chip">+{mods.length - MODS_SHOWN} más</span>}
-            {mods.length === 0 && <span className="chip">{d.count} efectos de talentos</span>}
+            {mods.length > MODS_SHOWN && <span className="chip">+{mods.length - MODS_SHOWN} {tr("más")}</span>}
+            {mods.length === 0 && <span className="chip">{d.count} {tr("efectos de talentos")}</span>}
           </div>
         )}
       </article>
@@ -253,6 +257,9 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
 function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
+  const abName = abilityLabel(ability);
+  // English elegido: el texto fijo de nivel 60 de la comunidad (sin talentos, no se recalcula); si falta, el español del cliente con sus cifras
+  const enText = isEnglish() ? spellEn(rank.spellId) : null;
   // Con Ctrl: la misma habilidad sin ningun talento
   const m = showBase ? row.base : row.m;
   const parts = renderAbilityText(rank, m);
@@ -298,59 +305,69 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
   return (
     <div ref={ref} className={`ab-card${showBase ? " is-base" : ""}${tip.pinned ? " pinned" : ""}`} style={style} role="tooltip">
       {tip.pinned && (
-        <button type="button" className="ab-card-close" onClick={onClose} aria-label="Cerrar">
+        <button type="button" className="ab-card-close" onClick={onClose} aria-label={tr("Cerrar")}>
           ×
         </button>
       )}
       <div className="ab-tip-head">
-        <Icon id={ability.iconFileDataId} name={ability.name} />
+        <Icon id={ability.iconFileDataId} name={abName} />
         <div>
-          <h4>{ability.name}</h4>
+          <h4>{abName}</h4>
           <p className="rank-line">
-            Rango {rank.rank} · {rank.learnedByTalent ? "lo enseña un talento" : "se aprende"} al nivel {rank.level}
+          {tr("Rango")} {rank.rank} · {rank.learnedByTalent ? tr("lo enseña un talento") : tr("se aprende")} {tr("al nivel")} {rank.level}
           </p>
           {ability.talentsForever && ability.talentsForever.status !== "listed" && (
-            <p className={`tf-note tf-${ability.talentsForever.status}`}>{ability.talentsForever.note}</p>
+            <p className={`tf-note tf-${ability.talentsForever.status}`}>{trn(ability.talentsForever.note ?? "")}</p>
           )}
         </div>
       </div>
-      {showBase && <p className="ab-base-banner">Base sin talentos. Suelta Ctrl para ver tus mejoras.</p>}
+      {showBase && <p className="ab-base-banner">{tr("Base sin talentos. Suelta Ctrl para ver tus mejoras.")}</p>}
 
       <div className={`ab-cols${chances || lines.length > 0 || rules.length > 0 || hasPower ? "" : " single"}`}>
       <div className="ab-col">
       <dl className="ab-grid">
-        <Stat label="Coste" now={costText(m)} was={costText(row.base)} />
-        <Stat label="Alcance" now={rangeText(m)} was={rangeText(row.base)} />
-        {m.radiusYd !== null && <Stat label="Radio" now={radiusText(m)} was={radiusText(row.base)} />}
-        <Stat label="Lanzamiento" now={castText(m)} was={castText(row.base)} />
-        {hasteCast !== null && <Stat label={`Con ${fmt(haste, 2)} % de celeridad`} now={seconds(hasteCast)} was={castText(m)} />}
-        <Stat label="Reutilización" now={cooldownText(m)} was={cooldownText(row.base)} />
+        <Stat label={tr("Coste")} now={costText(m)} was={costText(row.base)} />
+        <Stat label={tr("Alcance")} now={rangeText(m)} was={rangeText(row.base)} />
+        {m.radiusYd !== null && <Stat label={tr("Radio")} now={radiusText(m)} was={radiusText(row.base)} />}
+        <Stat label={tr("Lanzamiento")} now={castText(m)} was={castText(row.base)} />
+        {hasteCast !== null && <Stat label={tr("Con {n} % de celeridad", { n: fmt(haste, 2) })} now={seconds(hasteCast)} was={castText(m)} />}
+        <Stat label={tr("Reutilización")} now={cooldownText(m)} was={cooldownText(row.base)} />
       </dl>
       {noted.length > 0 && (
         <ul className="ab-notes">
           {noted.flatMap(([, v]) =>
             v.map((l) => (
               <li key={`${l.category}-${l.label}`}>
-                <b>{lineValue(l)}</b> {l.label} <span className="muted">({l.sources.map(sourceName).join(", ")})</span>
+                <b>{lineValue(l)}</b> {trn(l.label)} <span className="muted">({l.sources.map(sourceName).join(", ")})</span>
               </li>
             )),
           )}
         </ul>
       )}
 
-      <p className="ab-text">
-        {parts.map((p, i) => (p.changed ? (
-          <b key={i} className="changed">
-            {p.text}
-          </b>
-        ) : (
-          <span key={i}>{p.text}</span>
-        )))}
-      </p>
+      {enText?.description ? (
+        <>
+          <p className="ab-text">{enText.description}</p>
+          <p className="muted small">{tr("Texto en inglés de la comunidad a nivel 60, sin talentos ni equipo: no se recalcula. Las cifras de la tarjeta sí.")}</p>
+        </>
+      ) : (
+        <>
+          <p className="ab-text">
+            {parts.map((p, i) => (p.changed ? (
+              <b key={i} className="changed">
+                {p.text}
+              </b>
+            ) : (
+              <span key={i}>{p.text}</span>
+            )))}
+          </p>
+          {isEnglish() && <p className="muted small">{tr("Aún sin texto en inglés: se muestra el español del cliente.")}</p>}
+        </>
+      )}
 
       {m.effects.length > 0 && (
         <section>
-          <h5>Efectos</h5>
+          <h5>{tr("Efectos")}</h5>
           {m.effects.map((e) => (
             <EffectLine key={`${e.effect.viaSpellId ?? 0}-${e.effect.index}`} m={e} durationMs={m.durationMs} detailed />
           ))}
@@ -362,38 +379,38 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       {chances && (
         <section>
           <h5>
-            Probabilidades <span className="tag tag-inactive" title="La tabla de fallo, el crítico base de la clase y la supresión de crítico son de la comunidad (el cliente de Forever no trae las tablas de impacto); el crítico por atributo sí es del cliente (PlayerExpectedStat)">impacto y crítico base: comunidad · crítico por atributo: cliente</span>
+          {tr("Probabilidades")} <span className="tag tag-inactive" title={tr("La tabla de fallo, el crítico base de la clase y la supresión de crítico son de la comunidad (el cliente de Forever no trae las tablas de impacto); el crítico por atributo sí es del cliente (PlayerExpectedStat)")}>{tr("impacto y crítico base: comunidad · crítico por atributo: cliente")}</span>
           </h5>
           <ul className="ab-chances">
             {!(healsTarget(rank) && !dealsDamage(rank)) && (
             <li>
-              <span className="ab-sum-l">Impacto contra {chancesInput!.target === "boss" ? "un jefe (+3 niveles)" : "un objetivo de tu nivel"}</span>
+              <span className="ab-sum-l">{tr("Impacto contra")} {chancesInput!.target === "boss" ? tr("un jefe (+3 niveles)") : tr("un objetivo de tu nivel")}</span>
               <b className="pos">{fmt(chances.hit.total, 1)} %</b>
               <span className="ab-sum-s">
-                {fmt(100 - chances.hit.missPct, 1)} % de la tabla ({fmt(chances.hit.missPct, 1)} % de fallo)
-                {chances.hit.bonusPct !== 0 ? ` ${sign(chances.hit.bonusPct)} % de talentos y raza` : ""}
-                {chances.hit.gearPct !== 0 ? ` +${fmt(chances.hit.gearPct, 2)} % de tu equipo` : ""}
-                {chances.hit.capped ? ` · tope ${chances.hit.cap} %` : ""}
+                {fmt(100 - chances.hit.missPct, 1)} % {tr("de la tabla")} ({fmt(chances.hit.missPct, 1)} % {tr("de fallo")})
+                {chances.hit.bonusPct !== 0 ? ` ${tr("{n} % de talentos y raza", { n: sign(chances.hit.bonusPct) })}` : ""}
+                {chances.hit.gearPct !== 0 ? ` ${tr("+{n} % de tu equipo", { n: fmt(chances.hit.gearPct, 2) })}` : ""}
+                {chances.hit.capped ? ` · ${tr("tope {n} %", { n: chances.hit.cap })}` : ""}
               </span>
             </li>
             )}
             <li>
-              <span className="ab-sum-l">Crítico{chances.crit.total !== null ? " (lo que enseña tu hoja)" : ": lo que suman tus estadísticas, talentos y raza"}</span>
+              <span className="ab-sum-l">{tr("Crítico")}{chances.crit.total !== null ? ` ${tr("(lo que enseña tu hoja)")}` : tr(": lo que suman tus estadísticas, talentos y raza")}</span>
               {chances.crit.total !== null ? <b className="pos">{sign(chances.crit.total)} %</b> : chances.crit.bonusPct !== 0 ? <b className="pos">{sign(chances.crit.bonusPct)} %</b> : <b className="muted">—</b>}
               <span className="ab-sum-s">
-                {chances.crit.baseClassPct !== 0 ? `${fmt(chances.crit.baseClassPct, 1)} % base de tu clase · ` : ""}
+                {chances.crit.baseClassPct !== 0 ? `${tr("{n} % base de tu clase", { n: fmt(chances.crit.baseClassPct, 1) })} · ` : ""}
                 {chances.crit.fromStat !== null && chances.crit.stat
-                  ? `${sign(chances.crit.fromStat)} % por tu ${chances.crit.stat === "int" ? "intelecto" : "agilidad"} (${fmt(chances.crit.statValue ?? 0)} ÷ ${fmt(chances.crit.statPerPercent ?? 0, 1)})`
-                  : chances.crit.unavailable}
-                {chances.crit.bonusPct !== 0 ? ` · ${sign(chances.crit.bonusPct)} % de talentos y raza` : ""}
-                {chances.crit.gearPct !== 0 ? ` · +${fmt(chances.crit.gearPct, 2)} % de la puntuación de tu equipo` : ""}
+                  ? tr("{pct} % por tu {stat} ({v} ÷ {per})", { pct: sign(chances.crit.fromStat), stat: chances.crit.stat === "int" ? tr("intelecto") : tr("agilidad"), v: fmt(chances.crit.statValue ?? 0), per: fmt(chances.crit.statPerPercent ?? 0, 1) })
+                  : trn(chances.crit.unavailable ?? "")}
+                {chances.crit.bonusPct !== 0 ? ` · ${tr("{n} % de talentos y raza", { n: sign(chances.crit.bonusPct) })}` : ""}
+                {chances.crit.gearPct !== 0 ? ` · ${tr("+{n} % de la puntuación de tu equipo", { n: fmt(chances.crit.gearPct, 2) })}` : ""}
               </span>
             </li>
             {chances.crit.suppressionPct > 0 && chances.crit.vsTargetPct !== null && (
               <li>
-                <span className="ab-sum-l">Crítico contra un jefe (+3 niveles)</span>
+                <span className="ab-sum-l">{tr("Crítico contra un jefe (+3 niveles)")}</span>
                 <b className="pos">{sign(chances.crit.vsTargetPct)} %</b>
-                <span className="ab-sum-s">−{fmt(chances.crit.suppressionPct, 1)} % de supresión (3 % por la diferencia de habilidad de arma y el crítico de auras hasta 1,8 %; los hechizos no la tienen)</span>
+                <span className="ab-sum-s">−{fmt(chances.crit.suppressionPct, 1)} % {tr("de supresión (3 % por la diferencia de habilidad de arma y el crítico de auras hasta 1,8 %; los hechizos no la tienen")})</span>
               </li>
             )}
           </ul>
@@ -403,42 +420,42 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       {est && hasPower && power && (
         <section>
           <h5>
-            Con tu poder <span className="tag tag-inactive" title="El coeficiente de poder con hechizos de cada efecto sale del cliente, pero no se sabe si Forever lo aplica como Classic. El golpe de arma usa la fórmula de Classic (arma + poder de ataque ÷ 14 × velocidad). No hay coeficientes de poder de ataque en el cliente.">estimación Classic</span>
+          {tr("Con tu poder")} <span className="tag tag-inactive" title={tr("El coeficiente de poder con hechizos de cada efecto sale del cliente, pero no se sabe si Forever lo aplica como Classic. El golpe de arma usa la fórmula de Classic (arma + poder de ataque ÷ 14 × velocidad). No hay coeficientes de poder de ataque en el cliente.")}>{tr("estimación Classic")}</span>
           </h5>
           <ul className="ab-sum">
             {est.spell.map((b) => {
               const me = m.effects.find((x) => x.effect.index === b.effectIndex && x.effect.viaSpellId === null) ?? m.effects.find((x) => x.effect.index === b.effectIndex)!;
               return (
                 <li key={`${b.effectIndex}-${b.periodic}`}>
-                  <span className="ab-sum-l">{KIND_LABEL[me.effect.kind] ?? me.effect.kind}</span>
+                  <span className="ab-sum-l">{tr(KIND_LABEL[me.effect.kind] ?? me.effect.kind)}</span>
                   <b className="pos">{range(b.final.min, b.final.max)}</b>
                   <span className="ab-sum-s">
-                    {b.periodic ? "por tick " : ""}= {range(me.final.min, me.final.max)} + {fmt(b.power)} de poder con hechizos × {fmt(b.coefficient * 100, 1)} % = +{fmt(b.perHit, 1)}
-                    {b.periodic ? ` · × ${b.ticks} ticks = ${fmt(b.final.average * b.ticks)} en total` : ""}
+                    {b.periodic ? `${tr("por tick")} ` : ""}= {range(me.final.min, me.final.max)} + {fmt(b.power)} {tr("de poder con hechizos")} × {fmt(b.coefficient * 100, 1)} % = +{fmt(b.perHit, 1)}
+                    {b.periodic ? ` · ${tr("× {n} ticks = {total} en total", { n: b.ticks, total: fmt(b.final.average * b.ticks) })}` : ""}
                   </span>
                 </li>
               );
             })}
             {est.weapon && (
               <li>
-                <span className="ab-sum-l">Golpe de arma{est.weapon.ranged ? " (a distancia)" : ""}</span>
+                <span className="ab-sum-l">{tr("Golpe de arma")}{est.weapon.ranged ? ` ${tr("(a distancia)")}` : ""}</span>
                 <b className="pos">{range(est.weapon.min, est.weapon.max)}</b>
-                <span className="ab-sum-s">{est.weapon.formula}</span>
+                <span className="ab-sum-s">{trn(est.weapon.formula)}</span>
               </li>
             )}
           </ul>
-          {!power.attributesKnown && <p className="muted small">Elige una raza para sumar el poder que dan tus atributos.</p>}
-          {!power.hasGear && <p className="muted small">Sin equipo: solo cuenta el poder de tus atributos y talentos.</p>}
+          {!power.attributesKnown && <p className="muted small">{tr("Elige una raza para sumar el poder que dan tus atributos.")}</p>}
+          {!power.hasGear && <p className="muted small">{tr("Sin equipo: solo cuenta el poder de tus atributos y talentos.")}</p>}
         </section>
       )}
 
       {lines.length > 0 && (
         <section>
-          <h5>Con tus talentos, Puntos de Legado y raza</h5>
+          <h5>{tr("Con tus talentos, Puntos de Legado y raza")}</h5>
           <ul className="ab-sum">
             {lines.map((l) => (
               <li key={`${l.category}-${l.label}`}>
-                <span className="ab-sum-l">{l.label.charAt(0).toUpperCase() + l.label.slice(1)}</span>
+                <span className="ab-sum-l">{(() => { const t = trn(l.label); return t.charAt(0).toUpperCase() + t.slice(1); })()}</span>
                 <b className={l.value < 0 && l.category !== "Retroceso al lanzar" ? "neg" : "pos"}>{lineValue(l)}</b>
                 <span className="ab-sum-s">{l.sources.map(sourceName).join(" + ")}</span>
               </li>
@@ -449,10 +466,10 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
 
       {rules.length > 0 && (
         <section>
-          <h5>Al golpear y otros efectos</h5>
+          <h5>{tr("Al golpear y otros efectos")}</h5>
           <ul className="ab-rules">
             {rules.map((t, i) => (
-              <li key={i}>{t}</li>
+              <li key={i}>{trn(t)}</li>
             ))}
           </ul>
         </section>
@@ -462,9 +479,9 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       </div>
 
       <p className="muted small ab-foot">
-        {rank.descriptionTemplate.includes("$") ? "Alguna cifra depende de tu personaje y no se calcula. " : ""}
-        Las cifras de arriba no incluyen el poder con hechizos ni el de ataque (ver «Con tu poder», estimación). {!showBase && row.count > 0 ? "Mantén Ctrl para ver la base. " : ""}
-        {tip.pinned ? "Clic en la habilidad para cerrar." : "Clic en la habilidad para fijar la tarjeta."}
+        {rank.descriptionTemplate.includes("$") && !enText?.description ? `${tr("Alguna cifra depende de tu personaje y no se calcula.")} ` : ""}
+      {tr("Las cifras de arriba no incluyen el poder con hechizos ni el de ataque (ver «Con tu poder», estimación")}). {!showBase && row.count > 0 ? `${tr("Mantén Ctrl para ver la base.")} ` : ""}
+        {tip.pinned ? tr("Clic en la habilidad para cerrar.") : tr("Clic en la habilidad para fijar la tarjeta.")}
       </p>
     </div>
   );
@@ -497,7 +514,7 @@ export function AbilitiesTable({
   gear?: { stats: Record<string, number>; ratings: CombatRatings | null; minLevel: number; effects: GearEffectSource[]; weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number }[] } | null;
 }) {
   const entry = manifest.abilities.find((a) => a.classId === idx.data.classId);
-  const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error("sin habilidades"))));
+  const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error(tr("sin habilidades")))));
   const ruleEntry = manifest.rules.find((a) => a.classId === idx.data.classId);
   const rulesState = useAsync(ruleEntry?.file ?? "none", () => (ruleEntry ? getJson(ruleEntry.file, (v) => TalentRulesSchema.parse(v)) : Promise.resolve(null)));
   const formulasEntry = manifest.combatFormulas;
@@ -545,6 +562,7 @@ export function AbilitiesTable({
     [clientStatsState, idx.data.classId, level],
   );
   const abilities = state.status === "ready" ? state.value : null;
+  if (abilities) registerAbilities(abilities);
   // El equipo solo cuenta desde el nivel del objeto mas alto que llevas (como en la tabla de estadisticas del Resumen)
   const gearHere = gear && level >= gear.minLevel ? gear : null;
   const gearEffects = gearHere?.effects;
@@ -601,8 +619,8 @@ export function AbilitiesTable({
     return out;
   }, [abilities, level, mods, fx, ruled, formulas, baseStats, classStats, gearBonus, target, idx.data.classId]);
 
-  if (!entry) return <p className="muted">Las habilidades de {idx.data.className} aún no están revisadas (se van añadiendo clase a clase; ya están el Mago, el Pícaro y el Guerrero).</p>;
-  if (state.status === "loading" || rulesState.status === "loading") return <p className="muted">Cargando habilidades…</p>;
+  if (!entry) return <p className="muted">{tr("Las habilidades de")} {classLabel(idx.data.classToken, idx.data.className ?? "")} {tr("aún no están revisadas (se van añadiendo clase a clase; ya están el Mago, el Pícaro y el Guerrero")}).</p>;
+  if (state.status === "loading" || rulesState.status === "loading") return <p className="muted">{tr("Cargando habilidades…")}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
 
   // «Activa en Forever» = la lista de la referencia (o no hay referencia para la clase). Las runas de Forever que la referencia no lista y las que da por retiradas se ven al desmarcar
@@ -615,22 +633,22 @@ export function AbilitiesTable({
   return (
     <>
       <div className="ab-controls">
-        <label title="Contra quien se calcula la probabilidad de impacto">
-          Objetivo{" "}
-          <select value={target} onChange={(e) => setTarget(e.target.value as TargetOption)} aria-label="Objetivo">
-            <option value="same">de tu nivel</option>
-            <option value="boss">jefe (+3 niveles)</option>
+        <label title={tr("Contra quien se calcula la probabilidad de impacto")}>
+        {tr("Objetivo")}{" "}
+          <select value={target} onChange={(e) => setTarget(e.target.value as TargetOption)} aria-label={tr("Objetivo")}>
+            <option value="same">{tr("de tu nivel")}</option>
+            <option value="boss">{tr("jefe (+3 niveles)")}</option>
           </select>
         </label>
         <label>
-          <input type="checkbox" checked={onlyAffected} onChange={(e) => setOnlyAffected(e.target.checked)} /> Solo las afectadas por mis talentos
+          <input type="checkbox" checked={onlyAffected} onChange={(e) => setOnlyAffected(e.target.checked)} /> {tr("Solo las afectadas por mis talentos")}
         </label>
-        <label title="Las habilidades que la referencia lista. Desmárcalo para ver también las que Forever no lista (runas, auxiliares) o da por retiradas: salen marcadas «sin referencia» o «retirada según la referencia»">
-          <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} /> Solo activas en Forever
-          {onlyActive && hiddenInactive > 0 ? <small className="muted"> ({hiddenInactive} ocultas)</small> : null}
+        <label title={tr("Las habilidades que la referencia lista. Desmárcalo para ver también las que Forever no lista (runas, auxiliares) o da por retiradas: salen marcadas «sin referencia» o «retirada según la referencia»")}>
+          <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} /> {tr("Solo activas en Forever")}
+          {onlyActive && hiddenInactive > 0 ? <small className="muted"> ({hiddenInactive} {tr("ocultas")})</small> : null}
         </label>
         <span className="muted small">
-          {rows.length} habilidades · pasa el cursor por una para ver todo (Ctrl = base sin mejoras; clic para fijar la tarjeta)
+          {rows.length} {tr("habilidades · pasa el cursor por una para ver todo (Ctrl = base sin mejoras; clic para fijar la tarjeta")})
         </span>
       </div>
       <div className="ab-scroll">
@@ -646,12 +664,11 @@ export function AbilitiesTable({
           ))}
         </ul>
         {rows.length === 0 && (
-          <p className="muted small">Ninguna habilidad está afectada por tus talentos todavía. Elige talentos en el paso anterior o desmarca «Solo las afectadas por mis talentos» para ver todas.</p>
+          <p className="muted small">{tr("Ninguna habilidad está afectada por tus talentos todavía. Elige talentos en el paso anterior o desmarca «Solo las afectadas por mis talentos» para ver todas.")}</p>
         )}
       </div>
       <p className="muted small">
-        <span className="tag tag-unassigned">Cliente</span> Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza
-        se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever).
+        <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
       </p>
       {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>

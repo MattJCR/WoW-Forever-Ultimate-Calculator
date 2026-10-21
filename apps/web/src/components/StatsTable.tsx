@@ -2,6 +2,7 @@ import { baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, type Comb
 import type { BaseStats, ClientStats, CombatFormulas, CombatRatings, Manifest } from "@wfuc/schema";
 import { BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema } from "@wfuc/schema";
 import { getJson, useAsync } from "../data";
+import { fmtNum, tr, trn } from "../i18n";
 
 /**
  * Estadisticas brutas base de la raza y clase escogidas, a tres niveles (el minimo que exigen los talentos, el 30 de
@@ -27,13 +28,13 @@ export function StatsTable({ manifest, raceId, raceName, classId, level, fx, fxR
   const formulasEntry = manifest.combatFormulas;
   const formulasState = useAsync(formulasEntry?.file ?? "none", () => (formulasEntry ? getJson(formulasEntry.file, (v) => CombatFormulasSchema.parse(v)) : Promise.resolve(null)));
   const formulas = formulasState.status === "ready" ? formulasState.value : null;
-  if (raceId === null) return <p className="muted">Elige una raza en el paso «Raza» para ver las estadísticas base.</p>;
-  if (state.status === "loading") return <p className="muted">Cargando estadísticas…</p>;
+  if (raceId === null) return <p className="muted">{tr("Elige una raza en el paso «Raza» para ver las estadísticas base.")}</p>;
+  if (state.status === "loading") return <p className="muted">{tr("Cargando estadísticas…")}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
   return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} level={level} fx={fx} fxReady={fxReady} client={client} formulas={formulas} gear={gear ?? null} />;
 }
 
-const fmt = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
+const fmt = (n: number): string => fmtNum(n, 2);
 
 function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, formulas, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; level: number; fx: StatEffects | null; fxReady: boolean; client: ClientStats | null; formulas: CombatFormulas | null; gear: GearForStats | null }) {
   const combo = data.combos.find((c) => c.raceId === raceId && c.classId === classId);
@@ -41,7 +42,7 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
   if (!combo || !base) {
     return (
       <p className="muted">
-        Sin estadísticas base para {raceName ?? "esta raza"}: no existe en Classic Era y el cliente de la beta no las trae (los valores se calculan en el servidor).
+        {tr("Sin estadísticas base para {race}: no existe en Classic Era y el cliente de la beta no las trae (los valores se calculan en el servidor).", { race: raceName ?? tr("esta raza") })}
       </p>
     );
   }
@@ -61,7 +62,7 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
         attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility, baseMelee: apBase.melee, baseRanged: apBase.ranged } : null,
       })
     : null;
-  if (!derived) return <p className="muted">Cargando talentos…</p>;
+  if (!derived) return <p className="muted">{tr("Cargando talentos…")}</p>;
   // Combate: armadura, crítico, impacto, celeridad, defensa, regeneración, resistencias y demás bonos del personaje (equipo + talentos + Legacy + raza)
   const gearHere = gear && level >= gear.minLevel ? gear : null;
   const combat =
@@ -74,19 +75,19 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
       <table className="stats-table">
         <thead>
           <tr>
-            <th scope="col">Estadística</th>
-            <th scope="col">Nivel {level}</th>
+            <th scope="col">{tr("Estadística")}</th>
+            <th scope="col">{tr("Nivel {level}", { level })}</th>
           </tr>
         </thead>
         <tbody>
           <tr className="fx-cat">
             <th colSpan={2} scope="colgroup">
-              Atributos y recursos
+              {tr("Atributos y recursos")}
             </th>
           </tr>
           {derived.rows.map((r) => (
             <tr key={r.key}>
-              <th scope="row">{r.label}</th>
+              <th scope="row">{trn(r.label)}</th>
               <td className={r.final !== r.base ? "pos" : undefined}>
                 {r.final !== r.base && <small className="stat-delta">{r.final > r.base ? "+" : ""}{fmt(r.final - r.base)}</small>}
                 <b>{fmt(r.final)}</b>
@@ -98,14 +99,14 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
           <tbody key={g.group}>
             <tr className="fx-cat">
               <th colSpan={2} scope="colgroup">
-                {g.group}
+                {tr(g.group)}
               </th>
             </tr>
             {g.rows.map((r) => (
-              <tr key={r.key} title={r.note}>
+              <tr key={r.key} title={r.note ? trn(r.note) : undefined}>
                 <th scope="row">
-                  {r.label}
-                  {r.parts.length > 1 && <small className="muted stat-parts"> {r.parts.map((p) => `${p.label} ${signed(p.value, r.unit)}`).join(" · ")}</small>}
+                  {trn(r.label)}
+                  {r.parts.length > 1 && <small className="muted stat-parts"> {r.parts.map((p) => `${trn(p.label)} ${signed(p.value, r.unit)}`).join(" · ")}</small>}
                 </th>
                 <td className={r.value !== 0 ? "pos" : undefined}>
                   <b>{valueText(r)}</b>
@@ -115,13 +116,13 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
           </tbody>
         ))}
       </table>
-      {!fxReady && <p className="muted small">Calculando armadura, crítico, impacto y demás estadísticas de combate…</p>}
+      {!fxReady && <p className="muted small">{tr("Calculando armadura, crítico, impacto y demás estadísticas de combate…")}</p>}
       <p className="muted small">
-        <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {data.betaMaxLevel}); porcentajes, maná base, poder de ataque por atributo y crítico por atributo son del cliente; el crítico base, el esquive base, el poder de ataque base de la clase, la armadura por agilidad y la regeneración por espíritu son de la comunidad (hojas de personaje y tooltips del juego a nivel 60). El equipo solo cuenta desde el nivel que exige el objeto más exigente{gear ? ` (nivel ${gear.minLevel})` : ""}.
+        <span className="tag tag-unassigned">{tr("Cliente + Classic · estimación")}</span> {tr("Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {max}); porcentajes, maná base, poder de ataque por atributo y crítico por atributo son del cliente; el crítico base, el esquive base, el poder de ataque base de la clase, la armadura por agilidad y la regeneración por espíritu son de la comunidad (hojas de personaje y tooltips del juego a nivel 60). El equipo solo cuenta desde el nivel que exige el objeto más exigente", { max: data.betaMaxLevel })}{gear ? ` (${tr("nivel {n}", { n: gear.minLevel })})` : ""}.
       </p>
       {groups.length > 0 && (
         <p className="muted small">
-          <span className="tag tag-inactive">Estimación</span> Combate: las puntuaciones del equipo se pasan a % con las constantes de la comunidad (impacto 10, crítico 14, celeridad 10, esquivar 12, parada 15 y bloqueo 5 por 1 %). El crítico base de la clase, el esquive base, la armadura por agilidad y la regeneración por espíritu también son de la comunidad (confianza baja: medidos a nivel 60; en otros niveles son los de Classic). No incluyen la defensa base, la parada ni el bloqueo base. Los bonos de una habilidad concreta se ven en su tarjeta; los condicionales (procs, estados) quedan como texto en el paso Equipo.
+          <span className="tag tag-inactive">{tr("Estimación")}</span> {tr("Combate: las puntuaciones del equipo se pasan a % con las constantes de la comunidad (impacto 10, crítico 14, celeridad 10, esquivar 12, parada 15 y bloqueo 5 por 1 %). El crítico base de la clase, el esquive base, la armadura por agilidad y la regeneración por espíritu también son de la comunidad (confianza baja: medidos a nivel 60; en otros niveles son los de Classic). No incluyen la defensa base, la parada ni el bloqueo base. Los bonos de una habilidad concreta se ven en su tarjeta; los condicionales (procs, estados) quedan como texto en el paso Equipo.")}
         </p>
       )}
     </>

@@ -2,6 +2,7 @@ import type { Manifest } from "@wfuc/schema";
 import type { ReactNode } from "react";
 import { isEmptyCode } from "../character";
 import { CLASS_COLORS } from "../data";
+import { classLabel, tr } from "../i18n";
 import { href } from "../router";
 import { Icon } from "./Icon";
 
@@ -16,6 +17,8 @@ export const VIEWS: { id: View; label: string }[] = [
   { id: "gear", label: "Equipo" },
   { id: "summary", label: "Resumen" },
 ];
+/** Nombre del paso en el idioma elegido (`VIEWS` guarda el texto en español, que es la clave del diccionario). */
+export const viewLabel = (v: { label: string }): string => tr(v.label);
 export const isView = (v: string | null): v is View => VIEWS.some((x) => x.id === v);
 
 const svg = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true } as const;
@@ -23,14 +26,14 @@ const svg = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke:
 /** Selector de clase: conserva Legacy y la raza al cambiar (si la nueva clase no admite la raza, el paso Raza la ignora). */
 export function ClassSwitcher({ current, legacyCode, raceQuery, manifest }: { current: string; legacyCode: string; raceQuery: Record<string, string>; manifest: Manifest }) {
   return (
-    <nav className="class-switcher" aria-label="Clases">
+    <nav className="class-switcher" aria-label={tr("Clases")}>
       {manifest.classes.map((c) => {
         const t = c.file.replace(/^classes\//, "").replace(/\.json$/, "");
         const q: Record<string, string> = { ...(isEmptyCode(legacyCode) ? {} : { l: legacyCode }), ...raceQuery };
         return (
           <a key={c.classId} href={href(`class/${t}`, q)} className="class-chip" style={{ ["--c" as string]: CLASS_COLORS[t] }} aria-current={t === current ? "page" : undefined}>
-            <Icon id={c.iconFileDataId} name={c.className} />
-            <span>{c.className}</span>
+            <Icon id={c.iconFileDataId} name={classLabel(t, c.className ?? "")} />
+            <span>{classLabel(t, c.className ?? "")}</span>
           </a>
         );
       })}
@@ -48,7 +51,7 @@ export interface StepStatus {
 /** Barra de pasos: cada paso dice en que estado esta (nada elegido, hecho, el actual). */
 export function Stepper({ view, onGo, status }: { view: View; onGo: (v: View) => void; status: Record<View, StepStatus> }) {
   return (
-    <nav aria-label="Pasos del personaje">
+    <nav aria-label={tr("Pasos del personaje")}>
       <ol className="steps">
         {VIEWS.map((v, i) => {
           const s = status[v.id];
@@ -66,7 +69,7 @@ export function Stepper({ view, onGo, status }: { view: View; onGo: (v: View) =>
                   )}
                 </span>
                 <span className="step-text">
-                  <b>{v.label}</b>
+                  <b>{viewLabel(v)}</b>
                   <i>{s.sub}</i>
                 </span>
               </button>
@@ -91,7 +94,7 @@ export function StepNav({ view, onGo, leading, className }: { view: View; onGo: 
             <path d="M19 12H5M11 6l-6 6 6 6" />
           </svg>
           <span>
-            Anterior<span className="step-to">: {prev.label}</span>
+            {tr("Anterior")}<span className="step-to">: {viewLabel(prev)}</span>
           </span>
         </button>
       ) : (
@@ -100,7 +103,7 @@ export function StepNav({ view, onGo, leading, className }: { view: View; onGo: 
       {next && (
         <button type="button" className="btn btn-primary step-next" onClick={() => onGo(next.id)}>
           <span>
-            Siguiente<span className="step-to">: {next.label}</span>
+            {tr("Siguiente")}<span className="step-to">: {viewLabel(next)}</span>
           </span>
           <svg {...svg}>
             <path d="M5 12h14M13 6l6 6-6 6" />
@@ -136,7 +139,7 @@ export function CharacterBar({
   onCopyLink: () => void;
 }) {
   return (
-    <section className="card char-bar" aria-label="Tu personaje">
+    <section className="card char-bar" aria-label={tr("Tu personaje")}>
       <div className="char-id">
         <span className="char-crest">
           <Icon id={iconId} name={className} />
@@ -144,35 +147,35 @@ export function CharacterBar({
         <div>
           <h1>{className}</h1>
           <div className="char-chips">
-            <button type="button" className="chip chip-link" onClick={() => onGo("race")} title="Cambiar de raza">
-              {raceLabel ?? "Sin raza"}
+            <button type="button" className="chip chip-link" onClick={() => onGo("race")} title={tr("Cambiar de raza")}>
+              {raceLabel ?? tr("Sin raza")}
             </button>
             {legacyLabel && (
-              <button type="button" className="chip chip-link" onClick={() => onGo("legacy")} title="Ir a los Puntos de Legado">
-                Legado {legacyLabel}
+              <button type="button" className="chip chip-link" onClick={() => onGo("legacy")} title={tr("Ir a los Puntos de Legado")}>
+                {tr("Legado")} {legacyLabel}
               </button>
             )}
-            <button type="button" className="chip chip-link" onClick={() => onGo("gear")} title="Ir al equipo">
-              Equipo {gearLabel}
+            <button type="button" className="chip chip-link" onClick={() => onGo("gear")} title={tr("Ir al equipo")}>
+              {tr("Equipo")} {gearLabel}
             </button>
           </div>
         </div>
       </div>
       <div className="char-actions">
-        <button type="button" className="btn btn-ghost" onClick={onReset} disabled={!canReset} title="Borra raza, talentos, Puntos de Legado y equipo de este personaje">
+        <button type="button" className="btn btn-ghost" onClick={onReset} disabled={!canReset} title={tr("Borra raza, talentos, Puntos de Legado y equipo de este personaje")}>
           <svg {...svg}>
             <path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" />
           </svg>
-          Reiniciar
+          {tr("Reiniciar")}
         </button>
-        <button type="button" className="btn" id="copyAI" onClick={onCopyAI} title="Copia este build con el texto completo de cada talento (clase y Puntos de Legado), para pegarlo en una IA y preguntarle algo">
-          Copiar para IA
+        <button type="button" className="btn" id="copyAI" onClick={onCopyAI} title={tr("Copia este build con el texto completo de cada talento (clase y Puntos de Legado), para pegarlo en una IA y preguntarle algo")}>
+          {tr("Copiar para IA")}
         </button>
         <button type="button" className="btn btn-primary" onClick={onCopyLink}>
           <svg {...svg}>
             <path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" />
           </svg>
-          Copiar enlace
+          {tr("Copiar enlace")}
         </button>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import { describeEffect, raceBonuses } from "@wfuc/engine";
 import type { Race, RacialAbility } from "@wfuc/schema";
 import { useState, type ElementType, type ReactNode } from "react";
+import { fmtNum, isEnglish, racialEn, tr, trn } from "../i18n";
 import { FloatingCard, originNote } from "./Detail";
 import { Icon } from "./Icon";
 import { anchorOf, type Anchor } from "./TreePanel";
@@ -11,9 +12,14 @@ const classBit = (classId: number): number => 1 << (classId - 1);
 export function formatMs(ms: number): string {
   if (ms < 1000) return `${ms} ms`;
   const s = ms / 1000;
-  if (s < 60) return `${Number.isInteger(s) ? s : s.toFixed(1)} s`;
-  const m = s / 60;
-  return `${Number.isInteger(m) ? m : m.toFixed(1)} min`;
+  if (s < 60) return `${fmtNum(s, 1)} s`;
+  return `${fmtNum(s / 60, 1)} min`;
+}
+
+/** Nombre y texto de una racial en el idioma elegido (el inglés es de la comunidad; si falta, el español del cliente). */
+function racialText(a: RacialAbility, raceId: number): { name: string; description: string; english: boolean } {
+  const en = isEnglish() ? racialEn(raceId, a.order) : null;
+  return en ? { name: en.name, description: en.description, english: true } : { name: a.name, description: a.description, english: false };
 }
 
 /** Cifras de una racial para esta clase (variante por clase ya elegida): efectos modelados, duracion y enfriamiento. */
@@ -26,8 +32,8 @@ function chipsOf(a: RacialAbility, classId: number): string[] {
   }
   if (a.kind === "active") {
     const s = spells[0];
-    if (s?.durationMs) chips.push(`dura ${formatMs(s.durationMs)}`);
-    if (s?.cooldownMs) chips.push(`enfriamiento ${formatMs(s.cooldownMs)}`);
+    if (s?.durationMs) chips.push(tr("dura {t}", { t: formatMs(s.durationMs) }));
+    if (s?.cooldownMs) chips.push(tr("enfriamiento {t}", { t: formatMs(s.cooldownMs) }));
   }
   return chips;
 }
@@ -36,7 +42,7 @@ function chipsOf(a: RacialAbility, classId: number): string[] {
 function trinketNote(a: RacialAbility): string | null {
   const t = a.pvpTrinket;
   if (!t) return null;
-  return `Quita ${t.overlaps.join(" y ")}, igual que la insignia de PvP (${formatMs(t.trinketCooldownMs)}). Si comparte enfriamiento con ella, y cuántos segundos si es parcial, está sin confirmar: el cliente no lo indica; hay que medirlo en el juego.`;
+  return tr("Quita {what}, igual que la insignia de PvP ({t}). Si comparte enfriamiento con ella, y cuántos segundos si es parcial, está sin confirmar: el cliente no lo indica; hay que medirlo en el juego.", { what: t.overlaps.map((o) => trn(o)).join(` ${tr("y")} `), t: formatMs(t.trinketCooldownMs) });
 }
 
 /** Descripcion del cliente mas sus cifras, en una linea (para «Copiar build para IA»). */
@@ -49,23 +55,24 @@ export function racialLine(a: RacialAbility, classId: number): string {
 /** Aviso corto de la insignia de PvP para la tarjeta (la explicación completa va en la lista de raciales). */
 function trinketShort(a: RacialAbility): string | null {
   const t = a.pvpTrinket;
-  return t ? `Quita ${t.overlaps.join(" y ")}, como la insignia (${formatMs(t.trinketCooldownMs)}).` : null;
+  return t ? tr("Quita {what}, como la insignia ({t}).", { what: t.overlaps.map((o) => trn(o)).join(` ${tr("y")} `), t: formatMs(t.trinketCooldownMs) }) : null;
 }
 
 /** Contenido de la tarjeta flotante de una racial: breve y ordenado (icono, nombre, texto, cifras y un aviso corto). */
-function RacialCard({ a, classId }: { a: RacialAbility; classId: number }) {
-  const chips = chipsOf(a, classId);
+function RacialCard({ a, classId, raceId }: { a: RacialAbility; classId: number; raceId: number }) {
+  const chips = chipsOf(a, classId).map(trn);
   const translated = originNote(a.textOrigin);
+  const txt = racialText(a, raceId);
   return (
     <div className="racial-tip">
       <div className="detail-head">
-        <Icon id={a.iconFileDataId} name={a.name} />
+        <Icon id={a.iconFileDataId} name={txt.name} />
         <div>
-          <h4>{a.name}</h4>
-          <p className="rank-line">Habilidad racial · {a.kind === "active" ? "activa" : "pasiva"}</p>
+          <h4>{txt.name}</h4>
+          <p className="rank-line">{tr("Habilidad racial")} · {a.kind === "active" ? tr("activa") : tr("pasiva")}</p>
         </div>
       </div>
-      <p className="desc-text">{a.description}</p>
+      <p className="desc-text">{txt.description}</p>
       {chips.length > 0 && (
         <ul className="tip-facts">
           {chips.map((c) => (
@@ -75,23 +82,24 @@ function RacialCard({ a, classId }: { a: RacialAbility; classId: number }) {
       )}
       {a.pvpTrinket && (
         <p className="tip-warn">
-          <b>Comparte enfriamiento con la insignia de PvP: sin confirmar</b> {trinketShort(a)}
+          <b>{tr("Comparte enfriamiento con la insignia de PvP: sin confirmar")}</b> {trinketShort(a)}
         </p>
       )}
-      {translated && <p className="tip-warn tip-warn-soft">Traducción propia: el cliente aún trae este texto en inglés.</p>}
+      {translated && <p className="tip-warn tip-warn-soft">{tr("Traducción propia: el cliente aún trae este texto en inglés.")}</p>}
+      {txt.english && <p className="tip-warn tip-warn-soft">{tr("Texto en inglés de la comunidad.")}</p>}
     </div>
   );
 }
 
 /** Envuelve cualquier icono o nombre de una racial para que enseñe su tarjeta al pasar el cursor o al enfocarlo con el teclado. */
-export function RacialTip({ a, classId, as: Tag = "span", className, children }: { a: RacialAbility; classId: number; as?: ElementType; className?: string; children: ReactNode }) {
+export function RacialTip({ a, classId, raceId, as: Tag = "span", className, children }: { a: RacialAbility; classId: number; raceId: number; as?: ElementType; className?: string; children: ReactNode }) {
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   return (
     <Tag className={className} onMouseEnter={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onMouseLeave={() => setAnchor(null)} onFocus={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onBlur={() => setAnchor(null)}>
       {children}
       {anchor && (
         <FloatingCard anchor={anchor} placement="below">
-          <RacialCard a={a} classId={classId} />
+          <RacialCard a={a} classId={classId} raceId={raceId} />
         </FloatingCard>
       )}
     </Tag>
@@ -103,26 +111,27 @@ export function RacialList({ race, classId }: { race: Race; classId: number }) {
   return (
     <ul className="effects racials">
       {race.racials.map((a) => {
-        const chips = chipsOf(a, classId);
+        const chips = chipsOf(a, classId).map(trn);
+        const txt = racialText(a, race.id);
         return (
           <li key={a.order}>
-            <RacialTip a={a} classId={classId}>
-              <Icon id={a.iconFileDataId} name={a.name} />
+            <RacialTip a={a} classId={classId} raceId={race.id}>
+              <Icon id={a.iconFileDataId} name={txt.name} />
             </RacialTip>
             <div>
-              <RacialTip a={a} classId={classId}>
-                <b>{a.name}</b>
+              <RacialTip a={a} classId={classId} raceId={race.id}>
+                <b>{txt.name}</b>
               </RacialTip>{" "}
-              <span className="rank-chip">{a.kind === "active" ? "activa" : "pasiva"}</span>
-              <p>{a.description}</p>
+              <span className="rank-chip">{a.kind === "active" ? tr("activa") : tr("pasiva")}</span>
+              <p>{txt.description}</p>
               {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
               {a.pvpTrinket && (
                 <p className="origin-note trinket-note">
-                  <span className="chip chip-info chip-unconfirmed">Insignia de PvP: enfriamiento compartido sin confirmar</span> {trinketNote(a)}
+                  <span className="chip chip-info chip-unconfirmed">{tr("Insignia de PvP: enfriamiento compartido sin confirmar")}</span> {trinketNote(a)}
                 </p>
               )}
               {chips.length > 0 && (
-                <p className="racial-chips" aria-label="Cifras del cliente">
+                <p className="racial-chips" aria-label={tr("Cifras del cliente")}>
                   {chips.map((c) => (
                     <span key={c} className="chip chip-info">
                       {c}
@@ -143,24 +152,24 @@ export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
   const b = raceBonuses(race, classId);
   const pct = (v: number) => `${v > 0 ? "+" : ""}${v} %`;
   const rows: { label: string; value: string; note?: string }[] = [];
-  if (b.critChancePct) rows.push({ label: "Probabilidad de crítico", value: pct(b.critChancePct) });
-  if (b.spiritPct) rows.push({ label: "Espíritu", value: pct(b.spiritPct), note: "se aplica sobre el espíritu base; mira «Con tus talentos, Puntos de Legado y raza»" });
+  if (b.critChancePct) rows.push({ label: tr("Probabilidad de crítico"), value: pct(b.critChancePct) });
+  if (b.spiritPct) rows.push({ label: tr("Espíritu"), value: pct(b.spiritPct), note: tr("se aplica sobre el espíritu base; mira «Con tus talentos, Puntos de Legado y raza»") });
   for (const [power, label] of [["mana", "Maná máximo"], ["rage", "Ira máxima"], ["energy", "Energía máxima"]] as const) {
-    if (b.maxPowerPct[power]) rows.push({ label, value: pct(b.maxPowerPct[power]) });
+    if (b.maxPowerPct[power]) rows.push({ label: tr(label), value: pct(b.maxPowerPct[power]) });
   }
-  if (b.healthPct) rows.push({ label: "Salud máxima", value: pct(b.healthPct) });
-  if (b.critDamageBonusPct) rows.push({ label: "Bonus de daño crítico", value: pct(b.critDamageBonusPct) });
-  if (b.critHealingBonusPct) rows.push({ label: "Bonus de sanación crítica", value: pct(b.critHealingBonusPct) });
-  if (b.dodgePct) rows.push({ label: "Esquivar", value: pct(b.dodgePct) });
+  if (b.healthPct) rows.push({ label: tr("Salud máxima"), value: pct(b.healthPct) });
+  if (b.critDamageBonusPct) rows.push({ label: tr("Bonus de daño crítico"), value: pct(b.critDamageBonusPct) });
+  if (b.critHealingBonusPct) rows.push({ label: tr("Bonus de sanación crítica"), value: pct(b.critHealingBonusPct) });
+  if (b.dodgePct) rows.push({ label: tr("Esquivar"), value: pct(b.dodgePct) });
   const { spell, melee, ranged } = b.hastePct;
   if (spell || melee || ranged) {
-    rows.push({ label: "Celeridad", value: `${pct(spell)} hechizos · ${pct(melee)} cuerpo a cuerpo · ${pct(ranged)} distancia` });
+    rows.push({ label: tr("Celeridad"), value: tr("{a} hechizos · {b} cuerpo a cuerpo · {c} distancia", { a: pct(spell), b: pct(melee), c: pct(ranged) }) });
   }
-  if (b.healthRegenPct) rows.push({ label: "Regeneración de salud", value: pct(b.healthRegenPct), note: b.healthRegenInCombatPct ? `y ${b.healthRegenInCombatPct} % de ella continúa en combate` : undefined });
-  if (b.stunDurationPct) rows.push({ label: "Duración de aturdimientos", value: pct(b.stunDurationPct) });
-  for (const d of b.damageVsCreature) rows.push({ label: `Daño contra ${d.label}`, value: pct(d.pct) });
+  if (b.healthRegenPct) rows.push({ label: tr("Regeneración de salud"), value: pct(b.healthRegenPct), note: b.healthRegenInCombatPct ? tr("y {n} % de ella continúa en combate", { n: b.healthRegenInCombatPct }) : undefined });
+  if (b.stunDurationPct) rows.push({ label: tr("Duración de aturdimientos"), value: pct(b.stunDurationPct) });
+  for (const d of b.damageVsCreature) rows.push({ label: tr("Daño contra {what}", { what: tr(d.label) }), value: pct(d.pct) });
 
-  if (rows.length === 0) return <p className="muted">Esta raza no da bonificaciones pasivas con cifras para esta clase.</p>;
+  if (rows.length === 0) return <p className="muted">{tr("Esta raza no da bonificaciones pasivas con cifras para esta clase.")}</p>;
   return (
     <>
       <table className="stats-table race-totals">
@@ -177,8 +186,7 @@ export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
         </tbody>
       </table>
       <p className="muted small">
-        <span className="tag tag-unassigned">Cliente</span> Cifras de los hechizos de las raciales de la beta. Solo pasivas: las activas (Furia sangrienta, Rabiar…) duran un rato y se
-        ven en cada racial.
+        <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de las raciales de la beta. Solo pasivas: las activas (Furia sangrienta, Rabiar…) duran un rato y se ven en cada racial.")}
       </p>
     </>
   );

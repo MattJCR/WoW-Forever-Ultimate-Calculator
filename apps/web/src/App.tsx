@@ -1,6 +1,7 @@
 import type { Manifest } from "@wfuc/schema";
 import { CharacterProvider, legacyQuery, useCharacter } from "./character";
 import { loadManifest, useAsync } from "./data";
+import { LangContext, tr, useLang, useLangRoot } from "./i18n";
 import { ClassPage } from "./pages/ClassPage";
 import { classToken, Home } from "./pages/Home";
 import { UnassignedPage } from "./pages/UnassignedPage";
@@ -8,22 +9,40 @@ import { href, scrollToSection, useRoute, type Route } from "./router";
 
 export function App() {
   const manifest = useAsync("manifest", loadManifest);
+  const lang = useLangRoot(manifest.status === "ready" ? (manifest.value.english?.file ?? null) : null);
   return (
-    <div className="shell">
-      {manifest.status === "ready" ? (
-        <CharacterProvider manifest={manifest.value}>
-          <Layout manifest={manifest.value} />
-        </CharacterProvider>
-      ) : (
-        <main>
-          {manifest.status === "loading" && <p className="status">Cargando datos…</p>}
-          {manifest.status === "error" && (
-            <p className="status error">
-              {manifest.message}. Si estás en local, ejecuta <code>npm run pipeline</code> y reinicia.
-            </p>
-          )}
-        </main>
-      )}
+    <LangContext.Provider value={lang}>
+      <div className="shell">
+        {manifest.status === "ready" ? (
+          <CharacterProvider manifest={manifest.value}>
+            <Layout manifest={manifest.value} />
+          </CharacterProvider>
+        ) : (
+          <main>
+            {manifest.status === "loading" && <p className="status">{tr("Cargando datos…")}</p>}
+            {manifest.status === "error" && (
+              <p className="status error">
+                {manifest.message}. {tr("Si estás en local, ejecuta")} <code>npm run pipeline</code> {tr("y reinicia.")}
+              </p>
+            )}
+          </main>
+        )}
+      </div>
+    </LangContext.Provider>
+  );
+}
+
+/** Selector de idioma de la interfaz y de los textos del juego (ver i18n.tsx). */
+function LanguageSwitch() {
+  const { lang, setLang, dataStatus } = useLang();
+  return (
+    <div className="lang-switch" role="group" aria-label={tr("Idioma")}>
+      <button type="button" aria-pressed={lang === "es"} onClick={() => setLang("es")} title="Español" lang="es">
+        ES
+      </button>
+      <button type="button" aria-pressed={lang === "en"} onClick={() => setLang("en")} title={dataStatus === "loading" ? "English (loading…)" : "English"} lang="en">
+        EN
+      </button>
     </div>
   );
 }
@@ -36,6 +55,7 @@ function splitBuild(build: string): { version: string; number: string } {
 
 function Layout({ manifest }: { manifest: Manifest }) {
   const route = useRoute();
+  const { lang } = useLang();
   const { legacyCode } = useCharacter();
   const q = legacyQuery(legacyCode);
   const { version, number } = splitBuild(manifest.build);
@@ -51,24 +71,25 @@ function Layout({ manifest }: { manifest: Manifest }) {
             <img className="brand-mark" src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`} alt="" width={52} height={52} />
             <span className="brand-text">
               <b>WoW Forever</b>
-              <small>Calculadora definitiva</small>
+              <small>{tr("Calculadora definitiva")}</small>
             </span>
           </a>
-          <nav className="main-nav" aria-label="Principal">
+          <nav className="main-nav" aria-label={tr("Principal")}>
             <a href={href("", { ...q, s: "clases" })} onClick={() => scrollToSection("clases")} className="nav-link" aria-current={page === "class" || (onHome && (!section || section === "clases")) ? "page" : undefined}>
-              Clases
+              {tr("Clases")}
             </a>
             <a href={href("", { ...q, s: "pasos" })} onClick={() => scrollToSection("pasos")} className="nav-link" aria-current={onHome && section === "pasos" ? "page" : undefined}>
-              Cómo funciona
+              {tr("Cómo funciona")}
             </a>
             <a href={href("", { ...q, s: "datos" })} onClick={() => scrollToSection("datos")} className="nav-link" aria-current={onHome && section === "datos" ? "page" : undefined}>
-              De dónde salen los datos
+              {tr("De dónde salen los datos")}
             </a>
             <a href={href("unassigned", q)} className="nav-link" aria-current={page === "unassigned" ? "page" : undefined}>
-              Datos sin asignar
+              {tr("Datos sin asignar")}
             </a>
           </nav>
-          <span className="build-tag" title={`Datos extraídos el ${manifest.generatedAt.slice(0, 10)}`}>
+          <LanguageSwitch />
+          <span className="build-tag" title={tr("Datos extraídos el {date}", { date: manifest.generatedAt.slice(0, 10) })}>
             Beta {version}
             {number && ` · build ${number}`}
           </span>
@@ -85,21 +106,22 @@ function Layout({ manifest }: { manifest: Manifest }) {
       <footer>
         <div className="wrap">
           <p>
-            Datos del cliente de la beta de WoW Forever, build {number || manifest.build}
-            {manifest.hotfixesApplied ? " (con hotfixes del servidor)" : ""} · extraídos el {manifest.generatedAt.slice(0, 10)}. Pueden cambiar durante la beta.
+            {tr("Datos del cliente de la beta de WoW Forever, build {build}", { build: number || manifest.build })}
+            {manifest.hotfixesApplied ? ` ${tr("(con hotfixes del servidor)")}` : ""} · {tr("extraídos el {date}. Pueden cambiar durante la beta.", { date: manifest.generatedAt.slice(0, 10) })}
+          </p>
+          {lang === "en" && <p>{tr("Los textos en inglés (nombres y descripciones del juego) proceden de datos de la comunidad, no del cliente, que solo está en español. Lo que no tiene versión en inglés se muestra en español.")}</p>}
+          <p>
+            {tr("Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.")}
           </p>
           <p>
-            Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
-          </p>
-          <p>
-            Proyecto alojado en GitHub: puedes contribuir con correcciones, datos o ideas.{" "}
+            {tr("Proyecto alojado en GitHub: puedes contribuir con correcciones, datos o ideas.")}{" "}
             <a href="https://github.com/MattJCR/WoW-Forever-Ultimate-Calculator/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
-              Cómo contribuir
+              {tr("Cómo contribuir")}
             </a>
             .
           </p>
           <p>
-            Tipografías Inter y Cinzel, con licencia SIL Open Font License 1.1:{" "}
+            {tr("Tipografías Inter y Cinzel, con licencia SIL Open Font License 1.1:")}{" "}
             <a href={`${import.meta.env.BASE_URL}licenses/Inter-OFL.txt`} target="_blank" rel="noreferrer">
               Inter
             </a>{" "}
@@ -123,7 +145,7 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
     if (entry) return <ClassPage key={arg} token={arg} entry={entry} query={route.query} />;
     return (
       <p className="status error">
-        Clase desconocida: {arg}. <a href={href("")}>Volver</a>
+        {tr("Clase desconocida:")} {arg}. <a href={href("")}>{tr("Volver")}</a>
       </p>
     );
   }

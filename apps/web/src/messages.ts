@@ -1,5 +1,7 @@
 import type { Blocker } from "@wfuc/engine";
+import { tr } from "./i18n";
 
+/** Motivo por el que no se puede sumar o quitar un punto (claves en español: se traducen con `tr`). */
 export const BLOCKER_TEXT: Record<Blocker, string> = {
   "unknown-node": "Talento desconocido",
   inactive: "Nodo no activo: no se puede seleccionar",
@@ -12,7 +14,9 @@ export const BLOCKER_TEXT: Record<Blocker, string> = {
 };
 
 /** plural(1, "nodo", "nodos") -> "1 nodo"; plural(3, ...) -> "3 nodos". */
-export const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? one : many}`;
+export const plural = (n: number, one: string, many: string): string => `${n} ${n === 1 ? tr(one) : tr(many)}`;
+
+export const blockerText = (b: Blocker): string => tr(BLOCKER_TEXT[b]);
 
 const SMALL =new Set(["de", "del", "la", "las", "el", "los", "en", "y", "a", "con", "por"]);
 

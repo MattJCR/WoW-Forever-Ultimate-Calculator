@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { legacyQuery, useCharacter } from "../character";
 import { Icon } from "../components/Icon";
 import { CLASS_COLORS } from "../data";
+import { classLabel, specLabel, tr } from "../i18n";
 import { href, scrollToSection, type Route } from "../router";
 
 export const classToken = (file: string): string => file.replace(/^classes\//, "").replace(/\.json$/, "");
@@ -24,9 +25,9 @@ const ARROW = (
 /** Ejemplo ilustrativo de lo que se ve al planificar un personaje (no es un build real). */
 function ExampleCard() {
   const trees = [
-    { name: "Arcano", points: 5 },
-    { name: "Fuego", points: 0 },
-    { name: "Escarcha", points: 14 },
+    { name: tr("Arcano"), points: 5 },
+    { name: tr("Fuego"), points: 0 },
+    { name: tr("Escarcha"), points: 14 },
   ];
   return (
     <div className="card hero-example" aria-hidden="true">
@@ -35,10 +36,10 @@ function ExampleCard() {
           M
         </span>
         <div>
-          <h2>Mago · Humano</h2>
-          <p>Escarcha profunda</p>
+          <h2>{tr("Mago · Humano")}</h2>
+          <p>{tr("Escarcha profunda")}</p>
         </div>
-        <span className="chip">Ejemplo de build</span>
+        <span className="chip">{tr("Ejemplo de build")}</span>
       </div>
       <ul className="hero-example-bars">
         {trees.map((t) => (
@@ -53,21 +54,21 @@ function ExampleCard() {
       </ul>
       <div className="hero-example-stats">
         <div>
-          <p>Nivel necesario</p>
+          <p>{tr("Nivel necesario")}</p>
           <b>26</b>
         </div>
         <div>
-          <p>Puntos restantes</p>
+          <p>{tr("Puntos restantes")}</p>
           <b>32</b>
         </div>
         <div>
-          <p>Primer punto</p>
-          <b>Nivel 8</b>
+          <p>{tr("Primer punto")}</p>
+          <b>{tr("Nivel {n}", { n: 8 })}</b>
         </div>
       </div>
       <div className="hero-example-link">
         <span>…/#/class/mage?r=1&amp;b=Aq3x…&amp;v=talents</span>
-        <span className="chip chip-solid">Copiar</span>
+        <span className="chip chip-solid">{tr("Copiar")}</span>
       </div>
     </div>
   );
@@ -87,22 +88,22 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
     <div className="home">
       <section className="hero wrap">
         <div className="hero-text">
-          <p className="eyebrow">Calculadora para jugadores de WoW Forever</p>
-          <h1>Planifica tu personaje de WoW Forever</h1>
-          <p className="hero-lead">Talentos, raza, Puntos de Legado y equipo con los datos reales del cliente de la beta. Tu build se guarda en el enlace: cópialo y compártelo con tu hermandad.</p>
+          <p className="eyebrow">{tr("Calculadora para jugadores de WoW Forever")}</p>
+          <h1>{tr("Planifica tu personaje de WoW Forever")}</h1>
+          <p className="hero-lead">{tr("Talentos, raza, Puntos de Legado y equipo con los datos reales del cliente de la beta. Tu build se guarda en el enlace: cópialo y compártelo con tu hermandad.")}</p>
           <div className="hero-actions">
             <a className="btn btn-primary" href={href("", { ...q, s: "clases" })} onClick={() => scrollToSection("clases")}>
-              Elige tu clase
+              {tr("Elige tu clase")}
               {ARROW}
             </a>
             <a className="btn" href={href("", { ...q, s: "pasos" })} onClick={() => scrollToSection("pasos")}>
-              Cómo funciona
+              {tr("Cómo funciona")}
             </a>
           </div>
           <ul className="hero-facts">
-            <li>{manifest.classes.length} clases</li>
-            <li>Datos extraídos del cliente</li>
-            <li>Sin cuenta ni registro</li>
+            <li>{tr("{n} clases", { n: manifest.classes.length })}</li>
+            <li>{tr("Datos extraídos del cliente")}</li>
+            <li>{tr("Sin cuenta ni registro")}</li>
           </ul>
         </div>
         <ExampleCard />
@@ -110,31 +111,32 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
 
       <section id="clases" className="home-section wrap">
         <header className="section-head">
-          <p className="eyebrow">Empieza aquí</p>
-          <h2>¿Qué clase juegas?</h2>
-          <p>Elige una para empezar por la raza. Tus Puntos de Legado se conservan al cambiar de clase.</p>
+          <p className="eyebrow">{tr("Empieza aquí")}</p>
+          <h2>{tr("¿Qué clase juegas?")}</h2>
+          <p>{tr("Elige una para empezar por la raza. Tus Puntos de Legado se conservan al cambiar de clase.")}</p>
         </header>
         <ul className="class-grid">
           {manifest.classes.map((c) => {
             const token = classToken(c.file);
+            const name = classLabel(token, c.className ?? "");
             return (
               <li key={c.classId}>
                 <a className="class-card" href={href(`class/${token}`, q)} style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
                   <span className="class-card-head">
-                    <Icon id={c.iconFileDataId} name={c.className} />
-                    <span className="class-name">{c.className}</span>
+                    <Icon id={c.iconFileDataId} name={name} />
+                    <span className="class-name">{name}</span>
                     <span className="go">{ARROW}</span>
                   </span>
                   {c.specNames.length > 0 ? (
                     <span className="class-specs">
-                      {c.specNames.map((s) => (
+                      {c.specNames.map((s, i) => (
                         <span key={s} className="chip">
-                          {s}
+                          {specLabel(token, i, s)}
                         </span>
                       ))}
                     </span>
                   ) : (
-                    <span className="class-meta">{c.talentCount} talentos</span>
+                    <span className="class-meta">{tr("{n} talentos", { n: c.talentCount })}</span>
                   )}
                 </a>
               </li>
@@ -146,16 +148,16 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
       <section id="pasos" className="band">
         <div className="wrap home-section">
           <header className="section-head">
-            <p className="eyebrow">Cómo funciona</p>
-            <h2>Cinco pasos, de la raza al daño final</h2>
-            <p>Puedes saltar de un paso a otro cuando quieras: todo se recalcula y se guarda en el enlace.</p>
+            <p className="eyebrow">{tr("Cómo funciona")}</p>
+            <h2>{tr("Cinco pasos, de la raza al daño final")}</h2>
+            <p>{tr("Puedes saltar de un paso a otro cuando quieras: todo se recalcula y se guarda en el enlace.")}</p>
           </header>
           <ol className="home-steps">
             {STEPS.map((s, i) => (
               <li key={s.title} className="card">
                 <span className="step-n">{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <h3>{tr(s.title)}</h3>
+                <p>{tr(s.text)}</p>
               </li>
             ))}
           </ol>
@@ -164,68 +166,68 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
 
       <section id="datos" className="home-section wrap">
         <header className="section-head">
-          <p className="eyebrow">Transparencia</p>
-          <h2>Cada cifra te dice de dónde sale</h2>
-          <p>El cliente de la beta es la fuente de verdad. Lo que no se puede confirmar se muestra siempre como estimación, con su aviso.</p>
+          <p className="eyebrow">{tr("Transparencia")}</p>
+          <h2>{tr("Cada cifra te dice de dónde sale")}</h2>
+          <p>{tr("El cliente de la beta es la fuente de verdad. Lo que no se puede confirmar se muestra siempre como estimación, con su aviso.")}</p>
         </header>
         <div className="provenance-grid">
           <div className="card">
             <span className="chip">
               <span className="dot dot-client" />
-              Cliente
+              {tr("Cliente")}
             </span>
-            <h3>Sale del juego</h3>
-            <p>Talentos, razas, rangos y textos leídos directamente de los ficheros del cliente. Es el dato más fiable.</p>
+            <h3>{tr("Sale del juego")}</h3>
+            <p>{tr("Talentos, razas, rangos y textos leídos directamente de los ficheros del cliente. Es el dato más fiable.")}</p>
           </div>
           <div className="card">
             <span className="chip">
               <span className="dot dot-community" />
-              Comunidad
+              {tr("Comunidad")}
             </span>
-            <h3>Aportado por jugadores</h3>
-            <p>Datos que el cliente no trae, como las puntuaciones de algunos objetos. Se contrastan y se marcan como no oficiales.</p>
+            <h3>{tr("Aportado por jugadores")}</h3>
+            <p>{tr("Datos que el cliente no trae, como las puntuaciones de algunos objetos. Se contrastan y se marcan como no oficiales.")}</p>
           </div>
           <div className="card">
             <span className="chip">
               <span className="dot dot-estimate" />
-              Estimación
+              {tr("Estimación")}
             </span>
-            <h3>Pendiente de confirmar</h3>
-            <p>Calculado con reglas de Classic mientras Forever no publique las suyas. Verás el aviso junto a la cifra.</p>
+            <h3>{tr("Pendiente de confirmar")}</h3>
+            <p>{tr("Calculado con reglas de Classic mientras Forever no publique las suyas. Verás el aviso junto a la cifra.")}</p>
           </div>
         </div>
       </section>
 
       <section className="band band-last">
         <div className="wrap home-section">
-          <h2 className="roadmap-title">Qué hay y qué viene</h2>
+          <h2 className="roadmap-title">{tr("Qué hay y qué viene")}</h2>
           <div className="roadmap-grid">
             <div>
-              <h3 className="roadmap-now">Disponible ahora</h3>
+              <h3 className="roadmap-now">{tr("Disponible ahora")}</h3>
               <ul>
-                <li>Árboles de talentos de las {manifest.classes.length} clases</li>
-                <li>Puntos de Legado y razas con sus raciales</li>
-                <li>Equipo, encantamientos y bonos de conjunto</li>
-                <li>Enlace para compartir y «Copiar para IA»</li>
+                <li>{tr("Árboles de talentos de las {n} clases", { n: manifest.classes.length })}</li>
+                <li>{tr("Puntos de Legado y razas con sus raciales")}</li>
+                <li>{tr("Equipo, encantamientos y bonos de conjunto")}</li>
+                <li>{tr("Enlace para compartir y «Copiar para IA»")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="roadmap-wip">En construcción</h3>
+              <h3 className="roadmap-wip">{tr("En construcción")}</h3>
               <ul>
-                <li>Daño y curación por habilidad (estimación con reglas de Classic)</li>
-                <li>Reglas de atributos de Forever, pendientes de confirmar</li>
+                <li>{tr("Daño y curación por habilidad (estimación con reglas de Classic)")}</li>
+                <li>{tr("Reglas de atributos de Forever, pendientes de confirmar")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="roadmap-next">Próximamente</h3>
+              <h3 className="roadmap-next">{tr("Próximamente")}</h3>
               <ul>
-                <li>Simulación por rotación</li>
-                <li>Escalado real de cada clase con equipo y talentos</li>
+                <li>{tr("Simulación por rotación")}</li>
+                <li>{tr("Escalado real de cada clase con equipo y talentos")}</li>
               </ul>
             </div>
           </div>
           <p className="roadmap-foot">
-            <a href={href("unassigned", q)}>Ver datos del cliente sin asignar</a> ({manifest.unassigned.orphanEntries} talentos sin nodo y {manifest.unassigned.alternativeTrees} árboles descartados, con prueba libre de rangos).
+            <a href={href("unassigned", q)}>{tr("Ver datos del cliente sin asignar")}</a> ({tr("{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos", { a: manifest.unassigned.orphanEntries, b: manifest.unassigned.alternativeTrees })}).
           </p>
         </div>
       </section>

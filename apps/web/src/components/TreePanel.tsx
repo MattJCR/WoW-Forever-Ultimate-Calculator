@@ -1,6 +1,7 @@
 import { canAdd, rankOf, specPoints, type Build, type ClassIndex } from "@wfuc/engine";
 import type { Talent } from "@wfuc/schema";
 import { Background, LegacyBackground } from "./Background";
+import { talentName, tr, treeLabel } from "../i18n";
 import { Icon } from "./Icon";
 
 export const CELL = 46;
@@ -46,6 +47,7 @@ interface Props {
 /** Un arbol (especializacion de clase o arbol de Legacy): cabecera, arte de fondo, rejilla, flechas y marcadores de fila. */
 export function TreePanel({ idx, build, specIndex, selected, active, onHover, onSelect, onAdd, onRemove, onResetTree }: Props) {
   const spec = idx.data.specs[specIndex]!;
+  const specLabel = treeLabel(idx.data, specIndex, spec.name ?? tr("Árbol {n}", { n: specIndex + 1 }));
   const rows = Math.max(1, ...spec.talents.map((t) => t.row + 1));
   const spent = specPoints(idx, build, specIndex);
   const isClass = idx.data.kind === "class";
@@ -59,19 +61,19 @@ export function TreePanel({ idx, build, specIndex, selected, active, onHover, on
   const nextRow = [...rowGate.values()].sort((a, b) => a - b).find((p) => p > spent);
 
   return (
-    <section className={`tree${active ? " is-active" : ""}`} aria-label={`${spec.name ?? "Arbol"}`}>
+    <section className={`tree${active ? " is-active" : ""}`} aria-label={specLabel}>
       <div className="tree-inner">
         {spec.backgroundFile ? <Background name={spec.backgroundFile} /> : !isClass && <LegacyBackground />}
         <header className="tree-head">
-          <Icon id={spec.iconFileDataId} name={spec.name} />
+          <Icon id={spec.iconFileDataId} name={specLabel} />
           <div className="tree-title">
-            <h3>{spec.name ?? `Árbol ${specIndex + 1}`}</h3>
-            {isClass && <span className="muted">{nextRow ? `próxima fila a los ${nextRow}` : "todas las filas abiertas"}</span>}
+            <h3>{specLabel}</h3>
+            {isClass && <span className="muted">{nextRow ? tr("próxima fila a los {n}", { n: nextRow }) : tr("todas las filas abiertas")}</span>}
           </div>
-          <span className="tree-points" title="Puntos gastados en este árbol">
-            <b>{spent}</b> {spent === 1 ? "punto" : "puntos"}
+          <span className="tree-points" title={tr("Puntos gastados en este árbol")}>
+            <b>{spent}</b> {spent === 1 ? tr("punto") : tr("puntos")}
           </span>
-          <button type="button" className="btn btn-ghost btn-square" onClick={() => onResetTree(specIndex)} disabled={spent === 0} aria-label={`Reiniciar ${spec.name ?? "árbol"}`} title="Reiniciar este árbol">
+          <button type="button" className="btn btn-ghost btn-square" onClick={() => onResetTree(specIndex)} disabled={spent === 0} aria-label={tr("Reiniciar {name}", { name: specLabel })} title={tr("Reiniciar este árbol")}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" />
             </svg>
@@ -128,7 +130,7 @@ export function TreePanel({ idx, build, specIndex, selected, active, onHover, on
                   type="button"
                   className={`talent ${state}${isSelected ? " focus" : ""}`}
                   style={{ left: pos(col), top: pos(row), width: CELL, height: CELL }}
-                  aria-label={`${t.name ?? "Talento"}, rango ${rank} de ${t.maxRank}`}
+                  aria-label={tr("{name}, rango {rank} de {max}", { name: talentName(t.nodeId, t.name ?? tr("Talento")), rank, max: t.maxRank })}
                   data-node={t.nodeId}
                   data-state={state}
                   onMouseEnter={() => onHover({ kind: "active", nodeId: t.nodeId })}
@@ -150,7 +152,7 @@ export function TreePanel({ idx, build, specIndex, selected, active, onHover, on
                     }
                   }}
                 >
-                  <Icon id={t.iconFileDataId} name={t.name} />
+                  <Icon id={t.iconFileDataId} name={talentName(t.nodeId, t.name ?? "")} />
                   <span className="rank">
                     {rank}/{t.maxRank}
                   </span>

@@ -37,6 +37,7 @@ import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
 import { TreePanel, type Focus } from "../components/TreePanel";
 import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
+import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, talentName, tr, treeLabel } from "../i18n";
 import { parseHash, replaceHash } from "../router";
 
 type Entry = Manifest["classes"][number];
@@ -57,10 +58,11 @@ function readStoredGear(token: string): { g: string | null; gl: string | null } 
 
 const DEFAULT_GEAR_LEVEL = 60;
 const FACTION_LABEL = { alliance: "Alianza", horde: "Horda" } as const;
+const factionLabel = (f: keyof typeof FACTION_LABEL): string => tr(FACTION_LABEL[f]);
 
 export function ClassPage({ token, entry, query }: { token: string; entry: Entry; query: URLSearchParams }) {
   const state = useAsync(entry.file, () => loadClass(entry.file));
-  if (state.status === "loading") return <p className="status">Cargando {entry.className}…</p>;
+  if (state.status === "loading") return <p className="status">{tr("Cargando {name}…", { name: classLabel(token, entry.className ?? token) })}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
   return <ClassView key={token} token={token} data={state.value} query={query} />;
 }
@@ -102,6 +104,8 @@ function useBuildActions(idx: ClassIndex | null, setBuild: (u: (b: Build) => Bui
 function ClassView({ token, data, query }: { token: string; data: ClassTalents; query: URLSearchParams }) {
   const { legacy, legacyBuild, legacyCode, legacyReady, legacyReport, setLegacyBuild, manifest } = useCharacter();
   const idx = useMemo(() => indexClass(data), [data]);
+  registerTalents(data);
+  if (legacy) registerTalents(legacy.data);
   // El enlace puede ser de otra version de los datos (un hotfix quita o mueve talentos): se lee con tolerancia y lo perdido se avisa
   const [initial] = useState<DecodeReport | null>(() => {
     const code = query.get("b");
@@ -136,6 +140,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     const r = Number(query.get("r"));
     if (r) setRaceId(r);
   }, [query]);
+  registerRaces(races);
   const race = races.find((r) => r.id === raceId) ?? null;
   const raceQuery: Record<string, string> = race ? { r: String(race.id) } : {};
 
@@ -194,40 +199,40 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
-      say("Enlace copiado");
+      say(tr("Enlace copiado"));
     } catch {
-      window.prompt("Copia el enlace:", window.location.href);
+      window.prompt(tr("Copia el enlace:"), window.location.href);
     }
   };
 
   const copyForAI = async () => {
-    if (hasGear && gearBundle?.status !== "ready") return say("Cargando los datos del equipo; inténtalo de nuevo en un momento");
+    if (hasGear && gearBundle?.status !== "ready") return say(tr("Cargando los datos del equipo; inténtalo de nuevo en un momento"));
     const text = formatBuildForAI({
-      cls: idx,
+      cls: indexClass(localizeClass(data)),
       classBuild,
-      legacy,
+      legacy: legacy ? indexClass(localizeClass(legacy.data)) : legacy,
       legacyBuild,
       link: window.location.href,
       dataLink: new URL(`${import.meta.env.BASE_URL}data/classes/${token}.json`, window.location.href).href,
       hotfixesApplied: manifest.hotfixesApplied,
-      raceName: race?.name ?? null,
+      raceName: race ? raceLabel(race.id, race.name) : null,
       racials: race?.racials.map((a) => ({ name: a.name, kind: a.kind, description: racialLine(a, data.classId) })),
       gearLines:
         hasGear && gearSummary && gearBundle?.status === "ready"
           ? gearLinesForAI({ gear, summary: gearSummary, data: gearBundle.value.data, ratings: gearBundle.value.ratings, level: gearLevel, code: gearCode })
           : undefined,
     });
-    if (!text) return say("Gasta algunos puntos o elige equipo primero");
+    if (!text) return say(tr("Gasta algunos puntos o elige equipo primero"));
     try {
       await navigator.clipboard.writeText(text);
-      say("Build copiado con el texto completo de cada talento y tu equipo. Pégalo en tu IA con una pregunta.");
+      say(tr("Build copiado con el texto completo de cada talento y tu equipo. Pégalo en tu IA con una pregunta."));
     } catch {
-      window.prompt("Copia el texto:", text);
+      window.prompt(tr("Copia el texto:"), text);
     }
   };
 
   const reset = () => {
-    if (!window.confirm("¿Reiniciar este personaje? Se borrarán los talentos, los Puntos de Legado y el equipo (la raza se conserva).")) return;
+    if (!window.confirm(tr("¿Reiniciar este personaje? Se borrarán los talentos, los Puntos de Legado y el equipo (la raza se conserva)."))) return;
     setClassBuild({});
     setLegacyBuild(() => ({}));
     setGearState({});
@@ -241,11 +246,11 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   };
 
   const status: Record<View, StepStatus> = {
-    race: { sub: race?.name ?? "Sin elegir", done: !!race },
+    race: { sub: race ? raceLabel(race.id, race.name) : tr("Sin elegir"), done: !!race },
     legacy: { sub: legacy ? `${legacyTotal}/${legacy.data.rules.maxPoints}` : "…", done: legacyTotal > 0 },
     talents: { sub: `${classTotal}/${idx.data.rules.maxPoints}`, done: classTotal > 0 },
-    gear: { sub: `${gearCount}/${GEAR_SLOTS} piezas`, done: gearCount > 0 },
-    summary: { sub: "Estadísticas y daño", done: false },
+    gear: { sub: tr("{n}/{max} piezas", { n: gearCount, max: GEAR_SLOTS }), done: gearCount > 0 },
+    summary: { sub: tr("Estadísticas y daño"), done: false },
   };
 
   const share = <ShareCard url={url} onCopy={copyLink} rawHref={`${import.meta.env.BASE_URL}data/classes/${token}.json`} />;
@@ -255,9 +260,9 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     <div className={`class-page${view === "talents" || view === "legacy" ? " has-sheet" : ""}`} style={{ ["--accent" as string]: color }}>
       <ClassSwitcher current={token} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
       <CharacterBar
-        className={data.className ?? token}
+        className={classLabel(token, data.className ?? token)}
         iconId={data.iconFileDataId ?? null}
-        raceLabel={race ? `${race.name} · ${FACTION_LABEL[race.faction]}` : null}
+        raceLabel={race ? `${raceLabel(race.id, race.name)} · ${factionLabel(race.faction)}` : null}
         legacyLabel={legacy ? `${legacyTotal}/${legacy.data.rules.maxPoints}` : null}
         gearLabel={`${gearCount}/${GEAR_SLOTS}`}
         onGo={go}
@@ -267,15 +272,15 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
         onCopyLink={copyLink}
       />
       <Stepper view={view} onGo={go} status={status} />
-      <LinkNotice title={data.className ?? token} report={initial && (initial.lost.length > 0 || initial.malformed) ? initial : null} />
-      <LinkNotice title="Puntos de Legado" report={legacyReport} />
+      <LinkNotice title={classLabel(token, data.className ?? token)} report={initial && (initial.lost.length > 0 || initial.malformed) ? initial : null} />
+      <LinkNotice title={tr("Puntos de Legado")} report={legacyReport} />
 
       {view === "race" && (
         <RaceStep
           races={races}
           race={race}
           onRace={setRaceId}
-          className={data.className ?? token}
+          className={classLabel(token, data.className ?? token)}
           classId={data.classId}
           loading={racesState.status === "loading"}
           onGo={goTop}
@@ -288,14 +293,14 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
             idx={legacy}
             build={legacyBuild}
             setBuild={setLegacyBuild}
-            title="Puntos de Legado"
-            lead="Ventajas de cuenta que se eligen antes que los talentos: Talentoso adelanta el primer punto de talento."
+            title={tr("Puntos de Legado")}
+            lead={tr("Ventajas de cuenta que se eligen antes que los talentos: Talentoso adelanta el primer punto de talento.")}
             share={share}
             footer={<StepNav view={view} onGo={goTop} />}
             sheetFooter={sheetNav}
           />
         ) : (
-          <p className="status">Cargando Puntos de Legado…</p>
+          <p className="status">{tr("Cargando Puntos de Legado…")}</p>
         ))}
       {view === "talents" && (
         <Workspace
@@ -303,8 +308,8 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           idx={idx}
           build={classBuild}
           setBuild={setClassBuild}
-          title="Talentos"
-          lead={classTotal === 0 ? "Sin puntos gastados. Elige un talento para empezar tu build." : undefined}
+          title={tr("Talentos")}
+          lead={classTotal === 0 ? tr("Sin puntos gastados. Elige un talento para empezar tu build.") : undefined}
           showInactive
           level={summary.requiredLevel}
           firstPoint={{ level: summary.firstPointLevel, fromLegacy: summary.firstPointFromLegacy }}
@@ -315,7 +320,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       )}
       {view === "gear" && (
         <div className="gear-wrap">
-          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race?.name ?? null} />
+          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race ? raceLabel(race.id, race.name) : null} />
           <StepNav view={view} onGo={goTop} />
         </div>
       )}
@@ -348,15 +353,15 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
 function ShareCard({ url, onCopy, rawHref }: { url: string; onCopy: () => void; rawHref: string }) {
   return (
     <div className="share">
-      <label htmlFor="share-url">Enlace de tu build</label>
+      <label htmlFor="share-url">{tr("Enlace de tu build")}</label>
       <div className="share-row">
         <input id="share-url" className="share-url" readOnly value={url} onFocus={(e) => e.currentTarget.select()} />
         <button type="button" className="btn" onClick={onCopy}>
-          Copiar
+          {tr("Copiar")}
         </button>
       </div>
-      <a href={rawHref} target="_blank" rel="noreferrer" title="Esta clase como JSON: cada talento a cada rango">
-        Descargar datos en bruto de la clase
+      <a href={rawHref} target="_blank" rel="noreferrer" title={tr("Esta clase como JSON: cada talento a cada rango")}>
+        {tr("Descargar datos en bruto de la clase")}
       </a>
     </div>
   );
@@ -366,21 +371,19 @@ function ShareCard({ url, onCopy, rawHref }: { url: string; onCopy: () => void; 
 function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { races: Race[]; race: Race | null; onRace: (id: number | null) => void; className: string; classId: number; loading: boolean; onGo: (v: View) => void }) {
   return (
     <div className="step-layout race-step">
-      <section className="step-main" aria-label="Razas disponibles">
+      <section className="step-main" aria-label={tr("Razas disponibles")}>
         <header className="step-head">
-          <h2>Elige tu raza</h2>
-          <p>
-            Estas son las <b>{races.length}</b> razas que el cliente permite para {className}. La raza decide tus estadísticas base y tus habilidades raciales.
-          </p>
+          <h2>{tr("Elige tu raza")}</h2>
+          <p>{tr("Estas son las {n} razas que el cliente permite para {className}. La raza decide tus estadísticas base y tus habilidades raciales.", { n: races.length, className })}</p>
         </header>
         {loading ? (
-          <p className="status">Cargando razas…</p>
+          <p className="status">{tr("Cargando razas…")}</p>
         ) : (
           (["alliance", "horde"] as const).map((f) => (
             <div key={f} className={`race-faction ${f}`}>
               <h3>
                 <span className="faction-mark" aria-hidden="true" />
-                {FACTION_LABEL[f]}
+                {factionLabel(f)}
               </h3>
               <ul className="race-cards">
                 {races
@@ -389,7 +392,7 @@ function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { 
                     <li key={r.id}>
                       <button type="button" className={`race-card${race?.id === r.id ? " on" : ""}`} aria-pressed={race?.id === r.id} onClick={() => onRace(r.id)}>
                         <span className="race-card-top">
-                          <span className="race-name">{r.name}</span>
+                          <span className="race-name">{raceLabel(r.id, r.name)}</span>
                           {race?.id === r.id && (
                             <span className="race-check" aria-hidden="true">
                               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
@@ -400,16 +403,16 @@ function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { 
                         </span>
                         <span className="race-icons">
                           {r.racials.map((a) => (
-                            <RacialTip key={a.order} a={a} classId={classId}>
+                            <RacialTip key={a.order} a={a} classId={classId} raceId={r.id}>
                               <Icon id={a.iconFileDataId} name={a.name} />
                             </RacialTip>
                           ))}
                         </span>
-                        <span className="race-count">{r.racials.length} habilidades raciales</span>
+                        <span className="race-count">{tr("{n} habilidades raciales", { n: r.racials.length })}</span>
                       </button>
                     </li>
                   ))}
-                {races.every((r) => r.faction !== f) && <li className="muted small">Ninguna raza de esta facción puede ser {className}.</li>}
+                {races.every((r) => r.faction !== f) && <li className="muted small">{tr("Ninguna raza de esta facción puede ser {className}.", { className })}</li>}
               </ul>
             </div>
           ))
@@ -419,30 +422,30 @@ function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { 
           onGo={onGo}
           leading={
             <button type="button" className="btn btn-ghost" onClick={() => onRace(null)} disabled={!race}>
-              Quitar raza
+              {tr("Quitar raza")}
             </button>
           }
         />
       </section>
 
-      <aside className="card race-detail" aria-label="Habilidades raciales" aria-live="polite">
+      <aside className="card race-detail" aria-label={tr("Habilidades raciales")} aria-live="polite">
         {race ? (
           <>
             <div className="race-detail-head">
-              <h3>{race.name}</h3>
-              <span className="chip">{FACTION_LABEL[race.faction]}</span>
+              <h3>{raceLabel(race.id, race.name)}</h3>
+              <span className="chip">{factionLabel(race.faction)}</span>
             </div>
-            <h5>Habilidades raciales</h5>
+            <h5>{tr("Habilidades raciales")}</h5>
             <RacialList race={race} classId={classId} />
             <div className="race-detail-foot">
               <span className="chip">
                 <span className="dot dot-client" />
-                Texto del cliente
+                {tr("Texto del cliente")}
               </span>
               <p className="muted small">
-                Texto y cifras de las raciales tal como los da el cliente de la beta. Las estadísticas base de esta raza aparecen en el paso{" "}
+                {tr("Texto y cifras de las raciales tal como los da el cliente de la beta. Las estadísticas base de esta raza aparecen en el paso")}{" "}
                 <button type="button" className="link-btn" onClick={() => onGo("summary")}>
-                  Resumen
+                  {tr("Resumen")}
                 </button>
                 .
               </p>
@@ -451,8 +454,8 @@ function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { 
         ) : (
           !loading && (
             <>
-              <h3 className="race-detail-empty">Habilidades raciales</h3>
-              <p className="muted">Elige una raza para ver sus habilidades raciales y las estadísticas base del Resumen.</p>
+              <h3 className="race-detail-empty">{tr("Habilidades raciales")}</h3>
+              <p className="muted">{tr("Elige una raza para ver sus habilidades raciales y las estadísticas base del Resumen.")}</p>
             </>
           )
         )}
@@ -466,14 +469,14 @@ function BuildCard({ idx, build, share }: { idx: ClassIndex; build: Build; share
   const max = idx.data.rules.maxPoints;
   return (
     <section className="card build-card">
-      <h3>Puntos por árbol</h3>
+      <h3>{tr("Puntos por árbol")}</h3>
       <ul className="bars">
         {idx.data.specs.map((s) => {
           const n = specPoints(idx, build, s.index);
           return (
-            <li key={s.index} title={s.name ?? undefined}>
-              <Icon id={s.iconFileDataId} name={s.name} />
-              <span className="bars-name">{s.name}</span>
+            <li key={s.index} title={treeLabel(idx.data, s.index, s.name ?? "")}>
+              <Icon id={s.iconFileDataId} name={treeLabel(idx.data, s.index, s.name ?? "")} />
+              <span className="bars-name">{treeLabel(idx.data, s.index, s.name ?? "")}</span>
               <span className="meter">
                 <span style={{ width: `${Math.min(100, (n / max) * 100)}%` }} />
               </span>
@@ -546,17 +549,17 @@ function Workspace({
           <div className="step-head-row">
             <h2>{title}</h2>
             <span className="pill">
-              Puntos restantes <b className="good">{max - total}</b>
+              {tr("Puntos restantes")} <b className="good">{max - total}</b>
             </span>
             {isClass && (
               <>
                 <span className="pill">
-                  Nivel necesario <b>{level ?? requiredLevel(idx, total)}</b>
+                  {tr("Nivel necesario")} <b>{level ?? requiredLevel(idx, total)}</b>
                 </span>
                 {firstPoint && (
-                  <span className={`pill${firstPoint.fromLegacy ? " pill-legacy" : ""}`} title="Nivel al que consigues el primer punto de talento">
-                    Primer punto <b>nivel {firstPoint.level}</b>
-                    {firstPoint.fromLegacy && <small>(Talentoso)</small>}
+                  <span className={`pill${firstPoint.fromLegacy ? " pill-legacy" : ""}`} title={tr("Nivel al que consigues el primer punto de talento")}>
+                    {tr("Primer punto")} <b>{tr("nivel {n}", { n: firstPoint.level })}</b>
+                    {firstPoint.fromLegacy && <small>({tr("Talentoso")})</small>}
                   </span>
                 )}
               </>
@@ -564,35 +567,35 @@ function Workspace({
           </div>
           {lead && <p>{lead}</p>}
           <p className="how-to">
-            Toca {isClass ? "un talento" : "una ventaja"} para gastar un punto y ver su detalle. Para quitar un punto usa el botón − del panel.
-            <span className="mouse-only"> Con ratón: clic derecho o Supr quitan, Mayús + clic sube al máximo.</span>
+            {isClass ? tr("Toca un talento para gastar un punto y ver su detalle. Para quitar un punto usa el botón − del panel.") : tr("Toca una ventaja para gastar un punto y ver su detalle. Para quitar un punto usa el botón − del panel.")}
+            <span className="mouse-only"> {tr("Con ratón: clic derecho o Supr quitan, Mayús + clic sube al máximo.")}</span>
           </p>
         </header>
 
-        <ul className="legend" aria-label="Leyenda de los talentos">
+        <ul className="legend" aria-label={tr("Leyenda de los talentos")}>
           <li>
             <span className="swatch swatch-maxed" />
-            Rango máximo
+            {tr("Rango máximo")}
           </li>
           <li>
             <span className="swatch swatch-partial" />
-            Con puntos
+            {tr("Con puntos")}
           </li>
           <li>
             <span className="swatch swatch-available" />
-            Disponible
+            {tr("Disponible")}
           </li>
           <li>
             <span className="swatch swatch-locked" />
-            Bloqueado
+            {tr("Bloqueado")}
           </li>
         </ul>
 
-        <div className="tree-tabs" role="group" aria-label="Árbol que se muestra">
+        <div className="tree-tabs" role="group" aria-label={tr("Árbol que se muestra")}>
           {idx.data.specs.map((s) => (
             <button key={s.index} type="button" className="tree-tab" aria-pressed={tab === s.index} onClick={() => setTab(s.index)}>
-              <b>{s.name}</b>
-              <small>{specPoints(idx, build, s.index)} puntos</small>
+              <b>{treeLabel(idx.data, s.index, s.name ?? "")}</b>
+              <small>{tr("{n} puntos", { n: specPoints(idx, build, s.index) })}</small>
             </button>
           ))}
         </div>
@@ -621,11 +624,11 @@ function Workspace({
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 9l6 6 6-6" />
               </svg>
-              <h3 id="inactive-title">Nodos no activos ({idx.data.inactiveTalents.length})</h3>
-              <span className="chip">No seleccionables</span>
+              <h3 id="inactive-title">{tr("Nodos no activos")} ({idx.data.inactiveTalents.length})</h3>
+              <span className="chip">{tr("No seleccionables")}</span>
             </summary>
             <div className="inactive-body">
-              <p className="muted small">El cliente los incluye pero no forman parte de la rejilla: se muestran para observarlos; no se pueden seleccionar ni cuentan.</p>
+              <p className="muted small">{tr("El cliente los incluye pero no forman parte de la rejilla: se muestran para observarlos; no se pueden seleccionar ni cuentan.")}</p>
               <div className="inactive-list">
                 {idx.data.inactiveTalents.map((t) => (
                   <div key={t.nodeId} className="inactive-item">
@@ -633,7 +636,7 @@ function Workspace({
                       type="button"
                       className="talent inactive"
                       aria-disabled="true"
-                      aria-label={`${t.name ?? "Talento"}: nodo no activo, no seleccionable`}
+                      aria-label={tr("{name}: nodo no activo, no seleccionable", { name: talentName(t.nodeId, t.name ?? tr("Talento")) })}
                       data-node={t.nodeId}
                       onMouseEnter={() => setHover({ kind: "inactive", nodeId: t.nodeId })}
                       onMouseLeave={() => setHover(null)}
@@ -641,11 +644,11 @@ function Workspace({
                       onBlur={() => setHover(null)}
                       onClick={() => setPicked({ kind: "inactive", nodeId: t.nodeId })}
                     >
-                      <Icon id={t.iconFileDataId} name={t.name} />
+                      <Icon id={t.iconFileDataId} name={talentName(t.nodeId, t.name ?? "")} />
                       <span className="rank">0/{t.maxRank}</span>
                     </button>
-                    <span className="inactive-name">{t.name ?? `Hechizo ${t.spellId}`}</span>
-                    <span className="tag tag-inactive">nodo no activo</span>
+                    <span className="inactive-name">{talentName(t.nodeId, t.name ?? tr("Hechizo {id}", { id: t.spellId }))}</span>
+                    <span className="tag tag-inactive">{tr("nodo no activo")}</span>
                   </div>
                 ))}
               </div>
@@ -656,7 +659,7 @@ function Workspace({
         <div className="step-nav-main">{footer}</div>
       </section>
 
-      <aside className="workspace-rail" aria-label="Detalle del talento">
+      <aside className="workspace-rail" aria-label={tr("Detalle del talento")}>
         <TalentInspector idx={idx} build={build} shown={shown} onAdd={add} onRemove={remove} footer={<div className="sheet-nav">{sheetFooter}</div>} />
         <BuildCard idx={idx} build={build} share={share} />
       </aside>
@@ -684,15 +687,15 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
   return (
     <section className="summary-view">
       <header className="step-head">
-        <h2>Así queda tu personaje</h2>
-        <p>Estadísticas y daño con tus talentos, Puntos de Legado, raza y equipo. Cambia el nivel para ver cómo escala.</p>
+        <h2>{tr("Así queda tu personaje")}</h2>
+        <p>{tr("Estadísticas y daño con tus talentos, Puntos de Legado, raza y equipo. Cambia el nivel para ver cómo escala.")}</p>
       </header>
       <LevelPicker level={level} setLevel={setLevel} minLevel={minLevel}>
-        {summary.firstPointFromLegacy && `Con Talentoso (Puntos de Legado) el primer punto de talento llega al nivel ${summary.firstPointLevel}. `}
+        {summary.firstPointFromLegacy && `${tr("Con Talentoso (Puntos de Legado) el primer punto de talento llega al nivel {n}.", { n: summary.firstPointLevel })} `}
         {summary.classPoints === 0
-          ? "Aún no has gastado puntos de talento: puedes ver cualquier nivel del 1 al 60. "
-          : `Los efectos valen desde el nivel ${minLevel} (el que exigen los ${summary.classPoints} puntos de clase gastados) hasta el 60. `}
-        Las ventajas de Puntos de Legado no dependen del nivel: se ganan con desafíos de cuenta.
+          ? `${tr("Aún no has gastado puntos de talento: puedes ver cualquier nivel del 1 al 60.")} `
+          : `${tr("Los efectos valen desde el nivel {min} (el que exigen los {n} puntos de clase gastados) hasta el 60.", { min: minLevel, n: summary.classPoints })} `}
+        {tr("Las ventajas de Puntos de Legado no dependen del nivel: se ganan con desafíos de cuenta.")}
       </LevelPicker>
 
       <div className="notice notice-warn" role="note">
@@ -700,22 +703,22 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
           <path d="M12 3l10 18H2zM12 10v5M12 18h.01" />
         </svg>
         <p>
-          <b>En construcción.</b> El daño con poder con hechizos y de ataque es una estimación con las reglas de Classic (se ve en la tarjeta de cada habilidad). Falta confirmar en Forever las reglas de atributos, que no están en el cliente.
+          <b>{tr("En construcción.")}</b> {tr("El daño con poder con hechizos y de ataque es una estimación con las reglas de Classic (se ve en la tarjeta de cada habilidad). Falta confirmar en Forever las reglas de atributos, que no están en el cliente.")}
         </p>
       </div>
 
       <div className="summary-cols">
-        <section className="card stats-card" aria-label="Estadísticas">
+        <section className="card stats-card" aria-label={tr("Estadísticas")}>
           <header>
-            <h3>Estadísticas</h3>
-            <p className="muted small">A nivel {level}. En verde, lo que suman talentos, raza y equipo.</p>
+            <h3>{tr("Estadísticas")}</h3>
+            <p className="muted small">{tr("A nivel {level}. En verde, lo que suman talentos, raza y equipo.", { level })}</p>
           </header>
-          <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel, armor: gear.summary.armor, bonusArmor: gear.summary.bonusArmor, ratings: gear.ratings } : null} />
+          <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race ? raceLabel(race.id, race.name) : null} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel, armor: gear.summary.armor, bonusArmor: gear.summary.bonusArmor, ratings: gear.ratings } : null} />
         </section>
-        <section className="abilities-card" aria-label="Habilidades">
+        <section className="abilities-card" aria-label={tr("Habilidades")}>
           <header>
-            <h3>Habilidades con tus talentos</h3>
-            <p className="muted small">Cada tarjeta indica qué talentos, Puntos de Legado o piezas la mejoran.</p>
+            <h3>{tr("Habilidades con tus talentos")}</h3>
+            <p className="muted small">{tr("Cada tarjeta indica qué talentos, Puntos de Legado o piezas la mejoran.")}</p>
           </header>
           <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} level={level} gear={gear ? { stats: gear.summary.stats, ratings: gear.ratings, minLevel: gear.minLevel, effects: gear.effects, weapons: gear.summary.weapons } : null} />
         </section>
