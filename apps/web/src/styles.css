@@ -2064,6 +2064,11 @@ p.gear-warn {
 .item-stats.good {
   color: var(--good);
 }
+.item-compare {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.15));
+}
 .item-set ul {
   margin: 2px 0 4px;
   padding-left: 14px;

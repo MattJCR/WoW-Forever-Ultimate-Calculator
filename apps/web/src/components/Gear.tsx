@@ -2,12 +2,14 @@ import {
   GEAR_SLOTS,
   SLOT_LABEL,
   canEquip,
+  compareGear,
   enchantFits,
   equipItem,
   ratingPercents,
   slotsForItem,
   suffixOptions,
   suffixStats,
+  type GearComparison,
   type GearContext,
   type GearData,
   type GearSelection,
@@ -87,6 +89,9 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
   const typeLabel = itemTypeLabel(item);
   const style: CSSProperties = { left: pos.left, top: pos.top };
   const suffixLines = suffix ? suffixStats(item, suffix) : [];
+  // Antes / después: solo para un objeto de la lista distinto del que llevas en esa ranura
+  const cmp = useMemo(() => (tip.slot ? compareGear(gear, tip.slot, item, ctx, data) : null), [gear, tip.slot, item, ctx, data]);
+  const wornName = tip.slot && gear[tip.slot] ? data.items.get(gear[tip.slot]!.itemId)?.name : undefined;
 
   return (
     <div ref={ref} className="ab-card item-card" style={style} role="tooltip">
@@ -154,6 +159,7 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
           </ul>
         </div>
       )}
+      {cmp && <CompareBlock cmp={cmp} wornName={wornName} />}
       <p className="item-line muted">
         {item.requiredLevel > 0 ? `Requiere nivel ${item.requiredLevel}` : "Sin nivel mínimo"}
         {classes ? ` · Clases: ${classes.join(", ")}` : ""}
@@ -166,6 +172,38 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
         </ul>
       )}
       {item.provenance === "community" && <p className="item-line muted small">Objeto de la comunidad (comunidad): el cliente no lo trae.</p>}
+    </div>
+  );
+}
+
+/** «Si lo pones»: diferencia de estadísticas, armadura, arma y conjuntos frente a lo que llevas (verde sube, rojo baja). */
+function CompareBlock({ cmp, wornName }: { cmp: GearComparison; wornName: string | undefined }) {
+  const signed = (n: number): string => `${n > 0 ? "+" : "−"}${fmt(Math.abs(n))}`;
+  const rows: { text: string; up: boolean }[] = [];
+  if (cmp.armor.before !== cmp.armor.after) rows.push({ text: `${signed(cmp.armor.after - cmp.armor.before)} de armadura`, up: cmp.armor.after > cmp.armor.before });
+  if (cmp.weaponDps.before !== cmp.weaponDps.after) rows.push({ text: `${signed(Math.round((cmp.weaponDps.after - cmp.weaponDps.before) * 100) / 100)} de daño por segundo del arma`, up: cmp.weaponDps.after > cmp.weaponDps.before });
+  for (const d of cmp.stats) rows.push({ text: `${signed(d.after - d.before)} ${statName(d.key)}`, up: d.after > d.before });
+  return (
+    <div className="item-compare">
+      <p className="item-line gold">{wornName ? `Si lo pones en lugar de ${wornName}` : "Si lo pones en esta ranura vacía"}</p>
+      {rows.length === 0 && cmp.sets.length === 0 ? (
+        <p className="item-line muted">No cambia ninguna estadística.</p>
+      ) : (
+        <ul className="item-stats">
+          {rows.map((r) => (
+            <li key={r.text} className={r.up ? "good" : "bad"}>
+              {r.text}
+            </li>
+          ))}
+          {cmp.sets.map((s) => (
+            <li key={s.name} className={s.activeAfter >= s.activeBefore ? "good" : "bad"}>
+              {s.name}: {s.countBefore} → {s.countAfter} de {s.total} piezas ({s.activeAfter - s.activeBefore >= 0 ? "+" : "−"}
+              {Math.abs(s.activeAfter - s.activeBefore)} bonos)
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="item-line muted small">Sin sufijo ni encantamiento; se pierden los del objeto actual.</p>
     </div>
   );
 }
@@ -463,6 +501,8 @@ const statRank = (key: string): number => {
 };
 
 /** Para que los objetos citados en los totales enseñen su tarjeta al pasar el cursor, igual que en las ranuras. */
+const ORIGIN_LABEL: Record<string, string> = { item: "", suffix: " (sufijo)", enchant: " (encantamiento)", set: " (conjunto)", effect: " (efecto del objeto)" };
+
 export interface TotalsTips {
   gear: GearSelection;
   data: GearData;
@@ -471,8 +511,8 @@ export interface TotalsTips {
 
 export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; ratings: CombatRatings | null; tips?: TotalsTips }) {
   // Manejadores de cursor de lo que nombra el objeto de una ranura (tarjeta del objeto con su sufijo y encantamiento)
-  const hover = (slot: GearSlot) => {
-    const worn = tips?.gear[slot];
+  const hover = (slot: GearSlot | null) => {
+    const worn = slot ? tips?.gear[slot] : undefined;
     const item = worn ? tips?.data.items.get(worn.itemId) : undefined;
     if (!tips || !worn || !item) return {};
     const show = (e: { clientX: number; clientY: number }) => tips.onTip({ item, slot, enchantId: worn.enchantId, suffixId: worn.suffixId, x: e.clientX, y: e.clientY });
@@ -526,9 +566,9 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
                   <td>
                     {l.sources.map((s, i) => (
                       <span key={i} className="chip" {...hover(s.slot)}>
-                        {SLOT_LABEL[s.slot]} {s.value > 0 ? "+" : ""}
+                        {s.slot ? SLOT_LABEL[s.slot] : s.itemName} {s.value > 0 ? "+" : ""}
                         {s.value}
-                        {s.origin !== "item" ? (s.origin === "suffix" ? " (sufijo)" : " (encantamiento)") : ""}
+                        {ORIGIN_LABEL[s.origin]}
                       </span>
                     ))}
                   </td>
@@ -553,7 +593,7 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
             </tbody>
           </table>
           <p className="muted small">
-            <span className="tag tag-unassigned">la comunidad · estimación</span> Forever tiene una sola puntuación de impacto, de crítico y de celeridad, constantes en todos los niveles (medidas por la comunidad, sin confirmar por nosotros). El impacto y el crítico ya entran en las probabilidades de cada habilidad; el poder de ataque y con hechizos todavía no entran en su daño.
+            <span className="tag tag-unassigned">la comunidad · estimación</span> Forever tiene una sola puntuación de impacto, de crítico y de celeridad, constantes en todos los niveles (medidas por la comunidad, sin confirmar por nosotros). El impacto y el crítico ya entran en las probabilidades de cada habilidad; el poder de ataque y con hechizos salen aparte en «Con tu poder» de cada habilidad (estimación de Classic).
           </p>
         </>
       )}
@@ -587,7 +627,7 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
               </ul>
             </div>
           ))}
-          <p className="muted small">Los bonos de conjunto y los efectos de objeto son texto del cliente: todavía no se suman al cálculo.</p>
+          <p className="muted small">Los bonos de conjunto y efectos de objeto que son una cifra (atributos, poder, puntuaciones, porcentajes) ya se suman; los demás (procs, efectos con condición) son texto del cliente.</p>
         </>
       )}
       {summary.effects.length > 0 && (

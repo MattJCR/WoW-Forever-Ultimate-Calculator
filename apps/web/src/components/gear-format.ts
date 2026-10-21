@@ -1,5 +1,5 @@
-import type { GearSlot } from "@wfuc/engine";
-import type { Item, ItemStat } from "@wfuc/schema";
+import { GEAR_SLOTS, SLOT_LABEL, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
+import type { CombatRatings, Item, ItemStat } from "@wfuc/schema";
 
 /** Color de calidad del juego (0 pobre ... 6 artefacto). */
 export const QUALITY_COLORS = ["#9d9d9d", "#ffffff", "#1eff00", "#0070dd", "#a335ee", "#ff8000", "#e6cc80"];
@@ -98,3 +98,41 @@ export function allowedClassNames(mask: number): string[] | null {
 
 /** Resumen corto de las estadisticas de un objeto para la lista del selector. */
 export const shortStats = (stats: ItemStat[], max = 4): string => stats.slice(0, max).map(statLine).join(" · ");
+
+const fmtNum = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
+
+/**
+ * Líneas del equipo para «Copiar build para IA»: cada ranura con su objeto, sufijo y encantamiento, los totales con su
+ * conversión a %, los conjuntos y los efectos de objeto, y los avisos de lo que no se puede llevar. Texto del cliente tal cual.
+ */
+export function gearLinesForAI(args: { gear: GearSelection; summary: GearSummary; data: GearData; ratings: CombatRatings | null; level: number; code: string }): string[] {
+  const { gear, summary, data, ratings, level, code } = args;
+  const lines: string[] = [];
+  lines.push(`Equipment (character level ${level} for the equip checks; item data from the beta client, stats = client budget tables; random-suffix values are estimates; code g=${code})`);
+  for (const slot of GEAR_SLOTS) {
+    const worn = gear[slot];
+    if (!worn) continue;
+    const item = data.items.get(worn.itemId);
+    if (!item) {
+      lines.push(`- ${SLOT_LABEL[slot]}: item ${worn.itemId} (no longer in the data)`);
+      continue;
+    }
+    const suffix = worn.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
+    const enchant = worn.enchantId ? data.enchants.get(worn.enchantId) : undefined;
+    const stats = [...item.stats, ...(suffix ? suffixStats(item, suffix) : [])].map(statLine);
+    const extra = [suffix ? suffix.name : "", enchant ? `Enchant: ${enchant.name}${enchant.stats.length ? ` (${enchant.stats.map(statLine).join(", ")})` : ""}` : ""].filter(Boolean);
+    lines.push(`- ${SLOT_LABEL[slot]}: ${item.name}${extra.length ? ` [${extra.join("; ")}]` : ""} (item level ${item.itemLevel}${item.requiredLevel ? `, requires level ${item.requiredLevel}` : ""})${stats.length ? `: ${stats.join(", ")}` : ""}`);
+  }
+  const armor = summary.armor + (summary.stats["extra-armor"] ?? 0);
+  const totals = [...summary.lines].filter((l) => l.key !== "extra-armor").map((l) => `${fmtNum(l.value)} ${statName(l.key)}`);
+  if (armor > 0) totals.unshift(`${fmtNum(Math.round(armor))} Armor`);
+  if (totals.length) lines.push(`Gear totals: ${totals.join(", ")}.`);
+  const pcts = ratings ? ratingPercents(summary.stats, ratings) : [];
+  if (pcts.length) lines.push(`Ratings as percentages (one rating per hit/crit/haste in Forever, same at every level; community-measured, not confirmed): ${pcts.map((p) => `${p.label} ${fmtNum(p.value)}${p.unit === "%" ? " %" : ""}`).join(", ")}.`);
+  for (const s of summary.sets) lines.push(`Set ${s.name} (${s.count}/${s.total}): ${s.bonuses.map((b) => `(${b.threshold})${b.active ? " [active]" : ""} ${b.text || b.name}`).join(" | ")}`);
+  for (const e of summary.effects) lines.push(`Item effect, ${e.itemName} (${EFFECT_PREFIX[e.effect.trigger] ?? "Efecto"}): ${(e.effect.text || e.effect.name || `spell ${e.effect.spellId}`).replace(/\s*\n+\s*/g, " ").trim()}`);
+  for (const p of summary.problems) lines.push(`Warning: ${SLOT_LABEL[p.slot]} cannot be worn here (${p.reasons.join("; ")}); it is still counted.`);
+  if (summary.incomplete) lines.push("Warning: some items come from the community without stats, so their contribution is missing.");
+  lines.push("Hit/crit ratings feed the ability chances; spell power and attack power are shown apart as a Classic-style estimate in each ability card, not mixed into the base numbers.", "");
+  return lines;
+}

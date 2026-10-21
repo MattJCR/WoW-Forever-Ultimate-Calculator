@@ -2,6 +2,7 @@ import type { Abilities, Race, Talent, TalentRules } from "@wfuc/schema";
 import { raceBonuses } from "./race.js";
 import { rankOf, type Build, type ClassIndex } from "./rules.js";
 import { ruleLines, ruleScopeNames, dealsDamage } from "./talent-rules.js";
+import { auraNumberInText, classifyGearAuras, remainingAuras, type GearEffectSource } from "./gear-effects.js";
 import { AURA_ADD_FLAT_MODIFIER, AURA_ADD_PCT_MODIFIER, opLabel } from "./spell-mods.js";
 
 /** Categorias del resumen de efectos (el orden es el de la tabla). */
@@ -32,7 +33,7 @@ export type StatCategory = (typeof STAT_CATEGORIES)[number];
 export type StatTarget = "str" | "agi" | "sta" | "int" | "spi" | "all-stats" | "health" | "mana" | "rage" | "energy" | "spell-damage" | "spell-healing" | "attack-power" | "ranged-attack-power";
 
 export interface StatSource {
-  from: "class" | "legacy" | "race";
+  from: "class" | "legacy" | "race" | "gear";
   name: string;
   rank: number;
   maxRank: number;
@@ -290,7 +291,7 @@ const costTypeOf = (name: string, abilities: Abilities): string | null => abilit
 const generatesRage = (scope: string[], abilities: Abilities): boolean =>
   scope.length > 0 && scope.every((n) => abilities.abilities.find((a) => a.name === n)?.ranks.some((r) => r.effects.some((e) => e.effect === EFFECT_ENERGIZE && e.miscValue === POWER_RAGE)));
 
-function talentLines(talent: Talent, rank: number, source: StatSource, abilities: Abilities | null): { lines: StatLine[]; unclassified: boolean } {
+function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descriptions">, rank: number, source: StatSource, abilities: Abilities | null): { lines: StatLine[]; unclassified: boolean } {
   const lines: StatLine[] = [];
   let unclassified = false;
   for (const info of talent.effectInfo) {
@@ -354,6 +355,8 @@ export function collectStatEffects(input: {
   race: Race | null;
   abilities: Abilities | null;
   rules?: TalentRules | null;
+  /** Bonos de conjunto activos y efectos al equipar (`activeGearEffects`); sus estadisticas planas ya van en el equipo, aqui entran los porcentajes y modificadores. */
+  gearEffects?: GearEffectSource[];
 }): StatEffects {
   const lines: StatLine[] = [];
   const conditional: ConditionalEffect[] = [];
@@ -386,6 +389,20 @@ export function collectStatEffects(input: {
   };
   addTree(input.cls, input.classBuild, "class");
   if (input.legacy) addTree(input.legacy, input.legacyBuild, "legacy");
+
+  // Equipo: lo que no es una estadistica plana (ya sumada en el equipo) se clasifica como un talento. Solo se cuantifica si el texto del cliente nombra la cifra.
+  for (const e of input.gearEffects ?? []) {
+    const source: StatSource = { from: "gear", name: e.name, rank: 1, maxRank: 1 };
+    const { consumed } = classifyGearAuras(e.auras, e.text);
+    const rest = remainingAuras(e.auras, consumed);
+    const named = rest.filter((a) => auraNumberInText(a, e.text) && !a.levelScaled);
+    const rankValues: (number | null)[] = [];
+    for (const a of named) rankValues[a.index] = a.value;
+    const { lines: found, unclassified } = talentLines({ effectInfo: named, rankValues: [rankValues], descriptions: [e.text] }, 1, source, input.abilities);
+    lines.push(...found);
+    if (e.text && (rest.length > 0 && (unclassified || found.length === 0 || named.length < rest.length))) conditional.push({ source, text: e.text, active: false });
+    else if (e.text && e.auras.length === 0) conditional.push({ source, text: e.text, active: false });
+  }
 
   if (input.race) {
     const b = raceBonuses(input.race, input.cls.data.classId);

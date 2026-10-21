@@ -1,7 +1,7 @@
 import { int, type RawTables, type Row } from "./csv.js";
 import { renderSpellText } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
-import type { Item, ItemSetDef, Items, ItemStat, ItemWeapon } from "./model.js";
+import type { Item, ItemSetDef, ItemSpellAura, Items, ItemStat, ItemWeapon } from "./model.js";
 
 /**
  * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Interpretados contra las lecturas del juego que trae el
@@ -97,7 +97,27 @@ const byLevel = (rows: Row[]): Map<number, Row> => new Map(rows.map((r) => [int(
 export function buildItems(raw: RawTables, build: string, spells: SpellTables): Items {
   const spellText = (spellId: number) => {
     const r = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map() });
-    return { name: spells.name(spellId) ?? "", text: r.text.trim(), textComplete: r.complete };
+    return { name: spells.name(spellId) ?? "", text: r.text.trim(), textComplete: r.complete, auras: spellAuras(spellId) };
+  };
+  /** Auras del hechizo con operacion, mascara de clase y valor base: lo que el motor intenta cuantificar. */
+  const spellAuras = (spellId: number): ItemSpellAura[] => {
+    const out: ItemSpellAura[] = [];
+    for (let i = 0; i < spells.effectCount(spellId); i++) {
+      const e = spells.effect(spellId, i)!;
+      const aura = int(e.EffectAura);
+      const value = Number(e.EffectBasePointsF);
+      if (aura === 0 || !Number.isFinite(value)) continue;
+      out.push({
+        index: i,
+        aura,
+        miscValue: int(e["EffectMiscValue[0]"]),
+        miscValueB: int(e["EffectMiscValue[1]"]),
+        classMask: [0, 1, 2, 3].map((k) => int(e[`EffectSpellClassMask[${k}]`])),
+        value,
+        levelScaled: spells.isLevelScaled(spellId, i),
+      });
+    }
+    return out;
   };
   const sparse = raw.table("ItemSparse");
   const itemRows = raw.table("Item");

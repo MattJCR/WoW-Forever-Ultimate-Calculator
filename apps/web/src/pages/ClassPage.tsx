@@ -3,6 +3,7 @@ import {
   decodeBuildReport,
   decodeGear,
   encodeBuild,
+  activeGearEffects,
   encodeGear,
   formatBuildForAI,
   indexClass,
@@ -14,6 +15,7 @@ import {
   summarizeGear,
   totalPoints,
   type Build,
+  type GearEffectSource,
   type ClassIndex,
   type DecodeReport,
   type GearContext,
@@ -25,6 +27,7 @@ import { isEmptyCode, useCharacter } from "../character";
 import { Detail } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
 import { GearStep, useGearBundle } from "../components/Gear";
+import { gearLinesForAI } from "../components/gear-format";
 import { LevelPicker } from "../components/LevelPicker";
 import { useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
@@ -36,6 +39,19 @@ import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
 import { href, parseHash, replaceHash } from "../router";
 
 type Entry = Manifest["classes"][number];
+const GEAR_STORAGE_PREFIX = "wfuc.gear.";
+
+/** Último equipo de esta clase guardado en el navegador (`{ g, gl }`); vacío si no hay o el almacenamiento está bloqueado. */
+function readStoredGear(token: string): { g: string | null; gl: string | null } {
+  try {
+    const raw = window.localStorage.getItem(`${GEAR_STORAGE_PREFIX}${token}`);
+    const v = raw ? (JSON.parse(raw) as { g?: unknown; gl?: unknown }) : null;
+    return { g: typeof v?.g === "string" ? v.g : null, gl: typeof v?.gl === "number" ? String(v.gl) : null };
+  } catch {
+    return { g: null, gl: null };
+  }
+}
+
 type View = "race" | "legacy" | "talents" | "gear" | "summary";
 // La raza va primero (paso propio, con su caja como los talentos). Legacy va ANTES que los talentos de clase:
 // Talentoso (Legacy) adelanta el primer punto de talento y cambia el nivel que exigen.
@@ -131,16 +147,26 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const raceQuery: Record<string, string> = race ? { r: String(race.id) } : {};
 
   // Equipo: `g` = codigo del equipo (ids de objeto, encantamiento y sufijo), `gl` = nivel del personaje para las comprobaciones
-  const [initialGear] = useState(() => decodeGear(query.get("g")));
+  // Si el enlace no trae equipo, se recupera el último de esta clase guardado en el navegador (el enlace manda siempre)
+  const [initialGearSource] = useState(() => (query.get("g") !== null ? { g: query.get("g"), gl: query.get("gl") } : readStoredGear(token)));
+  const [initialGear] = useState(() => decodeGear(initialGearSource.g));
   const [gear, setGearState] = useState<GearSelection>(initialGear.gear);
-  const [gearLevel, setGearLevel] = useState(() => Math.max(1, Math.min(60, Number(query.get("gl")) || DEFAULT_GEAR_LEVEL)));
+  const [gearLevel, setGearLevel] = useState(() => Math.max(1, Math.min(60, Number(initialGearSource.gl) || DEFAULT_GEAR_LEVEL)));
   const setGear = useCallback((update: (g: GearSelection) => GearSelection) => setGearState((g) => update(g)), []);
   const gearCode = useMemo(() => encodeGear(gear), [gear]);
   const hasGear = gearCode !== "";
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(`${GEAR_STORAGE_PREFIX}${token}`, JSON.stringify({ g: gearCode, gl: gearLevel }));
+    } catch {
+      /* sin almacenamiento: solo se pierde la comodidad */
+    }
+  }, [token, gearCode, gearLevel]);
   // Los objetos pesan unos 7 MB: solo se descargan al entrar al paso Equipo o si el enlace ya trae equipo
   const gearBundle = useGearBundle(manifest, view === "gear" || hasGear);
   const gearCtx: GearContext = useMemo(() => ({ classId: data.classId, raceId: race?.id ?? 0, level: gearLevel }), [data.classId, race, gearLevel]);
   const gearSummary = useMemo(() => (gearBundle?.status === "ready" ? summarizeGear(gear, gearCtx, gearBundle.value.data) : null), [gearBundle, gear, gearCtx]);
+  const gearEffects = useMemo(() => (gearBundle?.status === "ready" ? activeGearEffects(gear, gearBundle.value.data) : []), [gearBundle, gear]);
   const gearMinLevel = useMemo(() => (gearBundle?.status === "ready" ? Math.max(0, ...Object.values(gear).map((w) => gearBundle.value.data.items.get(w.itemId)?.requiredLevel ?? 0)) : 0), [gearBundle, gear]);
 
   const classCode = useMemo(() => encodeBuild(idx, classBuild), [idx, classBuild]);
@@ -181,6 +207,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   };
 
   const copyForAI = async () => {
+    if (hasGear && gearBundle?.status !== "ready") return say("Cargando los datos del equipo; inténtalo de nuevo en un momento");
     const text = formatBuildForAI({
       cls: idx,
       classBuild,
@@ -191,11 +218,15 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       hotfixesApplied: manifest.hotfixesApplied,
       raceName: race?.name ?? null,
       racials: race?.racials.map((a) => ({ name: a.name, kind: a.kind, description: racialLine(a, data.classId) })),
+      gearLines:
+        hasGear && gearSummary && gearBundle?.status === "ready"
+          ? gearLinesForAI({ gear, summary: gearSummary, data: gearBundle.value.data, ratings: gearBundle.value.ratings, level: gearLevel, code: gearCode })
+          : undefined,
     });
-    if (!text) return say("Gasta algunos puntos primero");
+    if (!text) return say("Gasta algunos puntos o elige equipo primero");
     try {
       await navigator.clipboard.writeText(text);
-      say("Build copiado con el texto completo de cada talento. Pégalo en tu IA con una pregunta.");
+      say("Build copiado con el texto completo de cada talento y tu equipo. Pégalo en tu IA con una pregunta.");
     } catch {
       window.prompt("Copia el texto:", text);
     }
@@ -267,7 +298,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           classBuild={classBuild}
           legacy={legacy}
           legacyBuild={legacyBuild}
-          gear={gearSummary && hasGear ? { summary: gearSummary, ratings: gearBundle?.status === "ready" ? gearBundle.value.ratings : null, minLevel: gearMinLevel } : null}
+          gear={gearSummary && hasGear && gearBundle?.status === "ready" ? { summary: gearSummary, ratings: gearBundle.value.ratings, minLevel: gearMinLevel, effects: gearEffects } : null}
           gearLoading={hasGear && gearBundle?.status !== "ready"}
         />
       )}
@@ -494,6 +525,8 @@ interface GearInSummary {
   ratings: CombatRatings | null;
   /** Nivel minimo al que se puede llevar todo (el mayor requiredLevel): las columnas de nivel menor no llevan equipo. */
   minLevel: number;
+  /** Bonos de conjunto y efectos al equipar activos. */
+  effects: GearEffectSource[];
 }
 
 function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legacy, legacyBuild, gear, gearLoading }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean }) {
@@ -507,7 +540,9 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       {children}
     </Collapsible>
   );
-  const { fx } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race });
+  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas
+  const gearEffects = gear && level >= gear.minLevel ? gear.effects : undefined;
+  const { fx } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects });
   const ids = ["stats", "abilities"];
   const setAll = (v: boolean) => setOpen(Object.fromEntries(ids.map((i) => [i, v])));
   return (
@@ -532,7 +567,7 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       </div>
 
       {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} level={level} fx={fx} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel } : null} />)}
-      {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} level={level} gear={gear ? { stats: gear.summary.stats, ratings: gear.ratings, minLevel: gear.minLevel } : null} />)}
+      {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} level={level} gear={gear ? { stats: gear.summary.stats, ratings: gear.ratings, minLevel: gear.minLevel, effects: gear.effects, weapons: gear.summary.weapons } : null} />)}
       <p className="pending-note">
         En construcción: falta calcular el daño final con el poder con hechizos (depende de las reglas de atributos de Forever, que no están en el cliente).
       </p>

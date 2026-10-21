@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   GEAR_SLOTS,
   canEquip,
+  compareGear,
   decodeGear,
   encodeGear,
   deriveStats,
@@ -188,6 +189,24 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70450
     expect(progress.count).toBe(worn);
     expect(progress.total).toBe(set!.itemIds.length);
     for (const b of progress.bonuses) expect(b.active).toBe(worn >= b.threshold);
+  });
+
+  it("comparar: cambiar el pecho resta lo que llevas y suma lo nuevo; el mismo objeto no compara; un arma a dos manos quita la mano izquierda", () => {
+    const wornPlate: GearSelection = { chest: { itemId: PLATE_CHEST } };
+    expect(compareGear(wornPlate, "chest", item(PLATE_CHEST), ctx(WARRIOR), data)).toBeNull();
+    const cmp = compareGear(wornPlate, "chest", item(CLOTH_ROBE), ctx(WARRIOR), data)!;
+    const plate = summarizeGear(wornPlate, ctx(WARRIOR), data);
+    const robe = summarizeGear({ chest: { itemId: CLOTH_ROBE } }, ctx(WARRIOR), data);
+    for (const d of cmp.stats) {
+      expect(d.before).toBe(plate.stats[d.key] ?? 0);
+      expect(d.after).toBe(robe.stats[d.key] ?? 0);
+      expect(d.before).not.toBe(d.after);
+    }
+    expect(cmp.armor).toEqual({ before: Math.round(plate.armor), after: Math.round(robe.armor) });
+    const swords = compareGear({ mainHand: { itemId: DAGGER }, offHand: { itemId: SHIELD } }, "mainHand", item(TWO_HAND_SWORD), ctx(WARRIOR), data)!;
+    expect(swords.weaponDps.after).toBeGreaterThan(swords.weaponDps.before);
+    // la mano izquierda desaparece: su armadura (el escudo) deja de contar
+    expect(swords.armor.after).toBeLessThan(swords.armor.before);
   });
 
   it("encantamientos: el de pecho solo al pecho, el de dos manos solo a un arma a dos manos, el de escudo solo a un escudo", () => {

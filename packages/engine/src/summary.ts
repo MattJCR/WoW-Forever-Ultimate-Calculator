@@ -91,6 +91,8 @@ export interface AiExportInput {
   /** Enlace a los datos en bruto de la clase. */
   dataLink?: string;
   hotfixesApplied: boolean;
+  /** Líneas ya formateadas del equipo (texto del cliente); se añaden antes de las notas. */
+  gearLines?: string[];
 }
 
 /**
@@ -101,7 +103,7 @@ export interface AiExportInput {
 export function formatBuildForAI(input: AiExportInput): string | null {
   const { cls, classBuild, legacy, legacyBuild } = input;
   const s = summarizeCharacter(cls, classBuild, legacy, legacyBuild);
-  if (s.classPoints + s.legacyPoints === 0) return null;
+  if (s.classPoints + s.legacyPoints === 0 && !input.gearLines?.length) return null;
   const d: ClassTalents = cls.data;
   const trees = d.specs.map((sp) => sp.name ?? `Arbol ${sp.index + 1}`);
   const lines: string[] = [];
@@ -136,6 +138,7 @@ export function formatBuildForAI(input: AiExportInput): string | null {
     for (const r of input.racials) lines.push(`- ${r.name} (${r.kind}): ${oneLine(r.description)}`);
     lines.push("");
   }
+  if (input.gearLines?.length) lines.push(...input.gearLines);
   const flags = [
     s.selected.some((x) => x.approximate) ? "(base values) marks numbers that scale with character level: the text shows the client's base value" : "",
     s.selected.some((x) => x.unresolved) ? "$-tokens are values that depend on the character (attack power, level...) and are not calculated yet" : "",

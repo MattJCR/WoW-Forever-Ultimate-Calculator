@@ -653,7 +653,16 @@ export const ItemWeapon = z.object({
   /** verified = contrastado con lecturas del juego; estimated = la tabla no reproduce las lecturas (armas de lanzador). */
   confidence: z.enum(["verified", "estimated"]),
 });
+/** Efecto de aura de un hechizo de objeto o de bono de conjunto, con su valor base (para cuantificar lo que suma). */
+export const ItemSpellAura = EffectInfo.extend({
+  /** SpellEffect.EffectBasePointsF (con signo); algunos escalan con el nivel del personaje (`levelScaled`). */
+  value: z.number(),
+  levelScaled: z.boolean().default(false),
+});
+export type ItemSpellAura = z.infer<typeof ItemSpellAura>;
 export const ItemEffectRef = z.object({
+  /** Efectos de aura del hechizo (vacio si no tiene). */
+  auras: z.array(ItemSpellAura).default([]),
   spellId: z.number().int(),
   /** ItemEffect.TriggerType: 0 uso, 1 equipar, 2 probabilidad al golpear, 6 aprender... */
   trigger: z.number().int(),
@@ -671,7 +680,7 @@ export const ItemSetDef = z.object({
   requiredSkill: z.number().int(),
   requiredSkillRank: z.number().int(),
   itemIds: z.array(z.number().int()),
-  bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable() })),
+  bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable(), auras: z.array(ItemSpellAura).default([]) })),
 });
 export const Item = z.object({
   id: z.number().int(),

@@ -1,3 +1,4 @@
+import { activeGearEffects, classifyGearAuras } from "./gear-effects.js";
 import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
 
 /**
@@ -202,10 +203,12 @@ export function suffixStats(item: Item, suffix: RandomSuffix): { type: number; k
 // ---------------------------------------------------------------------------------------------------------------------
 // Suma de estadisticas
 
-export type StatOrigin = "item" | "suffix" | "enchant";
+export type StatOrigin = "item" | "suffix" | "enchant" | "set" | "effect";
 export interface GearStatSource {
-  slot: GearSlot;
-  itemId: number;
+  /** Ranura y objeto de origen (null en los bonos de conjunto). */
+  slot: GearSlot | null;
+  itemId: number | null;
+  /** Objeto, o nombre del bono de conjunto (con el numero de piezas). */
   itemName: string;
   origin: StatOrigin;
   value: number;
@@ -225,6 +228,8 @@ export interface GearWeapon {
   speed: number;
   dps: number;
   confidence: "verified" | "estimated";
+  /** Velocidad «normalizada» de Classic para los golpes de arma normalizados (daga 1,7, una mano 2,4, dos manos 3,3, a distancia 2,8). */
+  normalizedSpeed: number;
 }
 
 export interface SetProgress {
@@ -246,6 +251,14 @@ export interface GearProblem {
   slot: GearSlot;
   itemId: number;
   reasons: string[];
+}
+
+const DAGGER_SUBCLASS = 15;
+/** Velocidad normalizada del arma (Classic): a distancia 2,8; dos manos 3,3; daga 1,7; el resto de una mano 2,4. `community`/Classic. */
+export function normalizedWeaponSpeed(item: Item): number {
+  if ([15, 25, 26].includes(item.inventoryType)) return 2.8;
+  if (item.inventoryType === TWO_HAND) return 3.3;
+  return item.subclassId === DAGGER_SUBCLASS ? 1.7 : 2.4;
 }
 
 export interface GearSummary {
@@ -312,7 +325,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
     if (enchant) for (const s of enchant.stats) add(statKey(s), s.value, source("enchant", s.value));
 
     if (item.armor) armor += item.armor;
-    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence });
+    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item) });
     for (const effect of item.effects) effects.push({ slot, itemName: item.name, effect });
     if (item.provenance === "community" && item.stats.length === 0) incomplete = true;
     if (item.itemSetId !== null) {
@@ -320,6 +333,13 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
       set.add(item.id);
       piecesBySet.set(item.itemSetId, set);
     }
+  }
+
+  // Bonos de conjunto activos y efectos «al equipar»: sus estadisticas planas (atributos, poder de ataque...) se suman aqui;
+  // los porcentajes y modificadores de habilidades entran en los efectos sumados (`collectStatEffects`)
+  for (const e of activeGearEffects(gear, data)) {
+    const { stats } = classifyGearAuras(e.auras, e.text);
+    for (const s of stats) add(s.key, s.value, { slot: e.slot, itemId: e.itemId, itemName: e.origin, origin: e.kind === "set" ? "set" : "effect", value: s.value });
   }
 
   const sets: SetProgress[] = [];
@@ -435,4 +455,59 @@ export function decodeGear(code: string | null | undefined): { gear: GearSelecti
     gear[slot] = { itemId: Number(m[2]), enchantId: m[3] ? Number(m[3]) : null, suffixId: m[4] ? Number(m[4]) : null };
   }
   return { gear, malformed };
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Comparar antes / despues
+
+export interface StatDelta {
+  key: string;
+  before: number;
+  after: number;
+}
+export interface GearComparison {
+  /** Estadisticas que cambian (despues − antes), sin la armadura. */
+  stats: StatDelta[];
+  /** Armadura total (piezas + «armadura extra»). */
+  armor: { before: number; after: number };
+  /** Daño por segundo del arma de esa ranura (0 si no hay arma). */
+  weaponDps: { before: number; after: number };
+  /** Conjuntos cuyo numero de piezas o bonos activos cambian. */
+  sets: { name: string; countBefore: number; countAfter: number; total: number; activeBefore: number; activeAfter: number; bonuses: SetProgress["bonuses"] }[];
+}
+
+/**
+ * Lo que cambia al poner `item` en `slot` en lugar de lo que lleva: se suma de nuevo todo el equipo (asi cuentan las reglas de manos,
+ * el sufijo y el encantamiento que se pierden y los conjuntos). El objeto nuevo entra sin sufijo ni encantamiento, como al elegirlo
+ * en la lista. Devuelve null si ya llevas ese objeto en la ranura.
+ */
+export function compareGear(gear: GearSelection, slot: GearSlot, item: Item, ctx: GearContext, data: GearData): GearComparison | null {
+  if (gear[slot]?.itemId === item.id) return null;
+  const before = summarizeGear(gear, ctx, data);
+  const after = summarizeGear(equipItem(gear, slot, item, data.items), ctx, data);
+  const keys = new Set([...Object.keys(before.stats), ...Object.keys(after.stats)]);
+  keys.delete("extra-armor");
+  const stats = [...keys]
+    .map((key) => ({ key, before: before.stats[key] ?? 0, after: after.stats[key] ?? 0 }))
+    .filter((d) => d.before !== d.after)
+    .sort((a, b) => a.key.localeCompare(b.key));
+  const totalArmor = (s: GearSummary): number => s.armor + (s.stats["extra-armor"] ?? 0);
+  const dps = (s: GearSummary): number => s.weapons.find((w) => w.slot === slot)?.dps ?? 0;
+  const setNames = new Set([...before.sets, ...after.sets].map((s) => s.setId));
+  const sets: GearComparison["sets"] = [];
+  for (const id of setNames) {
+    const b = before.sets.find((s) => s.setId === id);
+    const a = after.sets.find((s) => s.setId === id);
+    const activeBefore = b?.bonuses.filter((x) => x.active).length ?? 0;
+    const activeAfter = a?.bonuses.filter((x) => x.active).length ?? 0;
+    if ((b?.count ?? 0) === (a?.count ?? 0) && activeBefore === activeAfter) continue;
+    const ref = (a ?? b)!;
+    sets.push({ name: ref.name, countBefore: b?.count ?? 0, countAfter: a?.count ?? 0, total: ref.total, activeBefore, activeAfter, bonuses: ref.bonuses });
+  }
+  return {
+    stats,
+    armor: { before: Math.round(totalArmor(before)), after: Math.round(totalArmor(after)) },
+    weaponDps: { before: dps(before), after: dps(after) },
+    sets,
+  };
 }

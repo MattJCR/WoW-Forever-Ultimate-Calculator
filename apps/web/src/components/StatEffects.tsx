@@ -1,4 +1,4 @@
-import { collectStatEffects, STAT_CATEGORIES, type Build, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
+import { collectStatEffects, STAT_CATEGORIES, type Build, type GearEffectSource, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
 import type { Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
 import { useMemo } from "react";
@@ -16,7 +16,7 @@ const valueText = (t: StatTotal): string => {
 };
 
 const sourceText = (s: StatSource): string => (s.maxRank > 1 ? `${s.name} ${s.rank}/${s.maxRank}` : s.name);
-const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Puntos de Legado", race: "raza" };
+const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Puntos de Legado", race: "raza", gear: "equipo" };
 
 export interface EffectsInput {
   manifest: Manifest;
@@ -25,17 +25,19 @@ export interface EffectsInput {
   legacy: ClassIndex | null;
   legacyBuild: Build;
   race: Race | null;
+  /** Bonos de conjunto y efectos al equipar activos (ya filtrados por el nivel del personaje). */
+  gearEffects?: GearEffectSource[];
 }
 
 /** Efectos sumados de talentos, Legacy y raza (carga las habilidades y reglas de la clase); `fx` es null mientras carga. */
-export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
+export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race, gearEffects }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
   const entry = manifest.abilities.find((a) => a.classId === cls.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.resolve(null)));
   const abilities = state.status === "ready" ? state.value : null;
   const ruleEntry = manifest.rules.find((a) => a.classId === cls.data.classId);
   const rulesState = useAsync(ruleEntry?.file ?? "none", () => (ruleEntry ? getJson(ruleEntry.file, (v) => TalentRulesSchema.parse(v)) : Promise.resolve(null)));
   const rules = rulesState.status === "ready" ? rulesState.value : null;
-  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules]);
+  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects]);
   return { fx, loading: state.status === "loading" || rulesState.status === "loading" };
 }
 

@@ -7,7 +7,10 @@ import {
   dealsDamage,
   deriveStats,
   gearChanceBonus,
+  gearSpellModifiers,
   healsTarget,
+  powerContext,
+  powerEstimate,
   rankAtLevel,
   renderAbilityText,
   ruleAbilityDetail,
@@ -18,6 +21,8 @@ import {
   type Build,
   type ClassIndex,
   type GearChanceBonus,
+  type GearEffectSource,
+  type PowerContext,
   type TargetOption,
   type ModifiedAbility,
   type ModifiedEffect,
@@ -182,7 +187,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null }) {
+function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   // Con Ctrl: la misma habilidad sin ningun talento
@@ -191,6 +196,8 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
   const lines = showBase ? [] : row.summaryLines;
   const rules = showBase ? [] : row.ruleTexts;
   const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines, gear: chancesInput.gear }) : null;
+  const est = power ? powerEstimate(m, power.ctx) : null;
+  const hasPower = !!est && (est.spell.length > 0 || est.weapon !== null);
   const noted = showBase ? [] : (Object.entries(row.inline) as [string, AbilityEffectLine[]][]).filter(([, v]) => v.length > 0);
   // La tarjeta se coloca junto al cursor y se ajusta a su altura real para no salirse de la pantalla
   const ref = useRef<HTMLDivElement>(null);
@@ -243,7 +250,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
       </div>
       {showBase && <p className="ab-base-banner">Base sin talentos. Suelta Ctrl para ver tus mejoras.</p>}
 
-      <div className={`ab-cols${chances || lines.length > 0 || rules.length > 0 ? "" : " single"}`}>
+      <div className={`ab-cols${chances || lines.length > 0 || rules.length > 0 || hasPower ? "" : " single"}`}>
       <div className="ab-col">
       <dl className="ab-grid">
         <Stat label="Coste" now={costText(m)} was={costText(row.base)} />
@@ -319,6 +326,38 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
         </section>
       )}
 
+      {est && hasPower && power && (
+        <section>
+          <h5>
+            Con tu poder <span className="tag tag-inactive" title="El coeficiente de poder con hechizos de cada efecto sale del cliente, pero no se sabe si Forever lo aplica como Classic. El golpe de arma usa la fórmula de Classic (arma + poder de ataque ÷ 14 × velocidad). No hay coeficientes de poder de ataque en el cliente.">estimación Classic</span>
+          </h5>
+          <ul className="ab-sum">
+            {est.spell.map((b) => {
+              const me = m.effects.find((x) => x.effect.index === b.effectIndex && x.effect.viaSpellId === null) ?? m.effects.find((x) => x.effect.index === b.effectIndex)!;
+              return (
+                <li key={`${b.effectIndex}-${b.periodic}`}>
+                  <span className="ab-sum-l">{KIND_LABEL[me.effect.kind] ?? me.effect.kind}</span>
+                  <b className="pos">{range(b.final.min, b.final.max)}</b>
+                  <span className="ab-sum-s">
+                    {b.periodic ? "por tick " : ""}= {range(me.final.min, me.final.max)} + {fmt(b.power)} de poder con hechizos × {fmt(b.coefficient * 100, 1)} % = +{fmt(b.perHit, 1)}
+                    {b.periodic ? ` · × ${b.ticks} ticks = ${fmt(b.final.average * b.ticks)} en total` : ""}
+                  </span>
+                </li>
+              );
+            })}
+            {est.weapon && (
+              <li>
+                <span className="ab-sum-l">Golpe de arma{est.weapon.ranged ? " (a distancia)" : ""}</span>
+                <b className="pos">{range(est.weapon.min, est.weapon.max)}</b>
+                <span className="ab-sum-s">{est.weapon.formula}</span>
+              </li>
+            )}
+          </ul>
+          {!power.attributesKnown && <p className="muted small">Elige una raza para sumar el poder que dan tus atributos.</p>}
+          {!power.hasGear && <p className="muted small">Sin equipo: solo cuenta el poder de tus atributos y talentos.</p>}
+        </section>
+      )}
+
       {lines.length > 0 && (
         <section>
           <h5>Con tus talentos, Puntos de Legado y raza</h5>
@@ -350,7 +389,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
 
       <p className="muted small ab-foot">
         {rank.descriptionTemplate.includes("$") ? "Alguna cifra depende de tu personaje y no se calcula. " : ""}
-        No incluye poder con hechizos. {!showBase && row.count > 0 ? "Mantén Ctrl para ver la base. " : ""}
+        Las cifras de arriba no incluyen el poder con hechizos ni el de ataque (ver «Con tu poder», estimación). {!showBase && row.count > 0 ? "Mantén Ctrl para ver la base. " : ""}
         {tip.pinned ? "Clic en la fila para cerrar." : "Clic en la fila para fijar la tarjeta."}
       </p>
     </div>
@@ -381,7 +420,7 @@ export function AbilitiesTable({
   /** Nivel del personaje (lo elige el Resumen). */
   level: number;
   /** Equipo del paso «Equipo» (estadisticas sumadas y puntuaciones); null si no llevas. */
-  gear?: { stats: Record<string, number>; ratings: CombatRatings | null; minLevel: number } | null;
+  gear?: { stats: Record<string, number>; ratings: CombatRatings | null; minLevel: number; effects: GearEffectSource[]; weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number }[] } | null;
 }) {
   const entry = manifest.abilities.find((a) => a.classId === idx.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error("sin habilidades"))));
@@ -432,12 +471,13 @@ export function AbilitiesTable({
     [clientStatsState, idx.data.classId, level],
   );
   const abilities = state.status === "ready" ? state.value : null;
-  const mods = useMemo(() => [...spellModifiersOf(idx, build), ...(legacy ? spellModifiersOf(legacy, legacyBuild) : [])], [idx, build, legacy, legacyBuild]);
-  const ruled = useMemo(() => ruleLines(rules, idx, build), [rules, idx, build]);
-  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules }), [idx, build, legacy, legacyBuild, race, abilities, rules]);
-  // Atributos de tu raza y clase a este nivel (Classic, estimacion) con el equipo y los % de talentos, Legacy y raza ya aplicados; sin raza no hay.
-  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas (como en la tabla de estadisticas del Resumen).
+  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas (como en la tabla de estadisticas del Resumen)
   const gearHere = gear && level >= gear.minLevel ? gear : null;
+  const gearEffects = gearHere?.effects;
+  const mods = useMemo(() => [...spellModifiersOf(idx, build), ...(legacy ? spellModifiersOf(legacy, legacyBuild) : []), ...(gearEffects ? gearSpellModifiers(gearEffects) : [])], [idx, build, legacy, legacyBuild, gearEffects]);
+  const ruled = useMemo(() => ruleLines(rules, idx, build), [rules, idx, build]);
+  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules, gearEffects }), [idx, build, legacy, legacyBuild, race, abilities, rules, gearEffects]);
+  // Atributos de tu raza y clase a este nivel (Classic, estimacion) con el equipo y los % de talentos, Legacy y raza ya aplicados; sin raza no hay.
   const baseStats = useMemo(() => {
     if (!race || statsState.status !== "ready") return null;
     const row = statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1];
@@ -446,6 +486,21 @@ export function AbilitiesTable({
     const at = (k: string): number => final.find((r) => r.key === k)?.final ?? 0;
     return { agi: at("agi"), int: at("int") };
   }, [race, statsState, idx.data.classId, level, fx, gearHere]);
+  // Poder con hechizos y de ataque finales (atributos de la raza si hay, equipo, talentos), para la estimacion de daño de la tarjeta
+  const power = useMemo(() => {
+    if (clientStatsState.status !== "ready") return null;
+    const clientClass = clientStatsState.value?.classes.find((c) => c.classId === idx.data.classId) ?? null;
+    const row = race && statsState.status === "ready" ? statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1] : undefined;
+    const derived = deriveStats({
+      attributes: (row ?? [0, 0, 0, 0, 0]) as [number, number, number, number, number],
+      hpBase: 0,
+      manaBase: 0,
+      totals: fx.totals,
+      gear: gearHere?.stats ?? null,
+      attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
+    });
+    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? []), attributesKnown: !!row, hasGear: !!gearHere };
+  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
@@ -458,7 +513,7 @@ export function AbilitiesTable({
       const base = applyModifiers(rank, level, []);
       const sum = abilityEffectSummary(a.name, fx, { canCrit: canCrit(rank) });
       const ruleTexts = ruled.filter((l) => ruleAppliesTo(l, a, rank)).map((l) => ruleAbilityDetail(l, rank).text);
-      // «Afectada por mis talentos»: solo cuentan las cifras que vienen de talentos de clase o de Legacy; la raza se aplica a todas
+      // «Afectada por mis talentos»: cuentan las cifras de talentos de clase, de Legacy y del equipo (bonos de conjunto, efectos de objeto); la raza se aplica a todas
       const fromTalents = (l: AbilityEffectLine): boolean => l.sources.some((s) => s.from !== "race");
       const count = sum.lines.filter(fromTalents).length + Object.values(sum.inline).reduce((n, v) => n + (v?.filter(fromTalents).length ?? 0), 0) + ruleTexts.length;
       out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count });
@@ -531,7 +586,7 @@ export function AbilitiesTable({
         talentos, Puntos de Legado y raza que le afectan. Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El poder con hechizos aún no se suma: depende de
         las estadísticas de Forever, que no están en el cliente.
       </p>
-      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} />}
+      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>
   );
 }

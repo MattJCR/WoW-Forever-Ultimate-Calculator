@@ -163,3 +163,13 @@ describe("Copiar build para IA", () => {
     expect(text).toContain("class points spent");
   });
 });
+
+describe("Copiar build para IA con equipo", () => {
+  const base = { cls: mage, classBuild: {}, legacy: null, legacyBuild: {}, link: "https://example.test/#/class/mage", hotfixesApplied: true };
+  it("sin puntos ni equipo no hay texto; con solo equipo sí, y las líneas van antes de las notas", () => {
+    expect(formatBuildForAI(base)).toBeNull();
+    const text = formatBuildForAI({ ...base, gearLines: ["Equipment (test)", "- Cabeza: Gorro", ""] })!;
+    expect(text).toContain("- Cabeza: Gorro");
+    expect(text.indexOf("Equipment (test)")).toBeLessThan(text.indexOf("Notes:"));
+  });
+});
