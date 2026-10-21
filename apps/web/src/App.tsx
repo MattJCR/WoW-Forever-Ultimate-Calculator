@@ -75,6 +75,9 @@ function Layout({ manifest }: { manifest: Manifest }) {
         </div>
       </header>
 
+      <div className="page-emblem" aria-hidden="true">
+        <img src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`} alt="" draggable={false} />
+      </div>
       <main>
         <Routes route={route} manifest={manifest} />
       </main>
