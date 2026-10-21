@@ -56,7 +56,7 @@ describe("Sacerdote: habilidades, talentos y reglas", () => {
   });
 });
 
-describe("Sacerdote: cifras directas frente a Talents Forever (a nivel min(60, nivel máximo))", () => {
+describe("Sacerdote: cifras directas frente a la referencia (a nivel min(60, nivel máximo))", () => {
   const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "priest.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
   const byId = new Map<number, (typeof abilities.abilities)[number]["ranks"][number]>();
   for (const a of abilities.abilities) for (const r of a.ranks) byId.set(r.spellId, r);
@@ -73,7 +73,7 @@ describe("Sacerdote: cifras directas frente a Talents Forever (a nivel min(60, n
         pairs++;
         const [a, b] = [Number(m[1]!.replace(/,/g, "")), Number(m[2]!.replace(/,/g, ""))];
         if (ours.some((o) => Math.abs(o.min - a) <= 1 && Math.abs(o.max - b) <= 1)) ok++;
-        else if (v.id === 14914) hotfixed++; // Fuego Sagrado rango 1: hotfix del 18/10 (57-70 → 53-65); TF aún trae el valor anterior
+        else if (v.id === 14914) hotfixed++; // Fuego Sagrado rango 1: hotfix del 18/10 (57-70 → 53-65); la referencia aún trae el valor anterior
       }
     }
     expect(pairs).toBe(95);

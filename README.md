@@ -43,3 +43,4 @@ Licencia: [PolyForm Strict 1.0.0](LICENSE) más los avisos y el permiso para con
 ## Datos y créditos
 
 - Fuente de verdad: el cliente de la beta (build 1.60.1.70425), leído sin modificarlo.
+- Avisos de terceros exigidos por licencia: [NOTICE.md](NOTICE.md).

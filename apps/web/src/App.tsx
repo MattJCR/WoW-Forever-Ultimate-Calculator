@@ -66,13 +66,6 @@ function Layout({ manifest }: { manifest: Manifest }) {
           {manifest.hotfixesApplied ? " (con hotfixes del servidor)" : ""} · extraídos el {manifest.generatedAt.slice(0, 10)}. Pueden cambiar durante la beta.
         </p>
         <p>
-          Puntuaciones de combate, encantamientos, sufijos aleatorios y algunos objetos proceden de{" "}
-          <a href="https://github.com/wowsims/forever" target="_blank" rel="noreferrer">
-            wowsims/forever
-          </a>{" "}
-          (© wowsims team, licencia MIT).
-        </p>
-        <p>
           Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
         </p>
       </footer>

@@ -38,7 +38,7 @@ const MAX_GRID_X = 15000;
 const MAX_GRID_Y = 8000;
 /** Una especializacion con menos talentos que esto se marca como incompleta. */
 const MIN_SPEC_TALENTS = 10;
-/** Primer punto de talento al nivel 10 (Talents Forever); sin confirmar en el cliente. */
+/** Primer punto de talento al nivel 10 (la referencia); sin confirmar en el cliente. */
 const FIRST_POINT_LEVEL = 10;
 
 export interface BuildResult {

@@ -2,21 +2,21 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "source": {
-    "name": "cmangos/mangos-classic sql/base/mangos.sql (player_levelstats, player_classlevelstats)",
-    "url": "https://raw.githubusercontent.com/cmangos/mangos-classic/7f98ba0f0b7b74b93c01741c7bd64ec457b427ee/sql/base/mangos.sql",
-    "commit": "7f98ba0f0b7b74b93c01741c7bd64ec457b427ee",
-    "license": "GPL-2.0 (servidor); solo se usan cifras"
+    "name": "Estadísticas base de Classic Era (comunidad)",
+    "url": "",
+    "commit": "",
+    "license": "Solo se usan cifras"
   },
   "raceOffsets": {
     "source": {
-      "name": "wowsims/forever",
-      "url": "https://github.com/wowsims/forever",
-      "commit": "6296e8546d9c5a0b4670d18476bfd690eba9c687",
+      "name": "Medidas de la comunidad",
+      "url": "",
+      "commit": "",
       "date": "2026-10-20",
-      "license": "MIT (Copyright (c) 2022 wowsims team)"
+      "license": "MIT"
     },
     "provenance": "community",
-    "note": "Diferencias de raza medidas en la beta por wowsims en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
+    "note": "Diferencias de raza medidas en la beta por la comunidad en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
     "offsets": [
       {
         "raceId": 1,
@@ -1280,7 +1280,7 @@
       "classId": 1,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           23,
@@ -1709,7 +1709,7 @@
       "classId": 2,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           22,
@@ -2138,7 +2138,7 @@
       "classId": 3,
       "provenance": "assumption",
       "derivedFromRaceId": 2,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
       "stats": [
         [
           20,
@@ -2567,7 +2567,7 @@
       "classId": 4,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           21,
@@ -2996,7 +2996,7 @@
       "classId": 5,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           20,
@@ -3425,7 +3425,7 @@
       "classId": 8,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           20,
@@ -3854,7 +3854,7 @@
       "classId": 9,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).",
+      "note": "Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).",
       "stats": [
         [
           20,
@@ -11147,7 +11147,7 @@
       "classId": 1,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
       "stats": [
         [
           22,
@@ -11576,7 +11576,7 @@
       "classId": 3,
       "provenance": "community",
       "derivedFromRaceId": 2,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
       "stats": [
         [
           19,
@@ -12005,7 +12005,7 @@
       "classId": 4,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
       "stats": [
         [
           20,
@@ -12434,7 +12434,7 @@
       "classId": 8,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
       "stats": [
         [
           19,
@@ -12863,7 +12863,7 @@
       "classId": 11,
       "provenance": "community",
       "derivedFromRaceId": 4,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 4 de Classic.",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 4 de Classic.",
       "stats": [
         [
           20,
@@ -23159,7 +23159,7 @@
       "classId": 1,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
       "stats": [
         [
           22,
@@ -23588,7 +23588,7 @@
       "classId": 3,
       "provenance": "community",
       "derivedFromRaceId": 2,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
       "stats": [
         [
           19,
@@ -24017,7 +24017,7 @@
       "classId": 4,
       "provenance": "community",
       "derivedFromRaceId": null,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).",
       "stats": [
         [
           20,
@@ -24446,7 +24446,7 @@
       "classId": 7,
       "provenance": "community",
       "derivedFromRaceId": 2,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 2 de Classic.",
       "stats": [
         [
           20,
@@ -24875,7 +24875,7 @@
       "classId": 11,
       "provenance": "community",
       "derivedFromRaceId": 4,
-      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 4 de Classic.",
+      "note": "Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto). La base de esta clase no existia para el Humano en Classic: se deduce de la raza 4 de Classic.",
       "stats": [
         [
           20,

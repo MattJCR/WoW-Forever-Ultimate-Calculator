@@ -9,11 +9,11 @@ import { Items } from "../src/model.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const BUILD = "1.60.1.70450";
-const LOOTIFIED = join(root, "data", "external", "lootified", "ItemStats.lua");
+const ITEM_READINGS = join(root, "data", "external", "lootified", "ItemStats.lua");
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const haveRaw = existsSync(join(RAW, "RandPropPoints.csv"));
 
-/** Claves de Lootified (lecturas del juego, build 70291) -> las nuestras. */
+/** Claves de las lecturas del juego (build 70291) -> las nuestras. */
 const LOOTIFIED_KEYS: Record<string, string> = {
   Agility: "agility", Strength: "strength", Intellect: "intellect", Spirit: "spirit", Stamina: "stamina",
   Defense: "defense", DodgeRating: "dodge-rating", ParryRating: "parry-rating", BlockRating: "block-rating",
@@ -23,17 +23,17 @@ const LOOTIFIED_KEYS: Record<string, string> = {
   HolyPower: "holy-power", FirePower: "fire-power", NaturePower: "nature-power", FrostPower: "frost-power", ShadowPower: "shadow-power", ArcanePower: "arcane-power",
 };
 
-function readLootified() {
-  const txt = readFileSync(LOOTIFIED, "utf8");
+function readGameReadings() {
+  const txt = readFileSync(ITEM_READINGS, "utf8");
   const section = (name: string, next?: string) => txt.slice(txt.indexOf(`    ${name} = {`), next ? txt.indexOf(`    ${next} = {`) : txt.length);
   const read = (s: string) => new Map([...s.matchAll(/^\s*\[(\d+)\] = "(.*)",?\s*$/gm)].map((m) => [Number(m[1]), m[2]!]));
   return { items: read(section("items", "weapons")), weapons: read(section("weapons", "skills")) };
 }
 
-const ready = haveRaw && existsSync(LOOTIFIED);
-describe.skipIf(!ready)("objetos frente a las lecturas del juego de Lootified (solo contraste local)", () => {
+const ready = haveRaw && existsSync(ITEM_READINGS);
+describe.skipIf(!ready)("objetos frente a las lecturas del juego (solo contraste local)", () => {
   const data = Items.parse(buildItems(openRawTables(RAW), BUILD, new SpellTables(openRawTables(RAW))));
-  const lootified = readLootified();
+  const readings = readGameReadings();
   const byId = new Map(data.items.map((i) => [i.id, i]));
 
   it("cubre los equipables con ItemSparse y deja aparte los que el cliente no trae", () => {
@@ -45,7 +45,7 @@ describe.skipIf(!ready)("objetos frente a las lecturas del juego de Lootified (s
   it("estadisticas = reparto x presupuesto de RandPropPoints: >= 97 % de los objetos coinciden (+-1)", () => {
     let n = 0;
     let ok = 0;
-    for (const [id, line] of lootified.items) {
+    for (const [id, line] of readings.items) {
       const mine = byId.get(id);
       if (!mine) continue;
       const read: Record<string, number> = Object.fromEntries(
@@ -68,7 +68,7 @@ describe.skipIf(!ready)("objetos frente a las lecturas del juego de Lootified (s
   it("armadura = tablas + armadura extra: >= 98 % coinciden (+-1) (medido 99,5 %)", () => {
     let n = 0;
     let ok = 0;
-    for (const [id, line] of lootified.items) {
+    for (const [id, line] of readings.items) {
       const mine = byId.get(id);
       if (!mine || mine.classId !== 4) continue;
       const theirs = Number(/Armor=(\d+)/.exec(line)?.[1] ?? 0);
@@ -83,7 +83,7 @@ describe.skipIf(!ready)("objetos frente a las lecturas del juego de Lootified (s
   function weaponAgreement(pick: (i: (typeof data.items)[number]) => boolean): { n: number; rate: number } {
     let n = 0;
     let ok = 0;
-    for (const [id, line] of lootified.weapons) {
+    for (const [id, line] of readings.weapons) {
       const mine = byId.get(id);
       if (!mine?.weapon || !pick(mine)) continue;
       const [min, max] = line.split("|").map(Number) as [number, number];

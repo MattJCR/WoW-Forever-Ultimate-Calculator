@@ -138,7 +138,7 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
           {ability.name} <span className="rank-chip">rango {m.rank.rank}</span>
           {ability.talentsForever && ability.talentsForever.status !== "listed" && (
             <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ?? undefined}>
-              {ability.talentsForever.status === "retired" ? "retirada según TF" : "sin TF"}
+              {ability.talentsForever.status === "retired" ? "retirada según la referencia" : "sin referencia"}
             </span>
           )}
           {d.count > 0 && (
@@ -454,7 +454,7 @@ export function AbilitiesTable({
   if (state.status === "loading" || rulesState.status === "loading") return <p className="muted">Cargando habilidades…</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
 
-  // «Activa en Forever» = la lista Talents Forever (o no hay export de TF para la clase). Las runas de Forever que TF no lista y las que da por retiradas se ven al desmarcar
+  // «Activa en Forever» = la lista de la referencia (o no hay referencia para la clase). Las runas de Forever que la referencia no lista y las que da por retiradas se ven al desmarcar
   const isActive = (d: (typeof data)[number]): boolean => !d.ability.talentsForever || d.ability.talentsForever.status === "listed" || d.ability.talentsForever.status === "partial";
   const hiddenInactive = data.filter((d) => (!onlyAffected || d.count > 0) && !isActive(d)).length;
   const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)));
@@ -487,7 +487,7 @@ export function AbilitiesTable({
         <label>
           <input type="checkbox" checked={onlyAffected} onChange={(e) => setOnlyAffected(e.target.checked)} /> Solo las afectadas por mis talentos
         </label>
-        <label title="Las habilidades que Talents Forever lista. Desmárcalo para ver también las que Forever no lista (runas, auxiliares) o da por retiradas: salen marcadas «sin TF» o «retirada según TF»">
+        <label title="Las habilidades que la referencia lista. Desmárcalo para ver también las que Forever no lista (runas, auxiliares) o da por retiradas: salen marcadas «sin referencia» o «retirada según la referencia»">
           <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} /> Solo activas en Forever
           {onlyActive && hiddenInactive > 0 ? <small className="muted"> ({hiddenInactive} ocultas)</small> : null}
         </label>

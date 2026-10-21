@@ -12,8 +12,10 @@ export type DerivedKey = "str" | "agi" | "sta" | "int" | "spi" | "health" | "man
 export interface DerivedRow {
   key: DerivedKey;
   label: string;
-  /** Valor antes de talentos: atributo base de Classic, o vida/mana con el aporte de aguante/intelecto (sin %). */
+  /** Valor antes de talentos: atributo base de Classic, o vida/mana con el aporte de aguante/intelecto (sin %) y con el del equipo. */
   base: number;
+  /** Puntos planos del equipo, ya sumados a la base antes de aplicar los % de talentos (atributos). 0 sin equipo. */
+  gear: number;
   /** % acumulado de talentos, Legacy y raza (el de «todos los atributos» ya va multiplicado dentro). */
   bonusPct: number;
   /** Puntos planos de talentos (p. ej. maná máximo). */
@@ -58,8 +60,18 @@ export function deriveStats(input: {
   totals: StatTotal[];
   /** Poder de ataque por atributo de la clase (ChrClasses, client-db2); sin él no hay filas de poder de ataque. */
   attackPower?: { perStrength: number; perAgility: number; rangedPerAgility: number } | null;
+  /**
+   * Suma de estadisticas del equipo por clave de objeto (`summarizeGear().stats`: strength, stamina, health, mana, attack-power,
+   * ranged-attack-power, spell-power, spell-damage, healing-power...). Orden: objetos primero, luego los % de talentos, luego
+   * las derivadas (vida por aguante, maná por intelecto, poder de ataque por atributo), como en Classic. `community`/confianza baja.
+   */
+  gear?: Record<string, number> | null;
 }): DerivedStats {
   const { attributes, hpBase, manaBase, totals, attackPower } = input;
+  const gear = input.gear ?? {};
+  const gearAttr = [gear.strength ?? 0, gear.agility ?? 0, gear.stamina ?? 0, gear.intellect ?? 0, gear.spirit ?? 0];
+  // Atributos sin talentos (clase y raza + equipo): lo que vale la base de las filas derivadas
+  const plain = attributes.map((v, i) => v + gearAttr[i]!);
   const all = pct(totals, "all-stats", "%");
   const rows: DerivedRow[] = [];
   const finalAttr: Record<string, number> = {};
@@ -68,20 +80,22 @@ export function deriveStats(input: {
     const own = pct(totals, key, "%");
     const factor = (1 + own.value / 100) * (1 + all.value / 100);
     const base = attributes[i]!;
-    const final = Math.floor(base * factor + 1e-9);
+    const final = Math.floor((base + gearAttr[i]!) * factor + 1e-9);
     finalAttr[key] = final;
-    rows.push({ key, label, base, bonusPct: Math.round((factor - 1) * 10000) / 100, flat: 0, final, sources: [...own.sources, ...all.sources] });
+    rows.push({ key, label, base, gear: gearAttr[i]!, bonusPct: Math.round((factor - 1) * 10000) / 100, flat: 0, final, sources: [...own.sources, ...all.sources] });
   });
 
   const healthPct = pct(totals, "health", "%");
-  const healthBase = hpBase + healthFromStamina(finalAttr.sta!);
-  rows.push({ key: "health", label: "Vida máxima", base: hpBase + healthFromStamina(attributes[2]), bonusPct: healthPct.value, flat: 0, final: Math.floor(healthBase * (1 + healthPct.value / 100) + 1e-9), sources: healthPct.sources });
+  const healthGear = gear.health ?? 0;
+  const healthBase = hpBase + healthFromStamina(finalAttr.sta!) + healthGear;
+  rows.push({ key: "health", label: "Vida máxima", base: hpBase + healthFromStamina(plain[2]!) + healthGear, gear: healthGear, bonusPct: healthPct.value, flat: 0, final: Math.floor(healthBase * (1 + healthPct.value / 100) + 1e-9), sources: healthPct.sources });
 
   if (manaBase > 0) {
     const manaPct = pct(totals, "mana", "%");
     const manaFlat = pct(totals, "mana", "puntos");
-    const manaTotal = manaBase + manaFromIntellect(finalAttr.int!) + manaFlat.value;
-    rows.push({ key: "mana", label: "Maná máximo", base: manaBase + manaFromIntellect(attributes[3]), bonusPct: manaPct.value, flat: manaFlat.value, final: Math.floor(manaTotal * (1 + manaPct.value / 100) + 1e-9), sources: [...manaPct.sources, ...manaFlat.sources] });
+    const manaGear = gear.mana ?? 0;
+    const manaTotal = manaBase + manaFromIntellect(finalAttr.int!) + manaFlat.value + manaGear;
+    rows.push({ key: "mana", label: "Maná máximo", base: manaBase + manaFromIntellect(plain[3]!) + manaGear, gear: manaGear, bonusPct: manaPct.value, flat: manaFlat.value, final: Math.floor(manaTotal * (1 + manaPct.value / 100) + 1e-9), sources: [...manaPct.sources, ...manaFlat.sources] });
   }
 
   // Poder de ataque por atributo (ChrClasses) y lo que los talentos dan como % de un atributo (Maña mental: 100 % del intelecto).
@@ -93,22 +107,27 @@ export function deriveStats(input: {
   const attrIndex = { str: 0, agi: 1, sta: 2, int: 3, spi: 4 } as const;
   const push = (key: DerivedKey, label: string, base: number, extra: { points: number; sources: StatSource[] }, show: boolean) => {
     if (!show) return;
-    rows.push({ key, label, base: Math.floor(base + 1e-9), bonusPct: 0, flat: Math.floor(extra.points + 1e-9), final: Math.floor(base + extra.points + 1e-9), sources: extra.sources });
+    rows.push({ key, label, base: Math.floor(base + 1e-9), gear: 0, bonusPct: 0, flat: Math.floor(extra.points + 1e-9), final: Math.floor(base + extra.points + 1e-9), sources: extra.sources });
   };
   if (attackPower) {
-    const ap = attributes[attrIndex.str] * attackPower.perStrength + attributes[attrIndex.agi] * attackPower.perAgility;
-    const apFinal = finalAttr.str! * attackPower.perStrength + finalAttr.agi! * attackPower.perAgility;
+    // «Base» = sin talentos pero con el equipo (atributos y puntos de poder de ataque de los objetos)
+    const apGear = gear["attack-power"] ?? 0;
+    const ap = plain[attrIndex.str]! * attackPower.perStrength + plain[attrIndex.agi]! * attackPower.perAgility + apGear;
+    const apFinal = finalAttr.str! * attackPower.perStrength + finalAttr.agi! * attackPower.perAgility + apGear;
     const melee = fromStat("attack-power");
     // Los atributos subidos por talentos entran en la base del poder de ataque: se muestra como «base» el valor sin talentos
-    rows.push({ key: "ap", label: "Poder de ataque (de atributos)", base: Math.floor(ap + 1e-9), bonusPct: 0, flat: Math.floor(apFinal - ap + melee.points + 1e-9), final: Math.floor(apFinal + melee.points + 1e-9), sources: melee.sources });
-    const rap = attributes[attrIndex.agi] * attackPower.rangedPerAgility;
-    const rapFinal = finalAttr.agi! * attackPower.rangedPerAgility;
+    rows.push({ key: "ap", label: "Poder de ataque (de atributos)", base: Math.floor(ap + 1e-9), gear: apGear, bonusPct: 0, flat: Math.floor(apFinal - ap + melee.points + 1e-9), final: Math.floor(apFinal + melee.points + 1e-9), sources: melee.sources });
+    const rapGear = gear["ranged-attack-power"] ?? 0;
+    const rap = plain[attrIndex.agi]! * attackPower.rangedPerAgility + rapGear;
+    const rapFinal = finalAttr.agi! * attackPower.rangedPerAgility + rapGear;
     const ranged = fromStat("ranged-attack-power");
-    if (attackPower.rangedPerAgility > 0 || ranged.points > 0) rows.push({ key: "rap", label: "Poder de ataque a distancia (de atributos)", base: Math.floor(rap + 1e-9), bonusPct: 0, flat: Math.floor(rapFinal - rap + ranged.points + 1e-9), final: Math.floor(rapFinal + ranged.points + 1e-9), sources: ranged.sources });
+    if (attackPower.rangedPerAgility > 0 || ranged.points > 0 || rapGear > 0) rows.push({ key: "rap", label: "Poder de ataque a distancia (de atributos)", base: Math.floor(rap + 1e-9), gear: rapGear, bonusPct: 0, flat: Math.floor(rapFinal - rap + ranged.points + 1e-9), final: Math.floor(rapFinal + ranged.points + 1e-9), sources: ranged.sources });
   }
   const sd = fromStat("spell-damage");
   const sh = fromStat("spell-healing");
-  push("spell-damage", "Poder con hechizos de tus talentos (daño)", 0, sd, sd.points > 0);
-  push("spell-healing", "Poder con hechizos de tus talentos (sanación)", 0, sh, sh.points > 0);
+  // Poder con hechizos del equipo: el generico suma a daño y sanación; «daño» y «sanación» solo a la suya (por escuela, aparte)
+  const spellGear = { damage: (gear["spell-power"] ?? 0) + (gear["spell-damage"] ?? 0), healing: (gear["spell-power"] ?? 0) + (gear["healing-power"] ?? 0) };
+  push("spell-damage", "Poder con hechizos (daño)", spellGear.damage, sd, sd.points > 0 || spellGear.damage > 0);
+  push("spell-healing", "Poder con hechizos (sanación)", spellGear.healing, sh, sh.points > 0 || spellGear.healing > 0);
   return { rows };
 }

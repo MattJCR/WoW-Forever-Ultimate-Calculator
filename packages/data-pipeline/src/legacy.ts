@@ -8,7 +8,7 @@ import type { TraitIndex } from "./trait-index.js";
 const STEP = 900;
 
 /**
- * Los arboles Legacy no traen nombre en el cliente (TraitTree.TitleText_lang vacio). Estos salen de Talents Forever
+ * Los arboles Legacy no traen nombre en el cliente (TraitTree.TitleText_lang vacio). Estos salen de la referencia
  * (Adventure / Resourcefulness / Professions), emparejados por el contenido de cada arbol (p. ej. "Maestro cocinero"
  * esta en el 1187 = Professions). Orden de la web de referencia.
  */

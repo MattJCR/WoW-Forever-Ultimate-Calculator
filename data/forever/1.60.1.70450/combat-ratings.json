@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "provenance": "community",
-  "source": "wowsims/forever (MIT) commit 5fd6bea8005759158f2c006f75fa73b70c140265, 2026-10-21, assets/db_inputs/basestats-forever/CombatRatings.txt",
+  "source": "Datos de la comunidad (MIT), 2026-10-21",
   "constantAcrossLevels": true,
   "levels": {
     "min": 1,

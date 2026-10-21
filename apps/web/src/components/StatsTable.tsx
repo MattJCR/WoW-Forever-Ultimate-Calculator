@@ -10,7 +10,13 @@ const STAT_LABELS = ["Fuerza", "Agilidad", "Aguante", "Intelecto", "Espíritu"];
  * Estadisticas brutas base de la raza y clase escogidas, a tres niveles (el minimo que exigen los talentos, el 30 de
  * la beta y el 60). No vienen del cliente de Forever sino de Classic Era (ver DATA-FINDINGS): se marcan como estimacion.
  */
-export function StatsTable({ manifest, raceId, raceName, classId, minLevel, fx }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null }) {
+/** Equipo que se suma: sus estadisticas y el nivel minimo al que se puede llevar todo (las columnas de nivel menor no lo llevan). */
+export interface GearForStats {
+  stats: Record<string, number>;
+  minLevel: number;
+}
+
+export function StatsTable({ manifest, raceId, raceName, classId, minLevel, fx, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null; gear?: GearForStats | null }) {
   const state = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
   const clientEntry = manifest.clientStats;
   const clientState = useAsync(clientEntry?.file ?? "none", () => (clientEntry ? getJson(clientEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
@@ -18,12 +24,13 @@ export function StatsTable({ manifest, raceId, raceName, classId, minLevel, fx }
   if (raceId === null) return <p className="muted">Elige una raza en el paso «Raza» para ver las estadísticas base.</p>;
   if (state.status === "loading") return <p className="muted">Cargando estadísticas…</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
-  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} minLevel={minLevel} fx={fx} client={client} />;
+  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} minLevel={minLevel} fx={fx} client={client} gear={gear ?? null} />;
 }
 
+const ATTRS = new Set(["str", "agi", "sta", "int", "spi"]);
 const fmt = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
 
-function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null; client: ClientStats | null }) {
+function Table({ data, raceId, raceName, classId, minLevel, fx, client, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null; client: ClientStats | null; gear: GearForStats | null }) {
   const combo = data.combos.find((c) => c.raceId === raceId && c.classId === classId);
   const base = data.classBase.find((c) => c.classId === classId);
   const issues = data.anomalies.filter((a) => a.raceId === raceId && a.classId === classId);
@@ -50,6 +57,7 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
           hpBase: base.hp[l - 1]!,
           manaBase: manaAt(l),
           totals: fx.totals,
+          gear: gear && l >= gear.minLevel ? gear.stats : null,
           attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
         }))
     : null;
@@ -105,7 +113,7 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
                       return (
                         <td key={levels[k]} className={mod ? "pos" : undefined}>
                           <b>{fmt(row.final)}</b>
-                          {row.final !== row.base && <small className="muted"> ({fmt(row.base)}{row.bonusPct !== 0 ? ` +${fmt(row.bonusPct)} %` : ""}{row.flat !== 0 ? ` +${fmt(row.flat)}` : ""})</small>}
+                          {row.final !== row.base && <small className="muted"> ({fmt(row.base)}{ATTRS.has(row.key) && row.gear !== 0 ? ` +${fmt(row.gear)} equipo` : ""}{row.bonusPct !== 0 ? ` +${fmt(row.bonusPct)} %` : ""}{row.flat !== 0 ? ` +${fmt(row.flat)}` : ""})</small>}
                         </td>
                       );
                     })}
@@ -122,8 +130,8 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
             </tbody>
           </table>
           <p className="muted small">
-            <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Los porcentajes, el maná base, el poder de ataque por atributo y el crítico por atributo son del cliente. La vida base y la regla de vida (10 por aguante) y maná (15 por intelecto), con los 20 primeros puntos a 1, son de Classic Era y coinciden con ForeverDB y Warcraft Tavern. El poder de ataque no incluye el base por nivel ni el equipo. Se redondea hacia abajo.
-            {changed.length === 0 ? " Aún no tienes ningún talento, ventaja o raciales que cambien estas estadísticas." : " Entre paréntesis, el valor sin talentos."} Sin equipo; la celeridad, el crítico y la regeneración están en «Efectos sumados».
+            <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Los porcentajes, el maná base, el poder de ataque por atributo y el crítico por atributo son del cliente. La vida base y la regla de vida (10 por aguante) y maná (15 por intelecto), con los 20 primeros puntos a 1, son de Classic Era y coinciden con ForeverDB y Warcraft Tavern. El poder de ataque no incluye el base por nivel. El equipo (paso «Equipo») se suma antes de los porcentajes de talentos, y solo en las columnas de nivel igual o mayor al que exige el objeto más exigente{gear ? ` (nivel ${gear.minLevel})` : ""}. Se redondea hacia abajo.
+            {changed.length === 0 ? " Aún no tienes ningún talento, ventaja o raciales que cambien estas estadísticas." : " Entre paréntesis, el valor sin talentos."} La celeridad, el crítico y la regeneración están en «Efectos sumados».
           </p>
         </>
       )}
@@ -132,11 +140,8 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
           {combo.provenance === "community" ? "Classic + Forever · estimación" : "Combinación nueva · estimada"}
         </span>{" "}
         {combo.provenance === "community"
-          ? "Base de la clase de Classic Era (el cliente de la beta no trae las estadísticas base) más la diferencia de raza medida en la beta por "
-          : "Esta raza/clase no existía en Classic: base de la clase de Classic más la diferencia de raza medida en la beta por "}
-        <a href={data.raceOffsets.source.url} target="_blank" rel="noreferrer">
-          {data.raceOffsets.source.name}
-        </a>{" "}
+          ? "Base de la clase de Classic Era (el cliente de la beta no trae las estadísticas base) más la diferencia de raza medida en la beta por la comunidad "
+          : "Esta raza/clase no existía en Classic: base de la clase de Classic más la diferencia de raza medida en la beta por la comunidad "}
         ({data.raceOffsets.source.date}, hojas de personaje de nivel 1; lectura de un tercero, sin confirmar por nosotros). {combo.note ? `${combo.note} ` : ""}
         {issues.length > 0 && (
           <>
@@ -144,7 +149,7 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client }: { data
             {issues.map((a) => `nivel ${a.level} ${STAT_LABELS[["str", "agi", "sta", "int", "spi"].indexOf(a.stat)]!.toLowerCase()} ${a.value} (esperable ~${Math.round(a.expected)})${a.corrected ? " corregido" : ""}`).join("; ")}.{" "}
           </>
         )}
-        La beta solo llega al nivel {data.betaMaxLevel}; los valores hasta el {data.maxLevel} se confirmarán cuando se publiquen. No incluye equipo ni talentos; las bonificaciones de la raza van aparte.
+        La beta solo llega al nivel {data.betaMaxLevel}; los valores hasta el {data.maxLevel} se confirmarán cuando se publiquen. Esta tabla no incluye equipo ni talentos; las bonificaciones de la raza van aparte.
       </p>
     </>
   );

@@ -1,5 +1,5 @@
-// Contrasta los iconos de los talentos del cliente con los de Talents Forever (solo contraste; el cliente manda).
-// TF da el nombre del icono (spell_frost_wisp) y nosotros el FileDataID: se resuelve con el listfile de wow.tools.local
+// Contrasta los iconos de los talentos del cliente con los de la referencia (solo contraste; el cliente manda).
+// La referencia da el nombre del icono (spell_frost_wisp) y nosotros el FileDataID: se resuelve con el listfile de wow.tools.local
 // (<carpeta de la herramienta>/listfile.csv, lineas «id;ruta»). Solo lee ficheros; no toca el cliente.
 //
 // Uso: node tools/extract/contrast-icons.mjs <ruta al listfile.csv> [build]
@@ -45,14 +45,14 @@ for (const c of classes) {
       if (!o) continue;
       n++;
       if (baseName(path.get(o.iconFileDataId)) === String(t.icon).toLowerCase()) same++;
-      else diff.push(`${c} ${tree.name}|${t.name}: TF ${t.icon} vs cliente ${baseName(path.get(o.iconFileDataId)) || o.iconFileDataId} (talento del cliente: ${o.name})`);
+      else diff.push(`${c} ${tree.name}|${t.name}: La referencia ${t.icon} vs cliente ${baseName(path.get(o.iconFileDataId)) || o.iconFileDataId} (talento del cliente: ${o.name})`);
     }
   });
 }
-console.log(`Iconos de talentos: ${same} de ${n} coinciden con TF`);
+console.log(`Iconos de talentos: ${same} de ${n} coinciden con la referencia`);
 for (const d of diff) console.log(`   ${d}`);
 
-// Habilidades: TF da el icono por nombre de habilidad (spellbook.icons) y el hechizo por id (spell_desc)
+// Habilidades: La referencia da el icono por nombre de habilidad (spellbook.icons) y el hechizo por id (spell_desc)
 let na = 0;
 let sameA = 0;
 const diffA = [];
@@ -70,8 +70,8 @@ for (const c of classes) {
     if (!a || !icons[name]) continue;
     na++;
     if (baseName(path.get(a.iconFileDataId)) === String(icons[name]).toLowerCase()) sameA++;
-    else diffA.push(`${c} ${name}: TF ${icons[name]} vs cliente ${baseName(path.get(a.iconFileDataId)) || a.iconFileDataId} (${a.name})`);
+    else diffA.push(`${c} ${name}: La referencia ${icons[name]} vs cliente ${baseName(path.get(a.iconFileDataId)) || a.iconFileDataId} (${a.name})`);
   }
 }
-console.log(`Iconos de habilidades: ${sameA} de ${na} coinciden con TF`);
+console.log(`Iconos de habilidades: ${sameA} de ${na} coinciden con la referencia`);
 for (const d of diffA) console.log(`   ${d}`);

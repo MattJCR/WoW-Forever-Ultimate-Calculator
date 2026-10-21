@@ -39,7 +39,7 @@ const GNOME = 7;
 /**
  * Estadisticas base de cada raza/clase de Forever.
  *
- * Modelo (el de Forever segun wowsims/forever, contrastado con Classic): atributos de la raza = base de la clase "como Humano,
+ * Modelo (el de Forever segun la comunidad, contrastado con Classic): atributos de la raza = base de la clase "como Humano,
  * sin racial" + desplazamiento de la raza (`race-offsets.ts`, constante por nivel). La base de la clase sale de las tablas de
  * Classic Era del Humano (coinciden con las hojas de Forever a nivel 60 en las clases que comparten); el espiritu del Humano de
  * Classic lleva su +5 % ya aplicado y se retira (en Forever es una racial que el motor aplica aparte). Las clases sin Humano en Classic (Cazador, Chaman, Druida)
@@ -109,8 +109,8 @@ export function buildBaseStats(races: Races, classic: ClassicEra, build: string)
       const isNew = race.id <= 8 && !hadClassicRow; // combinacion que Classic no tenia (las 6 nuevas de Forever)
       const notes: string[] = [];
       if (race.id === GNOME) notes.push("Forever: Mente expansiva del Gnomo da +5 % de mana maximo, no de intelecto (el +5 % de Classic se retira: intelecto = base del Humano + 3).");
-      if (race.id === HUMAN) notes.push("Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; wowsims lee 20 de espiritu a nivel 1 en la hoja del Humano).");
-      if (race.id >= 95) notes.push("Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por wowsims (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).");
+      if (race.id === HUMAN) notes.push("Espiritu sin el +5 % de El espiritu humano: es una racial y se aplica aparte (Classic lo traia ya sumado; la comunidad lee 20 de espiritu a nivel 1 en la hoja del Humano).");
+      if (race.id >= 95) notes.push("Cielonato: sin datos de Classic; base del Humano + diferencia medida en la beta por la comunidad (-1 fuerza, +1 agilidad, -1 aguante, +1 intelecto).");
       if (base.derivedFrom !== null) notes.push(`La base de esta clase no existia para el Humano en Classic: se deduce de la raza ${base.derivedFrom} de Classic.`);
       combos.push({
         raceId: race.id,
@@ -139,11 +139,11 @@ export function buildBaseStats(races: Races, classic: ClassicEra, build: string)
   return {
     schemaVersion: 1,
     build,
-    source: { name: classic.source, url: classic.url, commit: classic.commit, license: classic.license },
+    source: { name: "Estadísticas base de Classic Era (comunidad)", url: "", commit: "", license: "Solo se usan cifras" },
     raceOffsets: {
       source: RACE_OFFSETS_SOURCE,
       provenance: "community",
-      note: "Diferencias de raza medidas en la beta por wowsims en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
+      note: "Diferencias de raza medidas en la beta por la comunidad en hojas de nivel 1 (sin raciales multiplicativas); sustituyen a las de Classic. Se suponen constantes por nivel.",
       offsets: Object.entries(FOREVER_RACE_OFFSETS).map(([raceId, delta]) => ({ raceId: Number(raceId), delta })),
     },
     statNames: classic.stats,

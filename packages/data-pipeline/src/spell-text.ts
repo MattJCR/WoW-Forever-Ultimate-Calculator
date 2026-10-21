@@ -58,7 +58,7 @@ function tokenValue(t: SpellTables, ctx: RenderContext, spellRef: number | null,
   const own = spellId === ctx.spellId;
 
   // Un texto de Forever puede citar el efecto 2 en un hechizo de un solo efecto (Amplificar maldicion «$s2%», Poder cambiante
-  // «$s2 p. de energia», Plan de contingencia «$o2»): vale el unico efecto. Reproduce las cifras de Talents Forever (50 %, 40 de energia, 670 de sanacion)
+  // «$s2 p. de energia», Plan de contingencia «$o2»): vale el unico efecto. Reproduce las cifras de la referencia (50 %, 40 de energia, 670 de sanacion)
   const effectRow = (i: number) => t.effect(spellId, i - 1) ?? (i > 1 && t.effectCount(spellId) === 1 ? t.effect(spellId, 0) : null);
   /** Valor (con signo) del efecto idx, o el de la curva del rango si es el hechizo del talento. */
   const effectValue = (i: number): number | null => {
@@ -261,7 +261,7 @@ const MAX_PLAYER_LEVEL = 60;
 /**
  * `$proccooldown` = enfriamiento interno del proc del propio hechizo (SpellAuraOptions.ProcCategoryRecovery, en ms):
  * 3000 -> "3" y `${$proccooldown}.1` -> "1,5" (Especializacion en escudos 3 s, La hora de la verdad 1,5 s: coincide con
- * Talents Forever). Sin enfriamiento en el cliente se deja el marcador y el texto queda incompleto.
+ * La referencia). Sin enfriamiento en el cliente se deja el marcador y el texto queda incompleto.
  */
 function withProcCooldown(t: SpellTables, spellId: number, src: string): string {
   if (!/\$proccooldown/i.test(src)) return src;
@@ -276,7 +276,7 @@ function withProcCooldown(t: SpellTables, spellId: number, src: string): string 
 /**
  * Referencias a otros textos o datos del hechizo que se resuelven antes de calcular los marcadores:
  * `$@spelltooltipNNN` / `$@spelldescNNN` = el texto de ese hechizo; `$c p. de maná` = el coste del propio hechizo (en % del maná
- * base si el cliente lo guarda asi: Poder cambiante «55 % del maná base», como TF); `${$s1+($rap*($s4/100))}` = valor mas un
+ * base si el cliente lo guarda asi: Poder cambiante «55 % del maná base», como la referencia); `${$s1+($rap*($s4/100))}` = valor mas un
  * porcentaje del poder de ataque a distancia (el poder no se calcula: no hay estadisticas de Forever).
  */
 function expandReferences(t: SpellTables, ctx: RenderContext, text: string, depth = 0): string {
@@ -327,7 +327,7 @@ function powerSlot(t: SpellTables, ctx: RenderContext, rawInner: string): { text
 
 /**
  * `${4*$1282380m1}` / `${$m2*4}`: un efecto por una constante. Hueco `{{tipo:hechizo:efecto*K|valor}}`: el motor recalcula el efecto con el
- * nivel y lo multiplica por K (Lluvia de Fuego: 160 base, 164 a nivel 60 como TF).
+ * nivel y lo multiplica por K (Lluvia de Fuego: 160 base, 164 a nivel 60 como la referencia).
  */
 function multiplierSlot(t: SpellTables, ctx: RenderContext, rawInner: string): { text: string; value: number } | null {
   const norm = rawInner.replace(/\s+/g, "");
@@ -379,7 +379,7 @@ function expressionSlot(t: SpellTables, ctx: RenderContext, inner: string): { ex
  */
 export function renderSpellText(t: SpellTables, template: string, ctx: RenderContext): Rendered {
   const rawText = expandReferences(t, ctx, stripColors(template).replace(/\|n/gi, "\n"));
-  // $pl = nivel del personaje: se toma el maximo (60, como Talents Forever: Egida divina "hasta 1.200" = 20 x 60) y el valor es aproximado
+  // $pl = nivel del personaje: se toma el maximo (60, como la referencia: Egida divina "hasta 1.200" = 20 x 60) y el valor es aproximado
   const usesLevel = PLAYER_LEVEL.test(rawText);
   const src = withProcCooldown(t, ctx.spellId, rawText.replace(new RegExp(PLAYER_LEVEL, "g"), String(MAX_PLAYER_LEVEL)));
   let out = "";
@@ -404,7 +404,7 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
         // plantilla se convierten en huecos (l = minimo, h = maximo, z = valor x duracion) y la variable vale 1
         // (sin poder con hechizos).
         // Variables del personaje sin poder con hechizos: bonus de sanacion/dano ($bh, $bc, $<1h>, $<2h>) = 0 y multiplicador $<mult> = 1.
-        // Reproduce las cifras de Talents Forever (Rezo de alivio 172, Sello de rectitud 22-75)
+        // Reproduce las cifras de la referencia (Rezo de alivio 172, Sello de rectitud 22-75)
         const rawInner = src.slice(i + 2, end);
         // Valor del efecto x variable de nivel de Forever ($m1*$<damagepower>/100): en el modo plantilla es un hueco que el motor
         // recalcula con el nivel (el efecto lleva el polinomio); si no, se calcula a nivel 60

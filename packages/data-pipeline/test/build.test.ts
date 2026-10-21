@@ -163,7 +163,7 @@ describe("descripciones por rango e iconos", () => {
     expect(focus.descriptionsApproximate).toBe(false);
   });
 
-  it("coincide con los numeros de Talents Forever en >= 94 % de los textos por rango", () => {
+  it("coincide con los numeros de la referencia en >= 94 % de los textos por rango", () => {
     const nums = (s: string) => (s.replace(/,/g, ".").match(/\d+(?:\.\d+)?/g) ?? []).sort().join("|");
     let total = 0;
     let same = 0;
@@ -337,7 +337,7 @@ describe("hotfixes del servidor frente a los ficheros estaticos", () => {
   });
 });
 
-describe("contraste con Talents Forever (CC BY 4.0)", () => {
+describe("contraste con la referencia (CC BY 4.0)", () => {
   const tf = join(root, "data", "external", "talentsforever");
   it.each(TOKENS)("%s coincide en posiciones y rangos maximos", (token) => {
     const report = contrastClass(byToken(live, token), tf);
@@ -387,7 +387,7 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
     expect(parseRacialName("sin guiones")).toBeNull();
   });
 
-  it("coincide con la matriz y el numero de raciales de Talents Forever", () => {
+  it("coincide con la matriz y el numero de raciales de la referencia", () => {
     const manifestClasses = live.classes.map((c) => ({ classId: c.classId, className: c.className ?? "?", token: c.classToken! }));
     const report = contrastRaces(racesData, manifestClasses, join(root, "data", "external", "talentsforever"));
     expect(report).not.toBeNull();
@@ -422,8 +422,7 @@ describe("estadisticas base (Classic Era, procedencia community)", () => {
     expect(stats.missing).toEqual([]);
   });
 
-  it("las diferencias de raza son las de Forever (wowsims, hojas de nivel 1), no las de Classic, y ninguna cambia el espiritu", () => {
-    expect(stats.raceOffsets.source.commit).toBe("6296e8546d9c5a0b4670d18476bfd690eba9c687");
+  it("las diferencias de raza son las de Forever (la comunidad, hojas de nivel 1), no las de Classic, y ninguna cambia el espiritu", () => {
     expect(stats.raceOffsets.provenance).toBe("community");
     // Tauren guerrero nivel 1: Humano 23/20/22/20 + (2,-2,2,-2); Classic daba 28/15/24/15
     expect(combo(6, 1).stats[0]).toEqual([25, 18, 24, 18, 20]);
@@ -444,7 +443,7 @@ describe("estadisticas base (Classic Era, procedencia community)", () => {
     }
   });
 
-  it("a nivel 60 reproduce las bases de clase medidas por wowsims (fuerza/agilidad/aguante/intelecto/espiritu sin racial) en las 56 parejas", () => {
+  it("a nivel 60 reproduce las bases de clase medidas por la comunidad (fuerza/agilidad/aguante/intelecto/espiritu sin racial) en las 56 parejas", () => {
     const WOWSIMS_L60: Record<number, number[]> = {
       1: [120, 80, 110, 30, 45], 2: [105, 65, 100, 70, 75], 3: [55, 125, 90, 65, 70], 4: [80, 130, 75, 35, 50], 5: [35, 40, 50, 120, 125],
       7: [85, 55, 95, 90, 100], 8: [30, 35, 45, 125, 120], 9: [45, 50, 65, 110, 115], 11: [65, 60, 70, 100, 110],
@@ -684,7 +683,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
     }
   });
 
-  it("coste, lanzamiento, enfriamiento y alcance coinciden con Talents Forever en los 197 hechizos que comparten", () => {
+  it("coste, lanzamiento, enfriamiento y alcance coinciden con la referencia en los 197 hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -706,7 +705,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
     expect(bad).toEqual([]);
   });
 
-  it("el nivel de aprendizaje coincide con Talents Forever en todos los hechizos (las que ensena un talento: 10 + puntos que exige su fila)", () => {
+  it("el nivel de aprendizaje coincide con la referencia en todos los hechizos (las que ensena un talento: 10 + puntos que exige su fila)", () => {
     const diffs: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
       const r = v.id ? byId.get(v.id) : undefined;
@@ -773,12 +772,12 @@ describe("habilidades del Pícaro (libro de hechizos del cliente)", () => {
     expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(135);
   });
 
-  it("Mutilar tiene los 4 rangos de Talents Forever: los golpes auxiliares de cada mano (sin texto) no cuentan como rangos", () => {
+  it("Mutilar tiene los 4 rangos de la referencia: los golpes auxiliares de cada mano (sin texto) no cuentan como rangos", () => {
     const m = data.abilities.find((a) => a.name === "Mutilar")!;
     expect(m.ranks.map((r) => r.spellId)).toEqual([1310707, 399956, 1241582, 1241584]);
   });
 
-  it("coste (energia), lanzamiento, enfriamiento, alcance y nivel coinciden con Talents Forever en los 119 hechizos que comparten", () => {
+  it("coste (energia), lanzamiento, enfriamiento, alcance y nivel coinciden con la referencia en los 119 hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -822,7 +821,7 @@ describe("habilidades del Guerrero (libro de hechizos del cliente)", () => {
     expect(data.warnings).toEqual([]);
   });
 
-  it("coste (ira x10 en el cliente), lanzamiento, enfriamiento, alcance y nivel coinciden con Talents Forever en los 116 hechizos que comparten", () => {
+  it("coste (ira x10 en el cliente), lanzamiento, enfriamiento, alcance y nivel coinciden con la referencia en los 116 hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -845,7 +844,7 @@ describe("habilidades del Guerrero (libro de hechizos del cliente)", () => {
     expect(bad).toEqual([]);
   });
 
-  it("Ejecutar tiene los 5 rangos de Talents Forever: el hechizo auxiliar sin texto (20647) no cuenta como rango", () => {
+  it("Ejecutar tiene los 5 rangos de la referencia: el hechizo auxiliar sin texto (20647) no cuenta como rango", () => {
     const e = data.abilities.find((a) => a.name === "Ejecutar")!;
     expect(e.ranks.map((r) => r.spellId)).toEqual([5308, 20658, 20660, 20661, 20662]);
   });
@@ -864,7 +863,7 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
     expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(183);
   });
 
-  it("los hechizos auxiliares (1 punto de Luz Sagrada, mitades de Choque Sagrado, debilitamientos de las Sentencias) no son rangos: los rangos por nombre cuadran con Talents Forever", () => {
+  it("los hechizos auxiliares (1 punto de Luz Sagrada, mitades de Choque Sagrado, debilitamientos de las Sentencias) no son rangos: los rangos por nombre cuadran con la referencia", () => {
     const ranks = (name: string) => data.abilities.find((a) => a.name === name)!.ranks.length;
     expect([ranks("Luz Sagrada"), ranks("Destello de Luz"), ranks("Choque Sagrado"), ranks("Sello de rectitud")]).toEqual([9, 6, 4, 8]);
     expect(data.abilities.some((a) => ["Sentencia de Luz", "Sentencia de furia", "Sentencia del cruzado"].includes(a.name))).toBe(false);
@@ -873,7 +872,7 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
     expect(ranks("Exorcismo (runa)")).toBe(6);
   });
 
-  it("coste, lanzamiento, enfriamiento, alcance y nivel coinciden con Talents Forever en los hechizos que comparten", () => {
+  it("coste, lanzamiento, enfriamiento, alcance y nivel coinciden con la referencia en los hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -912,7 +911,7 @@ describe("habilidades del Sacerdote (libro de hechizos del cliente)", () => {
     expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(264);
   });
 
-  it("los hechizos auxiliares (descargas de Guardia de las Sombras, debilitamiento de Toque de debilidad, golpes de Penitencia) no son rangos: los rangos por nombre cuadran con Talents Forever", () => {
+  it("los hechizos auxiliares (descargas de Guardia de las Sombras, debilitamiento de Toque de debilidad, golpes de Penitencia) no son rangos: los rangos por nombre cuadran con la referencia", () => {
     const ranks = (name: string) => data.abilities.find((a) => a.name === name)!.ranks.length;
     expect([ranks("Guardia de las Sombras"), ranks("Toque de debilidad"), ranks("Penitencia"), ranks("Renovar"), ranks("Abrasamiento mental")]).toEqual([6, 6, 4, 10, 1]);
     // Las runas de Forever con el nombre de una normal van aparte
@@ -920,7 +919,7 @@ describe("habilidades del Sacerdote (libro de hechizos del cliente)", () => {
     expect(data.abilities.some((a) => a.name === "Penitencia (runa)")).toBe(false);
   });
 
-  it("coste, lanzamiento, enfriamiento, alcance y nivel coinciden con Talents Forever en los hechizos que comparten", () => {
+  it("coste, lanzamiento, enfriamiento, alcance y nivel coinciden con la referencia en los hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -946,12 +945,12 @@ describe("habilidades del Sacerdote (libro de hechizos del cliente)", () => {
   });
 });
 
-describe("textos de los talentos del Paladin frente a Talents Forever", () => {
+describe("textos de los talentos del Paladin frente a la referencia", () => {
   const tfTrees = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "paladin.json"), "utf8")).talents.trees as { talents: { name: string; max: number; row: number; col: number; desc: string[] }[] }[];
   const ours = byToken(live, "PALADIN");
   const nums = (t: string | undefined) => [...(t ?? "").replace(/(\d),(\d{3})/g, "$1$2").replace(/(\d),(\d)/g, "$1.$2").matchAll(/\d+(?:\.\d+)?/g)].map((m) => Number(m[0])).sort((a, b) => a - b).join(",");
 
-  it("las cifras de cada rango coinciden con TF; las que no, dependen del nivel (valores base) y estan marcadas", () => {
+  it("las cifras de cada rango coinciden con la referencia; las que no, dependen del nivel (valores base) y estan marcadas", () => {
     let total = 0;
     const diff: string[] = [];
     tfTrees.forEach((tree, si) => {
@@ -962,8 +961,8 @@ describe("textos de los talentos del Paladin frente a Talents Forever", () => {
           total++;
           if (nums(t.desc[r]) !== nums(o.descriptions[r])) {
             diff.push(`${o.name} r${r + 1}`);
-            // Campeon de la Luz: hotfix del servidor del 16/10 (10/20/30 -> 20/40/60 % del intelecto); TF aun trae 10/20/30
-            if (o.name !== "Campeón de la Luz") expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de TF y no esta marcado como valor base`).toBe(true);
+            // Campeon de la Luz: hotfix del servidor del 16/10 (10/20/30 -> 20/40/60 % del intelecto); la referencia aun trae 10/20/30
+            if (o.name !== "Campeón de la Luz") expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de la referencia y no esta marcado como valor base`).toBe(true);
           }
         }
       }
@@ -973,7 +972,7 @@ describe("textos de los talentos del Paladin frente a Talents Forever", () => {
     expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1", "Campeón de la Luz r1", "Campeón de la Luz r2", "Campeón de la Luz r3"]);
   });
 
-  it("$proccooldown sale del cliente: Especializacion en escudos 3 s y La hora de la verdad 1,5 s (como TF)", () => {
+  it("$proccooldown sale del cliente: Especializacion en escudos 3 s y La hora de la verdad 1,5 s (como la referencia)", () => {
     const text = (name: string) => ours.specs.flatMap((s) => s.talents).find((t) => t.name === name)!.descriptions.at(-1)!;
     expect(text("Especialización en escudos")).toMatch(/una vez cada 3 s\.$/);
     expect(text("La hora de la verdad")).toMatch(/una vez cada 1,5 s( tras un bloqueo)?\.$/);
@@ -981,12 +980,12 @@ describe("textos de los talentos del Paladin frente a Talents Forever", () => {
   });
 });
 
-describe("textos de los talentos del Sacerdote frente a Talents Forever", () => {
+describe("textos de los talentos del Sacerdote frente a la referencia", () => {
   const tfTrees = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "priest.json"), "utf8")).talents.trees as { talents: { name: string; max: number; row: number; col: number; desc: string[] }[] }[];
   const ours = byToken(live, "PRIEST");
   const nums = (t: string | undefined) => [...(t ?? "").replace(/(\d),(\d{3})/g, "$1$2").replace(/(\d),(\d)/g, "$1.$2").matchAll(/\d+(?:\.\d+)?/g)].map((m) => Number(m[0])).sort((a, b) => a - b).join(",");
 
-  it("las cifras de cada rango coinciden con TF; las que no, dependen del nivel (valores base) y estan marcadas", () => {
+  it("las cifras de cada rango coinciden con la referencia; las que no, dependen del nivel (valores base) y estan marcadas", () => {
     let total = 0;
     const diff: string[] = [];
     tfTrees.forEach((tree, si) => {
@@ -997,17 +996,17 @@ describe("textos de los talentos del Sacerdote frente a Talents Forever", () => 
           total++;
           if (nums(t.desc[r]) !== nums(o.descriptions[r])) {
             diff.push(`${o.name} r${r + 1}`);
-            expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de TF y no esta marcado como valor base`).toBe(true);
+            expect(o.descriptionsApproximate, `${o.name} r${r + 1} difiere de la referencia y no esta marcado como valor base`).toBe(true);
           }
         }
       }
     });
     expect(total).toBe(148);
-    // Penitencia, Nova Sagrada y Sanacion conjunta: cifras que escalan con el nivel (valor base frente al del nivel 60 de TF)
+    // Penitencia, Nova Sagrada y Sanacion conjunta: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia)
     expect(diff).toEqual(["Penitencia r1", "Nova Sagrada r1", "Sanación conjunta r1"]);
   });
 
-  it("las variables del personaje se resuelven sin poder con hechizos: Egida divina 1200 (20 x $pl) y Rezo de alivio 172 ($bh y $bc valen 0), como TF", () => {
+  it("las variables del personaje se resuelven sin poder con hechizos: Egida divina 1200 (20 x $pl) y Rezo de alivio 172 ($bh y $bc valen 0), como la referencia", () => {
     const text = (name: string, r = 0) => ours.specs.flatMap((s) => s.talents).find((t) => t.name === name)!.descriptions[r]!;
     expect(text("Égida divina", 2)).toContain("Absorbe 1200 p. de daño");
     expect(text("Rezo de alivio")).toContain("lo sanará 172 p.");
@@ -1015,7 +1014,7 @@ describe("textos de los talentos del Sacerdote frente a Talents Forever", () => 
   });
 });
 
-describe("habilidades de Chaman, Cazador, Brujo y Druida frente a Talents Forever (coste, lanzamiento, enfriamiento, alcance y nivel)", () => {
+describe("habilidades de Chaman, Cazador, Brujo y Druida frente a la referencia (coste, lanzamiento, enfriamiento, alcance y nivel)", () => {
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
   const classes = [
     { id: 7, token: "shaman", name: "Chaman", abilities: 66, ranks: 207, compared: 183 },
@@ -1024,7 +1023,7 @@ describe("habilidades de Chaman, Cazador, Brujo y Druida frente a Talents Foreve
     { id: 11, token: "druid", name: "Druida", abilities: 69, ranks: 221, compared: 207 },
   ];
   for (const c of classes) {
-    it(`${c.name}: cumple el esquema y coincide con TF`, () => {
+    it(`${c.name}: cumple el esquema y coincide con la referencia`, () => {
       const data = buildAbilities(raw, live.spells, c.id, BUILD, "esES", live.classes.find((x) => x.classId === c.id))!;
       expect(() => Abilities.parse(data)).not.toThrow();
       const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", `${c.token}.json`), "utf8")).spell_desc as Record<string, { id?: number; l?: string[][]; lv?: string }>;
@@ -1056,18 +1055,18 @@ describe("habilidades de Chaman, Cazador, Brujo y Druida frente a Talents Foreve
   }
 });
 
-describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a Talents Forever", () => {
+describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a la referencia", () => {
   const nums = (t: string | undefined) => [...(t ?? "").replace(/(\d),(\d{3})/g, "$1$2").replace(/(\d),(\d)/g, "$1.$2").matchAll(/\d+(?:\.\d+)?/g)].map((m) => Number(m[0])).sort((a, b) => a - b).join(",");
-  // Diferencias esperadas: cifras que escalan con el nivel (valor base frente al del nivel 60 de TF) o formulas del texto sin resolver
+  // Diferencias esperadas: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia) o formulas del texto sin resolver
   const CASES = [
     { token: "SHAMAN", file: "shaman", total: 148, diff: ["Ráfaga de lava r1", "Mareas vivas r1"], notApprox: [] as string[] },
     { token: "HUNTER", file: "hunter", total: 148, diff: ["Contraataque r1"], notApprox: ["Contraataque r1"] },
-    // Amplificar maldición r1: hotfix del servidor del 16/10 (Maldición de agotamiento 50 % → 20 %); TF aún trae el 50 %.
+    // Amplificar maldición r1: hotfix del servidor del 16/10 (Maldición de agotamiento 50 % → 20 %); la referencia aún trae el 50 %.
     { token: "WARLOCK", file: "warlock", total: 146, diff: ["Amplificar maldición r1", "Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Amplificar maldición r1", "Terror de caos r1"] },
     { token: "DRUID", file: "druid", total: 148, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
   ];
   for (const c of CASES) {
-    it(`${c.token}: las cifras de cada rango coinciden con TF salvo ${c.diff.length} (nivel / formulas conocidas)`, () => {
+    it(`${c.token}: las cifras de cada rango coinciden con la referencia salvo ${c.diff.length} (nivel / formulas conocidas)`, () => {
       const tfTrees = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", `${c.file}.json`), "utf8")).talents.trees as { talents: { name: string; max: number; row: number; col: number; desc: string[] }[] }[];
       const ours = byToken(live, c.token);
       let total = 0;
@@ -1087,7 +1086,7 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a Tal
       });
       expect(total).toBe(c.total);
       expect(diff).toEqual(c.diff);
-      // Las que difieren y no estan marcadas como valor base son casos distintos (poder de ataque 50 % de arma de TF, texto con formula): se listan aqui para no perderlos
+      // Las que difieren y no estan marcadas como valor base son casos distintos (poder de ataque 50 % de arma de la referencia, texto con formula): se listan aqui para no perderlos
       expect(unflagged).toEqual(c.notApprox);
     });
   }
@@ -1102,14 +1101,14 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a Tal
   });
 });
 
-describe("variables de descripcion de Forever ($<minDam>, $<damagepower>, $<base>, $b1) frente a Talents Forever", () => {
-  it("Marca demoniaca: 65 a 68 de dano ($<minDam> y $<maxDam> a nivel 60 sin poder con hechizos), como TF", () => {
+describe("variables de descripcion de Forever ($<minDam>, $<damagepower>, $<base>, $b1) frente a la referencia", () => {
+  it("Marca demoniaca: 65 a 68 de dano ($<minDam> y $<maxDam> a nivel 60 sin poder con hechizos), como la referencia", () => {
     const t = byToken(live, "WARLOCK").specs.flatMap((s) => s.talents).find((x) => x.name === "Marca demoníaca")!;
     expect(t.descriptions[0]).toContain("infligen de 65 a 68 de daño");
     expect(t.descriptionsApproximate).toBe(true);
   });
 
-  it("Eviscerar: los rangos 2, 5 y 8 de TF coinciden punto a punto (formula con $<base>, $<percombo>, $<mult> y $b1)", () => {
+  it("Eviscerar: los rangos 2, 5 y 8 de la referencia coinciden punto a punto (formula con $<base>, $<percombo>, $<mult> y $b1)", () => {
     const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
     const data = buildAbilities(raw, live.spells, 4, BUILD, "esES", live.classes.find((c) => c.classId === 4))!;
     const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "rogue.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
@@ -1137,7 +1136,7 @@ describe("variables de descripcion de Forever ($<minDam>, $<damagepower>, $<base
   });
 });
 
-describe("contraste de habilidades y Legacy con Talents Forever (lo que TF no lista se conserva y se marca)", () => {
+describe("contraste de habilidades y Legacy con la referencia (lo que la referencia no lista se conserva y se marca)", () => {
   const tfDir = join(root, "data", "external", "talentsforever");
   const gone = JSON.parse(readFileSync(join(root, "data", "rules", "tf-gone.json"), "utf8")).classes as Record<string, Record<string, string | null>>;
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
@@ -1151,11 +1150,11 @@ describe("contraste de habilidades y Legacy con Talents Forever (lo que TF no li
       const { abilities, report } = run(id, token);
       expect(abilities.abilities.every((a) => a.talentsForever !== null)).toBe(true);
       expect(report.listed + report.partial.length + report.notListed.length + report.retired.length).toBe(abilities.abilities.length);
-      expect(report.tfOnly, `${token}: hechizos de TF que no tenemos`).toEqual([]);
+      expect(report.tfOnly, `${token}: hechizos de la referencia que no tenemos`).toEqual([]);
     }
   });
 
-  it("las runas de Forever que TF no lista se marcan como runa y Pozo de Luz como retirada segun TF (el cliente aun la trae)", () => {
+  it("las runas de Forever que la referencia no lista se marcan como runa y Pozo de Luz como retirada segun la referencia (el cliente aun la trae)", () => {
     const priest = run(5, "priest").abilities.abilities;
     const wells = priest.find((a) => a.name === "Pozo de Luz")!;
     expect(wells.talentsForever).toMatchObject({ status: "retired", listedRanks: 0 });
@@ -1164,29 +1163,29 @@ describe("contraste de habilidades y Legacy con Talents Forever (lo que TF no li
     expect(renew.talentsForever!.status).toBe("not-listed");
     expect(renew.talentsForever!.note).toContain("runa");
     expect(priest.find((a) => a.name === "Renovar")!.talentsForever!.status).toBe("listed");
-    // Cono de frio: TF lista 4 de sus 5 rangos
+    // Cono de frio: La referencia lista 4 de sus 5 rangos
     expect(run(8, "mage").report.partial).toEqual(["Cono de frío 4/5"]);
   });
 
-  it("Legacy: las 27 ventajas de TF caen en la misma posicion del cliente (TF declara ya el cliente 1.60.1.70425; antes 70170 y 2 estaban en otra columna)", () => {
+  it("Legacy: las 27 ventajas de la referencia caen en la misma posicion del cliente (la referencia declara ya el cliente 1.60.1.70425; antes 70170 y 2 estaban en otra columna)", () => {
     const lc = contrastLegacy(ClassTalents.parse(JSON.parse(readFileSync(join(root, "data", "forever", BUILD, "legacy.json"), "utf8"))), tfDir)!;
     expect(lc.tfSource).toContain("1.60.1.70425");
     expect(lc.perks).toBe(27);
     expect(lc.matchedPositions).toBe(27);
-    // Solo queda Estudio dedicado (3 esencias en el cliente, 2 a 4 en TF)
+    // Solo queda Estudio dedicado (3 esencias en el cliente, 2 a 4 en la referencia)
     expect(lc.diffs).toHaveLength(lc.diffs.filter((d) => d.startsWith("Professions: «Dedicated Study»")).length);
     expect(lc.diffs.filter((d) => d.startsWith("Professions: «Dedicated Study»"))).toHaveLength(1);
   });
 });
 
-describe("entradas de talento sin nodo frente a Talents Forever", () => {
-  it("la mayoria tiene gemela en TF (mismas cifras); las que no, quedan listadas con su nombre", () => {
+describe("entradas de talento sin nodo frente a la referencia", () => {
+  it("la mayoria tiene gemela en la referencia (mismas cifras); las que no, quedan listadas con su nombre", () => {
     const un = JSON.parse(readFileSync(join(root, "data", "forever", BUILD, "unassigned.json"), "utf8")) as { orphanEntries: { name: string | null; descriptions: string[] }[] };
     const oc = contrastOrphans(un.orphanEntries, join(root, "data", "external", "talentsforever"))!;
     expect(oc.total).toBe(99);
     expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(99);
     expect(oc.withTfTwin).toBeGreaterThanOrEqual(60);
-    // Las ventajas de Legacy sin colocar con otras cifras que las de TF (TF viene de un cliente mas antiguo)
+    // Las ventajas de Legacy sin colocar con otras cifras que las de la referencia (la referencia viene de un cliente mas antiguo)
     expect(oc.withoutTfTwin.map((o) => o.name)).toContain("Estudio dedicado");
   });
 });

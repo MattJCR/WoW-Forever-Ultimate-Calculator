@@ -95,7 +95,7 @@ export interface AiExportInput {
 
 /**
  * Texto de "Copiar build para IA": el build con el texto completo de cada talento al rango escogido, para pegarlo
- * en una IA y preguntarle algo. Mismo esquema que el de talentsforever.com, ampliado con raza, Legacy y rango de nivel.
+ * en una IA y preguntarle algo. Mismo esquema que el de la referencia, ampliado con raza, Legacy y rango de nivel.
  * Devuelve null si no hay puntos gastados.
  */
 export function formatBuildForAI(input: AiExportInput): string | null {

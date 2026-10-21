@@ -281,7 +281,7 @@ describe("probabilidad de activación («cada golpe tiene un N % de probabilidad
 
   // Habilidades con «N % de probabilidad» de aplicar un veneno (hueco procs vacío o sin cruzar con Venenos mejorados)
   const POISON_NOT_COVERED: Record<string, string> = {
-    "Veneno atrófico": "no es de Forever: veneno de Season of Discovery (hechizo 439473, máscara [0,0,1,0]); Blizzard no lo menciona, TF no lo lista y el filtro «Solo activas en Forever» lo oculta",
+    "Veneno atrófico": "no es de Forever: veneno de Season of Discovery (hechizo 439473, máscara [0,0,1,0]); Blizzard no lo menciona, la referencia no lo lista y el filtro «Solo activas en Forever» lo oculta",
     "Veneno entumecedor": "idem (SoD, hechizo 439472)",
     "Veneno sebáceo": "idem (SoD, hechizo 439471)",
   };

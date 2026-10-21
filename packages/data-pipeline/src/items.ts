@@ -5,7 +5,7 @@ import type { Item, ItemSetDef, Items, ItemStat, ItemWeapon } from "./model.js";
 
 /**
  * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Interpretados contra las lecturas del juego que trae el
- * addon Lootified (12 738 de 12 940 objetos coinciden); los tipos 83 y 90-139 no se han podido interpretar y salen con `key: null`.
+ * lecturas del juego instaladas (12 738 de 12 940 objetos coinciden); los tipos 83 y 90-139 no se han podido interpretar y salen con `key: null`.
  */
 export const ITEM_STAT_KEYS: Record<number, string> = {
   0: "mana",
@@ -49,11 +49,11 @@ export const ITEM_STAT_KEYS: Record<number, string> = {
 
 /** Cubo de ranura de RandPropPoints (0 cabeza/pecho/piernas/dos manos, 1 hombros/cintura/pies/manos, 2 cuello/muñecas/anillo/capa/escudo, 3 una mano, 4 varita/proyectil). */
 const SLOT_BUCKET: Record<number, number> = {
-  1: 0, 4: 0, 5: 0, 7: 0, 15: 0, 17: 0, 20: 0,
+  1: 0, 4: 0, 5: 0, 7: 0, 17: 0, 20: 0,
   3: 1, 6: 1, 8: 1, 10: 1, 12: 1,
   2: 2, 9: 2, 11: 2, 14: 2, 16: 2, 19: 2, 23: 2,
   13: 3, 21: 3, 22: 3,
-  25: 4, 26: 4,
+  15: 4, 25: 4, 26: 4,
 };
 
 /** Material de armadura: ItemSubclass -> [columna de ItemArmorTotal, columna de ArmorLocation]. */
@@ -91,7 +91,7 @@ const byLevel = (rows: Row[]): Map<number, Row> => new Map(rows.map((r) => [int(
  *  - Estadistica = round(StatPercentEditor / 10 000 x presupuesto de RandPropPoints[nivel][calidad][ranura]).
  *  - Armadura = ItemArmorTotal x ItemArmorQuality x ArmorLocation (escudos: ItemArmorShield).
  *  - Dano de arma = DPS de ItemDamage*[nivel][calidad] x velocidad, repartido +-DmgVariance/2.
- * Contrastado con las lecturas del juego de Lootified (ver test): estadisticas 98,7 %, armadura (con la armadura extra) 99,5 %, armas
+ * Contrastado con las lecturas del juego instaladas (ver test): estadisticas 98,7 %, armadura (con la armadura extra) 99,5 %, armas
  * 92-99 % segun tabla. A distancia y de lanzador usan un factor medido sobre la tabla y van marcadas `estimated`.
  */
 export function buildItems(raw: RawTables, build: string, spells: SpellTables): Items {
@@ -215,6 +215,7 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
       casterWeapon,
       placeholder: PLACEHOLDER.test(name) || (itemLevel >= 100 && int(s.RequiredLevel) >= 90),
       stats,
+      statBudget: budget,
       effects: effectsByItem.get(it.ID!) ?? [],
       provenance: "client-db2",
       textOrigin: "client",

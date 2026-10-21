@@ -43,7 +43,7 @@ Mapa de carpetas: está en la tabla «Estructura» del [README](README.md).
 2. Haz un fork **solo para contribuir** y crea una rama (`fix/nombre-corto`, `feat/nombre-corto`).
 3. Cambios **pequeños y centrados**: un tema por *pull request*.
 4. Antes de abrir el PR: `npm run typecheck` y `npm test -w @wfuc/engine` en verde. Si tocas datos o reglas de talentos, pasa también la auditoría de habilidades y explica qué listas cambian.
-5. En el PR explica **qué cambia, por qué y de dónde sale el dato** (cliente, TF, captura de la beta…).
+5. En el PR explica **qué cambia, por qué y de dónde sale el dato** (cliente, la referencia, captura de la beta…).
 6. Si cambias algo relevante, descríbelo bien en el PR; el mantenedor lleva el seguimiento del estado.
 
 Los datos de `data/forever/<build>/` se **regeneran** con `npm run pipeline`; no se editan a mano. Las reglas de talentos clasificadas a mano viven en `data/rules/`.

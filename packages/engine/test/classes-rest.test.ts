@@ -9,7 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const D = join(root, "data", "forever", "1.60.1.70450");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
-/** Chamán, Cazador, Brujo y Druida: reglas válidas, ningún talento escogido se pierde y las cifras directas coinciden con TF. */
+/** Chamán, Cazador, Brujo y Druida: reglas válidas, ningún talento escogido se pierde y las cifras directas coinciden con la referencia. */
 const CLASSES = [
   { token: "shaman", name: "Chamán", rules: 8, pairs: 72, ok: 62 },
   { token: "hunter", name: "Cazador", rules: 7, pairs: 3, ok: 3 },
@@ -33,7 +33,7 @@ for (const c of CLASSES) {
       expect(ruleLines(rules, cls, maxed).length).toBeGreaterThanOrEqual(c.rules);
     });
 
-    it(`daño y sanación «X a Y» frente a Talents Forever: ${c.ok} de ${c.pairs} (±1)`, () => {
+    it(`daño y sanación «X a Y» frente a la referencia: ${c.ok} de ${c.pairs} (±1)`, () => {
       const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", `${c.token}.json`), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
       const byId = new Map<number, (typeof abilities.abilities)[number]["ranks"][number]>();
       for (const a of abilities.abilities) for (const r of a.ranks) byId.set(r.spellId, r);
@@ -54,7 +54,7 @@ for (const c of CLASSES) {
   });
 }
 
-describe("rangos por nombre iguales a Talents Forever", () => {
+describe("rangos por nombre iguales a la referencia", () => {
   const ranks = (token: string, name: string) => findAbility(Abilities.parse(json(`abilities/${token}.json`)), name)?.ranks.length;
   it("Chamán: Escudo de relámpagos 7, Tótem de corriente curativa 5 (un rango traía otro nombre), Tótem de marea de maná 4", () => {
     expect([ranks("shaman", "Escudo de relámpagos"), ranks("shaman", "Tótem de corriente curativa"), ranks("shaman", "Tótem de marea de maná")]).toEqual([7, 5, 4]);
@@ -78,9 +78,9 @@ describe("rangos por nombre iguales a Talents Forever", () => {
     expect(findAbility(a, "Sacrificio demoníaco")!.ranks[0]).toMatchObject({ level: 20, learnedByTalent: true });
     expect(findAbility(a, "Vínculo de alma")!.ranks[0]).toMatchObject({ level: 30, learnedByTalent: true });
   });
-  it("Druida: Furia del tigre se marca retirada según TF (el cliente la trae como runa)", () => {
+  it("Druida: Furia del tigre se marca retirada según la referencia (el cliente la trae como runa)", () => {
     const a = Abilities.parse(json("abilities/druid.json"));
     expect(findAbility(a, "Furia del tigre")!.talentsForever).toMatchObject({ status: "retired" });
-    expect(findAbility(a, "Forma de oso nefasto")).toBeDefined(); // TF también lista Dire Bear Form aparte
+    expect(findAbility(a, "Forma de oso nefasto")).toBeDefined(); // La referencia también lista Dire Bear Form aparte
   });
 });

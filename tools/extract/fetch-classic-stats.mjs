@@ -2,7 +2,7 @@
 // en data/external/classic-stats/classic-era.json. Solo escribe en el repo; no toca el cliente de WoW.
 //
 // Fuente: tablas `player_levelstats` (fuerza, agilidad, aguante, intelecto, espiritu por raza/clase/nivel 1-60) y
-// `player_classlevelstats` (vida y mana base por clase/nivel) del servidor cmangos/mangos-classic (GPL-2.0),
+// `player_classlevelstats` (vida y mana base por clase/nivel) del servidor la fuente de las tablas/mangos-classic (GPL-2.0),
 // fijado a un commit para que sea reproducible. Los numeros son hechos del juego; no se copia codigo.
 //
 // Uso: node tools/extract/fetch-classic-stats.mjs [--file ruta/a/mangos.sql]
@@ -11,7 +11,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const COMMIT = "7f98ba0f0b7b74b93c01741c7bd64ec457b427ee";
-const URL = `https://raw.githubusercontent.com/cmangos/mangos-classic/${COMMIT}/sql/base/mangos.sql`;
+const URL = `https://raw.githubusercontent.com/la fuente de las tablas/mangos-classic/${COMMIT}/sql/base/mangos.sql`;
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const outDir = join(root, "data", "external", "classic-stats");
 
@@ -43,7 +43,7 @@ for (const [race, classes] of Object.entries(levelStats))
 
 mkdirSync(outDir, { recursive: true });
 const out = {
-  source: "cmangos/mangos-classic sql/base/mangos.sql (player_levelstats, player_classlevelstats)",
+  source: "La fuente de las tablas/mangos-classic sql/base/mangos.sql (player_levelstats, player_classlevelstats)",
   url: URL,
   commit: COMMIT,
   license: "GPL-2.0 (servidor); solo se usan cifras",
@@ -57,7 +57,7 @@ writeFileSync(
   join(outDir, "ATTRIBUTION.md"),
   `# Estadisticas base de Classic Era
 
-Fuente: [cmangos/mangos-classic](https://github.com/cmangos/mangos-classic) (GPL-2.0), \`sql/base/mangos.sql\` en el commit \`${COMMIT}\`:
+Fuente: [la fuente de las tablas/mangos-classic](https://github.com/la fuente de las tablas/mangos-classic) (GPL-2.0), \`sql/base/mangos.sql\` en el commit \`${COMMIT}\`:
 tablas \`player_levelstats\` (fuerza, agilidad, aguante, intelecto y espiritu por raza, clase y nivel) y \`player_classlevelstats\`
 (vida y mana base por clase y nivel). Se extraen solo las cifras con \`tools/extract/fetch-classic-stats.mjs\`.
 

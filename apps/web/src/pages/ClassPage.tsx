@@ -1,7 +1,9 @@
 import {
   addPoint,
   decodeBuildReport,
+  decodeGear,
   encodeBuild,
+  encodeGear,
   formatBuildForAI,
   indexClass,
   rankOf,
@@ -9,16 +11,20 @@ import {
   requiredLevel,
   specPoints,
   summarizeCharacter,
+  summarizeGear,
   totalPoints,
   type Build,
   type ClassIndex,
   type DecodeReport,
+  type GearContext,
+  type GearSelection,
 } from "@wfuc/engine";
-import type { ClassTalents, Manifest, Race } from "@wfuc/schema";
+import type { ClassTalents, CombatRatings, Manifest, Race } from "@wfuc/schema";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { isEmptyCode, useCharacter } from "../character";
 import { Detail } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
+import { GearStep, GearTotals, useGearBundle } from "../components/Gear";
 import { StatEffectsView, useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
 import { LinkNotice } from "../components/LinkNotice";
@@ -30,16 +36,18 @@ import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
 import { href, parseHash, replaceHash } from "../router";
 
 type Entry = Manifest["classes"][number];
-type View = "race" | "legacy" | "talents" | "summary";
+type View = "race" | "legacy" | "talents" | "gear" | "summary";
 // La raza va primero (paso propio, con su caja como los talentos). Legacy va ANTES que los talentos de clase:
 // Talentoso (Legacy) adelanta el primer punto de talento y cambia el nivel que exigen.
 const VIEWS: { id: View; n: number; label: string }[] = [
   { id: "race", n: 1, label: "Raza" },
   { id: "legacy", n: 2, label: "Puntos de Legado" },
   { id: "talents", n: 3, label: "Talentos" },
-  { id: "summary", n: 4, label: "Resumen" },
+  { id: "gear", n: 4, label: "Equipo" },
+  { id: "summary", n: 5, label: "Resumen" },
 ];
-const isView = (v: string | null): v is View => v === "race" || v === "legacy" || v === "talents" || v === "summary";
+const isView = (v: string | null): v is View => v === "race" || v === "legacy" || v === "talents" || v === "gear" || v === "summary";
+const DEFAULT_GEAR_LEVEL = 60;
 
 export function ClassPage({ token, entry, query }: { token: string; entry: Entry; query: URLSearchParams }) {
   const state = useAsync(entry.file, () => loadClass(entry.file));
@@ -122,6 +130,19 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const race = races.find((r) => r.id === raceId) ?? null;
   const raceQuery: Record<string, string> = race ? { r: String(race.id) } : {};
 
+  // Equipo: `g` = codigo del equipo (ids de objeto, encantamiento y sufijo), `gl` = nivel del personaje para las comprobaciones
+  const [initialGear] = useState(() => decodeGear(query.get("g")));
+  const [gear, setGearState] = useState<GearSelection>(initialGear.gear);
+  const [gearLevel, setGearLevel] = useState(() => Math.max(1, Math.min(60, Number(query.get("gl")) || DEFAULT_GEAR_LEVEL)));
+  const setGear = useCallback((update: (g: GearSelection) => GearSelection) => setGearState((g) => update(g)), []);
+  const gearCode = useMemo(() => encodeGear(gear), [gear]);
+  const hasGear = gearCode !== "";
+  // Los objetos pesan unos 7 MB: solo se descargan al entrar al paso Equipo o si el enlace ya trae equipo
+  const gearBundle = useGearBundle(manifest, view === "gear" || hasGear);
+  const gearCtx: GearContext = useMemo(() => ({ classId: data.classId, raceId: race?.id ?? 0, level: gearLevel }), [data.classId, race, gearLevel]);
+  const gearSummary = useMemo(() => (gearBundle?.status === "ready" ? summarizeGear(gear, gearCtx, gearBundle.value.data) : null), [gearBundle, gear, gearCtx]);
+  const gearMinLevel = useMemo(() => (gearBundle?.status === "ready" ? Math.max(0, ...Object.values(gear).map((w) => gearBundle.value.data.items.get(w.itemId)?.requiredLevel ?? 0)) : 0), [gearBundle, gear]);
+
   const classCode = useMemo(() => encodeBuild(idx, classBuild), [idx, classBuild]);
   useEffect(() => {
     const q: Record<string, string> = {};
@@ -134,10 +155,12 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       if (keep) q.l = keep;
     }
     if (race) q.r = String(race.id);
+    if (hasGear) q.g = gearCode;
+    if (gearLevel !== DEFAULT_GEAR_LEVEL) q.gl = String(gearLevel);
     q.v = view;
     replaceHash(`class/${token}`, q);
     setUrl(window.location.href);
-  }, [token, classCode, legacyCode, legacyReady, view, race]);
+  }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel]);
 
   const say = (msg: string) => {
     setToast(msg);
@@ -193,11 +216,12 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
               {v.id === "race" && <small>{race?.name ?? "sin elegir"}</small>}
               {v.id === "legacy" && legacy && <small>{legacyTotal}/{legacy.data.rules.maxPoints}</small>}
               {v.id === "talents" && <small>{classTotal}/{idx.data.rules.maxPoints}</small>}
+              {v.id === "gear" && <small>{Object.keys(gear).length}/19</small>}
             </button>
           ))}
         </nav>
         <div className="actions">
-          <button type="button" onClick={() => { setClassBuild({}); setLegacyBuild(() => ({})); }} disabled={classTotal + legacyTotal === 0}>
+          <button type="button" onClick={() => { setClassBuild({}); setLegacyBuild(() => ({})); setGearState({}); }} disabled={classTotal + legacyTotal === 0 && !hasGear}>
             Reiniciar
           </button>
           <button type="button" className="gold" onClick={copyLink}>
@@ -230,7 +254,23 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           />
         </>
       )}
-      {view === "summary" && <Summary idx={idx} summary={summary} legacyLoaded={!!legacy} race={race} manifest={manifest} classBuild={classBuild} legacy={legacy} legacyBuild={legacyBuild} />}
+      {view === "gear" && (
+        <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race?.name ?? null} />
+      )}
+      {view === "summary" && (
+        <Summary
+          idx={idx}
+          summary={summary}
+          legacyLoaded={!!legacy}
+          race={race}
+          manifest={manifest}
+          classBuild={classBuild}
+          legacy={legacy}
+          legacyBuild={legacyBuild}
+          gear={gearSummary && hasGear ? { summary: gearSummary, ratings: gearBundle?.status === "ready" ? gearBundle.value.ratings : null, minLevel: gearMinLevel } : null}
+          gearLoading={hasGear && gearBundle?.status !== "ready"}
+        />
+      )}
 
       <div className="share-row">
         <span className="share-label">Compartir</span>
@@ -447,7 +487,14 @@ function Workspace({
 }
 
 /** Resumen (en construccion): lo escogido en clase y Legacy, en el rango de nivel que corresponde a los puntos gastados. */
-function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legacy, legacyBuild }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build }) {
+interface GearInSummary {
+  summary: ReturnType<typeof summarizeGear>;
+  ratings: CombatRatings | null;
+  /** Nivel minimo al que se puede llevar todo (el mayor requiredLevel): las columnas de nivel menor no llevan equipo. */
+  minLevel: number;
+}
+
+function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legacy, legacyBuild, gear, gearLoading }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean }) {
   const classTalents = summary.selected.filter((s) => s.source === "class");
   const legacyTalents = summary.selected.filter((s) => s.source === "legacy");
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
@@ -459,7 +506,7 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
     </Collapsible>
   );
   const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race });
-  const ids = ["race", ...(race ? ["race-totals"] : []), "stats", "effects", "abilities", "class-talents", "legacy-talents"];
+  const ids = ["race", ...(race ? ["race-totals"] : []), "stats", "gear", "effects", "abilities", "class-talents", "legacy-talents"];
   const setAll = (v: boolean) => setOpen(Object.fromEntries(ids.map((i) => [i, v])));
   return (
     <section className="summary-view">
@@ -487,7 +534,13 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
         race ? <RacialList race={race} classId={idx.data.classId} /> : <p className="muted">Elige una raza en el paso «Raza» para ver sus habilidades raciales.</p>,
       )}
       {race && section("race-totals", "Bonificaciones de la raza", <RaceTotals race={race} classId={idx.data.classId} />)}
-      {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} minLevel={minLevel} fx={fx} />)}
+      {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} minLevel={minLevel} fx={fx} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel } : null} />)}
+      {section(
+        "gear",
+        "Equipo",
+        gearLoading ? <p className="muted">Cargando objetos…</p> : gear ? <GearTotals summary={gear.summary} ratings={gear.ratings} /> : <p className="muted">Aún no llevas equipo: elígelo en el paso «Equipo».</p>,
+        gear ? `${gear.summary.lines.length}` : undefined,
+      )}
       {section("effects", "Efectos sumados de tus talentos, Puntos de Legado y raza", <StatEffectsView fx={fx} loading={fxLoading} />)}
       {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} minLevel={minLevel} />)}
       {section(

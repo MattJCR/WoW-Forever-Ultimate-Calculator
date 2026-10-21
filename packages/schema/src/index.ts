@@ -353,7 +353,7 @@ export type Races = z.infer<typeof Races>;
 /**
  * Estadisticas base por raza, clase y nivel. El cliente de Forever NO las trae (en Classic viven en el servidor):
  * la base de la clase sale de Classic Era 1.12 (`community`), las diferencias de raza son las medidas en la beta por
- * wowsims/forever (`raceOffsets`, `community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
+ * La comunidad (`raceOffsets`, `community`) y las combinaciones nuevas de Forever se estiman (`assumption`).
  */
 export const BaseStats = z.object({
   schemaVersion: z.literal(1),
@@ -508,13 +508,13 @@ export const AbilityRank = z.object({
 export type AbilityRank = z.infer<typeof AbilityRank>;
 
 /**
- * Contraste de la habilidad con el export de Talents Forever (TF, solo contraste): `listed` = todos sus rangos estan en
- * su libro de hechizos (mismo id de hechizo), `partial` = solo algunos, `not-listed` = TF no la lista (runas de Forever,
- * habilidades auxiliares... solo hay cifras del cliente), `retired` = TF la da por retirada (`spellbook.gone`).
+ * Contraste de la habilidad con el export de la referencia (la referencia, solo contraste): `listed` = todos sus rangos estan en
+ * su libro de hechizos (mismo id de hechizo), `partial` = solo algunos, `not-listed` = la referencia no la lista (runas de Forever,
+ * habilidades auxiliares... solo hay cifras del cliente), `retired` = la referencia la da por retirada (`spellbook.gone`).
  */
 export const AbilityContrast = z.object({
   status: z.enum(["listed", "partial", "not-listed", "retired"]),
-  /** Rangos que TF lista de los que tiene la habilidad (id de hechizo). */
+  /** Rangos que la referencia lista de los que tiene la habilidad (id de hechizo). */
   listedRanks: z.number().int(),
   note: z.string().nullable(),
 });
@@ -524,7 +524,7 @@ export const Ability = z.object({
   name: z.string(),
   iconFileDataId: z.number().int().nullable(),
   ranks: z.array(AbilityRank),
-  /** null = sin export de TF para la clase. */
+  /** null = sin export de la referencia para la clase. */
   talentsForever: AbilityContrast.nullable().default(null),
 });
 export type Ability = z.infer<typeof Ability>;
@@ -702,10 +702,12 @@ export const Item = z.object({
   /** Objeto de prueba, marcador o retirado (nombre con [PH], TEST, OLD, Deprecated...): se conserva pero la UI no lo ofrece. */
   placeholder: z.boolean(),
   stats: z.array(ItemStat),
+  /** Presupuesto de estadisticas (RandPropPoints segun nivel, calidad y ranura): lo que reparte un sufijo aleatorio. 0 si no se conoce. */
+  statBudget: z.number(),
   effects: z.array(ItemEffectRef),
-  /** client-db2 = tablas del cliente; community = wowsims/forever (objetos que nuestro volcado no trae). */
+  /** client-db2 = tablas del cliente; community = la comunidad (objetos que nuestro volcado no trae). */
   provenance: Provenance,
-  /** client = nombre del cliente (esES); untranslated = ingles de wowsims, pendiente de traducir. */
+  /** client = nombre del cliente (esES); untranslated = ingles de la comunidad, pendiente de traducir. */
   textOrigin: z.enum(["client", "untranslated"]),
   /** Indice en `Items.suffixSets`: lista de sufijos aleatorios que puede llevar («del Mono»…); null = sin sufijo. */
   randomSuffixSet: z.number().int().nullable(),
@@ -726,11 +728,12 @@ export const Items = z.object({
 });
 export type ItemStat = z.infer<typeof ItemStat>;
 export type ItemWeapon = z.infer<typeof ItemWeapon>;
+export type ItemEffectRef = z.infer<typeof ItemEffectRef>;
 export type ItemSetDef = z.infer<typeof ItemSetDef>;
 export type Item = z.infer<typeof Item>;
 export type Items = z.infer<typeof Items>;
 
-/** Puntuacion necesaria por 1 % (defensa: por punto de habilidad) segun wowsims/forever (MIT), medida en la beta; `community`. */
+/** Puntuacion necesaria por 1 % (defensa: por punto de habilidad) segun la comunidad (MIT), medida en la beta; `community`. */
 export const CombatRatings = z.object({
   schemaVersion: z.literal(1),
   build: z.string(),
@@ -744,7 +747,7 @@ export const CombatRatings = z.object({
 });
 export type CombatRatings = z.infer<typeof CombatRatings>;
 
-/** Encantamiento aplicable a una ranura. El nombre sale del cliente (SpellItemEnchantment, esES); las cifras, de wowsims. */
+/** Encantamiento aplicable a una ranura. El nombre sale del cliente (SpellItemEnchantment, esES); las cifras, de la comunidad. */
 export const Enchant = z.object({
   /** SpellItemEnchantment.ID (el cliente lo llama effectId). */
   effectId: z.number().int(),
@@ -752,7 +755,7 @@ export const Enchant = z.object({
   itemId: z.number().int().nullable(),
   name: z.string(),
   nameEn: z.string(),
-  /** Tipo de ranura principal (ItemType de wowsims: 1 cabeza, 2 cuello, 3 hombros, 4 espalda, 5 pecho, 6 muñecas, 7 manos, 8 cintura, 9 piernas, 10 pies, 11 anillo, 12 abalorio, 13 arma, 14 distancia). */
+  /** Tipo de ranura principal (ItemType de la comunidad: 1 cabeza, 2 cuello, 3 hombros, 4 espalda, 5 pecho, 6 muñecas, 7 manos, 8 cintura, 9 piernas, 10 pies, 11 anillo, 12 abalorio, 13 arma, 14 distancia). */
   slotType: z.number().int(),
   extraSlotTypes: z.array(z.number().int()),
   quality: z.number().int(),
@@ -769,11 +772,13 @@ export const Enchants = z.object({
 export type Enchant = z.infer<typeof Enchant>;
 export type Enchants = z.infer<typeof Enchants>;
 
-/** Sufijo aleatorio de objeto («del Mono»): reparto de estadisticas en diezmilesimas del presupuesto del objeto. No estan en el cliente (sin tabla), solo en wowsims. */
+/** Sufijo aleatorio de objeto («del Mono»): reparto de estadisticas en diezmilesimas del presupuesto del objeto. No estan en el cliente (sin tabla), solo en la comunidad. */
 export const RandomSuffix = z.object({
   id: z.number().int(),
+  /** Nombre que muestra la web: nuestra traduccion al español (`translated-by-us`) o, si falta, el ingles de la comunidad. */
+  name: z.string(),
   nameEn: z.string(),
-  textOrigin: z.enum(["untranslated"]),
+  textOrigin: z.enum(["translated-by-us", "untranslated"]),
   allocations: z.array(ItemStat),
 });
 export const RandomSuffixes = z.object({
@@ -783,7 +788,34 @@ export const RandomSuffixes = z.object({
   source: z.string(),
   suffixes: z.array(RandomSuffix),
 });
+export type RandomSuffix = z.infer<typeof RandomSuffix>;
 export type RandomSuffixes = z.infer<typeof RandomSuffixes>;
+
+/** Quien puede usar un tipo de objeto: mascara de clases y nivel minimo (SkillRaceClassInfo). Una clase puede salir en varias filas. */
+export const Proficiency = z.object({
+  classMask: z.number().int(),
+  minLevel: z.number().int(),
+});
+/**
+ * Reglas de equipar que el cliente trae: competencias de armadura y de armas por clase y nivel (SkillRaceClassInfo + la habilidad de cada
+ * ItemSubclass). Las reliquias (libro, ídolo, tótem) no las trae: son de una sola clase (Classic) y van aparte como `assumption`.
+ */
+export const EquipRules = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  /** ItemSubclass de armadura (1 tela, 2 cuero, 3 malla, 4 placas, 6 escudo) -> quien puede llevarla. */
+  armor: z.record(z.string(), z.array(Proficiency)),
+  /** ItemSubclass de arma (0 hacha, 1 hacha 2M, 2 arco, 3 arma de fuego, 4 maza, 5 maza 2M, 6 asta, 7 espada, 8 espada 2M, 10 bastón, 13 arma de puño, 15 daga, 16 arrojadiza, 18 ballesta, 19 varita). */
+  weapons: z.record(z.string(), z.array(Proficiency)),
+  /** Habilidad «Doble empuñadura» (118): quien puede llevar un arma en cada mano. */
+  dualWield: z.array(Proficiency),
+  /** Reliquias de la ranura de distancia (ItemSubclass 7 libro, 8 ídolo, 9 tótem) -> mascara de clase. No esta en el cliente: Classic. */
+  relics: z.object({ provenance: Provenance, byClassMask: z.record(z.string(), z.number().int()) }),
+  warnings: z.array(z.string()),
+});
+export type Proficiency = z.infer<typeof Proficiency>;
+export type EquipRules = z.infer<typeof EquipRules>;
 
 export const Manifest = z.object({
   schemaVersion: z.literal(1),
@@ -817,12 +849,14 @@ export const Manifest = z.object({
   abilities: z.array(z.object({ classId: z.number().int(), file: z.string(), sha256: z.string(), abilityCount: z.number().int(), rankCount: z.number().int() })),
   /** Critico por atributo, mana base y poder de ataque por atributo por clase y nivel (client-db2). */
   clientStats: z.object({ file: z.string(), sha256: z.string() }).optional(),
-  /** Puntuacion por 1 % de combate, encantamientos y sufijos aleatorios (wowsims/forever, MIT; `community`). */
+  /** Puntuacion por 1 % de combate, encantamientos y sufijos aleatorios (la comunidad, MIT; `community`). */
   combatRatings: z.object({ file: z.string(), sha256: z.string() }).optional(),
   enchants: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   randomSuffixes: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   /** Objetos equipables (armas y armadura) del cliente. */
   items: z.object({ file: z.string(), sha256: z.string(), itemCount: z.number().int(), unavailableCount: z.number().int() }).optional(),
+  /** Competencias de armadura y armas por clase y nivel (client-db2). */
+  equipRules: z.object({ file: z.string(), sha256: z.string() }).optional(),
   /** Estadisticas base (Classic Era, estimacion). */
   stats: z.object({ file: z.string(), sha256: z.string(), comboCount: z.number().int(), missingCount: z.number().int() }),
   /** Razas jugables con su matriz de clases y raciales. */

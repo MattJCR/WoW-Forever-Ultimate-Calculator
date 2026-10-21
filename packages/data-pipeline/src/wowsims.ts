@@ -3,7 +3,7 @@ import { ITEM_STAT_KEYS } from "./items.js";
 import type { CombatRatings, Enchants, Item, Items, ItemStat, RandomSuffixes } from "./model.js";
 
 /**
- * Datos de wowsims/forever (MIT, https://github.com/wowsims/forever), copiados a data/external/wowsims/ (ver su ATTRIBUTION.md).
+ * Datos de la comunidad (MIT), copiados a data/external/wowsims/ (ver su ATTRIBUTION.md).
  * Son `community`: los midió/generó otro equipo desde el mismo cliente, con hotfixes mas recientes que nuestra cache. Sirven para lo que
  * nuestro volcado no trae (objetos nuevos, sufijos aleatorios, puntuaciones). Su `sources` (botin) no se usa: deriva de AtlasLoot (GPL).
  */
@@ -27,9 +27,9 @@ export interface WowsimsDb {
   randomSuffixes: { id: number; name: string; stats: number[] }[];
 }
 
-export const WOWSIMS_SOURCE = "wowsims/forever (MIT) commit 5fd6bea8005759158f2c006f75fa73b70c140265, 2026-10-21";
+export const WOWSIMS_SOURCE = "Datos de la comunidad (MIT), 2026-10-21";
 
-/** Indice del enum Stat de wowsims (proto/common.proto) -> clave propia (las de ITEM_STAT_KEYS). */
+/** Indice del enum Stat de la comunidad (proto/common.proto) -> clave propia (las de ITEM_STAT_KEYS). */
 const WS_STAT_KEYS: Record<number, string> = {
   0: "strength", 1: "agility", 2: "stamina", 3: "intellect", 4: "healing-power", 5: "spell-power",
   6: "arcane-power", 7: "fire-power", 8: "frost-power", 9: "holy-power", 10: "nature-power", 11: "shadow-power",
@@ -65,14 +65,14 @@ export function buildCombatRatings(text: string, build: string): CombatRatings {
     schemaVersion: 1,
     build,
     provenance: "community",
-    source: `${WOWSIMS_SOURCE}, assets/db_inputs/basestats-forever/CombatRatings.txt`,
+    source: WOWSIMS_SOURCE,
     constantAcrossLevels: constant,
     levels: { min: int(data[0]![0]), max: int(data.at(-1)![0]) },
     ratings: Object.fromEntries(cols.map(({ h, i }) => [slug(h), Number(first[i])])),
   };
 }
 
-/** Encantamientos: cifras de wowsims, nombre en español del cliente (SpellItemEnchantment.Name_lang, `$k1` = valor del primer efecto). */
+/** Encantamientos: cifras de la comunidad, nombre en español del cliente (SpellItemEnchantment.Name_lang, `$k1` = valor del primer efecto). */
 export function buildEnchants(db: WowsimsDb, raw: RawTables, build: string, warnings: string[]): Enchants {
   const rows = new Map(raw.table("SpellItemEnchantment").map((r) => [int(r.ID), r]));
   let unresolved = 0;
@@ -101,21 +101,22 @@ export function buildEnchants(db: WowsimsDb, raw: RawTables, build: string, warn
   });
   if (unresolved > 0) warnings.push(`${unresolved} encantamientos conservan algun marcador $ en el nombre`);
   const missing = db.enchants.filter((e) => !rows.has(e.effectId)).length;
-  if (missing > 0) warnings.push(`${missing} encantamientos de wowsims no estan en SpellItemEnchantment del cliente`);
+  if (missing > 0) warnings.push(`${missing} encantamientos de la comunidad no estan en SpellItemEnchantment del cliente`);
   return { schemaVersion: 1, build, provenance: "community", source: WOWSIMS_SOURCE, enchants };
 }
 
-export function buildRandomSuffixes(db: WowsimsDb, build: string): RandomSuffixes {
+/** `names` = traducciones propias (data/i18n/suffixes-esES.json): nombre en ingles de la comunidad -> español. */
+export function buildRandomSuffixes(db: WowsimsDb, build: string, names: Record<string, string> = {}): RandomSuffixes {
   return {
     schemaVersion: 1,
     build,
     provenance: "community",
     source: WOWSIMS_SOURCE,
-    suffixes: db.randomSuffixes.map((s) => ({ id: s.id, nameEn: s.name, textOrigin: "untranslated" as const, allocations: wsStats(s.stats) })),
+    suffixes: db.randomSuffixes.map((s) => ({ id: s.id, name: names[s.name] ?? s.name, nameEn: s.name, textOrigin: names[s.name] ? ("translated-by-us" as const) : ("untranslated" as const), allocations: wsStats(s.stats) })),
   };
 }
 
-/** ItemType de wowsims -> InventoryType del cliente (el arma depende de HandType). */
+/** ItemType de la comunidad -> InventoryType del cliente (el arma depende de HandType). */
 function inventoryTypeOf(i: WowsimsItem): number | null {
   const byType: Record<number, number> = { 1: 1, 2: 2, 3: 3, 4: 16, 5: 5, 6: 9, 7: 10, 8: 6, 9: 7, 10: 8, 11: 11, 12: 12 };
   if (i.type !== undefined && byType[i.type]) return byType[i.type]!;
@@ -131,7 +132,7 @@ function weaponSubclassOf(i: WowsimsItem): number | null {
 }
 
 /**
- * Objetos de wowsims que no estan en `Item` del cliente (contenido mas nuevo que nuestra cache de hotfixes). Solo los equipables con
+ * Objetos de la comunidad que no estan en `Item` del cliente (contenido mas nuevo que nuestra cache de hotfixes). Solo los equipables con
  * ranura; los que no (sellos, simbolos, tabardos) se cuentan en `skipped`.
  */
 export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[]; skipped: number } {
@@ -175,6 +176,7 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
       casterWeapon: false,
       placeholder: false,
       stats: wsStats(so.stats),
+      statBudget: 0,
       effects: [],
       provenance: "community",
       textOrigin: "untranslated",
@@ -184,7 +186,7 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
   return { items, skipped };
 }
 
-/** Completa `items.json` con lo de wowsims: objetos que el volcado no trae y las listas de sufijos aleatorios de cada objeto. */
+/** Completa `items.json` con lo de la comunidad: objetos que el volcado no trae y las listas de sufijos aleatorios de cada objeto. */
 export function applyWowsims(base: Items, db: WowsimsDb): { items: Items; extra: number; skipped: number } {
   const known = new Set([...base.items.map((i) => i.id), ...base.unavailable.map((u) => u.id)]);
   const { items: extra, skipped } = extraItems(db, known);

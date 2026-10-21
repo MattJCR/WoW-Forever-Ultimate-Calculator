@@ -12,8 +12,8 @@ import type { SpellTables } from "./spell-tables.js";
  */
 export const CLASS_SKILL_LINES: Record<number, number[]> = {
   1: [26, 256, 257], // Guerrero: Armas 26, Furia 256, Protección 257
-  2: [594, 267, 184], // Paladín: Sagrado 594, Protección 267, Reprensión 184 (cruce con los id de Talents Forever)
-  5: [56, 78, 613], // Sacerdote: Sombras 56, Disciplina 78, Sagrado 613 (cruce con los id de Talents Forever)
+  2: [594, 267, 184], // Paladín: Sagrado 594, Protección 267, Reprensión 184 (cruce con los id de la referencia)
+  5: [56, 78, 613], // Sacerdote: Sombras 56, Disciplina 78, Sagrado 613 (cruce con los id de la referencia)
   3: [163, 51, 50], // Cazador: Punteria 163, Supervivencia 51, Bestias 50 (SIN las lineas de mascota 270 y 203-218...: sus habilidades son de la mascota)
   7: [373, 375, 374], // Chaman: Mejora 373, Elemental 375, Restauracion 374
   9: [355, 354, 593], // Brujo: Afliccion 355, Demonologia 354, Destruccion 593 (SIN las lineas de demonios 188/189/204/205)
@@ -25,7 +25,7 @@ export const CLASS_SKILL_LINES: Record<number, number[]> = {
 /**
  * Hechizos que el cliente trae en la SkillLine de la clase (AcquireMethod 3) pero que no son habilidades del jugador sino
  * efectos auxiliares que lanza otra habilidad: la sanacion/dano de 1 punto de Luz Sagrada y Destello de Luz, las mitades de
- * Choque Sagrado (dano y sanacion) y los debilitamientos que deja cada Sentencia. Talents Forever tampoco los lista.
+ * Choque Sagrado (dano y sanacion) y los debilitamientos que deja cada Sentencia. La referencia tampoco los lista.
  * No hay marca en el cliente que los distinga de las habilidades de runa de Forever (mismo AcquireMethod, mismo ClassMask),
  * asi que se revisan a mano por clase.
  */
@@ -41,7 +41,7 @@ const AUXILIARY_SPELLS = new Set<number>([
   // golpes de dano/sanacion de Penitencia (runa) y la rafaga que lanza Abrasamiento mental (413259 la dispara)
   28377, 28378, 28379, 28380, 28381, 28382, 2943, 19249, 19251, 19252, 19253, 19254, 7001,
   402284, 402289, 1240723, 1240727, 1240724, 1240730, 1316991, 1316993, 413260,
-  // Mago: efectos de talentos que cuelgan de la SkillLine (sin coste, enfriamiento ni lanzamiento; TF tampoco los lista):
+  // Mago: efectos de talentos que cuelgan de la SkillLine (sin coste, enfriamiento ni lanzamiento; la referencia tampoco los lista):
   // Gelido, Maestro de los elementos (1 p. de mana), Conjuro libre, Impacto, Mordiescarcha
   12484, 29077, 12536, 12355, 12494,
   // Cazador: DoT de Trampa de inmolacion, efecto de Trampa explosiva, mitades sin coste de Golpe de raptor (runa) y variantes del
@@ -149,7 +149,7 @@ const first = (rows: Row[], diffKey = "DifficultyID"): Map<string, Row> => {
  * Rangos de una misma habilidad con otro nombre en el cliente (los hotfixes renombraron un rango): se unen bajo el nombre
  * que usa el texto de la habilidad. No hay cadena de `SupercedesSpell` que los una (los totems no la traen) y unir por
  * esa cadena mezcla habilidades distintas (Forma de oso / Forma de oso nefasto), asi que la lista es manual y se
- * comprueba con el recuento de rangos de Talents Forever.
+ * comprueba con el recuento de rangos de la referencia.
  */
 const NAME_ALIASES: Record<string, string> = {
   "Tótem Corriente de sanación": "Tótem de corriente curativa",

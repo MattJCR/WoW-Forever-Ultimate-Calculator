@@ -23,7 +23,7 @@ const median = (xs: number[]): number => [...xs].sort((a, b) => a - b)[Math.floo
 /**
  * Busca valores aislados que no encajan: en Classic la diferencia entre dos razas de la misma clase es casi constante
  * en todos los niveles, asi que un nivel cuya diferencia se aparta >= 2 de la tipica frente a (casi) todas las demas
- * razas es un error de la fuente (cmangos reconstruye estas tablas a partir de datos del juego). Solo se corrige el
+ * razas es un error de la fuente (la fuente de las tablas reconstruye estas tablas a partir de datos del juego). Solo se corrige el
  * intercambio inequivoco de intelecto y espiritu (ambos encajan al darles la vuelta); lo demas se informa.
  * Opera sobre una copia: `levelStats` no se modifica; devuelve la copia corregida y la lista.
  */

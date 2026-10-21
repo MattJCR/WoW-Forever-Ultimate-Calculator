@@ -61,7 +61,7 @@ describe("Paladín: habilidades, talentos y reglas", () => {
   });
 });
 
-describe("Paladín: cifras directas frente a Talents Forever (a nivel min(60, nivel máximo))", () => {
+describe("Paladín: cifras directas frente a la referencia (a nivel min(60, nivel máximo))", () => {
   const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "paladin.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
   const byId = new Map<number, (typeof abilities.abilities)[number]["ranks"][number]>();
   for (const a of abilities.abilities) for (const r of a.ranks) byId.set(r.spellId, r);
@@ -83,7 +83,7 @@ describe("Paladín: cifras directas frente a Talents Forever (a nivel min(60, ni
     }
     expect(pairs).toBe(80);
     expect(ok).toBe(59);
-    // Sello de rectitud (por golpe: valor/87 a valor/25 según la velocidad del arma), Golpe Sagrado (el 25-50 % de arma multiplica también el extra: TF muestra la mitad o menos) y la mitad sin aturdir de Sello de orden
+    // Sello de rectitud (por golpe: valor/87 a valor/25 según la velocidad del arma), Golpe Sagrado (el 25-50 % de arma multiplica también el extra: La referencia muestra la mitad o menos) y la mitad sin aturdir de Sello de orden
     expect([...bad].sort()).toEqual(["Holy Strike", "Seal of Command", "Seal of Righteousness"]);
   });
 });

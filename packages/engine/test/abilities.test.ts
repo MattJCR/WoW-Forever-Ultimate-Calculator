@@ -25,7 +25,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
     expect(rankAtLevel(findAbility(mage, "Explosión Arcana")!, 19)).toBeNull();
   });
 
-  it("dano directo de Bola de fuego: rango 1 = 14-22, rango 12 = 425-541 (coincide con Talents Forever) con 100 % de poder con hechizos", () => {
+  it("dano directo de Bola de fuego: rango 1 = 14-22, rango 12 = 425-541 (coincide con la referencia) con 100 % de poder con hechizos", () => {
     const r1 = fireball.ranks[0]!;
     expect(effectAt(r1.effects[0]!, r1, 1)).toMatchObject({ min: 14, max: 22 });
     const r12 = fireball.ranks[11]!;
@@ -47,7 +47,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
     expect(fireball.ranks[0]!.cooldownMs).toBeNull();
   });
 
-  it("el dano directo calculado coincide (+-1) con Talents Forever en todos los rangos con 'X a Y' (a nivel min(60, nivel maximo))", () => {
+  it("el dano directo calculado coincide (+-1) con la referencia en todos los rangos con 'X a Y' (a nivel min(60, nivel maximo))", () => {
     const byId = new Map<number, { rank: (typeof mage.abilities)[number]["ranks"][number] }>();
     for (const a of mage.abilities) for (const r of a.ranks) byId.set(r.spellId, { rank: r });
     let checked = 0;
@@ -63,7 +63,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
       const want = [Number(m[1]!.replace(/,/g, "")), Number(m[2]!.replace(/,/g, ""))];
       const got = effectAt(effect, hit.rank, Math.min(60, hit.rank.maxLevel ?? 60));
       if (Math.abs(got.min - want[0]!) <= 1 && Math.abs(got.max - want[1]!) <= 1) ok++;
-      else bad.push(`${key}: TF ${want.join("-")} vs ${got.min}-${got.max}`);
+      else bad.push(`${key}: La referencia ${want.join("-")} vs ${got.min}-${got.max}`);
     }
     expect(checked).toBeGreaterThanOrEqual(90);
     expect(bad, bad.slice(0, 8).join("; ")).toEqual([]);

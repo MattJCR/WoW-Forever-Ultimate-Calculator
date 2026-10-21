@@ -78,7 +78,7 @@ function diffAbilities(title, a, b) {
     if (!ov) continue;
     const rr = diffKeyed(ov.ranks, nv.ranks, (x) => x.spellId, RANK_FIELDS, (x) => `rango ${x.rank} (${x.spellId})`);
     const parts = [...rr.added.map((s) => `＋${s}`), ...rr.removed.map((s) => `－${s}`), ...rr.changed.map((s) => `Δ${s}`)];
-    const tf = ov.talentsForever?.status !== nv.talentsForever?.status ? [`estado TF: ${ov.talentsForever?.status} → ${nv.talentsForever?.status}`] : [];
+    const tf = ov.talentsForever?.status !== nv.talentsForever?.status ? [`estado la referencia: ${ov.talentsForever?.status} → ${nv.talentsForever?.status}`] : [];
     if (parts.length || tf.length) changed.push(`${nv.name} — ${[...tf, ...parts].join(" | ")}`);
   }
   section(title, r.added, r.removed, changed);

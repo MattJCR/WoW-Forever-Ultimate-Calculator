@@ -5,7 +5,8 @@ import { fileURLToPath } from "node:url";
 import { buildClassTalents } from "./build.js";
 import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
 import { openRawTables } from "./csv.js";
-import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { ClientStats, CombatFormulas, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, EquipRules, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { buildEquipRules } from "./equip-rules.js";
 import { buildItems } from "./items.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
@@ -81,15 +82,16 @@ function build(): void {
   writeFileSync(join(outDir, "races.json"), racesText);
 
   // Objetos equipables (armas y armadura): solo si el volcado trae las tablas de objetos (ITEMS=1 export-tables.sh, con hotfixes)
-  const itemTables = ["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "RandPropPoints", "ItemArmorTotal", "ItemArmorQuality", "ItemArmorShield", "ArmorLocation", "ItemDamageOneHand", "ItemDamageTwoHand", "ItemDamageWand", "ItemDamageThrown"];
+  const itemTables = ["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "RandPropPoints", "ItemArmorTotal", "ItemArmorQuality", "ItemArmorShield", "ArmorLocation", "ItemDamageOneHand", "ItemDamageTwoHand", "ItemDamageWand", "ItemDamageThrown", "SkillRaceClassInfo"];
   let itemsEntry: Manifest["items"];
   let itemsData: Items | undefined;
+  let equipEntry: Manifest["equipRules"];
   let ratingsEntry: Manifest["combatRatings"];
   let enchantsEntry: Manifest["enchants"];
   let suffixesEntry: Manifest["randomSuffixes"];
   if (itemTables.every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
     let built = buildItems(raw, buildId, spells);
-    // wowsims/forever (MIT, data/external/wowsims): objetos nuevos, sufijos aleatorios, encantamientos y puntuaciones
+    // La comunidad (MIT, data/external/wowsims): objetos nuevos, sufijos aleatorios, encantamientos y puntuaciones
     const wsDir = resolve(arg("wowsims", join(repoRoot, "data", "external", "wowsims")));
     if (existsSync(join(wsDir, "db.json")) && existsSync(join(wsDir, "CombatRatings.txt"))) {
       const db = JSON.parse(readFileSync(join(wsDir, "db.json"), "utf8")) as WowsimsDb;
@@ -105,26 +107,33 @@ function build(): void {
 `;
       writeFileSync(join(outDir, "enchants.json"), enchantsText);
       enchantsEntry = { file: "enchants.json", sha256: sha256(enchantsText), count: enchants.enchants.length };
-      const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, buildId));
+      const suffixNamesFile = resolve(repoRoot, "data", "i18n", "suffixes-esES.json");
+      const suffixNames = existsSync(suffixNamesFile) ? (JSON.parse(readFileSync(suffixNamesFile, "utf8")) as { names: Record<string, string> }).names : {};
+      const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, buildId, suffixNames));
       const suffixesText = `${JSON.stringify(suffixes)}
 `;
       writeFileSync(join(outDir, "random-suffixes.json"), suffixesText);
       suffixesEntry = { file: "random-suffixes.json", sha256: sha256(suffixesText), count: suffixes.suffixes.length };
-      console.log(`wowsims/forever: ${merged.extra} objetos nuevos (${merged.skipped} sin ranura omitidos), ${enchants.enchants.length} encantamientos, ${suffixes.suffixes.length} sufijos aleatorios, puntuaciones ${ratings.constantAcrossLevels ? "constantes en los 123 niveles" : "que VARIAN por nivel"}`);
-      for (const w of ws) console.log(`   aviso (wowsims): ${w}`);
+      console.log(`La comunidad: ${merged.extra} objetos nuevos (${merged.skipped} sin ranura omitidos), ${enchants.enchants.length} encantamientos, ${suffixes.suffixes.length} sufijos aleatorios, puntuaciones ${ratings.constantAcrossLevels ? "constantes en los 123 niveles" : "que VARIAN por nivel"}`);
+      for (const w of ws) console.log(`   aviso (la comunidad): ${w}`);
     } else {
-      console.log("wowsims: sin data/external/wowsims (db.json y CombatRatings.txt); se omiten encantamientos, sufijos, puntuaciones y objetos nuevos");
+      console.log("datos de la comunidad: no encontrados (db.json y CombatRatings.txt); se omiten encantamientos, sufijos, puntuaciones y objetos nuevos");
     }
     itemsData = Items.parse(built);
     const itemsText = `${JSON.stringify(itemsData)}\n`; // compacto: ~12 500 objetos
     writeFileSync(join(outDir, "items.json"), itemsText);
     itemsEntry = { file: "items.json", sha256: sha256(itemsText), itemCount: itemsData.items.length, unavailableCount: itemsData.unavailable.length };
     for (const w of itemsData.warnings) console.log(`   aviso (objetos): ${w}`);
+    const equip = EquipRules.parse(buildEquipRules(raw, buildId));
+    const equipText = stableJson(equip);
+    writeFileSync(join(outDir, "equip-rules.json"), equipText);
+    equipEntry = { file: "equip-rules.json", sha256: sha256(equipText) };
+    for (const w of equip.warnings) console.log(`   aviso (equipar): ${w}`);
   } else {
     console.log("Objetos: sin tablas de objetos en el volcado (usa ITEMS=1 HOTFIXES=1 tools/extract/export-tables.sh); se omite items.json");
   }
 
-  // Talents Forever (solo contraste) y sus habilidades retiradas
+  // La referencia (solo contraste) y sus habilidades retiradas
   const tfDir = resolve(arg("tf", join(repoRoot, "data", "external", "talentsforever")));
   const goneFile = resolve(repoRoot, "data", "rules", "tf-gone.json");
   const goneFileData = existsSync(goneFile) ? (JSON.parse(readFileSync(goneFile, "utf8")) as { classes: Record<string, Record<string, string | null>>; official?: Record<string, Record<string, string>> }) : null;
@@ -140,12 +149,12 @@ function build(): void {
   for (const cls of classes) {
     const data = buildAbilities(raw, spells, cls.classId, buildId, locale, cls);
     if (!data) continue;
-    // Contraste con Talents Forever: cada habilidad lleva su estado (lista / parcial / no la lista / retirada)
+    // Contraste con la referencia: cada habilidad lleva su estado (lista / parcial / no la lista / retirada)
     const token = (cls.classToken ?? "").toLowerCase();
     const contrasted = contrastAbilities(Abilities.parse(data), token, tfDir, goneByClass[token] ?? {}, officialByClass[token] ?? {});
     if (contrasted) {
       const r = contrasted.report;
-      console.log(`   contraste TF ${cls.className}: ${r.listed} listadas, ${r.partial.length} parciales, ${r.notListed.length} que TF no lista, ${r.retired.length} retiradas; TF lista y no tenemos: ${r.tfOnly.length ? r.tfOnly.join(", ") : "ninguna"}`);
+      console.log(`   contraste externo ${cls.className}: ${r.listed} listadas, ${r.partial.length} parciales, ${r.notListed.length} que la referencia no lista, ${r.retired.length} retiradas; la referencia lista y no tenemos: ${r.tfOnly.length ? r.tfOnly.join(", ") : "ninguna"}`);
     }
     const parsed = contrasted ? contrasted.abilities : Abilities.parse(data);
     const text = stableJson(parsed);
@@ -199,6 +208,8 @@ function build(): void {
   for (const r of races.races) for (const a of r.racials) if (a.iconFileDataId) iconIds.add(a.iconFileDataId);
   for (const e of unassigned.orphanEntries) if (e.iconFileDataId) iconIds.add(e.iconFileDataId);
   for (const t of unassigned.alternativeTrees) for (const n of t.nodes) if (n.iconFileDataId) iconIds.add(n.iconFileDataId);
+  // Objetos: los iconos de todos los equipables que la web puede ofrecer (los de prueba no se ofrecen)
+  if (itemsData) for (const i of itemsData.items) if (!i.placeholder && i.iconFileDataId) iconIds.add(i.iconFileDataId);
   const iconsText = stableJson({ build: buildId, ids: [...iconIds].sort((a, b) => a - b) });
   writeFileSync(join(outDir, "icons.json"), iconsText);
 
@@ -220,6 +231,7 @@ function build(): void {
     combatFormulas: formulasEntry,
     clientStats: { file: "client-stats.json", sha256: sha256(clientStatsText) },
     items: itemsEntry,
+    equipRules: equipEntry,
     combatRatings: ratingsEntry,
     enchants: enchantsEntry,
     randomSuffixes: suffixesEntry,
@@ -264,7 +276,7 @@ function contrast(): void {
     const cls = ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, e.file), "utf8")));
     const r = contrastClass(cls, tfDir);
     if (!r) {
-      console.log(`${e.className}: sin export de Talents Forever en ${tfDir}`);
+      console.log(`${e.className}: sin export de la referencia en ${tfDir}`);
       continue;
     }
     allOk &&= r.ok;
@@ -279,20 +291,20 @@ function contrast(): void {
       }
     }
   }
-  // Habilidades: lo que TF no lista se conserva y se cuenta aparte (no es un fallo: el cliente manda)
+  // Habilidades: lo que la referencia no lista se conserva y se cuenta aparte (no es un fallo: el cliente manda)
   for (const e of manifest.abilities) {
     const ab = Abilities.parse(JSON.parse(readFileSync(join(dataDir, e.file), "utf8")));
     const by = (st: string) => ab.abilities.filter((a) => a.talentsForever?.status === st);
     if (!ab.abilities.some((a) => a.talentsForever)) continue;
     console.log(`
-Habilidades ${e.file.replace(/^abilities\//, "").replace(/\.json$/, "")}: ${by("listed").length} en TF, ${by("partial").length} parciales, ${by("not-listed").length} que TF no lista, ${by("retired").length} retiradas`);
+Habilidades ${e.file.replace(/^abilities\//, "").replace(/\.json$/, "")}: ${by("listed").length} en la referencia, ${by("partial").length} parciales, ${by("not-listed").length} que la referencia no lista, ${by("retired").length} retiradas`);
     for (const a of [...by("partial"), ...by("retired"), ...by("not-listed")]) console.log(`   ${a.talentsForever!.status.padEnd(10)} ${a.name}: ${a.talentsForever!.note}`);
   }
   if (existsSync(join(dataDir, "legacy.json"))) {
     const lc = contrastLegacy(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, "legacy.json"), "utf8"))), tfDir);
     if (lc) {
       console.log(`
-${lc.diffs.length ? "DIF" : "OK "} Legacy: ${lc.matchedPositions} de ${lc.perks} ventajas de TF en su posición (TF dice venir de: ${lc.tfSource})`);
+${lc.diffs.length ? "DIF" : "OK "} Legacy: ${lc.matchedPositions} de ${lc.perks} ventajas de la referencia en su posición (la referencia dice venir de: ${lc.tfSource})`);
       for (const d of lc.diffs) console.log(`   ${d}`);
     }
   }
@@ -301,7 +313,7 @@ ${lc.diffs.length ? "DIF" : "OK "} Legacy: ${lc.matchedPositions} de ${lc.perks}
     const oc = contrastOrphans(un.orphanEntries, tfDir);
     if (oc) {
       console.log(`
-Entradas de talento sin nodo del cliente: ${oc.total}; ${oc.withTfTwin} con una gemela en TF (mismas cifras) y ${oc.withoutTfTwin.length} que TF no lista:`);
+Entradas de talento sin nodo del cliente: ${oc.total}; ${oc.withTfTwin} con una gemela en la referencia (mismas cifras) y ${oc.withoutTfTwin.length} que la referencia no lista:`);
       for (const o of oc.withoutTfTwin) console.log(`   ${o.name}${o.numbers ? ` (${o.numbers})` : ""}`);
     }
   }
@@ -313,11 +325,11 @@ Entradas de talento sin nodo del cliente: ${oc.total}; ${oc.withTfTwin} con una 
   );
   if (rc) {
     allOk &&= rc.ok;
-    console.log(`\n${rc.ok ? "OK " : "DIF"} razas: matriz raza/clase y numero de raciales vs Talents Forever`);
+    console.log(`\n${rc.ok ? "OK " : "DIF"} razas: matriz raza/clase y numero de raciales vs la referencia`);
     for (const c of rc.classes) if (c.onlyClient.length || c.onlyWeb.length) console.log(`   ${c.className}: solo cliente [${c.onlyClient}] solo web [${c.onlyWeb}]`);
     for (const m of rc.racialCountMismatches) console.log(`   raciales ${m}`);
   }
-  console.log(allOk ? "\nTodo coincide con Talents Forever." : "\nHay diferencias (el cliente manda; revisar a mano).");
+  console.log(allOk ? "\nTodo coincide con la referencia." : "\nHay diferencias (el cliente manda; revisar a mano).");
 }
 
 const cmd = process.argv[2];

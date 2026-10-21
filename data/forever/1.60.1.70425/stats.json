@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "build": "1.60.1.70425",
   "source": {
-    "name": "cmangos/mangos-classic sql/base/mangos.sql (player_levelstats, player_classlevelstats)",
-    "url": "https://raw.githubusercontent.com/cmangos/mangos-classic/7f98ba0f0b7b74b93c01741c7bd64ec457b427ee/sql/base/mangos.sql",
-    "commit": "7f98ba0f0b7b74b93c01741c7bd64ec457b427ee",
-    "license": "GPL-2.0 (servidor); solo se usan cifras"
+    "name": "Estadísticas base de Classic Era (comunidad)",
+    "url": "",
+    "commit": "",
+    "license": "Solo se usan cifras"
   },
   "statNames": [
     "str",

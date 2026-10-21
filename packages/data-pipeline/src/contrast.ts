@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Abilities, AbilityContrast, ClassTalents, Races } from "./model.js";
 
-/** Forma minima del export de talentsforever.com que usamos (CC BY 4.0). */
+/** Forma minima del export de la referencia que usamos (CC BY 4.0). */
 interface TfTalent {
   name: string;
   max: number;
@@ -22,7 +22,7 @@ export interface ContrastReport {
 }
 
 /**
- * Compara nuestro arbol (cliente) con el de Talents Forever. Sus nombres estan en ingles y los
+ * Compara nuestro arbol (cliente) con el de la referencia. Sus nombres estan en ingles y los
  * nuestros en el idioma del cliente, asi que se compara por posicion y rango maximo, no por nombre.
  * Sus filas/columnas empiezan en 1. El cliente manda: las diferencias se informan, no se corrigen.
  */
@@ -59,7 +59,7 @@ export function contrastClass(cls: ClassTalents, tfDir: string): ContrastReport 
   return { className: cls.className, file, specs, totals, ok };
 }
 
-/** Nombre de raza de Talents Forever -> ChrRaces.ID del cliente. */
+/** Nombre de raza de la referencia -> ChrRaces.ID del cliente. */
 const TF_RACE_IDS: Record<string, number> = {
   Human: 1, Orc: 2, Dwarf: 3, "Night Elf": 4, Undead: 5, Tauren: 6, Gnome: 7, Troll: 8,
   "Skyborne (High Order)": 95, "Skyborne (Windshaper)": 96,
@@ -73,7 +73,7 @@ export interface RaceContrast {
   racialCountMismatches: string[];
 }
 
-/** Compara la matriz raza/clase (CharBaseInfo) y el numero de raciales con Talents Forever. El cliente manda. */
+/** Compara la matriz raza/clase (CharBaseInfo) y el numero de raciales con la referencia. El cliente manda. */
 export function contrastRaces(races: Races, classes: { classId: number; className: string; token: string }[], tfDir: string): RaceContrast | null {
   const out: RaceContrast = { ok: true, classes: [], racialCountMismatches: [] };
   let found = false;
@@ -102,7 +102,7 @@ export function contrastRaces(races: Races, classes: { classId: number; classNam
   return out;
 }
 
-/** Forma minima del libro de hechizos de TF: spell_desc (id de hechizo del cliente) y spellbook.gone. */
+/** Forma minima del libro de hechizos de la referencia: spell_desc (id de hechizo del cliente) y spellbook.gone. */
 interface TfSpellbook {
   spell_desc: Record<string, { id?: number; l?: string[][]; nt?: number }>;
   spellbook: { gone?: string[]; tabs?: { name: string; spells: [string, string][] }[] };
@@ -116,15 +116,15 @@ export interface AbilityContrastReport {
   partial: string[];
   notListed: string[];
   retired: string[];
-  /** Hechizos que TF lista (con id) y que no estan en nuestro libro de hechizos (los pasivos generales no cuentan). */
+  /** Hechizos que la referencia lista (con id) y que no estan en nuestro libro de hechizos (los pasivos generales no cuentan). */
   tfOnly: string[];
-  /** Entradas de `gone` de TF: con el nombre de nuestra habilidad, o null si no hay equivalente en nuestros datos. */
+  /** Entradas de `gone` de la referencia: con el nombre de nuestra habilidad, o null si no hay equivalente en nuestros datos. */
   gone: { tfName: string; ours: string | null; found: boolean }[];
 }
 
 /**
- * Contrasta el libro de hechizos del cliente con el de Talents Forever por id de hechizo (los nombres estan en idiomas
- * distintos). Marca cada habilidad en `talentsForever` y devuelve el informe. Lo que TF no lista NO se descarta: se
+ * Contrasta el libro de hechizos del cliente con el de la referencia por id de hechizo (los nombres estan en idiomas
+ * distintos). Marca cada habilidad en `talentsForever` y devuelve el informe. Lo que la referencia no lista NO se descarta: se
  * conserva con su marca para que la web lo avise y se pueda confirmar en el juego. `goneMap` = data/rules/tf-gone.json.
  */
 export function contrastAbilities(
@@ -150,13 +150,13 @@ export function contrastAbilities(
     const n = a.ranks.filter((r) => tfIds.has(r.spellId)).length;
     let contrast: AbilityContrast;
     if (retired.has(a.name)) {
-      contrast = { status: "retired", listedRanks: n, note: `Talents Forever la da por retirada de Forever (${goneByOurs.get(a.name)})${official[goneByOurs.get(a.name) ?? ""] ? `; lo confirma Blizzard: ${official[goneByOurs.get(a.name) ?? ""]}` : ""}` };
+      contrast = { status: "retired", listedRanks: n, note: `La referencia la da por retirada de Forever (${goneByOurs.get(a.name)})${official[goneByOurs.get(a.name) ?? ""] ? `; lo confirma Blizzard: ${official[goneByOurs.get(a.name) ?? ""]}` : ""}` };
       report.retired.push(a.name);
     } else if (n === a.ranks.length) {
       contrast = { status: "listed", listedRanks: n, note: null };
       report.listed++;
     } else if (n > 0) {
-      contrast = { status: "partial", listedRanks: n, note: `Talents Forever solo lista ${n} de sus ${a.ranks.length} rangos` };
+      contrast = { status: "partial", listedRanks: n, note: `La referencia solo lista ${n} de sus ${a.ranks.length} rangos` };
       report.partial.push(`${a.name} ${n}/${a.ranks.length}`);
     } else {
       const rune = a.ranks.every((r) => r.acquireMethod === 3);
@@ -164,14 +164,14 @@ export function contrastAbilities(
         status: "not-listed",
         listedRanks: 0,
         note: rune
-          ? "Habilidad de runa de Forever (AcquireMethod 3): Talents Forever no la lista, solo hay cifras del cliente"
-          : "Aprendible en el cliente, pero Talents Forever no la lista: solo hay cifras del cliente (confirmar en el juego)",
+          ? "Habilidad de runa de Forever (AcquireMethod 3): La referencia no la lista, solo hay cifras del cliente"
+          : "Aprendible en el cliente, pero la referencia no la lista: solo hay cifras del cliente (confirmar en el juego)",
       };
       report.notListed.push(a.name);
     }
     return { ...a, talentsForever: contrast };
   });
-  // Pestanas de mascota/demonio de TF (Cazador «Pets», Brujo «Demons»): habilidades de la mascota, fuera del libro del jugador
+  // Pestanas de mascota/demonio de la referencia (Cazador «Pets», Brujo «Demons»): habilidades de la mascota, fuera del libro del jugador
   const petSpells = new Set<string>();
   for (const tab of tf.spellbook.tabs ?? []) if (/^(Pets|Demons)$/.test(tab.name)) for (const [n, r] of tab.spells) petSpells.add(`${n}|${r ?? ""}`);
   for (const [id, key] of tfIds) {
@@ -192,7 +192,7 @@ interface TfLegacy {
 }
 
 export interface LegacyContrast {
-  /** Build del cliente del que dice venir el export de TF (puede ser mas antiguo que el nuestro). */
+  /** Build del cliente del que dice venir el export de la referencia (puede ser mas antiguo que el nuestro). */
   tfSource: string | null;
   perks: number;
   matchedPositions: number;
@@ -202,7 +202,7 @@ export interface LegacyContrast {
 
 const numbersOf = (s: string | undefined): string => [...(s ?? "").replace(/(\d),(\d{3})/g, "$1$2").replace(/(\d),(\d)/g, "$1.$2").matchAll(/\d+(?:\.\d+)?/g)].map((m) => m[0]!).sort().join(",");
 
-/** Compara las ventajas de Legacy (por posicion, rango maximo y cifras de cada rango) con las del export de TF (iguales en todas sus clases). */
+/** Compara las ventajas de Legacy (por posicion, rango maximo y cifras de cada rango) con las del export de la referencia (iguales en todas sus clases). */
 export function contrastLegacy(legacy: ClassTalents, tfDir: string): LegacyContrast | null {
   const file = join(tfDir, "paladin.json");
   if (!existsSync(file)) return null;
@@ -215,29 +215,29 @@ export function contrastLegacy(legacy: ClassTalents, tfDir: string): LegacyContr
       out.perks++;
       const o = spec.talents.find((x) => x.row === p.row - 1 && x.col === p.col - 1);
       if (!o) {
-        out.diffs.push(`${tree.name}: «${p.name}» de TF (fila ${p.row}, col ${p.col}) no está en esa posición del cliente`);
+        out.diffs.push(`${tree.name}: «${p.name}» de la referencia (fila ${p.row}, col ${p.col}) no está en esa posición del cliente`);
         continue;
       }
       out.matchedPositions++;
-      if (o.maxRank !== p.max) out.diffs.push(`${tree.name}: «${p.name}» rango máximo TF ${p.max} vs cliente ${o.maxRank}`);
+      if (o.maxRank !== p.max) out.diffs.push(`${tree.name}: «${p.name}» rango máximo la referencia ${p.max} vs cliente ${o.maxRank}`);
       for (let r = 0; r < Math.min(p.max, o.maxRank); r++) {
-        if (numbersOf(p.ranks[r]) !== numbersOf(o.descriptions[r])) out.diffs.push(`${tree.name}: «${p.name}» rango ${r + 1}: TF «${p.ranks[r]}» vs cliente «${o.descriptions[r]}»`);
+        if (numbersOf(p.ranks[r]) !== numbersOf(o.descriptions[r])) out.diffs.push(`${tree.name}: «${p.name}» rango ${r + 1}: La referencia «${p.ranks[r]}» vs cliente «${o.descriptions[r]}»`);
       }
     }
-    for (const o of spec.talents) if (!tree.perks.some((p) => p.row - 1 === o.row && p.col - 1 === o.col)) out.diffs.push(`${spec.name}: «${o.name}» del cliente (fila ${o.row + 1}, col ${o.col + 1}) no está en TF`);
+    for (const o of spec.talents) if (!tree.perks.some((p) => p.row - 1 === o.row && p.col - 1 === o.col)) out.diffs.push(`${spec.name}: «${o.name}» del cliente (fila ${o.row + 1}, col ${o.col + 1}) no está en la referencia`);
   });
   return out;
 }
 
 export interface OrphanContrast {
   total: number;
-  /** Entradas cuyas cifras (rango 1) coinciden con un talento o ventaja de Legacy que TF lista (TF no trae ids de hechizo: se compara por las cifras del texto). */
+  /** Entradas cuyas cifras (rango 1) coinciden con un talento o ventaja de Legacy que la referencia lista (la referencia no trae ids de hechizo: se compara por las cifras del texto). */
   withTfTwin: number;
-  /** Entradas sin gemela en TF: con cifras (p. ej. Estudio dedicado con 3 esencias) o sin cifras (textos vacios, «NYI»). */
+  /** Entradas sin gemela en la referencia: con cifras (p. ej. Estudio dedicado con 3 esencias) o sin cifras (textos vacios, «NYI»). */
   withoutTfTwin: { name: string; numbers: string }[];
 }
 
-/** Contrasta las entradas de talento sin nodo del cliente (unassigned.json) con los talentos y ventajas de Legacy de TF. */
+/** Contrasta las entradas de talento sin nodo del cliente (unassigned.json) con los talentos y ventajas de Legacy de la referencia. */
 export function contrastOrphans(orphans: { name: string | null; descriptions: string[] }[], tfDir: string): OrphanContrast | null {
   if (!existsSync(tfDir)) return null;
   const twin = new Set<string>();

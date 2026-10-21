@@ -11,3 +11,4 @@ export * from "./talent-rules.js";
 export * from "./ability-summary.js";
 export * from "./chances.js";
 export * from "./derived-stats.js";
+export * from "./gear.js";

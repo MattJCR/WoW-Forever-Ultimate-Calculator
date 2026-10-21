@@ -14,15 +14,23 @@ const WS = join(root, "data", "external", "wowsims");
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const ready = existsSync(join(WS, "db.json")) && existsSync(join(WS, "CombatRatings.txt")) && existsSync(join(RAW, "RandPropPoints.csv"));
 
-describe.skipIf(!ready)("datos de wowsims/forever (MIT, `community`)", () => {
+describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
   const db = JSON.parse(readFileSync(join(WS, "db.json"), "utf8")) as WowsimsDb;
   const raw = openRawTables(RAW);
   const ratings = CombatRatings.parse(buildCombatRatings(readFileSync(join(WS, "CombatRatings.txt"), "utf8"), BUILD));
   const warnings: string[] = [];
   const enchants = Enchants.parse(buildEnchants(db, raw, BUILD, warnings));
-  const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, BUILD));
+  const suffixNames = (JSON.parse(readFileSync(join(WS, "../../i18n/suffixes-esES.json"), "utf8")) as { names: Record<string, string> }).names;
+  const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, BUILD, suffixNames));
   const client = Items.parse(buildItems(raw, BUILD, new SpellTables(raw)));
   const merged = Items.parse(applyWowsims(client, db).items);
+
+  it("los 160 sufijos aleatorios tienen nombre en español (traducción propia) y ninguno queda en inglés", () => {
+    expect(suffixes.suffixes).toHaveLength(160);
+    expect(suffixes.suffixes.filter((s) => s.textOrigin === "untranslated").map((s) => s.nameEn)).toEqual([]);
+    expect(suffixes.suffixes.find((s) => s.nameEn === "of the Monkey")!.name).toBe("del Mono");
+    expect(suffixes.suffixes.every((s) => !/^of/i.test(s.name))).toBe(true);
+  });
 
   it("puntuaciones por 1 %: constantes en los 123 niveles (impacto 10, critico 14, celeridad 10, esquivar 12, parada 15, bloqueo 5, defensa 1)", () => {
     expect(ratings.constantAcrossLevels).toBe(true);
@@ -38,7 +46,7 @@ describe.skipIf(!ready)("datos de wowsims/forever (MIT, `community`)", () => {
     expect(ratings.ratings["defense-skill"]).toBe(1);
   });
 
-  it("la puntuacion de wowsims coincide con la del Yelmo corazon de leon del cliente (28 de critico = 2 %, 20 de impacto = 2 %)", () => {
+  it("la puntuacion de la comunidad coincide con la del Yelmo corazon de leon del cliente (28 de critico = 2 %, 20 de impacto = 2 %)", () => {
     const helm = merged.items.find((i) => i.id === 12640)!;
     const value = (key: string) => helm.stats.find((s) => s.key === key)!.value;
     expect(value("crit-rating") / ratings.ratings["crit-melee"]!).toBe(2);
@@ -65,7 +73,7 @@ describe.skipIf(!ready)("datos de wowsims/forever (MIT, `community`)", () => {
     expect(withSet.every((i) => merged.suffixSets[i.randomSuffixSet!] !== undefined)).toBe(true);
   });
 
-  it("objetos nuevos de wowsims: solo los que el cliente no trae, marcados community y sin traducir", () => {
+  it("objetos nuevos de la comunidad: solo los que el cliente no trae, marcados community y sin traducir", () => {
     const extra = merged.items.filter((i) => i.provenance === "community");
     expect(extra.length).toBeGreaterThan(5);
     const clientIds = new Set([...client.items.map((i) => i.id), ...client.unavailable.map((u) => u.id)]);
@@ -74,7 +82,7 @@ describe.skipIf(!ready)("datos de wowsims/forever (MIT, `community`)", () => {
     expect(merged.items.filter((i) => i.provenance === "client-db2")).toHaveLength(client.items.length);
   });
 
-  it("wowsims no trae ninguno de los equipables que faltan en el cliente (usan las mismas tablas)", () => {
+  it("la comunidad no trae ninguno de los equipables que faltan en el cliente (usan las mismas tablas)", () => {
     const wsIds = new Set(db.items.map((i) => i.id));
     expect(client.unavailable.filter((u) => wsIds.has(u.id))).toHaveLength(0);
   });

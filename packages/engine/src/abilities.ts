@@ -10,7 +10,7 @@ export function rankAtLevel(ability: Ability, level: number): AbilityRank | null
 /**
  * Valor de un efecto a un nivel del personaje. El valor medio crece `perLevel` por nivel por encima del nivel al que se
  * aprende el rango, hasta su nivel maximo (SpellLevels.MaxLevel). La dispersion NO escala: es fija, base * variacion, y el
- * rango queda centrado en la media (media -/+ dispersion/2). Comprobado contra Talents Forever: 91 de 91 rangos de dano
+ * rango queda centrado en la media (media -/+ dispersion/2). Comprobado contra la referencia: 91 de 91 rangos de dano
  * directo del Mago (a nivel min(60, nivel maximo del rango)).
  */
 export function effectAt(effect: AbilityEffect, rank: AbilityRank, level: number): { min: number; max: number; average: number } {
