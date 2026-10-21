@@ -18,6 +18,8 @@ export interface Chances {
     missPct: number;
     /** Puntos porcentuales de impacto de tus talentos, Legacy y raza. */
     bonusPct: number;
+    /** Puntos porcentuales de impacto de la puntuación del equipo (Forever tiene una sola puntuación de impacto; `community`). */
+    gearPct: number;
     cap: number;
     /** Probabilidad de impacto: 100 - fallo + bonos, con tope. */
     total: number;
@@ -31,7 +33,9 @@ export interface Chances {
     statPerPercent: number | null;
     /** Puntos porcentuales de critico de talentos, Legacy y raza para esta habilidad. */
     bonusPct: number;
-    /** fromStat + bonusPct; NO incluye el critico base de la clase (el cliente no lo trae y las fuentes se contradicen). */
+    /** Puntos porcentuales de crítico de la puntuación del equipo (una sola puntuación de crítico en Forever; `community`). 0 sin equipo o si no puede ser crítica. */
+    gearPct: number;
+    /** fromStat + bonusPct + gearPct; NO incluye el critico base de la clase (el cliente no lo trae y las fuentes se contradicen). */
     total: number | null;
     unavailable: string | null;
   };
@@ -39,6 +43,12 @@ export interface Chances {
 
 const sumPoints = (lines: AbilityEffectLine[], category: AbilityEffectLine["category"]): number =>
   lines.filter((l) => l.category === category && (l.unit === "puntos porcentuales" || l.unit === "%")).reduce((n, l) => n + l.value, 0);
+
+/** Porcentajes que dan las puntuaciones de impacto y de crítico del equipo (`ratingPercents`); 0 si no las hay. */
+export interface GearChanceBonus {
+  hitPct: number;
+  critPct: number;
+}
 
 /**
  * Probabilidades de impacto y de critico de una habilidad. Mezcla dos orígenes y los separa siempre:
@@ -57,15 +67,18 @@ export function abilityChances(input: {
   /** Fila del cliente para esta clase y nivel (critico por atributo); null = no disponible. */
   classStats: ClassStatLevel | null;
   lines: AbilityEffectLine[];
+  /** Puntuaciones del equipo convertidas a % (impacto y crítico); `stats` debe llevar ya los atributos del equipo. */
+  gear?: GearChanceBonus | null;
 }): Chances {
   const { rank, target, formulas, stats, classStats, lines } = input;
+  const gearHit = input.gear?.hitPct ?? 0;
   // Daño fisico = cuerpo a cuerpo / a distancia; el resto, hechizos
   const kind: Chances["kind"] = rank.schoolMask === 1 ? "melee" : "spell";
   const missPct = formulas.miss[kind][target];
   const cap = formulas.hitCap[kind];
   const hitBonus = sumPoints(lines, "Probabilidad de impacto");
-  const raw = 100 - missPct + hitBonus;
-  const hit = { missPct, bonusPct: hitBonus, cap, total: Math.min(cap, Math.round(raw * 100) / 100), capped: raw > cap };
+  const raw = 100 - missPct + hitBonus + gearHit;
+  const hit = { missPct, bonusPct: hitBonus, gearPct: gearHit, cap, total: Math.min(cap, Math.round(raw * 100) / 100), capped: raw > cap };
 
   const statKey: "int" | "agi" = kind === "spell" ? "int" : "agi";
   const perPoint = classStats ? (kind === "spell" ? classStats.spellCritPerIntellect : classStats.critPerAgility) : 0;
@@ -77,6 +90,7 @@ export function abilityChances(input: {
   else if (!stats) unavailable = "Elige una raza para usar tus estadísticas base.";
   const statValue = perPoint > 0 && stats ? stats[statKey] : null;
   const fromStat = !unavailable && statValue !== null ? Math.round(statValue * perPoint * 10000) / 100 : null;
+  const gearCrit = canCrit(rank) ? Math.round((input.gear?.critPct ?? 0) * 100) / 100 : 0;
   return {
     kind,
     hit,
@@ -86,7 +100,8 @@ export function abilityChances(input: {
       statValue,
       statPerPercent: perPoint > 0 ? Math.round((1 / (perPoint * 100)) * 10) / 10 : null,
       bonusPct,
-      total: fromStat === null ? null : Math.round((fromStat + bonusPct) * 100) / 100,
+      gearPct: gearCrit,
+      total: fromStat === null ? null : Math.round((fromStat + bonusPct + gearCrit) * 100) / 100,
       unavailable,
     },
   };

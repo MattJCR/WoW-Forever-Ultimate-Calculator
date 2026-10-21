@@ -390,6 +390,13 @@ export function ratingPercents(stats: Record<string, number>, ratings: Pick<Comb
   return out;
 }
 
+/** Impacto y crítico (%) que dan las puntuaciones del equipo: lo que `abilityChances` suma a cada habilidad. */
+export function gearChanceBonus(stats: Record<string, number>, ratings: Pick<CombatRatings, "ratings">): { hitPct: number; critPct: number } {
+  const pcts = ratingPercents(stats, ratings);
+  const get = (stat: string): number => pcts.find((p) => p.stat === stat)?.value ?? 0;
+  return { hitPct: get("hit-rating"), critPct: get("crit-rating") };
+}
+
 /** Poder con hechizos de daño y de sanación que da el equipo: el generico («spell-power») suma a las dos y los demas a la suya. */
 export function gearSpellPower(stats: Record<string, number>): { damage: number; healing: number } {
   const generic = stats["spell-power"] ?? 0;

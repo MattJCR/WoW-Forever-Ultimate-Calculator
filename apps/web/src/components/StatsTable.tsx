@@ -1,10 +1,7 @@
 import { deriveStats, type StatEffects } from "@wfuc/engine";
 import type { BaseStats, ClientStats, Manifest } from "@wfuc/schema";
 import { BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema } from "@wfuc/schema";
-import { useMemo } from "react";
 import { getJson, useAsync } from "../data";
-
-const STAT_LABELS = ["Fuerza", "Agilidad", "Aguante", "Intelecto", "Espíritu"];
 
 /**
  * Estadisticas brutas base de la raza y clase escogidas, a tres niveles (el minimo que exigen los talentos, el 30 de
@@ -16,7 +13,7 @@ export interface GearForStats {
   minLevel: number;
 }
 
-export function StatsTable({ manifest, raceId, raceName, classId, minLevel, fx, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null; gear?: GearForStats | null }) {
+export function StatsTable({ manifest, raceId, raceName, classId, level, fx, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; level: number; fx: StatEffects | null; gear?: GearForStats | null }) {
   const state = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
   const clientEntry = manifest.clientStats;
   const clientState = useAsync(clientEntry?.file ?? "none", () => (clientEntry ? getJson(clientEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
@@ -24,17 +21,14 @@ export function StatsTable({ manifest, raceId, raceName, classId, minLevel, fx, 
   if (raceId === null) return <p className="muted">Elige una raza en el paso «Raza» para ver las estadísticas base.</p>;
   if (state.status === "loading") return <p className="muted">Cargando estadísticas…</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
-  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} minLevel={minLevel} fx={fx} client={client} gear={gear ?? null} />;
+  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} level={level} fx={fx} client={client} gear={gear ?? null} />;
 }
 
-const ATTRS = new Set(["str", "agi", "sta", "int", "spi"]);
 const fmt = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
 
-function Table({ data, raceId, raceName, classId, minLevel, fx, client, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; minLevel: number; fx: StatEffects | null; client: ClientStats | null; gear: GearForStats | null }) {
+function Table({ data, raceId, raceName, classId, level, fx, client, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; level: number; fx: StatEffects | null; client: ClientStats | null; gear: GearForStats | null }) {
   const combo = data.combos.find((c) => c.raceId === raceId && c.classId === classId);
   const base = data.classBase.find((c) => c.classId === classId);
-  const issues = data.anomalies.filter((a) => a.raceId === raceId && a.classId === classId);
-  const levels = useMemo(() => [...new Set([Math.max(1, minLevel), data.betaMaxLevel, data.maxLevel])].sort((a, b) => a - b), [data, minLevel]);
   if (!combo || !base) {
     return (
       <p className="muted">
@@ -45,111 +39,40 @@ function Table({ data, raceId, raceName, classId, minLevel, fx, client, gear }: 
   // Maná base de Forever: lo trae el cliente (PlayerExpectedStat); la vida base sigue siendo la de Classic
   const clientClass = client?.classes.find((c) => c.classId === classId) ?? null;
   const manaAt = (l: number): number => clientClass?.levels.find((x) => x.level === l)?.baseMana ?? base.mana[l - 1]!;
-  const rows: { label: string; at: (level: number) => number }[] = [
-    ...STAT_LABELS.map((label, i) => ({ label, at: (l: number) => combo.stats[l - 1]![i]! })),
-    { label: "Vida base", at: (l) => base.hp[l - 1]! },
-    { label: clientClass ? "Maná base (cliente)" : "Maná base", at: manaAt },
-  ];
-  // Con los % de talentos, Legacy y raza ya aplicados (cada nivel por separado: la vida y el maná dependen del aguante y el intelecto de ese nivel)
+  // Valores finales a este nivel, con los % de talentos, Legacy y raza y el equipo ya aplicados
   const derived = fx
-    ? levels.map((l) => deriveStats({
-          attributes: combo.stats[l - 1] as [number, number, number, number, number],
-          hpBase: base.hp[l - 1]!,
-          manaBase: manaAt(l),
-          totals: fx.totals,
-          gear: gear && l >= gear.minLevel ? gear.stats : null,
-          attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
-        }))
+    ? deriveStats({
+        attributes: combo.stats[level - 1] as [number, number, number, number, number],
+        hpBase: base.hp[level - 1]!,
+        manaBase: manaAt(level),
+        totals: fx.totals,
+        gear: gear && level >= gear.minLevel ? gear.stats : null,
+        attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
+      })
     : null;
-  const changed = derived?.[0]?.rows.filter((_, i) => derived.some((d) => d.rows[i]!.final !== d.rows[i]!.base)) ?? [];
+  if (!derived) return <p className="muted">Cargando talentos…</p>;
   return (
     <>
       <table className="stats-table">
         <thead>
           <tr>
             <th scope="col">Estadística</th>
-            {levels.map((l) => (
-              <th key={l} scope="col">
-                Nivel {l}
-                {l === data.betaMaxLevel ? <small> (tope beta)</small> : null}
-              </th>
-            ))}
+            <th scope="col">Nivel {level}</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map((r) => (
-            <tr key={r.label}>
+          {derived.rows.map((r) => (
+            <tr key={r.key}>
               <th scope="row">{r.label}</th>
-              {levels.map((l) => (
-                <td key={l}>{r.at(l)}</td>
-              ))}
+              <td className={r.final !== r.base ? "pos" : undefined}>
+                <b>{fmt(r.final)}</b>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {derived && (
-        <>
-          <h5 className="fx-sub">Con tus talentos, Puntos de Legado y raza</h5>
-          <table className="stats-table">
-            <thead>
-              <tr>
-                <th scope="col">Estadística</th>
-                {levels.map((l) => (
-                  <th key={l} scope="col">
-                    Nivel {l}
-                  </th>
-                ))}
-                <th scope="col">Procede de</th>
-              </tr>
-            </thead>
-            <tbody>
-              {derived[0]!.rows.map((r, i) => {
-                const mod = derived.some((d) => d.rows[i]!.final !== d.rows[i]!.base);
-                return (
-                  <tr key={r.key}>
-                    <th scope="row">{r.label}</th>
-                    {derived.map((d, k) => {
-                      const row = d.rows[i]!;
-                      return (
-                        <td key={levels[k]} className={mod ? "pos" : undefined}>
-                          <b>{fmt(row.final)}</b>
-                          {row.final !== row.base && <small className="muted"> ({fmt(row.base)}{ATTRS.has(row.key) && row.gear !== 0 ? ` +${fmt(row.gear)} equipo` : ""}{row.bonusPct !== 0 ? ` +${fmt(row.bonusPct)} %` : ""}{row.flat !== 0 ? ` +${fmt(row.flat)}` : ""})</small>}
-                        </td>
-                      );
-                    })}
-                    <td>
-                      {[...new Map(r.sources.map((s) => [s.name, s])).values()].map((s) => (
-                        <span key={s.name} className="chip">
-                          {s.maxRank > 1 ? `${s.name} ${s.rank}/${s.maxRank}` : s.name}
-                        </span>
-                      ))}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="muted small">
-            <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Los porcentajes, el maná base, el poder de ataque por atributo y el crítico por atributo son del cliente. La vida base y la regla de vida (10 por aguante) y maná (15 por intelecto), con los 20 primeros puntos a 1, son de Classic Era y coinciden con ForeverDB y Warcraft Tavern. El poder de ataque no incluye el base por nivel. El equipo (paso «Equipo») se suma antes de los porcentajes de talentos, y solo en las columnas de nivel igual o mayor al que exige el objeto más exigente{gear ? ` (nivel ${gear.minLevel})` : ""}. Se redondea hacia abajo.
-            {changed.length === 0 ? " Aún no tienes ningún talento, ventaja o raciales que cambien estas estadísticas." : " Entre paréntesis, el valor sin talentos."} La celeridad, el crítico y la regeneración están en «Efectos sumados».
-          </p>
-        </>
-      )}
       <p className="muted small">
-        <span className={`tag ${combo.provenance === "community" ? "tag-unassigned" : "tag-inactive"}`}>
-          {combo.provenance === "community" ? "Classic + Forever · estimación" : "Combinación nueva · estimada"}
-        </span>{" "}
-        {combo.provenance === "community"
-          ? "Base de la clase de Classic Era (el cliente de la beta no trae las estadísticas base) más la diferencia de raza medida en la beta por la comunidad "
-          : "Esta raza/clase no existía en Classic: base de la clase de Classic más la diferencia de raza medida en la beta por la comunidad "}
-        ({data.raceOffsets.source.date}, hojas de personaje de nivel 1; lectura de un tercero, sin confirmar por nosotros). {combo.note ? `${combo.note} ` : ""}
-        {issues.length > 0 && (
-          <>
-            Fuente de Classic con {issues.some((a) => !a.corrected) ? "valores dudosos" : "un error corregido"}:{" "}
-            {issues.map((a) => `nivel ${a.level} ${STAT_LABELS[["str", "agi", "sta", "int", "spi"].indexOf(a.stat)]!.toLowerCase()} ${a.value} (esperable ~${Math.round(a.expected)})${a.corrected ? " corregido" : ""}`).join("; ")}.{" "}
-          </>
-        )}
-        La beta solo llega al nivel {data.betaMaxLevel}; los valores hasta el {data.maxLevel} se confirmarán cuando se publiquen. Esta tabla no incluye equipo ni talentos; las bonificaciones de la raza van aparte.
+        <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {data.betaMaxLevel}); porcentajes, maná base, poder de ataque y crítico por atributo son del cliente. El equipo solo cuenta desde el nivel que exige el objeto más exigente{gear ? ` (nivel ${gear.minLevel})` : ""}.
       </p>
     </>
   );

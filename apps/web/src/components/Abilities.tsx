@@ -5,6 +5,8 @@ import {
   canCrit,
   collectStatEffects,
   dealsDamage,
+  deriveStats,
+  gearChanceBonus,
   healsTarget,
   rankAtLevel,
   renderAbilityText,
@@ -15,12 +17,13 @@ import {
   type AbilityEffectLine,
   type Build,
   type ClassIndex,
+  type GearChanceBonus,
   type TargetOption,
   type ModifiedAbility,
   type ModifiedEffect,
   type StatSource,
 } from "@wfuc/engine";
-import type { Ability, AbilityRank, ClassStatLevel, CombatFormulas, Manifest, Race } from "@wfuc/schema";
+import type { Ability, AbilityRank, ClassStatLevel, CombatFormulas, CombatRatings, Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { getJson, useAsync } from "../data";
@@ -113,6 +116,8 @@ interface ChancesInput {
   target: TargetOption;
   level: number;
   classId: number;
+  /** Impacto y critico de las puntuaciones del equipo (null = sin equipo). */
+  gear: GearChanceBonus | null;
 }
 
 interface Tip {
@@ -185,7 +190,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
   const parts = renderAbilityText(rank, m);
   const lines = showBase ? [] : row.summaryLines;
   const rules = showBase ? [] : row.ruleTexts;
-  const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines }) : null;
+  const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines, gear: chancesInput.gear }) : null;
   const noted = showBase ? [] : (Object.entries(row.inline) as [string, AbilityEffectLine[]][]).filter(([, v]) => v.length > 0);
   // La tarjeta se coloca junto al cursor y se ajusta a su altura real para no salirse de la pantalla
   const ref = useRef<HTMLDivElement>(null);
@@ -293,6 +298,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
               <span className="ab-sum-s">
                 {fmt(100 - chances.hit.missPct, 1)} % de la tabla ({fmt(chances.hit.missPct, 1)} % de fallo)
                 {chances.hit.bonusPct !== 0 ? ` ${sign(chances.hit.bonusPct)} % de talentos y raza` : ""}
+                {chances.hit.gearPct !== 0 ? ` +${fmt(chances.hit.gearPct, 2)} % de tu equipo` : ""}
                 {chances.hit.capped ? ` · tope ${chances.hit.cap} %` : ""}
               </span>
             </li>
@@ -305,6 +311,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput }: { tip: Tip;
                   ? `${sign(chances.crit.fromStat)} % por tu ${chances.crit.stat === "int" ? "intelecto" : "agilidad"} (${fmt(chances.crit.statValue ?? 0)} ÷ ${fmt(chances.crit.statPerPercent ?? 0, 1)})`
                   : chances.crit.unavailable}
                 {chances.crit.bonusPct !== 0 ? ` · ${sign(chances.crit.bonusPct)} % de talentos y raza` : ""}
+                {chances.crit.gearPct !== 0 ? ` · +${fmt(chances.crit.gearPct, 2)} % de la puntuación de tu equipo` : ""}
                 {canCrit(rank) ? " · se suma al crítico base de tu clase, que no está en el cliente" : ""}
               </span>
             </li>
@@ -362,7 +369,8 @@ export function AbilitiesTable({
   legacy,
   legacyBuild,
   race,
-  minLevel,
+  level,
+  gear,
 }: {
   manifest: Manifest;
   idx: ClassIndex;
@@ -370,7 +378,10 @@ export function AbilitiesTable({
   legacy: ClassIndex | null;
   legacyBuild: Build;
   race: Race | null;
-  minLevel: number;
+  /** Nivel del personaje (lo elige el Resumen). */
+  level: number;
+  /** Equipo del paso «Equipo» (estadisticas sumadas y puntuaciones); null si no llevas. */
+  gear?: { stats: Record<string, number>; ratings: CombatRatings | null; minLevel: number } | null;
 }) {
   const entry = manifest.abilities.find((a) => a.classId === idx.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error("sin habilidades"))));
@@ -381,7 +392,6 @@ export function AbilitiesTable({
   const clientStatsEntry = manifest.clientStats;
   const clientStatsState = useAsync(clientStatsEntry?.file ?? "none", () => (clientStatsEntry ? getJson(clientStatsEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
   const statsState = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
-  const [level, setLevel] = useState(60);
   const [target, setTarget] = useState<TargetOption>("same");
   const [onlyAffected, setOnlyAffected] = useState(true);
   const [onlyActive, setOnlyActive] = useState(true);
@@ -421,16 +431,22 @@ export function AbilitiesTable({
     () => (clientStatsState.status === "ready" && clientStatsState.value ? clientStatsState.value.classes.find((c) => c.classId === idx.data.classId)?.levels.find((l) => l.level === level) ?? null : null),
     [clientStatsState, idx.data.classId, level],
   );
-  // Estadisticas base de tu raza y clase a este nivel (Classic, estimacion); sin raza no hay
-  const baseStats = useMemo(() => {
-    if (!race || statsState.status !== "ready") return null;
-    const row = statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1];
-    return row ? { agi: row[1]!, int: row[3]! } : null;
-  }, [race, statsState, idx.data.classId, level]);
   const abilities = state.status === "ready" ? state.value : null;
   const mods = useMemo(() => [...spellModifiersOf(idx, build), ...(legacy ? spellModifiersOf(legacy, legacyBuild) : [])], [idx, build, legacy, legacyBuild]);
   const ruled = useMemo(() => ruleLines(rules, idx, build), [rules, idx, build]);
   const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules }), [idx, build, legacy, legacyBuild, race, abilities, rules]);
+  // Atributos de tu raza y clase a este nivel (Classic, estimacion) con el equipo y los % de talentos, Legacy y raza ya aplicados; sin raza no hay.
+  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas (como en la tabla de estadisticas del Resumen).
+  const gearHere = gear && level >= gear.minLevel ? gear : null;
+  const baseStats = useMemo(() => {
+    if (!race || statsState.status !== "ready") return null;
+    const row = statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1];
+    if (!row) return null;
+    const final = deriveStats({ attributes: row as [number, number, number, number, number], hpBase: 0, manaBase: 0, totals: fx.totals, gear: gearHere?.stats ?? null }).rows;
+    const at = (k: string): number => final.find((r) => r.key === k)?.final ?? 0;
+    return { agi: at("agi"), int: at("int") };
+  }, [race, statsState, idx.data.classId, level, fx, gearHere]);
+  const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
     if (!abilities) return [];
@@ -464,19 +480,6 @@ export function AbilitiesTable({
   return (
     <>
       <div className="ab-controls">
-        <label>
-          Nivel{" "}
-          <input type="number" min={1} max={60} value={level} onChange={(e) => setLevel(Math.max(1, Math.min(60, Number(e.target.value) || 1)))} aria-label="Nivel del personaje" />
-        </label>
-        <button type="button" onClick={() => setLevel(Math.max(1, minLevel))} title="El nivel que exigen tus puntos de talento">
-          Mi nivel ({Math.max(1, minLevel)})
-        </button>
-        <button type="button" onClick={() => setLevel(30)} title="El nivel máximo de la beta">
-          30 (tope beta)
-        </button>
-        <button type="button" onClick={() => setLevel(60)}>
-          60
-        </button>
         <label title="Contra quien se calcula la probabilidad de impacto">
           Objetivo{" "}
           <select value={target} onChange={(e) => setTarget(e.target.value as TargetOption)} aria-label="Objetivo">
@@ -528,7 +531,7 @@ export function AbilitiesTable({
         talentos, Puntos de Legado y raza que le afectan. Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El poder con hechizos aún no se suma: depende de
         las estadísticas de Forever, que no están en el cliente.
       </p>
-      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId } : null} />}
+      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} />}
     </>
   );
 }

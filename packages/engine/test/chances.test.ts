@@ -70,6 +70,21 @@ describe("probabilidades de impacto y critico por habilidad (estimacion de Class
     expect(c.hit.total).toBe(99);
   });
 
+  it("equipo: la puntuación de impacto y de crítico se suma (+1,5 % de impacto, +2 % de crítico), el impacto sigue con tope y el crítico sale aparte", () => {
+    const gear = { hitPct: 1.5, critPct: 2 };
+    const sin = abilityChances({ rank, classId: 8, level: 60, target: "boss", formulas, stats: base, classStats: cs(8, 60), lines });
+    const con = abilityChances({ rank, classId: 8, level: 60, target: "boss", formulas, stats: base, classStats: cs(8, 60), lines, gear });
+    expect(con.hit.gearPct).toBe(1.5);
+    expect(con.hit.total).toBeCloseTo(sin.hit.total + 1.5, 2);
+    expect(con.crit.gearPct).toBe(2);
+    expect(con.crit.total).toBeCloseTo(sin.crit.total! + 2, 2);
+    // contra el mismo nivel ya estamos en el tope de 99
+    expect(abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: base, classStats: cs(8, 60), lines, gear }).hit).toMatchObject({ total: 99, capped: true });
+    // sin equipo no cambia nada
+    expect(sin.hit.gearPct).toBe(0);
+    expect(sin.crit.gearPct).toBe(0);
+  });
+
   it("sin raza (sin estadisticas) no hay aporte del atributo y lo avisa", () => {
     const c = abilityChances({ rank, classId: 8, level: 60, target: "same", formulas, stats: null, classStats: cs(8, 60), lines });
     expect(c.crit.fromStat).toBeNull();

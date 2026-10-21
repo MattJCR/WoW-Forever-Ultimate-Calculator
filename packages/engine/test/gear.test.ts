@@ -11,6 +11,7 @@ import {
   deriveStats,
   enchantFits,
   equipItem,
+  gearChanceBonus,
   gearSpellPower,
   indexGearData,
   ratingPercents,
@@ -236,6 +237,12 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70450
     expect(by.defense).toMatchObject({ value: 5, unit: "pts" });
     expect(by["haste-rating"]).toBeUndefined();
     expect(by.strength).toBeUndefined();
+  });
+
+  it("impacto y crítico del equipo: 15 de impacto = 1,5 %, 28 de crítico = 2 %; sin equipo, 0", () => {
+    const ratings = CombatRatings.parse(json("combat-ratings.json"));
+    expect(gearChanceBonus({ "crit-rating": 28, "hit-rating": 15, strength: 50 }, ratings)).toEqual({ hitPct: 1.5, critPct: 2 });
+    expect(gearChanceBonus({}, ratings)).toEqual({ hitPct: 0, critPct: 0 });
   });
 
   it("poder con hechizos: el genérico suma a daño y sanación, «sanación» solo a la sanación", () => {

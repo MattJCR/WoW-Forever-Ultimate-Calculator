@@ -447,7 +447,7 @@ export function GearStep({
         )}
       </div>
 
-      {summary && <GearTotals summary={summary} ratings={ratings} />}
+      {summary && <GearTotals summary={summary} ratings={ratings} tips={{ gear, data, onTip: setTip }} />}
       {tip && <ItemCard tip={tip} data={data} ctx={ctx} gear={gear} />}
     </section>
   );
@@ -462,7 +462,22 @@ const statRank = (key: string): number => {
   return i === -1 ? STAT_ORDER.length : i;
 };
 
-export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings: CombatRatings | null }) {
+/** Para que los objetos citados en los totales enseñen su tarjeta al pasar el cursor, igual que en las ranuras. */
+export interface TotalsTips {
+  gear: GearSelection;
+  data: GearData;
+  onTip: (t: Tip | null) => void;
+}
+
+export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; ratings: CombatRatings | null; tips?: TotalsTips }) {
+  // Manejadores de cursor de lo que nombra el objeto de una ranura (tarjeta del objeto con su sufijo y encantamiento)
+  const hover = (slot: GearSlot) => {
+    const worn = tips?.gear[slot];
+    const item = worn ? tips?.data.items.get(worn.itemId) : undefined;
+    if (!tips || !worn || !item) return {};
+    const show = (e: { clientX: number; clientY: number }) => tips.onTip({ item, slot, enchantId: worn.enchantId, suffixId: worn.suffixId, x: e.clientX, y: e.clientY });
+    return { onMouseEnter: show, onMouseMove: show, onMouseLeave: () => tips.onTip(null) };
+  };
   const sortedLines = [...summary.lines].filter((l) => l.key !== "extra-armor").sort((a, b) => statRank(a.key) - statRank(b.key) || statName(a.key).localeCompare(statName(b.key), "es"));
   const percents = ratings ? ratingPercents(summary.stats, ratings) : [];
   const armor = summary.armor + (summary.stats["extra-armor"] ?? 0);
@@ -480,7 +495,7 @@ export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings
       {summary.problems.length > 0 && (
         <ul className="gear-warn">
           {summary.problems.map((p) => (
-            <li key={p.slot}>
+            <li key={p.slot} {...hover(p.slot)}>
               <b>{SLOT_LABEL[p.slot]}</b>: {p.reasons.join("; ")}. Se sigue sumando.
             </li>
           ))}
@@ -510,7 +525,7 @@ export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings
                   </td>
                   <td>
                     {l.sources.map((s, i) => (
-                      <span key={i} className="chip" title={`${s.itemName} (${s.origin === "item" ? "objeto" : s.origin === "suffix" ? "sufijo" : "encantamiento"})`}>
+                      <span key={i} className="chip" {...hover(s.slot)}>
                         {SLOT_LABEL[s.slot]} {s.value > 0 ? "+" : ""}
                         {s.value}
                         {s.origin !== "item" ? (s.origin === "suffix" ? " (sufijo)" : " (encantamiento)") : ""}
@@ -538,7 +553,7 @@ export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings
             </tbody>
           </table>
           <p className="muted small">
-            <span className="tag tag-unassigned">la comunidad · estimación</span> Forever tiene una sola puntuación de impacto, de crítico y de celeridad, constantes en todos los niveles (medidas por la comunidad, sin confirmar por nosotros). Todavía no entran en las probabilidades de crítico e impacto de las habilidades ni en su daño (poder de ataque y con hechizos): por ahora solo se suman a las estadísticas del Resumen.
+            <span className="tag tag-unassigned">la comunidad · estimación</span> Forever tiene una sola puntuación de impacto, de crítico y de celeridad, constantes en todos los niveles (medidas por la comunidad, sin confirmar por nosotros). El impacto y el crítico ya entran en las probabilidades de cada habilidad; el poder de ataque y con hechizos todavía no entran en su daño.
           </p>
         </>
       )}
@@ -547,7 +562,7 @@ export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings
           <h5 className="fx-sub">Armas</h5>
           <ul className="effects">
             {summary.weapons.map((w) => (
-              <li key={w.slot}>
+              <li key={w.slot} {...hover(w.slot)}>
                 <b>{SLOT_LABEL[w.slot]}</b>: {w.itemName} · {fmt(Math.floor(w.min))} – {fmt(Math.ceil(w.max))} · velocidad {fmt(w.speed)} · {fmt(w.dps)} de daño por segundo
                 {w.confidence === "estimated" && <span className="tag tag-unassigned item-tag">estimación</span>}
               </li>
@@ -580,7 +595,7 @@ export function GearTotals({ summary, ratings }: { summary: GearSummary; ratings
           <h5 className="fx-sub">Efectos de objetos</h5>
           <ul className="effects">
             {summary.effects.map((e, i) => (
-              <li key={i}>
+              <li key={i} {...hover(e.slot)}>
                 <b>{e.itemName}</b> · {EFFECT_PREFIX[e.effect.trigger] ?? "Efecto"}: {e.effect.text || e.effect.name || `hechizo ${e.effect.spellId}`}
               </li>
             ))}

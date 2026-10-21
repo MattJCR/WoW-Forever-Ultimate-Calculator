@@ -24,12 +24,12 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react
 import { isEmptyCode, useCharacter } from "../character";
 import { Detail } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
-import { GearStep, GearTotals, useGearBundle } from "../components/Gear";
-import { StatEffectsView, useStatEffects } from "../components/StatEffects";
+import { GearStep, useGearBundle } from "../components/Gear";
+import { LevelPicker } from "../components/LevelPicker";
+import { useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
 import { LinkNotice } from "../components/LinkNotice";
-import { originNote } from "../components/Detail";
-import { RaceTotals, RacialList, racialLine } from "../components/RaceBonuses";
+import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
 import { anchorOf, TreePanel, type Focus } from "../components/TreePanel";
 import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
@@ -327,7 +327,9 @@ function RaceStep({ races, race, onRace, className, classId, loading }: { races:
                       <span className="race-name">{r.name}</span>
                       <span className="race-icons" aria-hidden="true">
                         {r.racials.map((a) => (
-                          <Icon key={a.order} id={a.iconFileDataId} name={a.name} />
+                          <RacialTip key={a.order} a={a} classId={classId}>
+                            <Icon id={a.iconFileDataId} name={a.name} />
+                          </RacialTip>
                         ))}
                       </span>
                     </button>
@@ -495,9 +497,9 @@ interface GearInSummary {
 }
 
 function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legacy, legacyBuild, gear, gearLoading }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean }) {
-  const classTalents = summary.selected.filter((s) => s.source === "class");
-  const legacyTalents = summary.selected.filter((s) => s.source === "legacy");
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
+  // Un solo nivel para las estadisticas y las habilidades
+  const [level, setLevel] = useState(60);
   // Todas las secciones empiezan contraidas; el usuario abre las que quiere (o todas a la vez)
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const section = (id: string, title: string, children: ReactNode, note?: string) => (
@@ -505,8 +507,8 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
       {children}
     </Collapsible>
   );
-  const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race });
-  const ids = ["race", ...(race ? ["race-totals"] : []), "stats", "gear", "effects", "abilities", "class-talents", "legacy-talents"];
+  const { fx } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race });
+  const ids = ["stats", "abilities"];
   const setAll = (v: boolean) => setOpen(Object.fromEntries(ids.map((i) => [i, v])));
   return (
     <section className="summary-view">
@@ -523,39 +525,14 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
         {summary.firstPointFromLegacy && `Con Talentoso (Puntos de Legado) el primer punto de talento llega al nivel ${summary.firstPointLevel}. `}
         Los efectos valen desde el nivel {minLevel} (el que exigen los {summary.classPoints} puntos de clase gastados) hasta el 60. Las ventajas de Puntos de Legado no dependen del nivel: se ganan con desafíos de cuenta.
       </p>
+      <LevelPicker level={level} setLevel={setLevel} minLevel={minLevel} />
       <div className="summary-toolbar">
         <button type="button" onClick={() => setAll(true)}>Expandir todo</button>
         <button type="button" onClick={() => setAll(false)}>Contraer todo</button>
       </div>
 
-      {section(
-        "race",
-        `Raza${race ? `: ${race.name}` : ""}`,
-        race ? <RacialList race={race} classId={idx.data.classId} /> : <p className="muted">Elige una raza en el paso «Raza» para ver sus habilidades raciales.</p>,
-      )}
-      {race && section("race-totals", "Bonificaciones de la raza", <RaceTotals race={race} classId={idx.data.classId} />)}
-      {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} minLevel={minLevel} fx={fx} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel } : null} />)}
-      {section(
-        "gear",
-        "Equipo",
-        gearLoading ? <p className="muted">Cargando objetos…</p> : gear ? <GearTotals summary={gear.summary} ratings={gear.ratings} /> : <p className="muted">Aún no llevas equipo: elígelo en el paso «Equipo».</p>,
-        gear ? `${gear.summary.lines.length}` : undefined,
-      )}
-      {section("effects", "Efectos sumados de tus talentos, Puntos de Legado y raza", <StatEffectsView fx={fx} loading={fxLoading} />)}
-      {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} minLevel={minLevel} />)}
-      {section(
-        "class-talents",
-        `Talentos de ${idx.data.className}`,
-        <SummaryList items={classTalents} empty="Aún no has gastado puntos de clase." />,
-        `${classTalents.length}`,
-      )}
-      {section(
-        "legacy-talents",
-        "Ventajas de Puntos de Legado",
-        <SummaryList items={legacyTalents} empty={legacyLoaded ? "Aún no has gastado Puntos de Legado." : "Cargando Puntos de Legado…"} />,
-        `${legacyTalents.length}`,
-      )}
-
+      {section("stats", "Estadísticas base", <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race?.name ?? null} classId={idx.data.classId} level={level} fx={fx} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel } : null} />)}
+      {section("abilities", "Habilidades con tus talentos", <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} level={level} gear={gear ? { stats: gear.summary.stats, ratings: gear.ratings, minLevel: gear.minLevel } : null} />)}
       <p className="pending-note">
         En construcción: falta calcular el daño final con el poder con hechizos (depende de las reglas de atributos de Forever, que no están en el cliente).
       </p>
@@ -576,20 +553,3 @@ function Collapsible({ title, note, open, onToggle, children }: { title: string;
   );
 }
 
-function SummaryList({ items, empty }: { items: ReturnType<typeof summarizeCharacter>["selected"]; empty: string }) {
-  return items.length === 0 ? (
-    <p className="muted">{empty}</p>
-  ) : (
-    <ul className="effects">
-      {items.map((t) => (
-        <li key={`${t.source}-${t.nodeId}`}>
-          <b>{t.name ?? `Hechizo ${t.spellId}`}</b> <span className="rank-chip">{t.rank}/{t.maxRank}</span>
-          {t.treeName && <span className="muted"> · {t.treeName}</span>}
-          <p>{t.text}</p>
-          {t.approximate && <small className="muted">Valor base del cliente: en el juego varía con tu nivel.</small>}
-          {originNote(t.textOrigin) && <small className="origin-note">{originNote(t.textOrigin)}</small>}
-        </li>
-      ))}
-    </ul>
-  );
-}

@@ -1,7 +1,9 @@
 import { describeEffect, raceBonuses } from "@wfuc/engine";
 import type { Race, RacialAbility } from "@wfuc/schema";
-import { originNote } from "./Detail";
+import { useState, type ElementType, type ReactNode } from "react";
+import { FloatingCard, originNote } from "./Detail";
 import { Icon } from "./Icon";
+import { anchorOf, type Anchor } from "./TreePanel";
 
 const classBit = (classId: number): number => 1 << (classId - 1);
 
@@ -44,6 +46,53 @@ export function racialLine(a: RacialAbility, classId: number): string {
   return a.pvpTrinket ? `${base} [PvP trinket shared cooldown: unconfirmed; the client does not link this racial to the trinket's cooldown category]` : base;
 }
 
+/** Contenido de la racial: icono, nombre, tipo, texto del cliente y cifras (el mismo en la tarjeta flotante y en la lista). */
+function RacialCard({ a, classId }: { a: RacialAbility; classId: number }) {
+  const chips = chipsOf(a, classId);
+  return (
+    <>
+      <div className="detail-head">
+        <Icon id={a.iconFileDataId} name={a.name} />
+        <div>
+          <h4>{a.name}</h4>
+          <p className="rank-line">Habilidad racial · {a.kind === "active" ? "activa" : "pasiva"}</p>
+        </div>
+      </div>
+      <p className="desc-text">{a.description}</p>
+      {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
+      {a.pvpTrinket && (
+        <p className="origin-note trinket-note">
+          <span className="chip chip-unconfirmed">Insignia de PvP: enfriamiento compartido sin confirmar</span> {trinketNote(a)}
+        </p>
+      )}
+      {chips.length > 0 && (
+        <p className="racial-chips">
+          {chips.map((c) => (
+            <span key={c} className="chip">
+              {c}
+            </span>
+          ))}
+        </p>
+      )}
+    </>
+  );
+}
+
+/** Envuelve cualquier icono o nombre de una racial para que enseñe su tarjeta al pasar el cursor o al enfocarlo con el teclado. */
+export function RacialTip({ a, classId, as: Tag = "span", className, children }: { a: RacialAbility; classId: number; as?: ElementType; className?: string; children: ReactNode }) {
+  const [anchor, setAnchor] = useState<Anchor | null>(null);
+  return (
+    <Tag className={className} onMouseEnter={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onMouseLeave={() => setAnchor(null)} onFocus={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onBlur={() => setAnchor(null)}>
+      {children}
+      {anchor && (
+        <FloatingCard anchor={anchor}>
+          <RacialCard a={a} classId={classId} />
+        </FloatingCard>
+      )}
+    </Tag>
+  );
+}
+
 /** Habilidades raciales: texto del cliente y, debajo, las cifras que salen de sus hechizos. */
 export function RacialList({ race, classId }: { race: Race; classId: number }) {
   return (
@@ -52,9 +101,14 @@ export function RacialList({ race, classId }: { race: Race; classId: number }) {
         const chips = chipsOf(a, classId);
         return (
           <li key={a.order}>
-            <Icon id={a.iconFileDataId} name={a.name} />
+            <RacialTip a={a} classId={classId}>
+              <Icon id={a.iconFileDataId} name={a.name} />
+            </RacialTip>
             <div>
-              <b>{a.name}</b> <span className="rank-chip">{a.kind === "active" ? "activa" : "pasiva"}</span>
+              <RacialTip a={a} classId={classId}>
+                <b>{a.name}</b>
+              </RacialTip>{" "}
+              <span className="rank-chip">{a.kind === "active" ? "activa" : "pasiva"}</span>
               <p>{a.description}</p>
               {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
               {a.pvpTrinket && (

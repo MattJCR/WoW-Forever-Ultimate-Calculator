@@ -56,7 +56,7 @@ export function Notes({ approximate, complete, origin }: { approximate: boolean;
  * Tarjeta junto al talento enfocado (como el tooltip del juego): aparece mientras el cursor o el foco estan sobre el
  * talento y desaparece al salir. En pantallas con raton no recibe clics; en tactiles si (lleva + y −).
  */
-function FloatingCard({ anchor, className, children }: { anchor: Anchor; className?: string; children: ReactNode }) {
+export function FloatingCard({ anchor, className, children }: { anchor: Anchor; className?: string; children: ReactNode }) {
   const ref = useRef<HTMLElement>(null);
   const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
 
