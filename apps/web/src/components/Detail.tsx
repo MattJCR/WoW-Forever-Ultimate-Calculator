@@ -8,9 +8,12 @@ import type { Anchor, Focus } from "./TreePanel";
 interface Props {
   idx: ClassIndex;
   build: Build;
-  focus: Focus | null;
+  /** Talento a mostrar: el que tiene el cursor o el foco, o si no el ultimo que se eligio. */
+  shown: Focus | null;
   onAdd: (nodeId: number, max?: boolean) => void;
   onRemove: (nodeId: number) => void;
+  /** Contenido extra al final del panel (en el movil lleva «Anterior / Siguiente»). */
+  footer?: ReactNode;
 }
 
 /** Texto de una descripcion: respeta los saltos de linea y resalta los valores que aun no se pueden calcular. */
@@ -89,21 +92,29 @@ export function FloatingCard({ anchor, className, placement = "side", children }
   );
 }
 
-/** Descripcion del talento enfocado (tarjeta flotante). Sin foco no se muestra nada. */
-export function Detail({ idx, build, focus, onAdd, onRemove }: Props) {
-  if (!focus) return null;
+/** Panel con el detalle del talento: nombre, rango, botones + y −, requisitos y texto del cliente. Sin talento elegido invita a elegir uno. */
+export function TalentInspector({ idx, build, shown, onAdd, onRemove, footer }: Props) {
+  if (!shown) {
+    return (
+      <section className="card inspector inspector-empty" aria-live="polite">
+        <h3>Detalle del talento</h3>
+        <p className="muted">Pasa el cursor por un talento o tócalo para ver aquí su descripción, sus requisitos y los botones para sumar o quitar puntos.</p>
+        {footer}
+      </section>
+    );
+  }
 
-  if (focus.kind === "inactive") {
-    const t = idx.inactiveByNode.get(focus.nodeId);
+  if (shown.kind === "inactive") {
+    const t = idx.inactiveByNode.get(shown.nodeId);
     if (!t) return null;
     return (
-      <FloatingCard anchor={focus.anchor} className="inactive">
+      <section className="card inspector inactive" aria-live="polite">
         <div className="tag tag-inactive">Nodo no activo</div>
-        <div className="detail-head">
+        <div className="inspector-head">
           <Icon id={t.iconFileDataId} name={t.name} />
           <div>
-            <h4>{t.name ?? `Hechizo ${t.spellId}`}</h4>
-            <p className="rank-line">{t.maxRank} rangos</p>
+            <h3>{t.name ?? `Hechizo ${t.spellId}`}</h3>
+            <p className="rank-line">{t.maxRank} rangos · no seleccionable</p>
           </div>
         </div>
         <p className="small">
@@ -122,11 +133,12 @@ export function Detail({ idx, build, focus, onAdd, onRemove }: Props) {
             </>
           )}
         </dl>
-      </FloatingCard>
+        {footer}
+      </section>
     );
   }
 
-  const item = idx.byNode.get(focus.nodeId);
+  const item = idx.byNode.get(shown.nodeId);
   if (!item) return null;
   const { talent, specIndex } = item;
   const rank = rankOf(build, talent.nodeId);
@@ -135,18 +147,33 @@ export function Detail({ idx, build, focus, onAdd, onRemove }: Props) {
   const { have } = gateProgress(idx, build, talent, specIndex);
   const isLegacy = idx.data.kind === "legacy";
   const prereqs = talent.prerequisites.map((p) => idx.byNode.get(p.nodeId)?.talent);
+  const specName = idx.data.specs[specIndex]?.name;
 
   return (
-    <FloatingCard anchor={focus.anchor}>
-      <div className="detail-head">
+    <section className="card inspector" aria-live="polite">
+      <div className="inspector-head">
         <Icon id={talent.iconFileDataId} name={talent.name} />
         <div>
-          <h4>{talent.name ?? `Hechizo ${talent.spellId}`}</h4>
-          <p className="rank-line">
-            Rango <strong>{rank}</strong> / {talent.maxRank}
-          </p>
+          <h3>{talent.name ?? `Hechizo ${talent.spellId}`}</h3>
+          <p className="rank-line">{specName ? `Árbol ${specName}` : isLegacy ? "Puntos de Legado" : "Talento"}</p>
         </div>
       </div>
+
+      <div className="rank-control">
+        <button type="button" className="btn btn-square" onClick={() => onRemove(talent.nodeId)} disabled={!remove.ok} aria-label="Quitar un punto">
+          −
+        </button>
+        <div className="rank-value">
+          <b>
+            {rank} / {talent.maxRank}
+          </b>
+          <span>Rango</span>
+        </div>
+        <button type="button" className="btn btn-square btn-primary" onClick={() => onAdd(talent.nodeId)} disabled={!add.ok} aria-label="Sumar un punto">
+          +
+        </button>
+      </div>
+      {!add.ok && rank < talent.maxRank && <p className="why">{BLOCKER_TEXT[add.reason!]}</p>}
 
       {rank > 0 && (
         <>
@@ -166,8 +193,8 @@ export function Detail({ idx, build, focus, onAdd, onRemove }: Props) {
         {talent.requiredPoints > 0 && (
           <li className={have >= talent.requiredPoints ? "ok" : "bad"}>
             {isLegacy
-              ? `Requiere ${talent.requiredPoints} puntos gastados en ${idx.data.specs[specIndex]?.name} (${have}/${talent.requiredPoints})`
-              : `Requiere ${talent.requiredPoints} puntos en las filas superiores de ${idx.data.specs[specIndex]?.name} (${have}/${talent.requiredPoints})`}
+              ? `Requiere ${talent.requiredPoints} puntos gastados en ${specName} (${have}/${talent.requiredPoints})`
+              : `Requiere ${talent.requiredPoints} puntos en las filas superiores de ${specName} (${have}/${talent.requiredPoints})`}
           </li>
         )}
         {prereqs.map((p, i) =>
@@ -178,17 +205,15 @@ export function Detail({ idx, build, focus, onAdd, onRemove }: Props) {
           ) : null,
         )}
       </ul>
-      {!add.ok && rank < talent.maxRank && <p className="why">{BLOCKER_TEXT[add.reason!]}</p>}
-      {/* Solo en pantallas tactiles (sin cursor): en las demas se usa clic y clic derecho */}
-      <div className="buttons">
-        <button type="button" onClick={() => onRemove(talent.nodeId)} disabled={!remove.ok} aria-label="Quitar un punto">
-          −
-        </button>
-        <button type="button" onClick={() => onAdd(talent.nodeId)} disabled={!add.ok} aria-label="Sumar un punto">
-          +
-        </button>
-      </div>
+      {(!talent.textOrigin || talent.textOrigin === "client") && (
+        <span className="chip">
+          <span className="dot dot-client" />
+          Texto del cliente
+        </span>
+      )}
+      {/* Solo con raton: en pantallas tactiles se usan los botones + y − */}
       <p className="hint">Clic: sumar · Clic derecho o Supr: quitar · Mayús + clic: al máximo</p>
-    </FloatingCard>
+      {footer}
+    </section>
   );
 }

@@ -1,0 +1,1159 @@
+/* Pagina de clase: selector de clase, tu personaje, pasos, razas, talentos y panel de detalle. */
+.class-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Selector de clase */
+.class-switcher {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0;
+  scrollbar-width: none;
+}
+.class-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px 0 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.class-chip .icon,
+.class-chip .initials {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--c);
+  object-fit: cover;
+  font-size: 12px;
+}
+.class-chip:hover {
+  background: var(--panel-2);
+  color: var(--text);
+}
+.class-chip[aria-current] {
+  background: var(--panel-2);
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--c);
+}
+
+/* Tu personaje */
+.char-bar {
+  padding: 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+}
+.char-id {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.char-crest {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 2px solid var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+.char-crest .icon,
+.char-crest .initials {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  font-size: 22px;
+}
+.char-id h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.1;
+}
+.char-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.char-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Pasos del personaje */
+.steps {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0;
+  scrollbar-width: none;
+}
+.steps > li {
+  flex: 1 0 176px;
+  display: flex;
+}
+.step {
+  width: 100%;
+  min-height: 60px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  text-align: left;
+  white-space: normal;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.step:hover:not(:disabled) {
+  background: var(--panel-2);
+  border-color: var(--line);
+}
+.step.on {
+  background: var(--panel-2);
+  border-color: var(--accent);
+}
+.step .step-n {
+  width: 32px;
+  height: 32px;
+  border-color: var(--line-2);
+  color: var(--muted);
+  font: 700 14px var(--sans);
+}
+.step.done .step-n {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--gold-ink);
+}
+.step.on .step-n {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.step-text b {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.step-text i {
+  display: block;
+  font-style: normal;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Cabecera de un paso y navegacion Anterior / Siguiente */
+.step-head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.step-head h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.step-head p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+}
+.step-head b {
+  color: var(--text);
+}
+.step-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.step-head-row h2 {
+  margin-right: auto;
+  font-size: 24px;
+}
+.step-head .how-to {
+  font-size: 14px;
+}
+.step-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+.step-nav .btn-primary:only-child {
+  margin-left: auto;
+}
+.sheet-nav {
+  display: none;
+}
+.step-layout,
+.workspace {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 8px;
+}
+.step-main,
+.workspace-main {
+  flex: 999 1 600px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.workspace-rail,
+.race-detail {
+  flex: 1 1 296px;
+  max-width: 100%;
+  position: sticky;
+  top: calc(var(--header-h) + 16px);
+  max-height: calc(100vh - var(--header-h) - 32px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+}
+.race-detail {
+  flex-basis: 360px;
+}
+.workspace-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Razas */
+.race-faction h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.race-faction.alliance h3 {
+  color: var(--info);
+}
+.race-faction.horde h3 {
+  color: var(--bad);
+}
+.faction-mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: currentColor;
+}
+.race-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.race-cards > li {
+  display: flex;
+}
+.race-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  text-align: left;
+  white-space: normal;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.race-card:hover:not(:disabled) {
+  background: var(--panel-2);
+  border-color: var(--line-2);
+}
+.race-card.on {
+  background: var(--panel-2);
+  border-color: var(--accent);
+}
+.race-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.race-name {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+}
+.race-check {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gold-ink);
+  background: var(--gold);
+}
+.race-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.race-icons .icon,
+.race-icons .initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid var(--line-2);
+  object-fit: cover;
+  font-size: 13px;
+}
+.race-count {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+.race-detail {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.race-detail h3 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.1;
+}
+.race-detail h3.race-detail-empty {
+  font-size: 18px;
+}
+.race-detail h5,
+.inspector h5 {
+  margin: 0;
+  color: var(--faint);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.race-detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.race-detail-head h3 {
+  flex: 1 1 140px;
+}
+.race-detail .effects {
+  margin: -8px 0 0;
+  gap: 18px;
+}
+.race-detail .effects li {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.race-detail .effects p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.race-detail .effects.racials .icon,
+.race-detail .effects.racials .initials {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--line-2);
+  object-fit: cover;
+}
+.race-detail-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.race-detail-foot p {
+  margin: 0;
+}
+.effects.racials li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.effects.racials > li > div {
+  min-width: 0;
+}
+.effects.racials .icon,
+.effects.racials .initials {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+}
+.effects.racials p {
+  margin: 4px 0 0;
+}
+
+/* Talentos: leyenda, pestañas de arbol (solo en movil) y arboles */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid;
+}
+.swatch-maxed {
+  border-color: var(--gold);
+  background: #2b2213;
+}
+.swatch-partial {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.07);
+}
+.swatch-available {
+  border-color: rgba(241, 234, 217, 0.55);
+  background: var(--panel-2);
+}
+.swatch-locked {
+  border-color: var(--line);
+  background: #14110d;
+}
+.tree-tabs {
+  display: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.tree-tab {
+  min-height: 48px;
+  padding: 4px 6px;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.2;
+  white-space: normal;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+}
+.tree-tab b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.tree-tab small {
+  font-size: 12px;
+  font-weight: 500;
+}
+.tree-tab[aria-pressed="true"] {
+  color: var(--text);
+  background: var(--panel-2);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.trees {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(292px, 1fr));
+  gap: 10px;
+}
+.tree {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: #0f0c08;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  container-type: inline-size;
+  overflow: hidden;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(10, 8, 5, 0.45), rgba(10, 8, 5, 0.2) 40%, transparent 82%);
+}
+.bg-part {
+  position: absolute;
+  object-fit: fill;
+}
+.bg-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100cqw, 83.3333cqh);
+  height: max(100cqh, 120cqw);
+  transform: translate(-50%, -50%);
+}
+.bg-part.top-left { left: 0; top: 0; width: 80%; height: 66.6667%; }
+.bg-part.top-right { left: 80%; top: 0; width: 20%; height: 66.6667%; }
+.bg-part.bottom-left { left: 0; top: 66.6667%; width: 80%; height: 33.3333%; }
+.bg-part.bottom-right { left: 80%; top: 66.6667%; width: 20%; height: 33.3333%; }
+.tree-inner {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  padding: 8px 8px 14px;
+}
+.tree-inner > :not(.bg) {
+  position: relative;
+  z-index: 1;
+}
+.tree-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.tree-head > .icon,
+.tree-head > .initials {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 2px solid var(--line-2);
+  object-fit: cover;
+}
+.tree-title {
+  flex: 1;
+  min-width: 0;
+}
+.tree-title h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+}
+.tree-title .muted {
+  display: block;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.tree-points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.15;
+}
+.tree-points b {
+  color: var(--text);
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.tree-head .btn-square {
+  width: 36px;
+  min-height: 36px;
+  flex: none;
+}
+.grid-wrap {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  padding-right: 24px;
+}
+.grid {
+  position: relative;
+}
+.edges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.edge line {
+  stroke: #6e6a60;
+  stroke-width: 4;
+}
+.edge polygon {
+  fill: #6e6a60;
+}
+.edge.met line {
+  stroke: var(--good);
+}
+.edge.met polygon {
+  fill: var(--good);
+}
+.row-mark {
+  position: absolute;
+  right: 0;
+  width: 22px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.row-mark.open {
+  color: var(--gold-2);
+}
+
+/* Fichas de talento: el estado se lee por el aro (maximo dorado, con puntos del color de la clase, disponible claro, bloqueado apagado) y por el rango */
+.talent {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+  border-radius: 9px;
+  border: 2px solid #000;
+  background: #14110d;
+  box-shadow: 0 0 0 1px #4a3d2a inset, 0 3px 8px rgba(0, 0, 0, 0.6);
+  user-select: none;
+  transition: transform 0.08s, box-shadow 0.12s, border-color 0.12s;
+}
+.talent:hover:not(:disabled) {
+  background: #14110d;
+  border-color: #000;
+}
+.talent .icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  pointer-events: none;
+}
+.talent .initials {
+  font-weight: 700;
+  color: var(--muted);
+  background: none;
+}
+.talent .rank {
+  position: absolute;
+  right: -8px;
+  bottom: -9px;
+  min-width: 30px;
+  padding: 0 4px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 15px;
+  text-align: center;
+  color: var(--muted);
+  background: #000;
+  border: 1px solid #2c2418;
+  border-radius: 9px;
+  font-variant-numeric: tabular-nums;
+}
+.talent.locked .icon {
+  filter: grayscale(1) brightness(0.55);
+}
+.talent.locked {
+  box-shadow: 0 0 0 1px #2d261a inset, 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+.talent.available {
+  box-shadow: 0 0 0 2px rgba(241, 234, 217, 0.6), 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+.talent.available .rank {
+  color: var(--text);
+}
+.talent.partial {
+  box-shadow: 0 0 0 2px var(--accent), 0 0 10px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.talent.partial .rank {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.talent.maxed {
+  box-shadow: 0 0 0 2px var(--gold), 0 0 12px rgba(224, 176, 74, 0.5);
+}
+.talent.maxed .rank {
+  color: var(--gold-2);
+  border-color: var(--gold);
+}
+.talent:hover:not(.inactive),
+.talent.focus {
+  transform: scale(1.07);
+  z-index: 3;
+}
+.talent.focus {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Panel de detalle del talento (a la derecha; en pantallas estrechas es una hoja fija abajo) */
+.inspector {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.inspector > h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.inspector > p {
+  margin: 0;
+}
+.inspector-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.inspector-head .icon,
+.inspector-head .initials {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+  object-fit: cover;
+}
+.inspector-head h3 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.rank-line {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.rank-line strong {
+  color: var(--text);
+}
+.rank-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rank-value {
+  flex: 1;
+  text-align: center;
+}
+.rank-value b {
+  display: block;
+  font-size: 22px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.rank-value span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.inspector h5 {
+  margin: 4px 0 -4px;
+}
+.inspector .desc-text {
+  margin: 0;
+  font-size: 15px;
+}
+.inspector .why {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: #2a2113;
+  color: var(--warn);
+  font-size: 14px;
+}
+.inspector .notes {
+  margin: 0;
+}
+.inspector .reqs {
+  margin: 0;
+}
+.inspector .chip {
+  align-self: flex-start;
+}
+.inspector .hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.inspector dl {
+  margin: 0;
+}
+@media (hover: none) {
+  .inspector .hint {
+    display: none;
+  }
+}
+
+.build-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.build-card h3 {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bars li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bars .icon,
+.bars .initials {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  object-fit: cover;
+  font-size: 10px;
+}
+.bars-name {
+  width: 74px;
+  flex: none;
+  color: var(--muted);
+  font-size: 13px;
+}
+.bars .meter {
+  flex: 1;
+}
+.bars b {
+  width: 26px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.share label {
+  color: var(--muted);
+  font-size: 13px;
+}
+.share-row {
+  display: flex;
+  gap: 8px;
+}
+.share-url {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 13px;
+  background: var(--bg);
+  border-color: var(--line);
+}
+.share a {
+  font-size: 13px;
+}
+
+/* Nodos no activos */
+.inactive-section {
+  padding: 0;
+}
+.inactive-section > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 16px 20px;
+  cursor: pointer;
+  list-style: none;
+}
+.inactive-section > summary::-webkit-details-marker {
+  display: none;
+}
+.inactive-section > summary h3 {
+  flex: 1;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 650;
+}
+.inactive-section > summary svg {
+  transition: transform 0.12s;
+  transform: rotate(-90deg);
+}
+.inactive-section[open] > summary svg {
+  transform: none;
+}
+.inactive-body {
+  padding: 0 20px 20px;
+}
+.inactive-body > p {
+  margin: 0 0 8px;
+}
+.inactive-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 14px 4px 8px;
+}
+.inactive-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 120px;
+  text-align: center;
+}
+.inactive-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.talent.inactive {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-style: dashed;
+  border-color: var(--line-2);
+  opacity: 0.7;
+  cursor: help;
+}
+.talent.inactive .icon {
+  filter: grayscale(0.9) brightness(0.8);
+}
+
+/* Paso Equipo */
+.gear-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Tabletas y moviles: el panel lateral pasa a ser una hoja fija abajo */
+@media (max-width: 1000px) {
+  /* Hoja de detalle fija abajo: el talento elegido siempre a la vista, con Anterior / Siguiente dentro */
+  .workspace-rail {
+    display: contents;
+  }
+  .workspace-main {
+    flex-basis: 100%;
+  }
+  .inspector {
+    position: sticky;
+    bottom: 0;
+    z-index: 25;
+    flex: 1 1 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    max-height: 40vh;
+    overflow-y: auto;
+    padding: 14px 16px 0;
+    border-color: var(--line-2);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.45);
+  }
+  /* Nombre y botones + / − en una sola fila; el resto, debajo a todo el ancho */
+  .inspector > * {
+    flex: 1 1 100%;
+  }
+  .inspector > .inspector-head {
+    flex: 1 1 170px;
+    min-width: 0;
+  }
+  .inspector-head > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .inspector > .rank-control {
+    flex: 0 0 auto;
+    margin-left: auto;
+  }
+  .inspector-head .icon,
+  .inspector-head .initials {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+  .inspector-head h3 {
+    font-size: 17px;
+  }
+  .inspector .rank-value span {
+    display: none;
+  }
+  .inspector .rank-value {
+    min-width: 52px;
+  }
+  .inspector .rank-value b {
+    font-size: 18px;
+  }
+  .inspector .desc-text {
+    font-size: 14px;
+  }
+  .inspector > .chip {
+    flex: 0 0 auto;
+  }
+  .build-card {
+    flex: 1 1 100%;
+  }
+  .sheet-nav {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    padding: 8px 0 16px;
+    background: var(--panel);
+  }
+  .inspector .hint {
+    display: none;
+  }
+  .step-nav-main {
+    display: none;
+  }
+  .step-nav.in-sheet {
+    margin-top: 0;
+    flex-wrap: nowrap;
+  }
+  .step-nav.in-sheet .step-prev {
+    flex: 1;
+  }
+  .step-nav.in-sheet .step-prev .step-to {
+    display: none;
+  }
+  .step-nav.in-sheet .step-next {
+    flex: 2;
+  }
+  .race-detail {
+    position: static;
+    flex-basis: 100%;
+  }
+}
+
+@media (hover: none) {
+  .mouse-only {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .class-page {
+    padding: 14px 16px 40px;
+    gap: 14px;
+  }
+  .char-bar {
+    padding: 14px;
+    gap: 12px;
+  }
+  .char-crest {
+    width: 48px;
+    height: 48px;
+  }
+  .char-id h1 {
+    font-size: 22px;
+  }
+  .char-actions {
+    width: 100%;
+  }
+  .char-actions .btn-primary {
+    flex: 1;
+  }
+  .steps > li {
+    flex: 0 0 auto;
+  }
+  .step {
+    min-height: 44px;
+    padding: 0 14px 0 8px;
+    gap: 8px;
+    border-radius: 999px;
+  }
+  .step .step-n {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  .step-text i {
+    display: none;
+  }
+  .step-head h2,
+  .step-head-row h2 {
+    font-size: 22px;
+  }
+  .step-head-row {
+    gap: 8px;
+  }
+  .pill {
+    padding: 6px 10px;
+  }
+  .pill b {
+    font-size: 16px;
+  }
+  .tree-tabs {
+    display: grid;
+  }
+  .grid-wrap {
+    zoom: 1.18;
+  }
+  .tree:not(.is-active) {
+    display: none;
+  }
+  .trees {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .race-detail {
+    padding: 18px;
+  }
+  .step-nav {
+    flex-direction: column-reverse;
+  }
+  .step-nav > .btn,
+  .step-nav > button {
+    width: 100%;
+  }
+  .step-nav.in-sheet {
+    flex-direction: row;
+  }
+  .step-nav.in-sheet > .btn,
+  .step-nav.in-sheet > button {
+    width: auto;
+  }
+}

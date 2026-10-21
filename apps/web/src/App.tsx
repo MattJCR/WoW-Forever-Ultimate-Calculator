@@ -4,7 +4,7 @@ import { loadManifest, useAsync } from "./data";
 import { ClassPage } from "./pages/ClassPage";
 import { classToken, Home } from "./pages/Home";
 import { UnassignedPage } from "./pages/UnassignedPage";
-import { href, useRoute, type Route } from "./router";
+import { href, scrollToSection, useRoute, type Route } from "./router";
 
 export function App() {
   const manifest = useAsync("manifest", loadManifest);
@@ -28,32 +28,55 @@ export function App() {
   );
 }
 
+/** «1.60.1.70450» -> versión «1.60.1» y número de compilación «70450». */
+function splitBuild(build: string): { version: string; number: string } {
+  const parts = build.split(".");
+  return parts.length > 3 ? { version: parts.slice(0, 3).join("."), number: parts.slice(3).join(".") } : { version: build, number: "" };
+}
+
 function Layout({ manifest }: { manifest: Manifest }) {
   const route = useRoute();
   const { legacyCode } = useCharacter();
   const q = legacyQuery(legacyCode);
+  const { version, number } = splitBuild(manifest.build);
+  const page = route.path[0];
+  const section = route.query.get("s");
+  const onHome = page === undefined;
 
   return (
     <>
       <header className="topbar">
-        <a className="brand" href={href("", q)}>
-          <img
-            className="brand-mark"
-            src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`}
-            alt="WoW Forever"
-          />
-          <span className="brand-text">
-            <b>WOW FOREVER ULTIMATE CALCULATOR</b>
-            <small>
-              Calculadora de talentos de WoW Forever · datos de la beta {manifest.build} · {manifest.generatedAt.slice(0, 10)}
-            </small>
-          </span>
-        </a>
-        <nav aria-label="Principal">
-          <a href={href("unassigned", q)} className="nav-btn" aria-current={route.path[0] === "unassigned" ? "page" : undefined}>
-            Datos sin asignar
+        <div className="topbar-in">
+          <a className="brand" href={href("", q)}>
+            <span className="brand-mark" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+                <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" />
+              </svg>
+            </span>
+            <span className="brand-text">
+              <b>WoW Forever</b>
+              <small>Calculadora definitiva</small>
+            </span>
           </a>
-        </nav>
+          <nav className="main-nav" aria-label="Principal">
+            <a href={href("", { ...q, s: "clases" })} onClick={() => scrollToSection("clases")} className="nav-link" aria-current={page === "class" || (onHome && (!section || section === "clases")) ? "page" : undefined}>
+              Clases
+            </a>
+            <a href={href("", { ...q, s: "pasos" })} onClick={() => scrollToSection("pasos")} className="nav-link" aria-current={onHome && section === "pasos" ? "page" : undefined}>
+              Cómo funciona
+            </a>
+            <a href={href("", { ...q, s: "datos" })} onClick={() => scrollToSection("datos")} className="nav-link" aria-current={onHome && section === "datos" ? "page" : undefined}>
+              De dónde salen los datos
+            </a>
+            <a href={href("unassigned", q)} className="nav-link" aria-current={page === "unassigned" ? "page" : undefined}>
+              Datos sin asignar
+            </a>
+          </nav>
+          <span className="build-tag" title={`Datos extraídos el ${manifest.generatedAt.slice(0, 10)}`}>
+            Beta {version}
+            {number && ` · build ${number}`}
+          </span>
+        </div>
       </header>
 
       <main>
@@ -61,13 +84,15 @@ function Layout({ manifest }: { manifest: Manifest }) {
       </main>
 
       <footer>
-        <p>
-          Datos del cliente de la beta de WoW Forever, build {manifest.build}
-          {manifest.hotfixesApplied ? " (con hotfixes del servidor)" : ""} · extraídos el {manifest.generatedAt.slice(0, 10)}. Pueden cambiar durante la beta.
-        </p>
-        <p>
-          Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
-        </p>
+        <div className="wrap">
+          <p>
+            Datos del cliente de la beta de WoW Forever, build {number || manifest.build}
+            {manifest.hotfixesApplied ? " (con hotfixes del servidor)" : ""} · extraídos el {manifest.generatedAt.slice(0, 10)}. Pueden cambiar durante la beta.
+          </p>
+          <p>
+            Proyecto de fans, no oficial. No está afiliado ni respaldado por Blizzard Entertainment. World of Warcraft es marca registrada de Blizzard Entertainment, Inc. Nombres, textos, iconos y fondos © Blizzard.
+          </p>
+        </div>
       </footer>
     </>
   );
@@ -85,5 +110,5 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
       </p>
     );
   }
-  return <Home manifest={manifest} />;
+  return <Home manifest={manifest} query={route.query} />;
 }

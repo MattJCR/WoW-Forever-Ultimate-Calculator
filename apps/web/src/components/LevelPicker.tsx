@@ -1,20 +1,40 @@
-/** Nivel del personaje del Resumen: lo comparten las estadísticas y las habilidades. */
-export function LevelPicker({ level, setLevel, minLevel }: { level: number; setLevel: (l: number) => void; minLevel: number }) {
+import type { CSSProperties, ReactNode } from "react";
+
+/** Nivel del personaje del Resumen: lo comparten las estadísticas y las habilidades. `children` es la nota que explica el rango. */
+export function LevelPicker({ level, setLevel, minLevel, children }: { level: number; setLevel: (l: number) => void; minLevel: number; children?: ReactNode }) {
+  const mine = Math.max(1, minLevel);
   return (
-    <div className="ab-controls level-picker">
-      <label>
-        Nivel{" "}
-        <input type="number" min={1} max={60} value={level} onChange={(e) => setLevel(Math.max(1, Math.min(60, Number(e.target.value) || 1)))} aria-label="Nivel del personaje" />
-      </label>
-      <button type="button" onClick={() => setLevel(Math.max(1, minLevel))} title="El nivel que exigen tus puntos de talento">
-        Mi nivel ({Math.max(1, minLevel)})
-      </button>
-      <button type="button" onClick={() => setLevel(30)} title="El nivel máximo de la beta">
-        30 (tope beta)
-      </button>
-      <button type="button" onClick={() => setLevel(60)}>
-        60
-      </button>
-    </div>
+    <section className="card level-card" aria-label="Nivel del personaje">
+      <div className="level-main">
+        <label htmlFor="level-range">Nivel</label>
+        <output htmlFor="level-range" className="level-out">
+          {level}
+        </output>
+      </div>
+      <div className="level-slider">
+        <input
+          id="level-range"
+          type="range"
+          min={1}
+          max={60}
+          step={1}
+          value={level}
+          style={{ ["--pct" as string]: `${((level - 1) / 59) * 100}%` } as CSSProperties}
+          onChange={(e) => setLevel(Math.max(1, Math.min(60, Number(e.target.value) || 1)))}
+        />
+        <div className="level-presets">
+          <button type="button" className={`chip chip-link${level === mine ? " on" : ""}`} onClick={() => setLevel(mine)} title="El nivel que exigen tus puntos de talento">
+            Mi nivel ({mine})
+          </button>
+          <button type="button" className={`chip chip-link${level === 30 ? " on" : ""}`} onClick={() => setLevel(30)} title="El nivel máximo de la beta">
+            30 (tope de la beta)
+          </button>
+          <button type="button" className={`chip chip-link${level === 60 ? " on" : ""}`} onClick={() => setLevel(60)}>
+            60
+          </button>
+        </div>
+      </div>
+      {children && <p className="level-note">{children}</p>}
+    </section>
   );
 }

@@ -1,0 +1,424 @@
+/* Tarjetas flotantes: detalle de una racial, tarjeta de habilidad y tarjeta de objeto. */
+/* Tarjeta de descripcion: flota junto al talento y solo existe mientras el cursor esta encima */
+.detail {
+  position: fixed;
+  z-index: 50;
+  width: 330px;
+  max-width: calc(100vw - 16px);
+  background: linear-gradient(#1d170f, #15110b);
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  font-size: calc(15px * var(--fit, 1));
+  padding: calc(12px * var(--fit, 1)) calc(14px * var(--fit, 1));
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75);
+}
+@media (hover: hover) {
+  /* Con raton no recibe clics (se actua sobre el talento) y no hace falta + / - */
+  .detail {
+    pointer-events: none;
+  }
+}
+.detail h4 {
+  font-family: var(--serif);
+  font-size: calc(16px * var(--fit, 1));
+  color: var(--gold-2);
+}
+.detail h5,
+.preview-detail h5 {
+  margin: 10px 0 2px;
+  font-size: calc(11px * var(--fit, 1));
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.detail .hint {
+  margin: 8px 0 0;
+  font-size: calc(11.5px * var(--fit, 1));
+  color: var(--muted);
+}
+.detail-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 4px;
+}
+.detail-head .icon,
+.detail-head .initials {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.detail-head h4 {
+  margin: 0;
+}
+.rank-line {
+  margin: 0;
+  color: var(--muted);
+  font-size: calc(13px * var(--fit, 1));
+}
+.rank-line strong {
+  color: var(--text);
+}
+.desc-text {
+  margin: 2px 0 6px;
+  white-space: pre-line;
+  font-size: calc(13.5px * var(--fit, 1));
+}
+.dim-text {
+  opacity: 0.7;
+}
+.unresolved {
+  text-decoration: underline dotted var(--warn);
+  text-underline-offset: 3px;
+  color: var(--warn);
+  cursor: help;
+}
+.notes {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 6px;
+  font-size: calc(12px * var(--fit, 1));
+  color: var(--muted);
+}
+.notes li::before {
+  content: "ⓘ ";
+  color: var(--warn);
+}
+.reqs {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+  font-size: calc(13px * var(--fit, 1));
+}
+.reqs li.ok {
+  color: var(--good);
+}
+.reqs li.bad {
+  color: var(--bad);
+}
+.why {
+  margin: 4px 0 6px;
+  color: var(--bad);
+  font-size: calc(12.5px * var(--fit, 1));
+}
+
+dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 8px 0 0;
+  font-size: calc(12.5px * var(--fit, 1));
+}
+dt {
+  color: var(--muted);
+}
+dd {
+  margin: 0;
+}
+
+/* Tooltip de habilidad con tus talentos */
+.ab-tip {
+  position: fixed;
+  z-index: 50;
+  width: 380px;
+  max-width: calc(100vw - 16px);
+  padding: 10px 12px;
+  background: #15100a;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  font-size: calc(13.5px * var(--fit, 1));
+}
+.ab-tip-head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.ab-tip-head h4 {
+  margin: 0;
+  font-family: var(--serif);
+  color: var(--gold-2);
+}
+.ab-tip-head .icon,
+.ab-tip-head .initials {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+}
+.ab-tip-stats {
+  color: var(--muted);
+  margin: 6px 0;
+}
+.ab-tip-text .changed {
+  color: var(--info);
+}
+.ab-tip-mods {
+  margin: 8px 0 4px;
+  padding-left: 16px;
+  color: var(--info);
+  font-size: calc(12.5px * var(--fit, 1));
+}
+.chip-rule {
+  color: var(--gold-2);
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+  border-color: color-mix(in srgb, var(--gold) 45%, transparent);
+}
+.fx-sub {
+  margin: 14px 0 4px;
+  font-family: var(--serif);
+  color: var(--gold-2);
+}
+
+/* Tarjeta completa de la habilidad */
+.ab-count {
+  display: inline-block;
+  min-width: 18px;
+  margin-left: 6px;
+  padding: 0 5px;
+  border-radius: 9px;
+  font-size: calc(11px * var(--fit, 1));
+  font-weight: 700;
+  text-align: center;
+  color: #0b1624;
+  background: var(--info);
+}
+.ab-card {
+  position: fixed;
+  z-index: 60;
+  width: 470px;
+  max-width: calc(100vw - 16px);
+  padding: calc(12px * var(--fit, 1)) calc(14px * var(--fit, 1));
+  background: #15100a;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.65);
+  pointer-events: none;
+  font-size: calc(13.5px * var(--fit, 1));
+}
+.ab-card.pinned {
+  pointer-events: auto;
+  border-color: var(--info);
+}
+.ab-card.is-base {
+  border-color: var(--muted);
+  filter: saturate(0.6);
+}
+.ab-card-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  padding: 0 8px;
+  font-size: calc(18px * var(--fit, 1));
+  line-height: 22px;
+}
+.ab-base-banner {
+  margin: 6px 0 0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--muted) 22%, transparent);
+  color: var(--text);
+  font-size: calc(12.5px * var(--fit, 1));
+}
+.ab-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px 10px;
+  margin: 10px 0 6px;
+  padding: 8px 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.ab-grid dt {
+  color: var(--muted);
+  font-size: calc(11.5px * var(--fit, 1));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.ab-grid dd {
+  margin: 0;
+  font-weight: 700;
+}
+.ab-grid dd.changed,
+.ab-card .changed {
+  color: var(--info);
+}
+.ab-grid dd s {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: calc(12px * var(--fit, 1));
+}
+.ab-notes {
+  margin: 0 0 6px;
+  padding-left: 16px;
+  color: var(--text);
+  font-size: calc(12.5px * var(--fit, 1));
+}
+.ab-text {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+.ab-card section {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.ab-card h5 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  color: var(--gold-2);
+  font-size: calc(13px * var(--fit, 1));
+}
+.ab-sum,
+.ab-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+}
+.ab-sum li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 10px;
+  align-items: baseline;
+}
+.ab-sum-l {
+  grid-column: 1;
+}
+.ab-sum b {
+  grid-column: 2;
+  grid-row: 1;
+}
+.ab-sum b.pos {
+  color: var(--good);
+}
+.ab-sum b.neg {
+  color: var(--bad, #e0604f);
+}
+.ab-sum-s {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: calc(12px * var(--fit, 1));
+}
+.ab-rules li {
+  padding-left: 10px;
+  border-left: 2px solid color-mix(in srgb, var(--gold) 55%, transparent);
+  color: var(--gold-2);
+}
+.ab-foot {
+  margin: 10px 0 0;
+}
+.ab-chances {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.ab-chances li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 10px;
+  align-items: baseline;
+}
+.ab-chances b {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: calc(15px * var(--fit, 1));
+}
+.ab-chances b.pos {
+  color: var(--good);
+}
+.ab-controls select {
+  padding: 2px 6px;
+}
+
+/* Tarjeta ancha: dos columnas y siempre dentro de la pantalla */
+.ab-card {
+  width: min(860px, calc(100vw - 16px));
+  box-sizing: border-box;
+}
+.ab-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 18px;
+  align-items: start;
+}
+.ab-cols.single {
+  grid-template-columns: 1fr;
+}
+.ab-col {
+  min-width: 0;
+}
+.ab-col > section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+@media (max-width: 760px) {
+  .ab-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta flotante de una racial: breve, con las cifras en lista y avisos en bloque (no en pildoras que se parten) */
+.racial-tip .desc-text {
+  margin: 6px 0 8px;
+}
+.tip-facts {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+}
+.tip-facts li {
+  white-space: nowrap;
+  padding: 1px 9px;
+  border-radius: 999px;
+  font-size: calc(12px * var(--fit, 1));
+  color: var(--info);
+  background: color-mix(in srgb, var(--info) 13%, transparent);
+  border: 1px solid color-mix(in srgb, var(--info) 40%, transparent);
+}
+.tip-warn {
+  margin: 6px 0 0;
+  padding: 5px 9px;
+  border-left: 3px solid var(--warn);
+  border-radius: 0 6px 6px 0;
+  background: color-mix(in srgb, var(--warn) 10%, transparent);
+  color: var(--text);
+  font-size: calc(12.5px * var(--fit, 1));
+  line-height: 1.4;
+}
+.tip-warn b {
+  display: block;
+  color: var(--warn);
+  font-weight: 600;
+}
+.tip-warn-soft {
+  color: var(--muted);
+  border-left-color: var(--muted);
+  background: transparent;
+}
+.detail .racial-tip h4 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--gold-2);
+}
+.detail .racial-tip .detail-head .icon,
+.detail .racial-tip .detail-head .initials {
+  width: 44px;
+  height: 44px;
+  border-radius: 9px;
+}

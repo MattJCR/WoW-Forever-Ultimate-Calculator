@@ -27,6 +27,11 @@ export const href = (path: string, query?: Record<string, string>): string => {
   return `#/${path}${q}`;
 };
 
+/** Baja a una seccion de la portada. Si la URL no cambia (ya estas en esa seccion) no hay hashchange, asi que se hace al pulsar. */
+export const scrollToSection = (id: string): void => {
+  window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+};
+
 /** Cambia la URL sin anadir entradas al historial (para guardar el build mientras se edita). */
 export function replaceHash(path: string, query: Record<string, string>): void {
   const url = `${window.location.pathname}${window.location.search}${href(path, query)}`;

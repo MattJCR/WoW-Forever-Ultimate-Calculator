@@ -9,7 +9,7 @@ const COLS = 4;
 const pos = (n: number) => n * (CELL + GAP);
 const center = (n: number) => pos(n) + CELL / 2;
 
-/** Posicion en pantalla del talento enfocado, para colocar la tarjeta de descripcion a su lado. */
+/** Posicion en pantalla de un elemento, para colocar una tarjeta flotante a su lado. */
 export interface Anchor {
   left: number;
   top: number;
@@ -17,10 +17,10 @@ export interface Anchor {
   bottom: number;
 }
 
+/** Talento al que apunta el cursor, el foco o la ultima eleccion: el panel de detalle lo muestra. */
 export interface Focus {
   kind: "active" | "inactive";
   nodeId: number;
-  anchor: Anchor;
 }
 
 export const anchorOf = (el: Element): Anchor => {
@@ -32,15 +32,19 @@ interface Props {
   idx: ClassIndex;
   build: Build;
   specIndex: number;
-  focus: Focus | null;
-  onFocus: (f: Focus | null) => void;
+  /** Talento elegido (el ultimo con el que se interactuo): lleva un aro. */
+  selected: Focus | null;
+  /** En pantallas estrechas solo se ve el arbol activo (el resto se elige con las pestanas). */
+  active: boolean;
+  onHover: (f: Focus | null) => void;
+  onSelect: (f: Focus) => void;
   onAdd: (nodeId: number, max?: boolean) => void;
   onRemove: (nodeId: number) => void;
   onResetTree: (specIndex: number) => void;
 }
 
 /** Un arbol (especializacion de clase o arbol de Legacy): cabecera, arte de fondo, rejilla, flechas y marcadores de fila. */
-export function TreePanel({ idx, build, specIndex, focus, onFocus, onAdd, onRemove, onResetTree }: Props) {
+export function TreePanel({ idx, build, specIndex, selected, active, onHover, onSelect, onAdd, onRemove, onResetTree }: Props) {
   const spec = idx.data.specs[specIndex]!;
   const rows = Math.max(1, ...spec.talents.map((t) => t.row + 1));
   const spent = specPoints(idx, build, specIndex);
@@ -55,7 +59,7 @@ export function TreePanel({ idx, build, specIndex, focus, onFocus, onAdd, onRemo
   const nextRow = [...rowGate.values()].sort((a, b) => a - b).find((p) => p > spent);
 
   return (
-    <section className="tree" aria-label={`${spec.name ?? "Arbol"}`}>
+    <section className={`tree${active ? " is-active" : ""}`} aria-label={`${spec.name ?? "Arbol"}`}>
       <div className="tree-inner">
         {spec.backgroundFile && <Background name={spec.backgroundFile} />}
         <header className="tree-head">
@@ -65,11 +69,12 @@ export function TreePanel({ idx, build, specIndex, focus, onFocus, onAdd, onRemo
             {isClass && <span className="muted">{nextRow ? `próxima fila a los ${nextRow}` : "todas las filas abiertas"}</span>}
           </div>
           <span className="tree-points" title="Puntos gastados en este árbol">
-            {spent}
-            <small> / {idx.data.rules.maxPoints}</small>
+            <b>{spent}</b> {spent === 1 ? "punto" : "puntos"}
           </span>
-          <button type="button" className="icon-btn" onClick={() => onResetTree(specIndex)} disabled={spent === 0} aria-label={`Reiniciar ${spec.name ?? "árbol"}`} title="Reiniciar este árbol">
-            ↺
+          <button type="button" className="btn btn-ghost btn-square" onClick={() => onResetTree(specIndex)} disabled={spent === 0} aria-label={`Reiniciar ${spec.name ?? "árbol"}`} title="Reiniciar este árbol">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" />
+            </svg>
           </button>
         </header>
 
@@ -116,23 +121,23 @@ export function TreePanel({ idx, build, specIndex, focus, onFocus, onAdd, onRemo
               const rank = rankOf(build, t.nodeId);
               const add = canAdd(idx, build, t.nodeId);
               const state = rank >= t.maxRank ? "maxed" : rank > 0 ? "partial" : add.ok ? "available" : "locked";
-              const isFocus = focus?.kind === "active" && focus.nodeId === t.nodeId;
+              const isSelected = selected?.kind === "active" && selected.nodeId === t.nodeId;
               return (
                 <button
                   key={t.nodeId}
                   type="button"
-                  className={`talent ${state}${isFocus ? " focus" : ""}`}
+                  className={`talent ${state}${isSelected ? " focus" : ""}`}
                   style={{ left: pos(col), top: pos(row), width: CELL, height: CELL }}
                   aria-label={`${t.name ?? "Talento"}, rango ${rank} de ${t.maxRank}`}
                   data-node={t.nodeId}
                   data-state={state}
-                  onMouseEnter={(e) => onFocus({ kind: "active", nodeId: t.nodeId, anchor: anchorOf(e.currentTarget) })}
-                  onMouseLeave={() => onFocus(null)}
-                  onFocus={(e) => onFocus({ kind: "active", nodeId: t.nodeId, anchor: anchorOf(e.currentTarget) })}
-                  onBlur={() => onFocus(null)}
+                  onMouseEnter={() => onHover({ kind: "active", nodeId: t.nodeId })}
+                  onMouseLeave={() => onHover(null)}
+                  onFocus={() => onHover({ kind: "active", nodeId: t.nodeId })}
+                  onBlur={() => onHover(null)}
                   onClick={(e) => {
                     onAdd(t.nodeId, e.shiftKey);
-                    onFocus({ kind: "active", nodeId: t.nodeId, anchor: anchorOf(e.currentTarget) });
+                    onSelect({ kind: "active", nodeId: t.nodeId });
                   }}
                   onContextMenu={(e) => {
                     e.preventDefault();

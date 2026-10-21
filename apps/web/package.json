@@ -13,6 +13,8 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
+    "@fontsource-variable/cinzel": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
     "@wfuc/engine": "*",
     "@wfuc/schema": "*",
     "react": "18.3.1",

@@ -4,9 +4,12 @@ import {
   applyModifiers,
   canCrit,
   collectStatEffects,
+  damageDonePct,
   dealsDamage,
+  deriveCombatStats,
   deriveStats,
   gearChanceBonus,
+  hasteFor,
   gearSpellModifiers,
   healsTarget,
   powerContext,
@@ -20,6 +23,7 @@ import {
   type AbilityEffectLine,
   type Build,
   type ClassIndex,
+  type CombatStats,
   type GearChanceBonus,
   type GearEffectSource,
   type PowerContext,
@@ -30,7 +34,7 @@ import {
 } from "@wfuc/engine";
 import type { Ability, AbilityRank, ClassStatLevel, CombatFormulas, CombatRatings, Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { getJson, useAsync } from "../data";
 import { fitCardToViewport } from "./fit";
 import { Icon } from "./Icon";
@@ -110,6 +114,8 @@ interface RowData {
   inline: ReturnType<typeof abilityEffectSummary>["inline"];
   ruleTexts: string[];
   count: number;
+  /** Crítico total (%) con atributo, talentos, raza y equipo; null si no puede ser crítica o faltan datos. No incluye el crítico base de la clase. */
+  crit: number | null;
 }
 
 /** Lo necesario para calcular impacto y critico en la tarjeta (formulas de Classic, estadisticas base y objetivo). */
@@ -132,40 +138,95 @@ interface Tip {
   pinned: boolean;
 }
 
+/** Nombres de los talentos, ventajas de Legado y piezas de equipo que mejoran la habilidad (la raza se aplica a todas y no se lista). */
+function improvedBy(d: RowData): string[] {
+  const names: string[] = [];
+  const add = (l: AbilityEffectLine) => {
+    for (const s of l.sources) if (s.from !== "race" && !names.includes(s.name)) names.push(s.name);
+  };
+  d.summaryLines.forEach(add);
+  Object.values(d.inline).forEach((v) => v?.forEach(add));
+  return names;
+}
+
+const MODS_SHOWN = 4;
+
+/** Una cifra de la tarjeta de la habilidad; resaltada si los talentos la cambian. */
+function Tile({ label, value, changed, tone }: { label: string; value: string; changed?: boolean; tone?: "pos" | "muted" }) {
+  return (
+    <div className={`ab-tile${changed ? " changed" : ""}${tone ? ` ${tone}` : ""}`}>
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+    </div>
+  );
+}
+
 function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean; onHover: (e: { x: number; y: number } | null) => void; onToggle: (e: { x: number; y: number }) => void }) {
   const { m, ability, base } = d;
+  const mods = improvedBy(d);
+  // Con teclado: Intro o Espacio fijan la tarjeta junto a la habilidad
+  const onKey = (e: ReactKeyboardEvent<HTMLElement>) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    const r = e.currentTarget.getBoundingClientRect();
+    onToggle({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+  };
   return (
-    <tr
-      className={selected ? "sel" : undefined}
-      onMouseEnter={(e) => onHover({ x: e.clientX, y: e.clientY })}
-      onMouseMove={(e) => onHover({ x: e.clientX, y: e.clientY })}
-      onMouseLeave={() => onHover(null)}
-      onClick={(e) => onToggle({ x: e.clientX, y: e.clientY })}
-    >
-      <th scope="row" className="ab-name">
-        <Icon id={ability.iconFileDataId} name={ability.name} />
-        <span>
-          {ability.name} <span className="rank-chip">rango {m.rank.rank}</span>
-          {ability.talentsForever && ability.talentsForever.status !== "listed" && (
-            <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ?? undefined}>
-              {ability.talentsForever.status === "retired" ? "retirada según la referencia" : "sin referencia"}
-            </span>
-          )}
-          {d.count > 0 && (
-            <span className="ab-count" title="Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos">
-              {d.count}
-            </span>
-          )}
-        </span>
-      </th>
-      <td className={costText(m) !== costText(base) ? "changed" : undefined}>{costText(m)}</td>
-      <td className={castText(m) !== castText(base) ? "changed" : undefined}>{castText(m)}</td>
-      <td className={cooldownText(m) !== cooldownText(base) ? "changed" : undefined}>{cooldownText(m)}</td>
-      <td className={rangeText(m) !== rangeText(base) ? "changed" : undefined}>{rangeText(m)}</td>
-      <td className="ab-effects">
-        {m.effects.length === 0 ? <span className="muted">—</span> : m.effects.map((e) => <EffectLine key={`${e.effect.viaSpellId ?? 0}-${e.effect.index}`} m={e} durationMs={m.durationMs} detailed={false} />)}
-      </td>
-    </tr>
+    <li>
+      <article
+        className={`ab-item${selected ? " sel" : ""}`}
+        tabIndex={0}
+        aria-label={`${ability.name}, rango ${m.rank.rank}. Intro para ver la tarjeta completa`}
+        onMouseEnter={(e) => onHover({ x: e.clientX, y: e.clientY })}
+        onMouseMove={(e) => onHover({ x: e.clientX, y: e.clientY })}
+        onMouseLeave={() => onHover(null)}
+        onClick={(e) => onToggle({ x: e.clientX, y: e.clientY })}
+        onKeyDown={onKey}
+      >
+        <div className="ab-top">
+          <div className="ab-name">
+            <Icon id={ability.iconFileDataId} name={ability.name} />
+            <div>
+              <h4>{ability.name}</h4>
+              <p className="ab-sub">
+                <span className="rank-chip">rango {m.rank.rank}</span>
+                {ability.talentsForever && ability.talentsForever.status !== "listed" && (
+                  <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ?? undefined}>
+                    {ability.talentsForever.status === "retired" ? "retirada según la referencia" : "sin referencia"}
+                  </span>
+                )}
+              </p>
+            </div>
+          </div>
+          <dl className="ab-tiles">
+            <Tile label="Coste" value={costText(m)} changed={costText(m) !== costText(base)} />
+            <Tile label="Lanzamiento" value={castText(m)} changed={castText(m) !== castText(base)} />
+            <Tile label="Reutilización" value={cooldownText(m)} changed={cooldownText(m) !== cooldownText(base)} />
+            <Tile label="Alcance" value={rangeText(m)} changed={rangeText(m) !== rangeText(base)} />
+            <Tile label="Crítico" value={d.crit !== null ? `${fmt(d.crit, 1)} %` : "—"} tone={d.crit !== null ? "pos" : "muted"} />
+          </dl>
+        </div>
+        {m.effects.length > 0 && (
+          <div className="ab-effects">
+            {m.effects.map((e) => (
+              <EffectLine key={`${e.effect.viaSpellId ?? 0}-${e.effect.index}`} m={e} durationMs={m.durationMs} detailed={false} />
+            ))}
+          </div>
+        )}
+        {d.count > 0 && (
+          <div className="ab-mods" title="Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos">
+            <span>Mejorada por</span>
+            {mods.slice(0, MODS_SHOWN).map((n) => (
+              <span key={n} className="chip">
+                {n}
+              </span>
+            ))}
+            {mods.length > MODS_SHOWN && <span className="chip">+{mods.length - MODS_SHOWN} más</span>}
+            {mods.length === 0 && <span className="chip">{d.count} efectos de talentos</span>}
+          </div>
+        )}
+      </article>
+    </li>
   );
 }
 
@@ -187,7 +248,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean } | null }) {
+function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   // Con Ctrl: la misma habilidad sin ningun talento
@@ -197,6 +258,9 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
   const rules = showBase ? [] : row.ruleTexts;
   const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines, gear: chancesInput.gear }) : null;
   const est = power ? powerEstimate(m, power.ctx) : null;
+  // Celeridad (puntuación del equipo, talentos, Legacy y raza): reduce el tiempo de lanzamiento. Estimación: tiempo ÷ (1 + celeridad)
+  const haste = power && !showBase ? hasteFor(power.haste, rank) : 0;
+  const hasteCast = haste > 0 && m.castMs > 0 && !m.rank.channeled ? m.castMs / (1 + haste / 100) : null;
   const hasPower = !!est && (est.spell.length > 0 || est.weapon !== null);
   const noted = showBase ? [] : (Object.entries(row.inline) as [string, AbilityEffectLine[]][]).filter(([, v]) => v.length > 0);
   // La tarjeta se coloca junto al cursor y se ajusta a su altura real para no salirse de la pantalla
@@ -257,6 +321,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
         <Stat label="Alcance" now={rangeText(m)} was={rangeText(row.base)} />
         {m.radiusYd !== null && <Stat label="Radio" now={radiusText(m)} was={radiusText(row.base)} />}
         <Stat label="Lanzamiento" now={castText(m)} was={castText(row.base)} />
+        {hasteCast !== null && <Stat label={`Con ${fmt(haste, 2)} % de celeridad`} now={seconds(hasteCast)} was={castText(m)} />}
         <Stat label="Reutilización" now={cooldownText(m)} was={cooldownText(row.base)} />
       </dl>
       {noted.length > 0 && (
@@ -390,7 +455,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       <p className="muted small ab-foot">
         {rank.descriptionTemplate.includes("$") ? "Alguna cifra depende de tu personaje y no se calcula. " : ""}
         Las cifras de arriba no incluyen el poder con hechizos ni el de ataque (ver «Con tu poder», estimación). {!showBase && row.count > 0 ? "Mantén Ctrl para ver la base. " : ""}
-        {tip.pinned ? "Clic en la fila para cerrar." : "Clic en la fila para fijar la tarjeta."}
+        {tip.pinned ? "Clic en la habilidad para cerrar." : "Clic en la habilidad para fijar la tarjeta."}
       </p>
     </div>
   );
@@ -499,8 +564,10 @@ export function AbilitiesTable({
       gear: gearHere?.stats ?? null,
       attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility } : null,
     });
-    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? []), attributesKnown: !!row, hasGear: !!gearHere };
-  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere]);
+    // La celeridad se suma como el resto de estadisticas de combate (puntuacion del equipo + talentos, Legacy y raza)
+    const combat = deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: 0, ratings: gearHere.ratings } : null, classStats });
+    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? []), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
+  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere, classStats]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
@@ -509,17 +576,20 @@ export function AbilitiesTable({
     for (const a of abilities.abilities) {
       const rank = rankAtLevel(a, level);
       if (!rank) continue;
-      const m = applyModifiers(rank, level, mods);
+      // Daño infligido por escuela (aura 79) de talentos, raza y equipo: multiplica el daño de las habilidades de esa escuela
+      const dmg = dealsDamage(rank);
+      const m = applyModifiers(rank, level, mods, { damageDonePct: dmg ? damageDonePct(fx, rank.schoolMask) : 0 });
       const base = applyModifiers(rank, level, []);
-      const sum = abilityEffectSummary(a.name, fx, { canCrit: canCrit(rank) });
+      const sum = abilityEffectSummary(a.name, fx, { canCrit: canCrit(rank), schoolMask: rank.schoolMask, dealsDamage: dmg });
       const ruleTexts = ruled.filter((l) => ruleAppliesTo(l, a, rank)).map((l) => ruleAbilityDetail(l, rank).text);
       // «Afectada por mis talentos»: cuentan las cifras de talentos de clase, de Legacy y del equipo (bonos de conjunto, efectos de objeto); la raza se aplica a todas
       const fromTalents = (l: AbilityEffectLine): boolean => l.sources.some((s) => s.from !== "race");
       const count = sum.lines.filter(fromTalents).length + Object.values(sum.inline).reduce((n, v) => n + (v?.filter(fromTalents).length ?? 0), 0) + ruleTexts.length;
-      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count });
+      const crit = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }).crit.total : null;
+      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit });
     }
     return out;
-  }, [abilities, level, mods, fx, ruled]);
+  }, [abilities, level, mods, fx, ruled, formulas, baseStats, classStats, gearBonus, target, idx.data.classId]);
 
   if (!entry) return <p className="muted">Las habilidades de {idx.data.className} aún no están revisadas (se van añadiendo clase a clase; ya están el Mago, el Pícaro y el Guerrero).</p>;
   if (state.status === "loading" || rulesState.status === "loading") return <p className="muted">Cargando habilidades…</p>;
@@ -554,37 +624,24 @@ export function AbilitiesTable({
         </span>
       </div>
       <div className="ab-scroll">
-        <table className="stats-table ab-table">
-          <thead>
-            <tr>
-              <th scope="col">Habilidad</th>
-              <th scope="col">Coste</th>
-              <th scope="col">Lanzamiento</th>
-              <th scope="col">Reutilización</th>
-              <th scope="col">Alcance</th>
-              <th scope="col">Efecto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((d) => (
-              <Row
-                key={d.ability.name}
-                d={d}
-                selected={pin?.name === d.ability.name}
-                onHover={(pos) => setHover(pos ? { name: d.ability.name, ...pos } : null)}
-                onToggle={(pos) => setPin((p) => (p?.name === d.ability.name ? null : { name: d.ability.name, ...pos }))}
-              />
-            ))}
-          </tbody>
-        </table>
+        <ul className="ab-list">
+          {rows.map((d) => (
+            <Row
+              key={d.ability.name}
+              d={d}
+              selected={pin?.name === d.ability.name}
+              onHover={(pos) => setHover(pos ? { name: d.ability.name, ...pos } : null)}
+              onToggle={(pos) => setPin((p) => (p?.name === d.ability.name ? null : { name: d.ability.name, ...pos }))}
+            />
+          ))}
+        </ul>
         {rows.length === 0 && (
           <p className="muted small">Ninguna habilidad está afectada por tus talentos todavía. Elige talentos en el paso anterior o desmarca «Solo las afectadas por mis talentos» para ver todas.</p>
         )}
       </div>
       <p className="muted small">
-        <span className="tag tag-unassigned">Cliente</span> Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; el número junto al nombre cuenta los efectos de
-        talentos, Puntos de Legado y raza que le afectan. Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El poder con hechizos aún no se suma: depende de
-        las estadísticas de Forever, que no están en el cliente.
+        <span className="tag tag-unassigned">Cliente</span> Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza
+        se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever).
       </p>
       {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>

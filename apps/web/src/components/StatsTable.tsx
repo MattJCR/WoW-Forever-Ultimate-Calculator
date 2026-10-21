@@ -1,5 +1,5 @@
-import { deriveStats, type StatEffects } from "@wfuc/engine";
-import type { BaseStats, ClientStats, Manifest } from "@wfuc/schema";
+import { deriveCombatStats, deriveStats, type CombatGroup, type CombatRow, type StatEffects } from "@wfuc/engine";
+import type { BaseStats, ClientStats, CombatRatings, Manifest } from "@wfuc/schema";
 import { BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema } from "@wfuc/schema";
 import { getJson, useAsync } from "../data";
 
@@ -11,9 +11,13 @@ import { getJson, useAsync } from "../data";
 export interface GearForStats {
   stats: Record<string, number>;
   minLevel: number;
+  /** Armadura base de las piezas. */
+  armor: number;
+  /** Puntuaciones -> % (null = no cargadas). */
+  ratings: CombatRatings | null;
 }
 
-export function StatsTable({ manifest, raceId, raceName, classId, level, fx, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; level: number; fx: StatEffects | null; gear?: GearForStats | null }) {
+export function StatsTable({ manifest, raceId, raceName, classId, level, fx, fxReady, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; level: number; fx: StatEffects | null; /** Los efectos ya llevan el libro de hechizos de la clase (sin el, las cifras de habilidades concretas parecerian del personaje entero). */ fxReady: boolean; gear?: GearForStats | null }) {
   const state = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
   const clientEntry = manifest.clientStats;
   const clientState = useAsync(clientEntry?.file ?? "none", () => (clientEntry ? getJson(clientEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
@@ -21,12 +25,12 @@ export function StatsTable({ manifest, raceId, raceName, classId, level, fx, gea
   if (raceId === null) return <p className="muted">Elige una raza en el paso «Raza» para ver las estadísticas base.</p>;
   if (state.status === "loading") return <p className="muted">Cargando estadísticas…</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
-  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} level={level} fx={fx} client={client} gear={gear ?? null} />;
+  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} level={level} fx={fx} fxReady={fxReady} client={client} gear={gear ?? null} />;
 }
 
 const fmt = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 2 });
 
-function Table({ data, raceId, raceName, classId, level, fx, client, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; level: number; fx: StatEffects | null; client: ClientStats | null; gear: GearForStats | null }) {
+function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; level: number; fx: StatEffects | null; fxReady: boolean; client: ClientStats | null; gear: GearForStats | null }) {
   const combo = data.combos.find((c) => c.raceId === raceId && c.classId === classId);
   const base = data.classBase.find((c) => c.classId === classId);
   if (!combo || !base) {
@@ -51,6 +55,13 @@ function Table({ data, raceId, raceName, classId, level, fx, client, gear }: { d
       })
     : null;
   if (!derived) return <p className="muted">Cargando talentos…</p>;
+  // Combate: armadura, crítico, impacto, celeridad, defensa, regeneración, resistencias y demás bonos del personaje (equipo + talentos + Legacy + raza)
+  const gearHere = gear && level >= gear.minLevel ? gear : null;
+  const combat =
+    fx && fxReady
+      ? deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: gearHere.armor, ratings: gearHere.ratings } : null, classStats: clientClass?.levels.find((l) => l.level === level) ?? null })
+      : null;
+  const groups = combat ? COMBAT_GROUPS.map((g) => ({ group: g, rows: combat.rows.filter((r) => r.group === g) })).filter((g) => g.rows.length > 0) : [];
   return (
     <>
       <table className="stats-table">
@@ -61,19 +72,56 @@ function Table({ data, raceId, raceName, classId, level, fx, client, gear }: { d
           </tr>
         </thead>
         <tbody>
+          <tr className="fx-cat">
+            <th colSpan={2} scope="colgroup">
+              Atributos y recursos
+            </th>
+          </tr>
           {derived.rows.map((r) => (
             <tr key={r.key}>
               <th scope="row">{r.label}</th>
               <td className={r.final !== r.base ? "pos" : undefined}>
+                {r.final !== r.base && <small className="stat-delta">{r.final > r.base ? "+" : ""}{fmt(r.final - r.base)}</small>}
                 <b>{fmt(r.final)}</b>
               </td>
             </tr>
           ))}
         </tbody>
+        {groups.map((g) => (
+          <tbody key={g.group}>
+            <tr className="fx-cat">
+              <th colSpan={2} scope="colgroup">
+                {g.group}
+              </th>
+            </tr>
+            {g.rows.map((r) => (
+              <tr key={r.key} title={r.note}>
+                <th scope="row">
+                  {r.label}
+                  {r.parts.length > 1 && <small className="muted stat-parts"> {r.parts.map((p) => `${p.label} ${signed(p.value, r.unit)}`).join(" · ")}</small>}
+                </th>
+                <td className={r.value !== 0 ? "pos" : undefined}>
+                  <b>{valueText(r)}</b>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ))}
       </table>
+      {!fxReady && <p className="muted small">Calculando armadura, crítico, impacto y demás estadísticas de combate…</p>}
       <p className="muted small">
         <span className="tag tag-unassigned">Cliente + Classic · estimación</span> Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {data.betaMaxLevel}); porcentajes, maná base, poder de ataque y crítico por atributo son del cliente. El equipo solo cuenta desde el nivel que exige el objeto más exigente{gear ? ` (nivel ${gear.minLevel})` : ""}.
       </p>
+      {groups.length > 0 && (
+        <p className="muted small">
+          <span className="tag tag-inactive">Estimación</span> Combate: las puntuaciones del equipo se pasan a % con las constantes de la comunidad (impacto 10, crítico 14, celeridad 10, esquivar 12, parada 15 y bloqueo 5 por 1 %). No incluyen lo que el cliente no trae: crítico base de la clase, esquive base y armadura por agilidad, regeneración por espíritu. Los bonos de una habilidad concreta se ven en su tarjeta; los condicionales (procs, estados) quedan como texto en el paso Equipo.
+        </p>
+      )}
     </>
   );
 }
+
+const COMBAT_GROUPS: CombatGroup[] = ["Ataque", "Defensa", "Poder", "Recursos", "Resistencias", "Otros bonos"];
+
+const signed = (v: number, unit: CombatRow["unit"]): string => `${v > 0 ? "+" : ""}${fmt(v)}${unit === "%" ? " %" : ""}`;
+const valueText = (r: CombatRow): string => `${r.unit === "%" && r.value > 0 && r.group === "Otros bonos" ? "+" : ""}${fmt(r.value)}${r.unit === "%" ? " %" : ""}`;

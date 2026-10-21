@@ -80,7 +80,7 @@ export function StatEffectsView({ fx, loading }: { fx: StatEffects | null; loadi
                   <td>{t.scope === null ? <span className="muted">Todo el personaje</span> : t.scope.length === 0 ? <span className="muted">Habilidades de la clase</span> : t.scope.join(", ")}</td>
                   <td>
                     {t.sources.map((s, k) => (
-                      <span key={k} className="chip" title={FROM[s.from]}>
+                      <span key={k} className="chip chip-info" title={FROM[s.from]}>
                         {sourceText(s)}
                       </span>
                     ))}
@@ -102,7 +102,7 @@ export function StatEffectsView({ fx, loading }: { fx: StatEffects | null; loadi
                   <th scope="row">{r.text}</th>
                   <td>{r.scope === null ? <span className="muted">Todos los hechizos</span> : r.scope.length === 0 ? <span className="muted">Habilidades de la clase</span> : r.scope.join(", ")}</td>
                   <td>
-                    <span className="chip" title="talento">
+                    <span className="chip chip-info" title="talento">
                       {sourceText(r.source)}
                     </span>
                   </td>

@@ -118,13 +118,13 @@ export function RacialList({ race, classId }: { race: Race; classId: number }) {
               {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
               {a.pvpTrinket && (
                 <p className="origin-note trinket-note">
-                  <span className="chip chip-unconfirmed">Insignia de PvP: enfriamiento compartido sin confirmar</span> {trinketNote(a)}
+                  <span className="chip chip-info chip-unconfirmed">Insignia de PvP: enfriamiento compartido sin confirmar</span> {trinketNote(a)}
                 </p>
               )}
               {chips.length > 0 && (
                 <p className="racial-chips" aria-label="Cifras del cliente">
                   {chips.map((c) => (
-                    <span key={c} className="chip">
+                    <span key={c} className="chip chip-info">
                       {c}
                     </span>
                   ))}

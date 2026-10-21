@@ -565,7 +565,7 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
                   </td>
                   <td>
                     {l.sources.map((s, i) => (
-                      <span key={i} className="chip" {...hover(s.slot)}>
+                      <span key={i} className="chip chip-info" {...hover(s.slot)}>
                         {s.slot ? SLOT_LABEL[s.slot] : s.itemName} {s.value > 0 ? "+" : ""}
                         {s.value}
                         {ORIGIN_LABEL[s.origin]}

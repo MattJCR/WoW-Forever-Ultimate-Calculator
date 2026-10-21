@@ -12,4 +12,6 @@ Algunos datos de `data/forever/` (puntuaciones de combate, encantamientos, sufij
 
 Este fichero es el único lugar del proyecto que nombra esa fuente, por exigirlo la licencia.
 
+Las tipografías Inter (© The Inter Project Authors) y Cinzel (© The Cinzel Project Authors) se sirven con la web y están bajo la licencia SIL Open Font License 1.1 (https://openfontlicense.org).
+
 Nombres, textos, iconos y fondos de World of Warcraft © Blizzard Entertainment. Proyecto de fans, no oficial.
