@@ -43,3 +43,21 @@ for (const r of modelRes) {
   }
 }
 console.log(`${nm} modelos nuevos`);
+
+// Texturas fijas de dentro de cada modelo (llamas de una antorcha, brillos, piezas sin textura de apariencia):
+// no salen de las apariencias, hay que leerlas de las capas de los .glb ya convertidos.
+const itemDir = path.join(dir, "item");
+const baked = new Set();
+for (const file of fs.readdirSync(itemDir)) {
+  if (!file.endsWith(".glb")) continue;
+  const b = fs.readFileSync(path.join(itemDir, file));
+  const json = JSON.parse(b.subarray(20, 20 + b.readUInt32LE(12)).toString());
+  for (const node of json.nodes) for (const t of node.extras?.batches ?? []) if (t.texFile) baked.add(t.texFile);
+}
+let nb = 0, failb = 0;
+for (const f of baked) {
+  const dest = path.join(dir, "tex", `${f}.webp`);
+  if (fs.existsSync(dest)) continue;
+  try { fs.writeFileSync(dest, await fetchWebp(f)); nb++; } catch (e) { failb++; console.log(`textura fija ${f}: ${e.message}`); }
+}
+console.log(`${baked.size} texturas fijas de modelos (${nb} nuevas, ${failb} con error)`);

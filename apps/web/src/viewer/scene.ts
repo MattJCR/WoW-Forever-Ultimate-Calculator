@@ -1,7 +1,7 @@
 // Escena three.js del probador: carga el .glb de una raza/sexo, aplica la personalización (geosets y
 // texturas compuestas) y deja girar el modelo con el ratón. Se carga solo en el paso Equipo.
 import {
-  AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshStandardMaterial,
+  AdditiveBlending, AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, MeshStandardMaterial,
   PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight,
 } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -122,8 +122,8 @@ export class CharacterView {
   private frame() {
     const h = this.modelHeight;
     const half = Math.tan((this.camera.fov * Math.PI) / 360);
-    const byHeight = (h * 0.58) / half;
-    const byWidth = (h * 0.62) / (half * Math.max(this.camera.aspect, 0.2));
+    const byHeight = (h * 0.54) / half;
+    const byWidth = (h * 0.44) / (half * Math.max(this.camera.aspect, 0.2));
     const d = Math.max(byHeight, byWidth);
     const dir = this.camera.position.clone().sub(this.controls.target).normalize();
     this.controls.target.set(0, h * 0.5, 0);
@@ -324,6 +324,13 @@ export class CharacterView {
       const blend = b?.blend ?? 0;
       jobs.push((async () => {
         const map = file ? await this.tex(file) : null;
+        // Llamas y brillos (mezcla aditiva): se suman a lo que hay detrás, sin iluminar; sin su textura no se dibujan
+        if (blend === 3 || blend === 4 || blend === 7) {
+          mesh.visible = !!map;
+          mesh.renderOrder = 10;
+          mesh.material = new MeshBasicMaterial({ map, transparent: true, blending: AdditiveBlending, depthWrite: false, side: DoubleSide });
+          return;
+        }
         mesh.material = new MeshStandardMaterial({
           map, color: map ? 0xffffff : 0x9a8470, roughness: 0.7, metalness: 0.15,
           alphaTest: blend === 1 ? 0.5 : 0, transparent: blend >= 2, side: DoubleSide,
