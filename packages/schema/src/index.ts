@@ -736,6 +736,14 @@ export const ItemSetDef = z.object({
   itemIds: z.array(z.number().int()),
   bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable(), auras: z.array(ItemSpellAura).default([]) })),
 });
+export const ItemLimitCategoryDef = z.object({
+  id: z.number().int(),
+  name: z.string(),
+  /** Cuantos objetos de la categoria se pueden tener (o llevar equipados si `equippedOnly`). */
+  quantity: z.number().int(),
+  /** Flags 1 del cliente: el limite cuenta solo lo equipado, no lo que llevas en la mochila. */
+  equippedOnly: z.boolean(),
+});
 export const Item = z.object({
   id: z.number().int(),
   name: z.string(),
@@ -791,12 +799,15 @@ export const Items = z.object({
   sets: z.array(ItemSetDef),
   /** Listas de sufijos aleatorios posibles (ids de `RandomSuffixes`), compartidas por muchos objetos. */
   suffixSets: z.array(z.array(z.number().int())),
+  /** Categorias de limite (`ItemLimitCategory`): cuantos objetos de la misma categoria se pueden llevar. Las usa `Item.limitCategory`. */
+  limitCategories: z.array(ItemLimitCategoryDef).default([]),
   warnings: z.array(z.string()),
 });
 export type ItemStat = z.infer<typeof ItemStat>;
 export type ItemWeapon = z.infer<typeof ItemWeapon>;
 export type ItemEffectRef = z.infer<typeof ItemEffectRef>;
 export type ItemSetDef = z.infer<typeof ItemSetDef>;
+export type ItemLimitCategoryDef = z.infer<typeof ItemLimitCategoryDef>;
 export type Item = z.infer<typeof Item>;
 export type Items = z.infer<typeof Items>;
 

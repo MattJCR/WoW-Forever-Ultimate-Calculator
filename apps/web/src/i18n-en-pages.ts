@@ -115,6 +115,8 @@ export const PAGES: Record<string, string> = {
   "A nivel {level}. En verde, lo que suman talentos, raza y equipo.": "At level {level}. In green, what talents, race and gear add.",
   "Habilidades": "Abilities",
   "Habilidades con tus talentos": "Abilities with your talents",
+  "Habilidades activas": "Active abilities",
+  "Márcalas para calcular con ellas activas. Solo valen mientras duran en el juego (los de «tu próximo hechizo» cuentan para una sola tirada).": "Tick them to calculate with them active. They only apply while they last in game (the “your next spell” ones count for a single cast).",
   "Cada tarjeta indica qué talentos, Puntos de Legado o piezas la mejoran.": "Each card shows which talents, Legacy Points or pieces improve it.",
 
   // ---- Portada

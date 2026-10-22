@@ -116,6 +116,16 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70450
     expect(reasons(UNIQUE_RING, "finger1", ctx(WARRIOR), { finger1: { itemId: UNIQUE_RING } })).toEqual([]); // reemplazarse a sí mismo
   });
 
+  it("categoría de límite: un solo «Dije de batalla» (716) aunque sean objetos distintos, y se puede cambiar el de la misma ranura", () => {
+    const limit = (id: number, slot: (typeof GEAR_SLOTS)[number], worn: GearSelection) => reasons(id, slot, ctx(WARRIOR), worn).filter((r) => r.startsWith("Límite"));
+    const ARATHOR = 20071, SCAVENGER = 20072; // ambos en la categoría 716, cantidad 1
+    expect(item(ARATHOR).limitCategory).toBe(716);
+    expect(item(SCAVENGER).limitCategory).toBe(716);
+    expect(limit(SCAVENGER, "trinket2", { trinket1: { itemId: ARATHOR } })).toEqual(["Límite de la categoría «Dije de batalla»: solo puedes llevar uno (ya llevas «Abalorio 1»)"]);
+    expect(limit(SCAVENGER, "trinket1", { trinket1: { itemId: ARATHOR } })).toEqual([]);
+    expect(limit(SCAVENGER, "trinket2", {})).toEqual([]);
+  });
+
   it("reliquias: el libro solo lo usa el paladín (regla nuestra, no del cliente)", () => {
     expect(reasons(LIBRAM, "ranged", ctx(PALADIN))).toEqual([]);
     expect(reasons(LIBRAM, "ranged", ctx(WARRIOR))).toEqual(["Solo la clase de libros puede usarla"]);

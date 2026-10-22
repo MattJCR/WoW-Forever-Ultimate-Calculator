@@ -32,7 +32,7 @@ import { CharacterBar, ClassSwitcher, isView, StepNav, Stepper, type StepStatus,
 import { GearStep, useGearBundle } from "../components/Gear";
 import { gearLinesForAI } from "../components/gear-format";
 import { LevelPicker } from "../components/LevelPicker";
-import { ConditionalEffects, useStatEffects } from "../components/StatEffects";
+import { ActiveStates, ConditionalEffects, useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
 import { LinkNotice } from "../components/LinkNotice";
 import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
@@ -690,6 +690,8 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
   // Un solo nivel para las estadisticas y las habilidades
   const [level, setLevel] = useState(60);
+  // Habilidades activas de talento que se dan por activas (Poder Arcano…): no van en el enlace
+  const [active, setActive] = useState<ReadonlySet<number>>(() => new Set());
   // Cada objeto cuenta desde su propio nivel necesario: al nivel elegido solo suman los que ya se pueden llevar
   const gearAt = useMemo(() => {
     if (!gear) return null;
@@ -697,7 +699,7 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
     const { counted } = splitByLevel(gear.selection, gear.data.items, level);
     return { summary: summaryAtLevel, ratings: gear.ratings, effects: activeGearEffects(counted, gear.data), equipped: equippedStateOf(counted, gear.data) };
   }, [gear, level]);
-  const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects: gearAt?.effects, equipped: gearAt?.equipped ?? null });
+  const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects: gearAt?.effects, equipped: gearAt?.equipped ?? null, active });
   // Sin raza elegida, los atributos base se toman de una raza de referencia (sin sus raciales): estimación marcada
   const statsRace = race ?? referenceRace;
   return (
@@ -724,6 +726,8 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
         </p>
       </div>
 
+      <ActiveStates cls={idx} classBuild={classBuild} active={active} onChange={setActive} />
+
       <div className="summary-cols">
         <section className="card stats-card" aria-label={tr("Estadísticas")}>
           <header>
@@ -738,7 +742,7 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
             <h3>{tr("Habilidades con tus talentos")}</h3>
             <p className="muted small">{tr("Cada tarjeta indica qué talentos, Puntos de Legado o piezas la mejoran.")}</p>
           </header>
-          <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} statsRaceId={statsRace?.id ?? null} level={level} gear={gearAt ? { stats: gearAt.summary.stats, ratings: gearAt.ratings, effects: gearAt.effects, weapons: gearAt.summary.weapons, equipped: gearAt.equipped } : null} />
+          <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} statsRaceId={statsRace?.id ?? null} level={level} gear={gearAt ? { stats: gearAt.summary.stats, ratings: gearAt.ratings, effects: gearAt.effects, weapons: gearAt.summary.weapons, equipped: gearAt.equipped } : null} active={active} />
         </section>
       </div>
       <StepNav view="summary" onGo={onGo} />

@@ -496,6 +496,69 @@ p.gear-warn {
   gap: 2px;
   font-size: 0.85em;
 }
+.avatar-custom {
+  display: grid;
+  gap: 6px;
+}
+.avatar-tabs {
+  display: flex;
+  gap: 4px;
+}
+.avatar-tabs button {
+  flex: 1;
+  min-height: 32px;
+  padding: 2px 8px;
+  font-size: 0.85em;
+}
+.avatar-tabs button.on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.avatar-options-list {
+  display: grid;
+  gap: 8px;
+}
+.avatar-opt {
+  display: grid;
+  gap: 3px;
+  font-size: 0.85em;
+}
+.avatar-opt-name {
+  color: var(--muted);
+}
+.stepper {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 32px;
+  gap: 4px;
+}
+.stepper button {
+  min-height: 32px;
+  padding: 0;
+}
+.stepper select {
+  min-width: 0;
+  min-height: 32px;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.swatch {
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  cursor: pointer;
+}
+.swatch.on {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
 .avatar-options-bar {
   display: flex;
   gap: 6px;

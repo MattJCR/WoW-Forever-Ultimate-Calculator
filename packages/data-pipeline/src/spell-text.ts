@@ -149,6 +149,12 @@ function tokenValue(t: SpellTables, ctx: RenderContext, spellRef: number | null,
       const amp = Number(t.effect(spellId, idx - 1)?.EffectChainAmplitude);
       return Number.isFinite(amp) && amp > 0 ? { num: amp, text: formatNumber(amp) } : null;
     }
+    case "e":
+    case "E": {
+      // $eN = EffectAmplitude del efecto N (Escudo de mana «Drena $e p. de mana por dano amortiguado» = 2, como la referencia)
+      const amp = Number(t.effect(spellId, idx - 1)?.EffectAmplitude);
+      return Number.isFinite(amp) && amp > 0 ? { num: amp, text: formatNumber(amp) } : null;
+    }
     case "b":
     case "B": {
       // $bN = puntos extra por cada recurso (punto de combo) del efecto N: Eviscerar «${$m1+(3*$b1*$<mult>)}»

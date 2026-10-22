@@ -493,6 +493,85 @@
       }
     },
     {
+      "name": "Captar no-muertes",
+      "iconFileDataId": 135974,
+      "ranks": [
+        {
+          "rank": 1,
+          "spellId": 5502,
+          "level": 1,
+          "learnedByTalent": false,
+          "maxLevel": null,
+          "costType": null,
+          "cost": null,
+          "costPctOfBase": null,
+          "castMs": 0,
+          "channeled": false,
+          "durationMs": null,
+          "cooldownMs": null,
+          "rangeYd": null,
+          "schoolMask": 2,
+          "classMask": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "effects": [
+            {
+              "index": 0,
+              "effect": 6,
+              "aura": 44,
+              "kind": "other",
+              "base": 0,
+              "perLevel": 0,
+              "variance": 0,
+              "coefficient": null,
+              "periodMs": null,
+              "miscValue": 6,
+              "viaSpellId": null,
+              "levels": null,
+              "levelPoly": null,
+              "classMask": null,
+              "durationMs": null
+            },
+            {
+              "index": 1,
+              "effect": 167,
+              "aura": 0,
+              "kind": "other",
+              "base": 0,
+              "perLevel": 0,
+              "variance": 0,
+              "coefficient": null,
+              "periodMs": null,
+              "miscValue": null,
+              "viaSpellId": null,
+              "levels": null,
+              "levelPoly": null,
+              "classMask": null,
+              "durationMs": null
+            }
+          ],
+          "radiusYd": null,
+          "charges": [],
+          "procs": [],
+          "description": "Muestra la ubicación de los no-muertos cercanos en el minimapa hasta que se anula. Solo se puede activar 1 forma de rastreo cada vez.",
+          "textOrigin": "client",
+          "acquireMethod": 2,
+          "descriptionComplete": true,
+          "descriptionTemplate": "Muestra la ubicación de los no-muertos cercanos en el minimapa hasta que se anula. Solo se puede activar 1 forma de rastreo cada vez.",
+          "equipped": [],
+          "weaponHand": "main"
+        }
+      ],
+      "talentsForever": {
+        "status": "listed",
+        "listedRanks": 1,
+        "note": null
+      }
+    },
+    {
       "name": "Cólera vengativa",
       "iconFileDataId": 135875,
       "ranks": [

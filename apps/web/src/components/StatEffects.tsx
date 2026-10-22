@@ -1,4 +1,4 @@
-import { collectStatEffects, STAT_CATEGORIES, type Build, type EquippedState, type GearEffectSource, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
+import { activatableTalents, collectStatEffects, STAT_CATEGORIES, type Build, type EquippedState, type GearEffectSource, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
 import type { Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
 import { useMemo } from "react";
@@ -31,10 +31,12 @@ export interface EffectsInput {
   gearEffects?: GearEffectSource[];
   /** Lo que lleva el personaje (para los talentos que exigen un arma o un escudo); null = sin equipo elegido. */
   equipped?: EquippedState;
+  /** Talentos de habilidad activa que se dan por activos (nodeId). */
+  active?: ReadonlySet<number> | null;
 }
 
 /** Efectos sumados de talentos, Legacy y raza (carga las habilidades y reglas de la clase); `fx` es null mientras carga. */
-export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race, gearEffects, equipped }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
+export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race, gearEffects, equipped, active }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
   const entry = manifest.abilities.find((a) => a.classId === cls.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.resolve(null)));
   const abilities = state.status === "ready" ? state.value : null;
@@ -44,7 +46,7 @@ export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild,
   const ruleEntry = manifest.rules.find((a) => a.classId === cls.data.classId);
   const rulesState = useAsync(ruleEntry?.file ?? "none", () => (ruleEntry ? getJson(ruleEntry.file, (v) => TalentRulesSchema.parse(v)) : Promise.resolve(null)));
   const rules = rulesState.status === "ready" ? rulesState.value : null;
-  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped]);
+  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped, active }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped, active]);
   return { fx, loading: state.status === "loading" || rulesState.status === "loading" };
 }
 
@@ -153,5 +155,41 @@ export function ConditionalEffects({ fx, open = false }: { fx: StatEffects; open
         ))}
       </ul>
     </details>
+  );
+}
+
+/**
+ * Habilidades activas de tus talentos cuyo efecto son modificadores de hechizos (Poder Arcano: +30 % de daño y de coste; Presencia mental;
+ * Sangre fría…). Marcarlas hace que el resumen y las habilidades se calculen «con ella activa»; solo vale mientras dura en el juego.
+ */
+export function ActiveStates({ cls, classBuild, active, onChange }: { cls: ClassIndex; classBuild: Build; active: ReadonlySet<number>; onChange: (next: Set<number>) => void }) {
+  const options = useMemo(() => activatableTalents(cls, classBuild), [cls, classBuild]);
+  if (options.length === 0) return null;
+  const toggle = (nodeId: number, on: boolean) => {
+    const next = new Set(active);
+    if (on) next.add(nodeId);
+    else next.delete(nodeId);
+    onChange(next);
+  };
+  return (
+    <section className="card active-states" aria-label={tr("Habilidades activas")}>
+      <header>
+        <h3>{tr("Habilidades activas")}</h3>
+        <p className="muted small">{tr("Márcalas para calcular con ellas activas. Solo valen mientras duran en el juego (los de «tu próximo hechizo» cuentan para una sola tirada).")}</p>
+      </header>
+      <ul>
+        {options.map((o) => (
+          <li key={o.nodeId}>
+            <label>
+              <input type="checkbox" checked={active.has(o.nodeId)} onChange={(e) => toggle(o.nodeId, e.target.checked)} />
+              <span>
+                <b>{nm(o.name)}</b> {o.maxRank > 1 && <span className="rank-chip">{o.rank}/{o.maxRank}</span>}
+                <span className="muted small active-text">{trn(o.text)}</span>
+              </span>
+            </label>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

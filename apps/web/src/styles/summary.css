@@ -92,6 +92,39 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 0 1px var(--gold);
 }
 
+.active-states {
+  margin-bottom: 24px;
+  padding: 20px 24px;
+}
+.active-states h3 {
+  margin: 0 0 2px;
+  font-size: 20px;
+}
+.active-states header p {
+  margin: 0 0 8px;
+}
+.active-states ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.active-states label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 32px;
+  cursor: pointer;
+}
+.active-states label input {
+  margin-top: 4px;
+}
+.active-states .active-text {
+  display: block;
+  margin-top: 2px;
+}
 .summary-cols {
   display: flex;
   flex-wrap: wrap;

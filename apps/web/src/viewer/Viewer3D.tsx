@@ -102,7 +102,7 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
 
   return (
     <div ref={holder} className={className} style={{ position: "relative", width: "100%", height: "100%", minHeight: 320 }}>
-      <canvas ref={canvas} style={{ width: "100%", height: "100%", display: "block", touchAction: "none" }} />
+      <canvas ref={canvas} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", touchAction: "none" }} />
       {loading && !error && <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", opacity: 0.7 }}>Cargando…</div>}
       {error && <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", color: "#e88" }}>{error}</div>}
     </div>

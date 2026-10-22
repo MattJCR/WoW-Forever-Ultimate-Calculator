@@ -298,7 +298,11 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
   if (emptySets > 0) warnings.push(`${emptySets} conjuntos sin bonos en ItemSetSpell`);
   const strangers = sets.filter((s) => s.itemIds.some((id) => !knownIds.has(id))).length;
   if (strangers > 0) warnings.push(`${strangers} conjuntos citan piezas que no son armas ni armadura equipables (se conservan los ids)`);
-  return { schemaVersion: 1, build, provenance: "client-db2", items, unavailable, sets, suffixSets: [], warnings };
+  const limitCategories: Items["limitCategories"] = raw
+    .table("ItemLimitCategory")
+    .map((r) => ({ id: int(r.ID), name: r.Name_lang ?? "", quantity: int(r.Quantity), equippedOnly: (int(r.Flags) & 1) !== 0 }))
+    .sort((a, b) => a.id - b.id);
+  return { schemaVersion: 1, build, provenance: "client-db2", items, unavailable, sets, suffixSets: [], limitCategories, warnings };
 }
 
 const round2 = (v: number): number => Math.round(v * 100) / 100;

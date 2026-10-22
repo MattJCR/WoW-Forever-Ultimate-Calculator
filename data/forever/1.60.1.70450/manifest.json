@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-22T05:41:22.117Z",
+  "generatedAt": "2026-10-22T11:22:38.560Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -228,9 +228,9 @@
     {
       "classId": 2,
       "file": "abilities/paladin.json",
-      "sha256": "240fa37817841d9bd6aa4a0060f2fe3a20dfbcc3033e71e121f33e8309252610",
-      "abilityCount": 65,
-      "rankCount": 183
+      "sha256": "71166197e2bb34c09b3db6ebdf41473f3b1466e5cbf8dbb568199deb8abb023d",
+      "abilityCount": 66,
+      "rankCount": 184
     },
     {
       "classId": 3,
@@ -263,7 +263,7 @@
     {
       "classId": 8,
       "file": "abilities/mage.json",
-      "sha256": "92ed8266c9b58b1ca2f23829c9c5fd101a613c6554690fbec0791f424e368f04",
+      "sha256": "da2d50efcfeb93ff68ae7977078b384e5e0c29699d3d05fd73db3e7143fab0e5",
       "abilityCount": 72,
       "rankCount": 220
     },
@@ -302,7 +302,7 @@
   },
   "items": {
     "file": "items.json",
-    "sha256": "9ea7c6fca66f69ea9f5c1ce8f61e2fd5792991122d65bd6af77d26c04695ab16",
+    "sha256": "185ad4ba9fc0e64e7144dc4afae9f6e6dd820f312fb5f35785f35b3f73b66b9a",
     "itemCount": 12515,
     "unavailableCount": 6380
   },
@@ -323,12 +323,12 @@
   },
   "icons": {
     "file": "icons.json",
-    "count": 1771,
-    "sha256": "41117adfee19d698ff15de35b5fb11b479d484fb7a0a0dd9a575f3bf3de5b956"
+    "count": 1772,
+    "sha256": "0a88dad94ebf4b04996bf8f172cbffc53c7317b8e0fd4824841f859860409be2"
   },
   "english": {
     "file": "i18n/en.json",
-    "sha256": "f52fadbad11296b538b67d1fc1e6755a98c788d86d94f6dcb40dbe826060fe3f"
+    "sha256": "9d9a98a20cb62ba73c958e15eff86b5cef78f2569123bac634b003d5dac945fe"
   },
   "unassigned": {
     "file": "unassigned.json",
@@ -412,6 +412,10 @@
     {
       "table": "ItemEffect",
       "sha256": "604d3bc7e63c2a5cb6976b13483033cbaad2d28fc7889765bca7239aa39e4511"
+    },
+    {
+      "table": "ItemLimitCategory",
+      "sha256": "a5cd2cc2f7586456d4751a0ca265eb2cce9582aa50fa2a04fc11feddc8bc8e06"
     },
     {
       "table": "ItemSet",

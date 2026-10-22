@@ -133,8 +133,8 @@ export const UI: Record<string, string> = {
   "Ninguna habilidad está afectada por tus talentos todavía. Elige talentos en el paso anterior o desmarca «Solo las afectadas por mis talentos» para ver todas.":
     "No ability is affected by your talents yet. Pick talents in the previous step or untick “Only those affected by my talents” to see them all.",
   "Cliente": "Client",
-  "Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever":
-    "Spell figures from the beta at the chosen level's rank. In blue, what your talents change; “Improved by” names the talents, Legacy Points and gear pieces that affect it (race effects apply to all abilities and are not listed). Talents that grant an active ability (Arcane Power, Mind Presence…) are not counted because they only apply while active. Damage done by school from talents, race and gear already multiplies the damage; those that depend on a weapon or a state (wands, one- or two-handed weapons, shield) stay as text. Spell power and attack power are estimated separately (“With your power”: Classic rules, not confirmed in Forever",
+  "Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa, salvo que los marques en «Habilidades activas». El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever":
+    "Spell figures from the beta at the chosen level's rank. In blue, what your talents change; “Improved by” names the talents, Legacy Points and gear pieces that affect it (race effects apply to all abilities and are not listed). Talents that grant an active ability (Arcane Power, Mind Presence…) are not counted because they only apply while active, unless you tick them under “Active abilities”. Damage done by school from talents, race and gear already multiplies the damage; those that depend on a weapon or a state (wands, one- or two-handed weapons, shield) stay as text. Spell power and attack power are estimated separately (“With your power”: Classic rules, not confirmed in Forever",
 
   // ---- Pasos del personaje
   "Raza": "Race",
@@ -145,6 +145,12 @@ export const UI: Record<string, string> = {
   "Pasos del personaje": "Character steps",
   "Anterior": "Previous",
   "Siguiente": "Next",
+  "Tipo": "Type",
+  "todos": "all",
+  "Zona del personaje": "Character area",
+  "Cuerpo": "Body",
+  "Cara": "Face",
+  "Pelo": "Hair",
   "Tu personaje": "Your character",
   "Cambiar de raza": "Change race",
   "Sin raza": "No race",

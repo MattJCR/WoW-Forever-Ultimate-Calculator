@@ -350,6 +350,11 @@ function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descrip
           m.category = "Otros modificadores";
         }
       }
+      // Lo mismo en porcentaje (Sanguinario mejorado: +50 % de la ira que genera Sanguinario; el % no se divide)
+      if (m && info.aura === AURA_ADD_PCT_MODIFIER && info.miscValue === 8 && abilities && scope && scope.length > 0 && generatesRage(scope, abilities)) {
+        m.label = "ira generada";
+        m.category = "Otros modificadores";
+      }
       if (m) lines.push({ ...m, scope, source });
       continue;
     }
@@ -399,6 +404,8 @@ export function collectStatEffects(input: {
   gearEffects?: GearEffectSource[];
   /** Lo que lleva el personaje (`equippedStateOf`): con él, los talentos que exigen un objeto (arma a dos manos, varita, escudo...) solo suman si lo lleva. null = sin equipo elegido. */
   equipped?: EquippedState;
+  /** Talentos de habilidad activa que el usuario da por activos (`activatableTalents`): suman sus modificadores como si fueran pasivos. */
+  active?: ReadonlySet<number> | null;
 }): StatEffects {
   const lines: StatLine[] = [];
   const conditional: ConditionalEffect[] = [];
@@ -415,7 +422,8 @@ export function collectStatEffects(input: {
       if (rank === 0) continue;
       const source: StatSource = { from, name: talent.name ?? `Hechizo ${talent.spellId}`, rank, maxRank: talent.maxRank };
       const text = talent.descriptions[rank - 1] ?? "";
-      if (!talent.passive) {
+      const switchedOn = !talent.passive && from === "class" && (input.active?.has(talent.nodeId) ?? false);
+      if (!talent.passive && !switchedOn) {
         conditional.push({ source, text, active: true });
         conditionalOnly++;
         continue;
@@ -425,7 +433,9 @@ export function collectStatEffects(input: {
         conditional.push({ source, text, active: false, blocked: `Necesitas llevar ${describeEquipped(talent.equipped)}` });
         continue;
       }
-      const { lines: found, unclassified } = talentLines(talent, rank, source, from === "class" ? input.abilities : null, equipped !== null);
+      // Una habilidad activa dada por activa solo suma sus modificadores de hechizos (107 / 108); el resto de sus auras (mascota, formas, inmunidades) sigue como texto
+      const asTalent = switchedOn ? { ...talent, effectInfo: talent.effectInfo.filter((i) => i.aura === AURA_ADD_FLAT_MODIFIER || i.aura === AURA_ADD_PCT_MODIFIER) } : talent;
+      const { lines: found, unclassified } = talentLines(asTalent, rank, source, from === "class" ? input.abilities : null, equipped !== null);
       lines.push(...found);
       if (found.length > 0) quantified++;
       if ((unclassified || found.length === 0) && !(from === "class" && ruledSpells.has(talent.spellId))) {

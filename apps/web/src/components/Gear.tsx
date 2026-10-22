@@ -4,6 +4,7 @@ import {
   canEquip,
   compareGear,
   enchantFits,
+  itemTypeName,
   equipItem,
   ratingPercents,
   slotsForItem,
@@ -280,8 +281,11 @@ function SlotPanel({
   const [query, setQuery] = useState("");
   const [minQuality, setMinQuality] = useState(0);
   const [onlyWearable, setOnlyWearable] = useState(true);
+  // Tipo de objeto (tela, cuero, malla, placas, tipo de arma…); vacío = todos
+  const [itemType, setItemType] = useState("");
   const [limit, setLimit] = useState(60);
-  useEffect(() => setLimit(60), [slot, query, minQuality, onlyWearable]);
+  useEffect(() => setLimit(60), [slot, query, minQuality, onlyWearable, itemType]);
+  useEffect(() => setItemType(""), [slot]);
   const [gallery, setGallery] = useState(() => { try { return window.localStorage.getItem("wfuc.gallery") === "1"; } catch { return false; } });
   const appearance = useAppearance(gallery);
   const setView = (g: boolean) => { setGallery(g); try { window.localStorage.setItem("wfuc.gallery", g ? "1" : "0"); } catch { /* solo se pierde la comodidad */ } };
@@ -295,10 +299,11 @@ function SlotPanel({
     [data, slot],
   );
   const unavailable = useMemo(() => data.unavailable.filter((u) => slotsForItem(u).includes(slot)).length, [data, slot]);
+  const types = useMemo(() => [...new Set(candidates.map((i) => itemTypeName(i)).filter((t): t is string => t !== null))].sort((a, b) => a.localeCompare(b, "es")), [candidates]);
   const filtered = useMemo(() => {
     const q = norm(query.trim());
-    return candidates.filter((i) => i.quality >= minQuality && (q === "" || norm(i.name).includes(q) || norm(iName(i)).includes(q)) && (!onlyWearable || canEquip(i, slot, ctx, data).ok));
-  }, [candidates, query, minQuality, onlyWearable, ctx, data, slot]);
+    return candidates.filter((i) => i.quality >= minQuality && (itemType === "" || itemTypeName(i) === itemType) && (q === "" || norm(i.name).includes(q) || norm(iName(i)).includes(q)) && (!onlyWearable || canEquip(i, slot, ctx, data).ok));
+  }, [candidates, query, minQuality, itemType, onlyWearable, ctx, data, slot]);
 
   const enchants = useMemo(() => (wornItem ? [...data.enchants.values()].filter((e) => enchantFits(e, slot, wornItem)).sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es")) : []), [data, slot, wornItem]);
   const suffixes = wornItem ? suffixOptions(wornItem, data) : [];
@@ -371,6 +376,15 @@ function SlotPanel({
             ))}
           </select>
         </label>
+        {types.length > 1 && (
+          <label>
+            {tr("Tipo")}
+            <select value={itemType} onChange={(e) => setItemType(e.target.value)}>
+              <option value="">{tr("todos")}</option>
+              {types.map((t) => <option key={t} value={t}>{trn(t)}</option>)}
+            </select>
+          </label>
+        )}
         <label className="check">
           <input type="checkbox" checked={onlyWearable} onChange={(e) => setOnlyWearable(e.target.checked)} /> {tr("Solo los que puede llevar mi personaje")}
         </label>

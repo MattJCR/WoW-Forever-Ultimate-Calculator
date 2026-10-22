@@ -878,8 +878,8 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
 
   it("cumple el esquema y trae las lineas de Sagrado, Proteccion y Reprension", () => {
     expect(() => Abilities.parse(data)).not.toThrow();
-    expect(data.abilities).toHaveLength(65);
-    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(183);
+    expect(data.abilities).toHaveLength(66);
+    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(184);
   });
 
   it("los hechizos auxiliares (1 punto de Luz Sagrada, mitades de Choque Sagrado, debilitamientos de las Sentencias) no son rangos: los rangos por nombre cuadran con la referencia", () => {
@@ -912,7 +912,7 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
       const lv = /Learned at level (\d+)/.exec(v.lv ?? "");
       if (lv && r.level !== Number(lv[1])) bad.push(`${key} nivel`);
     }
-    expect(compared).toBe(166);
+    expect(compared).toBe(167);
     expect(bad).toEqual([]);
   });
 });

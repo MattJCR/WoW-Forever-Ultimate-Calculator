@@ -169,6 +169,13 @@ const NAME_ALIASES: Record<string, string> = {
 };
 
 /**
+ * Habilidades que el cliente da a la clase sin ningun nivel (SpellLevels sin fila): se ofrecen desde el nivel 1.
+ * Captar no-muertos (Paladin): en Classic la ensenaba el instructor a nivel 20; en Forever no tiene nivel (un humano o enano la entrena
+ * a cualquier nivel y un no-muerto la conoce desde el principio), asi que el nivel 1 es la lectura fiel (`assumption` solo en el nivel).
+ */
+const LEARNED_WITHOUT_LEVEL = new Set([5502]);
+
+/**
  * Habilidades de una clase tal como las da el cliente: los hechizos de su familia (SpellClassOptions), de sus SkillLines,
  * no pasivos y que se aprenden a un nivel (SpellLevels.BaseLevel > 0). Cada rango trae coste, tiempo de lanzamiento,
  * enfriamiento, alcance y sus efectos con base, variacion, puntos por nivel y coeficiente de poder con hechizos.
@@ -223,7 +230,7 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
     const lv = levels.get(String(spellId));
     // Nivel de aprendizaje: BaseLevel; los venenos del Picaro lo traen en SpellLevel; las de talento, el de su fila
     const fromTalent = talentLevel.get(spellId);
-    const baseLevel = fromTalent ?? (int(lv?.BaseLevel) || (classMarked.has(spellId) ? int(lv?.SpellLevel) : 0));
+    const baseLevel = fromTalent ?? (int(lv?.BaseLevel) || (classMarked.has(spellId) ? int(lv?.SpellLevel) : 0) || (LEARNED_WITHOUT_LEVEL.has(spellId) && classMarked.has(spellId) ? 1 : 0));
     const m = misc.get(String(spellId));
     if (baseLevel <= 0 || !m) continue;
     if (int(m["Attributes[0]"]) & SPELL_ATTR0_PASSIVE) continue;

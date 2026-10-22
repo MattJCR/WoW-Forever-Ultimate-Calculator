@@ -7,6 +7,7 @@ import { DEFAULT_AVATAR, webglAvailable, type Avatar, type ModelIndexEntry } fro
 import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
+import { AvatarOptions } from "./AvatarOptions";
 import { iName, qualityColor } from "./gear-format";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
@@ -232,18 +233,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
           <label className="check">
             <input type="checkbox" checked={npc} onChange={(e) => setNpc(e.target.checked)} /> {tr("Opciones de PNJ")}
           </label>
-          {recipe.options.map((o) => {
-            const shown = o.choices.map((c, i) => ({ c, n: i + 1 })).filter(({ c }) => npc || !c.npc || c.id === selection?.[o.id]);
-            if (shown.length < 2) return null;
-            return (
-              <label key={o.id}>
-                <span>{o.name}</span>
-                <select value={selection?.[o.id] ?? 0} onChange={(e) => setAvatar({ ...avatar, choices: { ...avatar.choices, [o.id]: Number(e.target.value) } })}>
-                  {shown.map(({ c, n }) => <option key={c.id} value={c.id}>{c.name || `#${n}`}</option>)}
-                </select>
-              </label>
-            );
-          })}
+          <AvatarOptions recipe={recipe} selection={selection} npc={npc} onPick={(optionId, choiceId) => setAvatar({ ...avatar, choices: { ...avatar.choices, [optionId]: choiceId } })} />
         </div>
       )}
       {sets && <SetsDialog data={data} onPick={(ids) => setGear((g) => equipSet(g, ids, data.items))} onClose={() => setSets(false)} />}

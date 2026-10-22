@@ -269,6 +269,18 @@ export const ENGINE: Record<string, string> = {
 
   // Equipo: comprobaciones
   "hachas de una mano": "one-handed axes",
+  "tela": "cloth",
+  "cuero": "leather",
+  "malla": "mail",
+  "placas": "plate",
+  "escudos": "shields",
+  "arcos": "bows",
+  "bastones": "staves",
+  "dagas": "daggers",
+  "varitas": "wands",
+  "ballestas": "crossbows",
+  "armas arrojadizas": "thrown weapons",
+  "libros": "librams",
   "hachas de dos manos": "two-handed axes",
   "armas de fuego": "guns",
   "mazas de una mano": "one-handed maces",
@@ -333,6 +345,8 @@ export const ENGINE: Record<string, string> = {
   "Tu clase solo puede usar {*} desde el nivel {#}": "Your class can only use {*} from level {#}",
   "Objeto único: ya lo llevas en «{#}»": "Unique item: you already wear it in “{#}”",
   "Objeto único-equipado: ya lo llevas en «{#}»": "Unique-equipped item: you already wear it in “{#}”",
+  "Límite de la categoría {*}: solo puedes llevar uno (ya llevas «{*}»)": "Category limit {*}: you can only wear one (you already wear “{*}”)",
+  "Límite de la categoría {*}: como mucho {#} equipados": "Category limit {*}: at most {#} equipped",
   "Solo la clase de {*} puede usarla": "Only the {*} class can use it",
   "No se lleva en la ranura «{#}»": "It cannot be worn in the “{#}” slot",
 };

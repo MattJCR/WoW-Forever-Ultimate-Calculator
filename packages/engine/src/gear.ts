@@ -1,5 +1,5 @@
 import { activeGearEffects, classifyGearAuras } from "./gear-effects.js";
-import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
+import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
 
 /**
  * Equipo: ranuras, reglas para equipar y suma de estadisticas. TS puro, sin UI.
@@ -60,6 +60,8 @@ export interface GearData {
   enchants: Map<number, Enchant>;
   suffixes: Map<number, RandomSuffix>;
   suffixSets: number[][];
+  /** Categorias de limite por id (`Item.limitCategory`). */
+  limitCategories: Map<number, ItemLimitCategoryDef>;
   sets: Items["sets"];
   /** Equipables que el cliente no trae con datos (llegan por hotfix al verlos en el juego): no se pueden ofrecer. */
   unavailable: Items["unavailable"];
@@ -72,6 +74,7 @@ export function indexGearData(input: { items: Items; rules: EquipRules; enchants
     enchants: new Map((input.enchants?.enchants ?? []).map((e) => [e.effectId, e])),
     suffixes: new Map((input.suffixes?.suffixes ?? []).map((s) => [s.id, s])),
     suffixSets: input.items.suffixSets,
+    limitCategories: new Map(input.items.limitCategories.map((c) => [c.id, c])),
     sets: input.items.sets,
     unavailable: input.items.unavailable,
     rules: input.rules,
@@ -87,6 +90,13 @@ const WEAPON_NAME: Record<number, string> = {
   16: "armas arrojadizas", 18: "ballestas", 19: "varitas",
 };
 const RELIC_NAME: Record<number, string> = { 7: "libros", 8: "ídolos", 9: "tótems" };
+
+/** Tipo de objeto en plural y en español («tela», «espadas de una mano»…) para filtrar la lista; null si no es armadura ni arma con tipo. */
+export function itemTypeName(item: Pick<Item, "classId" | "subclassId">): string | null {
+  if (item.classId === CLASS_ARMOR) return ARMOR_NAME[item.subclassId] ?? null;
+  if (item.classId === CLASS_WEAPON) return WEAPON_NAME[item.subclassId] ?? null;
+  return null;
+}
 
 /** Competencia: ok si alguna fila incluye la clase y el nivel alcanza; `minLevel` = el menor nivel al que la clase la tiene (null = nunca). */
 export function proficiency(list: Proficiency[] | undefined, classId: number, level: number): { ok: boolean; minLevel: number | null } {
@@ -107,9 +117,9 @@ export interface EquipCheck {
 /**
  * ¿Puede este personaje llevar el objeto en esa ranura? Comprueba, en este orden: objeto de prueba, ranura, clase, raza, nivel,
  * competencia de armadura / arma / doble empuñadura / reliquia, y con `equipped` los choques con lo ya puesto (arma a dos manos
- * frente a mano izquierda, objeto unico). No comprueba `limitCategory` (el cliente exportado no trae `ItemLimitCategory`).
+ * frente a mano izquierda, objeto unico, categoria de limite: p. ej. un solo sello de batalla).
  */
-export function canEquip(item: Item, slot: GearSlot, ctx: GearContext, data: Pick<GearData, "rules" | "items">, equipped: GearSelection = {}): EquipCheck {
+export function canEquip(item: Item, slot: GearSlot, ctx: GearContext, data: Pick<GearData, "rules" | "items"> & Partial<Pick<GearData, "limitCategories">>, equipped: GearSelection = {}): EquipCheck {
   const reasons: string[] = [];
   const { rules } = data;
   if (item.placeholder) reasons.push("Objeto de prueba o retirado");
@@ -144,6 +154,14 @@ export function canEquip(item: Item, slot: GearSlot, ctx: GearContext, data: Pic
   if (item.maxCount === 1 || item.uniqueEquipped) {
     const other = (Object.keys(equipped) as GearSlot[]).find((s) => s !== slot && equipped[s]?.itemId === item.id);
     if (other) reasons.push(`Objeto único${item.maxCount === 1 ? "" : "-equipado"}: ya lo llevas en «${SLOT_LABEL[other]}»`);
+  }
+  const category = item.limitCategory === null ? undefined : data.limitCategories?.get(item.limitCategory);
+  if (category && category.quantity > 0) {
+    const others = (Object.keys(equipped) as GearSlot[]).filter((s) => s !== slot && data.items.get(equipped[s]!.itemId)?.limitCategory === item.limitCategory);
+    if (others.length >= category.quantity) {
+      const label = category.name ? `«${category.name}»` : `n.º ${category.id}`;
+      reasons.push(category.quantity === 1 ? `Límite de la categoría ${label}: solo puedes llevar uno (ya llevas «${SLOT_LABEL[others[0]!]}»)` : `Límite de la categoría ${label}: como mucho ${category.quantity} equipados`);
+    }
   }
   return { ok: reasons.length === 0, reasons };
 }

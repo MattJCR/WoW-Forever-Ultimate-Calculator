@@ -66,11 +66,12 @@ const matches = (mask: number[], rank: AbilityRank): boolean => masksIntersect(m
  * los de habilidad activa (Poder Arcano...) solo valen mientras esa habilidad esta activa, no son permanentes. Con `equipped` (lo que lleva
  * el personaje), los talentos que exigen un objeto equipado solo cuentan si lo lleva.
  */
-export function spellModifiersOf(idx: ClassIndex, build: Build, equipped: EquippedState = null): SpellModifier[] {
+export function spellModifiersOf(idx: ClassIndex, build: Build, equipped: EquippedState = null, active: ReadonlySet<number> | null = null): SpellModifier[] {
   const out: SpellModifier[] = [];
   for (const { talent } of idx.ordered) {
     const rank = rankOf(build, talent.nodeId);
-    if (rank === 0 || !talent.passive) continue;
+    // Los de habilidad activa solo cuentan si el usuario los marca como activos (`activatableTalents`)
+    if (rank === 0 || !(talent.passive || active?.has(talent.nodeId))) continue;
     // Los que exigen un objeto equipado (arma cuerpo a cuerpo, daga...) solo valen si se lleva (con equipo elegido)
     if (!meetsEquipped(talent.equipped, equipped)) continue;
     for (const info of talent.effectInfo) {
@@ -85,6 +86,22 @@ export function spellModifiersOf(idx: ClassIndex, build: Build, equipped: Equipp
         mask: info.classMask,
       });
     }
+  }
+  return out;
+}
+
+/**
+ * Talentos de habilidad activa (Poder Arcano, Presencia mental, Sangre fria...) escogidos cuyo hechizo trae modificadores de hechizos
+ * (aura 107 / 108 con mascara): se pueden dar por activos y entonces cuentan como un talento pasivo. Los de otras auras (mascota,
+ * inmunidades, formas) siguen como texto.
+ */
+export function activatableTalents(idx: ClassIndex, build: Build): { nodeId: number; name: string; rank: number; maxRank: number; text: string }[] {
+  const out: { nodeId: number; name: string; rank: number; maxRank: number; text: string }[] = [];
+  for (const { talent } of idx.ordered) {
+    const rank = rankOf(build, talent.nodeId);
+    if (rank === 0 || talent.passive) continue;
+    if (!talent.effectInfo.some((i) => (i.aura === AURA_ADD_FLAT_MODIFIER || i.aura === AURA_ADD_PCT_MODIFIER) && i.classMask.some((m) => m !== 0))) continue;
+    out.push({ nodeId: talent.nodeId, name: talent.name ?? `Hechizo ${talent.spellId}`, rank, maxRank: talent.maxRank, text: talent.descriptions[rank - 1] ?? "" });
   }
   return out;
 }

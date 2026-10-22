@@ -74,8 +74,16 @@ export function defaultChoice(o: RecipeOption): RecipeChoice | undefined {
   const withHair = o.choices.filter((c) => !c.npc && !bald(c));
   const players = o.choices.some((c) => c.elements.some((e) => e.hair)) && withHair.length ? withHair : o.choices.filter((c) => !c.npc);
   const colored = players.filter((c) => c.swatch !== 0);
+  // La primera muestra de piel del Tauren es casi negra (azul-negro bajo la luz del visor): si la primera es muy oscura se parte de un marrón medio
+  const first = colored[0];
+  if (first && /piel/i.test(o.name) && luminance(first.swatch) < DARK_SKIN) return colored.reduce((best, c) => (Math.abs(luminance(c.swatch) - MID_SKIN) < Math.abs(luminance(best.swatch) - MID_SKIN) ? c : best), first);
   return (colored.length ? colored : players.length ? players : o.choices)[0];
 }
+
+const DARK_SKIN = 80;
+const MID_SKIN = 105;
+/** Luminosidad (0-255) de una muestra ARGB del cliente. */
+export const luminance = (argb: number): number => 0.2126 * ((argb >>> 16) & 0xff) + 0.7152 * ((argb >>> 8) & 0xff) + 0.0722 * (argb & 0xff);
 
 export function defaultSelection(recipe: Recipe): Selection {
   const sel: Selection = {};
@@ -105,4 +113,37 @@ export function resolveSelection(recipe: Recipe, sel: Selection): Resolved {
     }
   }
   return { geosets, targets };
+}
+
+/** Zona de personalización en la que se agrupa una opción (pestañas del probador). */
+export type OptionGroup = "body" | "face" | "hair";
+export const OPTION_GROUPS: OptionGroup[] = ["body", "face", "hair"];
+
+const norm = (s: string): string => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+/** El cliente solo da el nombre de la opción (en español): se reparte por palabras clave; lo que no encaja va a «Cara». */
+export function groupOfOption(o: Pick<RecipeOption, "name">): OptionGroup {
+  const n = norm(o.name);
+  if (/barba|bigote|vello|peinado|crin|(^| )pelo/.test(n)) return "hair";
+  if (/facial|cara|rostro|ojo|ceja|orej|cuerno|nariz|colmillo|pendiente|joya|maquillaje|mandibula|rasgos|piercing/.test(n)) return "face";
+  if (/piel|tatuaje|marcas|pluma|venda|rona/.test(n)) return "body";
+  return "face";
+}
+
+/** Color (ARGB del cliente) como CSS; null si la elección no trae muestra. */
+export function swatchCss(argb: number): string | null {
+  if (!argb) return null;
+  const a = (argb >>> 24) & 0xff, r = (argb >>> 16) & 0xff, g = (argb >>> 8) & 0xff, b = argb & 0xff;
+  return `rgba(${r}, ${g}, ${b}, ${a === 0 ? 1 : +(a / 255).toFixed(3)})`;
+}
+
+/** Una opción es «de color» si casi todas sus elecciones traen muestra de color. */
+export const isColorOption = (choices: Pick<RecipeChoice, "swatch">[]): boolean => choices.length > 1 && choices.filter((c) => c.swatch !== 0).length >= Math.ceil(choices.length * 0.8);
+
+/** Elección anterior (dir -1) o siguiente (dir +1) dentro de la lista mostrada, dando la vuelta. */
+export function stepChoice(shown: Pick<RecipeChoice, "id">[], currentId: number, dir: 1 | -1): number {
+  if (shown.length === 0) return currentId;
+  const i = shown.findIndex((c) => c.id === currentId);
+  const next = i < 0 ? 0 : (i + dir + shown.length) % shown.length;
+  return shown[next]!.id;
 }

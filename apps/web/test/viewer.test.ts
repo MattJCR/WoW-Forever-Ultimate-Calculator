@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { decodeAvatar, encodeAvatar } from "../src/viewer/avatar";
 import { resolveEquipment, type AppearanceData, type Equipped } from "../src/viewer/equipment";
-import { defaultChoice, defaultSelection, resolveSelection, type Recipe } from "../src/viewer/recipe";
+import { defaultChoice, defaultSelection, groupOfOption, isColorOption, resolveSelection, stepChoice, swatchCss, type Recipe } from "../src/viewer/recipe";
 
 describe("estado del avatar en el enlace", () => {
   it("lo de por defecto no viaja", () => {
@@ -183,5 +183,41 @@ describe("equipo → lo que se ve", () => {
     expect(resolveEquipment(hole, 1, 0, [eq(9, 3)], url).missing).toEqual([9]);
     expect(resolveEquipment(hole, 1, 0, [eq(999, 2), eq(998, 11), eq(997, 12)], url).missing).toEqual([]);
     expect(resolveEquipment(ap, 1, 0, [eq(6, 3)], url).missing).toEqual([]);
+  });
+});
+
+describe("opciones de personalización del probador", () => {
+  it("se reparten por zona según el nombre que da el cliente", () => {
+    expect(["Color de piel", "Rostro", "Peinado", "Color de pelo", "Forma de cara", "Cejas", "Color de ojos", "Estilo de ojos", "Orejas", "Vello facial"].map((name) => groupOfOption({ name }))).toEqual([
+      "body", "face", "hair", "hair", "face", "face", "face", "face", "face", "hair",
+    ]);
+    expect(["Tatuaje corporal", "Color del tatuaje", "Tatuaje facial", "Color del tatuaje facial", "Marcas", "Plumas", "Cuernos", "Crin frontal", "Pelo", "Roña"].map((name) => groupOfOption({ name }))).toEqual([
+      "body", "body", "face", "face", "body", "body", "face", "hair", "hair", "body",
+    ]);
+  });
+  it("las muestras de color salen del ARGB del cliente", () => {
+    expect(swatchCss(0)).toBeNull();
+    expect(swatchCss(0xff112233)).toBe("rgba(17, 34, 51, 1)");
+    expect(isColorOption([{ swatch: 1 }, { swatch: 2 }, { swatch: 3 }])).toBe(true);
+    expect(isColorOption([{ swatch: 0 }, { swatch: 0 }])).toBe(false);
+  });
+  it("◀ ▶ dan la vuelta a la lista", () => {
+    const shown = [{ id: 10 }, { id: 11 }, { id: 12 }];
+    expect(stepChoice(shown, 12, 1)).toBe(10);
+    expect(stepChoice(shown, 10, -1)).toBe(12);
+    expect(stepChoice(shown, 11, 1)).toBe(12);
+    expect(stepChoice([], 5, 1)).toBe(5);
+  });
+});
+
+describe("color de piel por defecto", () => {
+  const choice = (id: number, swatch: number) => ({ id, name: "", req: 0, swatch, elements: [] });
+  it("si la primera muestra es casi negra (Tauren) se parte de un marrón medio", () => {
+    const o = { id: 1, name: "Color de piel", category: 0, categoryName: "", choices: [choice(1, 0xff343333), choice(2, 0xff857b54), choice(3, 0xff946026), choice(4, 0xffbebcaa)] };
+    expect(defaultChoice(o)?.id).toBe(3);
+  });
+  it("si la primera es normal no se toca, ni en otras opciones de color (pelo negro)", () => {
+    expect(defaultChoice({ id: 1, name: "Color de piel", category: 0, categoryName: "", choices: [choice(1, 0xffc6a07c), choice(2, 0xff343333)] })?.id).toBe(1);
+    expect(defaultChoice({ id: 2, name: "Color de pelo", category: 0, categoryName: "", choices: [choice(1, 0xff191919), choice(2, 0xff946026)] })?.id).toBe(1);
   });
 });

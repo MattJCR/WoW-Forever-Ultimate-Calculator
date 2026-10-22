@@ -656,6 +656,7 @@ export function AbilitiesTable({
   statsRaceId,
   level,
   gear,
+  active,
 }: {
   manifest: Manifest;
   idx: ClassIndex;
@@ -669,6 +670,8 @@ export function AbilitiesTable({
   level: number;
   /** Equipo del paso «Equipo» ya filtrado por nivel (cada objeto cuenta desde su propio nivel); null si no llevas. */
   gear?: { stats: Record<string, number>; ratings: CombatRatings | null; effects: GearEffectSource[]; weapons: GearWeapon[]; equipped: EquippedState } | null;
+  /** Talentos de habilidad activa que se dan por activos (nodeId). */
+  active?: ReadonlySet<number> | null;
 }) {
   const entry = manifest.abilities.find((a) => a.classId === idx.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error(tr("sin habilidades")))));
@@ -724,9 +727,9 @@ export function AbilitiesTable({
   const gearHere = gear ?? null;
   const gearEffects = gearHere?.effects;
   const equipped = gearHere?.equipped ?? null;
-  const mods = useMemo(() => [...spellModifiersOf(idx, build, equipped), ...(legacy ? spellModifiersOf(legacy, legacyBuild, equipped) : []), ...(gearEffects ? gearSpellModifiers(gearEffects) : [])], [idx, build, legacy, legacyBuild, gearEffects, equipped]);
+  const mods = useMemo(() => [...spellModifiersOf(idx, build, equipped, active ?? null), ...(legacy ? spellModifiersOf(legacy, legacyBuild, equipped) : []), ...(gearEffects ? gearSpellModifiers(gearEffects) : [])], [idx, build, legacy, legacyBuild, gearEffects, equipped, active]);
   const ruled = useMemo(() => ruleLines(rules, idx, build), [rules, idx, build]);
-  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped }), [idx, build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped]);
+  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped, active }), [idx, build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped, active]);
   // Condicionales del texto («si tienes el talento X»): con los talentos y ventajas escogidos y las habilidades ya aprendidas a este nivel
   const textKnown = useMemo(() => {
     const input = { cls: idx, classBuild: build, legacy, legacyBuild };
@@ -835,7 +838,7 @@ export function AbilitiesTable({
         )}
       </div>
       <p className="muted small">
-        <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
+        <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa, salvo que los marques en «Habilidades activas». El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
       </p>
       {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>

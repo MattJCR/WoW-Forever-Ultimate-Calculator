@@ -3,7 +3,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Abilities, ClassTalents, TalentRules } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
-import { allModifiersFor, applyModifiers, canCrit, collectStatEffects, dealsDamage, findAbility, healsTarget, indexClass, rankAtLevel, renderAbilityText, spellModifiersOf, type Build } from "../src/index.js";
+import { activatableTalents, allModifiersFor, applyModifiers, canCrit, collectStatEffects, dealsDamage, findAbility, healsTarget, indexClass, rankAtLevel, renderAbilityText, spellModifiersOf, type Build } from "../src/index.js";
 
 /**
  * CRITERIO COMUN para revisar TODAS las habilidades de TODAS las clases (docs/STATUS.md › «Criterio de revisión»):
@@ -238,6 +238,11 @@ describe("las cifras que se suman salen del texto del cliente y se aplican donde
     expect(line).toMatchObject({ value: 6, scope: ["Embestir"] });
   });
 
+  it("Sanguinario mejorado: +50 % de la ira generada por Sanguinario (porcentaje, sin dividir por 10)", () => {
+    const line = solo(byToken("warrior"), "Sanguinario mejorado").totals.find((t) => t.label === "ira generada");
+    expect(line).toMatchObject({ value: 50, unit: "%", scope: ["Sanguinario"] });
+  });
+
   it("un modificador de hechizos con la máscara vacía no afecta a nadie: Aluvión no da +15 % periódico a todo el personaje", () => {
     const fx = solo(byToken("hunter"), "Aluvión");
     expect(fx.totals.filter((t) => t.category === "Daño periódico")).toEqual([]);
@@ -390,5 +395,39 @@ describe("todas las operaciones de talentos que el motor calcula se ven en la fi
     }
     expect(checked).toBeGreaterThan(150);
     expect(missing.sort()).toEqual(Object.keys(NO_OBSERVABLE_CHANGE).sort());
+  });
+});
+
+describe("habilidades activas de talento dadas por activas (Poder Arcano…)", () => {
+  const mage = byToken("mage");
+  const arcanePower = mage.cls.ordered.find((i) => i.talent.name === "Poder Arcano")!.talent;
+  const build = { [arcanePower.nodeId]: arcanePower.maxRank };
+
+  it("sin marcar no suma nada; marcada, sus modificadores de hechizos entran como los de un pasivo", () => {
+    expect(spellModifiersOf(mage.cls, build)).toEqual([]);
+    expect(activatableTalents(mage.cls, build).map((t) => t.name)).toEqual(["Poder Arcano"]);
+    const on = spellModifiersOf(mage.cls, build, null, new Set([arcanePower.nodeId]));
+    expect(on.length).toBeGreaterThan(0);
+    expect(on.every((m) => m.source.name === "Poder Arcano")).toBe(true);
+  });
+
+  it("el resumen de efectos: marcada deja de ser solo texto y suma su daño y su coste", () => {
+    const input = { cls: mage.cls, classBuild: build, legacy: null, legacyBuild: {}, race: null, abilities: mage.abilities, rules: mage.rules };
+    expect(collectStatEffects(input).totals).toEqual([]);
+    const fx = collectStatEffects({ ...input, active: new Set([arcanePower.nodeId]) });
+    expect(fx.totals.map((t) => `${t.category}: ${t.label} ${t.value}`).sort()).toMatchInlineSnapshot(`
+      [
+        "Coste: coste 30",
+        "Daño periódico: daño y curación periódicos 30",
+        "Daño y curación: daño y curación 30",
+      ]
+    `);
+    expect(fx.conditional.some((c) => c.source.name === "Poder Arcano")).toBe(false);
+  });
+
+  it("solo se ofrecen las que traen modificadores de hechizos (nada de mascota, formas o inmunidades)", () => {
+    const hunter = byToken("hunter");
+    const t = hunter.cls.ordered.find((i) => i.talent.name === "Ira de bestias")!.talent;
+    expect(activatableTalents(hunter.cls, { [t.nodeId]: 1 })).toEqual([]);
   });
 });
