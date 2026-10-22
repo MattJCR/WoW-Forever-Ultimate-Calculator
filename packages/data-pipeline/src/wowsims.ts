@@ -1,6 +1,7 @@
-import { int, type RawTables } from "./csv.js";
-import { ITEM_STAT_KEYS } from "./items.js";
-import type { CombatRatings, Enchants, Item, Items, ItemStat, RandomSuffixes } from "./model.js";
+import { int, type RawTables, type Row } from "./csv.js";
+import { ITEM_STAT_KEYS, spellEffectInfo } from "./items.js";
+import type { SpellTables } from "./spell-tables.js";
+import type { CombatRatings, Enchant, Enchants, Item, Items, ItemStat, RandomSuffixes } from "./model.js";
 
 /**
  * Datos de la comunidad (MIT), copiados a data/external/wowsims/ (ver su ATTRIBUTION.md).
@@ -31,7 +32,7 @@ export const WOWSIMS_SOURCE = "Datos de la comunidad (MIT), 2026-10-21";
 
 /** Indice del enum Stat de la comunidad (proto/common.proto) -> clave propia (las de ITEM_STAT_KEYS). */
 const WS_STAT_KEYS: Record<number, string> = {
-  0: "strength", 1: "agility", 2: "stamina", 3: "intellect", 4: "healing-power", 5: "spell-power",
+  0: "strength", 1: "agility", 2: "stamina", 3: "intellect", 4: "healing-power", 5: "spell-damage",
   6: "arcane-power", 7: "fire-power", 8: "frost-power", 9: "holy-power", 10: "nature-power", 11: "shadow-power",
   12: "spell-penetration", 13: "spirit", 14: "attack-power", 15: "ranged-attack-power", 16: "feral-attack-power",
   17: "hit-rating", 18: "crit-rating", 19: "haste-rating", 20: "armor-penetration", 21: "expertise-rating",
@@ -42,14 +43,29 @@ const WS_STAT_KEYS: Record<number, string> = {
 };
 const TYPE_BY_KEY = new Map(Object.entries(ITEM_STAT_KEYS).map(([t, k]) => [k, Number(t)]));
 
-function wsStats(list: number[] | Record<string, number> | undefined): ItemStat[] {
+/**
+ * Estadisticas de la comunidad en nuestras claves. Su enum separa la sanacion (4) y el daño con hechizos (5); nosotros tenemos ademas el
+ * poder con hechizos generico (daño y sanacion a la vez, tipo 45): si el mismo objeto trae las dos con la misma cifra, es ese.
+ */
+export function wsStats(list: number[] | Record<string, number> | undefined): ItemStat[] {
   const entries: [number, number][] = Array.isArray(list) ? list.map((v, i) => [i, v] as [number, number]) : Object.entries(list ?? {}).map(([i, v]) => [Number(i), v]);
-  return entries
+  const out: ItemStat[] = entries
     .filter(([, v]) => v !== 0)
     .map(([i, value]) => {
       const key = WS_STAT_KEYS[i] ?? null;
       return { type: key ? (TYPE_BY_KEY.get(key) ?? -1) : -1, key, value };
     });
+  // Poder de ataque y de ataque a distancia con la misma cifra = nuestro «poder de ataque» (suma a las dos)
+  const ap = out.find((s) => s.key === "attack-power");
+  const rap = out.find((s) => s.key === "ranged-attack-power");
+  if (ap && rap && ap.value === rap.value) out.splice(out.indexOf(rap), 1);
+  const heal = out.find((s) => s.key === "healing-power");
+  const damage = out.find((s) => s.key === "spell-damage");
+  if (heal && damage && heal.value === damage.value) {
+    const rest = out.filter((s) => s !== heal && s !== damage);
+    return [...rest, { type: 45, key: "spell-power", value: heal.value }];
+  }
+  return out;
 }
 
 /** CombatRatings.txt: una fila por nivel, columnas con nombre (puntuacion por 1 %). */
@@ -72,20 +88,81 @@ export function buildCombatRatings(text: string, build: string): CombatRatings {
   };
 }
 
-/** Encantamientos: cifras de la comunidad, nombre en español del cliente (SpellItemEnchantment.Name_lang, `$k1` = valor del primer efecto). */
-export function buildEnchants(db: WowsimsDb, raw: RawTables, build: string, warnings: string[]): Enchants {
+/** Escuela de resistencia de SpellItemEnchantment (efecto 4, argumento): 0 = fisica (armadura extra), 1 sagrado ... 6 arcano. */
+const ENCHANT_RESISTANCE: Record<number, { type: number; key: string }> = {
+  0: { type: 50, key: "extra-armor" },
+  1: { type: 53, key: "holy-resistance" },
+  2: { type: 51, key: "fire-resistance" },
+  3: { type: 55, key: "nature-resistance" },
+  4: { type: 52, key: "frost-resistance" },
+  5: { type: 54, key: "shadow-resistance" },
+  6: { type: 56, key: "arcane-resistance" },
+};
+/** SpellItemEnchantment.Effect -> ItemEffect.TriggerType del hechizo que lleva (3 al equipar -> 1, 1 probabilidad al golpear -> 2, 7 uso -> 0). */
+const ENCHANT_TRIGGER: Record<number, number> = { 3: 1, 1: 2, 7: 0 };
+const PHYSICAL_DAMAGE_TYPE = 83;
+/** Tipo 124 («todas las resistencias»): las cinco escuelas magicas, sin Sagrado (como en los objetos). */
+const ALL_RESISTANCES_TYPE = 124;
+const ALL_SCHOOL_RESISTANCES: [number, string][] = [[56, "arcane-resistance"], [51, "fire-resistance"], [52, "frost-resistance"], [55, "nature-resistance"], [54, "shadow-resistance"]];
+/**
+ * Encantamientos cuyo efecto del cliente contradice su propio nombre: «Espíritu +4» (8203) trae un efecto de estadistica de tipo 124 (todas
+ * las resistencias). Se sigue el nombre, que coincide con la lectura de la comunidad (espiritu 4): se descarta la estadistica directa del cliente.
+ */
+const CLIENT_EFFECT_CONTRADICTS_NAME = new Set([8203]);
+
+/**
+ * Lo que el cliente dice que da un encantamiento (SpellItemEnchantment, 3 efectos): estadisticas directas (efecto 5: tipo de estadistica y
+ * cifra; efecto 4: resistencia o armadura; efecto 2: daño de arma) y los hechizos que lleva (efectos 3, 1 y 7) con sus auras.
+ */
+export function clientEnchantValues(row: Row, spells: SpellTables): { stats: ItemStat[]; effects: Enchant["effects"]; unhandled: number[] } {
+  const stats: ItemStat[] = [];
+  const effects: Enchant["effects"] = [];
+  const unhandled: number[] = [];
+  for (let i = 0; i < 3; i++) {
+    const kind = int(row[`Effect[${i}]`]);
+    const points = int(row[`EffectPointsMin[${i}]`]);
+    const arg = int(row[`EffectArg[${i}]`]);
+    if (kind === 0) continue;
+    if (kind === 5) {
+      if (arg === ALL_RESISTANCES_TYPE) for (const [schoolType, k] of ALL_SCHOOL_RESISTANCES) stats.push({ type: schoolType, key: k, value: points });
+      else stats.push({ type: arg, key: ITEM_STAT_KEYS[arg] ?? null, value: points });
+    }
+    else if (kind === 4) {
+      const r = ENCHANT_RESISTANCE[arg];
+      if (r) stats.push({ type: r.type, key: r.key, value: points });
+      else unhandled.push(kind);
+    } else if (kind === 2) stats.push({ type: PHYSICAL_DAMAGE_TYPE, key: ITEM_STAT_KEYS[PHYSICAL_DAMAGE_TYPE] ?? null, value: points });
+    else if (ENCHANT_TRIGGER[kind] !== undefined && arg > 0) effects.push({ spellId: arg, trigger: ENCHANT_TRIGGER[kind]!, ...spellEffectInfo(spells, arg) });
+    else unhandled.push(kind);
+  }
+  return { stats, effects, unhandled };
+}
+
+/**
+ * Encantamientos. Nombre, estadisticas y hechizos salen del cliente (SpellItemEnchantment; el nombre lleva marcadores: `$kN` = valor del
+ * efecto N del propio encantamiento y `$<hechizo>M<n>` = cifra del efecto n de ese hechizo). La ranura donde se aplica, el objeto que lo
+ * aplica y la calidad son de la comunidad (el cliente no los trae); si el cliente no trae el encantamiento, valen las cifras de la comunidad.
+ */
+export function buildEnchants(db: WowsimsDb, raw: RawTables, build: string, warnings: string[], spells: SpellTables): Enchants {
   const rows = new Map(raw.table("SpellItemEnchantment").map((r) => [int(r.ID), r]));
   let unresolved = 0;
+  const unhandled = new Set<number>();
   const enchants = db.enchants.map((e) => {
-    const stats = wsStats(e.stats);
     const row = rows.get(e.effectId);
-    // `$kN` = EffectPointsMin[N-1] del propio encantamiento (el orden es el de los efectos, no el de las estadisticas)
     let name = (row?.Name_lang ?? "") || e.name;
     name = name.replace(/\$k([123])/g, (m, n: string) => {
       const v = int(row?.[`EffectPointsMin[${Number(n) - 1}]`]);
       return v !== 0 ? String(v) : m;
     });
+    name = name.replace(/\$(\d+)M([123])/g, (m, id: string, n: string) => {
+      const eff = spells.effect(Number(id), Number(n) - 1);
+      const v = eff ? Math.abs(Number(eff.EffectBasePointsF)) : NaN;
+      return Number.isFinite(v) && v !== 0 ? String(v) : m;
+    });
     if (/\$/.test(name)) unresolved++;
+    const client = row ? clientEnchantValues(row, spells) : null;
+    if (client && CLIENT_EFFECT_CONTRADICTS_NAME.has(e.effectId)) client.stats = [];
+    for (const k of client?.unhandled ?? []) unhandled.add(k);
     return {
       effectId: e.effectId,
       spellId: e.spellId,
@@ -96,13 +173,22 @@ export function buildEnchants(db: WowsimsDb, raw: RawTables, build: string, warn
       extraSlotTypes: e.extraTypes ?? [],
       quality: e.quality,
       level: e.lvl ?? null,
-      stats,
+      stats: client ? client.stats : [],
+      effects: client ? client.effects : [],
+      communityStats: wsStats(e.stats).map((s) => ({ ...s, source: "community" as const })),
     };
   });
   if (unresolved > 0) warnings.push(`${unresolved} encantamientos conservan algun marcador $ en el nombre`);
+  if (unhandled.size > 0) warnings.push(`encantamientos con tipos de efecto sin interpretar: ${[...unhandled].join(", ")}`);
   const missing = db.enchants.filter((e) => !rows.has(e.effectId)).length;
-  if (missing > 0) warnings.push(`${missing} encantamientos de la comunidad no estan en SpellItemEnchantment del cliente`);
-  return { schemaVersion: 1, build, provenance: "community", source: WOWSIMS_SOURCE, enchants };
+  if (missing > 0) warnings.push(`${missing} encantamientos de la comunidad no estan en SpellItemEnchantment del cliente (solo valen sus cifras)`);
+  return {
+    schemaVersion: 1,
+    build,
+    provenance: "client-db2",
+    source: "Cifras y hechizos: cliente (SpellItemEnchantment). Ranura, objeto y calidad: comunidad (MIT), 2026-10-21",
+    enchants,
+  };
 }
 
 /** `names` = traducciones propias (data/i18n/suffixes-esES.json): nombre en ingles de la comunidad -> español. */

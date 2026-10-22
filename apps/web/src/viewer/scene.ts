@@ -345,6 +345,13 @@ export class CharacterView {
     const old = m.material as MeshStandardMaterial;
     old.dispose?.();
     const blend = b?.blend ?? 0;
+    // Brillos (mezcla aditiva: el resplandor de los ojos «Primalista» y de otras opciones): se suman a lo que hay detrás, sin iluminar
+    if (blend === 3 || blend === 4 || blend === 7) {
+      m.renderOrder = 10;
+      m.material = new MeshBasicMaterial({ map: map ?? null, transparent: true, blending: AdditiveBlending, depthWrite: false, side: DoubleSide });
+      return;
+    }
+    m.renderOrder = 0;
     m.material = new MeshStandardMaterial({
       map: map ?? null, color: map ? 0xffffff : new Color(0x9a8470), roughness: 0.85, metalness: 0,
       alphaTest: blend === 1 ? 0.5 : 0, transparent: blend >= 2, side: b && b.texType === 6 ? DoubleSide : DoubleSide,

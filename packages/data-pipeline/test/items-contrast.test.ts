@@ -122,3 +122,34 @@ describe.skipIf(!ready)("objetos frente a las lecturas del juego (solo contraste
     expect([Math.round(sulfuras.weapon!.min), Math.round(sulfuras.weapon!.max)]).toEqual([223, 372]);
   });
 });
+
+/**
+ * Conjuntos (sesión 12): la pertenencia de cada pieza a un conjunto (`ItemSparse.ItemSet`, cliente) frente a las lecturas del juego.
+ * Los números de conjunto de las lecturas son otros (no cuadran con `ItemSet.ID`), así que se comparan las agrupaciones.
+ */
+describe.skipIf(!ready)("conjuntos frente a las lecturas del juego (solo contraste local)", () => {
+  const data = Items.parse(buildItems(openRawTables(RAW), BUILD, new SpellTables(openRawTables(RAW))));
+  const readings = readGameReadings().items;
+  const setOf = new Map([...readings].map(([id, line]) => [id, Number(line.split("|")[5]) || 0]));
+  const mine = new Map(data.items.map((i) => [i.id, i]));
+
+  it("las piezas que el juego agrupa en un conjunto son siempre del mismo conjunto del cliente (ninguna agrupación se contradice)", () => {
+    const groups = new Map<number, Set<number | null>>();
+    for (const [id, set] of setOf) {
+      const item = mine.get(id);
+      if (!set || !item) continue;
+      groups.set(set, (groups.get(set) ?? new Set()).add(item.itemSetId));
+    }
+    expect(groups.size).toBeGreaterThan(250);
+    expect([...groups].filter(([, ours]) => ours.size > 1)).toEqual([]);
+  });
+
+  it("tener o no conjunto coincide en TODOS los objetos que el cliente y las lecturas comparten, y todos los conjuntos con piezas tienen bonos", () => {
+    const shared = [...setOf].filter(([id]) => mine.has(id));
+    expect(shared.length).toBeGreaterThan(12000);
+    expect(shared.filter(([id, set]) => !!set !== !!mine.get(id)!.itemSetId).map(([id]) => id)).toEqual([]);
+    const withBonuses = new Set(data.sets.filter((s) => s.bonuses.length > 0).map((s) => s.id));
+    const noBonus = [...new Set(data.items.filter((i) => i.itemSetId !== null && !withBonuses.has(i.itemSetId)).map((i) => i.itemSetId))];
+    expect(noBonus).toEqual([]); // el único conjunto sin bonos en ItemSetSpell (items.json › warnings) no tiene piezas con datos
+  });
+});

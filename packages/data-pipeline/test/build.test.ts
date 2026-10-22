@@ -372,6 +372,36 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
     expect(byId(3).classIds).toEqual([1, 2, 3, 4, 5, 7]);
   });
 
+  it("efectos de raciales: los de utilidad tienen significado (sesión 12) y los que quedan sin interpretar son exactamente los de esta lista (15 efectos distintos, 22 con las dos variantes de Cielonato y los repetidos de ¡Eureka!), con su motivo", () => {
+    const nulls = racesData.races.flatMap((r) => r.racials.flatMap((a) => a.spells.flatMap((s) => s.effects.filter((e) => e.kind === null).map((e) => `${r.id}|${a.name}|${e.aura}:${e.miscValue}`))));
+    expect([...new Set(nulls)].sort()).toEqual(
+      [
+        "4|Fusión de las Sombras|103:null", // reduce la amenaza (-999999): sin cifra que enseñar
+        "7|¡Eureka!|4:null", // auras «dummy» cuyos valores (10 y 1) no explica el texto: la reducción de coste y el 10 % salen de las auras 108
+        "95|Caminar sobre el aire|105:null", // planeo: efecto de movimiento sin cifra
+        "95|Caminar sobre el aire|409:null",
+        "95|Caminar sobre el aire|139:2402", // cambio de reacción/forma: sin cifra
+        "95|Caminar sobre el aire|139:2403",
+        "95|Caminar sobre el aire|139:2754",
+        "96|Caminar sobre el aire|105:null",
+        "96|Caminar sobre el aire|409:null",
+        "96|Caminar sobre el aire|139:2402",
+        "96|Caminar sobre el aire|139:2403",
+        "96|Caminar sobre el aire|139:2754",
+        "6|Pisotón de guerra|12:null", // el aturdimiento de la propia habilidad (duración y objetivos están en el hechizo)
+        "6|Correr planicies|226:null", // aura periódica «dummy» cada 1 s que acumula velocidad: el cliente no explica los topes (5 y 30)
+        "6|Correr planicies|4:null",
+      ].sort(),
+    );
+    // Los de utilidad: cifras del cliente
+    const kind = (raceId: number, name: string) => [...new Set(byId(raceId).racials.find((a) => a.name === name)!.spells.flatMap((s) => s.effects.map((e) => e.kind)))];
+    expect(kind(1, "Percepción")).toEqual(["stealth-detection"]);
+    expect(kind(5, "Respiración subacuática")).toEqual(["water-breathing-pct"]);
+    expect(kind(3, "Forma de piedra")).toEqual(expect.arrayContaining(["mechanic-immunity", "dispel-immunity", "damage-taken-pct"]));
+    expect(kind(7, "Artista del escape")).toEqual(["mechanic-immunity"]);
+    expect(kind(7, "Especialización de ingeniería")).toEqual(["engineering-failure-pct"]);
+  });
+
   it("cada raza tiene 4 raciales ordenadas, activas y pasivas reconocidas", () => {
     for (const r of racesData.races) {
       expect(r.racials).toHaveLength(4);

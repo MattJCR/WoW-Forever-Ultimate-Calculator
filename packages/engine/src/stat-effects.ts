@@ -127,7 +127,7 @@ const POWER_NAMES: Record<number, string> = { 0: "maná", 1: "ira", 3: "energía
 /** Mecanicas de control (aura 232): numero de Mechanics del cliente -> nombre. Solo las comprobadas contra el texto de los talentos. */
 const MECHANICS: Record<number, string> = { 2: "desorientación", 5: "miedo", 7: "inmovilización", 9: "silencio", 11: "ralentización", 12: "aturdimiento" };
 /** Aura 117 (resistencia a que un efecto te golpee): las mecanicas de arriba y la interrupcion (26), comprobadas contra el texto del cliente. */
-const RESIST_MECHANICS: Record<number, string> = { ...MECHANICS, 26: "interrupción" };
+const RESIST_MECHANICS: Record<number, string> = { ...MECHANICS, 1: "embelesamiento", 10: "sueño", 26: "interrupción" };
 
 const matches = (mask: number[], rankMask: number[]): boolean => mask.some((m, i) => m !== 0 && (m & (rankMask[i] ?? 0)) !== 0);
 
@@ -228,6 +228,9 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
       return RESIST_MECHANICS[misc] ? { category: "Defensa", label: `probabilidad de que te afecten los efectos de ${RESIST_MECHANICS[misc]}`, value: -Math.abs(value), unit: "puntos porcentuales", scope: null } : null;
     case 342:
       return { category: "Celeridad", label: "celeridad de ataque y de lanzamiento", value, unit: "%", scope: null };
+    case 140:
+      // «Velocidad de ataque +1%» (encantamiento Arcano de prontitud): celeridad de los ataques, no de los hechizos
+      return { category: "Celeridad", label: "celeridad cuerpo a cuerpo y a distancia", value, unit: "%", scope: null };
     case 185:
     case 186:
       return { category: "Defensa", label: "probabilidad de ser alcanzado por hechizos y ataques a distancia", value, unit: "puntos porcentuales", scope: null };
@@ -451,9 +454,9 @@ export function collectStatEffects(input: {
   // Equipo: lo que no es una estadistica plana (ya sumada en el equipo) se clasifica como un talento. Solo se cuantifica si el texto del cliente nombra la cifra.
   for (const e of input.gearEffects ?? []) {
     const source: StatSource = { from: "gear", name: e.name, rank: 1, maxRank: 1 };
-    const { consumed } = classifyGearAuras(e.auras, e.text);
+    const { consumed } = classifyGearAuras(e.auras, e.text, { trustValues: e.kind === "enchant" });
     const rest = remainingAuras(e.auras, consumed);
-    const named = rest.filter((a) => auraNumberInText(a, e.text) && !a.levelScaled);
+    const named = rest.filter((a) => (e.kind === "enchant" || auraNumberInText(a, e.text)) && !a.levelScaled);
     const rankValues: (number | null)[] = [];
     for (const a of named) rankValues[a.index] = a.value;
     const { lines: found, unclassified } = talentLines({ effectInfo: named, rankValues: [rankValues], descriptions: [e.text] }, 1, source, input.abilities);

@@ -273,6 +273,14 @@ export const RacialEffectKind = z.enum([
   "periodic-mana-pct", // % del mana total recuperado en cada tick (ver periodMs)
   "proc-drain-health-pct", // al procar, drena hasta este % de tu salud maxima (probabilidad y enfriamiento en el hechizo)
   "spell-modifier-pct", // modificador de hechizos de la clase (miscValue: 0 dano/efecto, 14 coste, 22 dano periodico)
+  // Utilidades (sesion 12): no suman a ninguna estadistica, se ensenan como cifra del cliente
+  "stealth-detection", // puntos de deteccion de sigilo (aura 17)
+  "stealth", // da sigilo (aura 16)
+  "water-breathing-pct", // % mas de tiempo respirando bajo el agua (aura 155)
+  "mechanic-immunity", // inmune a una mecanica de control (aura 77; miscValue = Mechanics: 1 embelesamiento, 5 miedo, 7 inmovilizacion, 10 sueno, 11 ralentizacion, 15 sangrado)
+  "dispel-immunity", // inmune a un tipo de disipacion (aura 41; miscValue: 3 enfermedad, 4 veneno)
+  "track-resources", // rastrea recursos en el minimapa (aura 45; miscValue 6 = arquetas)
+  "engineering-failure-pct", // % de fallo de los dispositivos de ingenieria (aura dummy del Gnomo: el valor es el % de reduccion)
 ]);
 export type RacialEffectKind = z.infer<typeof RacialEffectKind>;
 
@@ -825,7 +833,12 @@ export const CombatRatings = z.object({
 });
 export type CombatRatings = z.infer<typeof CombatRatings>;
 
-/** Encantamiento aplicable a una ranura. El nombre sale del cliente (SpellItemEnchantment, esES); las cifras, de la comunidad. */
+/**
+ * Encantamiento aplicable a una ranura. Nombre y cifras salen del cliente (SpellItemEnchantment, esES): `stats` son sus estadisticas directas
+ * (efectos de tipo 5 y 4, y el daño de arma) y `effects` los hechizos que lleva (al equipar, probabilidad al golpear, uso: sus auras las
+ * cuantifica el motor como las de los objetos). La ranura y el objeto que lo aplica son de la comunidad (el cliente no los trae), y su
+ * lectura de las cifras (`communityStats`) contrasta y completa la del cliente.
+ */
 export const Enchant = z.object({
   /** SpellItemEnchantment.ID (el cliente lo llama effectId). */
   effectId: z.number().int(),
@@ -839,6 +852,13 @@ export const Enchant = z.object({
   quality: z.number().int(),
   level: z.number().int().nullable(),
   stats: z.array(ItemStat),
+  /** Hechizos del encantamiento (SpellItemEnchantment.Effect 3 = al equipar, 1 = probabilidad al golpear, 7 = uso), con auras y texto del cliente. */
+  effects: z.array(ItemEffectRef).default([]),
+  /**
+   * Lo que la comunidad (MIT) dice que da: sirve para contrastar el cliente y para rellenar lo que el cliente no trae (hay hechizos de
+   * encantamiento sin auras, como los de la Plaga). Cada cifra va marcada `source: "community"`.
+   */
+  communityStats: z.array(ItemStat).default([]),
 });
 export const Enchants = z.object({
   schemaVersion: z.literal(1),

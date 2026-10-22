@@ -52,6 +52,8 @@ export const GEAR: Record<string, string> = {
   "Cargando…": "Loading…",
   "Restablecer": "Reset",
   "Estadística sin interpretar (tipo {n})": "Uninterpreted stat (type {n})",
+  "El nombre del cliente dice {a}, pero su efecto da {b}: se usa la cifra del efecto (la comunidad coincide).": "The client name says {a}, but its effect gives {b}: the effect's number is used (the community agrees).",
+  "Parte de las cifras del encantamiento es de la comunidad: el cliente no detalla su efecto.": "Some of the enchantment's numbers are from the community: the client does not detail its effect.",
   "(estadística sin interpretar, tipo {n})": "(uninterpreted stat, type {n})",
   // Ranuras
   "Cabeza": "Head",

@@ -53,9 +53,15 @@ const AURA_KINDS: Record<number, RacialEffect["kind"]> = {
   130: "mounted-speed-pct",
   20: "periodic-health-pct",
   21: "periodic-mana-pct",
+  17: "stealth-detection",
+  16: "stealth",
+  155: "water-breathing-pct",
+  77: "mechanic-immunity",
+  41: "dispel-immunity",
+  45: "track-resources",
 };
 /** Toque de la tumba (no-muerto, una variante por clase): el efecto es un aura "dummy" cuyo valor es el % de salud maxima. */
-const DUMMY_KINDS: Record<number, RacialEffect["kind"]> = { 1260189: "proc-drain-health-pct", 1260201: "proc-drain-health-pct" };
+const DUMMY_KINDS: Record<number, RacialEffect["kind"]> = { 1260189: "proc-drain-health-pct", 1260201: "proc-drain-health-pct", 20593: "engineering-failure-pct" };
 const AURA_DUMMY = 4;
 const AURA_STAT_PCT = 137; // MOD_TOTAL_STAT_PERCENTAGE: solo el espiritu (miscValue 4) esta comprobado
 const AURA_MECHANIC_DURATION = 232; // MOD_MECHANIC_DURATION: solo el aturdimiento (miscValue 12)

@@ -1,4 +1,4 @@
-import { GEAR_SLOTS, SLOT_LABEL, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
+import { GEAR_SLOTS, SLOT_LABEL, enchantStatLines, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
 import type { CombatRatings, Item, ItemStat } from "@wfuc/schema";
 import { fmtNum, isEnglish, itemName, itemSetName, spellEn, tr, trn } from "../i18n";
 
@@ -65,6 +65,57 @@ export const STAT_LABELS: Record<string, string> = {
   "shadow-power": "de daño de hechizos de Sombras",
   "arcane-power": "de daño de hechizos Arcanos",
   "armor-no-mods": "de armadura (sin modificadores)",
+  "skill-2h-axes": "de habilidad con hachas de dos manos",
+  "skill-2h-maces": "de habilidad con mazas de dos manos",
+  "skill-2h-swords": "de habilidad con espadas de dos manos",
+  "skill-axes": "de habilidad con hachas",
+  "skill-bows": "de habilidad con arcos",
+  "skill-crossbows": "de habilidad con ballestas",
+  "skill-daggers": "de habilidad con dagas",
+  "skill-dual-wield": "de habilidad con doble empuñadura",
+  "skill-fist-weapons": "de habilidad con armas de puño",
+  "skill-guns": "de habilidad con armas de fuego",
+  "skill-maces": "de habilidad con mazas",
+  "skill-polearms": "de habilidad con armas de asta",
+  "skill-staves": "de habilidad con báculos",
+  "skill-swords": "de habilidad con espadas",
+  "skill-thrown": "de habilidad con armas arrojadizas",
+  "skill-wands": "de habilidad con varitas",
+  "profession-alchemy": "de habilidad en alquimia",
+  "profession-blacksmithing": "de habilidad en herrería",
+  "profession-enchanting": "de habilidad en encantamiento",
+  "profession-engineering": "de habilidad en ingeniería",
+  "profession-jewelcrafting": "de habilidad en joyería",
+  "profession-leatherworking": "de habilidad en peletería",
+  "profession-herbalism": "de habilidad en herboristería",
+  "profession-mining": "de habilidad en minería",
+  "profession-skinning": "de habilidad en desuello",
+  "profession-cooking": "de habilidad en cocina",
+  "profession-first-aid": "de habilidad en primeros auxilios",
+  "profession-fishing": "de habilidad en pesca",
+  "profession-tailoring": "de habilidad en sastrería",
+  "fire-penetration": "de penetración de Fuego",
+  "nature-penetration": "de penetración de Naturaleza",
+  "frost-penetration": "de penetración de Escarcha",
+  "shadow-penetration": "de penetración de Sombras",
+  "arcane-penetration": "de penetración de Arcano",
+  "attack-power-vs-humanoid": "de poder de ataque contra humanoides",
+  "attack-power-vs-elemental": "de poder de ataque contra elementales",
+  "attack-power-vs-demon": "de poder de ataque contra demonios",
+  "attack-power-vs-undead": "de poder de ataque contra no-muertos",
+  "attack-power-vs-dragonkin": "de poder de ataque contra dragonantes",
+  "attack-power-vs-giant": "de poder de ataque contra gigantes",
+  "attack-power-vs-beast": "de poder de ataque contra bestias",
+  "attack-power-vs-mechanical": "de poder de ataque contra mecánicos",
+  "spell-damage-vs-humanoid": "de daño con hechizos contra humanoides",
+  "spell-damage-vs-elemental": "de daño con hechizos contra elementales",
+  "spell-damage-vs-demon": "de daño con hechizos contra demonios",
+  "spell-damage-vs-undead": "de daño con hechizos contra no-muertos",
+  "spell-damage-vs-dragonkin": "de daño con hechizos contra dragonantes",
+  "spell-damage-vs-giant": "de daño con hechizos contra gigantes",
+  "spell-damage-vs-beast": "de daño con hechizos contra bestias",
+  "spell-damage-vs-mechanical": "de daño con hechizos contra mecánicos",
+  "untyped": "de estadística sin tipo en el cliente",
 };
 
 /** Nombre corto de la estadistica para tablas («Fuerza», «Puntuación de crítico»…). */
@@ -148,7 +199,7 @@ export function gearLinesForAI(args: { gear: GearSelection; summary: GearSummary
     const suffix = worn.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
     const enchant = worn.enchantId ? data.enchants.get(worn.enchantId) : undefined;
     const stats = [...item.stats, ...(suffix ? suffixStats(item, suffix) : [])].map(statLine);
-    const extra = [suffix ? suffix.name : "", enchant ? `Enchant: ${enchant.name}${enchant.stats.length ? ` (${enchant.stats.map(statLine).join(", ")})` : ""}` : ""].filter(Boolean);
+    const extra = [suffix ? suffix.name : "", enchant ? `Enchant: ${enchant.name}${enchantStatLines(enchant).length ? ` (${enchantStatLines(enchant).map((s) => statLine({ key: s.key, type: 0, value: s.value })).join(", ")})` : ""}` : ""].filter(Boolean);
     lines.push(`- ${SLOT_LABEL[slot]}: ${item.name}${extra.length ? ` [${extra.join("; ")}]` : ""} (item level ${item.itemLevel}${item.requiredLevel ? `, requires level ${item.requiredLevel}` : ""})${stats.length ? `: ${stats.join(", ")}` : ""}`);
   }
   const armor = summary.armor + (summary.stats["extra-armor"] ?? 0);

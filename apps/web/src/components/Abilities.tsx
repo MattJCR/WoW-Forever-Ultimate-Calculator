@@ -1,6 +1,9 @@
 import {
   abilityChances,
   abilityOutcome,
+  attackPowerVsKey,
+  CREATURE_TYPES,
+  spellDamageVsKey,
   baseAttackPower,
   classBaseOf,
   abilityEffectSummary,
@@ -683,6 +686,8 @@ export function AbilitiesTable({
   const clientStatsState = useAsync(clientStatsEntry?.file ?? "none", () => (clientStatsEntry ? getJson(clientStatsEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
   const statsState = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
   const [target, setTarget] = useState<TargetOption>("same");
+  // Tipo de criatura del objetivo: activa los bonos «+N de poder de ataque / daño con hechizos contra …» del equipo
+  const [creatureType, setCreatureType] = useState<string | null>(null);
   const [onlyAffected, setOnlyAffected] = useState(true);
   const [onlyActive, setOnlyActive] = useState(true);
   const [hover, setHover] = useState<{ name: string; x: number; y: number } | null>(null);
@@ -760,8 +765,10 @@ export function AbilitiesTable({
     });
     // La celeridad se suma como el resto de estadisticas de combate (puntuacion del equipo + talentos, Legacy y raza)
     const combat = deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: 0, ratings: gearHere.ratings } : null, classStats });
-    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? [], { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx.totals) }), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
-  }, [clientStatsState, statsState, statsRaceId, idx.data.classId, level, fx, gearHere, classStats, formulas]);
+    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? [], { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx.totals), creatureType }), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
+  }, [clientStatsState, statsState, statsRaceId, idx.data.classId, level, fx, gearHere, classStats, formulas, creatureType]);
+  // Tipos de criatura para los que el equipo da algún bono
+  const vsTypes = useMemo(() => CREATURE_TYPES.filter((c) => (gearHere?.stats[attackPowerVsKey(c.key)] ?? 0) !== 0 || (gearHere?.stats[spellDamageVsKey(c.key)] ?? 0) !== 0), [gearHere]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
@@ -810,6 +817,19 @@ export function AbilitiesTable({
             <option value="boss">{tr("jefe (+3 niveles)")}</option>
           </select>
         </label>
+        {vsTypes.length > 0 && (
+          <label title={tr("Contra qué tipo de criatura se calcula: suma los bonos «contra …» de tu equipo al poder de ataque y al daño con hechizos")}>
+            {tr("Tipo de criatura")}{" "}
+            <select value={creatureType ?? ""} onChange={(e) => setCreatureType(e.target.value || null)} aria-label={tr("Tipo de criatura")}>
+              <option value="">{tr("cualquiera")}</option>
+              {vsTypes.map((c) => (
+                <option key={c.key} value={c.key}>
+                  {trn(c.label)}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <label>
           <input type="checkbox" checked={onlyAffected} onChange={(e) => setOnlyAffected(e.target.checked)} /> {tr("Solo las afectadas por mis talentos")}
         </label>

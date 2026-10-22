@@ -52,7 +52,19 @@ describe("bonificaciones de raza (solo pasivas; datos del cliente)", () => {
   it("describeEffect da texto legible", () => {
     expect(describeEffect({ kind: "crit-chance", aura: 290, value: 2, miscValue: null, periodMs: null, fromSpellId: null })).toBe("+2 % probabilidad de crítico");
     expect(describeEffect({ kind: "spell-modifier-pct", aura: 108, value: -10, miscValue: 14, periodMs: null, fromSpellId: null })).toBe("-10 % coste");
-    expect(describeEffect({ kind: null, aura: 17, value: 50, miscValue: null, periodMs: null, fromSpellId: null })).toBeNull();
+    expect(describeEffect({ kind: null, aura: 226, value: 1, miscValue: null, periodMs: 1000, fromSpellId: null })).toBeNull();
+  });
+
+  it("raciales de utilidad (sesión 12): detección de sigilo, respiración, inmunidades, rastreo y fallo de ingeniería", () => {
+    const e = (kind: Parameters<typeof describeEffect>[0]["kind"], aura: number, value: number, miscValue: number | null) => describeEffect({ kind, aura, value, miscValue, periodMs: null, fromSpellId: null });
+    expect(e("stealth-detection", 17, 50, null)).toBe("+50 detección de sigilo");
+    expect(e("water-breathing-pct", 155, 300, null)).toBe("+300 % duración de la respiración bajo el agua");
+    expect(e("mechanic-immunity", 77, 1, 10)).toBe("inmune a sueño");
+    expect(e("mechanic-immunity", 77, 10, 11)).toBe("inmune a ralentización");
+    expect(e("dispel-immunity", 41, 0, 4)).toBe("inmune a veneno");
+    expect(e("track-resources", 45, 0, 6)).toBe("rastrea arquetas");
+    expect(e("engineering-failure-pct", 4, 20, null)).toBe("-20 % fallo de dispositivos de ingeniería");
+    expect(e("stealth", 16, 0, null)).toBe("otorga sigilo");
   });
 });
 

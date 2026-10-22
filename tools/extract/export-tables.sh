@@ -47,6 +47,8 @@ DEFAULT_TABLES=(
 ITEM_TABLES=(
   Item ItemSparse ItemSearchName ItemEffect ItemXItemEffect ItemSet ItemSetSpell ItemLimitCategory
   ItemClass ItemSubClass ItemNameDescription SpellItemEnchantment
+  # Textos del cliente (ITEM_MOD_*, TOOLTIP_ITEM_STAT_*): etiqueta de cada tipo de estadistica de objeto
+  GlobalStrings
   # Presupuesto de estadisticas, armadura y dano de arma por nivel de objeto
   RandPropPoints ItemArmorTotal ItemArmorQuality ItemArmorShield ArmorLocation
   ItemDamageOneHand ItemDamageOneHandCaster ItemDamageTwoHand ItemDamageTwoHandCaster

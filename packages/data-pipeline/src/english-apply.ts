@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Abilities, ClassTalents, EnglishText, Items, Unassigned } from "./model.js";
+import type { Abilities, ClassTalents, Enchants, EnglishText, Items, Unassigned } from "./model.js";
 import { hideUnresolved, numbersOf, renderSpellEnglish, sameNumbers, type OfficialEnglish } from "./english-official.js";
 import { withRenderLocale } from "./spell-text.js";
 
@@ -52,6 +52,8 @@ export interface OfficialInputs {
   legacy: ClassTalents;
   abilities: Abilities[];
   items: Items | undefined;
+  /** Encantamientos: sus hechizos (al equipar, al golpear, de uso) también llevan texto del cliente que hay que verificar en inglés. */
+  enchants?: Enchants;
   unassigned: Unassigned;
   own: EnglishOverrides;
 }
@@ -235,6 +237,7 @@ export function applyOfficialEnglish(english: EnglishText, oe: OfficialEnglish, 
     const esText = new Map<number, { text: string; complete: boolean }>();
     for (const i of input.items.items) for (const e of i.effects) if (e.text) esText.set(e.spellId, { text: e.text, complete: e.textComplete });
     for (const s of input.items.sets) for (const b of s.bonuses) if (b.text) esText.set(b.spellId, { text: b.text, complete: b.textComplete });
+    for (const en of input.enchants?.enchants ?? []) for (const e of en.effects) if (e.text && !esText.has(e.spellId)) esText.set(e.spellId, { text: e.text, complete: e.textComplete });
     for (const [id, { text: es, complete }] of esText) {
       report.effectSpells.total++;
       const have = english.spells[id];
@@ -251,6 +254,7 @@ export function applyOfficialEnglish(english: EnglishText, oe: OfficialEnglish, 
     const named = new Set<number>();
     for (const i of input.items.items) for (const e of i.effects) if (!e.text) named.add(e.spellId);
     for (const s of input.items.sets) for (const b of s.bonuses) if (!b.text) named.add(b.spellId);
+    for (const en of input.enchants?.enchants ?? []) for (const e of en.effects) if (!e.text) named.add(e.spellId);
     for (const id of named) {
       if (english.spells[id]?.name) continue;
       const name = own.spellNames[id] ?? oe.spells.name(id);

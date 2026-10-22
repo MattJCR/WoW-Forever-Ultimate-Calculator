@@ -19,7 +19,7 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
   const raw = openRawTables(RAW);
   const ratings = CombatRatings.parse(buildCombatRatings(readFileSync(join(WS, "CombatRatings.txt"), "utf8"), BUILD));
   const warnings: string[] = [];
-  const enchants = Enchants.parse(buildEnchants(db, raw, BUILD, warnings));
+  const enchants = Enchants.parse(buildEnchants(db, raw, BUILD, warnings, new SpellTables(raw)));
   const suffixNames = (JSON.parse(readFileSync(join(WS, "../../i18n/suffixes-esES.json"), "utf8")) as { names: Record<string, string> }).names;
   const suffixes = RandomSuffixes.parse(buildRandomSuffixes(db, BUILD, suffixNames));
   const client = Items.parse(buildItems(raw, BUILD, new SpellTables(raw)));
@@ -60,7 +60,7 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
     expect(enchants.enchants.every((e) => names.has(e.effectId) && e.name.length > 0)).toBe(true);
     const kit = enchants.enchants.find((e) => e.effectId === 15)!;
     expect(kit.name).toBe("+1 de aguante y +8 de armadura"); // $k1 y $k2 salen de EffectPointsMin, no del orden de las estadisticas
-    expect(enchants.enchants.filter((e) => /\$/.test(e.name)).map((e) => e.effectId)).toEqual([7664]); // referencia a otro hechizo, sin resolver
+    expect(enchants.enchants.filter((e) => /\$/.test(e.name)).map((e) => e.effectId)).toEqual([]); // también las que citan otro hechizo (7664: «$1220596M1»)
   });
 
   it("sufijos aleatorios: 160 sufijos y toda lista de un objeto apunta a sufijos que existen", () => {

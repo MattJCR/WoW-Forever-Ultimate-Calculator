@@ -1,5 +1,6 @@
 import type { AbilityEffect } from "@wfuc/schema";
 import type { DerivedStats } from "./derived-stats.js";
+import { attackPowerVsKey, spellDamageVsKey } from "./item-stat-keys.js";
 import type { ModifiedAbility, ModifiedEffect } from "./spell-mods.js";
 
 /**
@@ -54,17 +55,20 @@ const SCHOOL_KEYS: Record<number, string> = { 2: "holy-power", 4: "fire-power", 
 const rowFinal = (d: DerivedStats, key: string): number => d.rows.find((r) => r.key === key)?.final ?? 0;
 
 /** Contexto de poder a partir de las estadísticas finales (`deriveStats`), las del equipo (`summarizeGear().stats`) y las armas llevadas. */
-export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number; subclassId?: number }[], options: { offHandFactor?: number } = {}): PowerContext {
+export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number; subclassId?: number }[], options: { offHandFactor?: number; creatureType?: string | null } = {}): PowerContext {
+  // «+N de poder de ataque / daño con hechizos contra bestias…»: solo cuenta si el objetivo es de ese tipo de criatura (`creatureType`)
+  const vsAttack = options.creatureType ? (gearStats?.[attackPowerVsKey(options.creatureType)] ?? 0) : 0;
+  const vsSpell = options.creatureType ? (gearStats?.[spellDamageVsKey(options.creatureType)] ?? 0) : 0;
   const weapon = (slot: string): PowerWeapon | null => {
     const w = weapons.find((x) => x.slot === slot);
     return w ? { min: w.min, max: w.max, speed: w.speed, normalizedSpeed: w.normalizedSpeed, usesAttackPower: w.subclassId !== WAND_SUBCLASS } : null;
   };
   return {
-    spellDamage: rowFinal(derived, "spell-damage"),
+    spellDamage: rowFinal(derived, "spell-damage") + vsSpell,
     spellHealing: rowFinal(derived, "spell-healing"),
     schoolPower: Object.fromEntries(Object.entries(SCHOOL_KEYS).map(([mask, key]) => [Number(mask), gearStats?.[key] ?? 0])),
-    attackPower: rowFinal(derived, "ap"),
-    rangedAttackPower: rowFinal(derived, "rap"),
+    attackPower: rowFinal(derived, "ap") + vsAttack,
+    rangedAttackPower: rowFinal(derived, "rap") + vsAttack,
     mainHand: weapon("mainHand"),
     offHand: weapon("offHand"),
     ranged: weapon("ranged"),

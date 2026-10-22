@@ -1,4 +1,4 @@
-import { activeGearEffects, classifyGearAuras } from "./gear-effects.js";
+import { activeGearEffects, classifyGearAuras, enchantStatLines } from "./gear-effects.js";
 import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
 
 /**
@@ -378,7 +378,11 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
       for (const s of suffixStats(item, suffix)) add(statKey(s), s.value, source("suffix", s.value));
     }
     const enchant = worn.enchantId ? data.enchants.get(worn.enchantId) : undefined;
-    if (enchant) for (const s of enchant.stats) add(statKey(s), s.value, source("enchant", s.value));
+    if (enchant) {
+      for (const s of enchantStatLines(enchant)) add(s.key, s.value, source("enchant", s.value));
+      // Hechizos del encantamiento: sus porcentajes entran en los efectos sumados (`activeGearEffects`); aqui van como texto, igual que los de los objetos
+      for (const effect of enchant.effects) effects.push({ slot, itemName: `${item.name} (${enchant.name})`, effect });
+    }
 
     if (item.armor) armor += item.armor;
     bonusArmor += item.bonusArmor ?? 0;
@@ -395,6 +399,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
   // Bonos de conjunto activos y efectos «al equipar»: sus estadisticas planas (atributos, poder de ataque...) se suman aqui;
   // los porcentajes y modificadores de habilidades entran en los efectos sumados (`collectStatEffects`)
   for (const e of activeGearEffects(counted, data)) {
+    if (e.kind === "enchant") continue; // las cifras planas de los encantamientos ya entraron arriba (enchantStatLines)
     const { stats } = classifyGearAuras(e.auras, e.text);
     for (const s of stats) add(s.key, s.value, { slot: e.slot, itemId: e.itemId, itemName: e.origin, origin: e.kind === "set" ? "set" : "effect", value: s.value });
   }

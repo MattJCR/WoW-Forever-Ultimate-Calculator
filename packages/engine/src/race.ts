@@ -161,6 +161,10 @@ function add(out: RaceBonuses, e: RacialEffect): void {
   }
 }
 
+/** Mecánicas de control (SpellEffect.EffectMiscValue en `mechanic-immunity`) y tipos de disipación (en `dispel-immunity`), con el nombre que usa el texto del cliente. */
+const MECHANIC_LABEL: Record<number, string> = { 1: "embelesamiento", 5: "miedo", 7: "inmovilización", 10: "sueño", 11: "ralentización", 15: "sangrado" };
+const DISPEL_LABEL: Record<number, string> = { 3: "enfermedad", 4: "veneno" };
+
 /** Texto corto de un efecto modelado, para listas: «+2 % probabilidad de crítico». */
 export function describeEffect(e: RacialEffect, spell?: Pick<RacialSpell, "durationMs" | "procChance" | "procCooldownMs">): string | null {
   const pct = (v: number) => `${v > 0 ? "+" : ""}${v} %`;
@@ -220,6 +224,20 @@ export function describeEffect(e: RacialEffect, spell?: Pick<RacialSpell, "durat
       return `${spell?.procChance ? `${spell.procChance} % de probabilidad: ` : ""}drena hasta ${e.value} % de tu salud máxima${spell?.procCooldownMs ? ` (enfriamiento interno ${spell.procCooldownMs / 1000} s)` : ""}`;
     case "spell-modifier-pct":
       return e.miscValue === 14 ? `${pct(e.value)} coste` : e.miscValue === 22 ? `${pct(e.value)} daño periódico` : `${pct(e.value)} daño`;
+    case "stealth-detection":
+      return `${pct(e.value).replace(" %", "")} detección de sigilo`;
+    case "stealth":
+      return "otorga sigilo";
+    case "water-breathing-pct":
+      return `${pct(e.value)} duración de la respiración bajo el agua`;
+    case "mechanic-immunity":
+      return `inmune a ${MECHANIC_LABEL[e.miscValue ?? 0] ?? "efectos de control"}`;
+    case "dispel-immunity":
+      return `inmune a ${DISPEL_LABEL[e.miscValue ?? 0] ?? "ciertos efectos"}`;
+    case "track-resources":
+      return e.miscValue === 6 ? "rastrea arquetas" : "rastrea recursos";
+    case "engineering-failure-pct":
+      return `${pct(-e.value)} fallo de dispositivos de ingeniería`;
     default:
       return null;
   }

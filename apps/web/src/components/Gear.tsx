@@ -4,6 +4,7 @@ import {
   canEquip,
   compareGear,
   enchantFits,
+  enchantNotes,
   itemTypeName,
   equipItem,
   ratingPercents,
@@ -17,7 +18,7 @@ import {
   type GearSlot,
   type GearSummary,
 } from "@wfuc/engine";
-import type { CombatRatings, Item } from "@wfuc/schema";
+import type { CombatRatings, Enchant, Item } from "@wfuc/schema";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useGearBundle, type Async, type GearBundle } from "../data";
 import { fmtNum, isEnglish, tr, trn } from "../i18n";
@@ -151,6 +152,7 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
         </ul>
       )}
       {enchant && <p className="item-line good">{nameOf(enchant)}</p>}
+      {enchant && <EnchantNotes enchant={enchant} />}
       {item.effects.map((e, i) => (
         <p key={i} className="item-line good">
           {effectPrefix(e.trigger)}: {effectLabel(e)}
@@ -185,6 +187,17 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
       )}
       {item.provenance === "community" && <p className="item-line muted small">{tr("Objeto de la comunidad (comunidad): el cliente no lo trae.")}</p>}
     </div>
+  );
+}
+
+/** Avisos de un encantamiento: el nombre del cliente no trae la cifra de su efecto, o la cifra es de la comunidad porque el cliente no la detalla. */
+function EnchantNotes({ enchant }: { enchant: Enchant }) {
+  const notes = enchantNotes(enchant);
+  return (
+    <>
+      {notes.nameDiffers && <p className="item-line muted small">{tr("El nombre del cliente dice {a}, pero su efecto da {b}: se usa la cifra del efecto (la comunidad coincide).", { a: notes.nameDiffers.nameValue, b: notes.nameDiffers.effectValue })}</p>}
+      {notes.fromCommunity && <p className="item-line muted small">{tr("Parte de las cifras del encantamiento es de la comunidad: el cliente no detalla su efecto.")}</p>}
+    </>
   );
 }
 

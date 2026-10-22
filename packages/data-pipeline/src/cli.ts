@@ -94,6 +94,7 @@ function build(): void {
   let enchantsEntry: Manifest["enchants"];
   let suffixesEntry: Manifest["randomSuffixes"];
   let wsDb: WowsimsDb | null = null;
+  let enchantsData: Enchants | undefined;
   if (itemTables.every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
     let built = buildItems(raw, buildId, spells);
     // La comunidad (MIT, data/external/wowsims): objetos nuevos, sufijos aleatorios, encantamientos y puntuaciones
@@ -108,7 +109,8 @@ function build(): void {
       const ratingsText = stableJson(ratings);
       writeFileSync(join(outDir, "combat-ratings.json"), ratingsText);
       ratingsEntry = { file: "combat-ratings.json", sha256: sha256(ratingsText) };
-      const enchants = Enchants.parse(buildEnchants(db, raw, buildId, ws));
+      const enchants = Enchants.parse(buildEnchants(db, raw, buildId, ws, spells));
+      enchantsData = enchants;
       const enchantsText = `${JSON.stringify(enchants)}
 `;
       writeFileSync(join(outDir, "enchants.json"), enchantsText);
@@ -212,7 +214,7 @@ function build(): void {
     const enusDir = resolve(arg("enus", join(repoRoot, "data", "external", "enus")));
     const official = loadOfficialEnglish(enusDir, raw, spells);
     if (official) {
-      const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, unassigned, own: loadEnglishOverrides() });
+      const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, enchants: enchantsData, unassigned, own: loadEnglishOverrides() });
       console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);
       console.log(`   pendientes de traducción propia (cifras distintas o sin inglés): ${o.pending.length}; traducciones propias con otras cifras: ${o.ownMismatches.length}`);
       mkdirSync(join(repoRoot, "data", "i18n"), { recursive: true });

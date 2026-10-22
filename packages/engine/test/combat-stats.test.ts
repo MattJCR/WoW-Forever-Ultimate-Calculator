@@ -105,7 +105,8 @@ describe.skipIf(!has)("auditoría: el equipo y los talentos se reflejan en las e
 
   /** Estadisticas del equipo que ninguna fila del Resumen refleja, con el motivo. */
   const NOT_REFLECTED = (k: string): string | null => {
-    if (k.startsWith("type:")) return "estadística de Forever que el cliente no nombra (condicionales «contra criaturas», pesca…): solo texto en el selector";
+    if (k.startsWith("type:")) return "estadística de Forever que el cliente no nombra: solo texto en el selector (hoy ninguna: los tipos 83-140 se interpretaron en la sesión 12)";
+    if (k === "untyped") return "tipo -1 del cliente (3 anillos grabados): hueco sin tipo; se conserva marcado y no suma a nada";
     return null;
   };
 

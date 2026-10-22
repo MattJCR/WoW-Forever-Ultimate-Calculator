@@ -146,7 +146,7 @@ function Table({ data, raceId, raceName, raceIsReference, classId, level, fx, fx
   );
 }
 
-const COMBAT_GROUPS: CombatGroup[] = ["Ataque", "Armas", "Defensa", "Poder", "Recursos", "Resistencias", "Otros bonos"];
+const COMBAT_GROUPS: CombatGroup[] = ["Ataque", "Armas", "Habilidades", "Defensa", "Poder", "Contra criaturas", "Recursos", "Resistencias", "Otros bonos"];
 
 const signed = (v: number, unit: CombatRow["unit"]): string => `${v > 0 ? "+" : ""}${fmt(v)}${unit === "%" ? " %" : ""}`;
 const valueText = (r: CombatRow): string => `${r.unit === "%" && r.value > 0 && r.group === "Otros bonos" ? "+" : ""}${fmt(r.value)}${r.unit === "%" ? " %" : ""}`;

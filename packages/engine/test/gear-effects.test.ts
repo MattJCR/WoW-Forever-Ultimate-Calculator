@@ -34,7 +34,7 @@ describe.skipIf(!has)("bonos de conjunto y efectos de objeto (cliente 1.60.1.704
   const stats = (id: number) => Object.fromEntries(classifyGearAuras(bySpell(id).auras, bySpell(id).text).stats.map((s) => [s.key, s.value]));
 
   it("poder de ataque (cuerpo a cuerpo y a distancia gemelos), poder con hechizos (daño y sanación gemelos), atributo, defensa y maná cada 5 s", () => {
-    expect(stats(9331)).toEqual({ "attack-power": 20, "ranged-attack-power": 20 }); // «+20 p. de poder de ataque»
+    expect(stats(9331)).toEqual({ "attack-power": 20 }); // «+20 p. de poder de ataque» (dos auras gemelas = una estadística que suma al cuerpo a cuerpo y a distancia)
     expect(stats(14047)).toEqual({ "spell-power": 23 }); // «daño y la curación de los hechizos mágicos hasta en 23 p.»
     expect(stats(9106)).toEqual({ intellect: 10 });
     expect(stats(7516)).toEqual({ defense: 3 });

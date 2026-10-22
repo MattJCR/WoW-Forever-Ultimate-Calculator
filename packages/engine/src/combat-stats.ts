@@ -2,6 +2,7 @@ import type { ClassStatLevel, CombatFormulas, CombatRatings } from "@wfuc/schema
 import { classBaseOf, dodgePerAgility, spiritManaPer5s } from "./class-base.js";
 import type { DerivedStats } from "./derived-stats.js";
 import { ratingPercents } from "./gear.js";
+import { attackPowerVsKey, CREATURE_TYPES, PENETRATION_SCHOOLS, PROFESSION_SKILLS, spellDamageVsKey, WEAPON_SKILLS } from "./item-stat-keys.js";
 import type { SwingEstimate } from "./power-bonus.js";
 import type { StatSource, StatTotal } from "./stat-effects.js";
 
@@ -16,7 +17,7 @@ import type { StatSource, StatTotal } from "./stat-effects.js";
  * sale de la comunidad (`community`, hojas de personaje y tooltips del juego; `combat-formulas.json`) y cada fila lo dice en `parts` y `note`.
  */
 
-export type CombatGroup = "Ataque" | "Armas" | "Defensa" | "Poder" | "Recursos" | "Resistencias" | "Otros bonos";
+export type CombatGroup = "Ataque" | "Armas" | "Habilidades" | "Defensa" | "Poder" | "Contra criaturas" | "Recursos" | "Resistencias" | "Otros bonos";
 
 export interface CombatPart {
   label: string;
@@ -55,9 +56,11 @@ export interface CombatGearInput {
 
 const NOTE_BASE_CRIT = "Incluye el crítico base de la clase (comunidad, hojas de personaje de nivel 60): el cliente no lo trae.";
 const NOTE_DEFENSE = "No incluye el 5 % base de la tabla de ataque ni la habilidad de defensa base (no están en el cliente).";
+const NOTE_WEAPON_SKILL = "Puntos de habilidad con ese tipo de arma que da el equipo (cliente). El cliente no trae su efecto en la tabla de ataque, así que no se suman al impacto ni al crítico.";
+const NOTE_VS_CREATURE = "Solo vale contra ese tipo de criatura: no entra en el total de arriba. Elige el tipo en «Tipo de criatura» de la lista de habilidades para sumarlo a su daño.";
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 
-const PP = "puntos porcentuales";
+const PP ="puntos porcentuales";
 const isPct = (t: StatTotal): boolean => t.unit === PP || t.unit === "%";
 const sum = (lines: StatTotal[]): number => round2(lines.reduce((n, l) => n + l.value, 0));
 const sourcesOf = (lines: StatTotal[]): StatSource[] => lines.flatMap((l) => l.sources);
@@ -277,6 +280,28 @@ export function deriveCombatStats(input: {
   for (const [key, name] of RESISTANCES) {
     const v = gearStats[key] ?? 0;
     if (v !== 0) add({ key, group: "Resistencias", label: `Resistencia a ${name}`, value: v, unit: "pts", parts: part("tu equipo", v) });
+  }
+
+  // --- Habilidades con armas y de profesión (equipo) ---------------------------------------------------------------
+  for (const s of WEAPON_SKILLS) {
+    const v = gearStats[`skill-${s.key}`] ?? 0;
+    if (v !== 0) add({ key: `skill-${s.key}`, group: "Habilidades", label: `Habilidad con ${s.label}`, value: v, unit: "pts", parts: part("tu equipo", v), note: NOTE_WEAPON_SKILL });
+  }
+  for (const s of PROFESSION_SKILLS) {
+    const v = gearStats[`profession-${s.key}`] ?? 0;
+    if (v !== 0) add({ key: `profession-${s.key}`, group: "Habilidades", label: `Habilidad en ${s.label}`, value: v, unit: "pts", parts: part("tu equipo", v) });
+  }
+  // Perforación de resistencias por escuela (la genérica de hechizos ya tiene su fila en «Ataque»)
+  for (const s of PENETRATION_SCHOOLS) {
+    const v = gearStats[`${s.key}-penetration`] ?? 0;
+    if (v !== 0) add({ key: `${s.key}-penetration`, group: "Ataque", label: `Penetración de ${s.label}`, value: v, unit: "pts", parts: part("tu equipo", v), note: "Solo para los hechizos de esa escuela." });
+  }
+  // Bonos que solo valen contra un tipo de criatura: no se suman al total, se eligen en «Tipo de criatura» de las habilidades
+  for (const c of CREATURE_TYPES) {
+    const ap = gearStats[attackPowerVsKey(c.key)] ?? 0;
+    if (ap !== 0) add({ key: attackPowerVsKey(c.key), group: "Contra criaturas", label: `Poder de ataque contra ${c.label}`, value: ap, unit: "pts", parts: part("tu equipo", ap), note: NOTE_VS_CREATURE });
+    const sd = gearStats[spellDamageVsKey(c.key)] ?? 0;
+    if (sd !== 0) add({ key: spellDamageVsKey(c.key), group: "Contra criaturas", label: `Daño con hechizos contra ${c.label}`, value: sd, unit: "pts", parts: part("tu equipo", sd), note: NOTE_VS_CREATURE });
   }
 
   // --- Otros bonos del personaje ----------------------------------------------------------------------------------

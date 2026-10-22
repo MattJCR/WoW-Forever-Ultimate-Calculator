@@ -350,7 +350,7 @@ describe("deriveStats con equipo", () => {
     const { rows } = deriveStats({ ...base, totals: [], attackPower: { perStrength: 2, perAgility: 1, rangedPerAgility: 1 }, gear: { strength: 10, "attack-power": 40, "ranged-attack-power": 25, "spell-power": 30, "healing-power": 10 } });
     const get = (k: string) => rows.find((r) => r.key === k);
     expect(get("ap")).toMatchObject({ base: 110 * 2 + 100 + 40, final: 110 * 2 + 100 + 40, gear: 40 });
-    expect(get("rap")).toMatchObject({ base: 100 + 25, final: 125 });
+    expect(get("rap")).toMatchObject({ base: 100 + 25 + 40, final: 165 }); // el poder de ataque del equipo suma también a distancia (Classic)
     expect(get("spell-damage")).toMatchObject({ base: 30, final: 30 });
     expect(get("spell-healing")).toMatchObject({ base: 40, final: 40 });
   });

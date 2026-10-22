@@ -122,7 +122,8 @@ export function deriveStats(input: {
     const melee = fromStat("attack-power");
     // Los atributos subidos por talentos entran en la base del poder de ataque: se muestra como «base» el valor sin talentos
     rows.push({ key: "ap", label: "Poder de ataque", base: Math.floor(ap + 1e-9), gear: apGear, bonusPct: 0, flat: Math.floor(apFinal - ap + melee.points + 1e-9), final: Math.floor(apFinal + melee.points + 1e-9), sources: melee.sources });
-    const rapGear = gear["ranged-attack-power"] ?? 0;
+    // Como en Classic (confirmado por el usuario el 22/10/2026): el «poder de ataque» de un objeto suma al cuerpo a cuerpo Y a distancia; el «poder de ataque a distancia» solo a distancia
+    const rapGear = (gear["ranged-attack-power"] ?? 0) + apGear;
     const rap = plain[attrIndex.agi]! * attackPower.rangedPerAgility + rapGear + baseRanged;
     const rapFinal = finalAttr.agi! * attackPower.rangedPerAgility + rapGear + baseRanged;
     const ranged = fromStat("ranged-attack-power");

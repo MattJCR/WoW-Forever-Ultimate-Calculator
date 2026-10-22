@@ -4,10 +4,12 @@ import type { SpellTables } from "./spell-tables.js";
 import type { Item, ItemSetDef, ItemSpellAura, Items, ItemStat, ItemWeapon } from "./model.js";
 
 /**
- * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Interpretados contra las lecturas del juego que trae el
- * lecturas del juego instaladas (12 738 de 12 940 objetos coinciden); los tipos 90-139 (salvo el 124) no se han podido interpretar y salen con `key: null`.
+ * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Los tipos 0-89 se interpretaron contra las lecturas del
+ * juego instaladas (12 738 de 12 940 objetos coinciden). Los de Forever 83-140 siguen el orden de los textos ITEM_MOD_* del cliente
+ * (GlobalStrings, ids 58793 y siguientes; ver STAT_TYPE_TAGS) y se comprobaron con objetos conocidos (hacha a dos manos, caña de pescar,
+ * Marca del Campeón…). El tipo -1 es un hueco sin tipo: se conserva con la clave `untyped` y no suma a nada.
  */
-export const ITEM_STAT_KEYS: Record<number, string> = {
+const BASE_STAT_KEYS: Record<number, string> = {
   0: "mana",
   1: "health",
   3: "agility",
@@ -46,6 +48,44 @@ export const ITEM_STAT_KEYS: Record<number, string> = {
   87: "frost-power",
   88: "shadow-power",
   89: "arcane-power",
+};
+
+/**
+ * Tipos de Forever 90-140: el orden es el de los textos ITEM_MOD_* de GlobalStrings (el cliente los numera seguidos):
+ * habilidad con armas 90-105, de profesión 106-118, perforación por escuela 119-123, (124 = todas las resistencias, abajo),
+ * poder de ataque contra cada tipo de criatura 125-132 y daño con hechizos contra cada tipo 133-140. `tag` = base del texto del cliente.
+ */
+const WEAPON_SKILLS: [string, string][] = [
+  ["2h-axes", "TWOHANDED_AXES"], ["2h-maces", "TWOHANDED_MACES"], ["2h-swords", "TWOHANDED_SWORDS"], ["axes", "AXES"], ["bows", "BOWS"],
+  ["crossbows", "CROSSBOWS"], ["daggers", "DAGGERS"], ["dual-wield", "DUAL_WIELD"], ["fist-weapons", "FIST_WEAPONS"], ["guns", "GUNS"],
+  ["maces", "MACES"], ["polearms", "POLEARMS"], ["staves", "STAVES"], ["swords", "SWORDS"], ["thrown", "THROWN"], ["wands", "WANDS"],
+];
+const PROFESSIONS: [string, string][] = [
+  ["alchemy", "ALCHEMY"], ["blacksmithing", "BLACKSMITHING"], ["enchanting", "ENCHANTING"], ["engineering", "ENGINEERING"],
+  ["jewelcrafting", "JEWELCRAFTING"], ["leatherworking", "LEATHERWORKING"], ["herbalism", "HERBALISM"], ["mining", "MINING"],
+  ["skinning", "SKINNING"], ["cooking", "COOKING"], ["first-aid", "FIRST_AID"], ["fishing", "FISHING"], ["tailoring", "TAILORING"],
+];
+const PENETRATIONS: [string, string][] = [["fire", "FIRE"], ["nature", "NATURE"], ["frost", "FROST"], ["shadow", "SHADOW"], ["arcane", "ARCANE"]];
+const CREATURE_TYPES: [string, string][] = [
+  ["humanoid", "HUMANOID"], ["elemental", "ELEMENTAL"], ["demon", "DEMON"], ["undead", "UNDEAD"], ["dragonkin", "DRAGONKIN"],
+  ["giant", "GIANT"], ["beast", "BEAST"], ["mechanical", "MECHANICAL"],
+];
+
+/** Tipo de estadística -> etiqueta del cliente (clave de GlobalStrings sin «_SHORT»). Se verifica contra GlobalStrings en la prueba. */
+export const STAT_TYPE_TAGS: Record<number, { key: string; tag: string }> = {};
+{
+  let type = 90;
+  for (const [k, tag] of WEAPON_SKILLS) STAT_TYPE_TAGS[type++] = { key: `skill-${k}`, tag: `ITEM_MOD_${tag}` };
+  for (const [k, tag] of PROFESSIONS) STAT_TYPE_TAGS[type++] = { key: `profession-${k}`, tag: `ITEM_MOD_${tag}` };
+  for (const [k, tag] of PENETRATIONS) STAT_TYPE_TAGS[type++] = { key: `${k}-penetration`, tag: `ITEM_MOD_${tag}_PENETRATION` };
+  type++; // 124: todas las resistencias (ALL_RESISTANCES_TYPE)
+  for (const [k, tag] of CREATURE_TYPES) STAT_TYPE_TAGS[type++] = { key: `attack-power-vs-${k}`, tag: `ITEM_MOD_ATTACK_POWER_VS_${tag}` };
+  for (const [k, tag] of CREATURE_TYPES) STAT_TYPE_TAGS[type++] = { key: `spell-damage-vs-${k}`, tag: `ITEM_MOD_SPELL_DAMAGE_VS_${tag}` };
+}
+export const ITEM_STAT_KEYS: Record<number, string> = {
+  ...BASE_STAT_KEYS,
+  ...Object.fromEntries(Object.entries(STAT_TYPE_TAGS).map(([t, v]) => [Number(t), v.key])),
+  [-1]: "untyped",
 };
 
 /** Tipo 124 («todas las resistencias»): se reparte en las cinco escuelas magicas, sin Sagrado (confirmado con tres tooltips por la comunidad). */
@@ -100,6 +140,34 @@ const PLACEHOLDER = /^\[PH\]|\(TEST\)|\bTEST\b|^OLD|\(OLD\)|^zz|^Deprecated|^DEP
 const num = (v: string | undefined): number => Number(v ?? 0) || 0;
 const byLevel = (rows: Row[]): Map<number, Row> => new Map(rows.map((r) => [int(r.ItemLevel), r]));
 
+/** Auras del hechizo con operacion, mascara de clase y valor base: lo que el motor intenta cuantificar. */
+export function spellAuras(spells: SpellTables, spellId: number): ItemSpellAura[] {
+  const out: ItemSpellAura[] = [];
+  for (let i = 0; i < spells.effectCount(spellId); i++) {
+    const e = spells.effect(spellId, i)!;
+    const aura = int(e.EffectAura);
+    const value = Number(e.EffectBasePointsF);
+    if (aura === 0 || !Number.isFinite(value)) continue;
+    out.push({
+      index: i,
+      aura,
+      miscValue: int(e["EffectMiscValue[0]"]),
+      miscValueB: int(e["EffectMiscValue[1]"]),
+      classMask: [0, 1, 2, 3].map((k) => int(e[`EffectSpellClassMask[${k}]`])),
+      value,
+      levelScaled: spells.isLevelScaled(spellId, i),
+    });
+  }
+  return out;
+}
+
+/** Nombre, texto del cliente (cifras al nivel base) y auras de un hechizo de objeto, de conjunto o de encantamiento. */
+export function spellEffectInfo(spells: SpellTables, spellId: number): { name: string; text: string; textComplete: boolean; auras: ItemSpellAura[] } {
+  const r = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map() });
+  // El cliente escribe «%%» (formato de printf) en algunos textos de efectos de objeto: se muestra un solo «%»
+  return { name: spells.name(spellId) ?? "", text: r.text.trim().replace(/%%/g, "%"), textComplete: r.complete, auras: spellAuras(spells, spellId) };
+}
+
 /**
  * Objetos equipables (armas y armadura con ranura) desde las tablas del cliente con hotfixes.
  *  - Estadistica = round(StatPercentEditor / 10 000 x presupuesto de RandPropPoints[nivel][calidad][ranura]).
@@ -111,30 +179,7 @@ const byLevel = (rows: Row[]): Map<number, Row> => new Map(rows.map((r) => [int(
  *  - Armas de lanzador: daño reducido y poder con hechizos desde los indicadores del cliente (ver CASTER_*).
  */
 export function buildItems(raw: RawTables, build: string, spells: SpellTables): Items {
-  const spellText = (spellId: number) => {
-    const r = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map() });
-    return { name: spells.name(spellId) ?? "", text: r.text.trim(), textComplete: r.complete, auras: spellAuras(spellId) };
-  };
-  /** Auras del hechizo con operacion, mascara de clase y valor base: lo que el motor intenta cuantificar. */
-  const spellAuras = (spellId: number): ItemSpellAura[] => {
-    const out: ItemSpellAura[] = [];
-    for (let i = 0; i < spells.effectCount(spellId); i++) {
-      const e = spells.effect(spellId, i)!;
-      const aura = int(e.EffectAura);
-      const value = Number(e.EffectBasePointsF);
-      if (aura === 0 || !Number.isFinite(value)) continue;
-      out.push({
-        index: i,
-        aura,
-        miscValue: int(e["EffectMiscValue[0]"]),
-        miscValueB: int(e["EffectMiscValue[1]"]),
-        classMask: [0, 1, 2, 3].map((k) => int(e[`EffectSpellClassMask[${k}]`])),
-        value,
-        levelScaled: spells.isLevelScaled(spellId, i),
-      });
-    }
-    return out;
-  };
+  const spellText = (spellId: number) => spellEffectInfo(spells, spellId);
   const sparse = raw.table("ItemSparse");
   const itemRows = raw.table("Item");
   const sparseById = new Map(sparse.map((r) => [r.ID!, r]));
@@ -189,7 +234,7 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
       if (alloc === 0) continue;
       const type = int(s[`StatModifier_bonusStat[${i}]`]);
       const key = ITEM_STAT_KEYS[type] ?? null;
-      if (key === null) unknownTypes.set(type, (unknownTypes.get(type) ?? 0) + 1);
+      if (key === null && type !== ALL_RESISTANCES_TYPE) unknownTypes.set(type, (unknownTypes.get(type) ?? 0) + 1);
       const value = Math.round((alloc * budget) / 10000);
       if (type === ALL_RESISTANCES_TYPE) for (const k of ALL_RESISTANCES) stats.push({ type, key: k, value });
       else stats.push({ type, key, value });

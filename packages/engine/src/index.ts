@@ -19,3 +19,4 @@ export * from "./class-base.js";
 export * from "./known-spells.js";
 export * from "./equipped.js";
 export * from "./ability-outcome.js";
+export * from "./item-stat-keys.js";

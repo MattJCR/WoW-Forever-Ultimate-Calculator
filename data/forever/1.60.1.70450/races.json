@@ -65,7 +65,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "stealth-detection",
                   "aura": 17,
                   "value": 50,
                   "miscValue": null,
@@ -178,7 +178,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "dispel-immunity",
                   "aura": 41,
                   "value": 0,
                   "miscValue": 3,
@@ -186,7 +186,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "dispel-immunity",
                   "aura": 41,
                   "value": 0,
                   "miscValue": 4,
@@ -194,7 +194,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 0,
                   "miscValue": 15,
@@ -223,7 +223,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "track-resources",
                   "aura": 45,
                   "value": 0,
                   "miscValue": 6,
@@ -364,7 +364,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "stealth",
                   "aura": 16,
                   "value": 0,
                   "miscValue": null,
@@ -484,7 +484,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 10,
                   "miscValue": 7,
@@ -492,7 +492,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 10,
                   "miscValue": 11,
@@ -815,7 +815,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "engineering-failure-pct",
                   "aura": 4,
                   "value": 20,
                   "miscValue": null,
@@ -1193,7 +1193,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 1,
                   "miscValue": 1,
@@ -1201,7 +1201,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 1,
                   "miscValue": 5,
@@ -1209,7 +1209,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "mechanic-immunity",
                   "aura": 77,
                   "value": 1,
                   "miscValue": 10,
@@ -1283,7 +1283,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "water-breathing-pct",
                   "aura": 155,
                   "value": 300,
                   "miscValue": null,
