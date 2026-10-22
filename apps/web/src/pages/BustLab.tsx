@@ -15,7 +15,9 @@ export interface BustApi {
   /** Miniatura de un arma o escudo suelto. */
   object(itemId: number, inventoryType: number): Promise<string | null>;
   /** Personaje desnudo, para comprobar el modelo base. */
-  base(kind: BustKind): Promise<string>;
+  base(kind: BustKind, size?: number): Promise<string>;
+  /** Primer plano de la cara de frente (yaw 0) o girada. */
+  face(size?: number, yaw?: number): Promise<string>;
 }
 
 export function BustLab({ query }: { query: URLSearchParams }) {
@@ -34,7 +36,9 @@ export function BustLab({ query }: { query: URLSearchParams }) {
       const recipe = await view.load(chrModel);
       const ap = await loadAppearance(BASE);
       if (!ap) { setStatus("sin appearance.json"); return; }
-      const selection = defaultSelection(recipe);
+      // a=opcion-eleccion~opcion-eleccion: cambia elecciones respecto a las de por defecto
+      const picked = Object.fromEntries((query.get("a") ?? "").split("~").filter(Boolean).map((p) => p.split("-").map(Number) as [number, number]));
+      const selection = { ...defaultSelection(recipe), ...picked };
       const v = view;
       const api: BustApi = {
         async armor(itemId, inventoryType, kind) {
@@ -47,9 +51,13 @@ export function BustLab({ query }: { query: URLSearchParams }) {
           const m = e.models[0];
           return m ? v.objectBust(m.file, m.textures) : null;
         },
-        async base(kind) {
+        async base(kind, size) {
           await v.apply({ selection, pose: "Stand" });
-          return v.bust(kind);
+          return v.bust(kind, size);
+        },
+        async face(size, yaw) {
+          await v.apply({ selection, pose: "Stand" });
+          return v.face(size, yaw);
         },
       };
       (window as unknown as { __bust: BustApi }).__bust = api;

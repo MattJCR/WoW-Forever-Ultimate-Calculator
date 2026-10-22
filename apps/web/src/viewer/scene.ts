@@ -215,6 +215,8 @@ export class CharacterView {
       const head = recipe.geosets.map((i) => i.geoset).filter((g) => Math.floor(g / 100) === 32 && g % 100 >= 2).sort((a, b) => a - b)[0];
       if (head !== undefined) visible.add(head);
     }
+    // Los ojos (grupo 33) van siempre, salvo que la personalización los quite o los cambie (3300: sin ojos).
+    if (!groups.has(33) && this.meshes.has(3301)) visible.add(3301);
     // Las orejas (grupo 7) solo las elige la personalización en algunas razas; en el resto va la variante con orejas
     // (la 02 si el modelo trae varias, porque la 01 suele ser «sin orejas»; la única si solo hay una).
     if (!groups.has(7)) {
@@ -370,6 +372,29 @@ export class CharacterView {
     this.camera.updateProjectionMatrix();
     this.camera.position.set(p.x * h + Math.sin(p.yaw) * p.d * h, p.y * h + 0.04 * h, Math.cos(p.yaw) * p.d * h);
     this.camera.lookAt(p.x * h, p.y * h, 0);
+    this.renderer.render(this.scene, this.camera);
+    const url = this.canvas.toDataURL("image/png");
+    this.renderer.setSize(prevSize.x, prevSize.y, false);
+    this.camera.aspect = prevAspect;
+    this.camera.updateProjectionMatrix();
+    return url;
+  }
+
+  /** Primer plano de la cara (solo pruebas): mira al punto de anclaje del casco, de frente o girado `yaw`. */
+  face(size = 400, yaw = 0): string {
+    const h = this.modelHeight;
+    const head = new Vector3(0, h * 0.9, 0);
+    this.root?.updateMatrixWorld(true);
+    this.root?.getObjectByName("att_11")?.getWorldPosition(head);
+    const prevSize = this.renderer.getSize(new Vector2());
+    const prevAspect = this.camera.aspect;
+    this.renderer.setPixelRatio(1);
+    this.renderer.setSize(size, size, false);
+    this.camera.aspect = 1;
+    this.camera.updateProjectionMatrix();
+    const d = Math.max(h * 0.3, (h - head.y) * 3);
+    this.camera.position.set(head.x + Math.sin(yaw) * d, head.y, head.z + Math.cos(yaw) * d);
+    this.camera.lookAt(head);
     this.renderer.render(this.scene, this.camera);
     const url = this.canvas.toDataURL("image/png");
     this.renderer.setSize(prevSize.x, prevSize.y, false);

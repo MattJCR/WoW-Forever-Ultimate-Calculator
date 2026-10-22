@@ -72,6 +72,12 @@ describe("personalización", () => {
     const only = { ...recipe.options[2]!, choices: [recipe.options[2]!.choices[0]!] };
     expect(defaultChoice(only)?.id).toBe(30);
   });
+  it("las cejas de malla no salen «Afeitadas» (subgrupo 0) por defecto si hay otras", () => {
+    const brow = (id: number, geoset: number) => ({ id, name: "", req: 0, swatch: 0, elements: [{ related: 0, geoset }] });
+    const o = { id: 5, name: "Cejas", category: 0, categoryName: "", choices: [brow(1, 3400), brow(2, 3401), brow(3, 3402)] };
+    expect(defaultChoice(o)?.id).toBe(2);
+    expect(defaultChoice({ ...o, name: "Pendientes" })?.id).toBe(1);
+  });
   it("la textura de la cara depende del color de piel elegido", () => {
     expect(resolveSelection(recipe, { 1: 11, 2: 20, 3: 30 }).targets.get(5)).toBe(211);
     expect(resolveSelection(recipe, { 1: 12, 2: 20, 3: 30 }).targets.get(5)).toBe(212);

@@ -72,7 +72,11 @@ export function defaultChoice(o: RecipeOption): RecipeChoice | undefined {
   // Un peinado «rapado» (sin pelo) solo si no hay otro: así el personaje sale completo
   const bald = (c: RecipeChoice) => c.elements.some((e) => e.hair && e.geoset === 0) && !c.elements.some((e) => e.hair && (e.geoset ?? 0) > 0);
   const withHair = o.choices.filter((c) => !c.npc && !bald(c));
-  const players = o.choices.some((c) => c.elements.some((e) => e.hair)) && withHair.length ? withHair : o.choices.filter((c) => !c.npc);
+  // Igual con las cejas hechas de malla (elfos, gnomos): «Afeitadas»/«Ninguna» (subgrupo 0) solo si no hay otra
+  const noBrows = (c: RecipeChoice) => c.elements.length > 0 && c.elements.every((e) => e.geoset !== undefined && e.geoset % 100 === 0);
+  const withBrows = o.choices.filter((c) => !c.npc && !noBrows(c));
+  const players = o.choices.some((c) => c.elements.some((e) => e.hair)) && withHair.length ? withHair
+    : /ceja/i.test(o.name) && withBrows.length ? withBrows : o.choices.filter((c) => !c.npc);
   const colored = players.filter((c) => c.swatch !== 0);
   // La primera muestra de piel del Tauren es casi negra (azul-negro bajo la luz del visor): si la primera es muy oscura se parte de un marrón medio
   const first = colored[0];
