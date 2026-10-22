@@ -106,17 +106,38 @@ export function resolveSelection(recipe: Recipe, sel: Selection): Resolved {
   const chosen = new Set(Object.values(sel));
   const geosets = new Set<number>();
   const targets = new Map<number, number>();
+  const info = new Map<number, { option: number; swatch: number }>();
+  for (const o of recipe.options) for (const c of o.choices) info.set(c.id, { option: o.id, swatch: c.swatch });
   for (const o of recipe.options) {
     const c = o.choices.find((x) => x.id === sel[o.id]) ?? o.choices[0];
+    const painted = new Set<number>();
     for (const e of c?.elements ?? []) {
       if (e.related !== 0 && !chosen.has(e.related)) continue;
       if (e.geoset !== undefined) geosets.add(e.geoset);
       // Las mallas de las colecciones (cuernos, plumas, cejas…) se identifican con fichero * 10000 + subgeometría.
       if (e.skinned) geosets.add(e.skinned.file * 10000 + e.skinned.type * 100 + e.skinned.id);
-      if (e.material && e.material.file) targets.set(e.material.target, e.material.file);
+      if (e.material && e.material.file) { targets.set(e.material.target, e.material.file); painted.add(e.material.target); }
+    }
+    // Una cara o un pelo sin textura para el color elegido (el cliente no ofrece esa pareja, pero la web deja elegirla y «Aleatorio» la saca):
+    // se usa la del color más parecido en vez de dejarla sin pintar (sin boca, sin orejas, sin párpados…)
+    for (const e of c?.elements ?? []) {
+      const m = e.material;
+      if (!m || !m.file || e.related === 0 || painted.has(m.target)) continue;
+      const options = (c?.elements ?? []).filter((x) => x.related !== 0 && x.material?.file && x.material.target === m.target);
+      const parent = info.get(e.related)?.option;
+      const wanted = parent === undefined ? undefined : info.get(sel[parent] ?? -1)?.swatch;
+      if (wanted === undefined) continue;
+      const best = options.reduce((p, q) => (colorDistance(info.get(q.related)?.swatch ?? 0, wanted) < colorDistance(info.get(p.related)?.swatch ?? 0, wanted) ? q : p));
+      targets.set(m.target, best.material!.file);
+      painted.add(m.target);
     }
   }
   return { geosets, targets };
+}
+
+/** Distancia entre dos colores ARGB (suma de diferencias por canal). */
+function colorDistance(a: number, b: number): number {
+  return Math.abs(((a >>> 16) & 0xff) - ((b >>> 16) & 0xff)) + Math.abs(((a >>> 8) & 0xff) - ((b >>> 8) & 0xff)) + Math.abs((a & 0xff) - (b & 0xff));
 }
 
 /** Zona de personalización en la que se agrupa una opción (pestañas del probador). */

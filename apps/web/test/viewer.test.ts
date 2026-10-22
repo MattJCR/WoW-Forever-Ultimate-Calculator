@@ -82,6 +82,26 @@ describe("personalización", () => {
     expect(resolveSelection(recipe, { 1: 11, 2: 20, 3: 30 }).targets.get(5)).toBe(211);
     expect(resolveSelection(recipe, { 1: 12, 2: 20, 3: 30 }).targets.get(5)).toBe(212);
   });
+  it("una cara sin textura para el color de piel elegido usa la del color más parecido (no se queda sin pintar)", () => {
+    const r = {
+      ...recipe,
+      options: [
+        { id: 1, name: "Color de piel", category: 1, categoryName: "", choices: [
+          { id: 11, name: "", req: 0, swatch: 0xff202020, elements: [] },
+          { id: 12, name: "", req: 0, swatch: 0xffe0e0e0, elements: [] },
+          { id: 13, name: "", req: 0, swatch: 0xffd0d0d0, elements: [] },
+        ] },
+        { id: 2, name: "Rostro", category: 1, categoryName: "", choices: [
+          { id: 20, name: "", req: 0, swatch: 0, elements: [
+            { related: 11, material: { target: 5, file: 211 } },
+            { related: 12, material: { target: 5, file: 212 } },
+          ] },
+        ] },
+      ],
+    } as unknown as Recipe;
+    expect(resolveSelection(r, { 1: 12, 2: 20 }).targets.get(5)).toBe(212);
+    expect(resolveSelection(r, { 1: 13, 2: 20 }).targets.get(5)).toBe(212);
+  });
   it("peinados y colecciones dan sus subgeometrías", () => {
     const r = resolveSelection(recipe, { 1: 12, 2: 20, 3: 31 });
     expect(r.geosets.has(3)).toBe(true);

@@ -17,7 +17,9 @@ export interface BustApi {
   /** Personaje desnudo, para comprobar el modelo base. */
   base(kind: BustKind, size?: number): Promise<string>;
   /** Primer plano de la cara de frente (yaw 0) o girada. */
-  face(size?: number, yaw?: number): Promise<string>;
+  face(size?: number, yaw?: number, zoom?: number): Promise<string>;
+  /** Primer plano de la cara con un casco puesto. */
+  faceWithHelm(itemId: number, size?: number, yaw?: number, zoom?: number): Promise<string>;
 }
 
 export function BustLab({ query }: { query: URLSearchParams }) {
@@ -55,9 +57,14 @@ export function BustLab({ query }: { query: URLSearchParams }) {
           await v.apply({ selection, pose: "Stand" });
           return v.bust(kind, size);
         },
-        async face(size, yaw) {
+        async faceWithHelm(itemId, size, yaw, zoom) {
+          const e = resolveEquipment(ap, race, recipe.sex, [{ slot: "armor", inventoryType: 1, classId: 4, subclassId: 0, itemId }], v.textureUrl);
+          await v.apply({ selection, extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides, models: e.models, objectTextures: e.objectTextures, pose: "Stand" });
+          return v.face(size, yaw, zoom);
+        },
+        async face(size, yaw, zoom) {
           await v.apply({ selection, pose: "Stand" });
-          return v.face(size, yaw);
+          return v.face(size, yaw, zoom);
         },
       };
       (window as unknown as { __bust: BustApi }).__bust = api;
