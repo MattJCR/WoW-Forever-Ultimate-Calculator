@@ -56,7 +56,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:5176:1|15}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:5176:1|15}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -105,7 +107,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:5177:1|21}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:5177:1|21}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -154,7 +158,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:5178:1|30}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:5178:1|30}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -203,7 +209,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:5179:1|37}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:5179:1|37}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -252,7 +260,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:5180:1|45}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:5180:1|45}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -301,7 +311,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:6780:1|54}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:6780:1|54}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -350,7 +362,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:8905:1|68}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:8905:1|68}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -399,7 +413,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:9912:1|91}} p. de daño de Naturaleza al objetivo."
+          "descriptionTemplate": "Causa {{s:9912:1|91}} p. de daño de Naturaleza al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -476,7 +492,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a los enemigos cercanos, lo que inflige un {{s:411128:1|250}}% de daño con arma y genera {{s:411128:2|1}} p. de combo sobre tu objetivo actual."
+          "descriptionTemplate": "Flagela a los enemigos cercanos, lo que inflige un {{s:411128:1|250}}% de daño con arma y genera {{s:411128:2|1}} p. de combo sobre tu objetivo actual.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -553,7 +571,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana al objetivo {{=@0/100*7*(679.36013);m:408124:1|190,22}} p. durante {{d:408124:1|7 s}}. Cuando Flor de vida completa su duración o se disipa, el objetivo se sana {{=@0/100*(679.36013);m:408124:2|387,24}} p., y el druida recupera la mitad del coste del hechizo. Este efecto puede acumularse hasta 3 veces sobre el mismo objetivo."
+          "descriptionTemplate": "Sana al objetivo {{=@0/100*7*(679.36013);m:408124:1|190,22}} p. durante {{d:408124:1|7 s}}. Cuando Flor de vida completa su duración o se disipa, el objetivo se sana {{=@0/100*(679.36013);m:408124:2|387,24}} p., y el druida recupera la mitad del coste del hechizo. Este efecto puede acumularse hasta 3 veces sobre el mismo objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -617,7 +637,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana {{l:417148:1|108,7}} p. a todos los miembros del grupo en un radio de {{a:417148:1|15}} m del objetivo."
+          "descriptionTemplate": "Sana {{l:417148:1|108,7}} p. a todos los miembros del grupo en un radio de {{a:417148:1|15}} m del objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -698,7 +720,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414684:2|193,9}} a {{h:414684:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414684:1|387,81}} p. de daño de Naturaleza extra durante {{d:414684:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414684:2|193,9}} a {{h:414684:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414684:1|387,81}} p. de daño de Naturaleza extra durante {{d:414684:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -768,7 +792,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414687:2|193,9}} a {{h:414687:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414687:1|387,81}} p. de daño de Naturaleza extra durante {{d:414687:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414687:2|193,9}} a {{h:414687:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414687:1|387,81}} p. de daño de Naturaleza extra durante {{d:414687:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -855,7 +881,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414689:2|193,9}} a {{h:414689:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414689:1|387,81}} p. de daño de Naturaleza extra durante {{d:414689:1|12 s}}. Otorga {{s:414689:3|1}} p. de combo."
+          "descriptionTemplate": "Quema al enemigo, lo que inflige de {{l:414689:2|193,9}} a {{h:414689:2|226,72}} p. de daño de Naturaleza y {{=@0*4*(149.156205)/100;m:414689:1|387,81}} p. de daño de Naturaleza extra durante {{d:414689:1|12 s}}. Otorga {{s:414689:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -915,7 +943,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te otorga energía al instante."
+          "descriptionTemplate": "Te otorga energía al instante.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -964,7 +994,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Requiere Forma felina\r\nAumenta un {{s:5217:1|15}}% el daño físico infligido durante {{d:5217:1|6 s}}."
+          "descriptionTemplate": "Requiere Forma felina\r\nAumenta un {{s:5217:1|15}}% el daño físico infligido durante {{d:5217:1|6 s}}s417046y otorga {{s:417046:1|60}} p. de energía instantáneamente.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1106,7 +1138,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando se activa, esta facultad aumenta temporalmente un {{s:408025:1|30}}% tu salud máxima y un {{s:408024:1|20}}% toda la sanación que no sea física realizada durante {{d:408024:1|20 s}}. Perderás la salud cuando se acabe el efecto. Puede usarse en cualquier forma excepto en la de lechúcico lunar.\r\n\r\nAdemás, regeneras {{s:417051:2|3}} p. de ira cada vez que esquivas en forma de oso o de oso temible, {{s:417051:3|10}} p. de energía en forma felina o un {{s:417051:4|1}}% de tu maná máximo en cualquier otra forma."
+          "descriptionTemplate": "Cuando se activa, esta facultad aumenta temporalmente un {{s:408025:1|30}}% tu salud máxima y un {{s:408024:1|20}}% toda la sanación que no sea física realizada durante {{d:408024:1|20 s}}. Perderás la salud cuando se acabe el efecto. Puede usarse en cualquier forma excepto en la de lechúcico lunar.\r\n\r\nAdemás, regeneras {{s:417051:2|3}} p. de ira cada vez que esquivas en forma de oso o de oso temible, {{s:417051:3|10}} p. de energía en forma felina o un {{s:417051:4|1}}% de tu maná máximo en cualquier otra forma.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1240,7 +1274,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invocas una lluvia de estrellas del cielo de {{d:439748:1|10 s}} de duración que cae sobre los objetivos en un radio de {{a:439755:1|30}} m de tu ubicación. Cada una de las estrellas inflige de {{l:439753:1|68,61}} a {{h:439753:1|80,54}} p. de daño Arcano a su objetivo y {{l:439756:1|11,93}} p. de daño Arcano a todos los demás enemigos en un radio de {{a:439756:1|5}} m. Máximo de 20 estrellas.\r\n\r\nAl cambiar de forma o montar, se cancela el efecto. Cualquier efecto que provoque que pierdas el control de tu personaje suprimirá el efecto de Lluvia de estrellas.\r\n\r\nSe beneficia y activa casi todos los talentos y efectos que activan o se benefician de Fuego lunar."
+          "descriptionTemplate": "Invocas una lluvia de estrellas del cielo de {{d:439748:1|10 s}} de duración que cae sobre los objetivos en un radio de {{a:439755:1|30}} m de tu ubicación. Cada una de las estrellas inflige de {{l:439753:1|68,61}} a {{h:439753:1|80,54}} p. de daño Arcano a su objetivo y {{l:439756:1|11,93}} p. de daño Arcano a todos los demás enemigos en un radio de {{a:439756:1|5}} m. Máximo de 20 estrellas.\r\n\r\nAl cambiar de forma o montar, se cancela el efecto. Cualquier efecto que provoque que pierdas el control de tu personaje suprimirá el efecto de Lluvia de estrellas.\r\n\r\nSe beneficia y activa casi todos los talentos y efectos que activan o se benefician de Fuego lunar.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1300,7 +1336,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la armadura de un objetivo amistoso en {{s:1126:1|34}} p. durante {{d:1126:1|1 h}}."
+          "descriptionTemplate": "Aumenta la armadura de un objetivo amistoso en {{s:1126:1|34}} p. durante {{d:1126:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1366,7 +1404,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:5232:1|88}} p. la armadura de un objetivo amistoso y en {{s:5232:2|3}} p. todos los atributos durante {{d:5232:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:5232:1|88}} p. la armadura de un objetivo amistoso y en {{s:5232:2|3}} p. todos los atributos durante {{d:5232:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1432,7 +1472,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:6756:1|142}} p. la armadura de un objetivo amistoso y en {{s:6756:2|5}} p. todos los atributos durante {{d:6756:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:6756:1|142}} p. la armadura de un objetivo amistoso y en {{s:6756:2|5}} p. todos los atributos durante {{d:6756:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1600,7 +1642,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:5234:1|203}} p. la armadura de un objetivo amistoso, en {{s:5234:2|8}} p. todos los atributos y en {{s:5234:3|7}} p. todas las resistencias durante {{d:5234:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:5234:1|203}} p. la armadura de un objetivo amistoso, en {{s:5234:2|8}} p. todos los atributos y en {{s:5234:3|7}} p. todas las resistencias durante {{d:5234:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1768,7 +1812,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:8907:1|263}} p. la armadura de un objetivo amistoso, en {{s:8907:2|11}} p. todos los atributos y en {{s:8907:3|14}} p. todas las resistencias durante {{d:8907:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:8907:1|263}} p. la armadura de un objetivo amistoso, en {{s:8907:2|11}} p. todos los atributos y en {{s:8907:3|14}} p. todas las resistencias durante {{d:8907:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -1936,7 +1982,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:9884:1|324}} p. la armadura de un objetivo amistoso, en {{s:9884:2|14}} p. todos los atributos y en {{s:9884:3|20}} p. todas las resistencias durante {{d:9884:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:9884:1|324}} p. la armadura de un objetivo amistoso, en {{s:9884:2|14}} p. todos los atributos y en {{s:9884:3|20}} p. todas las resistencias durante {{d:9884:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -2104,7 +2152,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:9885:1|385}} p. la armadura de un objetivo amistoso, en {{s:9885:2|16}} p. todos los atributos y en {{s:9885:3|27}} p. todas las resistencias durante {{d:9885:1|1 h}}."
+          "descriptionTemplate": "Aumenta en {{s:9885:1|385}} p. la armadura de un objetivo amistoso, en {{s:9885:2|16}} p. todos los atributos y en {{s:9885:3|27}} p. todas las resistencias durante {{d:9885:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2164,7 +2214,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana a un objetivo amistoso entre {{=@0/100*(679.36013);m:408247:1|1093,77}} y {{=@0/100*(679.36013);M:408247:1|1283,99}} p. Sana un 20% extra si tienes los efectos Rejuvenecimiento, Recrecimiento, Flor de vida o Crecimiento salvaje activos sobre el objetivo. Este hechizo se beneficia de todos los efectos relacionados con Toque de sanación o Recrecimiento y también los activa."
+          "descriptionTemplate": "Sana a un objetivo amistoso entre {{=@0/100*(679.36013);m:408247:1|1093,77}} y {{=@0/100*(679.36013);M:408247:1|1283,99}} p. Sana un 20% extra si tienes los efectos Rejuvenecimiento, Recrecimiento, Flor de vida o Crecimiento salvaje activos sobre el objetivo. Este hechizo se beneficia de todos los efectos relacionados con Toque de sanación o Recrecimiento y también los activa.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2241,7 +2293,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanzas una oleada de energías estelares que inflige de {{=@0/100*(149.156205);m:417157:1|369,91}} a {{=@0/100*(149.156205);M:417157:1|453,43}} p. de daño Arcano y aumenta un {{s:417157:2|80}}% el daño infligido por tus siguientes lanzamientos de Fuego estelar durante {{d:417157:1|15 s}}.\r\n\r\nOleada de estrellas activa y se beneficia de la mayoría de los talentos y efectos que activan o se benefician de Cólera o Fuego estelar."
+          "descriptionTemplate": "Lanzas una oleada de energías estelares que inflige de {{=@0/100*(149.156205);m:417157:1|369,91}} a {{=@0/100*(149.156205);M:417157:1|453,43}} p. de daño Arcano y aumenta un {{s:417157:2|80}}% el daño infligido por tus siguientes lanzamientos de Fuego estelar durante {{d:417157:1|15 s}}.\r\n\r\nOleada de estrellas activa y se beneficia de la mayoría de los talentos y efectos que activan o se benefician de Cólera o Fuego estelar.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2318,7 +2372,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cargas contra un objetivo en un radio de 13 m para darle un golpe en cráneo que interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de la misma escuela durante {{d:414621:1|2 s}}. Comparte tiempo de reutilización con Carga feral."
+          "descriptionTemplate": "Cargas contra un objetivo en un radio de 13 m para darle un golpe en cráneo que interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de la misma escuela durante {{d:414621:1|2 s}}. Comparte tiempo de reutilización con Carga feral.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2378,7 +2434,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:5185:1|44}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:5185:1|44}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2427,7 +2485,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:5186:1|100}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:5186:1|100}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2476,7 +2536,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:5187:1|201}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:5187:1|201}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2525,7 +2587,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:5188:1|362}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:5188:1|362}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2574,7 +2638,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:5189:1|546}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:5189:1|546}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2623,7 +2689,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:6778:1|707}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:6778:1|707}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -2672,7 +2740,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8903:1|898}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8903:1|898}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -2721,7 +2791,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9758:1|1173}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9758:1|1173}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -2770,7 +2842,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9888:1|1516}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9888:1|1516}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 10,
@@ -2819,7 +2893,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9889:1|1920}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9889:1|1920}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 11,
@@ -2868,7 +2944,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:25297:1|2332}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:25297:1|2332}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2945,7 +3023,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8921:2|8}} p. de daño Arcano y {{o:8921:1|12}} p. de daño Arcano extra durante {{d:8921:1|9 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8921:2|8}} p. de daño Arcano y {{o:8921:1|12}} p. de daño Arcano extra durante {{d:8921:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3011,7 +3091,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8924:2|13}} p. de daño Arcano y {{o:8924:1|24}} p. de daño Arcano extra durante {{d:8924:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8924:2|13}} p. de daño Arcano y {{o:8924:1|24}} p. de daño Arcano extra durante {{d:8924:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3077,7 +3159,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8925:2|22}} p. de daño Arcano y {{o:8925:1|36}} p. de daño Arcano extra durante {{d:8925:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8925:2|22}} p. de daño Arcano y {{o:8925:1|36}} p. de daño Arcano extra durante {{d:8925:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3143,7 +3227,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8926:2|32}} p. de daño Arcano y {{o:8926:1|52}} p. de daño Arcano extra durante {{d:8926:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8926:2|32}} p. de daño Arcano y {{o:8926:1|52}} p. de daño Arcano extra durante {{d:8926:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3209,7 +3295,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8927:2|47}} p. de daño Arcano y {{o:8927:1|76}} p. de daño Arcano extra durante {{d:8927:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8927:2|47}} p. de daño Arcano y {{o:8927:1|76}} p. de daño Arcano extra durante {{d:8927:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -3275,7 +3363,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8928:2|59}} p. de daño Arcano y {{o:8928:1|92}} p. de daño Arcano extra durante {{d:8928:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8928:2|59}} p. de daño Arcano y {{o:8928:1|92}} p. de daño Arcano extra durante {{d:8928:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3341,7 +3431,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:8929:2|73}} p. de daño Arcano y {{o:8929:1|124}} p. de daño Arcano extra durante {{d:8929:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:8929:2|73}} p. de daño Arcano y {{o:8929:1|124}} p. de daño Arcano extra durante {{d:8929:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -3407,7 +3499,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:9833:2|91}} p. de daño Arcano y {{o:9833:1|156}} p. de daño Arcano extra durante {{d:9833:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:9833:2|91}} p. de daño Arcano y {{o:9833:1|156}} p. de daño Arcano extra durante {{d:9833:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -3473,7 +3567,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:9834:2|111}} p. de daño Arcano y {{o:9834:1|196}} p. de daño Arcano extra durante {{d:9834:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:9834:2|111}} p. de daño Arcano y {{o:9834:1|196}} p. de daño Arcano extra durante {{d:9834:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 10,
@@ -3539,7 +3635,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Quema al enemigo, causando {{s:9835:2|135}} p. de daño Arcano y {{o:9835:1|240}} p. de daño Arcano extra durante {{d:9835:1|12 s}}."
+          "descriptionTemplate": "Quema al enemigo, causando {{s:9835:2|135}} p. de daño Arcano y {{o:9835:1|240}} p. de daño Arcano extra durante {{d:9835:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3599,7 +3697,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:774:1|32}} p. durante {{d:774:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:774:1|32}} p. durante {{d:774:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3648,7 +3748,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:1058:1|48}} p. durante {{d:1058:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:1058:1|48}} p. durante {{d:1058:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3697,7 +3799,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:1430:1|92}} p. durante {{d:1430:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:1430:1|92}} p. durante {{d:1430:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3746,7 +3850,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:2090:1|128}} p. durante {{d:2090:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:2090:1|128}} p. durante {{d:2090:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3795,7 +3901,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:2091:1|168}} p. durante {{d:2091:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:2091:1|168}} p. durante {{d:2091:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -3844,7 +3952,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:3627:1|204}} p. durante {{d:3627:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:3627:1|204}} p. durante {{d:3627:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3893,7 +4003,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:8910:1|284}} p. durante {{d:8910:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:8910:1|284}} p. durante {{d:8910:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -3942,7 +4054,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:9839:1|376}} p. durante {{d:9839:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:9839:1|376}} p. durante {{d:9839:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -3991,7 +4105,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:9840:1|496}} p. durante {{d:9840:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:9840:1|496}} p. durante {{d:9840:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 10,
@@ -4040,7 +4156,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:9841:1|644}} p. durante {{d:9841:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:9841:1|644}} p. durante {{d:9841:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 11,
@@ -4089,7 +4207,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura el objetivo en {{o:25299:1|776}} p. durante {{d:25299:1|12 s}}."
+          "descriptionTemplate": "Cura el objetivo en {{o:25299:1|776}} p. durante {{d:25299:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4149,7 +4269,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 3 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:467:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 3 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:467:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4198,7 +4320,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 6 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:782:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 6 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:782:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4247,7 +4371,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 9 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:1075:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 9 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:1075:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4296,7 +4422,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 12 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:8914:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 12 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:8914:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4345,7 +4473,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 15 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:9756:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 15 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:9756:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4394,7 +4524,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 18 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:9910:1|10 min}}."
+          "descriptionTemplate": "Hace que salgan espinas del objetivo amistoso que infligen 18 p. de daño de Naturaleza a los atacantes cuando golpean. Dura {{d:9910:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4471,7 +4603,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:339:2|20}} p. de daño de Naturaleza durante {{d:339:1|12 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:339:2|20}} p. de daño de Naturaleza durante {{d:339:1|12 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4537,7 +4671,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:1062:2|45}} p. de daño de Naturaleza durante {{d:1062:1|15 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:1062:2|45}} p. de daño de Naturaleza durante {{d:1062:1|15 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4603,7 +4739,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:5195:2|72}} p. de daño de Naturaleza durante {{d:5195:1|18 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:5195:2|72}} p. de daño de Naturaleza durante {{d:5195:1|18 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4669,7 +4807,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:5196:2|112}} p. de daño de Naturaleza durante {{d:5196:1|21 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:5196:2|112}} p. de daño de Naturaleza durante {{d:5196:1|21 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4735,7 +4875,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:9852:2|168}} p. de daño de Naturaleza durante {{d:9852:1|24 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:9852:2|168}} p. de daño de Naturaleza durante {{d:9852:1|24 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4801,7 +4943,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:9853:2|234}} p. de daño de Naturaleza durante {{d:9853:1|27 s}}. El daño infligido puede interrumpir el efecto. Puedes tener 1 solo objetivo enraizado a la vez."
+          "descriptionTemplate": "Enraíza al objetivo en el sitio e inflige {{o:9853:2|234}} p. de daño de Naturaleza durante {{d:9853:1|27 s}}. El daño infligido puede interrumpir el efecto. Puedes s17245tener un máximo de {{=@0+1;m:17245:1|3}} objetivos enraizadostener 1 solo objetivo enraizado a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4878,7 +5022,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Irrita al objetivo para que te ataque, pero no tiene efecto si ya te está atacando."
+          "descriptionTemplate": "Irrita al objetivo para que te ataque, pero no tiene efecto si ya te está atacando.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4955,7 +5101,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El druida ruge y reduce en {{s:99:1|46}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:99:1|30 s}}."
+          "descriptionTemplate": "El druida ruge y reduce en {{s:99:1|46}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:99:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5021,7 +5169,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El druida ruge y reduce en {{s:1735:1|74}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:1735:1|30 s}}."
+          "descriptionTemplate": "El druida ruge y reduce en {{s:1735:1|74}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:1735:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5087,7 +5237,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El druida ruge y reduce en {{s:9490:1|95}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9490:1|30 s}}."
+          "descriptionTemplate": "El druida ruge y reduce en {{s:9490:1|95}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9490:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5153,7 +5305,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El druida ruge y reduce en {{s:9747:1|144}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9747:1|30 s}}."
+          "descriptionTemplate": "El druida ruge y reduce en {{s:9747:1|144}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9747:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5219,7 +5373,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El druida ruge y reduce en {{s:9898:1|193}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9898:1|30 s}}."
+          "descriptionTemplate": "El druida ruge y reduce en {{s:9898:1|193}} p. el poder de ataque cuerpo a cuerpo de los enemigos cercanos. Dura {{d:9898:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5422,7 +5578,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Adopta la forma de oso, lo que aumenta el poder de ataque en {{s:1178:4|30}} p., la contribución a la armadura de los objetos un {{s:1178:1|180}}% y la salud en {{s:1178:2|180}} p. También protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades de la forma de oso.\r\n\r\nAl cambiar de forma, el taumaturgo se libera de los efectos de polimorfia y de reducción de movimiento."
+          "descriptionTemplate": "Adopta la forma de oso, lo que aumenta el poder de ataque en {{s:1178:4|30}} p., la contribución a la armadura de los objetos un {{s:1178:1|180}}% y la salud en {{s:1178:2|180}} p. También protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades de la forma de oso.\r\n\r\nAl cambiar de forma, el taumaturgo se libera de los efectos de polimorfia y de reducción de movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5469,7 +5627,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16689:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 1) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16689:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16689:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 1) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16689:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5505,7 +5665,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16810:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 2) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16810:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16810:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 2) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16810:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5541,7 +5703,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16811:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 3) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16811:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16811:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 3) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16811:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5577,7 +5741,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16812:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 4) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16812:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16812:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 4) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16812:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5613,7 +5779,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16813:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 5) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16813:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:16813:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 5) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:16813:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -5649,7 +5817,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:17329:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 6) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:17329:1|45 s}}."
+          "descriptionTemplate": "Cuando el taumaturgo reciba {{n:17329:1|1}} ataque cuerpo a cuerpo, se aplicará Raíces enredadoras (rango 6) al atacante. Se puede lanzar mientras se está en otra forma. Dura {{d:17329:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5709,7 +5879,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:6807:1|18}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:6807:1|18}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5758,7 +5930,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:6808:1|27}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:6808:1|27}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5807,7 +5981,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:6809:1|37}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:6809:1|37}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5856,7 +6032,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:8972:1|49}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:8972:1|49}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5905,7 +6083,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:9745:1|71}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:9745:1|71}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -5954,7 +6134,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:9880:1|101}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:9880:1|101}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -6003,7 +6185,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta en {{s:9881:1|128}} p. el daño infligido en el ataque siguiente del druida."
+          "descriptionTemplate": "Aumenta en {{s:9881:1|128}} p. el daño infligido en el ataque siguiente del druida.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6063,7 +6247,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Claro de la Luna."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Claro de la Luna.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6174,7 +6360,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Genera al instante {{=@0/10;m:5229:2|10}} p. de ira y otros {{m:5229:1|20}} p. de ira durante {{d:5229:1|10 s}}, pero reduce la armadura base un 27% en forma de oso y un 16% en forma de oso temible. Se considera que el druida está en combate mientras dura el efecto."
+          "descriptionTemplate": "Genera al instante {{=@0/10;m:5229:2|10}} p. de ira y otros {{m:5229:1|20}} p. de ira durante {{d:5229:1|10 s}}, pero reduce la armadura base un 27% en forma de oso y un 16% en forma de oso temible. Se considera que el druida está en combate mientras dura el efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6251,7 +6439,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8936:1|87}} p. y otro en {{o:8936:2|91}} p. durante {{d:8936:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8936:1|87}} p. y otro en {{o:8936:2|91}} p. durante {{d:8936:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6317,7 +6507,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8938:1|164}} p. y otro en {{o:8938:2|154}} p. durante {{d:8938:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8938:1|164}} p. y otro en {{o:8938:2|154}} p. durante {{d:8938:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6383,7 +6575,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8939:1|235}} p. y otro en {{o:8939:2|224}} p. durante {{d:8939:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8939:1|235}} p. y otro en {{o:8939:2|224}} p. durante {{d:8939:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6449,7 +6643,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8940:1|311}} p. y otro en {{o:8940:2|294}} p. durante {{d:8940:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8940:1|311}} p. y otro en {{o:8940:2|294}} p. durante {{d:8940:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6515,7 +6711,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:8941:1|394}} p. y otro en {{o:8941:2|364}} p. durante {{d:8941:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:8941:1|394}} p. y otro en {{o:8941:2|364}} p. durante {{d:8941:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -6581,7 +6779,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9750:1|504}} p. y otro en {{o:9750:2|476}} p. durante {{d:9750:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9750:1|504}} p. y otro en {{o:9750:2|476}} p. durante {{d:9750:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -6647,7 +6847,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9856:1|645}} p. y otro en {{o:9856:2|616}} p. durante {{d:9856:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9856:1|645}} p. y otro en {{o:9856:2|616}} p. durante {{d:9856:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -6713,7 +6915,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9857:1|817}} p. y otro en {{o:9857:2|791}} p. durante {{d:9857:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9857:1|817}} p. y otro en {{o:9857:2|791}} p. durante {{d:9857:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -6779,7 +6983,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:9858:1|1021}} p. y otro en {{o:9858:2|994}} p. durante {{d:9858:1|21 s}}."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:9858:1|1021}} p. y otro en {{o:9858:2|994}} p. durante {{d:9858:1|21 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6839,7 +7045,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:437138:1|70}} p. de salud y 135 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:437138:1|70}} p. de salud y 135 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6888,7 +7096,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237948:1|160}} p. de salud y 300 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237948:1|160}} p. de salud y 300 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6937,7 +7147,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237949:1|300}} p. de salud y 520 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237949:1|300}} p. de salud y 520 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6986,7 +7198,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237950:1|500}} p. de salud y 750 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237950:1|500}} p. de salud y 750 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7035,7 +7249,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237951:1|750}} p. de salud y 1000 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:1237951:1|750}} p. de salud y 1000 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7095,7 +7311,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:5211:1|2 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:5211:1|2 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7144,7 +7362,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:6798:1|3 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:6798:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7193,7 +7413,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:8983:1|4 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:8983:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7253,7 +7475,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura {{s:8946:1|1}} efecto de envenenamiento del objetivo."
+          "descriptionTemplate": "Cura {{s:8946:1|1}} efecto de envenenamiento del objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7313,7 +7537,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:779:1|18}} p. de daño."
+          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:779:1|18}} p. de daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7362,7 +7588,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:780:1|25}} p. de daño."
+          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:780:1|25}} p. de daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7411,7 +7639,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:769:1|36}} p. de daño."
+          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:769:1|36}} p. de daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7460,7 +7690,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:9754:1|60}} p. de daño."
+          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:9754:1|60}} p. de daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7509,7 +7741,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:9908:1|83}} p. de daño."
+          "descriptionTemplate": "Flagela a 3 enemigos cercanos causando {{s:9908:1|83}} p. de daño.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7623,7 +7857,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te transforma en una forma acuática aumentando la velocidad de nado en un {{s:5421:1|50}}% y permitiendo la respiración subacuática. Protege al taumaturgo de los efectos poliformos.\r\n\r\nAl transformarse, el taumaturgo se libera de los efectos poliformos y de reducción del movimiento."
+          "descriptionTemplate": "Te transforma en una forma acuática aumentando la velocidad de nado en un {{s:5421:1|50}}% y permitiendo la respiración subacuática. Protege al taumaturgo de los efectos poliformos.\r\n\r\nAl transformarse, el taumaturgo se libera de los efectos poliformos y de reducción del movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7734,7 +7970,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:770:1|175}} p. durante {{d:770:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible."
+          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:770:1|175}} p. durante {{d:770:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7834,7 +8072,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:778:1|285}} p. durante {{d:778:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible."
+          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:778:1|285}} p. durante {{d:778:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7934,7 +8174,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:9749:1|395}} p. durante {{d:9749:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible."
+          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:9749:1|395}} p. durante {{d:9749:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8034,7 +8276,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:9907:1|505}} p. durante {{d:9907:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible."
+          "descriptionTemplate": "Reduce la armadura del objetivo en {{s:9907:1|505}} p. durante {{d:9907:1|40 s}}. Mientras dura su efecto, el objetivo no puede utilizar el sigilo ni hacerse invisible.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8094,7 +8338,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:2637:1|20 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes."
+          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:2637:1|20 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8143,7 +8389,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:18657:1|30 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes."
+          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:18657:1|30 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8192,7 +8440,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:18658:1|40 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes."
+          "descriptionTemplate": "Obliga al objetivo enemigo a dormir hasta {{d:18658:1|40 s}}. Cualquier daño despertará al objetivo. Solo se puede obligar a hibernar a un objetivo a la vez. Solo funciona con bestias y dragonantes.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8269,7 +8519,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:5215:2|40}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:5215:2|40}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8335,7 +8587,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:6783:2|35}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:6783:2|35}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8401,7 +8655,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:9913:2|30}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al druida merodear pero reduce la velocidad de movimiento en un {{s:9913:2|30}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8498,7 +8754,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Requiere forma de oso, forma de oso temible\r\nCargas contra un objetivo, lo que lo inmoviliza e interrumpe el lanzamiento de hechizos durante {{d:19675:1|4 s}}.\r\n\r\nSaltas y te colocas tras el enemigo."
+          "descriptionTemplate": "Requiere forma de oso, forma de oso temible\r\nCargas contra un objetivo, lo que lo inmoviliza e interrumpe el lanzamiento de hechizos durante {{d:19675:1|4 s}}.\r\n\r\nSaltas y te colocas tras el enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8595,7 +8853,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cargas contra un objetivo, lo que lo inmoviliza e interrumpe el lanzamiento de hechizos durante {{d:19675:1|4 s}}."
+          "descriptionTemplate": "Cargas contra un objetivo, lo que lo inmoviliza e interrumpe el lanzamiento de hechizos durante {{d:19675:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8672,7 +8932,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(4.4));m:1079:1|44,4}} de daño durante {{d:1079:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(4.4));m:1079:1|70,8}} de daño durante {{d:1079:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(4.4));m:1079:1|97,2}} de daño durante {{d:1079:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(4.4));m:1079:1|123,6}} de daño durante {{d:1079:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(4.4));m:1079:1|150}} de daño durante {{d:1079:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(4.4));m:1079:1|44,4}} de daño durante {{d:1079:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(4.4));m:1079:1|70,8}} de daño durante {{d:1079:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(4.4));m:1079:1|97,2}} de daño durante {{d:1079:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(4.4));m:1079:1|123,6}} de daño durante {{d:1079:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(4.4));m:1079:1|150}} de daño durante {{d:1079:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8738,7 +9000,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(7.2));m:9492:1|67,2}} de daño durante {{d:9492:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(7.2));m:9492:1|110,4}} de daño durante {{d:9492:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(7.2));m:9492:1|153,6}} de daño durante {{d:9492:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(7.2));m:9492:1|196,8}} de daño durante {{d:9492:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(7.2));m:9492:1|240}} de daño durante {{d:9492:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(7.2));m:9492:1|67,2}} de daño durante {{d:9492:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(7.2));m:9492:1|110,4}} de daño durante {{d:9492:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(7.2));m:9492:1|153,6}} de daño durante {{d:9492:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(7.2));m:9492:1|196,8}} de daño durante {{d:9492:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(7.2));m:9492:1|240}} de daño durante {{d:9492:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8804,7 +9068,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(8.5));m:9493:1|87}} de daño durante {{d:9493:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(8.5));m:9493:1|138}} de daño durante {{d:9493:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(8.5));m:9493:1|189}} de daño durante {{d:9493:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(8.5));m:9493:1|240}} de daño durante {{d:9493:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(8.5));m:9493:1|291}} de daño durante {{d:9493:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(8.5));m:9493:1|87}} de daño durante {{d:9493:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(8.5));m:9493:1|138}} de daño durante {{d:9493:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(8.5));m:9493:1|189}} de daño durante {{d:9493:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(8.5));m:9493:1|240}} de daño durante {{d:9493:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(8.5));m:9493:1|291}} de daño durante {{d:9493:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8870,7 +9136,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(12.7));m:9752:1|124,2}} de daño durante {{d:9752:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(12.7));m:9752:1|200,4}} de daño durante {{d:9752:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(12.7));m:9752:1|276,6}} de daño durante {{d:9752:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(12.7));m:9752:1|352,8}} de daño durante {{d:9752:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(12.7));m:9752:1|429}} de daño durante {{d:9752:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(12.7));m:9752:1|124,2}} de daño durante {{d:9752:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(12.7));m:9752:1|200,4}} de daño durante {{d:9752:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(12.7));m:9752:1|276,6}} de daño durante {{d:9752:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(12.7));m:9752:1|352,8}} de daño durante {{d:9752:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(12.7));m:9752:1|429}} de daño durante {{d:9752:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8936,7 +9204,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(18.2));m:9894:1|175,2}} de daño durante {{d:9894:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(18.2));m:9894:1|284,4}} de daño durante {{d:9894:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(18.2));m:9894:1|393,6}} de daño durante {{d:9894:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(18.2));m:9894:1|502,8}} de daño durante {{d:9894:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(18.2));m:9894:1|612}} de daño durante {{d:9894:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(18.2));m:9894:1|175,2}} de daño durante {{d:9894:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(18.2));m:9894:1|284,4}} de daño durante {{d:9894:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(18.2));m:9894:1|393,6}} de daño durante {{d:9894:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(18.2));m:9894:1|502,8}} de daño durante {{d:9894:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(18.2));m:9894:1|612}} de daño durante {{d:9894:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -9002,7 +9272,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(25.5));m:9896:1|243}} de daño durante {{d:9896:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(25.5));m:9896:1|396}} de daño durante {{d:9896:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(25.5));m:9896:1|549}} de daño durante {{d:9896:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(25.5));m:9896:1|702}} de daño durante {{d:9896:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(25.5));m:9896:1|855}} de daño durante {{d:9896:1|12 s}}."
+          "descriptionTemplate": "Remate que inflige daño en el tiempo. El daño aumenta por cada punto de combo y por tu poder de ataque:\r\n 1 punto: {{=6*(@0+(25.5));m:9896:1|243}} de daño durante {{d:9896:1|12 s}}.\r\n 2 puntos: {{=6*(@0+2*(25.5));m:9896:1|396}} de daño durante {{d:9896:1|12 s}}.\r\n 3 puntos: {{=6*(@0+3*(25.5));m:9896:1|549}} de daño durante {{d:9896:1|12 s}}.\r\n 4 puntos: {{=6*(@0+4*(25.5));m:9896:1|702}} de daño durante {{d:9896:1|12 s}}.\r\n 5 puntos: {{=6*(@0+5*(25.5));m:9896:1|855}} de daño durante {{d:9896:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9138,7 +9410,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cambio a forma felina aumentando el poder de ataque {{s:3025:1|12}} p. más agilidad. Protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades felinas.\r\n\r\nEl cambio de forma libera al taumaturgo de los efectos de polimorfia y de reducción de movimiento."
+          "descriptionTemplate": "Cambio a forma felina aumentando el poder de ataque {{s:3025:1|12}} p. más agilidad. Protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades felinas.\r\n\r\nEl cambio de forma libera al taumaturgo de los efectos de polimorfia y de reducción de movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9198,7 +9472,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:2912:1|81}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:2912:1|81}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9247,7 +9523,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:8949:1|110}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:8949:1|110}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9296,7 +9574,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:8950:1|144}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:8950:1|144}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9345,7 +9625,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:8951:1|198}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:8951:1|198}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9394,7 +9676,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:9875:1|266}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:9875:1|266}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -9443,7 +9727,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:9876:1|337}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:9876:1|337}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -9492,7 +9778,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa {{s:25298:1|381}} p. de daño Arcano al objetivo."
+          "descriptionTemplate": "Causa {{s:25298:1|381}} p. de daño Arcano al objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9552,7 +9840,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20484:1|400}} p. de salud y 700 de maná."
+          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20484:1|400}} p. de salud y 700 de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9601,7 +9891,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20739:1|750}} p. de salud y 1200 de maná."
+          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20739:1|750}} p. de salud y 1200 de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9650,7 +9942,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20742:1|1100}} p. de salud y 1700 de maná."
+          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20742:1|1100}} p. de salud y 1700 de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9699,7 +9993,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20747:1|1600}} p. de salud y 2200 de maná."
+          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20747:1|1600}} p. de salud y 2200 de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9748,7 +10044,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20748:1|2200}} p. de salud y 2800 de maná."
+          "descriptionTemplate": "Devuelve el espíritu al cuerpo de un objetivo muerto reviviéndolo con {{s:20748:1|2200}} p. de salud y 2800 de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9842,7 +10140,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:5221:2|155}}% de daño y {{s:5221:1|22}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:5221:3|1}} p. de combo."
+          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:5221:2|155}}% de daño y {{s:5221:1|22}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:5221:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9925,7 +10225,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:6800:2|155}}% de daño y {{s:6800:1|32}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:6800:3|1}} p. de combo."
+          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:6800:2|155}}% de daño y {{s:6800:1|32}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:6800:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10008,7 +10310,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:8992:2|155}}% de daño y {{s:8992:1|44}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:8992:3|1}} p. de combo."
+          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:8992:2|155}}% de daño y {{s:8992:1|44}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:8992:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -10091,7 +10395,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:9829:2|155}}% de daño y {{s:9829:1|64}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:9829:3|1}} p. de combo."
+          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:9829:2|155}}% de daño y {{s:9829:1|64}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:9829:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -10174,7 +10480,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:9830:2|155}}% de daño y {{s:9830:1|80}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:9830:3|1}} p. de combo."
+          "descriptionTemplate": "Tritura al enemigo, inflige un {{s:9830:2|155}}% de daño y {{s:9830:1|80}} al objetivo. Tienes que estar detrás del objetivo. Otorga {{s:9830:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10268,7 +10576,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:1082:2|110}}% del daño normal más {{s:1082:1|27}} p. Otorga {{s:1082:3|1}} p. de combo."
+          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:1082:2|110}}% del daño normal más {{s:1082:1|27}} p. Otorga {{s:1082:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10351,7 +10661,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:3029:2|110}}% del daño normal más {{s:3029:1|39}} p. Otorga {{s:3029:3|1}} p. de combo."
+          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:3029:2|110}}% del daño normal más {{s:3029:1|39}} p. Otorga {{s:3029:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10434,7 +10746,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:5201:2|110}}% del daño normal más {{s:5201:1|57}} p. Otorga {{s:5201:3|1}} p. de combo."
+          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:5201:2|110}}% del daño normal más {{s:5201:1|57}} p. Otorga {{s:5201:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -10517,7 +10831,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:9849:2|110}}% del daño normal más {{s:9849:1|88}} p. Otorga {{s:9849:3|1}} p. de combo."
+          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:9849:2|110}}% del daño normal más {{s:9849:1|88}} p. Otorga {{s:9849:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -10600,7 +10916,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:9850:2|110}}% del daño normal más {{s:9850:1|115}} p. Otorga {{s:9850:3|1}} p. de combo."
+          "descriptionTemplate": "Da un zarpazo al enemigo, lo que inflige un {{s:9850:2|110}}% del daño normal más {{s:9850:1|115}} p. Otorga {{s:9850:3|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10660,7 +10978,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:2908:1|10}} metros. Solo afecta a las bestias enemigas del nivel 40 o inferiores. Dura {{d:2908:1|15 s}}."
+          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:2908:1|10}} metros. Solo afecta a las bestias enemigas del nivel 40 o inferiores. Dura {{d:2908:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10709,7 +11029,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:8955:1|10}} metros. Solo afecta a las bestias enemigas del nivel 55 o inferiores. Dura {{d:8955:1|15 s}}."
+          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:8955:1|10}} metros. Solo afecta a las bestias enemigas del nivel 55 o inferiores. Dura {{d:8955:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10758,7 +11080,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:9901:1|10}} metros. Solo afecta a las bestias enemigas del nivel 70 o inferiores. Dura {{d:9901:1|15 s}}."
+          "descriptionTemplate": "Amansa a la bestia enemiga reduciendo su radio de ataque en {{s:9901:1|10}} metros. Solo afecta a las bestias enemigas del nivel 70 o inferiores. Dura {{d:9901:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10852,7 +11176,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Araña al objetivo causando {{s:1822:1|23}} p. de daño y un daño extra de {{o:1822:2|48}} p. durante {{d:1822:1|9 s}}. Otorga {{s:1822:3|1}} punto de combo."
+          "descriptionTemplate": "Araña al objetivo causando {{s:1822:1|23}} p. de daño y un daño extra de {{o:1822:2|48}} p. durante {{d:1822:1|9 s}}. Otorga {{s:1822:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10935,7 +11261,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Araña al objetivo causando {{s:1823:1|31}} p. de daño y un daño extra de {{o:1823:2|63}} p. durante {{d:1823:1|9 s}}. Otorga {{s:1823:3|1}} punto de combo."
+          "descriptionTemplate": "Araña al objetivo causando {{s:1823:1|31}} p. de daño y un daño extra de {{o:1823:2|63}} p. durante {{d:1823:1|9 s}}. Otorga {{s:1823:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11018,7 +11346,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Araña al objetivo causando {{s:1824:1|45}} p. de daño y un daño extra de {{o:1824:2|78}} p. durante {{d:1824:1|9 s}}. Otorga {{s:1824:3|1}} punto de combo."
+          "descriptionTemplate": "Araña al objetivo causando {{s:1824:1|45}} p. de daño y un daño extra de {{o:1824:2|78}} p. durante {{d:1824:1|9 s}}. Otorga {{s:1824:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11101,7 +11431,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Araña al objetivo causando {{s:9904:1|61}} p. de daño y un daño extra de {{o:9904:2|102}} p. durante {{d:9904:1|9 s}}. Otorga {{s:9904:3|1}} punto de combo."
+          "descriptionTemplate": "Araña al objetivo causando {{s:9904:1|61}} p. de daño y un daño extra de {{o:9904:2|102}} p. durante {{d:9904:1|9 s}}. Otorga {{s:9904:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11161,7 +11493,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Elimina {{s:2782:1|1}} maldición o terror de un objetivo amistoso."
+          "descriptionTemplate": "Elimina {{s:2782:1|1}} maldición o terror de un objetivo amistoso.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11221,7 +11555,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana al instante a un objetivo con un efecto activo de Rejuvenecimiento o de Recrecimiento una cantidad equivalente a la duración total del efecto periódico de uno de esos hechizos."
+          "descriptionTemplate": "Sana al instante a un objetivo con un efecto activo de Rejuvenecimiento o de Recrecimiento una cantidad equivalente a la duración total del efecto periódico de uno de esos hechizos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11298,7 +11634,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:5570:2|2}}% y causa {{o:5570:1|48}} p. de daño de Naturaleza durante {{d:5570:1|12 s}}."
+          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:5570:2|2}}% y causa {{o:5570:1|48}} p. de daño de Naturaleza durante {{d:5570:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11364,7 +11702,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24974:2|2}}% y causa {{o:24974:1|90}} p. de daño de Naturaleza durante {{d:24974:1|12 s}}."
+          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24974:2|2}}% y causa {{o:24974:1|90}} p. de daño de Naturaleza durante {{d:24974:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11430,7 +11770,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24975:2|2}}% y causa {{o:24975:1|120}} p. de daño de Naturaleza durante {{d:24975:1|12 s}}."
+          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24975:2|2}}% y causa {{o:24975:1|120}} p. de daño de Naturaleza durante {{d:24975:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11496,7 +11838,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24976:2|2}}% y causa {{o:24976:1|150}} p. de daño de Naturaleza durante {{d:24976:1|12 s}}."
+          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24976:2|2}}% y causa {{o:24976:1|150}} p. de daño de Naturaleza durante {{d:24976:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -11562,7 +11906,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24977:2|2}}% y causa {{o:24977:1|186}} p. de daño de Naturaleza durante {{d:24977:1|12 s}}."
+          "descriptionTemplate": "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un {{s:24977:2|2}}% y causa {{o:24977:1|186}} p. de daño de Naturaleza durante {{d:24977:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11639,7 +11985,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:407995:2|100}}% de daño normal más {{s:407995:1|26}} p. y genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:407995:2|100}}% de daño normal más {{s:407995:1|26}} p. y genera una gran cantidad de amenaza.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11705,7 +12053,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238069:2|100}}% de daño normal más {{s:1238069:1|38}} p. y genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238069:2|100}}% de daño normal más {{s:1238069:1|38}} p. y genera una gran cantidad de amenaza.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11771,7 +12121,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238070:2|100}}% de daño normal más {{s:1238070:1|59}} p. y genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238070:2|100}}% de daño normal más {{s:1238070:1|59}} p. y genera una gran cantidad de amenaza.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11837,7 +12189,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238073:2|100}}% de daño normal más {{s:1238073:1|77}} p. y genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Muerde al objetivo, lo que le inflige un {{s:1238073:2|100}}% de daño normal más {{s:1238073:1|77}} p. y genera una gran cantidad de amenaza.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11897,7 +12251,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Convierte al instante 55 % del maná base en {{s:1322605:2|40}} p. de energía. El coste de Poder cambiante se ve reducido por los efectos que reducen el coste de Cambio de forma."
+          "descriptionTemplate": "Convierte al instante 55 % del maná base en {{s:1322605:2|40}} p. de energía. El coste de Poder cambiante se ve reducido por los efectos que reducen el coste de Cambio de forma.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11957,7 +12313,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de movimiento en un {{s:1850:1|50}}% durante {{d:1850:1|15 s}}. No interrumpe el acecho."
+          "descriptionTemplate": "Aumenta la velocidad de movimiento en un {{s:1850:1|50}}% durante {{d:1850:1|15 s}}. No interrumpe el acecho.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12006,7 +12364,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de movimiento en un {{s:9821:1|60}}% durante {{d:9821:1|15 s}}. No interrumpe el acecho."
+          "descriptionTemplate": "Aumenta la velocidad de movimiento en un {{s:9821:1|60}}% durante {{d:9821:1|15 s}}. No interrumpe el acecho.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12100,7 +12460,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta eliminar {{s:2893:2|1}} efecto de envenenamiento en un objetivo y {{s:3137:1|1}} efecto más cada {{t:2893:1|2}} s durante {{d:2893:1|8 s}}."
+          "descriptionTemplate": "Intenta eliminar {{s:2893:2|1}} efecto de envenenamiento en un objetivo y {{s:3137:1|1}} efecto más cada {{t:2893:1|2}} s durante {{d:2893:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12160,7 +12522,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Obliga a todos los enemigos próximos a centrar su ataque en ti durante {{d:5209:1|6 s}}."
+          "descriptionTemplate": "Obliga a todos los enemigos próximos a centrar su ataque en ti durante {{d:5209:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12220,7 +12584,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce un poco la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce un poco la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12269,7 +12635,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce bastante la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce bastante la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12318,7 +12686,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce considerablemente la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Causa pavor sin infligir daño pero reduce considerablemente la amenaza que generas, disminuyendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12429,7 +12799,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al druida en forma de viaje aumentando la velocidad un {{s:5419:1|40}}%. También protege al taumaturgo de los efectos de polimorfia. Solo se puede usar en el exterior.\r\n\r\nEl cambio de forma libera al taumaturgo de los efectos de polimorfia y de reducción de movimiento."
+          "descriptionTemplate": "Transforma al druida en forma de viaje aumentando la velocidad un {{s:5419:1|40}}%. También protege al taumaturgo de los efectos de polimorfia. Solo se puede usar en el exterior.\r\n\r\nEl cambio de forma libera al taumaturgo de los efectos de polimorfia y de reducción de movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12489,7 +12861,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tu próximo hechizo de Naturaleza se convertirá en un hechizo de lanzamiento instantáneo."
+          "descriptionTemplate": "Tu próximo hechizo de Naturaleza se convertirá en un hechizo de lanzamiento instantáneo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12549,7 +12923,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Regenera {{s:740:1|87}} p. a todos los miembros del grupo en un radio de {{a:740:1|20}} m cada {{t:740:1|2}} s durante {{d:740:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Regenera {{s:740:1|87}} p. a todos los miembros del grupo en un radio de {{a:740:1|20}} m cada {{t:740:1|2}} s durante {{d:740:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12598,7 +12974,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Regenera {{s:8918:1|129}} p. a todos los miembros del grupo en un radio de {{a:8918:1|20}} m cada {{t:8918:1|2}} s durante {{d:8918:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Regenera {{s:8918:1|129}} p. a todos los miembros del grupo en un radio de {{a:8918:1|20}} m cada {{t:8918:1|2}} s durante {{d:8918:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12647,7 +13025,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Regenera {{s:9862:1|196}} p. a todos los miembros del grupo en un radio de {{a:9862:1|20}} m cada {{t:9862:1|2}} s durante {{d:9862:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Regenera {{s:9862:1|196}} p. a todos los miembros del grupo en un radio de {{a:9862:1|20}} m cada {{t:9862:1|2}} s durante {{d:9862:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -12696,7 +13076,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Regenera {{s:9863:1|285}} p. a todos los miembros del grupo en un radio de {{a:9863:1|20}} m cada {{t:9863:1|2}} s durante {{d:9863:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Regenera {{s:9863:1|285}} p. a todos los miembros del grupo en un radio de {{a:9863:1|20}} m cada {{t:9863:1|2}} s durante {{d:9863:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12790,7 +13172,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devasta al objetivo causando un {{s:6785:2|350}}% de daño más 147 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:6785:3|1}} punto de combo."
+          "descriptionTemplate": "Devasta al objetivo causando un {{s:6785:2|350}}% de daño más 147 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:6785:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12873,7 +13257,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devasta al objetivo causando un {{s:6787:2|350}}% de daño más 217 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:6787:3|1}} punto de combo."
+          "descriptionTemplate": "Devasta al objetivo causando un {{s:6787:2|350}}% de daño más 217 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:6787:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12956,7 +13342,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devasta al objetivo causando un {{s:9866:2|350}}% de daño más 273 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:9866:3|1}} punto de combo."
+          "descriptionTemplate": "Devasta al objetivo causando un {{s:9866:2|350}}% de daño más 273 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:9866:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -13039,7 +13427,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devasta al objetivo causando un {{s:9867:2|350}}% de daño más 343 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:9867:3|1}} punto de combo."
+          "descriptionTemplate": "Devasta al objetivo causando un {{s:9867:2|350}}% de daño más 343 p. Hay que atacar al objetivo por la espalda en modo Acechar. Otorga {{s:9867:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13116,7 +13506,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 1,0 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 50-66 p. de daño\r\n   2 puntos: 86-102 p. de daño\r\n   3 puntos: 122-138 p. de daño\r\n   4 puntos: 158-174 p. de daño\r\n   5 puntos: 194-210 p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 1,0 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 50-66 p. de daño\r\n   2 puntos: 86-102 p. de daño\r\n   3 puntos: 122-138 p. de daño\r\n   4 puntos: 158-174 p. de daño\r\n   5 puntos: 194-210 p. de daño",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13182,7 +13574,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 1,5 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 79-103 p. de daño\r\n   2 puntos: 138-162 p. de daño\r\n   3 puntos: 197-221 p. de daño\r\n   4 puntos: 256-280 p. de daño\r\n   5 puntos: 315-339 p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 1,5 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 79-103 p. de daño\r\n   2 puntos: 138-162 p. de daño\r\n   3 puntos: 197-221 p. de daño\r\n   4 puntos: 256-280 p. de daño\r\n   5 puntos: 315-339 p. de daño",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13248,7 +13642,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,0 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 122-162 p. de daño\r\n   2 puntos: 214-254 p. de daño\r\n   3 puntos: 306-346 p. de daño\r\n   4 puntos: 398-438 p. de daño\r\n   5 puntos: 490-530 p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,0 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 122-162 p. de daño\r\n   2 puntos: 214-254 p. de daño\r\n   3 puntos: 306-346 p. de daño\r\n   4 puntos: 398-438 p. de daño\r\n   5 puntos: 490-530 p. de daño",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -13314,7 +13710,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,5 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 173-223 p. de daño\r\n   2 puntos: 301-351 p. de daño\r\n   3 puntos: 429-479 p. de daño\r\n   4 puntos: 557-607 p. de daño\r\n   5 puntos: 685-735 p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,5 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 173-223 p. de daño\r\n   2 puntos: 301-351 p. de daño\r\n   3 puntos: 429-479 p. de daño\r\n   4 puntos: 557-607 p. de daño\r\n   5 puntos: 685-735 p. de daño",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -13380,7 +13778,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,7 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 199-259 p. de daño\r\n   2 puntos: 346-406 p. de daño\r\n   3 puntos: 493-553 p. de daño\r\n   4 puntos: 640-700 p. de daño\r\n   5 puntos: 787-847 p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en 2,7 p. de daño adicional. El daño aumenta según tu poder de ataque.\r\n   1 punto  : 199-259 p. de daño\r\n   2 puntos: 346-406 p. de daño\r\n   3 puntos: 493-553 p. de daño\r\n   4 puntos: 640-700 p. de daño\r\n   5 puntos: 787-847 p. de daño",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13457,7 +13857,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Muestra la ubicación de los humanoides cercanos en el minimapa. Solo se puede rastrear 1 tipo de cosa cada vez."
+          "descriptionTemplate": "Muestra la ubicación de los humanoides cercanos en el minimapa. Solo se puede rastrear 1 tipo de cosa cada vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13568,7 +13970,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9005:1|2 s}}, causando {{o:9007:1|90}} p. de daño durante {{d:9007:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9005:3|1}} punto de combo."
+          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9005:1|2 s}}, causando {{o:9007:1|90}} p. de daño durante {{d:9007:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9005:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13668,7 +14072,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9823:1|2 s}}, causando {{o:9824:1|120}} p. de daño durante {{d:9824:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9823:3|1}} punto de combo."
+          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9823:1|2 s}}, causando {{o:9824:1|120}} p. de daño durante {{d:9824:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9823:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13768,7 +14174,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9827:1|2 s}}, causando {{o:9826:1|150}} p. de daño durante {{d:9826:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9827:3|1}} punto de combo."
+          "descriptionTemplate": "Salta y aturde al objetivo durante {{d:9827:1|2 s}}, causando {{o:9826:1|150}} p. de daño durante {{d:9826:1|18 s}}. Hay que atacar al objetivo por la espalda en modo merodeador. Otorga {{s:9827:3|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13828,7 +14236,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Convierte hasta 10 p. de ira por segundo en salud durante {{d:22842:1|10 s}}. Cada punto de ira se convierte en un {{s:22842:1|1}}% de salud."
+          "descriptionTemplate": "Convierte hasta 10 p. de ira por segundo en salud durante {{d:22842:1|10 s}}. Cada punto de ira se convierte en un {{s:22842:1|1}}% de salud.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13905,7 +14315,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana {{o:408120:1|280}} p. al objetivo y a su grupo durante {{d:408120:1|7 s}}. Los miembros del grupo deben estar en un radio de {{a:408120:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje."
+          "descriptionTemplate": "Sana {{o:408120:1|280}} p. al objetivo y a su grupo durante {{d:408120:1|7 s}}. Los miembros del grupo deben estar en un radio de {{a:408120:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13971,7 +14383,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana {{o:1238214:1|420}} p. al objetivo y a su grupo durante {{d:1238214:1|7 s}}. Los miembros del grupo deben estar a menos de {{a:1238214:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje."
+          "descriptionTemplate": "Sana {{o:1238214:1|420}} p. al objetivo y a su grupo durante {{d:1238214:1|7 s}}. Los miembros del grupo deben estar a menos de {{a:1238214:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -14037,7 +14451,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana {{o:1238215:1|679}} p. al objetivo y a su grupo durante {{d:1238215:1|7 s}}. Los miembros del grupo deben estar a menos de {{a:1238215:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje."
+          "descriptionTemplate": "Sana {{o:1238215:1|679}} p. al objetivo y a su grupo durante {{d:1238215:1|7 s}}. Los miembros del grupo deben estar a menos de {{a:1238215:1|43,5}} m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14114,7 +14530,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la regeneración de maná del objetivo en un {{s:29166:2|400}}% y permite que un {{s:29166:1|100}}% de la regeneración de maná continúe mientras se lanza. Dura {{d:29166:1|20 s}}."
+          "descriptionTemplate": "Aumenta la regeneración de maná del objetivo en un {{s:29166:2|400}}% y permite que un {{s:29166:1|100}}% de la regeneración de maná continúe mientras se lanza. Dura {{d:29166:1|20 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14309,7 +14727,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cambia a la forma de lechúcido lunar, lo que aumenta la probabilidad de activación de Augurio de claridad un {{s:24858:5|100}}%, la contribución de armadura de los objetos un {{s:24905:1|360}}% y la probabilidad de golpe crítico con hechizo de todos los miembros del grupo o de la banda un {{s:24907:1|3}}% en un radio de {{a:24907:1|45}} m. Además, protege al taumaturgo de los efectos de Polimorfia e impide el uso de hechizos de sanación. \r\n\r\nEl acto de cambiar de forma libera al taumaturgo de los efectos de Polimorfia y de reducción del movimiento."
+          "descriptionTemplate": "Cambia a la forma de lechúcido lunar, lo que aumenta la probabilidad de activación de Augurio de claridad un {{s:24858:5|100}}%, la contribución de armadura de los objetos un {{s:24905:1|360}}% y la probabilidad de golpe crítico con hechizo de todos los miembros del grupo o de la banda un {{s:24907:1|3}}% en un radio de {{a:24907:1|45}} m. Además, protege al taumaturgo de los efectos de Polimorfia e impide el uso de hechizos de sanación. \r\n\r\nEl acto de cambiar de forma libera al taumaturgo de los efectos de Polimorfia y de reducción del movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14512,7 +14932,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Adopta la forma de oso temible, lo que aumenta el poder de ataque en {{s:9635:4|120}} p., la contribución a la armadura de los objetos un {{s:9635:1|360}}% y la salud en {{s:9635:3|600}} p. También protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades de la forma de oso.\r\n\r\nAl cambiar de forma, el taumaturgo se libera de los efectos de polimorfia y de reducción de movimiento."
+          "descriptionTemplate": "Adopta la forma de oso temible, lo que aumenta el poder de ataque en {{s:9635:4|120}} p., la contribución a la armadura de los objetos un {{s:9635:1|360}}% y la salud en {{s:9635:3|600}} p. También protege al taumaturgo de los efectos de polimorfia y permite el uso de varias facultades de la forma de oso.\r\n\r\nAl cambiar de forma, el taumaturgo se libera de los efectos de polimorfia y de reducción de movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14631,7 +15053,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278965:1|68}} p. de daño de Naturaleza a los enemigos cada {{t:16914:3|1}} s y aumenta un {{s:16914:2|20}}% el intervalo entre un ataque enemigo y otro. Dura {{d:16914:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278965:1|68}} p. de daño de Naturaleza a los enemigos cada {{t:16914:3|1}} s y aumenta un {{s:16914:2|20}}% el intervalo entre un ataque enemigo y otro. Dura {{d:16914:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14739,7 +15163,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278968:1|98}} p. de daño de Naturaleza a los enemigos cada {{t:17401:3|1}} s y aumenta un {{s:17401:2|20}}% el intervalo entre un ataque y otro. Dura {{d:17401:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278968:1|98}} p. de daño de Naturaleza a los enemigos cada {{t:17401:3|1}} s y aumenta un {{s:17401:2|20}}% el intervalo entre un ataque y otro. Dura {{d:17401:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -14872,7 +15298,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278759:1|132}} p. de daño de Naturaleza a los enemigos cada {{t:17402:3|1}} s y aumenta un {{s:1278759:2|20}}% el intervalo entre un ataque y otro. Dura {{d:17402:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo."
+          "descriptionTemplate": "Crea una violenta tormenta en la zona objetivo que inflige {{s:1278759:1|132}} p. de daño de Naturaleza a los enemigos cada {{t:17402:3|1}} s y aumenta un {{s:1278759:2|20}}% el intervalo entre un ataque y otro. Dura {{d:17402:1|10 s}}. El druida debe canalizar su magia para mantener el hechizo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14983,7 +15411,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Requiere forma felina, forma de oso, forma de oso temible\r\nHace que tu facultad Mordisco primigenio golpee a un máximo de {{s:417141:3|3}} objetivos, elimine su tiempo de reutilización y aumente un {{s:417141:1|100}}% la probabilidad de golpe crítico de tus facultades que generan puntos de combo. Elimina los efectos de miedo y te vuelve inmune a ellos mientras dure. Dura {{d:417141:1|15 s}}."
+          "descriptionTemplate": "Requiere forma felina, forma de oso, forma de oso temible\r\nHace que tu facultad Mordisco primigenio golpee a un máximo de {{s:417141:3|3}} objetivos, elimine su tiempo de reutilización y aumente un {{s:417141:1|100}}% la probabilidad de golpe crítico de tus facultades que generan puntos de combo. Elimina los efectos de miedo y te vuelve inmune a ellos mientras dure. Dura {{d:417141:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15060,7 +15490,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:414644:1|50}} p. de daño de sangrado durante {{d:414644:1|15 s}} más un {{s:414644:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo."
+          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:414644:1|50}} p. de daño de sangrado durante {{d:414644:1|15 s}} más un {{s:414644:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -15126,7 +15558,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:1235826:1|60}} p. de daño de sangrado durante {{d:1235826:1|15 s}} más un {{s:1235826:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo."
+          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:1235826:1|60}} p. de daño de sangrado durante {{d:1235826:1|15 s}} más un {{s:1235826:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -15192,7 +15626,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:1235827:1|75}} p. de daño de sangrado durante {{d:1235827:1|15 s}} más un {{s:1235827:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo."
+          "descriptionTemplate": "Lacera al objetivo enemigo y le inflige {{o:1235827:1|75}} p. de daño de sangrado durante {{d:1235827:1|15 s}} más un {{s:1235827:2|10}}% de daño de arma por cada aplicación de Lacerar sobre el objetivo. Genera una gran cantidad de amenaza. El efecto se acumula hasta 5 veces en un mismo objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15269,7 +15705,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tu piel se endurece como la corteza de un árbol. Todo el daño físico recibido se reduce un {{s:22812:2|20}}%. Mientras estés protegido, los ataques dañinos no retrasarán el lanzamiento de hechizos. Dura {{d:22812:1|15 s}}."
+          "descriptionTemplate": "Tu piel se endurece como la corteza de un árbol. Todo el daño físico recibido se reduce un {{s:22812:2|20}}%. Mientras estés protegido, los ataques dañinos no retrasarán el lanzamiento de hechizos. Dura {{d:22812:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15448,7 +15886,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Entrega el Don de lo Salvaje a todos los miembros del grupo o banda y aumenta la armadura {{s:21849:1|324}} p., todos los atributos {{s:21849:2|14}} p. y todas las resistencias {{s:21849:3|20}} p. durante {{d:21849:1|1 h}}."
+          "descriptionTemplate": "Entrega el Don de lo Salvaje a todos los miembros del grupo o banda y aumenta la armadura {{s:21849:1|324}} p., todos los atributos {{s:21849:2|14}} p. y todas las resistencias {{s:21849:3|20}} p. durante {{d:21849:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -15616,7 +16056,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Entrega el Don de lo Salvaje a todos los miembros del grupo o banda y aumenta la armadura {{s:21850:1|385}} p., todos los atributos {{s:21850:2|16}} p. y todas las resistencias {{s:21850:3|27}} p. durante {{d:21850:1|1 h}}."
+          "descriptionTemplate": "Entrega el Don de lo Salvaje a todos los miembros del grupo o banda y aumenta la armadura {{s:21850:1|385}} p., todos los atributos {{s:21850:2|16}} p. y todas las resistencias {{s:21850:3|27}} p. durante {{d:21850:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {

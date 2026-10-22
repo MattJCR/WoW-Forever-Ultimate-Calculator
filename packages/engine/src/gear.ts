@@ -230,6 +230,35 @@ export interface GearWeapon {
   confidence: "verified" | "estimated";
   /** Velocidad «normalizada» de Classic para los golpes de arma normalizados (daga 1,7, una mano 2,4, dos manos 3,3, a distancia 2,8). */
   normalizedSpeed: number;
+  /** Subtipo (ItemSubClass: 15 daga, 19 varita...) y tipo de ranura (13 una mano, 17 dos manos...) del arma: para los requisitos de objeto equipado. */
+  subclassId: number;
+  inventoryType: number;
+}
+
+/** Objeto que se lleva y que no se cuenta a este nivel (exige un nivel mayor). */
+export interface UncountedItem {
+  slot: GearSlot;
+  itemId: number;
+  itemName: string;
+  requiredLevel: number;
+}
+
+/**
+ * Reparte lo que se lleva entre lo que cuenta a ese nivel y lo que aún no: cada objeto cuenta desde su propio nivel necesario (los demás
+ * siguen contando). Sin `countLevel`, todo cuenta. Los ids que el cliente no trae no se tocan (los informa `summarizeGear` como `missing`).
+ */
+export function splitByLevel(gear: GearSelection, items: Map<number, Item>, countLevel: number | undefined): { counted: GearSelection; uncounted: UncountedItem[] } {
+  if (countLevel === undefined) return { counted: gear, uncounted: [] };
+  const counted: GearSelection = {};
+  const uncounted: UncountedItem[] = [];
+  for (const slot of GEAR_SLOTS) {
+    const worn = gear[slot];
+    if (!worn) continue;
+    const item = items.get(worn.itemId);
+    if (item && item.requiredLevel > countLevel) uncounted.push({ slot, itemId: item.id, itemName: item.name, requiredLevel: item.requiredLevel });
+    else counted[slot] = worn;
+  }
+  return { counted, uncounted };
 }
 
 export interface SetProgress {
@@ -279,6 +308,10 @@ export interface GearSummary {
   missing: { slot: GearSlot; itemId: number }[];
   /** Hay algun objeto de la comunidad sin estadisticas (`provenance: community`). */
   incomplete: boolean;
+  /** Objetos que se llevan pero no cuentan a este nivel (`countLevel`): exigen un nivel mayor. Nunca se descartan en silencio: la web los lista. */
+  uncounted: UncountedItem[];
+  /** «+N de daño» (tipo 83) de todo el equipo: se suma a cada golpe de arma, de las dos manos. */
+  physicalDamage: number;
 }
 
 const statKey = (s: { key: string | null; type: number }): string => s.key ?? `type:${s.type}`;
@@ -288,7 +321,9 @@ const statKey = (s: { key: string | null; type: number }): string => s.key ?? `t
  * armas; progreso de conjuntos y efectos. Camisa y tabardo suman lo que diga el cliente. No aplica porcentajes ni conversiones:
  * eso es `deriveStats` (atributos) y `ratingPercents` (puntuaciones).
  */
-export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearData): GearSummary {
+export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearData, options: { countLevel?: number } = {}): GearSummary {
+  // Cada objeto cuenta desde su nivel necesario: los de nivel mayor al del personaje no suman (se avisan en `uncounted`)
+  const { counted, uncounted } = splitByLevel(gear, data.items, options.countLevel);
   const lines = new Map<string, GearStatLine>();
   const add = (key: string, value: number, source: GearStatSource) => {
     if (value === 0) return;
@@ -307,7 +342,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
   const piecesBySet = new Map<number, Set<number>>();
 
   for (const slot of GEAR_SLOTS) {
-    const worn = gear[slot];
+    const worn = counted[slot];
     if (!worn) continue;
     const item = data.items.get(worn.itemId);
     if (!item) {
@@ -329,7 +364,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
 
     if (item.armor) armor += item.armor;
     bonusArmor += item.bonusArmor ?? 0;
-    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item) });
+    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item), subclassId: item.subclassId, inventoryType: item.inventoryType });
     for (const effect of item.effects) effects.push({ slot, itemName: item.name, effect });
     if (item.provenance === "community" && item.stats.length === 0) incomplete = true;
     if (item.itemSetId !== null) {
@@ -341,7 +376,7 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
 
   // Bonos de conjunto activos y efectos «al equipar»: sus estadisticas planas (atributos, poder de ataque...) se suman aqui;
   // los porcentajes y modificadores de habilidades entran en los efectos sumados (`collectStatEffects`)
-  for (const e of activeGearEffects(gear, data)) {
+  for (const e of activeGearEffects(counted, data)) {
     const { stats } = classifyGearAuras(e.auras, e.text);
     for (const s of stats) add(s.key, s.value, { slot: e.slot, itemId: e.itemId, itemName: e.origin, origin: e.kind === "set" ? "set" : "effect", value: s.value });
   }
@@ -372,6 +407,8 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
     problems,
     missing,
     incomplete,
+    uncounted,
+    physicalDamage: lines.get("physical-damage")?.value ?? 0,
   };
 }
 

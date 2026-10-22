@@ -191,6 +191,41 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70450
     for (const b of progress.bonuses) expect(b.active).toBe(worn >= b.threshold);
   });
 
+  it("cada objeto cuenta desde su propio nivel: a nivel 40 la daga (33) suma y el peto (52) no, y se avisa", () => {
+    const gear: GearSelection = { chest: { itemId: PLATE_CHEST }, mainHand: { itemId: DAGGER } };
+    const all = summarizeGear(gear, ctx(WARRIOR), data);
+    const at40 = summarizeGear(gear, ctx(WARRIOR), data, { countLevel: 40 });
+    const at60 = summarizeGear(gear, ctx(WARRIOR), data, { countLevel: 60 });
+    expect(at40.uncounted.map((u) => [u.slot, u.requiredLevel])).toEqual([["chest", 52]]);
+    expect(at40.armor).toBe(0);
+    expect(at40.weapons.map((w) => w.slot)).toEqual(["mainHand"]);
+    expect(at40.weapons[0]!.subclassId).toBe(item(DAGGER).subclassId);
+    expect(at40.weapons[0]!.inventoryType).toBe(item(DAGGER).inventoryType);
+    expect(at60.uncounted).toEqual([]);
+    expect(at60.armor).toBe(all.armor);
+    expect(at60.stats).toEqual(all.stats);
+    // Sin countLevel todo cuenta (como siempre)
+    expect(all.uncounted).toEqual([]);
+  });
+
+  it("los objetos que no cuentan tampoco cuentan para los conjuntos", () => {
+    const set = data.sets.find((s) => s.itemIds.length >= 3 && s.itemIds.some((id) => (data.items.get(id)?.requiredLevel ?? 0) >= 50) && s.itemIds.some((id) => (data.items.get(id)?.requiredLevel ?? 0) < 20));
+    if (!set) return;
+    const gear: GearSelection = {};
+    const used = new Set<string>();
+    for (const id of set.itemIds) {
+      const it = data.items.get(id);
+      const slot = it && slotsForItem(it).find((s) => !used.has(s));
+      if (it && slot) {
+        used.add(slot);
+        gear[slot] = { itemId: id };
+      }
+    }
+    const all = summarizeGear(gear, ctx(WARRIOR), data, { countLevel: 60 }).sets.find((s) => s.setId === set.id)!;
+    const low = summarizeGear(gear, ctx(WARRIOR), data, { countLevel: 10 }).sets.find((s) => s.setId === set.id);
+    expect((low?.count ?? 0)).toBeLessThan(all.count);
+  });
+
   it("comparar: cambiar el pecho resta lo que llevas y suma lo nuevo; el mismo objeto no compara; un arma a dos manos quita la mano izquierda", () => {
     const wornPlate: GearSelection = { chest: { itemId: PLATE_CHEST } };
     expect(compareGear(wornPlate, "chest", item(PLATE_CHEST), ctx(WARRIOR), data)).toBeNull();

@@ -73,7 +73,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:465:1|55}} p. de armadura extra a los miembros del grupo en un radio de {{a:465:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:465:1|55}} p. de armadura extra a los miembros del grupo en un radio de {{a:465:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -139,7 +141,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:10290:1|160}} p. de armadura extra a los miembros del grupo en un radio de {{a:10290:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:10290:1|160}} p. de armadura extra a los miembros del grupo en un radio de {{a:10290:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -205,7 +209,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:643:1|275}} p. de armadura extra a los miembros del grupo en un radio de {{a:643:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:643:1|275}} p. de armadura extra a los miembros del grupo en un radio de {{a:643:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -271,7 +277,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:10291:1|390}} p. de armadura extra a los miembros del grupo en un radio de {{a:10291:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:10291:1|390}} p. de armadura extra a los miembros del grupo en un radio de {{a:10291:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -337,7 +345,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:1032:1|505}} p. de armadura extra a los miembros del grupo en un radio de {{a:1032:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:1032:1|505}} p. de armadura extra a los miembros del grupo en un radio de {{a:1032:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -403,7 +413,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:10292:1|620}} p. de armadura extra a los miembros del grupo en un radio de {{a:10292:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:10292:1|620}} p. de armadura extra a los miembros del grupo en un radio de {{a:10292:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -469,7 +481,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:10293:1|735}} p. de armadura extra a los miembros del grupo en un radio de {{a:10293:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:10293:1|735}} p. de armadura extra a los miembros del grupo en un radio de {{a:10293:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -563,7 +577,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta todo el daño infligido y la sanación realizada un {{s:407788:1|20}}% durante {{d:407788:1|20 s}}. Provoca Paciencia y no se puede usar mientras esté activo."
+          "descriptionTemplate": "Aumenta todo el daño infligido y la sanación realizada un {{s:407788:1|20}}% durante {{d:407788:1|20 s}}. Provoca Paciencia y no se puede usar mientras esté activo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -657,7 +673,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta ${$cond($gte($PL,56),74,$cond($gte($PL,52),60,$cond($gte($PL,42),45,$cond($gte($PL,32),26,$cond($gte($PL,22),17,$cond($gte($PL,12),11,6)))))))} p. la fuerza y la agilidad de todos los miembros del grupo en un radio de {{a:425600:1|30}} m. Dura {{d:425600:1|2 min}}. Incompatible con Bendición de poderío."
+          "descriptionTemplate": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta s2529189${$cond($gte($PL,56),74,$cond($gte($PL,52),60,$cond($gte($PL,42),45,$cond($gte($PL,32),26,$cond($gte($PL,22),17,$cond($gte($PL,12),11,6)))))))} p. la fuerza y la agilidad de todos los miembros del grupo en un radio de {{a:425600:1|30}} m. Dura {{d:425600:1|2 min}}. Incompatible con Bendición de poderío.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -806,7 +824,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cada vez que el objetivo recibe daño, gana un Escudo sacro que absorbe {{l:412018:1|242,36}} p. de daño y aumenta un {{s:412018:2|50}}% la probabilidad del paladín de asestar un golpe crítico con Destello de Luz durante un máximo de {{d:412018:1|6 s}}. Además, hace que Destello de Luz sane a los objetivos con Escudo sacro un {{s:412019:3|100}}% más durante {{d:412020:1|12 s}}. No puede ganar este efecto más de una vez cada {{s:412019:2|6}} s. Dura {{d:412019:1|1 min}}. Solo un objetivo puede tener este efecto a la vez."
+          "descriptionTemplate": "Cada vez que el objetivo recibe daño, gana un Escudo sacro que absorbe {{l:412018:1|242,36}} p. de daño y aumenta un {{s:412018:2|50}}% la probabilidad del paladín de asestar un golpe crítico con Destello de Luz durante un máximo de {{d:412018:1|6 s}}. Además, hace que Destello de Luz sane a los objetivos con Escudo sacro un {{s:412019:3|100}}% más durante {{d:412020:1|12 s}}. No puede ganar este efecto más de una vez cada {{s:412019:2|6}} s. Dura {{d:412019:1|1 min}}. Solo un objetivo puede tener este efecto a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -985,7 +1005,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Aumenta la amenaza generada por tus hechizos Sagrados un {{s:407627:5|80}}% y, cuando recibes una sanación de hechizos de objetivos amistosos, obtienes una cantidad de maná equivalente a un {{s:407627:4|25}}% de la cantidad sanada. Además, reduce un {{s:407627:7|20}}% todo el daño recibido que reduzca tu salud por debajo de un {{s:407627:6|35}}%. Dura $d."
+          "descriptionTemplate": "Aumenta la amenaza generada por tus hechizos Sagrados un {{s:407627:5|80}}% y, cuando recibes una sanación de hechizos de objetivos amistosos, obtienes una cantidad de maná equivalente a un {{s:407627:4|25}}% de la cantidad sanada. Además, reduce un {{s:407627:7|20}}% todo el daño recibido que reduzca tu salud por debajo de un {{s:407627:6|35}}%. Dura $d.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1045,7 +1067,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tu presencia inspiradora disipa periódicamente los efectos de miedo y sueño que afectan a miembros del grupo cercanos."
+          "descriptionTemplate": "Tu presencia inspiradora disipa periódicamente los efectos de miedo y sueño que afectan a miembros del grupo cercanos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1143,7 +1167,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana entre {{l:458856:1|2389,97}} p. a {{h:458856:1|2645,79}} p. a un objetivo amistoso. Un {{s:458856:2|50}}% de cualquier exceso de sanación en el objetivo se convierte en un escudo de absorción que dura {{d:458857:1|15 s}}. No se acumulan varios lanzamientos de Luz divina en este escudo.\r\n\r\nLuz divina se beneficia de todos los talentos y efectos que se activan con Luz Sagrada o la modifican."
+          "descriptionTemplate": "Sana entre {{l:458856:1|2389,97}} p. a {{h:458856:1|2645,79}} p. a un objetivo amistoso. Un {{s:458856:2|50}}% de cualquier exceso de sanación en el objetivo se convierte en un escudo de absorción que dura {{d:458857:1|15 s}}. No se acumulan varios lanzamientos de Luz divina en este escudo.\r\n\r\nLuz divina se beneficia de todos los talentos y efectos que se activan con Luz Sagrada o la modifican.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1203,7 +1229,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:635:1|43}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:635:1|43}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1252,7 +1280,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:639:1|83}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:639:1|83}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1301,7 +1331,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:647:1|155}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:647:1|155}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1350,7 +1382,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:1026:1|287}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:1026:1|287}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1399,7 +1433,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:1042:1|452}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:1042:1|452}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -1448,7 +1484,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:3472:1|646}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:3472:1|646}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -1497,7 +1535,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:10328:1|899}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:10328:1|899}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -1546,7 +1586,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:10329:1|1217}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:10329:1|1217}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -1595,7 +1637,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:25292:1|1580}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:25292:1|1580}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1655,7 +1699,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de esa misma escuela durante {{d:425609:1|3 s}}."
+          "descriptionTemplate": "Interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de esa misma escuela durante {{d:425609:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1766,7 +1812,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un {{s:407804:1|30}}% de todo el daño recibido por los miembros del grupo en un radio de {{a:407804:1|30}} m se redirige al paladín durante {{d:407804:1|10 s}}. El daño que reduzca la salud del paladín por debajo del {{s:407804:2|20}}% romperá el efecto y aumentará un {{s:407805:1|10}}% el daño infligido y la sanación realizada durante {{d:407805:1|10 s}}. No puedes usar Sacrificio divino si estás bajo los efectos de Bendición de protección, Escudo divino o Protección divina y además evita que puedas ser objetivo de dichas facultades mientras el efecto está activo."
+          "descriptionTemplate": "Un {{s:407804:1|30}}% de todo el daño recibido por los miembros del grupo en un radio de {{a:407804:1|30}} m se redirige al paladín durante {{d:407804:1|10 s}}. El daño que reduzca la salud del paladín por debajo del {{s:407804:2|20}}% romperá el efecto y aumentará un {{s:407805:1|10}}% el daño infligido y la sanación realizada durante {{d:407805:1|10 s}}. No puedes usar Sacrificio divino si estás bajo los efectos de Bendición de protección, Escudo divino o Protección divina y además evita que puedas ser objetivo de dichas facultades mientras el efecto está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1938,7 +1986,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te colma con el espíritu sagrado durante {{d:407798:1|30 s}}, lo que hace que tus ataques cuerpo a cuerpo inflijan un {{s:407799:1|50}}% de daño con arma a tu objetivo, pero pierdes una cantidad de salud equivalente a un {{s:407798:4|10}}% del daño infligido. Mientras el sello está activo, los miembros de tu grupo y banda que se encuentran en un radio de {{a:407802:1|40}} m ganan una cantidad de maná equivalente a un {{s:407798:2|65}}% del daño que recibes de este sello.\r\n\r\n\r\nAl liberar la energía de este sello, un enemigo resulta juzgado y recibe al instante un {{s:407803:1|85}}% de daño con arma, con un coste de salud equivalente al {{s:407798:4|10}}% del daño infligido.\r\n\r\nEl sello y la sentencia de esta facultad se benefician de los talentos y efectos que modifican el sello o la Sentencia de Sello de rectitud."
+          "descriptionTemplate": "Te colma con el espíritu sagrado durante {{d:407798:1|30 s}}, lo que hace que tus ataques cuerpo a cuerpo inflijan un {{s:407799:1|50}}% de daño con arma a tu objetivo, pero pierdes una cantidad de salud equivalente a un {{s:407798:4|10}}% del daño infligido. Mientras el sello está activo, los miembros de tu grupo y banda que se encuentran en un radio de {{a:407802:1|40}} m ganan una cantidad de maná equivalente a un {{s:407798:2|65}}% del daño que recibes de este sello.\r\n\r\n\r\nAl liberar la energía de este sello, un enemigo resulta juzgado y recibe al instante un {{s:407803:1|85}}% de daño con arma, con un coste de salud equivalente al {{s:407798:4|10}}% del daño infligido.\r\n\r\nEl sello y la sentencia de esta facultad se benefician de los talentos y efectos que modifican el sello o la Sentencia de Sello de rectitud.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1998,7 +2048,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20154:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20154:1|1,24}} p. y {{=(@0/25+0)*1;s:20154:1|4,32}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20154:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20154:1|1,24}} p. y {{=(@0/25+0)*1;s:20154:1|4,32}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2072,7 +2124,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20287:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20280:3|2,48}} p. y {{=(@0/25+0)*1;s:20280:3|8,64}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20280:1|26}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20287:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20280:3|2,48}} p. y {{=(@0/25+0)*1;s:20280:3|8,64}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20280:1|26}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2146,7 +2200,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20288:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20281:3|4,05}} p. y {{=(@0/25+0)*1;s:20281:3|14,08}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20281:1|41}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20288:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20281:3|4,05}} p. y {{=(@0/25+0)*1;s:20281:3|14,08}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20281:1|41}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2220,7 +2276,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20289:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20282:3|6,22}} p. y {{=(@0/25+0)*1;s:20282:3|21,64}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20282:1|60}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20289:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20282:3|6,22}} p. y {{=(@0/25+0)*1;s:20282:3|21,64}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20282:1|60}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2294,7 +2352,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20290:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20283:3|9,02}} p. y {{=(@0/25+0)*1;s:20283:3|31,4}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20283:1|82}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20290:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20283:3|9,02}} p. y {{=(@0/25+0)*1;s:20283:3|31,4}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20283:1|82}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2368,7 +2428,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20291:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20284:3|12,44}} p. y {{=(@0/25+0)*1;s:20284:3|43,28}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20284:1|107}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20291:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20284:3|12,44}} p. y {{=(@0/25+0)*1;s:20284:3|43,28}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20284:1|107}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -2442,7 +2504,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20292:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20285:3|16,17}} p. y {{=(@0/25+0)*1;s:20285:3|56,28}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20285:1|137}} p. de daño Sagrado a un enemigo."
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20292:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20285:3|16,17}} p. y {{=(@0/25+0)*1;s:20285:3|56,28}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20285:1|137}} p. de daño Sagrado a un enemigo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -2533,7 +2597,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20293:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20286:3|20,53}} p. y {{=(@0/25+0)*1;s:20286:3|71,44}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20286:1|170}} p. de daño Sagrado a un enemigo.\r\n\r\n{{s:20224:1|0}}"
+          "descriptionTemplate": "Colma al paladín de espíritu sagrado durante {{d:20293:1|30 s}}, lo que otorga entre {{=(@0/87+0)*1;s:20286:3|20,53}} p. y {{=(@0/25+0)*1;s:20286:3|71,44}} p. más de daño Sagrado a cada ataque cuerpo a cuerpo. Las armas más lentas causan más daño Sagrado por golpe. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:20286:1|170}} p. de daño Sagrado a un enemigo.\r\n\r\n{{s:20224:1|0}}",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2627,7 +2693,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque instantáneo con arma que inflige un {{s:407778:1|110}}% de daño con arma hasta un total de 4 enemigos que se encuentren en un radio de {{a:407778:3|8}} m. La Tormenta divina sana a hasta 3 miembros del grupo o banda con un total del {{s:407778:2|25}}% del daño infligido."
+          "descriptionTemplate": "Un ataque instantáneo con arma que inflige un {{s:407778:1|110}}% de daño con arma hasta un total de 4 enemigos que se encuentren en un radio de {{a:407778:3|8}} m. La Tormenta divina sana a hasta 3 miembros del grupo o banda con un total del {{s:407778:2|25}}% del daño infligido.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2687,7 +2761,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19740:1|14}} p. durante {{d:19740:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19740:1|14}} p. durante {{d:19740:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2736,7 +2812,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19834:1|25}} p. durante {{d:19834:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19834:1|25}} p. durante {{d:19834:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2785,7 +2863,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19835:1|40}} p. durante {{d:19835:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19835:1|40}} p. durante {{d:19835:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2834,7 +2914,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19836:1|61}} p. durante {{d:19836:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19836:1|61}} p. durante {{d:19836:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2883,7 +2965,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19837:1|83}} p. durante {{d:19837:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19837:1|83}} p. durante {{d:19837:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2932,7 +3016,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19838:1|112}} p. durante {{d:19838:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:19838:1|112}} p. durante {{d:19838:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -2981,7 +3067,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:25291:1|133}} p. durante {{d:25291:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta su poder de ataque cuerpo a cuerpo en {{s:25291:1|133}} p. durante {{d:25291:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3041,7 +3129,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Desata la energía de un hechizo de sello sobre un enemigo. No consume el sello. Consulta la información de cada sello para conocer el efecto de Sentencia."
+          "descriptionTemplate": "Desata la energía de un hechizo de sello sobre un enemigo. No consume el sello. Consulta la información de cada sello para conocer el efecto de Sentencia.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3135,7 +3225,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:679:2|25}}% de daño con arma y {{s:679:1|12}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:679:2|25}}% de daño con arma y {{s:679:1|12}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3218,7 +3316,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:678:2|29}}% de daño con arma y {{s:678:1|17}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:678:2|29}}% de daño con arma y {{s:678:1|17}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3301,7 +3407,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:1866:2|32}}% de daño con arma y {{s:1866:1|19}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:1866:2|32}}% de daño con arma y {{s:1866:1|19}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3384,7 +3498,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:680:2|36}}% de daño con arma y {{s:680:1|24}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:680:2|36}}% de daño con arma y {{s:680:1|24}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3467,7 +3589,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:2495:2|39}}% de daño con arma y {{s:2495:1|31}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:2495:2|39}}% de daño con arma y {{s:2495:1|31}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -3550,7 +3680,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:5569:2|43}}% de daño con arma y {{s:5569:1|53}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:5569:2|43}}% de daño con arma y {{s:5569:1|53}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3633,7 +3771,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:10332:2|46}}% de daño con arma y {{s:10332:1|68}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:10332:2|46}}% de daño con arma y {{s:10332:1|68}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -3716,7 +3862,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:10333:2|50}}% de daño con arma y {{s:10333:1|93}} p. más de daño Sagrado."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:10333:2|50}}% de daño con arma y {{s:10333:1|93}} p. más de daño Sagrado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3827,7 +3981,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te da inmunidad frente a todos los ataques físicos y hechizos durante {{d:498:1|6 s}}, pero no puedes atacar ni usar facultades físicas. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Te da inmunidad frente a todos los ataques físicos y hechizos durante {{d:498:1|6 s}}, pero no puedes atacar ni usar facultades físicas. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3927,7 +4083,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te da inmunidad frente a todos los ataques físicos y hechizos durante {{d:5573:1|8 s}}, pero no puedes atacar ni usar facultades físicas. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Te da inmunidad frente a todos los ataques físicos y hechizos durante {{d:5573:1|8 s}}, pero no puedes atacar ni usar facultades físicas. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4046,7 +4204,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:21082:1|30 s}}, otorgando {{s:21082:1|31}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:21082:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:21183:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:21183:1|23}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:21082:1|30 s}}, otorgando {{s:21082:1|31}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:21082:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:21183:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:21183:1|23}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4154,7 +4314,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20162:1|30 s}}, otorgando {{s:20162:1|51}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20162:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20188:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20188:1|35}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20162:1|30 s}}, otorgando {{s:20162:1|51}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20162:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20188:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20188:1|35}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4262,7 +4424,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20305:1|30 s}}, otorgando {{s:20305:1|94}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20305:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20300:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20300:1|58}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20305:1|30 s}}, otorgando {{s:20305:1|94}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20305:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20300:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20300:1|58}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4370,7 +4534,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20306:1|30 s}}, otorgando {{s:20306:1|145}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20306:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20301:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20301:1|92}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20306:1|30 s}}, otorgando {{s:20306:1|145}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20306:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20301:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20301:1|92}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4478,7 +4644,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20307:1|30 s}}, otorgando {{s:20307:1|221}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20307:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20302:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20302:1|127}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20307:1|30 s}}, otorgando {{s:20307:1|221}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20307:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20302:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20302:1|127}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4586,7 +4754,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20308:1|30 s}}, otorgando {{s:20308:1|306}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20308:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20303:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20303:1|161}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín del espíritu de un cruzado durante {{d:20308:1|30 s}}, otorgando {{s:20308:1|306}} p. de poder de ataque cuerpo a cuerpo. El paladín ataca un {{s:20308:2|40}}% más rápido pero causa menos daño en cada ataque. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20303:1|40 s}}, aumentando el daño Sagrado recibido en un máximo de {{s:20303:1|161}} p. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4646,7 +4816,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:853:1|3 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:853:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4695,7 +4867,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:5588:1|4 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:5588:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4744,7 +4918,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:5589:1|5 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:5589:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4793,7 +4969,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:10308:1|6 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:10308:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4870,7 +5048,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Purifica al objetivo amistoso eliminando {{s:1152:1|1}} efecto de Enfermedad y {{s:1152:2|1}} efecto de Veneno."
+          "descriptionTemplate": "Purifica al objetivo amistoso eliminando {{s:1152:1|1}} efecto de Enfermedad y {{s:1152:2|1}} efecto de Veneno.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4964,7 +5144,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:1022:1|6 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:1022:1|6 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5047,7 +5229,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:5599:1|8 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:5599:1|8 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5130,7 +5314,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:10278:1|10 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Protege a un miembro del grupo elegido de todos los ataques físicos durante {{d:10278:1|10 s}}, pero durante ese tiempo no puede atacar ni utilizar facultades físicas. Los jugadores solo pueden tener una bendición activa por paladín a la vez. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5207,7 +5393,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná."
+          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5273,7 +5461,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín y restablece {{s:2800:2|250}} p. de su maná. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná."
+          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín y restablece {{s:2800:2|250}} p. de su maná. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5339,7 +5529,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín y restablece {{s:10310:2|550}} p. de su maná. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná."
+          "descriptionTemplate": "Sana a un objetivo amistoso en una cantidad equivalente a la salud máxima del paladín y restablece {{s:10310:2|550}} p. de su maná. Drena todo el maná restante del paladín cuando se usa, pero no interrumpe la regeneración de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5525,7 +5717,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te colma de furia divina durante {{d:1311649:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:1311647:1|6}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:1311649:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:1311650:1|23}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Te colma de furia divina durante {{d:1311649:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:1311647:1|6}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:1311649:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:1311650:1|23}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5700,7 +5894,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te colma de furia divina durante {{d:1311656:1|30 s}}, lo que provoca que tus ataques cuerpo a cuerpo inflijan {{s:1311654:1|9}} p. de daño Sagrado adicional. Si llevas un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:1311656:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:1311655:1|36,9}} p. de daño Sagrado a un enemigo y lo provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Te colma de furia divina durante {{d:1311656:1|30 s}}, lo que provoca que tus ataques cuerpo a cuerpo inflijan {{s:1311654:1|9}} p. de daño Sagrado adicional. Si llevas un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:1311656:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello infligirá {{s:1311655:1|36,9}} p. de daño Sagrado a un enemigo y lo provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5875,7 +6071,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20163:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20231:1|14}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20163:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20183:1|54}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20163:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20231:1|14}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20163:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20183:1|54}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6025,7 +6223,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20419:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20415:1|19}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20419:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20411:1|74}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20419:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20415:1|19}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20419:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20411:1|74}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6175,7 +6375,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20421:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20416:1|25}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20421:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20412:1|96}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20421:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20416:1|25}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20421:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20412:1|96}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -6350,7 +6552,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20422:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20417:1|32}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20422:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20413:1|123}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20422:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20417:1|32}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20422:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20413:1|123}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -6500,7 +6704,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20423:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20418:1|35}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20423:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20414:1|153}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}."
+          "descriptionTemplate": "Colma al paladín de furia divina durante {{d:20423:1|30 s}}, lo que hace que los ataques cuerpo a cuerpo inflijan {{s:20418:1|35}} p. de daño Sagrado extra. Mientras lleves equipado un escudo, cada ataque también otorga un escudo de absorción equivalente al {{m:20423:2|50}}% del daño Sagrado infligido. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nLiberar la energía de este sello causará {{s:20414:1|153}} p. de daño Sagrado a un enemigo y le provocará para que te ataque durante {{d:20232:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6560,7 +6766,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:7328:1|65}} p. de salud y 120 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:7328:1|65}} p. de salud y 120 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6609,7 +6817,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:10322:1|150}} p. de salud y 260 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:10322:1|150}} p. de salud y 260 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6658,7 +6868,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:10324:1|250}} p. de salud y 420 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:10324:1|250}} p. de salud y 420 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6707,7 +6919,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:20772:1|400}} p. de salud y 600 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:20772:1|400}} p. de salud y 600 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6756,7 +6970,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:20773:1|600}} p. de salud y 800 p. de maná. No se puede lanzar estando en combate."
+          "descriptionTemplate": "Devuelve a un jugador muerto a la vida con {{s:20773:1|600}} p. de salud y 800 p. de maná. No se puede lanzar estando en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6816,7 +7032,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19742:1|12}} p. de maná cada {{t:19742:1|5}} s. durante {{d:19742:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19742:1|12}} p. de maná cada {{t:19742:1|5}} s. durante {{d:19742:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6865,7 +7083,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19850:1|18}} p. de maná cada {{t:19850:1|5}} s. durante {{d:19850:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19850:1|18}} p. de maná cada {{t:19850:1|5}} s. durante {{d:19850:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6914,7 +7134,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19852:1|24}} p. de maná cada {{t:19852:1|5}} s. durante {{d:19852:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19852:1|24}} p. de maná cada {{t:19852:1|5}} s. durante {{d:19852:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6963,7 +7185,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19853:1|30}} p. de maná cada {{t:19853:1|5}} s. durante {{d:19853:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19853:1|30}} p. de maná cada {{t:19853:1|5}} s. durante {{d:19853:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7012,7 +7236,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19854:1|36}} p. de maná cada {{t:19854:1|5}} s. durante {{d:19854:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:19854:1|36}} p. de maná cada {{t:19854:1|5}} s. durante {{d:19854:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -7061,7 +7287,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:25290:1|40}} p. de maná cada {{t:25290:1|5}} s. durante {{d:25290:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que restaura {{s:25290:1|40}} p. de maná cada {{t:25290:1|5}} s. durante {{d:25290:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7138,7 +7366,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:7294:1|5}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:7294:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Inflige {{s:7294:1|5}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:7294:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7204,7 +7434,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10298:1|8}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10298:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Inflige {{s:10298:1|8}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10298:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7270,7 +7502,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10299:1|12}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10299:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Inflige {{s:10299:1|12}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10299:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7336,7 +7570,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10300:1|16}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10300:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Inflige {{s:10300:1|16}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10300:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7402,7 +7638,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10301:1|20}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10301:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Inflige {{s:10301:1|20}} p. de daño Sagrado a cualquier criatura que golpee a un miembro del grupo en un radio de {{a:10301:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7513,7 +7751,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la amenaza generada por tus ataques Sagrados en un {{s:25780:1|90}}%. Dura {{d:25780:1|30 min}}."
+          "descriptionTemplate": "Aumenta la amenaza generada por tus ataques Sagrados en un {{s:25780:1|90}}%. Dura {{d:25780:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7590,7 +7830,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que le concede inmunidad a los efectos que impiden el movimiento durante {{d:1044:1|10 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que le concede inmunidad a los efectos que impiden el movimiento durante {{d:1044:1|10 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7650,7 +7892,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta sus estadísticas totales en un {{s:20217:1|10}}% durante {{d:20217:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta sus estadísticas totales en un {{s:20217:1|10}}% durante {{d:20217:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7794,7 +8038,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280345:1*8|16}} p. de daño Sagrado durante {{d:26573:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:26573:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280345:2*8|32}} p. más de daño durante {{d:26573:1|8 s}}."
+          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280345:1*8|16}} p. de daño Sagrado durante {{d:26573:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:26573:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280345:2*8|32}} p. más de daño durante {{d:26573:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7927,7 +8173,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280346:1*8|24}} p. de daño Sagrado durante {{d:20116:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20116:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280346:2*8|56}} p. más de daño durante {{d:20116:1|8 s}}."
+          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280346:1*8|24}} p. de daño Sagrado durante {{d:20116:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20116:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280346:2*8|56}} p. más de daño durante {{d:20116:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8060,7 +8308,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280347:1*8|48}} p. de daño Sagrado durante {{d:20922:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20922:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280347:2*8|88}} p. más de daño durante {{d:20922:1|8 s}}."
+          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280347:1*8|48}} p. de daño Sagrado durante {{d:20922:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20922:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280347:2*8|88}} p. más de daño durante {{d:20922:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8193,7 +8443,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280348:1*8|64}} p. de daño Sagrado durante {{d:20923:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20923:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280348:2*8|160}} p. más de daño durante {{d:20923:1|8 s}}."
+          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280348:1*8|64}} p. de daño Sagrado durante {{d:20923:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20923:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280348:2*8|160}} p. más de daño durante {{d:20923:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8326,7 +8578,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280349:1*8|96}} p. de daño Sagrado durante {{d:20924:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20924:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280349:2*8|216}} p. más de daño durante {{d:20924:1|8 s}}."
+          "descriptionTemplate": "Consagra el suelo bajo los pies del paladín, lo que inflige {{l:1280349:1*8|96}} p. de daño Sagrado durante {{d:20924:1|8 s}} a los enemigos que lo pisen. Los primeros {{s:20924:3|4}} enemigos que pisen el suelo consagrado reciben {{l:1280349:2*8|216}} p. más de daño durante {{d:20924:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8386,7 +8640,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19750:1|46}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19750:1|46}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8435,7 +8691,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19939:1|66}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19939:1|66}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8484,7 +8742,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19940:1|101}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19940:1|101}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8533,7 +8793,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19941:1|151}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19941:1|151}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8582,7 +8844,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19942:1|223}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19942:1|223}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -8631,7 +8895,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cura un objetivo amigo en {{s:19943:1|303}} p."
+          "descriptionTemplate": "Cura un objetivo amigo en {{s:19943:1|303}} p.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8691,7 +8957,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:879:1|79}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:879:1|79}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8740,7 +9008,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:5614:1|141}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:5614:1|141}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8789,7 +9059,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:5615:1|202}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:5615:1|202}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8838,7 +9110,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10312:1|291}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:10312:1|291}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8887,7 +9161,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10313:1|384}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:10313:1|384}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -8936,7 +9212,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:10314:1|502}} p. de daño Sagrado a un objetivo no-muerto o demonio."
+          "descriptionTemplate": "Inflige {{s:10314:1|502}} p. de daño Sagrado a un objetivo no-muerto o demonio.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9013,7 +9291,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415068:1|90}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415068:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415068:1|90}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415068:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9079,7 +9359,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415069:1|162}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415069:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415069:1|162}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415069:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9145,7 +9427,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415070:1|231}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415070:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415070:1|231}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415070:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9211,7 +9495,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415071:1|323}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415071:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415071:1|323}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415071:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9277,7 +9563,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415072:1|416}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415072:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415072:1|416}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415072:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -9343,7 +9631,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:415073:1|534}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415073:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios."
+          "descriptionTemplate": "Inflige {{s:415073:1|534}} p. de daño Sagrado a un objetivo enemigo y tiene un {{s:415073:2|100}}% de probabilidades de asestar un golpe crítico a no-muertos y demonios.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9450,7 +9740,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga al paladín una probabilidad de infligir daño Sagrado adicional equivalente al {{s:20424:1|70}}% del daño normal con arma. El paladín solo puede tener un sello activo a la vez. Dura {{d:20375:1|30 s}}.\r\n\r\nDesatar la energía de este sello juzgará a un enemigo para infligirle al instante 48,5 p. de daño Sagrado. Le infligirá {{s:20467:1|97}} p. si el objetivo está aturdido o incapacitado."
+          "descriptionTemplate": "Otorga al paladín una probabilidad de infligir daño Sagrado adicional equivalente al {{s:20424:1|70}}% del daño normal con arma. El paladín solo puede tener un sello activo a la vez. Dura {{d:20375:1|30 s}}.\r\n\r\nDesatar la energía de este sello juzgará a un enemigo para infligirle al instante 48,5 p. de daño Sagrado. Le infligirá {{s:20467:1|97}} p. si el objetivo está aturdido o incapacitado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9546,7 +9838,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20915:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 76,5 p. de daño Sagrado, {{s:20963:1|153}} si el objetivo está aturdido o incapacitado."
+          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20915:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 76,5 p. de daño Sagrado, {{s:20963:1|153}} si el objetivo está aturdido o incapacitado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9642,7 +9936,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20918:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 107 p. de daño Sagrado, {{s:20964:1|214}} si el objetivo está aturdido o incapacitado."
+          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20918:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 107 p. de daño Sagrado, {{s:20964:1|214}} si el objetivo está aturdido o incapacitado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9738,7 +10034,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20919:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 137 p. de daño Sagrado, {{s:20965:1|274}} si el objetivo está aturdido o incapacitado."
+          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20919:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 137 p. de daño Sagrado, {{s:20965:1|274}} si el objetivo está aturdido o incapacitado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9834,7 +10132,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20920:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 178 p. de daño Sagrado, {{s:20966:1|356}} si el objetivo está aturdido o incapacitado."
+          "descriptionTemplate": "Da al paladín una probabilidad de causar daño Sagrado extra igual a un {{s:20424:1|70}}% de un arma normal. Solo puede haber un sello activo sobre el paladín a la vez. Dura {{d:20920:1|30 s}}.\r\n\r\nAl soltar la energía de este sello sobre un enemigo se le juzga y se le causa instantáneamente 178 p. de daño Sagrado, {{s:20966:1|356}} si el objetivo está aturdido o incapacitado.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9928,7 +10228,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga inmunidad a los efectos de silencio e interrupción durante {{d:1310897:1|6 s}}."
+          "descriptionTemplate": "Otorga inmunidad a los efectos de silencio e interrupción durante {{d:1310897:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10039,7 +10341,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da {{s:19746:1|35}}% de probabilidad de ignorar la interrupción del hechizo cuando ha habido daño a todos los miembros del grupo en un radio de {{a:19746:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Da {{s:19746:1|35}}% de probabilidad de ignorar la interrupción del hechizo cuando ha habido daño a todos los miembros del grupo en un radio de {{a:19746:1|30}} metros. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10141,7 +10445,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de espíritu de justicia durante {{d:20164:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de aturdir durante {{d:20170:1|2 s}}. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20184:1|10 s}}, evitando que puedan huir. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de espíritu de justicia durante {{d:20164:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de aturdir durante {{d:20170:1|2 s}}. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20184:1|10 s}}, evitando que puedan huir. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10218,7 +10524,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:2878:1|10 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez."
+          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:2878:1|10 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10284,7 +10592,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:5627:1|15 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez."
+          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:5627:1|15 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10350,7 +10660,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:10326:1|20 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez."
+          "descriptionTemplate": "El objetivo no-muerto se sentirá impulsado a huir durante un máximo de {{d:10326:1|20 s}}. El daño causado puede interrumpir el efecto. Solo huirá 1 objetivo cada vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10410,7 +10722,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga al siguiente Destello de Luz, Luz Sagrada o hechizo de choque Sagrado una probabilidad de efecto crítico del {{s:20216:1|100}}%."
+          "descriptionTemplate": "Otorga al siguiente Destello de Luz, Luz Sagrada o hechizo de choque Sagrado una probabilidad de efecto crítico del {{s:20216:1|100}}%.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10470,7 +10784,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Termina el tiempo de reutilización restante de tu facultad Sentencia y reduce un {{s:1310994:1|100}}% el coste de maná de tu siguiente Sentencia."
+          "descriptionTemplate": "Termina el tiempo de reutilización restante de tu facultad Sentencia y reduce un {{s:1310994:1|100}}% el coste de maná de tu siguiente Sentencia.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10547,7 +10863,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Elimina Salvación o Salvación en masa del objetivo del grupo o de la banda."
+          "descriptionTemplate": "Elimina Salvación o Salvación en masa del objetivo del grupo o de la banda.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10607,7 +10925,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce un {{s:1038:1|30}}% la amenaza generada por el miembro del grupo seleccionado durante {{d:1038:1|1 h}}."
+          "descriptionTemplate": "Reduce un {{s:1038:1|30}}% la amenaza generada por el miembro del grupo seleccionado durante {{d:1038:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10684,7 +11004,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19876:1|30}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19876:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19876:1|30}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19876:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10750,7 +11072,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19895:1|45}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19895:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19895:1|45}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19895:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10816,7 +11140,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19896:1|60}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19896:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19896:1|60}} p. de resistencia a las Sombras adicional a todos los miembros del grupo y banda en un radio de {{a:19896:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10876,7 +11202,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sume al enemigo objetivo en un estado de meditación, lo que lo deja incapacitado hasta {{d:20066:1|6 s}}. Cualquier daño que reciba hará que se despierte. Solo funciona contra humanoides."
+          "descriptionTemplate": "Sume al enemigo objetivo en un estado de meditación, lo que lo deja incapacitado hasta {{d:20066:1|6 s}}. Cualquier daño que reciba hará que se despierte. Solo funciona contra humanoides.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10953,7 +11281,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Al activarse, esta facultad te otorga un escudo de absorción equivalente a un {{s:1311015:1|100}}% de tu salud máxima durante {{d:1311015:1|8 s}}. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activa."
+          "descriptionTemplate": "Al activarse, esta facultad te otorga un escudo de absorción equivalente a un {{s:1311015:1|100}}% de tu salud máxima durante {{d:1311015:1|8 s}}. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activa.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11063,7 +11393,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía Sagrada que inflige {{s:1311604:1|134}} p. de daño Sagrado a un enemigo o sana {{s:1311605:1|114}} p. a un aliado."
+          "descriptionTemplate": "Golpea al objetivo con energía Sagrada que inflige {{s:1311604:1|134}} p. de daño Sagrado a un enemigo o sana {{s:1311605:1|114}} p. a un aliado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11162,7 +11494,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25912:1|182}} p. de daño Sagrado a un enemigo o curando {{s:25914:1|156}} p. a un aliado."
+          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25912:1|182}} p. de daño Sagrado a un enemigo o curando {{s:25914:1|156}} p. a un aliado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11261,7 +11595,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25911:1|258}} p. de daño Sagrado a un enemigo o curando {{s:25913:1|230}} p. a un aliado."
+          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25911:1|258}} p. de daño Sagrado a un enemigo o curando {{s:25913:1|230}} p. a un aliado.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11360,7 +11696,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25902:1|348}} p. de daño Sagrado a un enemigo o curando {{s:25903:1|320}} p. a un aliado."
+          "descriptionTemplate": "Carga contra el objetivo con energía Sagrada, causando {{s:25902:1|348}} p. de daño Sagrado a un enemigo o curando {{s:25903:1|320}} p. a un aliado.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11471,7 +11809,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El paladín se sacrifica para salvar al miembro del grupo en peligro. Los enemigos dejarán de atacarlo y se volverá inmune a los ataques dañinos, pero no podrá realizar ninguna acción durante {{d:19753:1|3 min}}."
+          "descriptionTemplate": "El paladín se sacrifica para salvar al miembro del grupo en peligro. Los enemigos dejarán de atacarlo y se volverá inmune a los ataques dañinos, pero no podrá realizar ninguna acción durante {{d:19753:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11601,7 +11941,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20165:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20167:1|39}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20185:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20267:1|25}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20165:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20167:1|39}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20185:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20267:1|25}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11720,7 +12062,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20347:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20333:1|53}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20344:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20341:1|34}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20347:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20333:1|53}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20344:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20341:1|34}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11839,7 +12183,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20348:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20334:1|76}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20345:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20342:1|49}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20348:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20334:1|76}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20345:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20342:1|49}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11958,7 +12304,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20349:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20340:1|94}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20346:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20343:1|61}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de luz divina durante {{d:20349:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de curar {{s:20340:1|94}} p. al paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20346:1|40 s}}, otorgando en los ataques cuerpo a cuerpo contra el enemigo sentenciado la posibilidad de curar {{s:20343:1|61}} p. al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12035,7 +12383,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19888:1|30}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19888:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19888:1|30}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19888:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12101,7 +12451,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19897:1|45}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19897:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19897:1|45}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19897:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12167,7 +12519,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19898:1|60}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19898:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19898:1|60}} p. de resistencia a la Escarcha adicional a todos los miembros del grupo y banda en un radio de {{a:19898:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12278,7 +12632,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Protege al paladín de todo daño y hechizo durante {{d:642:1|10 s}}, pero reduce un {{s:642:3|50}}% el daño que infliges. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Protege al paladín de todo daño y hechizo durante {{d:642:1|10 s}}, pero reduce un {{s:642:3|50}}% el daño que infliges. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12378,7 +12734,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Protege al paladín de todo daño y hechizo durante {{d:1020:1|12 s}}, pero reduce un {{s:1020:3|50}}% el daño que infliges. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo."
+          "descriptionTemplate": "Protege al paladín de todo daño y hechizo durante {{d:1020:1|12 s}}, pero reduce un {{s:1020:3|50}}% el daño que infliges. Aplica Abstinencia durante {{d:25771:1|1 min}}. No se puede lanzar mientras Abstinencia está activo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12455,7 +12813,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19891:1|30}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19891:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19891:1|30}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19891:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12521,7 +12881,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19899:1|45}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19899:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19899:1|45}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19899:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12587,7 +12949,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga {{s:19900:1|60}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19900:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez."
+          "descriptionTemplate": "Otorga {{s:19900:1|60}} p. de resistencia al Fuego adicional a todos los miembros del grupo y banda en un radio de {{a:19900:1|30}} m. Los jugadores solo pueden tener un aura con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12714,7 +13078,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20166:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20168:1|50}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20186:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20268:1|33}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20166:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20168:1|50}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20186:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20268:1|33}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12830,7 +13196,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20356:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20350:1|71}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20354:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20352:1|46}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20356:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20350:1|71}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20354:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20352:1|46}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12946,7 +13314,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20357:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20351:1|90}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20355:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20353:1|59}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez."
+          "descriptionTemplate": "Colma al paladín de sabiduría divina durante {{d:20357:1|30 s}}, proporcionando en cada ataque cuerpo a cuerpo la posibilidad de restaurar {{s:20351:1|90}} p. de maná del paladín. Un paladín solo puede tener un sello activo a la vez.\r\n\r\nDesatar la energía de este sello sentenciará a un enemigo durante {{d:20355:1|40 s}}, otorgando en los ataques y hechizos utilizados contra el enemigo sentenciado la posibilidad de restaurar {{s:20353:1|59}} p. de maná al atacante. Tus golpes cuerpo a cuerpo restablecerán la duración del hechizo. Un paladín solo puede tener una sentencia activa a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13023,7 +13393,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19977:1|210}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19977:2|60}} p. Dura {{d:19977:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19977:1|210}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19977:2|60}} p. Dura {{d:19977:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13089,7 +13461,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19978:1|300}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19978:2|85}} p. Dura {{d:19978:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19978:1|300}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19978:2|85}} p. Dura {{d:19978:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13155,7 +13529,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19979:1|400}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19979:2|115}} p. Dura {{d:19979:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un objetivo amistoso una Bendición que aumenta los efectos de los Hechizos de luz Sagrada usados en el objetivo hasta {{s:19979:1|400}} p. y el efecto de los Hechizos de luz cegadora usados en el objetivo hasta {{s:19979:2|115}} p. Dura {{d:19979:1|1 h}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13254,7 +13630,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta un {{s:20925:1|30}}% la probabilidad de bloquear durante {{d:20925:1|10 s}} e inflige {{s:20925:2|110}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza. Cada bloqueo gasta una carga. {{n:20925:1|4}} cargas."
+          "descriptionTemplate": "Aumenta un {{s:20925:1|30}}% la probabilidad de bloquear durante {{d:20925:1|10 s}} e inflige {{s:20925:2|110}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza. Cada bloqueo gasta una carga. {{n:20925:1|4}} cargas.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13337,7 +13721,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta un {{s:20927:1|30}}% la probabilidad de bloquear durante {{d:20927:1|10 s}} e inflige {{s:20927:2|153}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza."
+          "descriptionTemplate": "Aumenta un {{s:20927:1|30}}% la probabilidad de bloquear durante {{d:20927:1|10 s}} e inflige {{s:20927:2|153}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13420,7 +13812,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta un {{s:20928:1|30}}% la probabilidad de bloquear durante {{d:20928:1|10 s}} e inflige {{s:20928:2|221}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza."
+          "descriptionTemplate": "Aumenta un {{s:20928:1|30}}% la probabilidad de bloquear durante {{d:20928:1|10 s}} e inflige {{s:20928:2|221}} p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13514,7 +13914,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da un martillazo al objetivo actual y hasta a 3 objetivos cercanos más, lo que inflige una cantidad de daño Sagrado igual a {{s:407632:3|3}} veces el daño por segundo de tu arma de la mano derecha. El tiempo de reutilización se comparte con Golpe de cruzado."
+          "descriptionTemplate": "Da un martillazo al objetivo actual y hasta a 3 objetivos cercanos más, lo que inflige una cantidad de daño Sagrado igual a {{s:407632:3|3}} veces el daño por segundo de tu arma de la mano derecha. El tiempo de reutilización se comparte con Golpe de cruzado.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 145
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13666,7 +14074,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1310909:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización y provoca que los objetivos enemigos reciban {{s:1310914:1|182}} p. de daño Sagrado y devuelvan un {{s:1310911:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1310912:1|324}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo."
+          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1310909:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización y provoca que los objetivos enemigos reciban {{s:1310914:1|182}} p. de daño Sagrado y devuelvan un {{s:1310911:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1310912:1|324}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13807,7 +14217,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1311593:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización. También hace que los objetivos enemigos reciban {{s:1311592:1|278}} p. de daño Sagrado y devuelvan un {{s:1311590:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1311591:1|487}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo."
+          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1311593:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización. También hace que los objetivos enemigos reciban {{s:1311592:1|278}} p. de daño Sagrado y devuelvan un {{s:1311590:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1311591:1|487}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13948,7 +14360,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1311597:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización. También hace que los objetivos enemigos reciban {{s:1311598:1|395}} p. de daño Sagrado y devuelvan un {{s:1311595:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1311596:1|704}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo."
+          "descriptionTemplate": "Aplica Vigilia de la Luz al objetivo durante {{d:1311597:1|30 s}}. El siguiente Choque Sagrado que le lances no activa el tiempo de reutilización. También hace que los objetivos enemigos reciban {{s:1311598:1|395}} p. de daño Sagrado y devuelvan un {{s:1311595:2|75}}% del coste de maná de Vigilia de la Luz o que los objetivos aliados sanen a su grupo durante {{s:1311596:1|704}}. Solo puedes tener una instancia de Vigilia de la Luz activa por grupo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14042,7 +14456,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Purga a un objetivo amistoso, eliminando {{s:4987:1|1}} efecto de envenenamiento, {{s:4987:2|1}} efecto de enfermedad y {{s:4987:3|1}} efecto de magia."
+          "descriptionTemplate": "Purga a un objetivo amistoso, eliminando {{s:4987:1|1}} efecto de envenenamiento, {{s:4987:2|1}} efecto de enfermedad y {{s:4987:3|1}} efecto de magia.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14102,7 +14518,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24275:1|288}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud."
+          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24275:1|288}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14151,7 +14569,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24274:1|388}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud."
+          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24274:1|388}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -14200,7 +14620,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24239:1|498}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud."
+          "descriptionTemplate": "Lanza un martillo que alcanza al enemigo con {{s:24239:1|498}} p. de daño Sagrado. Solo se puede usar sobre enemigos que tienen como máximo un 20% de salud.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14260,7 +14682,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un miembro del grupo una Bendición que transfiere {{s:6940:1|45}} p. de daño recibido por golpe al taumaturgo. Dura {{d:6940:1|30 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un miembro del grupo una Bendición que transfiere {{s:6940:1|45}} p. de daño recibido por golpe al taumaturgo. Dura {{d:6940:1|30 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14309,7 +14733,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da a un miembro del grupo una Bendición que transfiere {{s:20729:1|55}} p. de daño recibido por golpe al taumaturgo. Dura {{d:20729:1|30 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da a un miembro del grupo una Bendición que transfiere {{s:20729:1|55}} p. de daño recibido por golpe al taumaturgo. Dura {{d:20729:1|30 s}}. Los jugadores solo pueden tener una Bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14386,7 +14812,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza descargas de Poder Sagrado en todas direcciones, lo que inflige {{s:2812:1|395}} p. de daño Sagrado a todos los objetivos no-muertos y demoníacos en un radio de {{a:2812:1|20}} m y los aturde durante {{d:429147:1|2 s}}."
+          "descriptionTemplate": "Lanza descargas de Poder Sagrado en todas direcciones, lo que inflige {{s:2812:1|395}} p. de daño Sagrado a todos los objetivos no-muertos y demoníacos en un radio de {{a:2812:1|20}} m y los aturde durante {{d:429147:1|2 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14452,7 +14880,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza descargas de Poder Sagrado en todas direcciones, lo que inflige {{s:10318:1|533}} p. de daño Sagrado a todos los objetivos no-muertos y demoníacos en un radio de {{a:10318:1|20}} m y los aturde durante {{d:429147:1|2 s}}."
+          "descriptionTemplate": "Lanza descargas de Poder Sagrado en todas direcciones, lo que inflige {{s:10318:1|533}} p. de daño Sagrado a todos los objetivos no-muertos y demoníacos en un radio de {{a:10318:1|20}} m y los aturde durante {{d:429147:1|2 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14512,7 +14942,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de poderío superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el poder de ataque cuerpo a cuerpo en {{s:25782:1|112}} p. durante {{d:25782:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de poderío superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el poder de ataque cuerpo a cuerpo en {{s:25782:1|112}} p. durante {{d:25782:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14561,7 +14993,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de poderío superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el poder de ataque cuerpo a cuerpo en {{s:25916:1|133}} p. durante {{d:25916:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de poderío superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el poder de ataque cuerpo a cuerpo en {{s:25916:1|133}} p. durante {{d:25916:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14621,7 +15055,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de sabiduría superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que les devuelve {{s:25894:1|36}} de maná cada {{t:25894:1|5}} segundos durante {{d:25894:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de sabiduría superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que les devuelve {{s:25894:1|36}} de maná cada {{t:25894:1|5}} segundos durante {{d:25894:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14670,7 +15106,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de sabiduría superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que les devuelve {{s:25918:1|40}} de maná cada {{t:25918:1|5}} segundos durante {{d:25918:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de sabiduría superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que les devuelve {{s:25918:1|40}} de maná cada {{t:25918:1|5}} segundos durante {{d:25918:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14747,7 +15185,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de luz superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el efecto de los hechizos de Luz Sagrada usados sobre el objetivo en {{s:25890:1|400}} p. y el efecto de los hechizos de Luz Cegadora en {{s:25890:2|115}} p. Dura {{d:25890:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de luz superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta el efecto de los hechizos de Luz Sagrada usados sobre el objetivo en {{s:25890:1|400}} p. y el efecto de los hechizos de Luz Cegadora en {{s:25890:2|115}} p. Dura {{d:25890:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14807,7 +15247,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Da la bendición de reyes superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta las estadísticas totales en un {{s:25898:1|10}}% durante {{d:25898:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez."
+          "descriptionTemplate": "Da la bendición de reyes superior a todos los miembros del ataque o grupo que pertenecen a la misma clase que el objetivo, lo que aumenta las estadísticas totales en un {{s:25898:1|10}}% durante {{d:25898:1|1 h}}. Los jugadores solo pueden tener una bendición con ellos por paladín a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14867,7 +15309,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Otorga a todos los miembros del grupo o de la banda que compartan la misma clase que el objetivo una reducción del {{s:25895:1|30}}% a toda la amenaza generada durante {{d:25895:1|1 h}}."
+          "descriptionTemplate": "Otorga a todos los miembros del grupo o de la banda que compartan la misma clase que el objetivo una reducción del {{s:25895:1|30}}% a toda la amenaza generada durante {{d:25895:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {

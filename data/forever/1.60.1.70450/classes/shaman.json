@@ -30,6 +30,7 @@
           "spellId": 16039,
           "name": "Convección",
           "iconFileDataId": 136116,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -95,6 +96,7 @@
           "spellId": 16035,
           "name": "Concusión",
           "iconFileDataId": 136026,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -160,6 +162,7 @@
           "spellId": 30160,
           "name": "Devastación elemental",
           "iconFileDataId": 135791,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -223,6 +226,7 @@
           "spellId": 16040,
           "name": "Reverberación",
           "iconFileDataId": 135850,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -294,6 +298,7 @@
           "spellId": 16578,
           "name": "Prontitud elemental",
           "iconFileDataId": 135990,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -357,6 +362,7 @@
           "spellId": 16038,
           "name": "Llamada de la llama",
           "iconFileDataId": 135817,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -460,6 +466,7 @@
           "spellId": 16164,
           "name": "Enfoque elemental",
           "iconFileDataId": 136170,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -513,6 +520,7 @@
           "spellId": 28996,
           "name": "Custodia elemental",
           "iconFileDataId": 136094,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -580,6 +588,7 @@
           "spellId": 16086,
           "name": "Prueba de fuego",
           "iconFileDataId": 135824,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -683,6 +692,7 @@
           "spellId": 29062,
           "name": "Ojo de la tormenta",
           "iconFileDataId": 136032,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -752,6 +762,7 @@
           "spellId": 1222988,
           "name": "Vinculado a la tierra",
           "iconFileDataId": 136100,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -807,6 +818,7 @@
           "spellId": 28999,
           "name": "Alcance elemental",
           "iconFileDataId": 136099,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -913,6 +925,7 @@
           "spellId": 408490,
           "name": "Ráfaga de lava",
           "iconFileDataId": 237582,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -959,6 +972,7 @@
           "spellId": 408438,
           "name": "Sobrecarga de relámpagos",
           "iconFileDataId": 136050,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1036,6 +1050,7 @@
           "spellId": 16089,
           "name": "Furia elemental",
           "iconFileDataId": 135830,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1124,6 +1139,7 @@
           "spellId": 16166,
           "name": "Maestría elemental",
           "iconFileDataId": 136115,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1214,6 +1230,7 @@
           "spellId": 16043,
           "name": "Garra de la Tierra",
           "iconFileDataId": 136097,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1286,6 +1303,13 @@
           "spellId": 16255,
           "name": "Golpes de trueno",
           "iconFileDataId": 132325,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1351,6 +1375,7 @@
           "spellId": 17485,
           "name": "Conocimiento ancestral",
           "iconFileDataId": 136162,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1416,6 +1441,7 @@
           "spellId": 16258,
           "name": "Tótems del Guardián",
           "iconFileDataId": 136098,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1495,6 +1521,7 @@
           "spellId": 415140,
           "name": "Maña mental",
           "iconFileDataId": 136055,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1574,6 +1601,7 @@
           "spellId": 16262,
           "name": "Lobo fantasmal mejorado",
           "iconFileDataId": 136095,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1662,6 +1690,7 @@
           "spellId": 16261,
           "name": "Escudo de relámpagos mejorado",
           "iconFileDataId": 136051,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1726,6 +1755,7 @@
           "spellId": 16266,
           "name": "Armas elementales",
           "iconFileDataId": 135814,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1834,6 +1864,7 @@
           "spellId": 1223030,
           "name": "Enfoque chamanístico",
           "iconFileDataId": 136027,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1888,6 +1919,7 @@
           "spellId": 16254,
           "name": "Anticipación",
           "iconFileDataId": 136056,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1956,6 +1988,7 @@
           "spellId": 16252,
           "name": "Dureza",
           "iconFileDataId": 135892,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2035,6 +2068,7 @@
           "spellId": 16256,
           "name": "Aluvión",
           "iconFileDataId": 132152,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2119,6 +2153,7 @@
           "spellId": 17364,
           "name": "Golpe de tormenta",
           "iconFileDataId": 132314,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,
@@ -2177,6 +2212,7 @@
           "spellId": 16268,
           "name": "Armas de espíritu",
           "iconFileDataId": 132269,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2263,6 +2299,7 @@
           "spellId": 30812,
           "name": "Presura mental",
           "iconFileDataId": 136090,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2357,6 +2394,7 @@
           "spellId": 1223031,
           "name": "Golpe de tormenta mejorado",
           "iconFileDataId": 237581,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2465,6 +2503,7 @@
           "spellId": 408498,
           "name": "Arma vorágine",
           "iconFileDataId": 237584,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2584,6 +2623,7 @@
           "spellId": 425336,
           "name": "Ira del clarividente",
           "iconFileDataId": 136012,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2676,6 +2716,7 @@
           "spellId": 16182,
           "name": "Onda de curación mejorada",
           "iconFileDataId": 136052,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2741,6 +2782,7 @@
           "spellId": 16179,
           "name": "Enfoque de las mareas",
           "iconFileDataId": 135859,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2850,6 +2892,7 @@
           "spellId": 1223033,
           "name": "Conciencia",
           "iconFileDataId": 136090,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2913,6 +2956,7 @@
           "spellId": 29187,
           "name": "Gracia natural",
           "iconFileDataId": 136041,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2976,6 +3020,7 @@
           "spellId": 16173,
           "name": "Enfoque totémico",
           "iconFileDataId": 136057,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3047,6 +3092,7 @@
           "spellId": 16184,
           "name": "Reencarnación mejorada",
           "iconFileDataId": 136080,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3144,6 +3190,7 @@
           "spellId": 16176,
           "name": "Curación ancestral",
           "iconFileDataId": 136109,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3211,6 +3258,7 @@
           "spellId": 16181,
           "name": "Enfoque curativo",
           "iconFileDataId": 136043,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3278,6 +3326,7 @@
           "spellId": 408510,
           "name": "Escudo de agua",
           "iconFileDataId": 132315,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3344,6 +3393,7 @@
           "spellId": 16194,
           "name": "Maestría de las mareas",
           "iconFileDataId": 136107,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3422,6 +3472,7 @@
           "spellId": 16187,
           "name": "Tótens restauradores",
           "iconFileDataId": 136053,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3522,6 +3573,7 @@
           "spellId": 16190,
           "name": "Tótem de marea de maná",
           "iconFileDataId": 135861,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3565,6 +3617,7 @@
           "spellId": 29206,
           "name": "Forma curativa",
           "iconFileDataId": 136044,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3638,6 +3691,7 @@
           "spellId": 16188,
           "name": "Rapidez de la Naturaleza",
           "iconFileDataId": 136076,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3697,6 +3751,7 @@
           "spellId": 16178,
           "name": "Purificación",
           "iconFileDataId": 135865,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3802,6 +3857,7 @@
           "spellId": 408521,
           "name": "Mareas vivas",
           "iconFileDataId": 252995,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,

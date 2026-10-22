@@ -29,6 +29,7 @@
           "nodeId": 110305,
           "spellId": 1225477,
           "name": "Alerta máxima",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -93,6 +94,7 @@
           "nodeId": 110301,
           "spellId": 1225478,
           "name": "Bien descansado",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -202,6 +204,7 @@
           "nodeId": 110298,
           "spellId": 1225474,
           "name": "Talentoso",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -300,6 +303,7 @@
           "nodeId": 113511,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -330,6 +334,7 @@
           "nodeId": 113510,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -365,6 +370,7 @@
           "nodeId": 110296,
           "spellId": 1225472,
           "name": "Emoción de la aventura",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -430,6 +436,7 @@
           "nodeId": 110304,
           "spellId": 1225479,
           "name": "Guía de campo",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -498,6 +505,7 @@
           "nodeId": 110300,
           "spellId": 1225490,
           "name": "Viajero frecuente",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -570,6 +578,7 @@
           "nodeId": 110303,
           "spellId": 1225475,
           "name": "Medicina de campo",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -643,6 +652,7 @@
           "nodeId": 110319,
           "spellId": 1225501,
           "name": "Por gran honor",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -719,6 +729,7 @@
           "nodeId": 110313,
           "spellId": 1225499,
           "name": "Gastronomía",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -776,6 +787,7 @@
           "nodeId": 110316,
           "spellId": 1225502,
           "name": "Permanencia",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -864,6 +876,7 @@
           "nodeId": 113513,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -894,6 +907,7 @@
           "nodeId": 113512,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -929,6 +943,7 @@
           "nodeId": 110315,
           "spellId": 1225500,
           "name": "Este muerto está muy vivo",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1001,6 +1016,7 @@
           "nodeId": 110309,
           "spellId": 1225503,
           "name": "Ahorro de componentes",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1060,6 +1076,7 @@
           "nodeId": 110318,
           "spellId": 1225497,
           "name": "Refuerzo",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1125,6 +1142,7 @@
           "nodeId": 110314,
           "spellId": 1225485,
           "name": "Estudio dedicado",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1210,6 +1228,7 @@
           "nodeId": 110289,
           "spellId": 1225457,
           "name": "Maestro cocinero",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1286,6 +1305,7 @@
           "nodeId": 110290,
           "spellId": 1225451,
           "name": "Horas extra",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1351,6 +1371,7 @@
           "nodeId": 110286,
           "spellId": 1225459,
           "name": "Regateando",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1415,6 +1436,7 @@
           "nodeId": 110284,
           "spellId": 1225469,
           "name": "Estudio dedicado",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -1461,6 +1483,7 @@
           "nodeId": 110291,
           "spellId": 1225435,
           "name": "Cosecha generosa",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1543,6 +1566,7 @@
           "nodeId": 110292,
           "spellId": 1225456,
           "name": "Bonus de rendimiento",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1616,6 +1640,7 @@
           "nodeId": 113508,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -1646,6 +1671,7 @@
           "nodeId": 113506,
           "spellId": 1317256,
           "name": "Desconocido",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -1681,6 +1707,7 @@
           "nodeId": 110293,
           "spellId": 1225455,
           "name": "Maestro de los cebos",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

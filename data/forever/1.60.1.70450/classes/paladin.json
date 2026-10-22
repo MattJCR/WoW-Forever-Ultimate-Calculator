@@ -30,6 +30,7 @@
           "spellId": 20262,
           "name": "Fuerza divina",
           "iconFileDataId": 132154,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -95,6 +96,7 @@
           "spellId": 20257,
           "name": "Intelecto divino",
           "iconFileDataId": 136090,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -160,6 +162,7 @@
           "spellId": 20237,
           "name": "Luz curativa",
           "iconFileDataId": 135920,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -223,6 +226,7 @@
           "spellId": 20205,
           "name": "Enfoque espiritual",
           "iconFileDataId": 135736,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -282,6 +286,7 @@
           "spellId": 20224,
           "name": "Sellos mejorados",
           "iconFileDataId": 132325,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -345,6 +350,7 @@
           "spellId": 9453,
           "name": "Fe implacable",
           "iconFileDataId": 135984,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -423,6 +429,7 @@
           "spellId": 1310897,
           "name": "Voz de la verdad",
           "iconFileDataId": 134229,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -502,6 +509,7 @@
           "spellId": 1310899,
           "name": "Reverencia",
           "iconFileDataId": 135895,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -569,6 +577,7 @@
           "spellId": 429144,
           "name": "Poder purificador",
           "iconFileDataId": 135950,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -651,6 +660,7 @@
           "spellId": 426065,
           "name": "Infusión de Luz",
           "iconFileDataId": 236254,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -717,6 +727,7 @@
           "spellId": 20210,
           "name": "Iluminación",
           "iconFileDataId": 135913,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -856,6 +867,7 @@
           "spellId": 20216,
           "name": "Favor divino",
           "iconFileDataId": 135915,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -912,6 +924,7 @@
           "spellId": 1310904,
           "name": "Precisión divina",
           "iconFileDataId": 135918,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -990,6 +1003,7 @@
           "spellId": 1311606,
           "name": "Choque Sagrado",
           "iconFileDataId": 135972,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1036,6 +1050,7 @@
           "spellId": 1310905,
           "name": "Suelo consagrado",
           "iconFileDataId": 135926,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1105,6 +1120,7 @@
           "spellId": 5923,
           "name": "Poder Sagrado",
           "iconFileDataId": 135938,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1211,6 +1227,7 @@
           "spellId": 1310911,
           "name": "Vigilia de la Luz",
           "iconFileDataId": 236256,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1277,6 +1294,7 @@
           "spellId": 20143,
           "name": "Dureza",
           "iconFileDataId": 135892,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1364,6 +1382,7 @@
           "spellId": 20127,
           "name": "Baluarte",
           "iconFileDataId": 132110,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1434,6 +1453,7 @@
           "spellId": 20189,
           "name": "Precisión",
           "iconFileDataId": 132282,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1517,6 +1537,7 @@
           "spellId": 20174,
           "name": "Favor del Guardián",
           "iconFileDataId": 135964,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1595,6 +1616,7 @@
           "spellId": 20096,
           "name": "Anticipación",
           "iconFileDataId": 135994,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1666,6 +1688,7 @@
           "spellId": 1314103,
           "name": "Sello de furia mejorado",
           "iconFileDataId": 135960,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1744,6 +1767,7 @@
           "spellId": 20468,
           "name": "Furia justa mejorada",
           "iconFileDataId": 135962,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1810,6 +1834,7 @@
           "spellId": 20150,
           "name": "Especialización en escudos",
           "iconFileDataId": 134952,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1901,6 +1926,7 @@
           "spellId": 1224697,
           "name": "Deber sagrado",
           "iconFileDataId": 135896,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1982,6 +2008,7 @@
           "spellId": 1310994,
           "name": "Juicio presto",
           "iconFileDataId": 236258,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2043,6 +2070,13 @@
           "spellId": 20196,
           "name": "Especialización en armas de una mano",
           "iconFileDataId": 135321,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 43153
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -2113,6 +2147,7 @@
           "spellId": 20487,
           "name": "Martillo de justicia mejorado",
           "iconFileDataId": 135963,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2183,6 +2218,7 @@
           "spellId": 1311015,
           "name": "Baluarte de templario",
           "iconFileDataId": 236264,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2242,6 +2278,7 @@
           "spellId": 20177,
           "name": "La hora de la verdad",
           "iconFileDataId": 135882,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2323,6 +2360,7 @@
           "spellId": 1311034,
           "name": "Credo férreo",
           "iconFileDataId": 135925,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2428,6 +2466,13 @@
           "spellId": 20925,
           "name": "Escudo Sagrado",
           "iconFileDataId": 135880,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -2531,6 +2576,7 @@
           "spellId": 20060,
           "name": "Desvío",
           "iconFileDataId": 132269,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2596,6 +2642,7 @@
           "spellId": 20101,
           "name": "Oración",
           "iconFileDataId": 135863,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2661,6 +2708,7 @@
           "spellId": 25956,
           "name": "Sentencia mejorada",
           "iconFileDataId": 135959,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2720,6 +2768,7 @@
           "spellId": 1237268,
           "name": "Conducto Sagrado",
           "iconFileDataId": 237539,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2779,6 +2828,13 @@
           "spellId": 20117,
           "name": "Convicción",
           "iconFileDataId": 135957,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -2850,6 +2906,7 @@
           "spellId": 9452,
           "name": "Reivindicación",
           "iconFileDataId": 135985,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2931,6 +2988,7 @@
           "spellId": 1311074,
           "name": "Sentencia santificada",
           "iconFileDataId": 236255,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3017,6 +3075,7 @@
           "spellId": 20375,
           "name": "Sello de orden",
           "iconFileDataId": 132347,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3069,6 +3128,7 @@
           "spellId": 26022,
           "name": "Búsqueda de justicia",
           "iconFileDataId": 135937,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3150,6 +3210,7 @@
           "spellId": 9799,
           "name": "Ojo por ojo",
           "iconFileDataId": 135904,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3216,6 +3277,7 @@
           "spellId": 1311087,
           "name": "Enjuiciador Sagrado",
           "iconFileDataId": 135278,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3272,6 +3334,13 @@
           "spellId": 20111,
           "name": "Especialización en armas de dos manos",
           "iconFileDataId": 133041,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 136546
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -3344,6 +3413,7 @@
           "spellId": 20049,
           "name": "Venganza",
           "iconFileDataId": 132275,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3421,6 +3491,7 @@
           "spellId": 20066,
           "name": "Arrepentimiento",
           "iconFileDataId": 135942,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3479,6 +3550,7 @@
           "spellId": 1311084,
           "name": "Campeón de la Luz",
           "iconFileDataId": 236251,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3554,6 +3626,7 @@
           "spellId": 1311085,
           "name": "Instrumento de la ley",
           "iconFileDataId": 135897,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3644,6 +3717,7 @@
           "spellId": 1310735,
           "name": "Giro de la Luz",
           "iconFileDataId": 135878,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

@@ -2,7 +2,7 @@ import { CLASS_ID_BY_SPELL_SET } from "./build.js";
 import type { Poly } from "./desc-variables.js";
 import { int, type RawTables, type Row } from "./csv.js";
 import type { Abilities, Ability, AbilityEffect, AbilityRank, ClassTalents } from "./model.js";
-import { renderSpellText } from "./spell-text.js";
+import { renderSpellText, withoutConditions } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
 
 /**
@@ -72,6 +72,16 @@ const EFFECT_HEALTH_LEECH = 9;
 const AURA_PERIODIC_DAMAGE = 3;
 const AURA_PERIODIC_HEAL = 8;
 const AURA_SCHOOL_ABSORB = 69;
+
+/** SpellMisc.Attributes[3] 0x1000000: el hechizo exige un arma en la mano izquierda (golpea con ella). */
+const SPELL_ATTR3_REQ_OFFHAND = 0x1000000;
+
+/** Con que arma(s) golpea una habilidad de daño de arma: lo dice el texto del cliente («con ambas armas», «el arma de tu mano izquierda») y el atributo del hechizo. */
+export function weaponHandOf(attributes3: number, description: string): AbilityRank["weaponHand"] {
+  if (/ambas armas/i.test(description)) return "both";
+  if ((attributes3 & SPELL_ATTR3_REQ_OFFHAND) !== 0 || /(?:arma|armas) de (?:tu|la) mano izquierda|con tu mano izquierda/i.test(description)) return "off";
+  return "main";
+}
 
 const POWER_TYPES: Record<number, AbilityRank["costType"]> = { 0: "mana", 1: "rage", 2: "focus", 3: "energy" };
 
@@ -241,8 +251,10 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
     const rendered = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map() });
     // Misma descripcion con huecos {{tipo:hechizo:indice|base}}: el motor los rellena con el nivel y los talentos
     const template = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map(), slots: true });
+    // Lo que cita el texto se busca en la rama sin talentos de las condicionales: la rama «con talento» la resuelve el motor
+    const plain = withoutConditions(template.text);
     // Cargas citadas con $n (Fuego interno: «hasta que se hayan usado N cargas»)
-    const charges: AbilityRank["charges"] = [...template.text.matchAll(/\{\{n:(\d+):1\|(\d+)\}\}/g)].map((x) => ({ spellId: Number(x[1]), charges: Number(x[2]) }));
+    const charges: AbilityRank["charges"] = [...plain.matchAll(/\{\{n:(\d+):1\|(\d+)\}\}/g)].map((x) => ({ spellId: Number(x[1]), charges: Number(x[2]) }));
     // Radio maximo de los efectos de area (propios o de los hechizos disparados)
     let radiusYd = 0;
     for (const sid of [spellId, ...effects.filter((x) => x.viaSpellId !== null).map((x) => x.viaSpellId!)]) {
@@ -251,7 +263,7 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
 
     // Probabilidades de activacion citadas con $NNNh%: cifra (SpellAuraOptions.ProcChance) y mascara del hechizo que las lleva
     const procs: AbilityRank["procs"] = [];
-    for (const pm of template.text.matchAll(/\{\{c:(\d+):1\|/g)) {
+    for (const pm of plain.matchAll(/\{\{c:(\d+):1\|/g)) {
       const ref = Number(pm[1]);
       const chance = spells.aura(ref)?.procChance ?? 0;
       const pco = classOptions.get(String(ref));
@@ -282,16 +294,18 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
       description: rendered.text,
       descriptionComplete: rendered.complete,
       descriptionTemplate: template.text,
+      equipped: spells.equippedItems(spellId),
+      weaponHand: weaponHandOf(int(m["Attributes[3]"]), rendered.text),
     };
     // Hechizos a los que remite el texto (p. ej. el dano por tick de Ventisca vive en otro hechizo): sus efectos tambien cuentan
     const have = new Set([spellId, ...effects.map((e) => e.viaSpellId ?? spellId)]);
     const cited = new Map<number, Set<number>>();
-    for (const m of template.text.matchAll(/\{\{(?![cn]:)[a-z]:(\d+):(\d+)(?:\*[\d.]+)?\|/g)) {
+    for (const m of plain.matchAll(/\{\{(?![cn]:)[a-z]:(\d+):(\d+)(?:\*[\d.]+)?\|/g)) {
       const ref = Number(m[1]);
       (cited.get(ref) ?? cited.set(ref, new Set()).get(ref)!).add(Number(m[2]) - 1);
     }
     // Huecos de expresion `{{=EXPR;m:hechizo:efecto;...|valor}}`: tambien citan efectos
-    for (const m of template.text.matchAll(/\{\{=[^;|}]*((?:;[A-Za-z]:\d+:\d+)+)\|/g)) {
+    for (const m of plain.matchAll(/\{\{=[^;|}]*((?:;[A-Za-z]:\d+:\d+)+)\|/g)) {
       for (const tok of m[1]!.slice(1).split(";")) {
         const [, r, i] = tok.split(":");
         (cited.get(Number(r)) ?? cited.set(Number(r), new Set()).get(Number(r))!).add(Number(i) - 1);

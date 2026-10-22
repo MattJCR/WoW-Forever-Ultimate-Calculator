@@ -1,4 +1,4 @@
-import type { AbilityRank } from "@wfuc/schema";
+import type { AbilityEffect, AbilityRank } from "@wfuc/schema";
 import { effectAt, isWeaponDamageEffect, WEAPON_PERCENT_EFFECT } from "./abilities.js";
 import type { ModifiedAbility } from "./spell-mods.js";
 
@@ -51,6 +51,72 @@ function evalArithmetic(expr: string): number | null {
 
 export type TextLocale = "es" | "en";
 
+/** Marcador de una condicional de la plantilla (lo escribe el pipeline): ` condicion  rama «si»  rama «no» `; condicion = `s123`, `a123` o varias con `|`. */
+const COND_START = "";
+const COND_SEP = "";
+const COND_END = "";
+
+/** Trozo de la plantilla ya sin condicionales: `chosen` = viene de la rama «si» (hay un talento que cambia el texto). */
+interface TemplateSegment {
+  text: string;
+  chosen: boolean;
+}
+
+/**
+ * Resuelve las condicionales `$?s123[si][no]` / `$?a123[si][no]` de la plantilla («si conoces el hechizo / tienes el aura 123»):
+ * elige la rama «si» si alguna de las condiciones está en `known` (los hechizos de los talentos y ventajas escogidos) y la «no» si no.
+ * Admite condicionales anidadas. Sin `known`, siempre la rama sin talentos.
+ */
+export function splitConditions(template: string, known?: ReadonlySet<number>): TemplateSegment[] {
+  const out: TemplateSegment[] = [];
+  const add = (text: string, chosen: boolean) => {
+    if (text) out.push({ text, chosen });
+  };
+  let i = 0;
+  let plainFrom = 0;
+  while (i < template.length) {
+    if (template[i] !== COND_START) {
+      i++;
+      continue;
+    }
+    // Busca el cierre que corresponde (las ramas pueden llevar otra condicional)
+    let depth = 0;
+    let end = -1;
+    for (let j = i; j < template.length; j++) {
+      if (template[j] === COND_START) depth++;
+      else if (template[j] === COND_END && --depth === 0) {
+        end = j;
+        break;
+      }
+    }
+    if (end < 0) break;
+    const inner = template.slice(i + 1, end);
+    const parts: string[] = [];
+    let from = 0;
+    let level = 0;
+    for (let j = 0; j <= inner.length; j++) {
+      const c = inner[j];
+      if (c === COND_START) level++;
+      else if (c === COND_END) level--;
+      else if ((c === COND_SEP && level === 0) || j === inner.length) {
+        parts.push(inner.slice(from, j));
+        from = j + 1;
+      }
+    }
+    add(template.slice(plainFrom, i), false);
+    const [condition = "", yes = "", no = ""] = parts;
+    const has = known ? condition.split("|").some((c) => known.has(Number(c.slice(1)))) : false;
+    for (const seg of splitConditions(has ? yes : no, known)) add(seg.text, has || seg.chosen);
+    i = end + 1;
+    plainFrom = i;
+  }
+  add(template.slice(plainFrom), false);
+  return out;
+}
+
+/** La plantilla sin condicionales (rama «no»): para cualquier uso que no sea mostrar el texto con los talentos. */
+export const plainTemplate = (template: string): string => splitConditions(template).map((s) => s.text).join("");
+
 /** Formato de cifras de cada idioma: coma decimal y «s» en espanol, punto y «sec» en ingles. */
 function formatters(locale: TextLocale) {
   const loc = locale === "en" ? "en-US" : "es-ES";
@@ -71,9 +137,22 @@ function formatters(locale: TextLocale) {
  * nivel) y con los modificadores de tus talentos. Si un hueco no se puede resolver se deja el valor base del cliente.
  * No incluye el poder con hechizos (depende de las estadisticas de Forever, que no estan en el cliente).
  */
-export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility, options: { template?: string; locale?: TextLocale } = {}): TextPart[] {
+export function renderAbilityText(
+  rank: AbilityRank,
+  mod: ModifiedAbility,
+  options: {
+    template?: string;
+    locale?: TextLocale;
+    /** Hechizos que el personaje conoce por sus talentos y ventajas (para las condicionales «si tienes el talento X»); sin él, el texto sin talentos. */
+    known?: ReadonlySet<number>;
+    /** Valor de un efecto (0 = primero) de un hechizo de talento al rango escogido, para las cifras que lo citan (`$17245m1`). */
+    talentValue?: (spellId: number, effectIndex: number) => number | null;
+  } = {},
+): TextPart[] {
   // En ingles se pasa la plantilla inglesa (mismos huecos que la del cliente) y las cifras salen con formato ingles
-  const template = options.template ?? (rank.descriptionTemplate || rank.description);
+  const fullTemplate = options.template ?? (rank.descriptionTemplate || rank.description);
+  // La rama «si» de una condicional (el talento cambia el texto) sale resaltada como una cifra que cambian los talentos
+  let force = false;
   const { loc, fmtNumber, fmtValue, fmtSeconds } = formatters(options.locale ?? "es");
   const parts: TextPart[] = [];
   let last = 0;
@@ -85,7 +164,7 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility, optio
       .replace(/\$@[A-Za-z]+\d*/g, "")
       .replace(/\$\d*[A-Za-z]\w*/g, "…");
   const push = (text: string, changed = false) => {
-    if (text) parts.push({ text: hideUnresolved(text), changed });
+    if (text) parts.push({ text: hideUnresolved(text), changed: changed || force });
   };
 
   /**
@@ -100,12 +179,23 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility, optio
     const sameSpell = all.filter((e) => (e.effect.viaSpellId ?? rank.spellId) === ref);
     if (idx > 1 && sameSpell.length === 1 && sameSpell[0]!.effect.index === 0) return sameSpell[0];
     const raw = rank.effects.find((e) => (e.viaSpellId ?? rank.spellId) === ref && e.index === idx - 1);
-    if (!raw) return undefined;
+    if (!raw) {
+      // Cifra de un talento que el texto cita (la rama «si» de una condicional): su valor al rango escogido, sin escalado por nivel
+      const value = options.talentValue?.(ref, idx - 1);
+      if (value === null || value === undefined) return undefined;
+      const stat = { min: value, max: value, average: value };
+      const stub = { effect: 0, kind: "other", index: idx - 1, base: value, perLevel: 0, variance: 0, coefficient: null, periodMs: null, miscValue: null, viaSpellId: ref, levels: null, levelPoly: null, classMask: null, durationMs: null } as AbilityEffect;
+      return { effect: stub, base: stat, final: stat, coefficient: null };
+    }
     const base = effectAt(raw, rank, mod.level);
     return { effect: raw, base, final: base, coefficient: null };
   };
   const durationFor = (): { base: number | null; final: number | null } => ({ base: rank.durationMs, final: mod.durationMs });
 
+  for (const segment of splitConditions(fullTemplate, options.known)) {
+  force = segment.chosen;
+  last = 0;
+  const template = segment.text;
   for (const m of template.matchAll(MARKER)) {
     push(template.slice(last, m.index));
     last = m.index + m[0].length;
@@ -239,5 +329,6 @@ export function renderAbilityText(rank: AbilityRank, mod: ModifiedAbility, optio
     push(text, changed);
   }
   push(template.slice(last));
+  }
   return parts;
 }

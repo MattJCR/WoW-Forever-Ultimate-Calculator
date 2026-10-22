@@ -30,6 +30,7 @@
           "spellId": 13741,
           "name": "Incapacitación mejorada",
           "iconFileDataId": 132155,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -87,6 +88,7 @@
           "spellId": 14144,
           "name": "Ataques implacables",
           "iconFileDataId": 132151,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -140,6 +142,7 @@
           "spellId": 14138,
           "name": "Maldad",
           "iconFileDataId": 132277,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -205,6 +208,7 @@
           "spellId": 14156,
           "name": "Crueldad",
           "iconFileDataId": 132122,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -269,6 +273,7 @@
           "spellId": 14158,
           "name": "Asesinar",
           "iconFileDataId": 136147,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -329,6 +334,7 @@
           "spellId": 14165,
           "name": "Hacer picadillo mejorado",
           "iconFileDataId": 132306,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -393,6 +399,7 @@
           "spellId": 14179,
           "name": "Golpes despiadados",
           "iconFileDataId": 132340,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -452,6 +459,7 @@
           "spellId": 14168,
           "name": "Exponer armadura mejorado",
           "iconFileDataId": 132354,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -548,6 +556,7 @@
           "spellId": 14128,
           "name": "Letalidad",
           "iconFileDataId": 132109,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -628,6 +637,7 @@
           "spellId": 16513,
           "name": "Venenos inmundos",
           "iconFileDataId": 132293,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -750,6 +760,7 @@
           "spellId": 14177,
           "name": "Sangre fría",
           "iconFileDataId": 135988,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -806,6 +817,7 @@
           "spellId": 14113,
           "name": "Venenos mejorados",
           "iconFileDataId": 132273,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -906,6 +918,7 @@
           "spellId": 14983,
           "name": "Vigor",
           "iconFileDataId": 136023,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -975,6 +988,13 @@
           "spellId": 1310707,
           "name": "Mutilar",
           "iconFileDataId": 236270,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1024,6 +1044,7 @@
           "spellId": 14174,
           "name": "Golpe a los riñones mejorado",
           "iconFileDataId": 132298,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1093,6 +1114,7 @@
           "spellId": 14186,
           "name": "Sello del destino",
           "iconFileDataId": 136130,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1177,6 +1199,13 @@
           "spellId": 1310703,
           "name": "Veneno",
           "iconFileDataId": 135341,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 1,
@@ -1282,6 +1311,7 @@
           "spellId": 14162,
           "name": "Eviscerar mejorado",
           "iconFileDataId": 132292,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1339,6 +1369,7 @@
           "spellId": 13732,
           "name": "Golpe siniestro mejorado",
           "iconFileDataId": 136189,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1392,6 +1423,7 @@
           "spellId": 13712,
           "name": "Reflejos de relámpago",
           "iconFileDataId": 136047,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1457,6 +1489,7 @@
           "spellId": 1224716,
           "name": "Heridas punzantes",
           "iconFileDataId": 132090,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1561,6 +1594,7 @@
           "spellId": 13713,
           "name": "Desvío",
           "iconFileDataId": 132269,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1625,6 +1659,13 @@
           "spellId": 13705,
           "name": "Precisión",
           "iconFileDataId": 132222,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1709,6 +1750,7 @@
           "spellId": 13742,
           "name": "Robustez",
           "iconFileDataId": 136205,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1772,6 +1814,7 @@
           "spellId": 14251,
           "name": "Estocada",
           "iconFileDataId": 132336,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,
@@ -1831,6 +1874,7 @@
           "spellId": 13743,
           "name": "Correr mejorado",
           "iconFileDataId": 132307,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1894,6 +1938,7 @@
           "spellId": 13754,
           "name": "Patada mejorada",
           "iconFileDataId": 132219,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1960,6 +2005,7 @@
           "spellId": 1310711,
           "name": "Ejecución impecable",
           "iconFileDataId": 135345,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2016,6 +2062,7 @@
           "spellId": 13715,
           "name": "Especialización en doble empuñadura",
           "iconFileDataId": 132147,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2099,6 +2146,7 @@
           "spellId": 13877,
           "name": "Ráfaga con espada",
           "iconFileDataId": 132350,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2158,6 +2206,7 @@
           "spellId": 13960,
           "name": "Cortar y rebanar",
           "iconFileDataId": 135328,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2283,6 +2332,7 @@
           "spellId": 30919,
           "name": "Experiencia con armas",
           "iconFileDataId": 135882,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2359,6 +2409,7 @@
           "spellId": 18427,
           "name": "Agresión",
           "iconFileDataId": 132275,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2434,6 +2485,7 @@
           "spellId": 13750,
           "name": "Subidón de adrenalina",
           "iconFileDataId": 136206,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2507,6 +2559,7 @@
           "spellId": 13975,
           "name": "Camuflaje",
           "iconFileDataId": 132320,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2594,6 +2647,7 @@
           "spellId": 13958,
           "name": "Maestro de la decepción",
           "iconFileDataId": 136129,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2651,6 +2705,7 @@
           "spellId": 14057,
           "name": "Oportunidad",
           "iconFileDataId": 132366,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2723,6 +2778,7 @@
           "spellId": 13983,
           "name": "Establecer",
           "iconFileDataId": 136056,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2787,6 +2843,7 @@
           "spellId": 13981,
           "name": "Elusión",
           "iconFileDataId": 135994,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2847,6 +2904,7 @@
           "spellId": 1224782,
           "name": "Jugarretas",
           "iconFileDataId": 132310,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2907,6 +2965,7 @@
           "spellId": 14079,
           "name": "Emboscada mejorada",
           "iconFileDataId": 132282,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2971,6 +3030,7 @@
           "spellId": 13976,
           "name": "Iniciativa",
           "iconFileDataId": 136159,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3039,6 +3099,13 @@
           "spellId": 14278,
           "name": "Golpe fantasmal",
           "iconFileDataId": 136136,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 1,
@@ -3096,6 +3163,7 @@
           "spellId": 14084,
           "name": "Distraer mejorado",
           "iconFileDataId": 132289,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3179,6 +3247,7 @@
           "spellId": 30894,
           "name": "Sentidos agudizados",
           "iconFileDataId": 132089,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3284,6 +3353,7 @@
           "spellId": 14183,
           "name": "Premeditación",
           "iconFileDataId": 136183,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,
@@ -3343,6 +3413,7 @@
           "spellId": 14171,
           "name": "Espadas dentadas",
           "iconFileDataId": 135315,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3434,6 +3505,7 @@
           "spellId": 14082,
           "name": "Trabajos sucios",
           "iconFileDataId": 136220,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3504,6 +3576,7 @@
           "spellId": 14185,
           "name": "Preparación",
           "iconFileDataId": 136121,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3551,6 +3624,13 @@
           "spellId": 16511,
           "name": "Hemorragia",
           "iconFileDataId": 136168,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 2,
@@ -3620,6 +3700,7 @@
           "spellId": 1310728,
           "name": "Quietus",
           "iconFileDataId": 132297,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3727,6 +3808,7 @@
           "spellId": 462708,
           "name": "Degollador",
           "iconFileDataId": 626005,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3817,6 +3899,7 @@
           "spellId": 1310721,
           "name": "Mil cortes",
           "iconFileDataId": 132302,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

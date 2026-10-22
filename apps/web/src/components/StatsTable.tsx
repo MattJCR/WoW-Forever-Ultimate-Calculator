@@ -1,4 +1,4 @@
-import { baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, type CombatGroup, type CombatRow, type StatEffects } from "@wfuc/engine";
+import { autoAttacks, baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, offHandFactorOf, powerContext, type CombatGroup, type CombatRow, type GearWeapon, type StatEffects, type UncountedItem } from "@wfuc/engine";
 import type { BaseStats, ClientStats, CombatFormulas, CombatRatings, Manifest } from "@wfuc/schema";
 import { BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema } from "@wfuc/schema";
 import { getJson, useAsync } from "../data";
@@ -8,19 +8,22 @@ import { fmtNum, tr, trn } from "../i18n";
  * Estadisticas brutas base de la raza y clase escogidas, a tres niveles (el minimo que exigen los talentos, el 30 de
  * la beta y el 60). No vienen del cliente de Forever sino de Classic Era (ver DATA-FINDINGS): se marcan como estimacion.
  */
-/** Equipo que se suma: sus estadisticas y el nivel minimo al que se puede llevar todo (las columnas de nivel menor no lo llevan). */
+/** Equipo que se suma a este nivel: cada objeto cuenta desde su propio nivel necesario (los que aún no se pueden llevar van en `uncounted`). */
 export interface GearForStats {
   stats: Record<string, number>;
-  minLevel: number;
   /** Armadura base de las piezas. */
   armor: number;
   /** Parte de la armadura que es armadura extra de piezas verdes (no recibe el % de los talentos). */
   bonusArmor?: number;
   /** Puntuaciones -> % (null = no cargadas). */
   ratings: CombatRatings | null;
+  /** Armas que cuentan (para los golpes automáticos). */
+  weapons: GearWeapon[];
+  /** Objetos que se llevan pero exigen un nivel mayor: no suman. */
+  uncounted: UncountedItem[];
 }
 
-export function StatsTable({ manifest, raceId, raceName, classId, level, fx, fxReady, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; classId: number; level: number; fx: StatEffects | null; /** Los efectos ya llevan el libro de hechizos de la clase (sin el, las cifras de habilidades concretas parecerian del personaje entero). */ fxReady: boolean; gear?: GearForStats | null }) {
+export function StatsTable({ manifest, raceId, raceName, raceIsReference = false, classId, level, fx, fxReady, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; /** No se ha elegido raza: los atributos son los de esta raza de referencia (sin sus raciales). */ raceIsReference?: boolean; classId: number; level: number; fx: StatEffects | null; /** Los efectos ya llevan el libro de hechizos de la clase (sin el, las cifras de habilidades concretas parecerian del personaje entero). */ fxReady: boolean; gear?: GearForStats | null }) {
   const state = useAsync(manifest.stats.file, () => getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)));
   const clientEntry = manifest.clientStats;
   const clientState = useAsync(clientEntry?.file ?? "none", () => (clientEntry ? getJson(clientEntry.file, (v) => ClientStatsSchema.parse(v)) : Promise.resolve(null)));
@@ -31,12 +34,12 @@ export function StatsTable({ manifest, raceId, raceName, classId, level, fx, fxR
   if (raceId === null) return <p className="muted">{tr("Elige una raza en el paso «Raza» para ver las estadísticas base.")}</p>;
   if (state.status === "loading") return <p className="muted">{tr("Cargando estadísticas…")}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
-  return <Table data={state.value} raceId={raceId} raceName={raceName} classId={classId} level={level} fx={fx} fxReady={fxReady} client={client} formulas={formulas} gear={gear ?? null} />;
+  return <Table data={state.value} raceId={raceId} raceName={raceName} raceIsReference={raceIsReference} classId={classId} level={level} fx={fx} fxReady={fxReady} client={client} formulas={formulas} gear={gear ?? null} />;
 }
 
 const fmt = (n: number): string => fmtNum(n, 2);
 
-function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, formulas, gear }: { data: BaseStats; raceId: number; raceName: string | null; classId: number; level: number; fx: StatEffects | null; fxReady: boolean; client: ClientStats | null; formulas: CombatFormulas | null; gear: GearForStats | null }) {
+function Table({ data, raceId, raceName, raceIsReference, classId, level, fx, fxReady, client, formulas, gear }: { data: BaseStats; raceId: number; raceName: string | null; raceIsReference: boolean; classId: number; level: number; fx: StatEffects | null; fxReady: boolean; client: ClientStats | null; formulas: CombatFormulas | null; gear: GearForStats | null }) {
   const combo = data.combos.find((c) => c.raceId === raceId && c.classId === classId);
   const base = data.classBase.find((c) => c.classId === classId);
   if (!combo || !base) {
@@ -58,17 +61,21 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
         hpBase: base.hp[level - 1]!,
         manaBase: manaAt(level),
         totals: fx.totals,
-        gear: gear && level >= gear.minLevel ? gear.stats : null,
+        gear: gear ? gear.stats : null,
         attackPower: clientClass ? { perStrength: clientClass.attackPowerPerStrength, perAgility: clientClass.attackPowerPerAgility, rangedPerAgility: clientClass.rangedAttackPowerPerAgility, baseMelee: apBase.melee, baseRanged: apBase.ranged } : null,
       })
     : null;
   if (!derived) return <p className="muted">{tr("Cargando talentos…")}</p>;
   // Combate: armadura, crítico, impacto, celeridad, defensa, regeneración, resistencias y demás bonos del personaje (equipo + talentos + Legacy + raza)
-  const gearHere = gear && level >= gear.minLevel ? gear : null;
-  const combat =
+  const gearHere = gear;
+  const combatInput = (swings?: ReturnType<typeof autoAttacks>) =>
     fx && fxReady
-      ? deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: gearHere.armor, bonusArmor: gearHere.bonusArmor, ratings: gearHere.ratings } : null, classStats: clientClass?.levels.find((l) => l.level === level) ?? null, rules: formulas ? { formulas, classId } : null })
+      ? deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: gearHere.armor, bonusArmor: gearHere.bonusArmor, ratings: gearHere.ratings } : null, classStats: clientClass?.levels.find((l) => l.level === level) ?? null, rules: formulas ? { formulas, classId } : null, swings })
       : null;
+  // Los golpes automáticos necesitan la celeridad, que sale del propio cálculo de combate: primero sin armas, luego con ellas
+  const first = combatInput();
+  const swings = first && gearHere && gearHere.weapons.length > 0 ? autoAttacks(powerContext(derived, gearHere.stats, gearHere.weapons, { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx?.totals ?? []) }), { melee: first.haste.melee, ranged: first.haste.ranged }) : [];
+  const combat = swings.length > 0 ? combatInput(swings) : first;
   const groups = combat ? COMBAT_GROUPS.map((g) => ({ group: g, rows: combat.rows.filter((r) => r.group === g) })).filter((g) => g.rows.length > 0) : [];
   return (
     <>
@@ -116,20 +123,30 @@ function Table({ data, raceId, raceName, classId, level, fx, fxReady, client, fo
           </tbody>
         ))}
       </table>
+      {raceIsReference && (
+        <p className="muted small">
+          <span className="tag tag-inactive">{tr("Sin raza elegida")}</span> {tr("Los atributos son los de {race} como referencia y no incluyen sus habilidades raciales: elige tu raza en el paso «Raza» para afinarlos.", { race: raceName ?? "" })}
+        </p>
+      )}
+      {gearHere && gearHere.uncounted.length > 0 && (
+        <p className="muted small">
+          <span className="tag tag-inactive">{tr("Equipo sin contar")}</span> {tr("A nivel {level} aún no suman {items}: exigen un nivel mayor.", { level, items: gearHere.uncounted.map((u) => `${u.itemName} (${tr("nivel {n}", { n: u.requiredLevel })})`).join(", ") })}
+        </p>
+      )}
       {!fxReady && <p className="muted small">{tr("Calculando armadura, crítico, impacto y demás estadísticas de combate…")}</p>}
       <p className="muted small">
-        <span className="tag tag-unassigned">{tr("Cliente + Classic · estimación")}</span> {tr("Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {max}); porcentajes, maná base, poder de ataque por atributo y crítico por atributo son del cliente; el crítico base, el esquive base, el poder de ataque base de la clase, la armadura por agilidad y la regeneración por espíritu son de la comunidad (hojas de personaje y tooltips del juego a nivel 60). El equipo solo cuenta desde el nivel que exige el objeto más exigente", { max: data.betaMaxLevel })}{gear ? ` (${tr("nivel {n}", { n: gear.minLevel })})` : ""}.
+        <span className="tag tag-unassigned">{tr("Cliente + Classic · estimación")}</span> {tr("Valores finales con tus talentos, Puntos de Legado, raza y equipo ya aplicados, redondeados hacia abajo. La base de atributos y la vida salen de Classic Era más la diferencia de raza medida por la comunidad (la beta solo llega al nivel {max}); porcentajes, maná base, poder de ataque por atributo y crítico por atributo son del cliente; el crítico base, el esquive base, el poder de ataque base de la clase, la armadura por agilidad y la regeneración por espíritu son de la comunidad (hojas de personaje y tooltips del juego a nivel 60). Cada objeto del equipo cuenta desde su propio nivel necesario", { max: data.betaMaxLevel })}.
       </p>
       {groups.length > 0 && (
         <p className="muted small">
-          <span className="tag tag-inactive">{tr("Estimación")}</span> {tr("Combate: las puntuaciones del equipo se pasan a % con las constantes de la comunidad (impacto 10, crítico 14, celeridad 10, esquivar 12, parada 15 y bloqueo 5 por 1 %). El crítico base de la clase, el esquive base, la armadura por agilidad y la regeneración por espíritu también son de la comunidad (confianza baja: medidos a nivel 60; en otros niveles son los de Classic). No incluyen la defensa base, la parada ni el bloqueo base. Los bonos de una habilidad concreta se ven en su tarjeta; los condicionales (procs, estados) quedan como texto en el paso Equipo.")}
+          <span className="tag tag-inactive">{tr("Estimación")}</span> {tr("Combate: las puntuaciones del equipo se pasan a % con las constantes de la comunidad (impacto 10, crítico 14, celeridad 10, esquivar 12, parada 15 y bloqueo 5 por 1 %). El crítico base de la clase, el esquive base, la armadura por agilidad y la regeneración por espíritu también son de la comunidad (confianza baja: medidos a nivel 60; en otros niveles son los de Classic). No incluyen la defensa base, la parada ni el bloqueo base. Los bonos de una habilidad concreta se ven en su tarjeta; los condicionales (procs, estados, talentos que esperan un arma o un escudo) quedan como texto bajo la tabla.")}
         </p>
       )}
     </>
   );
 }
 
-const COMBAT_GROUPS: CombatGroup[] = ["Ataque", "Defensa", "Poder", "Recursos", "Resistencias", "Otros bonos"];
+const COMBAT_GROUPS: CombatGroup[] = ["Ataque", "Armas", "Defensa", "Poder", "Recursos", "Resistencias", "Otros bonos"];
 
 const signed = (v: number, unit: CombatRow["unit"]): string => `${v > 0 ? "+" : ""}${fmt(v)}${unit === "%" ? " %" : ""}`;
 const valueText = (r: CombatRow): string => `${r.unit === "%" && r.value > 0 && r.group === "Otros bonos" ? "+" : ""}${fmt(r.value)}${r.unit === "%" ? " %" : ""}`;

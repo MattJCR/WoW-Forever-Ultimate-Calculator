@@ -56,7 +56,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Actitud de combate equilibrada."
+          "descriptionTemplate": "Actitud de combate equilibrada.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -150,7 +152,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe feroz que inflige un {{s:402911:1|115}}% de daño con arma, pero solo se puede usar si Enfurecer, Ira rabiosa o Ira sangrienta están activos. Al usar el resto de facultades cuerpo a cuerpo cuando Enfurecer, Ira rabiosa o Ira sangrienta están activos reducirá {{s:402911:3|1}} s el tiempo de reutilización restante de Arremetida enfurecida."
+          "descriptionTemplate": "Un golpe feroz que inflige un {{s:402911:1|115}}% de daño con arma, pero solo se puede usar si Enfurecer, Ira rabiosa o Ira sangrienta están activos. Al usar el resto de facultades cuerpo a cuerpo cuando Enfurecer, Ira rabiosa o Ira sangrienta están activos reducirá {{s:402911:3|1}} s el tiempo de reutilización restante de Arremetida enfurecida.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -210,7 +220,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sueltas un berrido de convocación que otorga a todos los miembros del grupo y banda que se encuentren en un radio de {{a:426490:1|40}} m un {{s:426490:1|15}}% más de salud máxima durante {{d:426490:1|10 s}}."
+          "descriptionTemplate": "Sueltas un berrido de convocación que otorga a todos los miembros del grupo y banda que se encuentren en un radio de {{a:426490:1|40}} m un {{s:426490:1|15}}% más de salud máxima durante {{d:426490:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -287,7 +299,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hender armadura también inflige un {{s:403196:1|150}}% de daño con arma, que aumenta un {{s:403196:2|10}}% por cada aplicación de este hechizo que ya tenga el objetivo."
+          "descriptionTemplate": "Hender armadura también inflige un {{s:403196:1|150}}% de daño con arma, que aumenta un {{s:403196:2|10}}% por cada aplicación de este hechizo que ya tenga el objetivo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 8192,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -347,7 +367,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a ${$PL+1} o que estén marcados como jefes enemigos."
+          "descriptionTemplate": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a ${$PL+1} o que estén marcados como jefes enemigos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -407,7 +429,15 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:78:1|11}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:78:1|11}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -456,7 +486,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:284:1|21}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:284:1|21}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -505,7 +543,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:285:1|32}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:285:1|32}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -554,7 +600,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:1608:1|44}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:1608:1|44}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -603,7 +657,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11564:1|58}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11564:1|58}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -652,7 +714,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11565:1|80}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11565:1|80}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -701,7 +771,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11566:1|111}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11566:1|111}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -750,7 +828,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11567:1|138}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:11567:1|138}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -799,7 +885,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:25286:1|157}} p. y causa gran cantidad de amenaza."
+          "descriptionTemplate": "Un ataque contundente que aumenta el daño cuerpo a cuerpo en {{s:25286:1|157}} p. y causa gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -859,7 +953,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un temerario ataque cuerpo a cuerpo instantáneo con tu arma a dos manos que inflige entre un {{=@0;m:429765:1|30}}% de tu poder de ataque y un {{=@0;M:429765:1|40}}% de tu poder de ataque de daño físico. Esta facultad se beneficia de todos los efectos relacionados con Golpe heroico y también los activa."
+          "descriptionTemplate": "Un temerario ataque cuerpo a cuerpo instantáneo con tu arma a dos manos que inflige entre un {{=@0;m:429765:1|30}}% de tu poder de ataque y un {{=@0;M:429765:1|40}}% de tu poder de ataque de daño físico. Esta facultad se beneficia de todos los efectos relacionados con Golpe heroico y también los activa.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 131072,
+              "subclassMask": 1378
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -919,7 +1021,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:6673:1|9}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:6673:1|20}} m. Dura {{d:6673:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:6673:1|9}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:6673:1|20}} m. Dura {{d:6673:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -968,7 +1072,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:5242:1|21}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:5242:1|20}} m. Dura {{d:5242:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:5242:1|21}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:5242:1|20}} m. Dura {{d:5242:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1017,7 +1123,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:6192:1|33}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:6192:1|20}} m. Dura {{d:6192:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:6192:1|33}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:6192:1|20}} m. Dura {{d:6192:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1066,7 +1174,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11549:1|51}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11549:1|20}} m. Dura {{d:11549:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11549:1|51}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11549:1|20}} m. Dura {{d:11549:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1115,7 +1225,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11550:1|78}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11550:1|20}} m. Dura {{d:11550:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11550:1|78}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11550:1|20}} m. Dura {{d:11550:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -1164,7 +1276,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11551:1|111}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11551:1|20}} m. Dura {{d:11551:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:11551:1|111}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:11551:1|20}} m. Dura {{d:11551:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -1213,7 +1327,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta en {{s:25289:1|139}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:25289:1|20}} m. Dura {{d:25289:1|3 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta en {{s:25289:1|139}} p. el poder de ataque de los miembros del grupo o de la banda en un radio de {{a:25289:1|20}} m. Dura {{d:25289:1|3 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1273,7 +1389,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita y aumenta {{s:403215:1|2}} p. el aguante de los miembros del grupo en un radio de {{a:403215:1|30}} m. Dura {{d:403215:1|5 min}}."
+          "descriptionTemplate": "El guerrero grita y aumenta {{s:403215:1|2}} p. el aguante de los miembros del grupo en un radio de {{a:403215:1|30}} m. Dura {{d:403215:1|5 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1367,7 +1485,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza una ola de fuerza delante del guerrero, inflige ${$m3/100*$AP} p. de daño y aturde a todos los objetivos cercanos que se encuentren en un radio de {{a:440488:1|10}} m en un cono frontal durante {{d:440488:1|4 s}}."
+          "descriptionTemplate": "Lanza una ola de fuerza delante del guerrero, inflige ${$m3/100*$AP} p. de daño y aturde a todos los objetivos cercanos que se encuentren en un radio de {{a:440488:1|10}} m en un cono frontal durante {{d:440488:1|4 s}}.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1427,7 +1553,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te sana un {{o:402913:1|30}}% de tu salud máxima durante {{d:402913:1|10 s}}, pero solo se puede usar si Enfurecer, Ira rabiosa o Ira sangrienta están activos. Se puede usar mientras se está aturdido."
+          "descriptionTemplate": "Te sana un {{o:402913:1|30}}% de tu salud máxima durante {{d:402913:1|10 s}}, pero solo se puede usar si Enfurecer, Ira rabiosa o Ira sangrienta están activos. Se puede usar mientras se está aturdido.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1538,7 +1666,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un {{s:461475:1|5}}% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga ${$PL*1.5} p. de poder de ataque. Dura {{d:461475:1|2 h}}.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida."
+          "descriptionTemplate": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un {{s:461475:1|5}}% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga ${$PL*1.5} p. de poder de ataque. Dura {{d:461475:1|2 h}}.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1598,7 +1728,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:772:1|15}} p. de daño durante {{d:772:1|9 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:772:1|15}} p. de daño durante {{d:772:1|9 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1647,7 +1785,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6546:1|28}} p. de daño durante {{d:6546:1|12 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6546:1|28}} p. de daño durante {{d:6546:1|12 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1696,7 +1842,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6547:1|45}} p. de daño durante {{d:6547:1|15 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6547:1|45}} p. de daño durante {{d:6547:1|15 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1745,7 +1899,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6548:1|66}} p. de daño durante {{d:6548:1|18 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:6548:1|66}} p. de daño durante {{d:6548:1|18 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1794,7 +1956,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11572:1|98}} p. de daño durante {{d:11572:1|21 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11572:1|98}} p. de daño durante {{d:11572:1|21 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -1843,7 +2013,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11573:1|126}} p. de daño durante {{d:11573:1|21 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11573:1|126}} p. de daño durante {{d:11573:1|21 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -1892,7 +2070,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11574:1|147}} p. de daño durante {{d:11574:1|21 s}}."
+          "descriptionTemplate": "Hiere al objetivo y lo hace sangrar con {{o:11574:1|147}} p. de daño durante {{d:11574:1|21 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2011,7 +2197,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra un enemigo, genera 9 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate."
+          "descriptionTemplate": "Carga contra un enemigo, genera 9 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2119,7 +2307,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra un enemigo, genera 12 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate."
+          "descriptionTemplate": "Carga contra un enemigo, genera 12 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2227,7 +2417,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra un enemigo, genera 15 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate."
+          "descriptionTemplate": "Carga contra un enemigo, genera 15 p. de ira y lo aturde durante {{d:7922:1|1 s}}. No se puede usar en combate.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2304,7 +2496,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos, lo que aumenta el tiempo entre sus ataques un {{s:6343:2|20}}% durante {{d:6343:1|10 s}} y les inflige {{s:6343:1|10}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos, lo que aumenta el tiempo entre sus ataques un {{s:6343:2|20}}% durante {{d:6343:1|10 s}} y les inflige {{s:6343:1|10}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2370,7 +2564,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8198:2|20}}% durante {{d:8198:1|14 s}} y les inflige {{s:8198:1|23}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8198:2|20}}% durante {{d:8198:1|14 s}} y les inflige {{s:8198:1|23}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2436,7 +2632,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8204:2|20}}% durante {{d:8204:1|18 s}} y les inflige {{s:8204:1|37}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8204:2|20}}% durante {{d:8204:1|18 s}} y les inflige {{s:8204:1|37}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2502,7 +2700,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8205:2|20}}% durante {{d:8205:1|22 s}} y les inflige {{s:8205:1|55}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:8205:2|20}}% durante {{d:8205:1|22 s}} y les inflige {{s:8205:1|55}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2568,7 +2768,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:11580:2|20}}% durante {{d:11580:1|26 s}} y les inflige {{s:11580:1|82}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:11580:2|20}}% durante {{d:11580:1|26 s}} y les inflige {{s:11580:1|82}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2634,7 +2836,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:11581:2|20}}% durante {{d:11581:1|30 s}} y les inflige {{s:11581:1|103}} p. de daño. Afectará a un máximo de 4 objetivos."
+          "descriptionTemplate": "Golpea a los enemigos cercanos con truenos, lo que aumenta el tiempo entre sus ataques un {{s:11581:2|20}}% durante {{d:11581:1|30 s}} y les inflige {{s:11581:1|103}} p. de daño. Afectará a un máximo de 4 objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2711,7 +2915,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:1715:1|5}} p. de daño y reduce su movimiento en un {{s:1715:2|40}}% durante {{d:1715:1|15 s}}."
+          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:1715:1|5}} p. de daño y reduce su movimiento en un {{s:1715:2|40}}% durante {{d:1715:1|15 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2777,7 +2989,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:7372:1|18}} p. de daño y reduce su movimiento en un {{s:7372:2|45}}% durante {{d:7372:1|15 s}}."
+          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:7372:1|18}} p. de daño y reduce su movimiento en un {{s:7372:2|45}}% durante {{d:7372:1|15 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2843,7 +3063,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:7373:1|45}} p. de daño y reduce su movimiento en un {{s:7373:2|50}}% durante {{d:7373:1|15 s}}."
+          "descriptionTemplate": "Mutila al enemigo y le inflige {{s:7373:1|45}} p. de daño y reduce su movimiento en un {{s:7373:2|50}}% durante {{d:7373:1|15 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2995,7 +3223,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una actitud de combate defensiva. Reduce el daño recibido un {{s:7376:1|10}}% y el daño infligido un {{s:7376:2|10}}%. Aumenta toda la amenaza generada un {{s:7376:3|30}}%."
+          "descriptionTemplate": "Una actitud de combate defensiva. Reduce el daño recibido un {{s:7376:1|10}}% y el daño infligido un {{s:7376:2|10}}%. Aumenta toda la amenaza generada un {{s:7376:3|30}}%.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3072,7 +3302,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:7386:1|90}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:7386:1|30 s}}."
+          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:7386:1|90}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:7386:1|30 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3138,7 +3376,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:7405:1|180}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:7405:1|30 s}}."
+          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:7405:1|180}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:7405:1|30 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3204,7 +3450,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:8380:1|270}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:8380:1|30 s}}."
+          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:8380:1|270}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:8380:1|30 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3270,7 +3524,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:11596:1|360}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:11596:1|30 s}}."
+          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:11596:1|360}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:11596:1|30 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3336,7 +3598,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:11597:1|450}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:11597:1|30 s}}."
+          "descriptionTemplate": "Hiende el armadura del objetivo reduciendo {{s:11597:1|450}} p. por Hender armadura y causando una gran cantidad de amenaza. Se puede usar un máximo de 5 veces. Dura {{d:11597:1|30 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3413,7 +3683,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Irrita al objetivo para que te ataque, pero no tiene efecto si ya te está atacando."
+          "descriptionTemplate": "Irrita al objetivo para que te ataque, pero no tiene efecto si ya te está atacando.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3515,7 +3787,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Genera 10 p. de ira a costa de salud y después genera 10 p. de ira extra durante {{d:29131:1|10 s}}."
+          "descriptionTemplate": "Genera 10 p. de ira a costa de salud y después genera 10 p. de ira extra durante {{d:29131:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3575,7 +3849,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:7384:1|5}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar."
+          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:7384:1|5}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3624,7 +3906,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:7887:1|15}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar."
+          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:7887:1|15}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3673,7 +3963,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:11584:1|25}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar."
+          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:11584:1|25}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3722,7 +4020,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:11585:1|35}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar."
+          "descriptionTemplate": "Arrolla al enemigo instantáneamente infligiéndole daño de arma más {{s:11585:1|35}} p. Solo se puede utilizar después de que el objetivo esquive. Abrumar no se puede bloquear, ni esquivar ni parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3799,7 +4105,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:72:2|6}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:72:1|6 s}}."
+          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:72:2|6}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:72:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3865,7 +4179,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:1671:2|18}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1671:1|6 s}}."
+          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:1671:2|18}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1671:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3931,7 +4253,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:1672:2|45}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1672:1|6 s}}."
+          "descriptionTemplate": "Azota al objetivo con tu escudo, infligiendo {{s:1672:2|45}} p. de daño. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1672:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4008,7 +4338,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:1160:1|10}} metros en {{s:1160:1|49}} p. durante {{d:1160:1|45 s}}."
+          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:1160:1|10}} metros en {{s:1160:1|49}} p. durante {{d:1160:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4074,7 +4406,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:6190:1|10}} metros en {{s:6190:1|77}} p. durante {{d:6190:1|45 s}}."
+          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:6190:1|10}} metros en {{s:6190:1|77}} p. durante {{d:6190:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4140,7 +4474,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11554:1|10}} metros en {{s:11554:1|98}} p. durante {{d:11554:1|45 s}}."
+          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11554:1|10}} metros en {{s:11554:1|98}} p. durante {{d:11554:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4206,7 +4542,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11555:1|10}} metros en {{s:11555:1|147}} p. durante {{d:11555:1|45 s}}."
+          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11555:1|10}} metros en {{s:11555:1|147}} p. durante {{d:11555:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4272,7 +4610,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11556:1|10}} metros en {{s:11556:1|196}} p. durante {{d:11556:1|45 s}}."
+          "descriptionTemplate": "Reduce el poder de ataque cuerpo a cuerpo de todos los enemigos que estén a {{a:11556:1|10}} metros en {{s:11556:1|196}} p. durante {{d:11556:1|45 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4332,7 +4672,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que causa {{s:6572:1|22}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que causa {{s:6572:1|22}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4381,7 +4729,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que causa {{s:6574:1|34}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que causa {{s:6574:1|34}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4430,7 +4786,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que causa {{s:7379:1|48}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que causa {{s:7379:1|48}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4479,7 +4843,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que causa {{s:11600:1|82}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que causa {{s:11600:1|82}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4528,7 +4900,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que inflige {{s:11601:1|121}} p. de daño a un enemigo. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que inflige {{s:11601:1|121}} p. de daño a un enemigo. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4577,7 +4957,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataque instantáneo que causa {{s:25288:1|153}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar."
+          "descriptionTemplate": "Contraataque instantáneo que causa {{s:25288:1|153}} p. de daño a un enemigo y una gran cantidad de amenaza. La revancha tiene que seguir a bloquear, esquivar o parar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4642,7 +5030,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la probabilidad de bloquear en un {{s:2565:1|75}}% durante {{d:2565:1|7 s}} pero solo bloqueará {{n:2565:1|2}} ataques."
+          "descriptionTemplate": "Aumenta la probabilidad de bloquear en un {{s:2565:1|75}}% durante {{d:2565:1|7 s}} pero solo bloqueará {{n:2565:1|2}} ataques.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4719,7 +5115,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque burlón que causa {{s:694:1|22}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:694:1|6 s}}."
+          "descriptionTemplate": "Un ataque burlón que causa {{s:694:1|22}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:694:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4785,7 +5189,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque burlón que causa {{s:7400:1|31}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:7400:1|6 s}}."
+          "descriptionTemplate": "Un ataque burlón que causa {{s:7400:1|31}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:7400:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4851,7 +5263,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque burlón que causa {{s:7402:1|46}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:7402:1|6 s}}."
+          "descriptionTemplate": "Un ataque burlón que causa {{s:7402:1|46}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:7402:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4917,7 +5337,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque burlón que causa {{s:20559:1|71}} p. de daño y obliga al objetivo a centrar sus ataques en ti durante {{d:20559:1|6 s}}."
+          "descriptionTemplate": "Un ataque burlón que causa {{s:20559:1|71}} p. de daño y obliga al objetivo a centrar sus ataques en ti durante {{d:20559:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4983,7 +5411,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque burlón que causa {{s:20560:1|93}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:20560:1|6 s}}."
+          "descriptionTemplate": "Un ataque burlón que causa {{s:20560:1|93}} p. de daño, una cantidad moderada de amenaza y obliga al objetivo a centrar sus ataques en ti durante {{d:20560:1|6 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5043,7 +5479,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Desactiva el arma del enemigo durante {{d:676:1|10 s}}."
+          "descriptionTemplate": "Desactiva el arma del enemigo durante {{d:676:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5159,7 +5597,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataca al instante al objetivo para infligirle un {{=@0;m:402927:3|15}}% de tu poder de ataque p. de daño y sanar un {{s:402927:2|10}}% de tu salud máxima. Solo se puede usar en un período de {{d:402975:1|20 s}} tras matar a un enemigo no trivial."
+          "descriptionTemplate": "Ataca al instante al objetivo para infligirle un {{=@0;m:402927:3|15}}% de tu poder de ataque p. de daño y sanar un {{s:402927:2|10}}% de tu salud máxima. Solo se puede usar en un período de {{d:402975:1|20 s}} tras matar a un enemigo no trivial.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5219,7 +5659,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca que todos los enemigos situados en un radio de {{a:12323:2|10}} m queden atontados y reduce su velocidad de movimiento un {{s:12323:1|50}}% durante {{d:12323:1|6 s}}."
+          "descriptionTemplate": "Provoca que todos los enemigos situados en un radio de {{a:12323:2|10}} m queden atontados y reduce su velocidad de movimiento un {{s:12323:1|50}}% durante {{d:12323:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5279,7 +5721,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embiste al adversario y le inflige el daño de arma más {{s:1240193:1|16}} p."
+          "descriptionTemplate": "Embiste al adversario y le inflige el daño de arma más {{s:1240193:1|16}} p.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5328,7 +5778,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:1464:1|32}} p.."
+          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:1464:1|32}} p..",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5377,7 +5835,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:8820:1|43}} p.."
+          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:8820:1|43}} p..",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5426,7 +5892,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:11604:1|68}} p.."
+          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:11604:1|68}} p..",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5475,7 +5949,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:11605:1|87}} p.."
+          "descriptionTemplate": "Aplasta al adversario causando daño de arma más {{s:11605:1|87}} p..",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5535,7 +6017,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:845:1|5}} p. de daño al objetivo y a un segundo enemigo cercano."
+          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:845:1|5}} p. de daño al objetivo y a un segundo enemigo cercano.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5584,7 +6074,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:7369:1|10}} p. de daño al objetivo y a un segundo enemigo cercano."
+          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:7369:1|10}} p. de daño al objetivo y a un segundo enemigo cercano.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5633,7 +6131,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:11608:1|18}} p. de daño al objetivo y a un segundo enemigo cercano."
+          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:11608:1|18}} p. de daño al objetivo y a un segundo enemigo cercano.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5682,7 +6188,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:11609:1|32}} p. de daño al objetivo y a un segundo enemigo cercano."
+          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:11609:1|32}} p. de daño al objetivo y a un segundo enemigo cercano.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5731,7 +6245,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:20569:1|50}} p. de daño al objetivo y a un segundo enemigo cercano."
+          "descriptionTemplate": "Un barrido radical que inflige tu daño con arma más {{s:20569:1|50}} p. de daño al objetivo y a un segundo enemigo cercano.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5796,7 +6318,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contraataca instantáneamente a cualquier enemigo que te ataque cuerpo a cuerpo durante {{d:20230:1|15 s}}. No se puede contraatacar si el ataque cuerpo a cuerpo llega por la espalda. Un máximo de {{n:20230:1|30}} ataques provocarán represalias."
+          "descriptionTemplate": "Contraataca instantáneamente a cualquier enemigo que te ataque cuerpo a cuerpo durante {{d:20230:1|15 s}}. No se puede contraatacar si el ataque cuerpo a cuerpo llega por la espalda. Un máximo de {{n:20230:1|30}} ataques provocarán represalias.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5873,7 +6397,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando se activa, esta facultad te otorga temporalmente un {{s:12976:1|30}}% de tu salud máxima durante {{d:12976:1|20 s}}. Cuando se agota el efecto, la salud se pierde."
+          "descriptionTemplate": "Cuando se activa, esta facultad te otorga temporalmente un {{s:12976:1|30}}% de tu salud máxima durante {{d:12976:1|20 s}}. Cuando se agota el efecto, la salud se pierde.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5967,7 +6493,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero grita haciendo que el enemigo se encoja de pavor. Huirán hasta 5 enemigos en un radio de {{a:5246:2|8}} m. Dura {{d:5246:1|8 s}}."
+          "descriptionTemplate": "El guerrero grita haciendo que el enemigo se encoja de pavor. Huirán hasta 5 enemigos en un radio de {{a:5246:2|8}} m. Dura {{d:5246:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6044,7 +6572,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:5308:1|125}} p. de daño y convirtiendo cada punto extra de ira en 3 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos."
+          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:5308:1|125}} p. de daño y convirtiendo cada punto extra de ira en 3 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6110,7 +6646,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20658:1|200}} p. de daño y convirtiendo cada punto extra de ira en 6 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos."
+          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20658:1|200}} p. de daño y convirtiendo cada punto extra de ira en 6 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6176,7 +6720,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20660:1|325}} p. de daño y convirtiendo cada punto extra de ira en 9 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos."
+          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20660:1|325}} p. de daño y convirtiendo cada punto extra de ira en 9 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6242,7 +6794,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20661:1|450}} p. de daño y convirtiendo cada punto extra de ira en 12 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos."
+          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20661:1|450}} p. de daño y convirtiendo cada punto extra de ira en 12 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6308,7 +6868,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20662:1|600}} p. de daño y convirtiendo cada punto extra de ira en 15 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos."
+          "descriptionTemplate": "Intenta rematar a un enemigo herido, causando {{s:20662:1|600}} p. de daño y convirtiendo cada punto extra de ira en 15 p. de daño extra. Solo se puede utilizar sobre enemigos que tengan 20% de salud o menos.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6402,7 +6970,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un ataque brutal que inflige un {{s:1310222:2|40}}% de daño con arma. Inflige un {{=@0*@1;s:1310222:2;s:1310222:3|80}}% de daño con arma adicional contra gigantes, dragonantes y objetivos sobre montura. Estos últimos se ven obligados a desmontar."
+          "descriptionTemplate": "Un ataque brutal que inflige un {{s:1310222:2|40}}% de daño con arma. Inflige un {{=@0*@1;s:1310222:2;s:1310222:3|80}}% de daño con arma adicional contra gigantes, dragonantes y objetivos sobre montura. Estos últimos se ven obligados a desmontar.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6462,7 +7038,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Obliga a todos los enemigos en un radio de {{a:1161:1|10}} m a concentrar sus ataques en ti durante {{d:1161:1|6 s}}."
+          "descriptionTemplate": "Obliga a todos los enemigos en un radio de {{a:1161:1|10}} m a concentrar sus ataques en ti durante {{d:1161:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6522,7 +7100,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reduce un {{s:871:1|60}}% el daño recibido de todos los ataques durante {{d:871:1|12 s}}."
+          "descriptionTemplate": "Reduce un {{s:871:1|60}}% el daño recibido de todos los ataques durante {{d:871:1|12 s}}.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6632,7 +7218,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una actitud agresiva. Aumenta un {{s:7381:1|3}}% la probabilidad de golpe crítico y un {{s:7381:2|10}}% todo el daño recibido."
+          "descriptionTemplate": "Una actitud agresiva. Aumenta un {{s:7381:1|3}}% la probabilidad de golpe crítico y un {{s:7381:2|10}}% todo el daño recibido.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6726,7 +7314,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando se activa, aumenta el daño físico que infliges un {{s:12328:1|20}}% y te vuelve inmune a los efectos de miedo, pero aumenta un {{s:12328:3|5}}% todo el daño que recibes. Dura {{d:12328:1|30 s}}."
+          "descriptionTemplate": "Cuando se activa, aumenta el daño físico que infliges un {{s:12328:1|20}}% y te vuelve inmune a los efectos de miedo, pero aumenta un {{s:12328:3|5}}% todo el daño que recibes. Dura {{d:12328:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6786,7 +7376,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:12809:1|5 s}}."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:12809:1|5 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6851,7 +7449,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tus próximos {{n:12292:1|5}} ataques cuerpo a cuerpo golpearán a otro enemigo cercano."
+          "descriptionTemplate": "Tus próximos {{n:12292:1|5}} ataques cuerpo a cuerpo golpearán a otro enemigo cercano.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6962,7 +7562,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20253:2|25}} p. de daño y aturdiéndolo durante {{d:20253:1|3 s}}."
+          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20253:2|25}} p. de daño y aturdiéndolo durante {{d:20253:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7062,7 +7664,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20614:2|45}} p. de daño y aturdiéndolo durante {{d:20614:1|3 s}}."
+          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20614:2|45}} p. de daño y aturdiéndolo durante {{d:20614:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7162,7 +7766,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20615:2|65}} p. de daño y aturdiéndolo durante {{d:20615:1|3 s}}."
+          "descriptionTemplate": "Embiste a un enemigo, causando {{s:20615:2|65}} p. de daño y aturdiéndolo durante {{d:20615:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7239,7 +7845,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero entra en estado de ira rabiosa volviéndose inmune a los efectos de miedo e incapacitadores y generando ira extra al recibir daño. Dura {{d:18499:1|10 s}}."
+          "descriptionTemplate": "El guerrero entra en estado de ira rabiosa volviéndose inmune a los efectos de miedo e incapacitadores y generando ira extra al recibir daño. Dura {{d:18499:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7299,7 +7907,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "En un torbellino de acero atacas a un máximo de 4 enemigos en un radio de {{a:1680:1|8}} m y les infliges daño con ambas armas cuerpo a cuerpo a cada uno."
+          "descriptionTemplate": "En un torbellino de acero atacas a un máximo de 4 enemigos en un radio de {{a:1680:1|8}} m y les infliges daño con ambas armas cuerpo a cuerpo a cada uno.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "both"
         }
       ],
       "talentsForever": {
@@ -7376,7 +7992,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Zurra al objetivo y causa {{s:6552:1|20}} p. de daño. También interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de ese tipo durante {{d:6552:1|4 s}}."
+          "descriptionTemplate": "Zurra al objetivo y causa {{s:6552:1|20}} p. de daño. También interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de ese tipo durante {{d:6552:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7442,7 +8060,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Zurra al objetivo y causa {{s:6554:1|50}} p. de daño. También interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de ese tipo durante {{d:6554:1|4 s}}."
+          "descriptionTemplate": "Zurra al objetivo y causa {{s:6554:1|50}} p. de daño. También interrumpe el lanzamiento de hechizos e impide que se lancen hechizos de ese tipo durante {{d:6554:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7519,7 +8139,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23922:2|430}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23922:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23922:2|430}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23922:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7585,7 +8213,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23923:2|505}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23923:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23923:2|505}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23923:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7651,7 +8287,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23924:2|580}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23924:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23924:2|580}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23924:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7717,7 +8361,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23925:2|655}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23925:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Embistes al objetivo con tu escudo y le infliges {{s:23925:2|655}} p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar {{s:23925:1|1}} efecto mágico del objetivo. Genera una gran cantidad de amenaza.",
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7794,7 +8446,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:12294:2|85}} p. y hiere al objetivo, lo que reduce un {{s:12294:1|50}}% la efectividad de cualquier sanación durante {{d:12294:1|10 s}}."
+          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:12294:2|85}} p. y hiere al objetivo, lo que reduce un {{s:12294:1|50}}% la efectividad de cualquier sanación durante {{d:12294:1|10 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7860,7 +8520,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21551:2|110}} p. y hiere al objetivo, lo que reduce un {{s:21551:1|50}}% la efectividad de cualquier sanación durante {{d:21551:1|10 s}}."
+          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21551:2|110}} p. y hiere al objetivo, lo que reduce un {{s:21551:1|50}}% la efectividad de cualquier sanación durante {{d:21551:1|10 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7926,7 +8594,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21552:2|135}} p. y hiere al objetivo, lo que reduce un {{s:21552:1|50}}% la efectividad de cualquier sanación durante {{d:21552:1|10 s}}."
+          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21552:2|135}} p. y hiere al objetivo, lo que reduce un {{s:21552:1|50}}% la efectividad de cualquier sanación durante {{d:21552:1|10 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7992,7 +8668,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21553:2|160}} p. y hiere al objetivo, lo que reduce un {{s:21553:1|50}}% la efectividad de cualquier sanación durante {{d:21553:1|10 s}}."
+          "descriptionTemplate": "Un golpe sanguinario que inflige daño con arma más {{s:21553:2|160}} p. y hiere al objetivo, lo que reduce un {{s:21553:1|50}}% la efectividad de cualquier sanación durante {{d:21553:1|10 s}}.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8086,7 +8770,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23881:2|45}}% de tu poder de ataque y {{s:23881:1|30}} p. más. Además, aumenta un {{s:23881:3|10}}% tu velocidad de movimiento durante {{d:23881:1|10 s}}."
+          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23881:2|45}}% de tu poder de ataque y {{s:23881:1|30}} p. más. Además, aumenta un {{s:23881:3|10}}% tu velocidad de movimiento durante {{d:23881:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8169,7 +8855,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23892:2|45}}% de tu poder de ataque y {{s:23892:1|37}} p. más. Además, aumenta un {{s:23892:3|10}}% tu velocidad de movimiento durante {{d:23892:1|10 s}}."
+          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23892:2|45}}% de tu poder de ataque y {{s:23892:1|37}} p. más. Además, aumenta un {{s:23892:3|10}}% tu velocidad de movimiento durante {{d:23892:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8252,7 +8940,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23893:2|45}}% de tu poder de ataque y {{s:23893:1|43}} p. más. Además, aumenta un {{s:23893:3|10}}% tu velocidad de movimiento durante {{d:23893:1|10 s}}."
+          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23893:2|45}}% de tu poder de ataque y {{s:23893:1|43}} p. más. Además, aumenta un {{s:23893:3|10}}% tu velocidad de movimiento durante {{d:23893:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8335,7 +9025,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23894:2|45}}% de tu poder de ataque y {{s:23894:1|48}} p. más. Además, aumenta un {{s:23894:3|10}}% tu velocidad de movimiento durante {{d:23894:1|10 s}}."
+          "descriptionTemplate": "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al {{s:23894:2|45}}% de tu poder de ataque y {{s:23894:1|48}} p. más. Además, aumenta un {{s:23894:3|10}}% tu velocidad de movimiento durante {{d:23894:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8429,7 +9121,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El guerrero obtendrá un {{s:1719:1|100}}% más de probabilidad de golpe crítico y será inmune a los efectos de miedo durante los siguientes {{d:1719:1|15 s}}, pero todo el daño recibido aumenta un {{s:1719:2|20}}%."
+          "descriptionTemplate": "El guerrero obtendrá un {{s:1719:1|100}}% más de probabilidad de golpe crítico y será inmune a los efectos de miedo durante los siguientes {{d:1719:1|15 s}}, pero todo el daño recibido aumenta un {{s:1719:2|20}}%.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {

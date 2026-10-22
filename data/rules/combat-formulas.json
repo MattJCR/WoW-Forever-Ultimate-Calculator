@@ -27,6 +27,7 @@
     "physical": 2
   },
   "attackPowerPerDps": 14,
+  "offHandDamageFactor": 0.5,
   "armorPerAgility": 2,
   "spiritManaRegen": {
     "per5sBase": 31.25,

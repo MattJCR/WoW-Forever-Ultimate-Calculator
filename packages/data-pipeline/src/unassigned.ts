@@ -91,7 +91,7 @@ export function buildUnassigned(
       const maxRank = Math.max(int(e.MaxRanks), 1);
       const text =
         spellId === null || !def
-          ? { iconFileDataId: null, effectInfo: [], passive: true, textOrigin: "client" as const, rankValues: [], descriptions: [], descriptionsComplete: true, descriptionsApproximate: false }
+          ? { iconFileDataId: null, equipped: [], effectInfo: [], passive: true, textOrigin: "client" as const, rankValues: [], descriptions: [], descriptionsComplete: true, descriptionsApproximate: false }
           : trait.textFor(spellId, def.ID!, maxRank);
       return {
         entryId: int(e.ID),
@@ -127,7 +127,7 @@ export function buildUnassigned(
         const sp = trait.nodeSpell(n.ID!);
         const text = sp
           ? trait.textForNode(sp)
-          : { iconFileDataId: null, effectInfo: [], passive: true, textOrigin: "client" as const, rankValues: [], descriptions: [], descriptionsComplete: true, descriptionsApproximate: false };
+          : { iconFileDataId: null, equipped: [], effectInfo: [], passive: true, textOrigin: "client" as const, rankValues: [], descriptions: [], descriptionsComplete: true, descriptionsApproximate: false };
         return {
           nodeId: int(n.ID),
           entryId: sp ? sp.entryId : null,

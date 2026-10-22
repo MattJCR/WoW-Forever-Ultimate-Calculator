@@ -16,6 +16,8 @@ export interface PowerWeapon {
   speed: number;
   /** Velocidad normalizada de Classic (daga 1,7, una mano 2,4, dos manos 3,3, a distancia 2,8). */
   normalizedSpeed: number;
+  /** false en las varitas: su daño no usa el poder de ataque. */
+  usesAttackPower: boolean;
 }
 
 export interface PowerContext {
@@ -27,17 +29,35 @@ export interface PowerContext {
   attackPower: number;
   rangedAttackPower: number;
   mainHand: PowerWeapon | null;
+  /** Arma de la mano izquierda (`offHandFactor` = fracción de daño que hace). */
+  offHand: PowerWeapon | null;
   ranged: PowerWeapon | null;
+  /** «+N de daño» (tipo 83) del equipo: se suma a cada golpe de arma, de las dos manos. */
+  physicalDamage: number;
+  /** Fracción del daño que hace la mano izquierda (Classic 0,5; suposición sin medir en Forever). */
+  offHandFactor: number;
+}
+
+/** ItemSubClass de las varitas. */
+const WAND_SUBCLASS = 19;
+
+/**
+ * Fracción de daño de la mano izquierda: la base (0,5, confirmada por el usuario el 22/10/2026) por el «daño del arma de la mano izquierda» de talentos,
+ * Legacy y equipo (Especialización en doble empuñadura: +10 % → 0,5 × 1,1).
+ */
+export function offHandFactorOf(base: number, totals: { label: string; value: number }[]): number {
+  const bonus = totals.filter((t) => t.label === "daño del arma de la mano izquierda").reduce((n, t) => n + t.value, 0);
+  return base * (1 + bonus / 100);
 }
 
 const SCHOOL_KEYS: Record<number, string> = { 2: "holy-power", 4: "fire-power", 8: "nature-power", 16: "frost-power", 32: "shadow-power", 64: "arcane-power" };
 const rowFinal = (d: DerivedStats, key: string): number => d.rows.find((r) => r.key === key)?.final ?? 0;
 
 /** Contexto de poder a partir de las estadísticas finales (`deriveStats`), las del equipo (`summarizeGear().stats`) y las armas llevadas. */
-export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number }[]): PowerContext {
+export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number; subclassId?: number }[], options: { offHandFactor?: number } = {}): PowerContext {
   const weapon = (slot: string): PowerWeapon | null => {
     const w = weapons.find((x) => x.slot === slot);
-    return w ? { min: w.min, max: w.max, speed: w.speed, normalizedSpeed: w.normalizedSpeed } : null;
+    return w ? { min: w.min, max: w.max, speed: w.speed, normalizedSpeed: w.normalizedSpeed, usesAttackPower: w.subclassId !== WAND_SUBCLASS } : null;
   };
   return {
     spellDamage: rowFinal(derived, "spell-damage"),
@@ -46,7 +66,10 @@ export function powerContext(derived: DerivedStats, gearStats: Record<string, nu
     attackPower: rowFinal(derived, "ap"),
     rangedAttackPower: rowFinal(derived, "rap"),
     mainHand: weapon("mainHand"),
+    offHand: weapon("offHand"),
     ranged: weapon("ranged"),
+    physicalDamage: gearStats?.["physical-damage"] ?? 0,
+    offHandFactor: options.offHandFactor ?? 0.5,
   };
 }
 
@@ -118,32 +141,62 @@ function spellBonus(m: ModifiedAbility, me: ModifiedEffect, ctx: PowerContext): 
   };
 }
 
+/** Lo que hace una mano en un golpe de arma: `plano + arma + «+N de daño» + PA ÷ 14 × velocidad`. */
+function handDamage(flat: { min: number; max: number }, weapon: PowerWeapon, speed: number, ap: number, bonus: number): { min: number; max: number } {
+  const apPart = (ap / 14) * speed;
+  return { min: flat.min + weapon.min + bonus + apPart, max: flat.max + weapon.max + bonus + apPart };
+}
+
 /**
- * Golpe de arma con poder de ataque (Classic): cada efecto de daño de arma suma `plano + arma + PA ÷ 14 × velocidad` (la velocidad
- * normalizada en los golpes normalizados, efecto 121) y el efecto «% de daño de arma» (31) multiplica el total. Sin ningún efecto plano,
- * `arma + PA ÷ 14 × velocidad`. Usa el arma a distancia si la habilidad tiene alcance. Estimación: sin confirmar en Forever.
+ * Golpe de arma con poder de ataque (Classic): cada efecto de daño de arma suma `plano + arma + «+N de daño» + PA ÷ 14 × velocidad` (la
+ * velocidad normalizada en los golpes normalizados, efecto 121) y el efecto «% de daño de arma» (31) multiplica el total. Sin ningún efecto
+ * plano, `arma + PA ÷ 14 × velocidad`. Usa el arma a distancia si la habilidad tiene alcance. Las que golpean con la mano izquierda
+ * (`weaponHand`: «con ambas armas», «el arma de tu mano izquierda») usan también esa arma, con la fracción de daño de la mano izquierda
+ * (Classic 0,5). Estimación: sin confirmar en Forever. Sin las armas que necesita no hay estimación.
  */
 function weaponEstimate(m: ModifiedAbility, ctx: PowerContext): WeaponPowerEstimate | null {
   if (m.weaponEffects.length === 0) return null;
   const ranged = m.rank.rangeYd !== null && m.rank.rangeYd > MELEE_RANGE_YD && m.rank.rangeYd < 1000;
-  const weapon = ranged ? ctx.ranged : ctx.mainHand;
-  if (!weapon) return null;
-  const ap = ranged ? ctx.rangedAttackPower : ctx.attackPower;
+  const hand = ranged ? "main" : m.rank.weaponHand;
+  const hands: { weapon: PowerWeapon; factor: number; label: string }[] = [];
+  if (ranged) {
+    if (ctx.ranged) hands.push({ weapon: ctx.ranged, factor: 1, label: "" });
+  } else {
+    if (hand !== "off" && ctx.mainHand) hands.push({ weapon: ctx.mainHand, factor: 1, label: hand === "both" ? "mano derecha " : "" });
+    if (hand !== "main" && ctx.offHand) hands.push({ weapon: ctx.offHand, factor: ctx.offHandFactor, label: hand === "both" ? "mano izquierda " : "mano izquierda " });
+  }
+  const needed = ranged || hand === "main" ? 1 : hand === "off" ? 1 : 2;
+  if (hands.length < needed) return null;
+  const apOf = (w: PowerWeapon): number => (w.usesAttackPower ? (ranged ? ctx.rangedAttackPower : ctx.attackPower) : 0);
   const flats = m.weaponEffects.filter((x) => x.effect.effect !== WEAPON_PERCENT);
-  const pct = m.weaponEffects.filter((x) => x.effect.effect === WEAPON_PERCENT).reduce((n, x) => n * (x.final.average / 100), 1);
-  const parts = flats.length > 0 ? flats.map((x) => ({ flat: x.final, speed: x.effect.effect === WEAPON_NORMALIZED ? weapon.normalizedSpeed : weapon.speed })) : [{ flat: { min: 0, max: 0, average: 0 }, speed: weapon.speed }];
+  // Daño plano y % de arma sin el factor de % de daño (talentos y daño infligido): ese factor multiplica el golpe entero, una sola vez
+  const flatOf = (x: ModifiedAbility["weaponEffects"][number]) => ({ min: x.base.min + (x.flat ?? 0), max: x.base.max + (x.flat ?? 0), average: x.base.average + (x.flat ?? 0) });
+  const pct = m.weaponEffects.filter((x) => x.effect.effect === WEAPON_PERCENT).reduce((n, x) => n * (x.base.average / 100), 1);
+  const factor = m.weaponEffects[0]?.factor ?? 1;
+  const fmt = (n: number): string => String(Math.round(n * 10) / 10).replace(".", ",");
   let min = 0;
   let max = 0;
-  for (const p of parts) {
-    const apPart = (ap / 14) * p.speed;
-    min += p.flat.min + weapon.min + apPart;
-    max += p.flat.max + weapon.max + apPart;
+  const texts: string[] = [];
+  for (const h of hands) {
+    const parts = flats.length > 0 ? flats.map((x) => ({ flat: flatOf(x), speed: x.effect.effect === WEAPON_NORMALIZED ? h.weapon.normalizedSpeed : h.weapon.speed })) : [{ flat: { min: 0, max: 0, average: 0 }, speed: h.weapon.speed }];
+    let hMin = 0;
+    let hMax = 0;
+    for (const p of parts) {
+      const d = handDamage(p.flat, h.weapon, p.speed, apOf(h.weapon), ctx.physicalDamage);
+      hMin += d.min;
+      hMax += d.max;
+    }
+    min += hMin * h.factor;
+    max += hMax * h.factor;
+    const speed = parts[0]!.speed;
+    texts.push(
+      `${h.label}arma ${fmt(h.weapon.min)}–${fmt(h.weapon.max)}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(apOf(h.weapon))} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => flatOf(x).average !== 0) ? " + daño plano" : ""}${h.factor !== 1 ? ` × ${fmt(h.factor * 100)} % (mano izquierda)` : ""}`,
+    );
   }
-  min *= pct;
-  max *= pct;
-  const speed = parts[0]!.speed;
-  const fmt = (n: number): string => String(Math.round(n * 10) / 10).replace(".", ",");
-  const formula = `arma ${fmt(weapon.min)}–${fmt(weapon.max)} + ${Math.round(ap)} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => x.final.average !== 0) ? " + daño plano" : ""}${pct !== 1 ? ` × ${fmt(pct * 100)} %` : ""}`;
+  min *= pct * factor;
+  max *= pct * factor;
+  const total = pct * factor;
+  const formula = `${texts.join(" ; ")}${total !== 1 ? ` × ${fmt(total * 100)} %` : ""}`;
   return { min, max, average: (min + max) / 2, ranged, formula };
 }
 
@@ -151,4 +204,50 @@ function weaponEstimate(m: ModifiedAbility, ctx: PowerContext): WeaponPowerEstim
 export function powerEstimate(m: ModifiedAbility, ctx: PowerContext | null): PowerEstimate {
   if (!ctx) return { spell: [], weapon: null };
   return { spell: m.effects.map((me) => spellBonus(m, me, ctx)).filter((x): x is SpellPowerBonus => x !== null), weapon: weaponEstimate(m, ctx) };
+}
+
+export interface SwingEstimate {
+  hand: "main" | "off" | "ranged";
+  min: number;
+  max: number;
+  average: number;
+  /** Velocidad del arma (s) y con la celeridad. */
+  speed: number;
+  hastedSpeed: number;
+  /** Daño por segundo con la celeridad (los golpes de la mano izquierda ya llevan su fracción). */
+  dps: number;
+  /** Cómo sale la cifra, en una línea. */
+  formula: string;
+}
+
+/**
+ * Golpes automáticos (Classic): cada golpe hace `arma + «+N de daño» + PA ÷ 14 × velocidad` (poder de ataque a distancia para el arma a distancia);
+ * la mano izquierda hace solo su fracción (Classic 0,5, suposición) y la celeridad acorta el tiempo entre golpes. Sin críticos ni fallos: es el daño
+ * de un golpe que acierta. Estimación: reglas de Classic sin confirmar en Forever (`community`/`assumption`).
+ */
+export function autoAttacks(ctx: PowerContext, haste: { melee: number; ranged: number }): SwingEstimate[] {
+  const fmt = (n: number): string => String(Math.round(n * 10) / 10).replace(".", ",");
+  const swing = (hand: SwingEstimate["hand"], weapon: PowerWeapon, apRaw: number, hastePct: number, factor: number): SwingEstimate => {
+    const ap = weapon.usesAttackPower ? apRaw : 0;
+    const apPart = (ap / 14) * weapon.speed;
+    const min = (weapon.min + ctx.physicalDamage + apPart) * factor;
+    const max = (weapon.max + ctx.physicalDamage + apPart) * factor;
+    const hastedSpeed = weapon.speed / (1 + hastePct / 100);
+    const average = (min + max) / 2;
+    return {
+      hand,
+      min,
+      max,
+      average,
+      speed: weapon.speed,
+      hastedSpeed,
+      dps: average / hastedSpeed,
+      formula: `arma ${fmt(weapon.min)}–${fmt(weapon.max)}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(ap)} de poder de ataque ÷ 14 × ${fmt(weapon.speed)} s${factor !== 1 ? ` × ${fmt(factor * 100)} %` : ""}`,
+    };
+  };
+  const out: SwingEstimate[] = [];
+  if (ctx.mainHand) out.push(swing("main", ctx.mainHand, ctx.attackPower, haste.melee, 1));
+  if (ctx.offHand) out.push(swing("off", ctx.offHand, ctx.attackPower, haste.melee, ctx.offHandFactor));
+  if (ctx.ranged) out.push(swing("ranged", ctx.ranged, ctx.rangedAttackPower, haste.ranged, 1));
+  return out;
 }

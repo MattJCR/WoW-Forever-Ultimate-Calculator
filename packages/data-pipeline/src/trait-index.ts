@@ -100,6 +100,7 @@ export class TraitIndex {
     const ranks = sp.tierDefIds.map((defId) => this.renderRank(sp.spellId, defId, 1));
     return {
       iconFileDataId: this.spells.iconFileDataId(sp.spellId),
+      equipped: this.spells.equippedItems(sp.spellId),
       effectInfo: this.effectInfoOf(sp.spellId),
       passive: this.spells.isPassive(sp.spellId),
       textOrigin: this.spells.textOrigin(sp.spellId),
@@ -190,6 +191,7 @@ export class TraitIndex {
     const ranks = Array.from({ length: maxRank }, (_, i) => this.renderRank(spellId, defId, i + 1));
     return {
       iconFileDataId: this.spells.iconFileDataId(spellId),
+      equipped: this.spells.equippedItems(spellId),
       effectInfo: this.effectInfoOf(spellId),
       passive: this.spells.isPassive(spellId),
       textOrigin: this.spells.textOrigin(spellId),

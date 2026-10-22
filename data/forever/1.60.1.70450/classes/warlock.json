@@ -30,6 +30,7 @@
           "spellId": 18182,
           "name": "Transfusión de  vida mejorada",
           "iconFileDataId": 136126,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -83,6 +84,7 @@
           "spellId": 18174,
           "name": "Supresión",
           "iconFileDataId": 136230,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -192,6 +194,7 @@
           "spellId": 17810,
           "name": "Corrupción mejorado",
           "iconFileDataId": 136118,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -279,6 +282,7 @@
           "spellId": 18218,
           "name": "Alcance macabro",
           "iconFileDataId": 136127,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -339,6 +343,7 @@
           "spellId": 437032,
           "name": "Cosecha de almas",
           "iconFileDataId": 132851,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -418,6 +423,7 @@
           "spellId": 403511,
           "name": "Drenajes mejorados",
           "iconFileDataId": 136163,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -482,6 +488,7 @@
           "spellId": 18827,
           "name": "Terror de agonía mejorado",
           "iconFileDataId": 136139,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -545,6 +552,7 @@
           "spellId": 17783,
           "name": "Concentración vil",
           "iconFileDataId": 136157,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -612,6 +620,7 @@
           "spellId": 18288,
           "name": "Amplificar maldición",
           "iconFileDataId": 136132,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -678,6 +687,7 @@
           "spellId": 427712,
           "name": "Pandemia",
           "iconFileDataId": 136227,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -745,6 +755,7 @@
           "spellId": 1310949,
           "name": "Malevolencia",
           "iconFileDataId": 136158,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -824,6 +835,7 @@
           "spellId": 18094,
           "name": "Ocaso",
           "iconFileDataId": 136223,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -891,6 +903,7 @@
           "spellId": 18223,
           "name": "Maldición de agotamiento",
           "iconFileDataId": 136162,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -953,6 +966,7 @@
           "spellId": 18265,
           "name": "Succionar vida",
           "iconFileDataId": 136188,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1013,6 +1027,7 @@
           "spellId": 17804,
           "name": "Succión de alma",
           "iconFileDataId": 136169,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1087,6 +1102,7 @@
           "spellId": 18271,
           "name": "Maestría de las Sombras",
           "iconFileDataId": 136195,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1193,6 +1209,7 @@
           "spellId": 1316697,
           "name": "Arruinar",
           "iconFileDataId": 460687,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1284,6 +1301,7 @@
           "spellId": 18703,
           "name": "Cauce de salud mejorado",
           "iconFileDataId": 136168,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1394,6 +1412,7 @@
           "spellId": 18694,
           "name": "Diablillo mejorado",
           "iconFileDataId": 136218,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1491,6 +1510,7 @@
           "spellId": 18697,
           "name": "Abrazo demoníaco",
           "iconFileDataId": 136172,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1556,6 +1576,7 @@
           "spellId": 18769,
           "name": "Poder profano",
           "iconFileDataId": 136206,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1621,6 +1642,7 @@
           "spellId": 1235316,
           "name": "Égida demoníaca",
           "iconFileDataId": 136185,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1682,6 +1704,7 @@
           "spellId": 18705,
           "name": "Abisario mejorado",
           "iconFileDataId": 136221,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1747,6 +1770,7 @@
           "spellId": 18731,
           "name": "Vitalidad vil",
           "iconFileDataId": 136150,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1832,6 +1856,7 @@
           "spellId": 1225214,
           "name": "Energías demoníacas",
           "iconFileDataId": 237564,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1912,6 +1937,7 @@
           "spellId": 18754,
           "name": "Sayaad mejorado",
           "iconFileDataId": 4352493,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2001,6 +2027,7 @@
           "spellId": 18788,
           "name": "Sacrificio demoníaco",
           "iconFileDataId": 136184,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2043,6 +2070,7 @@
           "spellId": 18709,
           "name": "Maestro invocador",
           "iconFileDataId": 136164,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2127,6 +2155,7 @@
           "spellId": 440870,
           "name": "Exterminio",
           "iconFileDataId": 135808,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2247,6 +2276,7 @@
           "spellId": 18708,
           "name": "Dominio de lo maldito",
           "iconFileDataId": 136082,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2323,6 +2353,7 @@
           "spellId": 1293695,
           "name": "Marca demoníaca",
           "iconFileDataId": 4226151,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2415,6 +2446,7 @@
           "spellId": 1225217,
           "name": "Manáfago mejorado",
           "iconFileDataId": 136217,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2510,6 +2542,7 @@
           "spellId": 19028,
           "name": "Vínculo de alma",
           "iconFileDataId": 136160,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2563,6 +2596,7 @@
           "spellId": 412732,
           "name": "Conocimiento demoníaco",
           "iconFileDataId": 136165,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2638,6 +2672,7 @@
           "spellId": 23785,
           "name": "Maestro demonogista",
           "iconFileDataId": 136203,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2790,6 +2825,7 @@
           "spellId": 425464,
           "name": "Pacto demoníaco",
           "iconFileDataId": 5927650,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2870,6 +2906,7 @@
           "spellId": 17917,
           "name": "Alcance destructivo",
           "iconFileDataId": 136133,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2928,6 +2965,7 @@
           "spellId": 17793,
           "name": "Descarga de Sombras mejorada",
           "iconFileDataId": 136197,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2993,6 +3031,7 @@
           "spellId": 17788,
           "name": "Aterrar",
           "iconFileDataId": 136146,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3080,6 +3119,7 @@
           "spellId": 1225220,
           "name": "Piel de arrabio",
           "iconFileDataId": 132221,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3152,6 +3192,7 @@
           "spellId": 17778,
           "name": "Cataclismo",
           "iconFileDataId": 135831,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3216,6 +3257,7 @@
           "spellId": 18119,
           "name": "Secuelas",
           "iconFileDataId": 135805,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3310,6 +3352,7 @@
           "spellId": 17959,
           "name": "Ruina",
           "iconFileDataId": 136207,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3385,6 +3428,7 @@
           "spellId": 17877,
           "name": "Quemadura de las Sombras",
           "iconFileDataId": 136191,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3439,6 +3483,7 @@
           "spellId": 18135,
           "name": "Intensidad",
           "iconFileDataId": 135819,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3508,6 +3553,7 @@
           "spellId": 17927,
           "name": "Llamas agonizantes",
           "iconFileDataId": 135827,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3617,6 +3663,7 @@
           "spellId": 1293817,
           "name": "Conflagrar",
           "iconFileDataId": 135807,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3659,6 +3706,7 @@
           "spellId": 18073,
           "name": "Piroclasma",
           "iconFileDataId": 135830,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3746,6 +3794,7 @@
           "spellId": 1225228,
           "name": "Terror de caos",
           "iconFileDataId": 460695,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3804,6 +3853,7 @@
           "spellId": 412751,
           "name": "Fuego y azufre",
           "iconFileDataId": 135821,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3901,6 +3951,7 @@
           "spellId": 426316,
           "name": "Sombras y llamas",
           "iconFileDataId": 135823,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -4050,6 +4101,7 @@
           "spellId": 412758,
           "name": "Incinerar",
           "iconFileDataId": 135789,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",

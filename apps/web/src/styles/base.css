@@ -526,6 +526,14 @@ button.chip-link:hover:not(:disabled) {
   color: var(--warn);
   background: #2a2113;
 }
+.notice-info {
+  color: var(--text);
+  background: color-mix(in srgb, var(--info) 10%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--info) 35%, transparent);
+}
+.notice-info svg {
+  color: var(--info);
+}
 .tag {
   display: inline-block;
   padding: 1px 8px;

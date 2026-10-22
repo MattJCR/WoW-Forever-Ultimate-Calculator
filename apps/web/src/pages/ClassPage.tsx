@@ -5,20 +5,22 @@ import {
   encodeBuild,
   activeGearEffects,
   encodeGear,
+  equippedStateOf,
   formatBuildForAI,
   indexClass,
   rankOf,
   removePoint,
   requiredLevel,
   specPoints,
+  splitByLevel,
   summarizeCharacter,
   summarizeGear,
   totalPoints,
   type Build,
-  type GearEffectSource,
   type ClassIndex,
   type DecodeReport,
   type GearContext,
+  type GearData,
   type GearSelection,
 } from "@wfuc/engine";
 import type { ClassTalents, CombatRatings, Manifest, Race } from "@wfuc/schema";
@@ -30,7 +32,7 @@ import { CharacterBar, ClassSwitcher, isView, StepNav, Stepper, type StepStatus,
 import { GearStep, useGearBundle } from "../components/Gear";
 import { gearLinesForAI } from "../components/gear-format";
 import { LevelPicker } from "../components/LevelPicker";
-import { useStatEffects } from "../components/StatEffects";
+import { ConditionalEffects, useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
 import { LinkNotice } from "../components/LinkNotice";
 import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
@@ -164,8 +166,6 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const gearBundle = useGearBundle(manifest, view === "gear" || hasGear);
   const gearCtx: GearContext = useMemo(() => ({ classId: data.classId, raceId: race?.id ?? 0, level: gearLevel }), [data.classId, race, gearLevel]);
   const gearSummary = useMemo(() => (gearBundle?.status === "ready" ? summarizeGear(gear, gearCtx, gearBundle.value.data) : null), [gearBundle, gear, gearCtx]);
-  const gearEffects = useMemo(() => (gearBundle?.status === "ready" ? activeGearEffects(gear, gearBundle.value.data) : []), [gearBundle, gear]);
-  const gearMinLevel = useMemo(() => (gearBundle?.status === "ready" ? Math.max(0, ...Object.values(gear).map((w) => gearBundle.value.data.items.get(w.itemId)?.requiredLevel ?? 0)) : 0), [gearBundle, gear]);
 
   const classCode = useMemo(() => encodeBuild(idx, classBuild), [idx, classBuild]);
   useEffect(() => {
@@ -334,7 +334,8 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           classBuild={classBuild}
           legacy={legacy}
           legacyBuild={legacyBuild}
-          gear={gearSummary && hasGear && gearBundle?.status === "ready" ? { summary: gearSummary, ratings: gearBundle.value.ratings, minLevel: gearMinLevel, effects: gearEffects } : null}
+          referenceRace={races[0] ?? null}
+          gear={hasGear && gearBundle?.status === "ready" ? { selection: gear, data: gearBundle.value.data, ctx: gearCtx, ratings: gearBundle.value.ratings } : null}
           gearLoading={hasGear && gearBundle?.status !== "ready"}
           onGo={goTop}
         />
@@ -667,23 +668,28 @@ function Workspace({
   );
 }
 
-/** Resumen (en construccion): lo escogido en clase y Legacy, en el rango de nivel que corresponde a los puntos gastados. */
+/** Equipo que llega al Resumen: la selección y los datos, para contar cada objeto desde su propio nivel al nivel elegido. */
 interface GearInSummary {
-  summary: ReturnType<typeof summarizeGear>;
+  selection: GearSelection;
+  data: GearData;
+  ctx: GearContext;
   ratings: CombatRatings | null;
-  /** Nivel minimo al que se puede llevar todo (el mayor requiredLevel): las columnas de nivel menor no llevan equipo. */
-  minLevel: number;
-  /** Bonos de conjunto y efectos al equipar activos. */
-  effects: GearEffectSource[];
 }
 
-function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; onGo: (v: View) => void }) {
+function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; /** Raza con la que se calculan los atributos si no se ha elegido ninguna (la primera que admite la clase). */ referenceRace: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; onGo: (v: View) => void }) {
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
   // Un solo nivel para las estadisticas y las habilidades
   const [level, setLevel] = useState(60);
-  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas
-  const gearEffects = gear && level >= gear.minLevel ? gear.effects : undefined;
-  const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects });
+  // Cada objeto cuenta desde su propio nivel necesario: al nivel elegido solo suman los que ya se pueden llevar
+  const gearAt = useMemo(() => {
+    if (!gear) return null;
+    const summaryAtLevel = summarizeGear(gear.selection, gear.ctx, gear.data, { countLevel: level });
+    const { counted } = splitByLevel(gear.selection, gear.data.items, level);
+    return { summary: summaryAtLevel, ratings: gear.ratings, effects: activeGearEffects(counted, gear.data), equipped: equippedStateOf(counted, gear.data) };
+  }, [gear, level]);
+  const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects: gearAt?.effects, equipped: gearAt?.equipped ?? null });
+  // Sin raza elegida, los atributos base se toman de una raza de referencia (sin sus raciales): estimación marcada
+  const statsRace = race ?? referenceRace;
   return (
     <section className="summary-view">
       <header className="step-head">
@@ -698,12 +704,13 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
         {tr("Las ventajas de Puntos de Legado no dependen del nivel: se ganan con desafíos de cuenta.")}
       </LevelPicker>
 
-      <div className="notice notice-warn" role="note">
+      <div className="notice notice-info" role="note">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 3l10 18H2zM12 10v5M12 18h.01" />
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v5M12 8h.01" />
         </svg>
         <p>
-          <b>{tr("En construcción.")}</b> {tr("El daño con poder con hechizos y de ataque es una estimación con las reglas de Classic (se ve en la tarjeta de cada habilidad). Falta confirmar en Forever las reglas de atributos, que no están en el cliente.")}
+          <b>{tr("Cómo leer las cifras.")}</b> {tr("Las cifras de cada habilidad y lo que suman los talentos salen del cliente. El poder con hechizos y de ataque, el crítico, el fallo y los golpes de las armas siguen las reglas de Classic, que Forever no ha confirmado: son estimaciones y cada tarjeta lo marca.")}
         </p>
       </div>
 
@@ -713,14 +720,15 @@ function Summary({ idx, summary, legacyLoaded, race, manifest, classBuild, legac
             <h3>{tr("Estadísticas")}</h3>
             <p className="muted small">{tr("A nivel {level}. En verde, lo que suman talentos, raza y equipo.", { level })}</p>
           </header>
-          <StatsTable manifest={manifest} raceId={race?.id ?? null} raceName={race ? raceLabel(race.id, race.name) : null} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gear ? { stats: gear.summary.stats, minLevel: gear.minLevel, armor: gear.summary.armor, bonusArmor: gear.summary.bonusArmor, ratings: gear.ratings } : null} />
+          <StatsTable manifest={manifest} raceId={statsRace?.id ?? null} raceName={statsRace ? raceLabel(statsRace.id, statsRace.name) : null} raceIsReference={!race && !!referenceRace} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gearAt ? { stats: gearAt.summary.stats, armor: gearAt.summary.armor, bonusArmor: gearAt.summary.bonusArmor, ratings: gearAt.ratings, weapons: gearAt.summary.weapons, uncounted: gearAt.summary.uncounted } : null} />
+          {fx && !fxLoading && <ConditionalEffects fx={fx} />}
         </section>
         <section className="abilities-card" aria-label={tr("Habilidades")}>
           <header>
             <h3>{tr("Habilidades con tus talentos")}</h3>
             <p className="muted small">{tr("Cada tarjeta indica qué talentos, Puntos de Legado o piezas la mejoran.")}</p>
           </header>
-          <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} level={level} gear={gear ? { stats: gear.summary.stats, ratings: gear.ratings, minLevel: gear.minLevel, effects: gear.effects, weapons: gear.summary.weapons } : null} />
+          <AbilitiesTable manifest={manifest} idx={idx} build={classBuild} legacy={legacy} legacyBuild={legacyBuild} race={race} statsRaceId={statsRace?.id ?? null} level={level} gear={gearAt ? { stats: gearAt.summary.stats, ratings: gearAt.ratings, effects: gearAt.effects, weapons: gearAt.summary.weapons, equipped: gearAt.equipped } : null} />
         </section>
       </div>
       <StepNav view="summary" onGo={onGo} />

@@ -316,6 +316,39 @@ dd {
 .ab-foot {
   margin: 10px 0 0;
 }
+.ab-outcome-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: calc(13px * var(--fit, 1));
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 6px;
+}
+.ab-outcome-table th,
+.ab-outcome-table td {
+  padding: 2px 6px;
+  text-align: right;
+}
+.ab-outcome-table th:first-child {
+  text-align: left;
+  font-weight: 400;
+  color: var(--muted);
+}
+.ab-outcome-table thead th {
+  color: var(--muted);
+  font-weight: 400;
+  border-bottom: 1px solid var(--line);
+}
+.ab-outcome-table td.pos {
+  color: var(--good);
+}
+.ab-outcome-table tfoot th,
+.ab-outcome-table tfoot td {
+  border-top: 1px solid var(--line);
+}
+.ab-source .ab-sum-l {
+  padding-left: 10px;
+  color: var(--muted);
+}
 .ab-chances {
   list-style: none;
   margin: 0;

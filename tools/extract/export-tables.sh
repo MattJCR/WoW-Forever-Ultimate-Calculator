@@ -33,6 +33,8 @@ DEFAULT_TABLES=(
   Spell SpellName SpellEffect SpellMisc SpellPower SpellCooldowns SpellLevels
   SpellClassOptions SpellAuraOptions SpellCastTimes SpellDuration SpellRange
   SpellCategories SkillLineAbility SpellRadius
+  # Objetos que hay que llevar equipados para que valga un hechizo (armas de dos manos, varitas, escudo...)
+  SpellEquippedItems
   # Variables de las descripciones ($<damagepower>, $<minDam>...): bloques `$nombre=expresion` por hechizo
   SpellDescriptionVariables SpellXDescriptionVariables
   # Objetivos maximos ($i) y nivel maximo del objetivo ($v)

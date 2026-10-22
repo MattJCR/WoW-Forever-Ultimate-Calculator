@@ -150,7 +150,25 @@ export function trn(es: string): string {
     let i = 1;
     return template.replace(/\{\*\}|\{#\}/g, (tok) => (tok === "{*}" ? trPart(m[i++] ?? "") : numToEnglish(m[i++] ?? "")));
   }
-  return nameSources.get(es)?.() ?? es;
+  return nameSources.get(es)?.() ?? formulaEn(es) ?? es;
+}
+
+/**
+ * Fórmula del golpe de arma que compone el motor («mano derecha arma 50–70 + 4 de daño del equipo + 280 de poder de ataque ÷ 14 × 2,8 s + daño plano
+ * × 50 % (mano izquierda) × 75 %»): la frase es siempre la misma con cifras distintas, así que se traduce por trozos.
+ */
+function formulaEn(es: string): string | null {
+  if (!/(?:^|; )(?:mano (?:derecha|izquierda) )?arma \d/.test(es)) return null;
+  return es
+    .replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/mano derecha arma/g, "main-hand weapon")
+    .replace(/mano izquierda arma/g, "off-hand weapon")
+    .replace(/(^|; )arma /g, "$1weapon ")
+    .replace(/de daño del equipo/g, "gear damage")
+    .replace(/de poder de ataque ÷ 14 × /g, "attack power ÷ 14 × ")
+    .replace(/daño plano/g, "flat damage")
+    .replace(/\(mano izquierda\)/g, "(off hand)")
+    .replace(/ ; /g, " ; ");
 }
 
 /** Textos del juego en inglés (null en español o mientras se descargan). */

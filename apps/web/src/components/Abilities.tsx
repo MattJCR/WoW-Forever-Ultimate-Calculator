@@ -1,5 +1,6 @@
 import {
   abilityChances,
+  abilityOutcome,
   baseAttackPower,
   classBaseOf,
   abilityEffectSummary,
@@ -9,11 +10,15 @@ import {
   damageDonePct,
   dealsDamage,
   deriveCombatStats,
+  describeEquipped,
   deriveStats,
   gearChanceBonus,
   hasteFor,
   gearSpellModifiers,
   healsTarget,
+  knownSpellIds,
+  meetsEquipped,
+  offHandFactorOf,
   powerContext,
   powerEstimate,
   rankAtLevel,
@@ -22,8 +27,13 @@ import {
   ruleAppliesTo,
   ruleLines,
   spellModifiersOf,
+  talentEffectValue,
   type AbilityEffectLine,
+  type AbilityOutcome,
   type Build,
+  type Chances,
+  type EquippedState,
+  type GearWeapon,
   type ClassIndex,
   type CombatStats,
   type GearChanceBonus,
@@ -121,6 +131,10 @@ interface RowData {
   count: number;
   /** Crítico (%) contra el objetivo elegido: base de la clase (comunidad) + atributo (cliente) + talentos, raza y equipo − supresión contra jefes; null si no puede ser crítica o faltan datos. */
   crit: number | null;
+  /** Resultado por lanzamiento (sin talentos, con talentos, con tu poder, esperado y por segundo); null si no hace daño ni sana. */
+  outcome: AbilityOutcome | null;
+  /** El rango exige un objeto equipado: null = sin requisito; met = lo llevas (o no has elegido equipo). */
+  requirement: { text: string; met: boolean } | null;
 }
 
 /** Lo necesario para calcular impacto y critico en la tarjeta (formulas de Classic, estadisticas base y objetivo). */
@@ -155,6 +169,57 @@ function improvedBy(d: RowData): string[] {
 }
 
 const MODS_SHOWN = 4;
+
+/** Qué da la habilidad: daño, curación o las dos cosas. */
+const outcomeKind = (o: AbilityOutcome): string => (o.lines.every((l) => l.heal) ? tr("Curación") : o.lines.some((l) => l.heal) ? tr("Daño y curación") : tr("Daño"));
+const pctText = (v: number): string => `${v > 0 ? "+" : ""}${fmt(v, 1)} %`;
+const BASIS: Record<NonNullable<AbilityOutcome["perSecond"]>["basis"], string> = { cast: "por segundo de lanzamiento", channel: "por segundo de canalización", cooldown: "por segundo de reutilización" };
+
+/** Resumen del resultado de la habilidad en su fila: total, incremento de talentos y poder, esperado y por segundo. */
+function OutcomeStrip({ o }: { o: AbilityOutcome }) {
+  return (
+    <dl className="ab-outcome" title={tr("Por lanzamiento, con todo sumado. Pasa el cursor sobre la habilidad para ver el desglose.")}>
+      <div>
+        <dt>{outcomeKind(o)} {tr("por lanzamiento")}</dt>
+        <dd>
+          <b>{fmt(o.total)}</b>
+        </dd>
+      </div>
+      {o.talentGain !== 0 && (
+        <div className={o.talentGain > 0 ? "pos" : "neg"}>
+          <dt>{tr("Incremento de talentos, Legado, raza y equipo")}</dt>
+          <dd>
+            <b>{o.talentGain > 0 ? "+" : ""}{fmt(o.talentGain)}</b> <span>({pctText(o.talentGainPct)})</span>
+          </dd>
+        </div>
+      )}
+      {o.powerGain > 0 && (
+        <div className="est">
+          <dt>{tr("Tu poder (estimación)")}</dt>
+          <dd>
+            <b>+{fmt(o.powerGain)}</b>
+          </dd>
+        </div>
+      )}
+      {o.expected !== null && (
+        <div>
+          <dt>{tr("Esperado con crítico y fallo")}</dt>
+          <dd>
+            <b>{fmt(o.expected)}</b>
+          </dd>
+        </div>
+      )}
+      {o.perSecond && (
+        <div>
+          <dt>{tr(BASIS[o.perSecond.basis])}</dt>
+          <dd>
+            <b>{fmt(o.perSecond.value, 1)}</b>
+          </dd>
+        </div>
+      )}
+    </dl>
+  );
+}
 
 /** Una cifra de la tarjeta de la habilidad; resaltada si los talentos la cambian. */
 function Tile({ label, value, changed, tone }: { label: string; value: string; changed?: boolean; tone?: "pos" | "muted" }) {
@@ -201,6 +266,11 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
                     {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
                   </span>
                 )}
+                {d.requirement && (
+                  <span className={`req-chip${d.requirement.met ? "" : " unmet"}`} title={d.requirement.met ? undefined : tr("Con tu equipo no puedes lanzarla")}>
+                    {tr("Requiere")} {trn(d.requirement.text)}
+                  </span>
+                )}
               </p>
             </div>
           </div>
@@ -219,6 +289,7 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
             ))}
           </div>
         )}
+        {d.outcome && <OutcomeStrip o={d.outcome} />}
         {d.count > 0 && (
           <div className="ab-mods" title={tr("Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos")}>
             <span>{tr("Mejorada por")}</span>
@@ -254,7 +325,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
+function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   const abName = abilityLabel(ability);
@@ -263,7 +334,8 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
   // Con Ctrl: la misma habilidad sin ningun talento
   const m = showBase ? row.base : row.m;
   // Con la plantilla inglesa las cifras se recalculan igual que en español; sin ella, el texto fijo de nivel 60
-  const parts = renderAbilityText(rank, m, enText?.template ? { template: enText.template, locale: "en" } : {});
+  const parts = renderAbilityText(rank, m, { ...(enText?.template ? { template: enText.template, locale: "en" as const } : {}), known: showBase ? undefined : textKnown?.known, talentValue: textKnown?.talentValue });
+  const outcome = showBase ? null : row.outcome;
   const ownEnglish = !!enText && isOwnTranslation("spell", rank.spellId);
   const lines = showBase ? [] : row.summaryLines;
   const rules = showBase ? [] : row.ruleTexts;
@@ -325,7 +397,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
       </div>
       {showBase && <p className="ab-base-banner">{tr("Base sin talentos. Suelta Ctrl para ver tus mejoras.")}</p>}
 
-      <div className={`ab-cols${chances || lines.length > 0 || rules.length > 0 || hasPower ? "" : " single"}`}>
+      <div className={`ab-cols${chances || lines.length > 0 || rules.length > 0 || hasPower || outcome ? "" : " single"}`}>
       <div className="ab-col">
       <dl className="ab-grid">
         <Stat label={tr("Coste")} now={costText(m)} was={costText(row.base)} />
@@ -379,6 +451,85 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power }: { ti
 
       </div>
       <div className="ab-col">
+      {outcome && (
+        <section>
+          <h5>
+            {tr("Total calculado")} <span className="tag tag-inactive" title={tr("Las cifras de cada efecto y los talentos son del cliente; el poder con hechizos y de ataque, el crítico y el fallo siguen reglas de Classic sin confirmar en Forever. El crítico solo cuenta en el daño y la sanación directos.")}>{tr("estimación")}</span>
+          </h5>
+          <table className="ab-outcome-table">
+            <thead>
+              <tr>
+                <th scope="col">{outcomeKind(outcome)} {tr("por lanzamiento")}</th>
+                <th scope="col">{tr("Base")}</th>
+                <th scope="col">{tr("Con tus mejoras")}</th>
+                <th scope="col">{tr("Con tu poder")}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {outcome.lines.map((l) => (
+                <tr key={l.label}>
+                  <th scope="row">{trn(l.label)}</th>
+                  <td>{fmt(l.base)}</td>
+                  <td className={Math.round(l.talents) !== Math.round(l.base) ? "pos" : undefined}>{fmt(l.talents)}</td>
+                  <td>
+                    <b>{fmt(l.total)}</b>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            {outcome.lines.length > 1 && (
+              <tfoot>
+                <tr>
+                  <th scope="row">{tr("Total")}</th>
+                  <td>{fmt(outcome.base)}</td>
+                  <td>{fmt(outcome.talents)}</td>
+                  <td>
+                    <b>{fmt(outcome.total)}</b>
+                  </td>
+                </tr>
+              </tfoot>
+            )}
+          </table>
+          <ul className="ab-sum">
+            {outcome.talentGain !== 0 && (
+              <li>
+                <span className="ab-sum-l">{tr("Incremento de talentos, Legado, raza y equipo")}</span>
+                <b className={outcome.talentGain > 0 ? "pos" : "neg"}>{outcome.talentGain > 0 ? "+" : ""}{fmt(outcome.talentGain)} ({pctText(outcome.talentGainPct)})</b>
+              </li>
+            )}
+            {outcome.powerGain > 0 && (
+              <li>
+                <span className="ab-sum-l">{tr("Lo que suma tu poder")}</span>
+                <b className="pos">+{fmt(outcome.powerGain)}</b>
+              </li>
+            )}
+            {outcome.sources.slice(0, 6).map((src) => (
+              <li key={src.name} className="ab-source">
+                <span className="ab-sum-l">{nm(src.name)}</span>
+                <b className={src.gain > 0 ? "pos" : "neg"}>{src.gain > 0 ? "+" : ""}{fmt(src.gain)} ({pctText(src.gainPct)})</b>
+              </li>
+            ))}
+            {outcome.expected !== null && (
+              <li>
+                <span className="ab-sum-l">{tr("Esperado con crítico y fallo")}</span>
+                <b>{fmt(outcome.expected)}</b>
+                <span className="ab-sum-s">
+                  {outcome.hitPct !== null && !outcome.lines.every((l) => l.heal) ? tr("{n} % de impacto", { n: fmt(outcome.hitPct, 1) }) : ""}
+                  {outcome.critChancePct !== null && outcome.critMultiplier !== null ? `${outcome.hitPct !== null && !outcome.lines.every((l) => l.heal) ? " · " : ""}${tr("{n} % de crítico × {m}", { n: fmt(outcome.critChancePct, 1), m: fmt(outcome.critMultiplier, 2) })}` : ""}
+                </span>
+              </li>
+            )}
+            {outcome.perSecond && (
+              <li>
+                <span className="ab-sum-l">{tr(BASIS[outcome.perSecond.basis])}</span>
+                <b>{fmt(outcome.perSecond.value, 1)}</b>
+                <span className="ab-sum-s">{tr("en {n} s", { n: fmt(outcome.perSecond.seconds, 2) })}</span>
+              </li>
+            )}
+          </ul>
+          <p className="muted small">{tr("La aportación de cada fuente es lo que cambia el total al quitarla; no suman exactamente porque los porcentajes se multiplican.")}</p>
+        </section>
+      )}
       {chances && (
         <section>
           <h5>
@@ -502,6 +653,7 @@ export function AbilitiesTable({
   legacy,
   legacyBuild,
   race,
+  statsRaceId,
   level,
   gear,
 }: {
@@ -511,10 +663,12 @@ export function AbilitiesTable({
   legacy: ClassIndex | null;
   legacyBuild: Build;
   race: Race | null;
+  /** Raza de la que salen los atributos base: la elegida o, si no hay, una de referencia (sin sus raciales, que van en `race`). */
+  statsRaceId: number | null;
   /** Nivel del personaje (lo elige el Resumen). */
   level: number;
-  /** Equipo del paso «Equipo» (estadisticas sumadas y puntuaciones); null si no llevas. */
-  gear?: { stats: Record<string, number>; ratings: CombatRatings | null; minLevel: number; effects: GearEffectSource[]; weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number }[] } | null;
+  /** Equipo del paso «Equipo» ya filtrado por nivel (cada objeto cuenta desde su propio nivel); null si no llevas. */
+  gear?: { stats: Record<string, number>; ratings: CombatRatings | null; effects: GearEffectSource[]; weapons: GearWeapon[]; equipped: EquippedState } | null;
 }) {
   const entry = manifest.abilities.find((a) => a.classId === idx.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.reject(new Error(tr("sin habilidades")))));
@@ -566,26 +720,32 @@ export function AbilitiesTable({
   );
   const abilities = state.status === "ready" ? state.value : null;
   if (abilities) registerAbilities(abilities);
-  // El equipo solo cuenta desde el nivel del objeto mas alto que llevas (como en la tabla de estadisticas del Resumen)
-  const gearHere = gear && level >= gear.minLevel ? gear : null;
+  // El equipo llega ya filtrado por nivel: cada objeto cuenta desde su propio nivel necesario
+  const gearHere = gear ?? null;
   const gearEffects = gearHere?.effects;
-  const mods = useMemo(() => [...spellModifiersOf(idx, build), ...(legacy ? spellModifiersOf(legacy, legacyBuild) : []), ...(gearEffects ? gearSpellModifiers(gearEffects) : [])], [idx, build, legacy, legacyBuild, gearEffects]);
+  const equipped = gearHere?.equipped ?? null;
+  const mods = useMemo(() => [...spellModifiersOf(idx, build, equipped), ...(legacy ? spellModifiersOf(legacy, legacyBuild, equipped) : []), ...(gearEffects ? gearSpellModifiers(gearEffects) : [])], [idx, build, legacy, legacyBuild, gearEffects, equipped]);
   const ruled = useMemo(() => ruleLines(rules, idx, build), [rules, idx, build]);
-  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules, gearEffects }), [idx, build, legacy, legacyBuild, race, abilities, rules, gearEffects]);
+  const fx = useMemo(() => collectStatEffects({ cls: idx, classBuild: build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped }), [idx, build, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped]);
+  // Condicionales del texto («si tienes el talento X»): con los talentos y ventajas escogidos y las habilidades ya aprendidas a este nivel
+  const textKnown = useMemo(() => {
+    const input = { cls: idx, classBuild: build, legacy, legacyBuild };
+    return { known: knownSpellIds({ ...input, abilities, level }), talentValue: (spellId: number, effectIndex: number) => talentEffectValue(input, spellId, effectIndex) };
+  }, [idx, build, legacy, legacyBuild, abilities, level]);
   // Atributos de tu raza y clase a este nivel (Classic, estimacion) con el equipo y los % de talentos, Legacy y raza ya aplicados; sin raza no hay.
   const baseStats = useMemo(() => {
-    if (!race || statsState.status !== "ready") return null;
-    const row = statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1];
+    if (statsRaceId === null || statsState.status !== "ready") return null;
+    const row = statsState.value.combos.find((c) => c.raceId === statsRaceId && c.classId === idx.data.classId)?.stats[level - 1];
     if (!row) return null;
     const final = deriveStats({ attributes: row as [number, number, number, number, number], hpBase: 0, manaBase: 0, totals: fx.totals, gear: gearHere?.stats ?? null }).rows;
     const at = (k: string): number => final.find((r) => r.key === k)?.final ?? 0;
     return { agi: at("agi"), int: at("int") };
-  }, [race, statsState, idx.data.classId, level, fx, gearHere]);
+  }, [statsRaceId, statsState, idx.data.classId, level, fx, gearHere]);
   // Poder con hechizos y de ataque finales (atributos de la raza si hay, equipo, talentos), para la estimacion de daño de la tarjeta
   const power = useMemo(() => {
     if (clientStatsState.status !== "ready") return null;
     const clientClass = clientStatsState.value?.classes.find((c) => c.classId === idx.data.classId) ?? null;
-    const row = race && statsState.status === "ready" ? statsState.value.combos.find((c) => c.raceId === race.id && c.classId === idx.data.classId)?.stats[level - 1] : undefined;
+    const row = statsRaceId !== null && statsState.status === "ready" ? statsState.value.combos.find((c) => c.raceId === statsRaceId && c.classId === idx.data.classId)?.stats[level - 1] : undefined;
     const apBase = baseAttackPower(formulas ? classBaseOf(formulas, idx.data.classId) : null, level);
     const derived = deriveStats({
       attributes: (row ?? [0, 0, 0, 0, 0]) as [number, number, number, number, number],
@@ -597,8 +757,8 @@ export function AbilitiesTable({
     });
     // La celeridad se suma como el resto de estadisticas de combate (puntuacion del equipo + talentos, Legacy y raza)
     const combat = deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: 0, ratings: gearHere.ratings } : null, classStats });
-    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? []), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
-  }, [clientStatsState, statsState, race, idx.data.classId, level, fx, gearHere, classStats, formulas]);
+    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? [], { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx.totals) }), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
+  }, [clientStatsState, statsState, statsRaceId, idx.data.classId, level, fx, gearHere, classStats, formulas]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
 
   const data = useMemo<RowData[]>(() => {
@@ -616,11 +776,15 @@ export function AbilitiesTable({
       // «Afectada por mis talentos»: cuentan las cifras de talentos de clase, de Legacy y del equipo (bonos de conjunto, efectos de objeto); la raza se aplica a todas
       const fromTalents = (l: AbilityEffectLine): boolean => l.sources.some((s) => s.from !== "race");
       const count = sum.lines.filter(fromTalents).length + Object.values(sum.inline).reduce((n, v) => n + (v?.filter(fromTalents).length ?? 0), 0) + ruleTexts.length;
-      const crit = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }).crit.vsTargetPct : null;
-      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit });
+      const chances: Chances | null = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }) : null;
+      const crit = chances ? chances.crit.vsTargetPct : null;
+      // Resultado por lanzamiento: sin talentos, con talentos, con tu poder y esperado con crítico y fallo
+      const outcome = abilityOutcome({ rank, level, modifiers: mods, damageDonePct: dmg ? damageDonePct(fx, rank.schoolMask) : 0, power: power?.ctx ?? null, chances, critMultiplier: formulas?.critMultiplier ?? null, hastePct: power ? hasteFor(power.haste, rank) : 0 });
+      const requirement = rank.equipped.length > 0 ? { text: describeEquipped(rank.equipped), met: meetsEquipped(rank.equipped, equipped) } : null;
+      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit, outcome, requirement });
     }
     return out;
-  }, [abilities, level, mods, fx, ruled, formulas, baseStats, classStats, gearBonus, target, idx.data.classId]);
+  }, [abilities, level, mods, fx, ruled, formulas, baseStats, classStats, gearBonus, target, idx.data.classId, power, equipped]);
 
   if (!entry) return <p className="muted">{tr("Las habilidades de")} {classLabel(idx.data.classToken, idx.data.className ?? "")} {tr("aún no están revisadas (se van añadiendo clase a clase; ya están el Mago, el Pícaro y el Guerrero")}).</p>;
   if (state.status === "loading" || rulesState.status === "loading") return <p className="muted">{tr("Cargando habilidades…")}</p>;
@@ -673,7 +837,7 @@ export function AbilitiesTable({
       <p className="muted small">
         <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa. El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
       </p>
-      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
+      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>
   );
 }

@@ -27,6 +27,8 @@ export class SpellTables {
   private readonly descVars = new Map<string, Map<string, string>>();
   private readonly rangeMax = new Map<string, number>();
   private readonly targetLimits = new Map<string, { maxTargets: number; maxTargetLevel: number }>();
+  /** SpellEquippedItems: objetos que hay que llevar para que valga el hechizo, por hechizo. */
+  private readonly equippedItemsBySpell = new Map<string, { itemClass: number; invTypeMask: number; subclassMask: number }[]>();
 
   private readonly overrides: Overrides = loadOverrides("esES");
 
@@ -49,6 +51,15 @@ export class SpellTables {
     for (const r of raw.table("SpellRange")) this.rangeMax.set(r.ID!, Math.max(Number(r["RangeMax[0]"]), Number(r["RangeMax[1]"])));
     try {
       for (const r of raw.table("SpellTargetRestrictions")) if (!this.targetLimits.has(r.SpellID!) || r.DifficultyID === "0") this.targetLimits.set(r.SpellID!, { maxTargets: int(r.MaxTargets), maxTargetLevel: int(r.MaxTargetLevel) });
+    } catch {
+      // tabla opcional
+    }
+    try {
+      for (const r of raw.table("SpellEquippedItems")) {
+        const list = this.equippedItemsBySpell.get(r.SpellID!) ?? [];
+        list.push({ itemClass: int(r.EquippedItemClass), invTypeMask: int(r.EquippedItemInvTypes), subclassMask: int(r.EquippedItemSubclass) });
+        this.equippedItemsBySpell.set(r.SpellID!, list);
+      }
     } catch {
       // tabla opcional
     }
@@ -104,6 +115,11 @@ export class SpellTables {
   /** La variable existe y su valor depende del nivel ($PL). */
   variableDependsOnLevel(spellId: number, name: string): boolean {
     return /\$(PL|pl)(?![A-Za-z])/.test(this.descVars.get(String(spellId))?.get(name) ?? "");
+  }
+
+  /** Objetos que hay que llevar equipados para que valga el hechizo (varitas, armas de dos manos, escudo...); vacío si no hay requisito. */
+  equippedItems(spellId: number): { itemClass: number; invTypeMask: number; subclassMask: number }[] {
+    return this.equippedItemsBySpell.get(String(spellId)) ?? [];
   }
 
   name(spellId: number): string | null {

@@ -1305,3 +1305,57 @@ describe("estadisticas por clase y nivel del cliente (PlayerExpectedStat y ChrCl
   });
 });
 
+
+describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70450)", () => {
+  const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
+  const abilitiesOf = (classId: number) => buildAbilities(raw, live.spells, classId, BUILD, "esES", live.classes.find((c) => c.classId === classId))!;
+  const COND = /\uE000([sa]\d+(?:\|[sa]\d+)*)\uE001([^\uE001]*)\uE001([^\uE002]*)\uE002/;
+
+  it("«$?s17245[si][no]» (Sobrecrecimiento en Enredaderas) queda como marcador con las dos ramas; el texto sin talentos no cambia", () => {
+    const entangle = abilitiesOf(11).abilities.find((a) => a.name === "Enredaderas")!;
+    for (const r of entangle.ranks) {
+      const m = COND.exec(r.descriptionTemplate)!;
+      expect(m[1]).toBe("s17245");
+      expect(m[2]).toMatch(/máximo de .* objetivos enraizados/);
+      expect(m[3]).toBe("tener 1 solo objetivo enraizado");
+      // El texto plano (sin plantilla) conserva la rama sin talentos
+      expect(r.description).toContain("tener 1 solo objetivo enraizado");
+      expect(r.description).not.toContain("\uE000");
+    }
+  });
+
+  it("las condicionales cuyas dos ramas dicen lo mismo (solo cambia el color: «Requiere Forma felina») no dejan marcador", () => {
+    const tiger = abilitiesOf(11).abilities.find((a) => a.name === "Furia del tigre")!;
+    expect(tiger.ranks.every((r) => !/Requiere Forma felina[\s\S]*Requiere Forma felina/.test(r.descriptionTemplate))).toBe(true);
+  });
+
+  it("los hechizos que cita la rama «con talento» no se añaden como efectos de la habilidad", () => {
+    const entangle = abilitiesOf(11).abilities.find((a) => a.name === "Enredaderas")!;
+    for (const r of entangle.ranks) expect(r.effects.every((e) => e.viaSpellId !== 17245)).toBe(true);
+  });
+
+  it("los talentos con requisito de arma lo traen del cliente (SpellEquippedItems): dos manos, varita y escudo", () => {
+    const warrior = byToken(live, "WARRIOR").specs.flatMap((s) => s.talents);
+    const twoHand = warrior.find((t) => t.spellId === 12163)!;
+    expect(twoHand.equipped).toEqual([{ itemClass: 2, invTypeMask: 0, subclassMask: 136546 }]);
+    const bastion = warrior.find((t) => t.spellId === 16538)!;
+    expect(bastion.equipped).toEqual([{ itemClass: 4, invTypeMask: 0, subclassMask: 64 }]);
+    const wands = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 6057)!;
+    expect(wands.equipped).toEqual([{ itemClass: 2, invTypeMask: 0, subclassMask: 524288 }]);
+    expect(warrior.filter((t) => t.equipped.length === 0).length).toBeGreaterThan(0);
+  });
+
+  it("las habilidades con requisito de arma lo traen: Mutilar exige una daga", () => {
+    const mutilate = abilitiesOf(4).abilities.find((a) => a.name === "Mutilar")!;
+    expect(mutilate.ranks[0]!.equipped).toEqual([{ itemClass: 2, invTypeMask: 0, subclassMask: 32768 }]);
+  });
+
+  it("con qué arma golpea: Mutilar y Huracán con las dos, Puyazo y Latigazo de lava solo con la izquierda, Puñalada con la derecha", () => {
+    const hand = (classId: number, name: string) => abilitiesOf(classId).abilities.find((a) => a.name === name)!.ranks.map((r) => r.weaponHand);
+    expect(new Set(hand(4, "Mutilar"))).toEqual(new Set(["both"]));
+    expect(new Set(hand(1, "Huracán"))).toEqual(new Set(["both"]));
+    expect(new Set(hand(4, "Puyazo"))).toEqual(new Set(["off"]));
+    expect(new Set(hand(7, "Latigazo de lava"))).toEqual(new Set(["off"]));
+    expect(new Set(hand(4, "Puñalada"))).toEqual(new Set(["main"]));
+  });
+});

@@ -90,7 +90,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanzas el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Otorga {{s:425012:2|1}} p. de combo. Devuelve {{s:425012:3|5}} p. de energía por aplicación de Veneno mortal sobre el objetivo.\r\n\r\nCuchillo envenenado se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro."
+          "descriptionTemplate": "Lanzas el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Otorga {{s:425012:2|1}} p. de combo. Devuelve {{s:425012:3|5}} p. de energía por aplicación de Veneno mortal sobre el objetivo.\r\n\r\nCuchillo envenenado se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "off"
         },
         {
           "rank": 2,
@@ -156,7 +164,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanzas el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Otorga {{s:425013:2|1}} p. de combo.\r\n\r\nCuchillo envenenado se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro."
+          "descriptionTemplate": "Lanzas el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Otorga {{s:425013:2|1}} p. de combo.\r\n\r\nCuchillo envenenado se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "off"
         }
       ],
       "talentsForever": {
@@ -267,7 +283,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Remate que aumenta tu probabilidad de parada un {{s:400012:2|10}}% y otorga {{s:400012:4|4}} p. de poder de ataque por cada punto de tu habilidad de defensa más allá de ${$PL*5}. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s"
+          "descriptionTemplate": "Remate que aumenta tu probabilidad de parada un {{s:400012:2|10}}% y otorga {{s:400012:4|4}} p. de poder de ataque por cada punto de tu habilidad de defensa más allá de ${$PL*5}. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -361,7 +379,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Desenfundas tu arma a distancia y le pegas un tiro rápido a un enemigo que le inflige daño con arma a distancia normal y reduce su velocidad de movimiento un {{s:398196:2|50}}% durante {{d:398196:1|6 s}}. Otorga {{s:398196:3|1}} p. de combo.\r\n\r\nDesenvainado rápido se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro."
+          "descriptionTemplate": "Desenfundas tu arma a distancia y le pegas un tiro rápido a un enemigo que le inflige daño con arma a distancia normal y reduce su velocidad de movimiento un {{s:398196:2|50}}% durante {{d:398196:1|6 s}}. Otorga {{s:398196:3|1}} p. de combo.\r\n\r\nDesenvainado rápido se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 262156
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -455,7 +481,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate a distancia que inflige una cantidad de daño por punto de combo que aumenta según el poder de ataque y aturde al objetivo:\r\n\r\n   1 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998));m:400009:1|147,79}} a {{=@0/100*((107.96214999999998)+(170.89630799999998));M:400009:1|225,88}} p. de daño y 1 s de aturdimiento\r\n   2 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*2);m:400009:1|238,37}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*2);M:400009:1|364,3}} p. de daño y 2 s de aturdimiento\r\n   3 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*3);m:400009:1|328,95}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*3);M:400009:1|502,73}} p. de daño y 3 s de aturdimiento\r\n   4 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*4);m:400009:1|419,52}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*4);M:400009:1|641,15}} p. de daño y 4 s de aturdimiento\r\n   5 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*5);m:400009:1|510,1}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*5);M:400009:1|779,58}} p. de daño y 5 s de aturdimiento\r\n\r\nEl tiempo de reutilización se comparte con Golpe en los riñones."
+          "descriptionTemplate": "Remate a distancia que inflige una cantidad de daño por punto de combo que aumenta según el poder de ataque y aturde al objetivo:\r\n\r\n   1 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998));m:400009:1|147,79}} a {{=@0/100*((107.96214999999998)+(170.89630799999998));M:400009:1|225,88}} p. de daño y 1 s de aturdimiento\r\n   2 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*2);m:400009:1|238,37}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*2);M:400009:1|364,3}} p. de daño y 2 s de aturdimiento\r\n   3 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*3);m:400009:1|328,95}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*3);M:400009:1|502,73}} p. de daño y 3 s de aturdimiento\r\n   4 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*4);m:400009:1|419,52}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*4);M:400009:1|641,15}} p. de daño y 4 s de aturdimiento\r\n   5 p.: de {{=@0/100*((107.96214999999998)+(170.89630799999998)*5);m:400009:1|510,1}} a {{=@0/100*((107.96214999999998)+(170.89630799999998)*5);M:400009:1|779,58}} p. de daño y 5 s de aturdimiento\r\n\r\nEl tiempo de reutilización se comparte con Golpe en los riñones.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 262156
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -532,7 +566,15 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(5)*1);m:2098:1|6}}-{{=@0+(1*(5)*1);M:2098:1|10}} p. de daño\r\n   2 puntos: {{=@0+(2*(5)*1);m:2098:1|11}}-{{=@0+(2*(5)*1);M:2098:1|15}} p. de daño\r\n   3 puntos: {{=@0+(3*(5)*1);m:2098:1|16}}-{{=@0+(3*(5)*1);M:2098:1|20}} p. de daño\r\n   4 puntos: {{=@0+(4*(5)*1);m:2098:1|21}}-{{=@0+(4*(5)*1);M:2098:1|25}} p. de daño\r\n   5 puntos: {{=@0+(5*(5)*1);m:2098:1|26}}-{{=@0+(5*(5)*1);M:2098:1|30}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(5)*1);m:2098:1|6}}-{{=@0+(1*(5)*1);M:2098:1|10}} p. de daño\r\n   2 puntos: {{=@0+(2*(5)*1);m:2098:1|11}}-{{=@0+(2*(5)*1);M:2098:1|15}} p. de daño\r\n   3 puntos: {{=@0+(3*(5)*1);m:2098:1|16}}-{{=@0+(3*(5)*1);M:2098:1|20}} p. de daño\r\n   4 puntos: {{=@0+(4*(5)*1);m:2098:1|21}}-{{=@0+(4*(5)*1);M:2098:1|25}} p. de daño\r\n   5 puntos: {{=@0+(5*(5)*1);m:2098:1|26}}-{{=@0+(5*(5)*1);M:2098:1|30}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -598,7 +640,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(11)*1);m:6760:1|14}}-{{=@0+(1*(11)*1);M:6760:1|22}} p. de daño\r\n   2 puntos: {{=@0+(2*(11)*1);m:6760:1|25}}-{{=@0+(2*(11)*1);M:6760:1|33}} p. de daño\r\n   3 puntos: {{=@0+(3*(11)*1);m:6760:1|36}}-{{=@0+(3*(11)*1);M:6760:1|44}} p. de daño\r\n   4 puntos: {{=@0+(4*(11)*1);m:6760:1|47}}-{{=@0+(4*(11)*1);M:6760:1|55}} p. de daño\r\n   5 puntos: {{=@0+(5*(11)*1);m:6760:1|58}}-{{=@0+(5*(11)*1);M:6760:1|66}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(11)*1);m:6760:1|14}}-{{=@0+(1*(11)*1);M:6760:1|22}} p. de daño\r\n   2 puntos: {{=@0+(2*(11)*1);m:6760:1|25}}-{{=@0+(2*(11)*1);M:6760:1|33}} p. de daño\r\n   3 puntos: {{=@0+(3*(11)*1);m:6760:1|36}}-{{=@0+(3*(11)*1);M:6760:1|44}} p. de daño\r\n   4 puntos: {{=@0+(4*(11)*1);m:6760:1|47}}-{{=@0+(4*(11)*1);M:6760:1|55}} p. de daño\r\n   5 puntos: {{=@0+(5*(11)*1);m:6760:1|58}}-{{=@0+(5*(11)*1);M:6760:1|66}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -664,7 +714,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(19)*1);m:6761:1|25}}-{{=@0+(1*(19)*1);M:6761:1|39}} p. de daño\r\n   2 puntos: {{=@0+(2*(19)*1);m:6761:1|44}}-{{=@0+(2*(19)*1);M:6761:1|58}} p. de daño\r\n   3 puntos: {{=@0+(3*(19)*1);m:6761:1|63}}-{{=@0+(3*(19)*1);M:6761:1|77}} p. de daño\r\n   4 puntos: {{=@0+(4*(19)*1);m:6761:1|82}}-{{=@0+(4*(19)*1);M:6761:1|96}} p. de daño\r\n   5 puntos: {{=@0+(5*(19)*1);m:6761:1|101}}-{{=@0+(5*(19)*1);M:6761:1|115}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(19)*1);m:6761:1|25}}-{{=@0+(1*(19)*1);M:6761:1|39}} p. de daño\r\n   2 puntos: {{=@0+(2*(19)*1);m:6761:1|44}}-{{=@0+(2*(19)*1);M:6761:1|58}} p. de daño\r\n   3 puntos: {{=@0+(3*(19)*1);m:6761:1|63}}-{{=@0+(3*(19)*1);M:6761:1|77}} p. de daño\r\n   4 puntos: {{=@0+(4*(19)*1);m:6761:1|82}}-{{=@0+(4*(19)*1);M:6761:1|96}} p. de daño\r\n   5 puntos: {{=@0+(5*(19)*1);m:6761:1|101}}-{{=@0+(5*(19)*1);M:6761:1|115}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -730,7 +788,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(31)*1);m:6762:1|41}}-{{=@0+(1*(31)*1);M:6762:1|61}} p. de daño\r\n   2 puntos: {{=@0+(2*(31)*1);m:6762:1|72}}-{{=@0+(2*(31)*1);M:6762:1|92}} p. de daño\r\n   3 puntos: {{=@0+(3*(31)*1);m:6762:1|103}}-{{=@0+(3*(31)*1);M:6762:1|123}} p. de daño\r\n   4 puntos: {{=@0+(4*(31)*1);m:6762:1|134}}-{{=@0+(4*(31)*1);M:6762:1|154}} p. de daño\r\n   5 puntos: {{=@0+(5*(31)*1);m:6762:1|165}}-{{=@0+(5*(31)*1);M:6762:1|185}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(31)*1);m:6762:1|41}}-{{=@0+(1*(31)*1);M:6762:1|61}} p. de daño\r\n   2 puntos: {{=@0+(2*(31)*1);m:6762:1|72}}-{{=@0+(2*(31)*1);M:6762:1|92}} p. de daño\r\n   3 puntos: {{=@0+(3*(31)*1);m:6762:1|103}}-{{=@0+(3*(31)*1);M:6762:1|123}} p. de daño\r\n   4 puntos: {{=@0+(4*(31)*1);m:6762:1|134}}-{{=@0+(4*(31)*1);M:6762:1|154}} p. de daño\r\n   5 puntos: {{=@0+(5*(31)*1);m:6762:1|165}}-{{=@0+(5*(31)*1);M:6762:1|185}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -796,7 +862,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(45)*1);m:8623:1|60}}-{{=@0+(1*(45)*1);M:8623:1|90}} p. de daño\r\n   2 puntos: {{=@0+(2*(45)*1);m:8623:1|105}}-{{=@0+(2*(45)*1);M:8623:1|135}} p. de daño\r\n   3 puntos: {{=@0+(3*(45)*1);m:8623:1|150}}-{{=@0+(3*(45)*1);M:8623:1|180}} p. de daño\r\n   4 puntos: {{=@0+(4*(45)*1);m:8623:1|195}}-{{=@0+(4*(45)*1);M:8623:1|225}} p. de daño\r\n   5 puntos: {{=@0+(5*(45)*1);m:8623:1|240}}-{{=@0+(5*(45)*1);M:8623:1|270}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(45)*1);m:8623:1|60}}-{{=@0+(1*(45)*1);M:8623:1|90}} p. de daño\r\n   2 puntos: {{=@0+(2*(45)*1);m:8623:1|105}}-{{=@0+(2*(45)*1);M:8623:1|135}} p. de daño\r\n   3 puntos: {{=@0+(3*(45)*1);m:8623:1|150}}-{{=@0+(3*(45)*1);M:8623:1|180}} p. de daño\r\n   4 puntos: {{=@0+(4*(45)*1);m:8623:1|195}}-{{=@0+(4*(45)*1);M:8623:1|225}} p. de daño\r\n   5 puntos: {{=@0+(5*(45)*1);m:8623:1|240}}-{{=@0+(5*(45)*1);M:8623:1|270}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -862,7 +936,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(71)*1);m:8624:1|93}}-{{=@0+(1*(71)*1);M:8624:1|137}} p. de daño\r\n   2 puntos: {{=@0+(2*(71)*1);m:8624:1|164}}-{{=@0+(2*(71)*1);M:8624:1|208}} p. de daño\r\n   3 puntos: {{=@0+(3*(71)*1);m:8624:1|235}}-{{=@0+(3*(71)*1);M:8624:1|279}} p. de daño\r\n   4 puntos: {{=@0+(4*(71)*1);m:8624:1|306}}-{{=@0+(4*(71)*1);M:8624:1|350}} p. de daño\r\n   5 puntos: {{=@0+(5*(71)*1);m:8624:1|377}}-{{=@0+(5*(71)*1);M:8624:1|421}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(71)*1);m:8624:1|93}}-{{=@0+(1*(71)*1);M:8624:1|137}} p. de daño\r\n   2 puntos: {{=@0+(2*(71)*1);m:8624:1|164}}-{{=@0+(2*(71)*1);M:8624:1|208}} p. de daño\r\n   3 puntos: {{=@0+(3*(71)*1);m:8624:1|235}}-{{=@0+(3*(71)*1);M:8624:1|279}} p. de daño\r\n   4 puntos: {{=@0+(4*(71)*1);m:8624:1|306}}-{{=@0+(4*(71)*1);M:8624:1|350}} p. de daño\r\n   5 puntos: {{=@0+(5*(71)*1);m:8624:1|377}}-{{=@0+(5*(71)*1);M:8624:1|421}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -928,7 +1010,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(110)*1);m:11299:1|144}}-{{=@0+(1*(110)*1);M:11299:1|212}} p. de daño\r\n   2 puntos: {{=@0+(2*(110)*1);m:11299:1|254}}-{{=@0+(2*(110)*1);M:11299:1|322}} p. de daño\r\n   3 puntos: {{=@0+(3*(110)*1);m:11299:1|364}}-{{=@0+(3*(110)*1);M:11299:1|432}} p. de daño\r\n   4 puntos: {{=@0+(4*(110)*1);m:11299:1|474}}-{{=@0+(4*(110)*1);M:11299:1|542}} p. de daño\r\n   5 puntos: {{=@0+(5*(110)*1);m:11299:1|584}}-{{=@0+(5*(110)*1);M:11299:1|652}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(110)*1);m:11299:1|144}}-{{=@0+(1*(110)*1);M:11299:1|212}} p. de daño\r\n   2 puntos: {{=@0+(2*(110)*1);m:11299:1|254}}-{{=@0+(2*(110)*1);M:11299:1|322}} p. de daño\r\n   3 puntos: {{=@0+(3*(110)*1);m:11299:1|364}}-{{=@0+(3*(110)*1);M:11299:1|432}} p. de daño\r\n   4 puntos: {{=@0+(4*(110)*1);m:11299:1|474}}-{{=@0+(4*(110)*1);M:11299:1|542}} p. de daño\r\n   5 puntos: {{=@0+(5*(110)*1);m:11299:1|584}}-{{=@0+(5*(110)*1);M:11299:1|652}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -994,7 +1084,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(151)*1);m:11300:1|199}}-{{=@0+(1*(151)*1);M:11300:1|295}} p. de daño\r\n   2 puntos: {{=@0+(2*(151)*1);m:11300:1|350}}-{{=@0+(2*(151)*1);M:11300:1|446}} p. de daño\r\n   3 puntos: {{=@0+(3*(151)*1);m:11300:1|501}}-{{=@0+(3*(151)*1);M:11300:1|597}} p. de daño\r\n   4 puntos: {{=@0+(4*(151)*1);m:11300:1|652}}-{{=@0+(4*(151)*1);M:11300:1|748}} p. de daño\r\n   5 puntos: {{=@0+(5*(151)*1);m:11300:1|803}}-{{=@0+(5*(151)*1);M:11300:1|899}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(151)*1);m:11300:1|199}}-{{=@0+(1*(151)*1);M:11300:1|295}} p. de daño\r\n   2 puntos: {{=@0+(2*(151)*1);m:11300:1|350}}-{{=@0+(2*(151)*1);M:11300:1|446}} p. de daño\r\n   3 puntos: {{=@0+(3*(151)*1);m:11300:1|501}}-{{=@0+(3*(151)*1);M:11300:1|597}} p. de daño\r\n   4 puntos: {{=@0+(4*(151)*1);m:11300:1|652}}-{{=@0+(4*(151)*1);M:11300:1|748}} p. de daño\r\n   5 puntos: {{=@0+(5*(151)*1);m:11300:1|803}}-{{=@0+(5*(151)*1);M:11300:1|899}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -1060,7 +1158,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(170)*1);m:31016:1|224}}-{{=@0+(1*(170)*1);M:31016:1|332}} p. de daño\r\n   2 puntos: {{=@0+(2*(170)*1);m:31016:1|394}}-{{=@0+(2*(170)*1);M:31016:1|502}} p. de daño\r\n   3 puntos: {{=@0+(3*(170)*1);m:31016:1|564}}-{{=@0+(3*(170)*1);M:31016:1|672}} p. de daño\r\n   4 puntos: {{=@0+(4*(170)*1);m:31016:1|734}}-{{=@0+(4*(170)*1);M:31016:1|842}} p. de daño\r\n   5 puntos: {{=@0+(5*(170)*1);m:31016:1|904}}-{{=@0+(5*(170)*1);M:31016:1|1012}} p. de daño"
+          "descriptionTemplate": "Remate que inflige daño por cada punto de combo y aumenta según tu poder de ataque:\r\n   1 punto: {{=@0+(1*(170)*1);m:31016:1|224}}-{{=@0+(1*(170)*1);M:31016:1|332}} p. de daño\r\n   2 puntos: {{=@0+(2*(170)*1);m:31016:1|394}}-{{=@0+(2*(170)*1);M:31016:1|502}} p. de daño\r\n   3 puntos: {{=@0+(3*(170)*1);m:31016:1|564}}-{{=@0+(3*(170)*1);M:31016:1|672}} p. de daño\r\n   4 puntos: {{=@0+(4*(170)*1);m:31016:1|734}}-{{=@0+(4*(170)*1);M:31016:1|842}} p. de daño\r\n   5 puntos: {{=@0+(5*(170)*1);m:31016:1|904}}-{{=@0+(5*(170)*1);M:31016:1|1012}} p. de daño",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1137,7 +1243,15 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1752:1|3}} p. de daño aparte del daño de arma normal. Otorga {{s:1752:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1752:1|3}} p. de daño aparte del daño de arma normal. Otorga {{s:1752:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1203,7 +1317,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1757:1|6}} p. de daño aparte del daño de arma normal. Otorga {{s:1757:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1757:1|6}} p. de daño aparte del daño de arma normal. Otorga {{s:1757:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1269,7 +1391,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1758:1|10}} p. de daño aparte del daño de arma normal. Otorga {{s:1758:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1758:1|10}} p. de daño aparte del daño de arma normal. Otorga {{s:1758:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1335,7 +1465,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1759:1|15}} p. de daño aparte del daño de arma normal. Otorga {{s:1759:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1759:1|15}} p. de daño aparte del daño de arma normal. Otorga {{s:1759:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1401,7 +1539,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1760:1|22}} p. de daño aparte del daño de arma normal. Otorga {{s:1760:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:1760:1|22}} p. de daño aparte del daño de arma normal. Otorga {{s:1760:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -1467,7 +1613,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:8621:1|33}} p. de daño aparte del daño de arma normal. Otorga {{s:8621:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:8621:1|33}} p. de daño aparte del daño de arma normal. Otorga {{s:8621:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -1533,7 +1687,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:11293:1|52}} p. de daño aparte del daño de arma normal. Otorga {{s:11293:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:11293:1|52}} p. de daño aparte del daño de arma normal. Otorga {{s:11293:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -1599,7 +1761,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que causa {{s:11294:1|68}} p. de daño aparte del daño de arma normal. Otorga {{s:11294:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que causa {{s:11294:1|68}} p. de daño aparte del daño de arma normal. Otorga {{s:11294:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1676,7 +1846,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanzas un shuriken a tu enemigo que inflige una cantidad de daño equivalente al {{s:399986:1|50}}% de tu poder de ataque y golpea a un máximo de 4 objetivos cercanos. Otorga {{s:399986:2|1}} p. de combo por objetivo golpeado."
+          "descriptionTemplate": "Lanzas un shuriken a tu enemigo que inflige una cantidad de daño equivalente al {{s:399986:1|50}}% de tu poder de ataque y golpea a un máximo de 4 objetivos cercanos. Otorga {{s:399986:2|1}} p. de combo por objetivo golpeado.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1753,7 +1925,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Atacas al instante con el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Las armas más lentas requieren un mayor uso de energía. Concede {{s:424799:2|1}} p. de combo.\r\n\r\nPuyazo se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro."
+          "descriptionTemplate": "Atacas al instante con el arma de tu mano izquierda para infligir daño normal con un 100% de probabilidad de aplicar al objetivo el veneno del arma que esgrime esta. Las armas más lentas requieren un mayor uso de energía. Concede {{s:424799:2|1}} p. de combo.\r\n\r\nPuyazo se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "off"
         }
       ],
       "talentsForever": {
@@ -1830,7 +2010,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Elimina todos tus puntos de combo existentes sobre el objetivo y los almacena durante un máximo de {{d:438040:1|15 s}}. Estos puntos de combo almacenados se transferirán al siguiente enemigo que no sea un jugador al que golpees con una facultad cuerpo a cuerpo o a distancia."
+          "descriptionTemplate": "Elimina todos tus puntos de combo existentes sobre el objetivo y los almacena durante un máximo de {{d:438040:1|15 s}}. Estos puntos de combo almacenados se transferirán al siguiente enemigo que no sea un jugador al que golpees con una facultad cuerpo a cuerpo o a distancia.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1924,7 +2106,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1784:3|50}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1784:3|50}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2007,7 +2191,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1785:3|40}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1785:3|40}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2090,7 +2276,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1786:3|35}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1786:3|35}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2173,7 +2361,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1787:3|30}}%. Dura hasta que se desactiva."
+          "descriptionTemplate": "Permite al pícaro merodear pero reduce tu velocidad en un {{s:1787:3|30}}%. Dura hasta que se desactiva.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2301,7 +2491,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Desgarras al enemigo con malicia, le infliges un {{s:424785:2|100}}% de daño con arma y le provocas una herida sangrante que le causa un {{=@0;m:424785:4|5}}% de tu poder de ataque p. de daño cada {{t:424785:4|2}} s durante {{d:424785:1|12 s}}. Se acumula hasta 3 veces. Cada acumulación aumenta un {{s:424785:5|33}}% el daño que infligen Tajo de sable y Golpe siniestro. Otorga {{s:424785:3|1}} p. de combo.\r\n\r\nTajo de sable se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro."
+          "descriptionTemplate": "Desgarras al enemigo con malicia, le infliges un {{s:424785:2|100}}% de daño con arma y le provocas una herida sangrante que le causa un {{=@0;m:424785:4|5}}% de tu poder de ataque p. de daño cada {{t:424785:4|2}} s durante {{d:424785:1|12 s}}. Se acumula hasta 3 veces. Cada acumulación aumenta un {{s:424785:5|33}}% el daño que infligen Tajo de sable y Golpe siniestro. Otorga {{s:424785:3|1}} p. de combo.\r\n\r\nTajo de sable se beneficia de todos los talentos y efectos que activa o modifica Golpe siniestro.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2412,7 +2610,15 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te teletransportas detrás de tu objetivo y lo golpeas para infligirle un {{s:399985:3|150}}% del daño con arma. Tienes que estar en modo de sigilo. Otorga {{s:399985:4|1}} p. de combo."
+          "descriptionTemplate": "Te teletransportas detrás de tu objetivo y lo golpeas para infligirle un {{s:399985:3|150}}% del daño con arma. Tienes que estar en modo de sigilo. Otorga {{s:399985:4|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2506,7 +2712,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:53:2|150}}% de daño de arma más {{s:53:1|10}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:53:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:53:2|150}}% de daño de arma más {{s:53:1|10}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:53:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2589,7 +2803,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2589:2|150}}% de daño de arma más {{s:2589:1|20}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2589:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2589:2|150}}% de daño de arma más {{s:2589:1|20}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2589:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2672,7 +2894,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2590:2|150}}% de daño de arma más {{s:2590:1|32}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2590:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2590:2|150}}% de daño de arma más {{s:2590:1|32}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2590:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2755,7 +2985,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2591:2|150}}% de daño de arma más {{s:2591:1|46}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2591:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:2591:2|150}}% de daño de arma más {{s:2591:1|46}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:2591:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2838,7 +3076,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:8721:2|150}}% de daño de arma más {{s:8721:1|60}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:8721:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:8721:2|150}}% de daño de arma más {{s:8721:1|60}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:8721:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2921,7 +3167,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11279:2|150}}% de daño de arma más {{s:11279:1|90}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11279:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11279:2|150}}% de daño de arma más {{s:11279:1|90}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11279:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3004,7 +3258,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11280:2|150}}% de daño de arma más {{s:11280:1|110}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11280:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11280:2|150}}% de daño de arma más {{s:11280:1|110}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11280:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -3087,7 +3349,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11281:2|150}}% de daño de arma más {{s:11281:1|140}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11281:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:11281:2|150}}% de daño de arma más {{s:11281:1|140}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:11281:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -3170,7 +3440,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:25300:2|150}}% de daño de arma más {{s:25300:1|150}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:25300:3|1}} p. de combo."
+          "descriptionTemplate": "Asesta Puñalada al objetivo, lo que inflige un {{s:25300:2|150}}% de daño de arma más {{s:25300:1|150}} al objetivo. Hay que atacar al objetivo por la espalda. Requiere llevar una daga en la mano derecha. Otorga {{s:25300:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3230,7 +3508,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Roba los objetos del objetivo."
+          "descriptionTemplate": "Roba los objetos del objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3324,7 +3604,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1776:1|10}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:1776:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:1776:2|1}} p. de combo."
+          "descriptionTemplate": "Inflige {{s:1776:1|10}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:1776:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:1776:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3407,7 +3695,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1777:1|20}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:1777:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:1777:2|1}} p. de combo."
+          "descriptionTemplate": "Inflige {{s:1777:1|20}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:1777:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:1777:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3490,7 +3786,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:8629:1|32}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:8629:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:8629:2|1}} p. de combo."
+          "descriptionTemplate": "Inflige {{s:8629:1|32}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:8629:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:8629:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3573,7 +3877,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:11285:1|55}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:11285:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:11285:2|1}} p. de combo."
+          "descriptionTemplate": "Inflige {{s:11285:1|55}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:11285:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:11285:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3656,7 +3968,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:11286:1|75}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:11286:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:11286:2|1}} p. de combo."
+          "descriptionTemplate": "Inflige {{s:11286:1|75}} p. de daño, detiene tu ataque e incapacita al objetivo durante {{d:11286:1|4 s}}. El objetivo tiene que estar mirándote. Cualquier daño recibido anulará el efecto. Otorga {{s:11286:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3716,7 +4036,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "La probabilidad de esquivar del pícaro aumentará en un {{s:5277:1|50}}% durante {{d:5277:1|15 s}}."
+          "descriptionTemplate": "La probabilidad de esquivar del pícaro aumentará en un {{s:5277:1|50}}% durante {{d:5277:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3776,7 +4098,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:2983:1|50}}% durante {{d:2983:1|15 s}}. No interrumpe el sigilo."
+          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:2983:1|50}}% durante {{d:2983:1|15 s}}. No interrumpe el sigilo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3825,7 +4149,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:8696:1|60}}% durante {{d:8696:1|15 s}}. No interrumpe el sigilo."
+          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:8696:1|60}}% durante {{d:8696:1|15 s}}. No interrumpe el sigilo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3874,7 +4200,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:11305:1|70}}% durante {{d:11305:1|15 s}}. No interrumpe el sigilo."
+          "descriptionTemplate": "Aumenta la velocidad de movimiento del pícaro en un {{s:11305:1|70}}% durante {{d:11305:1|15 s}}. No interrumpe el sigilo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3951,7 +4279,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que aumenta un {{s:5171:2|20}}% la velocidad de ataque cuerpo a cuerpo. Se prolonga por cada punto de combo:\r\n   1 punto: 9 s\r\n   2 puntos: 12 s\r\n   3 puntos: 15 s\r\n   4 puntos: 18 s\r\n   5 puntos: 21 s"
+          "descriptionTemplate": "Remate que aumenta un {{s:5171:2|20}}% la velocidad de ataque cuerpo a cuerpo. Se prolonga por cada punto de combo:\r\n   1 punto: 9 s\r\n   2 puntos: 12 s\r\n   3 puntos: 15 s\r\n   4 puntos: 18 s\r\n   5 puntos: 21 s",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4017,7 +4347,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que aumenta un {{s:6774:2|30}}% la velocidad de ataque cuerpo a cuerpo. Se prolonga por cada punto de combo:\r\n   1 punto: 9 s\r\n   2 puntos: 12 s\r\n   3 puntos: 15 s\r\n   4 puntos: 18 s\r\n   5 puntos: 21 s"
+          "descriptionTemplate": "Remate que aumenta un {{s:6774:2|30}}% la velocidad de ataque cuerpo a cuerpo. Se prolonga por cada punto de combo:\r\n   1 punto: 9 s\r\n   2 puntos: 12 s\r\n   3 puntos: 15 s\r\n   4 puntos: 18 s\r\n   5 puntos: 21 s",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4077,7 +4409,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:6770:1|25 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo."
+          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:6770:1|25 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4126,7 +4466,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:2070:1|35 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo."
+          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:2070:1|35 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4175,7 +4523,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:11297:1|45 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo."
+          "descriptionTemplate": "Incapacita al objetivo por un máximo de {{d:11297:1|45 s}}. Solo funciona con humanoides que no estén en combate. Cualquier daño recibido anulará el efecto. Solo se puede usar con 1 objetivo a la vez. No rompe el sigilo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4252,7 +4608,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una patada rápida que produce {{s:1766:1|15}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1766:1|5 s}}."
+          "descriptionTemplate": "Una patada rápida que produce {{s:1766:1|15}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1766:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4318,7 +4676,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una patada rápida que produce {{s:1767:1|30}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1767:1|5 s}}."
+          "descriptionTemplate": "Una patada rápida que produce {{s:1767:1|30}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1767:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4384,7 +4744,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una patada rápida que produce {{s:1768:1|45}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1768:1|5 s}}."
+          "descriptionTemplate": "Una patada rápida que produce {{s:1768:1|45}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1768:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4450,7 +4812,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Una patada rápida que produce {{s:1769:1|80}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1769:1|5 s}}."
+          "descriptionTemplate": "Una patada rápida que produce {{s:1769:1|80}} p. de daño a un único enemigo. También interrumpe el lanzamiento de hechizos y evita que se puedan lanzar hechizos de la misma escuela durante {{d:1769:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4527,7 +4891,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8647:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 90 p. de armadura\r\n   2 puntos: 180 p. de armadura\r\n   3 puntos: 270 p. de armadura\r\n   4 puntos: 360 p. de armadura\r\n   5 puntos: 450 p. de armadura"
+          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8647:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 90 p. de armadura\r\n   2 puntos: 180 p. de armadura\r\n   3 puntos: 270 p. de armadura\r\n   4 puntos: 360 p. de armadura\r\n   5 puntos: 450 p. de armadura",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4593,7 +4965,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8649:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 180 p. de armadura\r\n   2 puntos: 360 p. de armadura\r\n   3 puntos: 540 p. de armadura\r\n   4 puntos: 720 p. de armadura\r\n   5 puntos: 900 p. de armadura"
+          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8649:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 180 p. de armadura\r\n   2 puntos: 360 p. de armadura\r\n   3 puntos: 540 p. de armadura\r\n   4 puntos: 720 p. de armadura\r\n   5 puntos: 900 p. de armadura",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4659,7 +5039,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8650:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 270 p. de armadura\r\n   2 puntos: 540 p. de armadura\r\n   3 puntos: 810 p. de armadura\r\n   4 puntos: 1080 p. de armadura\r\n   5 puntos: 1350 p. de armadura"
+          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:8650:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 270 p. de armadura\r\n   2 puntos: 540 p. de armadura\r\n   3 puntos: 810 p. de armadura\r\n   4 puntos: 1080 p. de armadura\r\n   5 puntos: 1350 p. de armadura",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4725,7 +5113,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:11197:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 360 p. de armadura\r\n   2 puntos: 720 p. de armadura\r\n   3 puntos: 1080 p. de armadura\r\n   4 puntos: 1440 p. de armadura\r\n   5 puntos: 1800 p. de armadura"
+          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:11197:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 360 p. de armadura\r\n   2 puntos: 720 p. de armadura\r\n   3 puntos: 1080 p. de armadura\r\n   4 puntos: 1440 p. de armadura\r\n   5 puntos: 1800 p. de armadura",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4791,7 +5187,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:11198:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 450 p. de armadura\r\n   2 puntos: 900 p. de armadura\r\n   3 puntos: 1350 p. de armadura\r\n   4 puntos: 1800 p. de armadura\r\n   5 puntos: 2250 p. de armadura"
+          "descriptionTemplate": "Remate que deja expuesto al objetivo durante {{d:11198:1|30 s}}, lo que reduce la armadura por cada punto de combo:\r\n   1 punto: 450 p. de armadura\r\n   2 puntos: 900 p. de armadura\r\n   3 puntos: 1350 p. de armadura\r\n   4 puntos: 1800 p. de armadura\r\n   5 puntos: 2250 p. de armadura",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4868,7 +5272,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo y le inflige {{o:703:1|144}} p. de daño durante {{d:703:1|18 s}}, el cual es incrementado por tu Poder de Ataque. Necesita sigilo y estar situado detrás del objetivo. Otorga {{s:703:2|1}} punto de combo."
+          "descriptionTemplate": "Agarrota al enemigo y le inflige {{o:703:1|144}} p. de daño durante {{d:703:1|18 s}}, el cual es incrementado por tu Poder de Ataque. Necesita sigilo y estar situado detrás del objetivo. Otorga {{s:703:2|1}} punto de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4934,7 +5340,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8631:1|204}} p. de daño durante {{d:8631:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8631:2|1}} p. de combo."
+          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8631:1|204}} p. de daño durante {{d:8631:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8631:2|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5000,7 +5408,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8632:1|282}} p. de daño durante {{d:8632:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8632:2|1}} p. de combo."
+          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8632:1|282}} p. de daño durante {{d:8632:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8632:2|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5066,7 +5476,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8633:1|354}} p. de daño durante {{d:8633:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8633:2|1}} p. de combo."
+          "descriptionTemplate": "Agarrota al enemigo, causando {{o:8633:1|354}} p. de daño durante {{d:8633:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:8633:2|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5132,7 +5544,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo, causando {{o:11289:1|444}} p. de daño durante {{d:11289:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:11289:2|1}} p. de combo."
+          "descriptionTemplate": "Agarrota al enemigo, causando {{o:11289:1|444}} p. de daño durante {{d:11289:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:11289:2|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -5198,7 +5612,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Agarrota al enemigo, causando {{o:11290:1|552}} p. de daño durante {{d:11290:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:11290:2|1}} p. de combo."
+          "descriptionTemplate": "Agarrota al enemigo, causando {{o:11290:1|552}} p. de daño durante {{d:11290:1|18 s}}, aumentado por tu poder de ataque. Tienes que estar en modo sigilo y detrás del objetivo. Otorga {{s:11290:2|1}} p. de combo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5258,7 +5674,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5307,7 +5725,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en cantidad media, reduciendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en cantidad media, reduciendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5356,7 +5776,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5405,7 +5827,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en gran cantidad, reduciendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5454,7 +5878,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en una pequeña cantidad, reduciendo la probabilidad de que el enemigo te ataque."
+          "descriptionTemplate": "Hace un amago que no causa daño pero reduce tu amenaza en una pequeña cantidad, reduciendo la probabilidad de que el enemigo te ataque.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5548,7 +5974,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8676:2|250}}% de daño de arma más 70 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8676:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8676:2|250}}% de daño de arma más 70 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8676:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5631,7 +6065,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8724:2|250}}% de daño de arma más 100 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8724:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8724:2|250}}% de daño de arma más 100 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8724:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5714,7 +6156,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8725:2|250}}% de daño de arma más 125 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8725:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:8725:2|250}}% de daño de arma más 125 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:8725:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5797,7 +6247,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11267:2|250}}% de daño de arma más 185 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11267:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11267:2|250}}% de daño de arma más 185 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11267:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5880,7 +6338,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11268:2|250}}% de daño de arma más 230 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11268:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11268:2|250}}% de daño de arma más 230 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11268:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -5963,7 +6429,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11269:2|250}}% de daño de arma más 290 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11269:3|1}} p. de combo."
+          "descriptionTemplate": "Tiende una emboscada al objetivo, causando un {{s:11269:2|250}}% de daño de arma más 290 p. de daño al objetivo. Tienes que estar en modo de sigilo y detrás del objetivo. Requiere una daga en la mano principal. Otorga {{s:11269:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6040,7 +6514,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": false,
-          "descriptionTemplate": "Un golpe que se activa tras haber parado el ataque de un oponente. Este ataque inflige un {{s:14251:1|150}}% de daño de arma y desarma al objetivo durante $19718d."
+          "descriptionTemplate": "Un golpe que se activa tras haber parado el ataque de un oponente. Este ataque inflige un {{s:14251:1|150}}% de daño de arma y desarma al objetivo durante $19718d.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6151,7 +6627,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe que inflige un {{s:14278:1|125}}% de daño con arma (un {{m:14278:4|180}}% si se lleva equipada una daga en la mano derecha) y aumenta un {{s:14278:2|15}}% tu probabilidad de esquivar durante {{d:14278:1|7 s}}. Otorga {{s:14278:3|1}} p. de combo."
+          "descriptionTemplate": "Un golpe que inflige un {{s:14278:1|125}}% de daño con arma (un {{m:14278:4|180}}% si se lleva equipada una daga en la mano derecha) y aumenta un {{s:14278:2|15}}% tu probabilidad de esquivar durante {{d:14278:1|7 s}}. Otorga {{s:14278:3|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6245,7 +6729,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(1.18))*4;m:1943:1|24,72}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(1.18)*2)*5;m:1943:1|36,8}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(1.18)*3)*6;m:1943:1|51,24}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(1.18)*4)*7;m:1943:1|68,04}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(1.18)*5)*8;m:1943:1|87,2}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(1.18))*4;m:1943:1|24,72}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(1.18)*2)*5;m:1943:1|36,8}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(1.18)*3)*6;m:1943:1|51,24}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(1.18)*4)*7;m:1943:1|68,04}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(1.18)*5)*8;m:1943:1|87,2}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6328,7 +6820,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(1.78))*4;m:8639:1|35,12}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(1.78)*2)*5;m:8639:1|52,8}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(1.78)*3)*6;m:8639:1|74,04}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(1.78)*4)*7;m:8639:1|98,84}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(1.78)*5)*8;m:8639:1|127,2}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(1.78))*4;m:8639:1|35,12}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(1.78)*2)*5;m:8639:1|52,8}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(1.78)*3)*6;m:8639:1|74,04}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(1.78)*4)*7;m:8639:1|98,84}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(1.78)*5)*8;m:8639:1|127,2}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6411,7 +6911,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(2.37))*4;m:8640:1|53,48}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(2.37)*2)*5;m:8640:1|78,7}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(2.37)*3)*6;m:8640:1|108,66}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(2.37)*4)*7;m:8640:1|143,36}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(2.37)*5)*8;m:8640:1|182,8}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(2.37))*4;m:8640:1|53,48}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(2.37)*2)*5;m:8640:1|78,7}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(2.37)*3)*6;m:8640:1|108,66}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(2.37)*4)*7;m:8640:1|143,36}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(2.37)*5)*8;m:8640:1|182,8}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6494,7 +7002,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(2.96))*4;m:11273:1|75,84}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(2.96)*2)*5;m:11273:1|109,6}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(2.96)*3)*6;m:11273:1|149,28}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(2.96)*4)*7;m:11273:1|194,88}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(2.96)*5)*8;m:11273:1|246,4}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(2.96))*4;m:11273:1|75,84}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(2.96)*2)*5;m:11273:1|109,6}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(2.96)*3)*6;m:11273:1|149,28}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(2.96)*4)*7;m:11273:1|194,88}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(2.96)*5)*8;m:11273:1|246,4}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6577,7 +7093,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(4.14))*4;m:11274:1|104,56}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(4.14)*2)*5;m:11274:1|151,4}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(4.14)*3)*6;m:11274:1|206,52}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(4.14)*4)*7;m:11274:1|269,92}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(4.14)*5)*8;m:11274:1|341,6}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(4.14))*4;m:11274:1|104,56}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(4.14)*2)*5;m:11274:1|151,4}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(4.14)*3)*6;m:11274:1|206,52}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(4.14)*4)*7;m:11274:1|269,92}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(4.14)*5)*8;m:11274:1|341,6}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -6660,7 +7184,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(4.73))*4;m:11275:1|158,92}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(4.73)*2)*5;m:11275:1|222,3}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(4.73)*3)*6;m:11275:1|295,14}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(4.73)*4)*7;m:11275:1|377,44}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(4.73)*5)*8;m:11275:1|469,2}} p. de daño durante 16 s"
+          "descriptionTemplate": "Remate que inflige daño en el tiempo y aumenta según tu poder de ataque. Dura más tiempo por cada punto de combo:\r\n   1 punto: {{=(@0+(4.73))*4;m:11275:1|158,92}} p. de daño durante 8 s\r\n   2 puntos: {{=(@0+(4.73)*2)*5;m:11275:1|222,3}} p. de daño durante 8 s\r\n   3 puntos: {{=(@0+(4.73)*3)*6;m:11275:1|295,14}} p. de daño durante 12 s\r\n   4 puntos: {{=(@0+(4.73)*4)*7;m:11275:1|377,44}} p. de daño durante 14 s\r\n   5 puntos: {{=(@0+(4.73)*5)*8;m:11275:1|469,2}} p. de daño durante 16 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6773,7 +7305,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura {{=@0/60;m:3420:2|30}} min.\r\nCada golpe tiene un {{c:3408:1|30}}% de probabilidad de envenenar al enemigo y reducir su velocidad de movimiento un {{s:3409:1|50}}% durante {{d:3409:1|12 s}}."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura {{=@0/60;m:3420:2|30}} min.\r\nCada golpe tiene un {{c:3408:1|30}}% de probabilidad de envenenar al enemigo y reducir su velocidad de movimiento un {{s:3409:1|50}}% durante {{d:3409:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6903,7 +7437,9 @@
           "textOrigin": "client",
           "acquireMethod": 1,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8681:2|30}} min.\r\nCada golpe tiene un {{c:8679:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8680:1|15}} p. de daño de Naturaleza. {{m:8681:3|60}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8681:2|30}} min.\r\nCada golpe tiene un {{c:8679:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8680:1|15}} p. de daño de Naturaleza. {{m:8681:3|60}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7022,7 +7558,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8687:2|30}} min.\r\nCada golpe tiene un {{c:8686:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8685:1|23}} p. de daño de Naturaleza. {{m:8687:3|85}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8687:2|30}} min.\r\nCada golpe tiene un {{c:8686:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8685:1|23}} p. de daño de Naturaleza. {{m:8687:3|85}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7141,7 +7679,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8691:2|30}} min.\r\nCada golpe tiene un {{c:8688:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8689:1|33}} p. de daño de Naturaleza. {{m:8691:3|105}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8691:2|30}} min.\r\nCada golpe tiene un {{c:8688:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:8689:1|33}} p. de daño de Naturaleza. {{m:8691:3|105}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7260,7 +7800,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11341:2|30}} min.\r\nCada golpe tiene un {{c:11338:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11335:1|51}} p. de daño de Naturaleza. {{m:11341:2|1800}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11341:2|30}} min.\r\nCada golpe tiene un {{c:11338:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11335:1|51}} p. de daño de Naturaleza. {{m:11341:2|1800}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7379,7 +7921,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11342:2|30}} min.\r\nCada golpe tiene un {{c:11339:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11336:1|71}} p. de daño de Naturaleza. {{m:11342:3|150}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11342:2|30}} min.\r\nCada golpe tiene un {{c:11339:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11336:1|71}} p. de daño de Naturaleza. {{m:11342:3|150}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -7498,7 +8042,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11343:2|30}} min.\r\nCada golpe tiene un {{c:11340:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11337:1|88}} p. de daño de Naturaleza. {{m:11343:3|175}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11343:2|30}} min.\r\nCada golpe tiene un {{c:11340:1|20}}% de probabilidad de envenenar al enemigo, lo que inflige al instante {{s:11337:1|88}} p. de daño de Naturaleza. {{m:11343:3|175}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7575,7 +8121,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Sabes crear y mezclar venenos con ingredientes encontrados y comprados."
+          "descriptionTemplate": "Sabes crear y mezclar venenos con ingredientes encontrados y comprados.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7652,7 +8200,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una distracción que llama la atención de todos los enemigos cercanos y reduce su detección de sigilo como si tuvieran {{=@0/-5;m:1725:2|1}} nivel menos durante {{s:1725:1|10}} s. No rompe el sigilo."
+          "descriptionTemplate": "Lanza una distracción que llama la atención de todos los enemigos cercanos y reduce su detección de sigilo como si tuvieran {{=@0/-5;m:1725:2|1}} nivel menos durante {{s:1725:1|10}} s. No rompe el sigilo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7746,7 +8296,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro esfumarse, entrando en un modo sigilo mejorado durante {{d:11327:1|10 s}}. Elimina todas las reducciones de movimiento."
+          "descriptionTemplate": "Permite al pícaro esfumarse, entrando en un modo sigilo mejorado durante {{d:11327:1|10 s}}. Elimina todas las reducciones de movimiento.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7829,7 +8381,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Permite al pícaro esfumarse, entrando en un modo sigilo mejorado durante {{d:11329:1|10 s}}. Elimina todas las reducciones de movimiento. Más efectivo que Esfumarse (Rango 1)."
+          "descriptionTemplate": "Permite al pícaro esfumarse, entrando en un modo sigilo mejorado durante {{d:11329:1|10 s}}. Elimina todas las reducciones de movimiento. Más efectivo que Esfumarse (Rango 1).",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7959,7 +8513,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:5763:2|30}} min.\r\nCada golpe tiene un {{c:5761:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:5760:1|40}}% durante {{d:5760:1|10 s}}. {{m:5763:3|75}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:5763:2|30}} min.\r\nCada golpe tiene un {{c:5761:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:5760:1|40}}% durante {{d:5760:1|10 s}}. {{m:5763:3|75}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8078,7 +8634,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8694:2|30}} min.\r\nCada golpe tiene un {{c:8693:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:8692:1|50}}% durante {{d:8692:1|12 s}}. {{m:8694:3|115}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:8694:2|30}} min.\r\nCada golpe tiene un {{c:8693:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:8692:1|50}}% durante {{d:8692:1|12 s}}. {{m:8694:3|115}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8197,7 +8755,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11400:2|30}} min.\r\nCada golpe tiene un {{c:11399:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:11398:1|60}}% durante {{d:11398:1|14 s}}. {{m:11400:3|150}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11400:2|30}} min.\r\nCada golpe tiene un {{c:11399:1|20}}% de probabilidad de envenenar al enemigo, lo que aumenta el tiempo de lanzamiento de sus hechizos un {{s:11398:1|60}}% durante {{d:11398:1|14 s}}. {{m:11400:3|150}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8291,7 +8851,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Añade {{s:14183:1|2}} p. de combo a tu objetivo. Tienes que añadir más puntos de combo o utilizar los existentes en {{d:14183:1|20 s}} o se perderán."
+          "descriptionTemplate": "Añade {{s:14183:1|2}} p. de combo a tu objetivo. Tienes que añadir más puntos de combo o utilizar los existentes en {{d:14183:1|20 s}} o se perderán.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8351,7 +8913,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando se activa, aumenta un {{s:14177:1|100}}% la probabilidad de golpe crítico de tu siguiente Golpe siniestro, Puñalada, Emboscada, Eviscerar o Mutilar."
+          "descriptionTemplate": "Cuando se activa, aumenta un {{s:14177:1|100}}% la probabilidad de golpe crítico de tu siguiente Golpe siniestro, Puñalada, Emboscada, Eviscerar o Mutilar.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8428,7 +8992,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aturde al objetivo durante {{d:1833:1|4 s}}. Hay que usar el sigilo. Otorga {{s:1833:2|2}} puntos de combo."
+          "descriptionTemplate": "Aturde al objetivo durante {{d:1833:1|4 s}}. Hay que usar el sigilo. Otorga {{s:1833:2|2}} puntos de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8488,7 +9060,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Acércate sigilosamente a la trampa para desactivarla. No te acerques demasiado o se activará."
+          "descriptionTemplate": "Acércate sigilosamente a la trampa para desactivarla. No te acerques demasiado o se activará.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8582,7 +9156,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpe de remate que aturde al objetivo. Se prolonga con cada punto de combo:\r\n 1 punto: 1 segundo\r\n 2 puntos: 2 segundos\r\n 3 puntos: 3 segundos\r\n 4 puntos: 4 segundos\r\n 5 puntos: 5 segundos"
+          "descriptionTemplate": "Golpe de remate que aturde al objetivo. Se prolonga con cada punto de combo:\r\n 1 punto: 1 segundo\r\n 2 puntos: 2 segundos\r\n 3 puntos: 3 segundos\r\n 4 puntos: 4 segundos\r\n 5 puntos: 5 segundos",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8665,7 +9247,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpe de remate que aturde al objetivo. Se prolonga con cada punto de combo:\r\n 1 punto: 2 segundos\r\n 2 puntos: 3 segundos\r\n 3 puntos: 4 segundos\r\n 4 puntos: 5 segundos\r\n 5 puntos: 6 segundos"
+          "descriptionTemplate": "Golpe de remate que aturde al objetivo. Se prolonga con cada punto de combo:\r\n 1 punto: 2 segundos\r\n 2 puntos: 3 segundos\r\n 3 puntos: 4 segundos\r\n 4 puntos: 5 segundos\r\n 5 puntos: 6 segundos",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8793,7 +9383,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:16511:4|100}}% de daño con arma (un {{m:16511:5|145}}% si se lleva equipada una daga) y provoca que el objetivo reciba un {{m:16511:3|15}}% más de daño de Ruptura del pícaro. Dura {{d:16511:1|15 s}}. Otorga {{s:16511:2|1}} p. de combo."
+          "descriptionTemplate": "Un golpe instantáneo que inflige un {{m:16511:4|100}}% de daño con arma (un {{m:16511:5|145}}% si se lleva equipada una daga) y provoca que el objetivo reciba un {{m:16511:3|15}}% más de daño de Ruptura del pícaro. Dura {{d:16511:1|15 s}}. Otorga {{s:16511:2|1}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8954,7 +9552,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1310706:2|75}}% de daño de arma más {{=@0*@1/100;m:1310706:1;m:1310706:2|17,25}} p. adicionales con cada arma. El daño aumenta un {{m:1310707:4|20}}% contra objetivos envenenados. Da {{m:1310707:1|2}} p. de combo."
+          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1310706:2|75}}% de daño de arma más {{=@0*@1/100;m:1310706:1;m:1310706:2|17,25}} p. adicionales con cada arma. El daño aumenta un {{m:1310707:4|20}}% contra objetivos envenenados. Da {{m:1310707:1|2}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "both"
         },
         {
           "rank": 2,
@@ -9104,7 +9710,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:399960:2|75}}% de daño de arma más {{=@0*@1/100;m:399960:1;m:399960:2|24,75}} p. adicionales con cada arma. El daño aumenta un {{m:399956:4|20}}% contra objetivos envenenados. Da {{m:399956:1|2}} p. de combo."
+          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:399960:2|75}}% de daño de arma más {{=@0*@1/100;m:399960:1;m:399960:2|24,75}} p. adicionales con cada arma. El daño aumenta un {{m:399956:4|20}}% contra objetivos envenenados. Da {{m:399956:1|2}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "both"
         },
         {
           "rank": 3,
@@ -9254,7 +9868,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1241585:2|75}}% de daño de arma más {{=@0*@1/100;m:1241585:1;m:1241585:2|36}} p. adicionales con cada arma. El daño aumenta un {{m:1241582:4|20}}% contra objetivos envenenados. Da {{m:1241582:1|2}} p. de combo."
+          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1241585:2|75}}% de daño de arma más {{=@0*@1/100;m:1241585:1;m:1241585:2|36}} p. adicionales con cada arma. El daño aumenta un {{m:1241582:4|20}}% contra objetivos envenenados. Da {{m:1241582:1|2}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "both"
         },
         {
           "rank": 4,
@@ -9404,7 +10026,15 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1241586:2|75}}% de daño de arma más {{=@0*@1/100;m:1241586:1;m:1241586:2|50,25}} p. adicionales con cada arma. El daño aumenta un {{m:1241584:4|20}}% contra objetivos envenenados. Da {{m:1241584:1|2}} p. de combo."
+          "descriptionTemplate": "Ataque instantáneo con ambas armas que inflige un {{s:1241586:2|75}}% de daño de arma más {{=@0*@1/100;m:1241586:1;m:1241586:2|50,25}} p. adicionales con cada arma. El daño aumenta un {{m:1241584:4|20}}% contra objetivos envenenados. Da {{m:1241584:1|2}} p. de combo.",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 32768
+            }
+          ],
+          "weaponHand": "both"
         }
       ],
       "talentsForever": {
@@ -9464,7 +10094,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Termina inmediatamente el tiempo de reutilización de tus otras facultades de pícaro."
+          "descriptionTemplate": "Termina inmediatamente el tiempo de reutilización de tus otras facultades de pícaro.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9524,7 +10156,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la velocidad de ataque cuerpo a cuerpo un {{s:13877:1|20}}% y hace que tus ataques cuerpo a cuerpo golpeen a un enemigo cercano adicional. Dura {{d:13877:1|15 s}}."
+          "descriptionTemplate": "Aumenta la velocidad de ataque cuerpo a cuerpo un {{s:13877:1|20}}% y hace que tus ataques cuerpo a cuerpo golpeen a un enemigo cercano adicional. Dura {{d:13877:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9654,7 +10288,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:2835:2|30}} min.\r\nCada golpe tiene un {{c:2823:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:2818:1|24}} p. de daño de Naturaleza durante {{d:2818:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:2835:3|90}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:2835:2|30}} min.\r\nCada golpe tiene un {{c:2823:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:2818:1|24}} p. de daño de Naturaleza durante {{d:2818:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:2835:3|90}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9773,7 +10409,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:2837:2|30}} min.\r\nCada golpe tiene un {{c:2824:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:2819:1|36}} p. de daño de Naturaleza durante {{d:2819:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:2837:3|115}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:2837:2|30}} min.\r\nCada golpe tiene un {{c:2824:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:2819:1|36}} p. de daño de Naturaleza durante {{d:2819:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:2837:3|115}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9892,7 +10530,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11357:2|30}} min.\r\nCada golpe tiene un {{c:11355:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:11353:1|56}} p. de daño de Naturaleza durante {{d:11353:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:11357:3|135}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11357:2|30}} min.\r\nCada golpe tiene un {{c:11355:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:11353:1|56}} p. de daño de Naturaleza durante {{d:11353:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:11357:3|135}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -10011,7 +10651,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11358:2|30}} min.\r\nCada golpe tiene un {{c:11356:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:11354:1|72}} p. de daño de Naturaleza durante {{d:11354:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:11358:3|160}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:11358:2|30}} min.\r\nCada golpe tiene un {{c:11356:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:11354:1|72}} p. de daño de Naturaleza durante {{d:11354:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:11358:3|160}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -10130,7 +10772,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:25347:2|30}} min.\r\nCada golpe tiene un {{c:11356:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:25349:1|92}} p. de daño de Naturaleza durante {{d:25349:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:25347:3|180}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:25347:2|30}} min.\r\nCada golpe tiene un {{c:11356:1|30}}% de probabilidad de envenenar al enemigo, lo que inflige {{o:25349:1|92}} p. de daño de Naturaleza durante {{d:25349:1|12 s}}. Se acumula hasta 5 veces sobre un mismo objetivo. {{m:25347:3|180}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10260,7 +10904,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13220:2|30}} min.\r\nCada golpe tiene un {{c:13219:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13218:1|67}} p. todos los efectos de sanación utilizados sobre él durante {{d:13218:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13220:3|90}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13220:2|30}} min.\r\nCada golpe tiene un {{c:13219:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13218:1|67}} p. todos los efectos de sanación utilizados sobre él durante {{d:13218:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13220:3|90}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10379,7 +11025,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13228:2|30}} min.\r\nCada golpe tiene un {{c:13225:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13222:1|92}} p. todos los efectos de sanación utilizados sobre él durante {{d:13222:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13228:3|115}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13228:2|30}} min.\r\nCada golpe tiene un {{c:13225:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13222:1|92}} p. todos los efectos de sanación utilizados sobre él durante {{d:13222:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13228:3|115}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10498,7 +11146,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13229:2|30}} min.\r\nCada golpe tiene un {{c:13226:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13223:1|128}} p. todos los efectos de sanación utilizados sobre él durante {{d:13223:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13229:3|135}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13229:2|30}} min.\r\nCada golpe tiene un {{c:13226:1|30}}% de probabilidad de envenenar al enemigo, lo que reduce {{s:13223:1|128}} p. todos los efectos de sanación utilizados sobre él durante {{d:13223:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13229:3|135}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -10617,7 +11267,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13230:2|30}} min.\r\nCada golpe tiene un {{c:13227:1|30}}% de probabilidad de envenenar al enemigo, lo que reducirá {{s:13224:1|165}} p. todos los efectos de sanación utilizados sobre él durante {{d:13224:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13230:3|160}} cargas."
+          "descriptionTemplate": "Cubre un arma con veneno que dura {{=@0/60;m:13230:2|30}} min.\r\nCada golpe tiene un {{c:13227:1|30}}% de probabilidad de envenenar al enemigo, lo que reducirá {{s:13224:1|165}} p. todos los efectos de sanación utilizados sobre él durante {{d:13224:1|15 s}}. Se acumula hasta 5 veces en un mismo objetivo. {{m:13230:3|160}} cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10694,7 +11346,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ciega al objetivo, provocando que deambule sin rumbo durante {{d:2094:1|10 s}}. Cualquier daño causado con posterioridad anulará su efecto."
+          "descriptionTemplate": "Ciega al objetivo, provocando que deambule sin rumbo durante {{d:2094:1|10 s}}. Cualquier daño causado con posterioridad anulará su efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10754,7 +11408,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea el componente para la facultad Ceguera."
+          "descriptionTemplate": "Crea el componente para la facultad Ceguera.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10814,7 +11470,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta tu velocidad de regeneración de energía en un {{s:13750:1|100}}% durante {{d:13750:1|15 s}}."
+          "descriptionTemplate": "Aumenta tu velocidad de regeneración de energía en un {{s:13750:1|100}}% durante {{d:13750:1|15 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10925,7 +11583,15 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Remate que aumenta un {{m:1310703:2|30}}% el daño de tus venenos y un {{m:1310703:4|10}}% tu probabilidad de aplicar venenos. Se prolonga por cada punto de combo:\r\n   1 p.: 9 s\r\n   2 p.: 12 s\r\n   3 p.: 15 s\r\n   4 p.: 18 s\r\n   5 p.: 21 s"
+          "descriptionTemplate": "Remate que aumenta un {{m:1310703:2|30}}% el daño de tus venenos y un {{m:1310703:4|10}}% tu probabilidad de aplicar venenos. Se prolonga por cada punto de combo:\r\n   1 p.: 9 s\r\n   2 p.: 12 s\r\n   3 p.: 15 s\r\n   4 p.: 18 s\r\n   5 p.: 21 s",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11038,7 +11704,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura {{=@0/60;m:3421:2|30}} min.\r\nCada golpe tiene un {{c:11202:1|30}}% de probabilidad de envenenar al enemigo y reducir su velocidad de movimiento un {{s:11201:1|70}}% durante {{d:11201:1|12 s}}."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura {{=@0/60;m:3421:2|30}} min.\r\nCada golpe tiene un {{c:11202:1|30}}% de probabilidad de envenenar al enemigo y reducir su velocidad de movimiento un {{s:11201:1|70}}% durante {{d:11201:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11159,7 +11827,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:458822:1|30}}% de probabilidades de envenenar al enemigo, que recibirá {{o:458820:1|108}} p. de daño de Naturaleza durante {{d:458820:1|12 s}} y {{s:458820:2|4}}% más de daño Arcano, de Fuego, de Escarcha, de Naturaleza y de las Sombras. Se acumula hasta 5 veces sobre un mismo objetivo.\r\n\r\nVeneno oculto cuenta como Veneno mortal y se beneficia de todos los talentos y efectos que modifican a Veneno mortal o se activan con él."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:458822:1|30}}% de probabilidades de envenenar al enemigo, que recibirá {{o:458820:1|108}} p. de daño de Naturaleza durante {{d:458820:1|12 s}} y {{s:458820:2|4}}% más de daño Arcano, de Fuego, de Escarcha, de Naturaleza y de las Sombras. Se acumula hasta 5 veces sobre un mismo objetivo.\r\n\r\nVeneno oculto cuenta como Veneno mortal y se beneficia de todos los talentos y efectos que modifican a Veneno mortal o se activan con él.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11269,7 +11939,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:1214168:1|30}}% de probabilidades de envenenar al enemigo, que recibirá {{o:1214170:1|136}} p. de daño de Naturaleza durante {{d:1214170:1|12 s}} y {{s:1214170:2|4}}% más de daño Arcano, de Fuego, de Escarcha, de Naturaleza y de las Sombras. Se acumula hasta 5 veces sobre un mismo objetivo.\r\n\r\nVeneno oculto cuenta como Veneno mortal y se beneficia de todos los talentos y efectos que modifican a Veneno mortal o se activan con él."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:1214168:1|30}}% de probabilidades de envenenar al enemigo, que recibirá {{o:1214170:1|136}} p. de daño de Naturaleza durante {{d:1214170:1|12 s}} y {{s:1214170:2|4}}% más de daño Arcano, de Fuego, de Escarcha, de Naturaleza y de las Sombras. Se acumula hasta 5 veces sobre un mismo objetivo.\r\n\r\nVeneno oculto cuenta como Veneno mortal y se beneficia de todos los talentos y efectos que modifican a Veneno mortal o se activan con él.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11362,7 +12034,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439465:1|30}}% de probabilidades de envenenar al enemigo, lo que reducirá en {{s:439473:1|205}} p. su poder de ataque durante {{d:439473:1|15 s}}. 105 cargas."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439465:1|30}}% de probabilidades de envenenar al enemigo, lo que reducirá en {{s:439473:1|205}} p. su poder de ataque durante {{d:439473:1|15 s}}. 105 cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11455,7 +12129,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439464:1|30}}% de probabilidades de envenenar al enemigo, lo que aumentará un {{s:439472:1|20}}% el tiempo entre sus ataques cuerpo a cuerpo durante {{d:439472:1|15 s}}. 105 cargas."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439464:1|30}}% de probabilidades de envenenar al enemigo, lo que aumentará un {{s:439472:1|20}}% el tiempo entre sus ataques cuerpo a cuerpo durante {{d:439472:1|15 s}}. 105 cargas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11548,7 +12224,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439462:1|30}}% de probabilidades de envenenar al enemigo, lo que reducirá {{s:439471:1|1700}} p. su armadura durante {{d:439471:1|15 s}}. 105 cargas.\r\n\r\nEl veneno sebáceo se beneficia del talento Exponer armadura mejorado."
+          "descriptionTemplate": "Cubre un arma con un veneno que dura 30 min.\r\nCada golpe tiene un {{c:439462:1|30}}% de probabilidades de envenenar al enemigo, lo que reducirá {{s:439471:1|1700}} p. su armadura durante {{d:439471:1|15 s}}. 105 cargas.\r\n\r\nEl veneno sebáceo se beneficia del talento Exponer armadura mejorado.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {

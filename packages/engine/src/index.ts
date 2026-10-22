@@ -16,3 +16,6 @@ export * from "./gear-effects.js";
 export * from "./power-bonus.js";
 export * from "./combat-stats.js";
 export * from "./class-base.js";
+export * from "./known-spells.js";
+export * from "./equipped.js";
+export * from "./ability-outcome.js";

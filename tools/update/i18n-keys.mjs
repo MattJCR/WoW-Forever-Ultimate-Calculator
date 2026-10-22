@@ -16,7 +16,7 @@ const files = walk(root).filter((f) => /\.tsx?$/.test(f) && !/i18n-en/.test(f));
 // Tablas de textos (valor en español, se traduce con tr al usarlas): fichero -> nombres de constantes
 const TABLES = {
   "components/gear-format.ts": ["QUALITY_NAMES", "STAT_LABELS", "INVENTORY_LABEL", "ARMOR_TYPE", "WEAPON_TYPE", "BONDING", "EFFECT_PREFIX", "CLASS_NAMES"],
-  "components/Abilities.tsx": ["POWER_LABEL", "KIND_LABEL"],
+  "components/Abilities.tsx": ["POWER_LABEL", "KIND_LABEL", "BASIS"],
   "components/ClassShell.tsx": ["VIEWS"],
   "components/StatEffects.tsx": ["FROM"],
   "components/Gear.tsx": ["ORIGIN_LABEL"],

@@ -2,6 +2,7 @@ import type { ClassStatLevel, CombatFormulas, CombatRatings } from "@wfuc/schema
 import { classBaseOf, dodgePerAgility, spiritManaPer5s } from "./class-base.js";
 import type { DerivedStats } from "./derived-stats.js";
 import { ratingPercents } from "./gear.js";
+import type { SwingEstimate } from "./power-bonus.js";
 import type { StatSource, StatTotal } from "./stat-effects.js";
 
 /**
@@ -15,7 +16,7 @@ import type { StatSource, StatTotal } from "./stat-effects.js";
  * sale de la comunidad (`community`, hojas de personaje y tooltips del juego; `combat-formulas.json`) y cada fila lo dice en `parts` y `note`.
  */
 
-export type CombatGroup = "Ataque" | "Defensa" | "Poder" | "Recursos" | "Resistencias" | "Otros bonos";
+export type CombatGroup = "Ataque" | "Armas" | "Defensa" | "Poder" | "Recursos" | "Resistencias" | "Otros bonos";
 
 export interface CombatPart {
   label: string;
@@ -104,6 +105,8 @@ export function deriveCombatStats(input: {
   classStats: ClassStatLevel | null;
   /** Reglas de la comunidad (critico y esquive base de la clase, armadura por agilidad, regeneracion por espiritu); sin ellas esas filas no se calculan. */
   rules?: { formulas: CombatFormulas; classId: number } | null;
+  /** Golpes automáticos de las armas llevadas (`autoAttacks`): salen como filas de «Armas». */
+  swings?: SwingEstimate[];
 }): CombatStats {
   const { derived, totals, classStats } = input;
   const classBase = input.rules ? classBaseOf(input.rules.formulas, input.rules.classId) : null;
@@ -181,6 +184,31 @@ export function deriveCombatStats(input: {
   const armorIgnored = take((t) => t.label === "armadura del objetivo ignorada");
   if (armorIgnored.length > 0) add({ key: "armor-ignored", group: "Ataque", label: "Armadura del objetivo ignorada", value: sum(armorIgnored), unit: "%", parts: part("talentos, Legacy y raza", sum(armorIgnored)), sources: sourcesOf(armorIgnored) });
 
+  // --- Armas: golpes automáticos (daño por segundo con la celeridad) ---------------------------------------------------
+  const swingName = { main: "la mano derecha", off: "la mano izquierda", ranged: "el arma a distancia" } as const;
+  for (const sw of input.swings ?? []) {
+    add({
+      key: `swing-${sw.hand}`,
+      group: "Armas",
+      label: `Daño por segundo con ${swingName[sw.hand]}`,
+      value: round2(sw.dps),
+      unit: "",
+      parts: [],
+      note: `Golpe de ${Math.round(sw.min)}–${Math.round(sw.max)} cada ${round2(sw.hastedSpeed)} s (${sw.formula}). Estimación con las reglas de Classic: sin críticos ni fallos.`,
+    });
+  }
+  if (input.rules && (input.swings ?? []).some((x) => x.hand === "main") && (input.swings ?? []).some((x) => x.hand === "off")) {
+    add({
+      key: "dual-wield-miss",
+      group: "Ataque",
+      label: "Fallo extra de los golpes automáticos con dos armas",
+      value: input.rules.formulas.dualWieldMissPenalty,
+      unit: "%",
+      parts: [],
+      note: "Se suma al fallo de la tabla en los ataques automáticos de las dos manos (comunidad); los golpes especiales no lo tienen.",
+    });
+  }
+
   // --- Defensa ----------------------------------------------------------------------------------------------------
   const armorPct = take((t) => t.label === "armadura de tus objetos");
   const pieces = gear?.armor ?? 0;
@@ -230,7 +258,7 @@ export function deriveCombatStats(input: {
   }
 
   const physical = gearStats["physical-damage"] ?? 0;
-  if (physical !== 0) add({ key: "physical-damage", group: "Poder", label: "Daño físico (equipo)", value: physical, unit: "pts", parts: part("tu equipo", physical), note: "«+N de daño»: se suma a cada golpe físico. Aún no entra en el daño de las habilidades." });
+  if (physical !== 0) add({ key: "physical-damage", group: "Poder", label: "Daño físico (equipo)", value: physical, unit: "pts", parts: part("tu equipo", physical), note: "«+N de daño»: se suma a cada golpe de arma, de las dos manos (golpes automáticos y habilidades de daño de arma; no a los sangrados ni a los hechizos)." });
 
   // --- Recursos ---------------------------------------------------------------------------------------------------
   if (input.rules && derived.rows.some((r) => r.key === "mana")) {

@@ -1,4 +1,4 @@
-import { collectStatEffects, STAT_CATEGORIES, type Build, type GearEffectSource, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
+import { collectStatEffects, STAT_CATEGORIES, type Build, type EquippedState, type GearEffectSource, type ClassIndex, type StatEffects, type StatSource, type StatTotal } from "@wfuc/engine";
 import type { Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
 import { useMemo } from "react";
@@ -29,10 +29,12 @@ export interface EffectsInput {
   race: Race | null;
   /** Bonos de conjunto y efectos al equipar activos (ya filtrados por el nivel del personaje). */
   gearEffects?: GearEffectSource[];
+  /** Lo que lleva el personaje (para los talentos que exigen un arma o un escudo); null = sin equipo elegido. */
+  equipped?: EquippedState;
 }
 
 /** Efectos sumados de talentos, Legacy y raza (carga las habilidades y reglas de la clase); `fx` es null mientras carga. */
-export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race, gearEffects }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
+export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild, race, gearEffects, equipped }: EffectsInput): { fx: StatEffects | null; loading: boolean } {
   const entry = manifest.abilities.find((a) => a.classId === cls.data.classId);
   const state = useAsync(entry?.file ?? "none", () => (entry ? getJson(entry.file, (v) => AbilitiesSchema.parse(v)) : Promise.resolve(null)));
   const abilities = state.status === "ready" ? state.value : null;
@@ -42,7 +44,7 @@ export function useStatEffects({ manifest, cls, classBuild, legacy, legacyBuild,
   const ruleEntry = manifest.rules.find((a) => a.classId === cls.data.classId);
   const rulesState = useAsync(ruleEntry?.file ?? "none", () => (ruleEntry ? getJson(ruleEntry.file, (v) => TalentRulesSchema.parse(v)) : Promise.resolve(null)));
   const rules = rulesState.status === "ready" ? rulesState.value : null;
-  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects]);
+  const fx = useMemo(() => collectStatEffects({ cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped }), [cls, classBuild, legacy, legacyBuild, race, abilities, rules, gearEffects, equipped]);
   return { fx, loading: state.status === "loading" || rulesState.status === "loading" };
 }
 
@@ -121,24 +123,35 @@ export function StatEffectsView({ fx, loading }: { fx: StatEffects | null; loadi
         </>
       )}
 
-      {fx.conditional.length > 0 && (
-        <details className="fx-cond" open>
-          <summary>
-            {tr("Efectos con condición o sin cifra sumable")} ({fx.conditional.length}) <span className="muted small">— {tr("procs, habilidades activas y utilidades; texto del cliente")}</span>
-          </summary>
-          <ul className="effects">
-            {fx.conditional.map((c, i) => (
-              <li key={i}>
-                <b>{nm(c.source.name)}</b> <span className="rank-chip">{c.source.rank}/{c.source.maxRank}</span> <span className="muted small">{fromText(c.source.from)}{c.active ? ` · ${tr("habilidad activa: solo vale mientras está activa")}` : ""}</span>
-                <p>{trn(c.text)}</p>
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
+      <ConditionalEffects fx={fx} open />
       <p className="muted small">
         <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta. {a} talentos aportan cifras sumadas y {b} solo tienen texto. Las cifras con el mismo alcance se suman. Los porcentajes de atributos, salud y maná se aplican en la tabla «Estadísticas base».", { a: fx.counts.quantified, b: fx.counts.conditionalOnly })}
       </p>
     </>
+  );
+}
+
+/**
+ * Efectos de talentos que no suman una cifra permanente: habilidades activas, procs y los que exigen un objeto equipado que no llevas
+ * (con el motivo). Texto del cliente: nada se descarta en silencio.
+ */
+export function ConditionalEffects({ fx, open = false }: { fx: StatEffects; open?: boolean }) {
+  if (fx.conditional.length === 0) return null;
+  const blocked = fx.conditional.filter((c) => c.blocked).length;
+  return (
+    <details className="fx-cond" open={open}>
+      <summary>
+        {tr("Efectos con condición o sin cifra sumable")} ({fx.conditional.length}){blocked > 0 ? ` · ${tr("{n} esperan un objeto equipado", { n: blocked })}` : ""} <span className="muted small">— {tr("procs, habilidades activas y utilidades; texto del cliente")}</span>
+      </summary>
+      <ul className="effects">
+        {fx.conditional.map((c, i) => (
+          <li key={i}>
+            <b>{nm(c.source.name)}</b> <span className="rank-chip">{c.source.rank}/{c.source.maxRank}</span> <span className="muted small">{fromText(c.source.from)}{c.active ? ` · ${tr("habilidad activa: solo vale mientras está activa")}` : ""}</span>
+            {c.blocked && <p className="fx-blocked"><b>{tr("No suma ahora")}</b>: {trn(c.blocked)}</p>}
+            <p>{trn(c.text)}</p>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }

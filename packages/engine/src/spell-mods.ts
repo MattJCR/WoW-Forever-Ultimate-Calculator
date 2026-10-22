@@ -1,5 +1,6 @@
 import type { AbilityEffect, AbilityRank } from "@wfuc/schema";
 import { effectAt, isWeaponDamageEffect, WEAPON_PERCENT_EFFECT } from "./abilities.js";
+import { meetsEquipped, type EquippedState } from "./equipped.js";
 import { rankOf, type Build, type ClassIndex } from "./rules.js";
 
 /** Auras de talento que modifican hechizos concretos (SpellEffect.EffectAura). */
@@ -62,13 +63,16 @@ const matches = (mask: number[], rank: AbilityRank): boolean => masksIntersect(m
 
 /**
  * Modificadores de hechizos que dan los talentos escogidos (de clase o de Legacy). Solo cuentan los talentos pasivos:
- * los de habilidad activa (Poder Arcano...) solo valen mientras esa habilidad esta activa, no son permanentes.
+ * los de habilidad activa (Poder Arcano...) solo valen mientras esa habilidad esta activa, no son permanentes. Con `equipped` (lo que lleva
+ * el personaje), los talentos que exigen un objeto equipado solo cuentan si lo lleva.
  */
-export function spellModifiersOf(idx: ClassIndex, build: Build): SpellModifier[] {
+export function spellModifiersOf(idx: ClassIndex, build: Build, equipped: EquippedState = null): SpellModifier[] {
   const out: SpellModifier[] = [];
   for (const { talent } of idx.ordered) {
     const rank = rankOf(build, talent.nodeId);
     if (rank === 0 || !talent.passive) continue;
+    // Los que exigen un objeto equipado (arma cuerpo a cuerpo, daga...) solo valen si se lleva (con equipo elegido)
+    if (!meetsEquipped(talent.equipped, equipped)) continue;
     for (const info of talent.effectInfo) {
       if (info.aura !== AURA_ADD_FLAT_MODIFIER && info.aura !== AURA_ADD_PCT_MODIFIER) continue;
       const value = talent.rankValues[rank - 1]?.[info.index];
@@ -103,6 +107,12 @@ export interface ModifiedEffect {
   final: { min: number; max: number; average: number };
   /** Fraccion de poder con hechizos (con los porcentajes de talentos aplicados). */
   coefficient: number | null;
+  /**
+   * Solo en los efectos de daño de arma: puntos planos de los modificadores (`final` = (base + flat) × factor) y el factor de % de daño (talentos y daño infligido
+   * por escuela). El golpe de arma los usa aparte: el factor multiplica el golpe entero (arma + poder de ataque), no solo el daño plano.
+   */
+  flat?: number;
+  factor?: number;
 }
 
 /** Duracion de un hechizo citado por el texto (`{{d:hechizo:1}}`, p. ej. la placa de hielo de una trampa) con los talentos que cruzan SU mascara. */
@@ -215,7 +225,7 @@ export function applyModifiers(rank: AbilityRank, level: number, all: SpellModif
     const mods = modsOf(e);
     const flat = e.effect === WEAPON_PERCENT_EFFECT ? 0 : sum(mods, "flat", ...ops);
     const factor = (1 + sum(mods, "pct", ...ops) / 100) * damageDone;
-    return { effect: e, base, final: { min: (base.min + flat) * factor, max: (base.max + flat) * factor, average: (base.average + flat) * factor }, coefficient: null };
+    return { effect: e, base, final: { min: (base.min + flat) * factor, max: (base.max + flat) * factor, average: (base.average + flat) * factor }, coefficient: null, flat, factor };
   });
   // Resto de efectos (reducciones de velocidad, aturdimientos, auras...): solo los modifican «todos los efectos» y «efecto 1/2/3»
   const otherEffects: ModifiedEffect[] = rank.effects

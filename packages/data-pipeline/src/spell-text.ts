@@ -62,6 +62,17 @@ function formatDuration(ms: number): string {
   return `${formatNumber(s / 3600)} h`;
 }
 
+/** Marcador de una condicional de la plantilla: ` condicion  rama «si»  rama «no» ` (condicion: `s123`, `a123` o varias con `|`). */
+export const CONDITION_START = "";
+export const CONDITION_SEP = "";
+export const CONDITION_END = "";
+const conditionalMarker = (condition: string, yes: string, no: string): string => `${CONDITION_START}${condition}${CONDITION_SEP}${yes}${CONDITION_SEP}${no}${CONDITION_END}`;
+
+/** La plantilla con cada condicional resuelta a su rama «no» (sin talentos): lo que cuenta el pipeline al buscar los hechizos que cita el texto. */
+export function withoutConditions(template: string): string {
+  return template.replace(new RegExp(`${CONDITION_START}[^${CONDITION_SEP}]*${CONDITION_SEP}[^${CONDITION_SEP}]*${CONDITION_SEP}([^${CONDITION_END}]*)${CONDITION_END}`, "g"), "$1");
+}
+
 /** Quita los codigos de color del cliente: |cAARRGGBB ... |r (mayusculas o minusculas). */
 const stripColors = (s: string): string => s.replace(/\|c[0-9a-f]{8}/gi, "").replace(/\|r/gi, "");
 
@@ -310,8 +321,11 @@ function expandReferences(t: SpellTables, ctx: RenderContext, text: string, dept
   out = out.replace(/\(1\+\$(\d+)[mMsS]\d\/100\)/g, (m, id: string) => (t.isPassive(Number(id)) ? "(1)" : m));
   // Mismo multiplicador con el orden invertido (`($11189s3/100+1)` = Custodia de Escarcha en Barrera de hielo, hotfix del 20/10)
   out = out.replace(/\(\$(\d+)[mMsS]\d\/100\+1\)/g, (m, id: string) => (t.isPassive(Number(id)) ? "(1)" : m));
-  // Condicionales de talento/aura: `$?a12792[con talento][sin talento]` -> la rama sin talentos (aqui no hay talentos)
-  out = out.replace(/\$\?\$?[sap]\d+(?:\|[sap]\d+)*\[([^\]]*)\]\[([^\]]*)\]/g, "$2");
+  // Condicionales de talento/aura: `$?a12792[con talento][sin talento]` -> la rama sin talentos (aqui no hay talentos). En el modo plantilla las de
+  // hechizo (`s`) y aura (`a`) se dejan: el hueco `$?` del analizador las convierte en un marcador con las dos ramas y el motor elige con los talentos escogidos
+  out = out.replace(/\$\?(\$?)([sap]\d+(?:\|[sap]\d+)*)\[([^\]]*)\]\[([^\]]*)\]/g, (m, dollar: string, cond: string, yes: string, no: string) =>
+    ctx.slots && !dollar && /^[sa]\d+(?:\|[sa]\d+)*$/.test(cond) && yes !== no ? m : no,
+  );
   // Poder de ataque: `${1+$AP*$m3/100}` -> «un 15% de tu poder de ataque» (el poder no se calcula: no hay estadisticas de Forever)
   const en = locale === "en";
   out = out.replace(/\$\{(?:(\d+(?:\.\d+)?)\+)?\$AP\*(\$\d*[mMsS]\d)\/100\}/g, (_m, k: string | undefined, ref: string) =>
@@ -552,7 +566,8 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
     }
 
     // $?condicion[si][no]: depende del personaje. Si las dos ramas dicen lo mismo (solo cambia el color)
-    // da igual cual; si no, se elige la ultima y se marca incompleto.
+    // da igual cual; si no, se elige la ultima y se marca incompleto. En el modo plantilla, `$?s123[si][no]` / `$?a123[si][no]` («si conoces el
+    // hechizo / tienes el aura 123») se deja como marcador con las dos ramas ya renderizadas: lo resuelve el motor con los talentos escogidos.
     const cond = /^\$\?[^\[]*/.exec(rest);
     if (cond) {
       let j = i + cond[0].length;
@@ -562,6 +577,17 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
         if (close < 0) break;
         branches.push(stripColors(src.slice(j + 1, close)));
         j = close + 1;
+      }
+      const condition = cond[0].slice(2);
+      if (ctx.slots && branches.length === 2 && /^[sa]\d+(?:\|[sa]\d+)*$/.test(condition) && branches[0] !== branches[1]) {
+        const yes = renderSpellText(t, branches[0]!, ctx);
+        const no = renderSpellText(t, branches[1]!, ctx);
+        approximate ||= yes.approximate || no.approximate;
+        // La rama «con talento» que no se puede calcular (${($7376s3+100)*($12792s1/100+1)-100}: Desafío) no se ofrece: queda la rama sin talentos
+        if (!yes.complete) complete = false;
+        out += yes.text === no.text || !yes.complete ? no.text : conditionalMarker(condition, yes.text, no.text);
+        i = j;
+        continue;
       }
       if (new Set(branches).size > 1) complete = false;
       out += branches[branches.length - 1] ?? "";

@@ -8,6 +8,7 @@
       "definitionId": 134433,
       "spellId": 19559,
       "name": "Encontrar camino",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -56,6 +57,7 @@
       "definitionId": 134475,
       "spellId": 19421,
       "name": "Marca del cazador mejorada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -108,6 +110,7 @@
       "definitionId": 134817,
       "spellId": 1224553,
       "name": "Luz santificada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -160,6 +163,7 @@
       "definitionId": 134821,
       "spellId": 20254,
       "name": "Aura de concentración mejorada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -236,6 +240,7 @@
       "definitionId": 134823,
       "spellId": 1310902,
       "name": "Golpe Sagrado mejorado",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -284,6 +289,7 @@
       "definitionId": 135156,
       "spellId": 407669,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -311,6 +317,7 @@
       "definitionId": 135160,
       "spellId": 415059,
       "name": "Custodiado por la Luz",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -355,6 +362,7 @@
       "definitionId": 135165,
       "spellId": 1224692,
       "name": "Divinidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -432,6 +440,7 @@
       "definitionId": 135225,
       "spellId": 426158,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -461,6 +470,7 @@
       "definitionId": 135255,
       "spellId": 432259,
       "name": "Potencia de combate",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -507,6 +517,13 @@
       "definitionId": 135259,
       "spellId": 13709,
       "name": "Cortar y rebanar",
+      "equipped": [
+        {
+          "itemClass": 2,
+          "invTypeMask": 0,
+          "subclassMask": 48
+        }
+      ],
       "effectInfo": [
         {
           "index": 0,
@@ -565,6 +582,7 @@
       "definitionId": 135261,
       "spellId": 13712,
       "name": "Reflejos de relámpago",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -615,6 +633,7 @@
       "definitionId": 135264,
       "spellId": 1289849,
       "name": "Daga de guardamano",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -667,6 +686,7 @@
       "definitionId": 135274,
       "spellId": 30902,
       "name": "Letalidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -727,6 +747,7 @@
       "definitionId": 135288,
       "spellId": 30892,
       "name": "Prestidigitación",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -789,6 +810,7 @@
       "definitionId": 135303,
       "spellId": 11151,
       "name": "Hielo penetrante",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -856,6 +878,7 @@
       "definitionId": 135352,
       "spellId": 17322,
       "name": "Alcance de las Sombras",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -904,6 +927,7 @@
       "definitionId": 135357,
       "spellId": 15273,
       "name": "Explosión mental mejorada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -964,6 +988,13 @@
       "definitionId": 135377,
       "spellId": 14524,
       "name": "Especialización en varitas",
+      "equipped": [
+        {
+          "itemClass": 2,
+          "invTypeMask": 0,
+          "subclassMask": 524288
+        }
+      ],
       "effectInfo": [
         {
           "index": 0,
@@ -1010,6 +1041,7 @@
       "definitionId": 135446,
       "spellId": 18218,
       "name": "Alcance macabro",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1058,6 +1090,7 @@
       "definitionId": 135460,
       "spellId": 1225295,
       "name": "Precisión",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1123,6 +1156,7 @@
       "definitionId": 135467,
       "spellId": 12329,
       "name": "Mella mejorada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1175,6 +1209,7 @@
       "definitionId": 135471,
       "spellId": 1310310,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -1210,6 +1245,13 @@
       "definitionId": 135474,
       "spellId": 12281,
       "name": "Maestro de armas",
+      "equipped": [
+        {
+          "itemClass": 2,
+          "invTypeMask": 0,
+          "subclassMask": 384
+        }
+      ],
       "effectInfo": [
         {
           "index": 0,
@@ -1268,6 +1310,13 @@
       "definitionId": 135477,
       "spellId": 12700,
       "name": "Maestro de armas",
+      "equipped": [
+        {
+          "itemClass": 2,
+          "invTypeMask": 0,
+          "subclassMask": 131139
+        }
+      ],
       "effectInfo": [
         {
           "index": 0,
@@ -1326,6 +1375,13 @@
       "definitionId": 135491,
       "spellId": 16538,
       "name": "Bastión",
+      "equipped": [
+        {
+          "itemClass": 4,
+          "invTypeMask": 0,
+          "subclassMask": 64
+        }
+      ],
       "effectInfo": [
         {
           "index": 0,
@@ -1384,6 +1440,7 @@
       "definitionId": 135504,
       "spellId": 12299,
       "name": "Dureza",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1459,6 +1516,7 @@
       "definitionId": 135512,
       "spellId": 1225509,
       "name": "Adaptabilidad",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -1488,6 +1546,7 @@
       "definitionId": 135513,
       "spellId": 1225508,
       "name": "Segunda oportunidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1530,6 +1589,7 @@
       "definitionId": 135514,
       "spellId": 1225506,
       "name": "Héroe conquistador",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1580,6 +1640,7 @@
       "definitionId": 135515,
       "spellId": 1225505,
       "name": "Recuperación rápida",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1638,6 +1699,7 @@
       "definitionId": 135516,
       "spellId": 1225504,
       "name": "Es cuestión de química",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1696,6 +1758,7 @@
       "definitionId": 135517,
       "spellId": 1225503,
       "name": "Ahorro de componentes",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1738,6 +1801,7 @@
       "definitionId": 135518,
       "spellId": 1225502,
       "name": "Permanencia",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1798,6 +1862,7 @@
       "definitionId": 135519,
       "spellId": 1225501,
       "name": "Por gran honor",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1856,6 +1921,7 @@
       "definitionId": 135520,
       "spellId": 1225485,
       "name": "Estudio dedicado",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1914,6 +1980,7 @@
       "definitionId": 135521,
       "spellId": 1225499,
       "name": "Gastronomía",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -1964,6 +2031,7 @@
       "definitionId": 135522,
       "spellId": 1225500,
       "name": "Este muerto está muy vivo",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2024,6 +2092,7 @@
       "definitionId": 135523,
       "spellId": 1225497,
       "name": "Refuerzo",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2082,6 +2151,7 @@
       "definitionId": 135524,
       "spellId": 1225494,
       "name": "Segundo hogar",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -2111,6 +2181,7 @@
       "definitionId": 135525,
       "spellId": 1225493,
       "name": "Banca personal",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2153,6 +2224,7 @@
       "definitionId": 135526,
       "spellId": 1225492,
       "name": "Hacerse el muerto",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2203,6 +2275,7 @@
       "definitionId": 135527,
       "spellId": 1225491,
       "name": "Maestro nadador",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2263,6 +2336,7 @@
       "definitionId": 135528,
       "spellId": 1225490,
       "name": "Viajero frecuente",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2318,6 +2392,7 @@
       "definitionId": 135529,
       "spellId": 1225487,
       "name": "Estómago de hierro",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2368,6 +2443,7 @@
       "definitionId": 135530,
       "spellId": 1225498,
       "name": "Montar",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2426,6 +2502,7 @@
       "definitionId": 135531,
       "spellId": 1225479,
       "name": "Guía de campo",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2476,6 +2553,7 @@
       "definitionId": 135532,
       "spellId": 1225474,
       "name": "Talentoso",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2551,6 +2629,7 @@
       "definitionId": 135533,
       "spellId": 1225477,
       "name": "Alerta máxima",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2597,6 +2676,7 @@
       "definitionId": 135534,
       "spellId": 1225475,
       "name": "Medicina de campo",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2643,6 +2723,7 @@
       "definitionId": 135535,
       "spellId": 1225478,
       "name": "Bien descansado",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2735,6 +2816,7 @@
       "definitionId": 135536,
       "spellId": 1225472,
       "name": "Emoción de la aventura",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2793,6 +2875,7 @@
       "definitionId": 135537,
       "spellId": 1225470,
       "name": "Esencia de innovación",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -2822,6 +2905,7 @@
       "definitionId": 135538,
       "spellId": 1225469,
       "name": "Estudio dedicado",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -2851,6 +2935,7 @@
       "definitionId": 135539,
       "spellId": 1225468,
       "name": "Maestro batidor",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -2946,6 +3031,7 @@
       "definitionId": 135540,
       "spellId": 1225465,
       "name": "Meticulosidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3004,6 +3090,7 @@
       "definitionId": 135541,
       "spellId": 1225461,
       "name": "Salvaging - NYI",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -3033,6 +3120,7 @@
       "definitionId": 135542,
       "spellId": 1225460,
       "name": "Optimization - NYI",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3091,6 +3179,7 @@
       "definitionId": 135543,
       "spellId": 1225459,
       "name": "Regateando",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3137,6 +3226,7 @@
       "definitionId": 135544,
       "spellId": 1225457,
       "name": "Maestro cocinero",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3195,6 +3285,7 @@
       "definitionId": 135545,
       "spellId": 1225456,
       "name": "Bonus de rendimiento",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3245,6 +3336,7 @@
       "definitionId": 135547,
       "spellId": 1225451,
       "name": "Horas extra",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3303,6 +3395,7 @@
       "definitionId": 135548,
       "spellId": 1225435,
       "name": "Cosecha generosa",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3378,6 +3471,7 @@
       "definitionId": 137633,
       "spellId": 20234,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -3405,6 +3499,7 @@
       "definitionId": 137673,
       "spellId": 24858,
       "name": "Forma de lechúcico lunar",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3502,6 +3597,7 @@
       "definitionId": 138157,
       "spellId": 16757,
       "name": "Alcance ártico",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3559,6 +3655,7 @@
       "definitionId": 138286,
       "spellId": 30919,
       "name": "Experiencia con armas",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3601,6 +3698,7 @@
       "definitionId": 141603,
       "spellId": 1225470,
       "name": "Esencia de innovación",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -3630,6 +3728,7 @@
       "definitionId": 141608,
       "spellId": 1225465,
       "name": "Meticulosidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3688,6 +3787,7 @@
       "definitionId": 141609,
       "spellId": 1225468,
       "name": "Maestro batidor",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3797,6 +3897,7 @@
       "definitionId": 141610,
       "spellId": 1225469,
       "name": "Estudio dedicado",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -3826,6 +3927,7 @@
       "definitionId": 141614,
       "spellId": 1225460,
       "name": "Optimization - NYI",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3884,6 +3986,7 @@
       "definitionId": 141617,
       "spellId": 1225494,
       "name": "Segundo hogar",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -3913,6 +4016,7 @@
       "definitionId": 141620,
       "spellId": 1225491,
       "name": "Maestro nadador",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -3973,6 +4077,7 @@
       "definitionId": 141622,
       "spellId": 1225485,
       "name": "Estudio dedicado",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4031,6 +4136,7 @@
       "definitionId": 141623,
       "spellId": 1225492,
       "name": "Hacerse el muerto",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4089,6 +4195,7 @@
       "definitionId": 141625,
       "spellId": 1225487,
       "name": "Estómago de hierro",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4139,6 +4246,7 @@
       "definitionId": 141626,
       "spellId": 1225493,
       "name": "Banca personal",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4181,6 +4289,7 @@
       "definitionId": 141635,
       "spellId": 1225504,
       "name": "Es cuestión de química",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4239,6 +4348,7 @@
       "definitionId": 141636,
       "spellId": 1225505,
       "name": "Recuperación rápida",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4297,6 +4407,7 @@
       "definitionId": 141637,
       "spellId": 1225506,
       "name": "Héroe conquistador",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4355,6 +4466,7 @@
       "definitionId": 141638,
       "spellId": 1225508,
       "name": "Segunda oportunidad",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4397,6 +4509,7 @@
       "definitionId": 141639,
       "spellId": 1225509,
       "name": "Adaptabilidad",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -4426,6 +4539,7 @@
       "definitionId": 0,
       "spellId": null,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": true,
@@ -4449,6 +4563,7 @@
       "definitionId": 142142,
       "spellId": 18731,
       "name": "Vitalidad vil",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4506,6 +4621,7 @@
       "definitionId": 142143,
       "spellId": 18788,
       "name": "Sacrificio demoníaco",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -4535,6 +4651,7 @@
       "definitionId": 142152,
       "spellId": 12299,
       "name": "Dureza",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4590,6 +4707,7 @@
       "definitionId": 142589,
       "spellId": 1309389,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -4625,6 +4743,7 @@
       "definitionId": 142613,
       "spellId": 1310661,
       "name": "Picaduras mejoradas",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4707,6 +4826,7 @@
       "definitionId": 142614,
       "spellId": 1310709,
       "name": "Golpe de gracia",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4755,6 +4875,7 @@
       "definitionId": 142615,
       "spellId": 1310709,
       "name": "Golpe de gracia",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4803,6 +4924,7 @@
       "definitionId": 142617,
       "spellId": 1310711,
       "name": "Ejecución impecable",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4851,6 +4973,7 @@
       "definitionId": 142621,
       "spellId": 0,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -4878,6 +5001,7 @@
       "definitionId": 142629,
       "spellId": 18788,
       "name": "Sacrificio demoníaco",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -4907,6 +5031,7 @@
       "definitionId": 142633,
       "spellId": 1311083,
       "name": "Cruzada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -4969,6 +5094,7 @@
       "definitionId": 142635,
       "spellId": 1311083,
       "name": "Cruzada",
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,
@@ -5031,6 +5157,7 @@
       "definitionId": 145486,
       "spellId": 1317256,
       "name": "Desconocido",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": true,
@@ -5060,6 +5187,7 @@
       "definitionId": 145488,
       "spellId": 1317256,
       "name": "Desconocido",
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": true,
@@ -5089,6 +5217,7 @@
       "definitionId": 145858,
       "spellId": 1322612,
       "name": null,
+      "equipped": [],
       "effectInfo": [],
       "textOrigin": "client",
       "passive": false,
@@ -5134,6 +5263,7 @@
           "entryId": 128295,
           "spellId": 11210,
           "name": "Sutileza Arcana",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5192,6 +5322,7 @@
           "entryId": 128296,
           "spellId": 11222,
           "name": "Enfoque Arcano",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5248,6 +5379,7 @@
           "entryId": 128297,
           "spellId": 11237,
           "name": "Canalización mejorada",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5321,6 +5453,7 @@
           "entryId": 128299,
           "spellId": 11103,
           "name": "Impacto",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5377,6 +5510,7 @@
           "entryId": 128298,
           "spellId": 11069,
           "name": "Bola de Fuego mejorada",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5433,6 +5567,7 @@
           "entryId": 128302,
           "spellId": 29438,
           "name": "Enfoque elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5481,6 +5616,7 @@
           "entryId": 128300,
           "spellId": 11189,
           "name": "Custodia de Escarcha",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5553,6 +5689,7 @@
           "entryId": 128301,
           "spellId": 11070,
           "name": "Descarga de Escarcha mejorada",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5609,6 +5746,13 @@
           "entryId": 128303,
           "spellId": 6057,
           "name": "Especialización en varitas",
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 524288
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -5667,6 +5811,7 @@
           "entryId": 128620,
           "spellId": 0,
           "name": null,
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -5710,6 +5855,7 @@
           "entryId": 129383,
           "spellId": 16039,
           "name": "Convección",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5766,6 +5912,7 @@
           "entryId": 129382,
           "spellId": 16035,
           "name": "Concusión",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5822,6 +5969,7 @@
           "entryId": 129381,
           "spellId": 28996,
           "name": "Custodia elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5870,6 +6018,7 @@
           "entryId": 129380,
           "spellId": 16038,
           "name": "Llamada de la llama",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5948,6 +6097,7 @@
           "entryId": 129379,
           "spellId": 30160,
           "name": "Devastación elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -5996,6 +6146,7 @@
           "entryId": 129378,
           "spellId": 16164,
           "name": "Enfoque elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6036,6 +6187,7 @@
           "entryId": 129377,
           "spellId": 16040,
           "name": "Reverberación",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6092,6 +6244,7 @@
           "entryId": 129376,
           "spellId": 16089,
           "name": "Furia elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6153,6 +6306,7 @@
           "entryId": 129374,
           "spellId": 16086,
           "name": "Prueba de fuego",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6225,6 +6379,7 @@
           "entryId": 129373,
           "spellId": 29062,
           "name": "Ojo de la tormenta",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6273,6 +6428,7 @@
           "entryId": 129372,
           "spellId": 16120,
           "name": "Llamada del trueno",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6313,6 +6469,7 @@
           "entryId": 129371,
           "spellId": 28999,
           "name": "Alcance elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6385,6 +6542,7 @@
           "entryId": 129369,
           "spellId": 408438,
           "name": "Sobrecarga de relámpagos",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6438,6 +6596,7 @@
           "entryId": 129370,
           "spellId": 1222988,
           "name": "Vinculado a la tierra",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6478,6 +6637,7 @@
           "entryId": 129375,
           "spellId": 16578,
           "name": "Prontitud elemental",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6531,6 +6691,7 @@
           "entryId": 129368,
           "spellId": 408490,
           "name": "Ráfaga de lava",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -6581,6 +6742,7 @@
           "entryId": 129470,
           "spellId": 16814,
           "name": "Cólera mejorada",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6654,6 +6816,7 @@
           "entryId": 129469,
           "spellId": 1223081,
           "name": "Génesis",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6727,6 +6890,7 @@
           "entryId": 129455,
           "spellId": 16934,
           "name": "Ferocidad",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6800,6 +6964,7 @@
           "entryId": 129454,
           "spellId": 17003,
           "name": "Corazón de lo Salvaje",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6890,6 +7055,7 @@
           "entryId": 129436,
           "spellId": 17063,
           "name": "Enfoque de la naturaleza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -6946,6 +7112,7 @@
           "entryId": 129435,
           "spellId": 17056,
           "name": "Furor",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7019,6 +7186,7 @@
           "entryId": 129468,
           "spellId": 16845,
           "name": "Brillo lunar",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7067,6 +7235,7 @@
           "entryId": 129467,
           "spellId": 1223082,
           "name": "Majestuosidad de la naturaleza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7116,6 +7285,7 @@
           "entryId": null,
           "spellId": null,
           "name": null,
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": true,
@@ -7142,6 +7312,7 @@
           "entryId": 129453,
           "spellId": 16947,
           "name": "Instinto feral",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7205,6 +7376,7 @@
           "entryId": 129452,
           "spellId": 16940,
           "name": "Impacto brutal",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7263,6 +7435,7 @@
           "entryId": 129451,
           "spellId": 16929,
           "name": "Pellejo grueso",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7336,6 +7509,7 @@
           "entryId": 129450,
           "spellId": 17002,
           "name": "Presteza feral",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7394,6 +7568,7 @@
           "entryId": 129465,
           "spellId": 16918,
           "name": "Enredaderas",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7442,6 +7617,7 @@
           "entryId": 129464,
           "spellId": 1223083,
           "name": "Esplendor de la naturaleza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7513,6 +7689,7 @@
           "entryId": 129463,
           "spellId": 16819,
           "name": "Alcance de la naturaleza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7585,6 +7762,7 @@
           "entryId": 129448,
           "spellId": 16979,
           "name": "Carga feral (oso)",
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -7613,6 +7791,7 @@
           "entryId": 129447,
           "spellId": 16942,
           "name": "Garras afiladas",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7666,6 +7845,7 @@
           "entryId": 129449,
           "spellId": 16998,
           "name": "Furia salvaje",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7729,6 +7909,7 @@
           "entryId": 129462,
           "spellId": 5570,
           "name": "Enjambre de insectos",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7782,6 +7963,7 @@
           "entryId": 129461,
           "spellId": 16909,
           "name": "Venganza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7843,6 +8025,7 @@
           "entryId": 129460,
           "spellId": 408248,
           "name": "Eclipse",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7936,6 +8119,7 @@
           "entryId": 129446,
           "spellId": 16966,
           "name": "Ataques trituradores",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -7994,6 +8178,7 @@
           "entryId": 129445,
           "spellId": 0,
           "name": null,
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -8028,6 +8213,7 @@
           "entryId": 129444,
           "spellId": 16958,
           "name": "Frenesí sangriento",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8091,6 +8277,7 @@
           "entryId": 129443,
           "spellId": 22571,
           "name": null,
+          "equipped": [],
           "effectInfo": [],
           "textOrigin": "client",
           "passive": false,
@@ -8121,6 +8308,7 @@
           "entryId": 129459,
           "spellId": 16880,
           "name": "Gracia de la naturaleza",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8161,6 +8349,7 @@
           "entryId": 129458,
           "spellId": 408258,
           "name": "Estado onírico",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8209,6 +8398,7 @@
           "entryId": 129442,
           "spellId": 1223242,
           "name": "Instinto natural",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8267,6 +8457,7 @@
           "entryId": 129441,
           "spellId": 417141,
           "name": "Rabia",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8351,6 +8542,7 @@
           "entryId": 129438,
           "spellId": 417051,
           "name": "Reacción natural",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8458,6 +8650,7 @@
           "entryId": 129457,
           "spellId": 16896,
           "name": "Furia de luna",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8514,6 +8707,7 @@
           "entryId": 129440,
           "spellId": 417046,
           "name": "Rey de la selva",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8587,6 +8781,7 @@
           "entryId": 129439,
           "spellId": 1223246,
           "name": "Desgarrar y rasgar",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8648,6 +8843,7 @@
           "entryId": 129456,
           "spellId": 24858,
           "name": "Forma de lechúcico lunar",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -8741,6 +8937,7 @@
           "entryId": 129437,
           "spellId": 17007,
           "name": "Líder de la manada",
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

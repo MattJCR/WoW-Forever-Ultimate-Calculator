@@ -30,6 +30,7 @@
           "spellId": 16814,
           "name": "Cólera mejorada",
           "iconFileDataId": 136006,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -117,6 +118,7 @@
           "spellId": 1223081,
           "name": "Génesis",
           "iconFileDataId": 135730,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -204,6 +206,7 @@
           "spellId": 16845,
           "name": "Brillo lunar",
           "iconFileDataId": 136087,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -267,6 +270,7 @@
           "spellId": 16821,
           "name": "Fuegolunar mejorado",
           "iconFileDataId": 136096,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -364,6 +368,7 @@
           "spellId": 1223082,
           "name": "Majestuosidad de la naturaleza",
           "iconFileDataId": 135138,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -428,6 +433,7 @@
           "spellId": 16819,
           "name": "Alcance de la naturaleza",
           "iconFileDataId": 136065,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -525,6 +531,7 @@
           "spellId": 16918,
           "name": "Enredaderas",
           "iconFileDataId": 136100,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -592,6 +599,7 @@
           "spellId": 1223083,
           "name": "Esplendor de la naturaleza",
           "iconFileDataId": 136061,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -676,6 +684,7 @@
           "spellId": 5570,
           "name": "Enjambre de insectos",
           "iconFileDataId": 136045,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -744,6 +753,7 @@
           "spellId": 16909,
           "name": "Venganza",
           "iconFileDataId": 136075,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -826,6 +836,7 @@
           "spellId": 16850,
           "name": "Fuego estelar mejorado",
           "iconFileDataId": 135753,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -925,6 +936,7 @@
           "spellId": 17245,
           "name": "Sobrecrecimiento",
           "iconFileDataId": 134196,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -993,6 +1005,7 @@
           "spellId": 16880,
           "name": "Gracia de la naturaleza",
           "iconFileDataId": 136062,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1051,6 +1064,7 @@
           "spellId": 408248,
           "name": "Eclipse",
           "iconFileDataId": 236151,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1173,6 +1187,7 @@
           "spellId": 16896,
           "name": "Furia de luna",
           "iconFileDataId": 136057,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1256,6 +1271,7 @@
           "spellId": 24858,
           "name": "Forma de lechúcico lunar",
           "iconFileDataId": 136036,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1381,6 +1397,7 @@
           "spellId": 16934,
           "name": "Ferocidad",
           "iconFileDataId": 132190,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1468,6 +1485,7 @@
           "spellId": 17003,
           "name": "Corazón de lo Salvaje",
           "iconFileDataId": 135879,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1577,6 +1595,7 @@
           "spellId": 17002,
           "name": "Presteza feral",
           "iconFileDataId": 136095,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1655,6 +1674,7 @@
           "spellId": 16947,
           "name": "Instinto feral",
           "iconFileDataId": 132089,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1738,6 +1758,7 @@
           "spellId": 16940,
           "name": "Impacto brutal",
           "iconFileDataId": 132114,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1816,6 +1837,7 @@
           "spellId": 16929,
           "name": "Pellejo grueso",
           "iconFileDataId": 134355,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1899,6 +1921,7 @@
           "spellId": 16966,
           "name": "Ataques trituradores",
           "iconFileDataId": 136231,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1986,6 +2009,7 @@
           "spellId": 16998,
           "name": "Furia salvaje",
           "iconFileDataId": 132141,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2068,6 +2092,7 @@
           "spellId": 1238122,
           "name": "Carga feral",
           "iconFileDataId": 132183,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2109,6 +2134,7 @@
           "spellId": 16942,
           "name": "Garras afiladas",
           "iconFileDataId": 134297,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2172,6 +2198,7 @@
           "spellId": 1322605,
           "name": "Poder cambiante",
           "iconFileDataId": 538514,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2221,6 +2248,7 @@
           "spellId": 407995,
           "name": "Mordisco primigenio",
           "iconFileDataId": 132278,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2271,6 +2299,7 @@
           "spellId": 16972,
           "name": "Golpes depredadores",
           "iconFileDataId": 132185,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2357,6 +2386,7 @@
           "spellId": 16958,
           "name": "Frenesí sangriento",
           "iconFileDataId": 132152,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2448,6 +2478,7 @@
           "spellId": 1322670,
           "name": "Poder cambiante mejorado",
           "iconFileDataId": 236172,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2524,6 +2555,7 @@
           "spellId": 17007,
           "name": "Líder de la manada",
           "iconFileDataId": 136112,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2585,6 +2617,7 @@
           "spellId": 1223242,
           "name": "Instinto natural",
           "iconFileDataId": 132138,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2675,6 +2708,7 @@
           "spellId": 417051,
           "name": "Reacción natural",
           "iconFileDataId": 132091,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2817,6 +2851,7 @@
           "spellId": 1223246,
           "name": "Desgarrar y rasgar",
           "iconFileDataId": 236164,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2908,6 +2943,7 @@
           "spellId": 417141,
           "name": "Rabia",
           "iconFileDataId": 236149,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3028,6 +3064,7 @@
           "spellId": 17063,
           "name": "Enfoque de la naturaleza",
           "iconFileDataId": 136042,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3093,6 +3130,7 @@
           "spellId": 17056,
           "name": "Furor",
           "iconFileDataId": 135881,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3180,6 +3218,7 @@
           "spellId": 17069,
           "name": "Naturalista",
           "iconFileDataId": 136041,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3273,6 +3312,7 @@
           "spellId": 17118,
           "name": "Sutileza",
           "iconFileDataId": 132150,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3336,6 +3376,7 @@
           "spellId": 16833,
           "name": "Metamorfosis natural",
           "iconFileDataId": 136116,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3399,6 +3440,7 @@
           "spellId": 17106,
           "name": "Refracción",
           "iconFileDataId": 135863,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3465,6 +3507,7 @@
           "spellId": 17104,
           "name": "Regalo de la Naturaleza",
           "iconFileDataId": 136074,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3561,6 +3604,7 @@
           "spellId": 414673,
           "name": "Don de la Madre Tierra",
           "iconFileDataId": 136094,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3613,6 +3657,7 @@
           "spellId": 24968,
           "name": "Espíritu sosegado",
           "iconFileDataId": 135900,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3690,6 +3735,7 @@
           "spellId": 17111,
           "name": "Rejuvenecimiento mejorado",
           "iconFileDataId": 136081,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3759,6 +3805,7 @@
           "spellId": 18562,
           "name": "Arreglo rápido",
           "iconFileDataId": 134914,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3801,6 +3848,7 @@
           "spellId": 17116,
           "name": "Rapidez de la Naturaleza",
           "iconFileDataId": 136076,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3864,6 +3912,7 @@
           "spellId": 1309631,
           "name": "Espíritu vivo",
           "iconFileDataId": 136037,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3936,6 +3985,7 @@
           "spellId": 17123,
           "name": "Tranquilidad mejorada",
           "iconFileDataId": 136107,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -4023,6 +4073,7 @@
           "spellId": 17074,
           "name": "Recrecimiento mejorado",
           "iconFileDataId": 136085,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -4111,6 +4162,7 @@
           "spellId": 408120,
           "name": "Crecimiento salvaje",
           "iconFileDataId": 236153,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

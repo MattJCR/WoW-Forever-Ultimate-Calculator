@@ -30,6 +30,13 @@
           "spellId": 6057,
           "name": "Especialización en varitas",
           "iconFileDataId": 135463,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 524288
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -83,6 +90,7 @@
           "spellId": 11222,
           "name": "Enfoque Arcano",
           "iconFileDataId": 135892,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -148,6 +156,7 @@
           "spellId": 11237,
           "name": "Canalización mejorada",
           "iconFileDataId": 136096,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -235,6 +244,7 @@
           "spellId": 400588,
           "name": "Tromba de misiles",
           "iconFileDataId": 236221,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -302,6 +312,7 @@
           "spellId": 11210,
           "name": "Sutileza Arcana",
           "iconFileDataId": 135894,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -382,6 +393,7 @@
           "spellId": 29441,
           "name": "Absorción mágica",
           "iconFileDataId": 136011,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -462,6 +474,7 @@
           "spellId": 11213,
           "name": "Concentración Arcana",
           "iconFileDataId": 136170,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -552,6 +565,7 @@
           "spellId": 28574,
           "name": "Recuperación Arcana",
           "iconFileDataId": 135733,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -613,6 +627,7 @@
           "spellId": 11247,
           "name": "Geometría Arcana",
           "iconFileDataId": 6035311,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -678,6 +693,7 @@
           "spellId": 11242,
           "name": "Impacto Arcano",
           "iconFileDataId": 136116,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -747,6 +763,7 @@
           "spellId": 400574,
           "name": "Explosión Arcana",
           "iconFileDataId": 135735,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -789,6 +806,7 @@
           "spellId": 11252,
           "name": "Protección Arcana",
           "iconFileDataId": 136153,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -876,6 +894,7 @@
           "spellId": 11255,
           "name": "Contrahechizo mejorado",
           "iconFileDataId": 135856,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -944,6 +963,7 @@
           "spellId": 18462,
           "name": "Meditación Arcana",
           "iconFileDataId": 136208,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1021,6 +1041,7 @@
           "spellId": 1326079,
           "name": "Cólera Arcana",
           "iconFileDataId": 236222,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1072,6 +1093,7 @@
           "spellId": 12043,
           "name": "Presencia mental",
           "iconFileDataId": 136031,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1134,6 +1156,7 @@
           "spellId": 11232,
           "name": "Mente Arcana",
           "iconFileDataId": 136129,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1240,6 +1263,7 @@
           "spellId": 15058,
           "name": "Inestabilidad Arcana",
           "iconFileDataId": 136222,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1358,6 +1382,7 @@
           "spellId": 12042,
           "name": "Poder Arcano",
           "iconFileDataId": 136048,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1464,6 +1489,7 @@
           "spellId": 11078,
           "name": "Explosión de Fuego mejorada",
           "iconFileDataId": 135819,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1536,6 +1562,7 @@
           "spellId": 18459,
           "name": "Incineración",
           "iconFileDataId": 135813,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1593,6 +1620,7 @@
           "spellId": 11069,
           "name": "Bola de Fuego mejorada",
           "iconFileDataId": 135812,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1658,6 +1686,7 @@
           "spellId": 11119,
           "name": "Ignición",
           "iconFileDataId": 135818,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1730,6 +1759,7 @@
           "spellId": 11100,
           "name": "Lanzallamas",
           "iconFileDataId": 135815,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1790,6 +1820,7 @@
           "spellId": 11103,
           "name": "Impacto",
           "iconFileDataId": 135821,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1854,6 +1885,7 @@
           "spellId": 11083,
           "name": "Alma ardiente",
           "iconFileDataId": 135805,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1941,6 +1973,7 @@
           "spellId": 11108,
           "name": "Fogonazo mejorado",
           "iconFileDataId": 135826,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2008,6 +2041,7 @@
           "spellId": 11366,
           "name": "Piroexplosión",
           "iconFileDataId": 135808,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,
@@ -2062,6 +2096,7 @@
           "spellId": 11095,
           "name": "Chamuscar mejorado",
           "iconFileDataId": 135827,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2132,6 +2167,7 @@
           "spellId": 11094,
           "name": "Custodia de Fuego mejorada",
           "iconFileDataId": 135806,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2198,6 +2234,7 @@
           "spellId": 400624,
           "name": "Calentamiento",
           "iconFileDataId": 135809,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2259,6 +2296,7 @@
           "spellId": 29074,
           "name": "Maestro de los elementos",
           "iconFileDataId": 135820,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2329,6 +2367,7 @@
           "spellId": 11115,
           "name": "Masa crítica",
           "iconFileDataId": 136115,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2411,6 +2450,7 @@
           "spellId": 11113,
           "name": "Ola explosiva",
           "iconFileDataId": 135903,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 1,
@@ -2472,6 +2512,7 @@
           "spellId": 11124,
           "name": "Poder de Fuego",
           "iconFileDataId": 135817,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2563,6 +2604,7 @@
           "spellId": 11129,
           "name": "Combustión",
           "iconFileDataId": 135824,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2642,6 +2684,7 @@
           "spellId": 11189,
           "name": "Custodia de Escarcha",
           "iconFileDataId": 135850,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2733,6 +2776,7 @@
           "spellId": 11070,
           "name": "Descarga de Escarcha mejorada",
           "iconFileDataId": 135846,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2798,6 +2842,7 @@
           "spellId": 29438,
           "name": "Enfoque elemental",
           "iconFileDataId": 135989,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2855,6 +2900,7 @@
           "spellId": 11207,
           "name": "Fragmentos de hielo",
           "iconFileDataId": 135855,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2927,6 +2973,7 @@
           "spellId": 11071,
           "name": "Mordiescarcha",
           "iconFileDataId": 135842,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2991,6 +3038,7 @@
           "spellId": 11165,
           "name": "Nova de Escarcha mejorada",
           "iconFileDataId": 135840,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3051,6 +3099,7 @@
           "spellId": 11175,
           "name": "Escarcha permanente",
           "iconFileDataId": 135864,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3135,6 +3184,7 @@
           "spellId": 11160,
           "name": "Canalización de Escarcha",
           "iconFileDataId": 135860,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3223,6 +3273,7 @@
           "spellId": 11185,
           "name": "Ventisca mejorada",
           "iconFileDataId": 135857,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3291,6 +3342,7 @@
           "spellId": 1312002,
           "name": "Lanza de hielo",
           "iconFileDataId": 135844,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3335,6 +3387,7 @@
           "spellId": 16757,
           "name": "Alcance ártico",
           "iconFileDataId": 136141,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3421,6 +3474,7 @@
           "spellId": 11958,
           "name": "Bloqueo de hielo",
           "iconFileDataId": 135841,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3515,6 +3569,7 @@
           "spellId": 11170,
           "name": "Trizar",
           "iconFileDataId": 135849,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3586,6 +3641,7 @@
           "spellId": 11190,
           "name": "Cono de frío mejorado",
           "iconFileDataId": 135852,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3660,6 +3716,7 @@
           "spellId": 12472,
           "name": "Mordedura helada",
           "iconFileDataId": 135865,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3707,6 +3764,7 @@
           "spellId": 400647,
           "name": "Dedos de Escarcha",
           "iconFileDataId": 236227,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3796,6 +3854,7 @@
           "spellId": 11180,
           "name": "Escalofrío del invierno",
           "iconFileDataId": 135836,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3920,6 +3979,7 @@
           "spellId": 11426,
           "name": "Barrera de hielo",
           "iconFileDataId": 135988,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,

@@ -12,7 +12,7 @@ const warlock = load("warlock");
 const warrior = load("warrior");
 const modified = (data: ReturnType<typeof load>, name: string) => applyModifiers(rankAtLevel(findAbility(data, name)!, 60)!, 60, []);
 
-const ctx = (over: Partial<PowerContext> = {}): PowerContext => ({ spellDamage: 100, spellHealing: 200, schoolPower: { 2: 0, 4: 0, 8: 0, 16: 0, 32: 0, 64: 0 }, attackPower: 280, rangedAttackPower: 140, mainHand: { min: 100, max: 120, speed: 2.8, normalizedSpeed: 2.4 }, ranged: null, ...over });
+const ctx = (over: Partial<PowerContext> = {}): PowerContext => ({ spellDamage: 100, spellHealing: 200, schoolPower: { 2: 0, 4: 0, 8: 0, 16: 0, 32: 0, 64: 0 }, attackPower: 280, rangedAttackPower: 140, mainHand: { min: 100, max: 120, speed: 2.8, normalizedSpeed: 2.4, usesAttackPower: true }, offHand: null, ranged: null, physicalDamage: 0, offHandFactor: 0.5, ...over });
 
 describe("poder con hechizos y de ataque en el daño de las habilidades (estimación)", () => {
   it("daño directo: poder × coeficiente del cliente (Descarga de Escarcha 0,814), más el poder de la escuela si lo hay", () => {

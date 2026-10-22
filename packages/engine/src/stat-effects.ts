@@ -1,4 +1,5 @@
 import type { Abilities, Race, Talent, TalentRules } from "@wfuc/schema";
+import { describeEquipped, meetsEquipped, type EquippedState } from "./equipped.js";
 import { raceBonuses } from "./race.js";
 import { rankOf, type Build, type ClassIndex } from "./rules.js";
 import { ruleLines, ruleScopeNames, dealsDamage, canCrit } from "./talent-rules.js";
@@ -71,6 +72,8 @@ export interface ConditionalEffect {
   text: string;
   /** El talento da una habilidad activa: sus auras solo valen mientras esta activa. */
   active: boolean;
+  /** El talento exige un objeto equipado que el personaje no lleva (SpellEquippedItems): no suma hasta que lo lleve. Texto del requisito. */
+  blocked?: string;
 }
 
 /** Efecto condicional cuantificado con una regla clasificada a mano (Ignicion, Trizar...). */
@@ -318,7 +321,7 @@ const generatesRage = (scope: string[], abilities: Abilities): boolean =>
 /** Texto de un «daño infligido» condicionado al equipo o al estado del personaje (no es un bono permanente). */
 const CONDITIONAL_DAMAGE_TEXT = /con (las )?(varitas|armas)|armas (cuerpo a cuerpo|a distancia)|de (una|dos) manos?|mientras/i;
 
-function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descriptions">, rank: number, source: StatSource, abilities: Abilities | null): { lines: StatLine[]; unclassified: boolean } {
+function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descriptions"> & { equipped?: Talent["equipped"] }, rank: number, source: StatSource, abilities: Abilities | null, equippedChecked = false): { lines: StatLine[]; unclassified: boolean } {
   const lines: StatLine[] = [];
   let unclassified = false;
   for (const info of talent.effectInfo) {
@@ -362,7 +365,8 @@ function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descrip
     if (info.aura === 65 && talent.effectInfo.some((e) => e.aura === 342)) continue;
     // Daño infligido (79) que depende del equipo o de un estado (varitas, armas de una o dos manos, a distancia, escudo, sin mascota): el cliente no trae la condicion
     // (SpellEquippedItems no esta exportada) pero el texto si; no se suma como un bono permanente del personaje, se conserva como texto
-    if (info.aura === 79 && CONDITIONAL_DAMAGE_TEXT.test(talent.descriptions[rank - 1] ?? "")) {
+    // Si el talento trae su requisito de objeto (SpellEquippedItems) y ya se comprobó con el equipo, no hace falta el texto
+    if (info.aura === 79 && CONDITIONAL_DAMAGE_TEXT.test(talent.descriptions[rank - 1] ?? "") && !(equippedChecked && (talent.equipped?.length ?? 0) > 0)) {
       unclassified = true;
       continue;
     }
@@ -393,9 +397,12 @@ export function collectStatEffects(input: {
   rules?: TalentRules | null;
   /** Bonos de conjunto activos y efectos al equipar (`activeGearEffects`); sus estadisticas planas ya van en el equipo, aqui entran los porcentajes y modificadores. */
   gearEffects?: GearEffectSource[];
+  /** Lo que lleva el personaje (`equippedStateOf`): con él, los talentos que exigen un objeto (arma a dos manos, varita, escudo...) solo suman si lo lleva. null = sin equipo elegido. */
+  equipped?: EquippedState;
 }): StatEffects {
   const lines: StatLine[] = [];
   const conditional: ConditionalEffect[] = [];
+  const equipped = input.equipped ?? null;
   const ruled = ruleLines(input.rules ?? null, input.cls, input.classBuild);
   const ruledSpells = new Set(ruled.map((r) => r.source.spellId));
   const ruleEffects: RuleEffectView[] = ruled.map((r) => ({ source: { from: "class" as const, name: r.source.name ?? `Hechizo ${r.source.spellId}`, rank: r.source.rank, maxRank: r.source.maxRank }, text: r.text, scope: ruleScopeNames(r, input.abilities) }));
@@ -413,7 +420,12 @@ export function collectStatEffects(input: {
         conditionalOnly++;
         continue;
       }
-      const { lines: found, unclassified } = talentLines(talent, rank, source, from === "class" ? input.abilities : null);
+      // Requisito de objeto equipado: con equipo elegido, solo suma si lo lleva; si no, se conserva el texto con el motivo
+      if (!meetsEquipped(talent.equipped, equipped)) {
+        conditional.push({ source, text, active: false, blocked: `Necesitas llevar ${describeEquipped(talent.equipped)}` });
+        continue;
+      }
+      const { lines: found, unclassified } = talentLines(talent, rank, source, from === "class" ? input.abilities : null, equipped !== null);
       lines.push(...found);
       if (found.length > 0) quantified++;
       if ((unclassified || found.length === 0) && !(from === "class" && ruledSpells.has(talent.spellId))) {

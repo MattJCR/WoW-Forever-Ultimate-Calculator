@@ -117,7 +117,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la armadura {{s:168:1|30}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:168:1|30 min}}."
+          "descriptionTemplate": "Aumenta la armadura {{s:168:1|30}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:168:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -227,7 +229,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la armadura {{s:7300:1|110}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7300:1|30 min}}."
+          "descriptionTemplate": "Aumenta la armadura {{s:7300:1|110}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7300:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -337,7 +341,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta la armadura {{s:7301:1|200}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7301:1|30 min}}."
+          "descriptionTemplate": "Aumenta la armadura {{s:7301:1|200}} p. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:6136:1|30}}% y el tiempo entre sus ataques aumentado un {{s:6136:2|25}}% durante {{d:6136:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7301:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -414,7 +420,9 @@
           "textOrigin": "client",
           "acquireMethod": 2,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:133:1|18}} p. de daño de Fuego y {{o:133:2|2}} p. de daño de Fuego extra durante {{d:133:1|4 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:133:1|18}} p. de daño de Fuego y {{o:133:2|2}} p. de daño de Fuego extra durante {{d:133:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -480,7 +488,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:143:1|32}} p. de daño de Fuego y {{o:143:2|3}} p. de daño de Fuego extra durante {{d:143:1|6 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:143:1|32}} p. de daño de Fuego y {{o:143:2|3}} p. de daño de Fuego extra durante {{d:143:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -546,7 +556,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:145:1|51}} p. de daño de Fuego y {{o:145:2|6}} p. de daño de Fuego extra durante {{d:145:1|6 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:145:1|51}} p. de daño de Fuego y {{o:145:2|6}} p. de daño de Fuego extra durante {{d:145:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -612,7 +624,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:3140:1|77}} p. de daño de Fuego y {{o:3140:2|12}} p. de daño de Fuego extra durante {{d:3140:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:3140:1|77}} p. de daño de Fuego y {{o:3140:2|12}} p. de daño de Fuego extra durante {{d:3140:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -678,7 +692,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8400:1|120}} p. de daño de Fuego y {{o:8400:2|16}} p. de daño de Fuego extra durante {{d:8400:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8400:1|120}} p. de daño de Fuego y {{o:8400:2|16}} p. de daño de Fuego extra durante {{d:8400:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -744,7 +760,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8401:1|153}} p. de daño de Fuego y {{o:8401:2|24}} p. de daño de Fuego extra durante {{d:8401:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8401:1|153}} p. de daño de Fuego y {{o:8401:2|24}} p. de daño de Fuego extra durante {{d:8401:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -810,7 +828,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8402:1|187}} p. de daño de Fuego y {{o:8402:2|24}} p. de daño de Fuego extra durante {{d:8402:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:8402:1|187}} p. de daño de Fuego y {{o:8402:2|24}} p. de daño de Fuego extra durante {{d:8402:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -876,7 +896,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10148:1|235}} p. de daño de Fuego y {{o:10148:2|32}} p. de daño de Fuego extra durante {{d:10148:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10148:1|235}} p. de daño de Fuego y {{o:10148:2|32}} p. de daño de Fuego extra durante {{d:10148:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -942,7 +964,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10149:1|300}} p. de daño de Fuego y {{o:10149:2|40}} p. de daño de Fuego extra durante {{d:10149:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10149:1|300}} p. de daño de Fuego y {{o:10149:2|40}} p. de daño de Fuego extra durante {{d:10149:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 10,
@@ -1008,7 +1032,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10150:1|374}} p. de daño de Fuego y {{o:10150:2|48}} p. de daño de Fuego extra durante {{d:10150:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10150:1|374}} p. de daño de Fuego y {{o:10150:2|48}} p. de daño de Fuego extra durante {{d:10150:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 11,
@@ -1074,7 +1100,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10151:1|451}} p. de daño de Fuego y {{o:10151:2|56}} p. de daño de Fuego extra durante {{d:10151:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:10151:1|451}} p. de daño de Fuego y {{o:10151:2|56}} p. de daño de Fuego extra durante {{d:10151:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 12,
@@ -1140,7 +1168,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:25306:1|483}} p. de daño de Fuego y {{o:25306:2|60}} p. de daño extra durante {{d:25306:1|8 s}}."
+          "descriptionTemplate": "Lanza una bola abrasadora que causa {{s:25306:1|483}} p. de daño de Fuego y {{o:25306:2|60}} p. de daño extra durante {{d:25306:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1230,7 +1260,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "El objetivo se convierte en una bomba viva y recibe {{o:400613:1|590,98}} p. de daño de Fuego durante {{d:400613:1|12 s}}. Después de {{d:400613:1|12 s}} o cuando se disipa el hechizo, el objetivo explota e inflige {{l:400614:1|297,23}} p. de daño de Fuego a todos los enemigos en un radio de {{a:400614:1|10}} m.\r\n\r\nBomba viva se beneficia de todos los talentos y efectos que se activan con Chamuscar o lo modifican."
+          "descriptionTemplate": "El objetivo se convierte en una bomba viva y recibe {{o:400613:1|590,98}} p. de daño de Fuego durante {{d:400613:1|12 s}}. Después de {{d:400613:1|12 s}} o cuando se disipa el hechizo, el objetivo explota e inflige {{l:400614:1|297,23}} p. de daño de Fuego a todos los enemigos en un radio de {{a:400614:1|10}} m.\r\n\r\nBomba viva se beneficia de todos los talentos y efectos que se activan con Chamuscar o lo modifican.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1326,7 +1358,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "El objetivo se convierte en una bomba viva y recibe {{o:400613:1|590,98}} p. de daño de Fuego durante $d. Después de $d o cuando se disipa el hechizo, el objetivo explota e inflige {{l:400614:1|297,23}} p. de daño de Fuego a todos los enemigos en un radio de {{a:400614:1|10}} m."
+          "descriptionTemplate": "El objetivo se convierte en una bomba viva y recibe {{o:400613:1|590,98}} p. de daño de Fuego durante $d. Después de $d o cuando se disipa el hechizo, el objetivo explota e inflige {{l:400614:1|297,23}} p. de daño de Fuego a todos los enemigos en un radio de {{a:400614:1|10}} m.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1407,7 +1441,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una Descarga de Fríoarcano contra el enemigo que inflige de {{=(173.816444)*@0/100*(1);m:412532:2|530,14}} a {{=(173.816444)*@0/100*(1);M:412532:2|617,05}} p. de daño de Fríoarcano y reduce la velocidad de movimiento un {{s:412532:1|40}}% durante {{d:412532:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Escarcha o Arcano del objetivo y cuenta como daño de Escarcha y Arcano al mismo tiempo."
+          "descriptionTemplate": "Lanza una Descarga de Fríoarcano contra el enemigo que inflige de {{=(173.816444)*@0/100*(1);m:412532:2|530,14}} a {{=(173.816444)*@0/100*(1);M:412532:2|617,05}} p. de daño de Fríoarcano y reduce la velocidad de movimiento un {{s:412532:1|40}}% durante {{d:412532:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Escarcha o Arcano del objetivo y cuenta como daño de Escarcha y Arcano al mismo tiempo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1505,7 +1541,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una ráfaga de magia que distorsiona la realidad e inflige de {{l:428878:1|486,69}} a {{h:428878:1|730,03}} p. de daño Quimérico al enemigo.\r\n\r\nAumenta un {{s:428878:3|20}}% el daño de tu Descarga de Fuegotorvo y tu Piroexplosión y reduce un {{s:428878:2|20}}% tu espíritu. Se acumula hasta 5 veces durante {{d:428878:1|30 s}}. Morirás si tu espíritu se reduce a 0 p.\r\n\r\nEste hechizo se probará contra la más baja de las resistencias al Fuego, a la Escarcha o Arcana del objetivo."
+          "descriptionTemplate": "Lanza una ráfaga de magia que distorsiona la realidad e inflige de {{l:428878:1|486,69}} a {{h:428878:1|730,03}} p. de daño Quimérico al enemigo.\r\n\r\nAumenta un {{s:428878:3|20}}% el daño de tu Descarga de Fuegotorvo y tu Piroexplosión y reduce un {{s:428878:2|20}}% tu espíritu. Se acumula hasta 5 veces durante {{d:428878:1|30 s}}. Morirás si tu espíritu se reduce a 0 p.\r\n\r\nEste hechizo se probará contra la más baja de las resistencias al Fuego, a la Escarcha o Arcana del objetivo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1565,7 +1603,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1459:1|2}} p. durante {{d:1459:1|1 h}}."
+          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1459:1|2}} p. durante {{d:1459:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -1614,7 +1654,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1460:1|7}} p. durante {{d:1460:1|1 h}}."
+          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1460:1|7}} p. durante {{d:1460:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -1663,7 +1705,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1461:1|15}} p. durante {{d:1461:1|1 h}}."
+          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:1461:1|15}} p. durante {{d:1461:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -1712,7 +1756,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:10156:1|22}} p. durante {{d:10156:1|1 h}}."
+          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:10156:1|22}} p. durante {{d:10156:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -1761,7 +1807,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:10157:1|31}} p. durante {{d:10157:1|1 h}}."
+          "descriptionTemplate": "Aumenta el intelecto del objetivo en {{s:10157:1|31}} p. durante {{d:10157:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1864,7 +1912,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una llama de Piroarcano que se mueve hacia el objetivo y deja un rastro de Piroarcano. Este rastro inflige {{l:401558:1|173,82}} p. de daño de Piroarcano cada segundo a los enemigos cercanos. Dura {{d:401556:1|10 s}}."
+          "descriptionTemplate": "Invoca una llama de Piroarcano que se mueve hacia el objetivo y deja un rastro de Piroarcano. Este rastro inflige {{l:401558:1|173,82}} p. de daño de Piroarcano cada segundo a los enemigos cercanos. Dura {{d:401556:1|10 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -1979,7 +2029,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanzas todo el maná que te queda en una oleada de energía centrada en el objetivo que le inflige de {{l:425124:1|392,83}} a {{h:425124:1|458,88}} p. de daño Arcano. El daño aumenta un {{s:425124:4|300}}% en función del maná que te quede. Después se activa tu regeneración de maná normal, que aumenta un {{s:425124:2|300}}% durante {{d:425124:1|8 s}}."
+          "descriptionTemplate": "Lanzas todo el maná que te queda en una oleada de energía centrada en el objetivo que le inflige de {{l:425124:1|392,83}} a {{h:425124:1|458,88}} p. de daño Arcano. El daño aumenta un {{s:425124:4|300}}% en función del maná que te quede. Después se activa tu regeneración de maná normal, que aumenta un {{s:425124:2|300}}% durante {{d:425124:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2104,7 +2156,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un orbe de hielo giratorio que avanza rápidamente durante {{d:440802:1|16 s}}. Mientras se está moviendo, el orbe inflige {{=@0*(173.816444)/100*(1);m:440809:2|156,43}} p. de daño de Escarcha cada {{t:440804:1|1}} s y aplica un efecto de enfriamiento que reduce un {{s:440809:1|30}}% la velocidad de movimiento de todos los enemigos que atraviesa. La primera vez que inflige daño a un enemigo, su movimiento se ralentizará y tendrá un 100% de probabilidad de activar la runa Dedos de Escarcha."
+          "descriptionTemplate": "Lanza un orbe de hielo giratorio que avanza rápidamente durante {{d:440802:1|16 s}}. Mientras se está moviendo, el orbe inflige {{=@0*(173.816444)/100*(1);m:440809:2|156,43}} p. de daño de Escarcha cada {{t:440804:1|1}} s y aplica un efecto de enfriamiento que reduce un {{s:440809:1|30}}% la velocidad de movimiento de todos los enemigos que atraviesa. La primera vez que inflige daño a un enemigo, su movimiento se ralentizará y tendrá un 100% de probabilidad de activar la runa Dedos de Escarcha.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2187,7 +2241,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Velocidad de movimiento reducida un 30%."
+          "descriptionTemplate": "Velocidad de movimiento reducida un 30%.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2351,7 +2407,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Sana {{o:401417:1|848,27}} p. de salud durante {{d:401417:1|3 s}} al objetivo y le aplica Baliza temporal durante {{s:400735:3|30}} s. \r\n\r\nBaliza temporal\r\n$@spellicon400735\r\nRegistra la posición espaciotemporal del sujeto. Un 80% de todo el daño Arcano infligido por el taumaturgo se convierte en sanación cronomántica sobre cada uno de los objetivos actuales de su Baliza temporal. La sanación se reduce un 50% sobre uno mismo, y un 80% cuando se inflige daño con hechizos Arcanos que afectan a varios objetivos."
+          "descriptionTemplate": "Sana {{o:401417:1|848,27}} p. de salud durante {{d:401417:1|3 s}} al objetivo y le aplica Baliza temporal durante {{s:400735:3|30}} s. \r\n\r\nBaliza temporal\r\n$@spellicon400735\r\nRegistra la posición espaciotemporal del sujeto. Un 80% de todo el daño Arcano infligido por el taumaturgo se convierte en sanación cronomántica sobre cada uno de los objetivos actuales de su Baliza temporal. La sanación se reduce un 50% sobre uno mismo, y un 80% cuando se inflige daño con hechizos Arcanos que afectan a varios objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2459,7 +2517,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": false,
-          "descriptionTemplate": "Sana {{o:412510:1|848,27}} p. de salud a todos los miembros del grupo del jugador objetivo en un radio de {{a:412510:1|43,5}} m durante {{d:412510:1|3 s}} y aplica Baliza temporal a cada objetivo durante {{=@0/2;m:400735:3|15}} s. \r\n\r\nBaliza temporal\r\n$@spellicon400735\r\nRegistra la posición espaciotemporal del sujeto. Un 80% de todo el daño Arcano infligido por el taumaturgo se convierte en sanación cronomántica sobre cada uno de los objetivos actuales de su Baliza temporal. La sanación se reduce un 50% sobre uno mismo, y un 80% cuando se inflige daño con hechizos Arcanos que afectan a varios objetivos."
+          "descriptionTemplate": "Sana {{o:412510:1|848,27}} p. de salud a todos los miembros del grupo del jugador objetivo en un radio de {{a:412510:1|43,5}} m durante {{d:412510:1|3 s}} y aplica Baliza temporal a cada objetivo durante {{=@0/2;m:400735:3|15}} s. \r\n\r\nBaliza temporal\r\n$@spellicon400735\r\nRegistra la posición espaciotemporal del sujeto. Un 80% de todo el daño Arcano infligido por el taumaturgo se convierte en sanación cronomántica sobre cada uno de los objetivos actuales de su Baliza temporal. La sanación se reduce un 50% sobre uno mismo, y un 80% cuando se inflige daño con hechizos Arcanos que afectan a varios objetivos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2519,7 +2579,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "El objetivo actual de Baliza temporal se sana al instante todo el daño recibido durante los últimos {{s:401462:1|5}} s. No surte efecto sobre objetivos que no tuvieran una baliza temporal hace {{s:401462:1|5}} s."
+          "descriptionTemplate": "El objetivo actual de Baliza temporal se sana al instante todo el daño recibido durante los últimos {{s:401462:1|5}} s. No surte efecto sobre objetivos que no tuvieran una baliza temporal hace {{s:401462:1|5}} s.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2583,7 +2645,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza varios misiles al objetivo enemigo, que recibe de {{l:400610:1|622,26}} a {{h:400610:1|761,32}} p. de daño Arcano. Este hechizo también tiene un 50% de probabilidades de activar Tromba de misiles."
+          "descriptionTemplate": "Lanza varios misiles al objetivo enemigo, que recibe de {{l:400610:1|622,26}} a {{h:400610:1|761,32}} p. de daño Arcano. Este hechizo también tiene un 50% de probabilidades de activar Tromba de misiles.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2660,7 +2724,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Acelera tu lanzamiento de hechizos, aumenta la velocidad con la que lanzas hechizos un {{s:425121:1|20}}% y reduce el retraso sufrido por los ataques dañinos mientras lanzas hechizos un {{s:425121:2|100}}%. Dura {{d:425121:1|20 s}}."
+          "descriptionTemplate": "Acelera tu lanzamiento de hechizos, aumenta la velocidad con la que lanzas hechizos un {{s:425121:1|20}}% y reduce el retraso sufrido por los ataques dañinos mientras lanzas hechizos un {{s:425121:2|100}}%. Dura {{d:425121:1|20 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -2720,7 +2786,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:5504:1|2}} botellas de agua, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:5504:1|2}} botellas de agua, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -2769,7 +2837,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:5505:1|2}} botellas de agua dulce, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:5505:1|2}} botellas de agua dulce, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -2818,7 +2888,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:5506:1|2}} botellas de agua purificada, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:5506:1|2}} botellas de agua purificada, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -2867,7 +2939,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:6127:1|2}} botellas de agua de manantial, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:6127:1|2}} botellas de agua de manantial, proporcionándole al mago y a sus aliados algo para beber.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -2916,7 +2990,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea {{s:10138:1|2}} botellas de agua mineral, que proporcionan al mago y a sus aliados algo para beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Crea {{s:10138:1|2}} botellas de agua mineral, que proporcionan al mago y a sus aliados algo para beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -2965,7 +3041,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea {{s:10139:1|2}} botellas de agua con gas para que el mago y sus aliados tengan algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Crea {{s:10139:1|2}} botellas de agua con gas para que el mago y sus aliados tengan algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3014,7 +3092,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea {{s:10140:1|10}} botellas de agua cristalina para que el mago y sus aliados tengan algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Crea {{s:10140:1|10}} botellas de agua cristalina para que el mago y sus aliados tengan algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3091,7 +3171,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:116:2|18}} a {{h:116:2|18}} p. de daño de Escarcha y reduce un {{s:116:1|40}}% su velocidad de movimiento durante {{d:116:1|5 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:116:2|18}} a {{h:116:2|18}} p. de daño de Escarcha y reduce un {{s:116:1|40}}% su velocidad de movimiento durante {{d:116:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3157,7 +3239,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:205:2|27,24}} a {{h:205:2|27,24}} p. de daño de Escarcha y reduce un {{s:205:1|40}}% su velocidad de movimiento durante {{d:205:1|6 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:205:2|27,24}} a {{h:205:2|27,24}} p. de daño de Escarcha y reduce un {{s:205:1|40}}% su velocidad de movimiento durante {{d:205:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3223,7 +3307,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:837:2|43,44}} a {{h:837:2|43,44}} p. de daño de Escarcha y reduce un {{s:837:1|40}}% su velocidad de movimiento durante {{d:837:1|6 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:837:2|43,44}} a {{h:837:2|43,44}} p. de daño de Escarcha y reduce un {{s:837:1|40}}% su velocidad de movimiento durante {{d:837:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3289,7 +3375,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:7322:2|66,41}} a {{h:7322:2|66,41}} p. de daño de Escarcha y reduce un {{s:7322:1|40}}% su velocidad de movimiento durante {{d:7322:1|7 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:7322:2|66,41}} a {{h:7322:2|66,41}} p. de daño de Escarcha y reduce un {{s:7322:1|40}}% su velocidad de movimiento durante {{d:7322:1|7 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -3355,7 +3443,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8406:2|99,27}} a {{h:8406:2|99,27}} p. de daño de Escarcha y reduce un {{s:8406:1|40}}% su velocidad de movimiento durante {{d:8406:1|7 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8406:2|99,27}} a {{h:8406:2|99,27}} p. de daño de Escarcha y reduce un {{s:8406:1|40}}% su velocidad de movimiento durante {{d:8406:1|7 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -3421,7 +3511,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8407:2|128,11}} a {{h:8407:2|128,11}} p. de daño de Escarcha y reduce un {{s:8407:1|40}}% su velocidad de movimiento durante {{d:8407:1|8 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8407:2|128,11}} a {{h:8407:2|128,11}} p. de daño de Escarcha y reduce un {{s:8407:1|40}}% su velocidad de movimiento durante {{d:8407:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -3487,7 +3579,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8408:2|173,36}} a {{h:8408:2|173,36}} p. de daño de Escarcha y reduce un {{s:8408:1|40}}% su velocidad de movimiento durante {{d:8408:1|8 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:8408:2|173,36}} a {{h:8408:2|173,36}} p. de daño de Escarcha y reduce un {{s:8408:1|40}}% su velocidad de movimiento durante {{d:8408:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -3553,7 +3647,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10179:2|234,37}} a {{h:10179:2|234,37}} p. de daño de Escarcha y reduce un {{s:10179:1|40}}% su velocidad de movimiento durante {{d:10179:1|9 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10179:2|234,37}} a {{h:10179:2|234,37}} p. de daño de Escarcha y reduce un {{s:10179:1|40}}% su velocidad de movimiento durante {{d:10179:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 9,
@@ -3619,7 +3715,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10180:2|295,45}} a {{h:10180:2|295,45}} p. de daño de Escarcha y reduce un {{s:10180:1|40}}% su velocidad de movimiento durante {{d:10180:1|9 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10180:2|295,45}} a {{h:10180:2|295,45}} p. de daño de Escarcha y reduce un {{s:10180:1|40}}% su velocidad de movimiento durante {{d:10180:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 10,
@@ -3685,7 +3783,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10181:2|371,29}} a {{h:10181:2|371,29}} p. de daño de Escarcha y reduce un {{s:10181:1|40}}% su velocidad de movimiento durante {{d:10181:1|9 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:10181:2|371,29}} a {{h:10181:2|371,29}} p. de daño de Escarcha y reduce un {{s:10181:1|40}}% su velocidad de movimiento durante {{d:10181:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 11,
@@ -3751,7 +3851,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:25304:2|457,24}} a {{h:25304:2|457,24}} p. de daño de Escarcha y reduce un {{s:25304:1|40}}% su velocidad de movimiento durante {{d:25304:1|9 s}}."
+          "descriptionTemplate": "Lanza al enemigo una descarga de Escarcha que inflige de {{l:25304:2|457,24}} a {{h:25304:2|457,24}} p. de daño de Escarcha y reduce un {{s:25304:1|40}}% su velocidad de movimiento durante {{d:25304:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -3811,7 +3913,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:587:1|2}} magdalenas, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:587:1|2}} magdalenas, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -3860,7 +3964,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:597:1|2}} barras de pan, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:597:1|2}} barras de pan, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -3909,7 +4015,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:990:1|2}} barras de pan de centeno, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:990:1|2}} barras de pan de centeno, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -3958,7 +4066,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:6129:1|2}} barras de pan integral de centeno, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:6129:1|2}} barras de pan integral de centeno, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4007,7 +4117,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:10144:1|2}} bollos dulces, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:10144:1|2}} bollos dulces, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4056,7 +4168,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:10145:1|2}} barras de pan de masa fermentada, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:10145:1|2}} barras de pan de masa fermentada, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -4105,7 +4219,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura {{s:28612:1|10}} bollos de canela, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura {{s:28612:1|10}} bollos de canela, proporcionándole al mago y a sus aliados algo para comer.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4165,7 +4281,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2136:1|28}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2136:1|28}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4214,7 +4332,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2137:1|58}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2137:1|58}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4263,7 +4383,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2138:1|100}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:2138:1|100}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4312,7 +4434,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:8412:1|163}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:8412:1|163}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4361,7 +4485,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:8413:1|236}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:8413:1|236}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4410,7 +4536,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:10197:1|331}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:10197:1|331}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -4459,7 +4587,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Carga contra el enemigo, causando {{s:10199:1|438}} p. de daño de Fuego."
+          "descriptionTemplate": "Carga contra el enemigo, causando {{s:10199:1|438}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4519,7 +4649,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400618:1|28}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400618:1|28}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -4568,7 +4700,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400619:1|64}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400619:1|64}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -4617,7 +4751,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400616:1|115}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400616:1|115}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -4666,7 +4802,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400620:1|185}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400620:1|185}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -4715,7 +4853,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400621:1|266}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400621:1|266}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -4764,7 +4904,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400622:1|363}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400622:1|363}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -4813,7 +4955,9 @@
           "textOrigin": "client",
           "acquireMethod": 3,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400623:1|470}} p. de daño de Fuego."
+          "descriptionTemplate": "Golpea al enemigo y le inflige {{s:400623:1|470}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -4915,7 +5059,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7268:1|24}} p. de daño Arcano cada segundo durante {{d:5143:1|3 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7268:1|24}} p. de daño Arcano cada segundo durante {{d:5143:1|3 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5006,7 +5152,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7269:1|34}} p. de daño Arcano cada segundo durante {{d:5144:1|4 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7269:1|34}} p. de daño Arcano cada segundo durante {{d:5144:1|4 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5097,7 +5245,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7270:1|47}} p. de daño Arcano cada segundo durante {{d:5145:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:7270:1|47}} p. de daño Arcano cada segundo durante {{d:5145:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5188,7 +5338,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:8419:1|66}} p. de daño Arcano cada segundo durante {{d:8416:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:8419:1|66}} p. de daño Arcano cada segundo durante {{d:8416:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5279,7 +5431,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:8418:1|95}} p. de daño Arcano cada segundo durante {{d:8417:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:8418:1|95}} p. de daño Arcano cada segundo durante {{d:8417:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -5370,7 +5524,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:10273:1|130}} p. de daño Arcano cada segundo durante {{d:10211:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:10273:1|130}} p. de daño Arcano cada segundo durante {{d:10211:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -5461,7 +5617,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:10274:1|171}} p. de daño Arcano cada segundo durante {{d:10212:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:10274:1|171}} p. de daño Arcano cada segundo durante {{d:10212:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -5552,7 +5710,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:25346:1|209}} p. de daño Arcano cada segundo durante {{d:25345:1|5 s}}."
+          "descriptionTemplate": "Lanza misiles Arcanos contra el enemigo y le causa {{s:25346:1|209}} p. de daño Arcano cada segundo durante {{d:25345:1|5 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -5646,7 +5806,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:118:1|20 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:118:1|20 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -5729,7 +5891,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12824:1|30 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12824:1|30 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -5812,7 +5976,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12825:1|40 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, dragones, gigantes, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12825:1|40 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, dragones, gigantes, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -5895,7 +6061,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12826:1|50 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en oveja obligándolo a merodear hasta {{d:12826:1|50 s}}. Mientras merodea, la oveja no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -5978,7 +6146,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en tortuga obligándolo a merodear hasta {{d:28271:1|50 s}}. Mientras merodea, la tortuga no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en tortuga obligándolo a merodear hasta {{d:28271:1|50 s}}. Mientras merodea, la tortuga no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -6061,7 +6231,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en cerdo obligándolo a merodear hasta {{d:28272:1|50 s}}. Mientras merodea, el cerdo no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en cerdo obligándolo a merodear hasta {{d:28272:1|50 s}}. Mientras merodea, el cerdo no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6138,7 +6310,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:122:1|19}} a {{h:122:1|19}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:122:1|8 s}}. Cualquier daño infligido interrumpirá su efecto."
+          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:122:1|19}} a {{h:122:1|19}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:122:1|8 s}}. Cualquier daño infligido interrumpirá su efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6204,7 +6378,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:865:1|32,06}} a {{h:865:1|32,06}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:865:1|8 s}}. Cualquier daño infligido interrumpirá su efecto."
+          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:865:1|32,06}} a {{h:865:1|32,06}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:865:1|8 s}}. Cualquier daño infligido interrumpirá su efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6270,7 +6446,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:6131:1|50,11}} a {{h:6131:1|50,11}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:6131:1|8 s}}. Cualquier daño infligido interrumpirá su efecto."
+          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:6131:1|50,11}} a {{h:6131:1|50,11}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:6131:1|8 s}}. Cualquier daño infligido interrumpirá su efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6336,7 +6514,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:10230:1|69,11}} a {{h:10230:1|69,11}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:10230:1|8 s}}. Cualquier daño infligido interrumpirá su efecto."
+          "descriptionTemplate": "Golpea a los enemigos situados cerca del taumaturgo, que reciben de {{l:10230:1|69,11}} a {{h:10230:1|69,11}} p. de daño de Escarcha y quedan congelados durante un máximo de {{d:10230:1|8 s}}. Cualquier daño infligido interrumpirá su efecto.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6396,7 +6576,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Ralentiza la velocidad de caída durante {{d:130:1|30 s}}."
+          "descriptionTemplate": "Ralentiza la velocidad de caída durante {{d:130:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6473,7 +6655,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:604:1|15}} p. y los hechizos de curación hasta {{s:604:2|30}} p. Dura {{d:604:1|10 min}}."
+          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:604:1|15}} p. y los hechizos de curación hasta {{s:604:2|30}} p. Dura {{d:604:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6539,7 +6723,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:8450:1|30}} p. y los hechizos de curación hasta {{s:8450:2|60}} p. Dura {{d:8450:1|10 min}}."
+          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:8450:1|30}} p. y los hechizos de curación hasta {{s:8450:2|60}} p. Dura {{d:8450:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6605,7 +6791,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:8451:1|60}} p. y los hechizos de curación hasta {{s:8451:2|120}} p. Dura {{d:8451:1|10 min}}."
+          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:8451:1|60}} p. y los hechizos de curación hasta {{s:8451:2|120}} p. Dura {{d:8451:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6671,7 +6859,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:10173:1|90}} p. y los hechizos de curación hasta {{s:10173:2|180}} p. Dura {{d:10173:1|10 min}}."
+          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:10173:1|90}} p. y los hechizos de curación hasta {{s:10173:2|180}} p. Dura {{d:10173:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6737,7 +6927,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:10174:1|135}} p. y los hechizos de curación hasta {{s:10174:2|270}} p. Dura {{d:10174:1|10 min}}."
+          "descriptionTemplate": "Reprime la magia utilizada contra el miembro del grupo elegido, disminuyendo el daño de los hechizos recibidos hasta {{s:10174:1|135}} p. y los hechizos de curación hasta {{s:10174:2|270}} p. Dura {{d:10174:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -6797,7 +6989,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:1449:1|32}} p. de daño Arcano a todos los objetivos en un radio de {{a:1449:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:1449:1|32}} p. de daño Arcano a todos los objetivos en un radio de {{a:1449:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -6846,7 +7040,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8437:1|55}} p. de daño Arcano a todos los objetivos en un radio de {{a:8437:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8437:1|55}} p. de daño Arcano a todos los objetivos en un radio de {{a:8437:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -6895,7 +7091,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8438:1|94}} p. de daño Arcano a todos los objetivos en un radio de {{a:8438:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8438:1|94}} p. de daño Arcano a todos los objetivos en un radio de {{a:8438:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -6944,7 +7142,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8439:1|135}} p. de daño Arcano a todos los objetivos en un radio de {{a:8439:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:8439:1|135}} p. de daño Arcano a todos los objetivos en un radio de {{a:8439:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -6993,7 +7193,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:10201:1|183}} p. de daño Arcano a todos los objetivos en un radio de {{a:10201:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:10201:1|183}} p. de daño Arcano a todos los objetivos en un radio de {{a:10201:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -7042,7 +7244,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:10202:1|242}} p. de daño Arcano a todos los objetivos en un radio de {{a:10202:1|10}} metros."
+          "descriptionTemplate": "Provoca una explosión de magia Arcana alrededor del taumaturgo, que causa {{s:10202:1|242}} p. de daño Arcano a todos los objetivos en un radio de {{a:10202:1|10}} metros.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7161,7 +7365,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:2120:1|60}} p. de daño de Fuego y {{l:1279983:1*4|44}} p. más de daño de Fuego durante {{d:2120:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:2120:1|60}} p. de daño de Fuego y {{l:1279983:1*4|44}} p. más de daño de Fuego durante {{d:2120:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7269,7 +7475,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:2121:1|109}} p. de daño de Fuego y {{l:1279985:1*4|84}} p. más de daño de Fuego durante {{d:2121:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:2121:1|109}} p. de daño de Fuego y {{l:1279985:1*4|84}} p. más de daño de Fuego durante {{d:2121:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7377,7 +7585,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:8422:1|173}} p. de daño de Fuego y {{l:1279987:1*4|132}} p. más de daño de Fuego durante {{d:8422:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:8422:1|173}} p. de daño de Fuego y {{l:1279987:1*4|132}} p. más de daño de Fuego durante {{d:8422:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7485,7 +7695,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:8423:1|246}} p. de daño de Fuego y {{l:1279988:1*4|188}} p. más de daño de Fuego durante {{d:8423:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:8423:1|246}} p. de daño de Fuego y {{l:1279988:1*4|188}} p. más de daño de Fuego durante {{d:8423:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -7593,7 +7805,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:10215:1|325}} p. de daño de Fuego y {{l:1279989:1*4|256}} p. más de daño de Fuego durante {{d:10215:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:10215:1|325}} p. de daño de Fuego y {{l:1279989:1*4|256}} p. más de daño de Fuego durante {{d:10215:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -7701,7 +7915,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:10216:1|417}} p. de daño de Fuego y {{l:1279990:1*4|332}} p. más de daño de Fuego durante {{d:10216:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez."
+          "descriptionTemplate": "Invoca una columna de fuego que quema a todos los enemigos del área, lo que inflige {{s:10216:1|417}} p. de daño de Fuego y {{l:1279990:1*4|332}} p. más de daño de Fuego durante {{d:10216:1|8 s}}. Un mago solo puede tener un Fogonazo activo a la vez.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -7778,7 +7994,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:1008:1|23}} p. y los hechizos de curación hasta {{s:1008:2|45}} p. Dura {{d:1008:1|10 min}}."
+          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:1008:1|23}} p. y los hechizos de curación hasta {{s:1008:2|45}} p. Dura {{d:1008:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -7844,7 +8062,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:8455:1|45}} p. y los hechizos de curación hasta {{s:8455:2|90}} p. Dura {{d:8455:1|10 min}}."
+          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:8455:1|45}} p. y los hechizos de curación hasta {{s:8455:2|90}} p. Dura {{d:8455:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -7910,7 +8130,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:10169:1|75}} p. y los hechizos de curación hasta {{s:10169:2|150}} p. Dura {{d:10169:1|10 min}}."
+          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:10169:1|75}} p. y los hechizos de curación hasta {{s:10169:2|150}} p. Dura {{d:10169:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -7976,7 +8198,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:10170:1|113}} p. y los hechizos de curación hasta {{s:10170:2|225}} p. Dura {{d:10170:1|10 min}}."
+          "descriptionTemplate": "Amplifica la magia utilizada contra el miembro del grupo elegido, aumentando el daño de los hechizos recibidos hasta {{s:10170:1|113}} p. y los hechizos de curación hasta {{s:10170:2|225}} p. Dura {{d:10170:1|10 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8036,7 +8260,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Elimina {{m:475:1|1}} maldición o terror de un objetivo amistoso."
+          "descriptionTemplate": "Elimina {{m:475:1|1}} maldición o terror de un objetivo amistoso.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8113,7 +8339,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{s:543:1|162}} p. de daño de Fuego. Dura {{d:543:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{s:543:1|162}} p. de daño de Fuegos11094y otorga un {{s:543:2|0}}% de probabilidad de reflejar hechizos y efectos de Fuego. Dura {{d:543:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8179,7 +8407,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{s:8457:1|285}} p. de daño de Fuego. Dura {{d:8457:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{s:8457:1|285}} p. de daño de Fuegos11094y otorga un {{s:8457:2|0}}% de probabilidad de reflejar hechizos y efectos de Fuego. Dura {{d:8457:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8245,7 +8475,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{s:8458:1|463}} p. de daño de Fuego. Dura {{d:8458:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{s:8458:1|463}} p. de daño de Fuegos11094y otorga un {{s:8458:2|0}}% de probabilidad de reflejar hechizos y efectos de Fuego. Dura {{d:8458:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8311,7 +8543,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{s:10223:1|668}} p. de daño de Fuego. Dura {{d:10223:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{s:10223:1|668}} p. de daño de Fuegos11094y otorga un {{s:10223:2|0}}% de probabilidad de reflejar hechizos y efectos de Fuego. Dura {{d:10223:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8377,7 +8611,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{s:10225:1|913}} p. de daño de Fuego. Dura {{d:10225:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{s:10225:1|913}} p. de daño de Fuegos11094y otorga un {{s:10225:2|0}}% de probabilidad de reflejar hechizos y efectos de Fuego. Dura {{d:10225:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8437,7 +8673,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:1463:1|120}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:1463:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:1463:1|120}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:1463:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8486,7 +8724,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:8494:1|210}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:8494:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:8494:1|210}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:8494:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -8535,7 +8775,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:8495:1|300}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:8495:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:8495:1|300}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:8495:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -8584,7 +8826,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:10191:1|390}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10191:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:10191:1|390}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10191:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -8633,7 +8877,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:10192:1|480}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10192:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:10192:1|480}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10192:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -8682,7 +8928,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": false,
-          "descriptionTemplate": "Amortigua {{s:10193:1|570}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10193:1|1 min}}."
+          "descriptionTemplate": "Amortigua {{s:10193:1|570}} p. de daño físico, drenando a cambio el maná. Drena $e p. de maná por daño amortiguado. Dura {{d:10193:1|1 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8776,7 +9024,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Mientras canalizas este hechizo se activa tu regeneración de maná y aumenta en un {{s:12051:1|1500}}%. Dura {{d:12051:1|8 s}}."
+          "descriptionTemplate": "Mientras canalizas este hechizo se activa tu regeneración de maná y aumenta en un {{s:12051:1|1500}}%. Dura {{d:12051:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -8886,7 +9136,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:400574:1|32}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial."
+          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:400574:1|32}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -8985,7 +9237,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239696:1|78}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial."
+          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239696:1|78}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9084,7 +9338,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239697:1|101}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial."
+          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239697:1|101}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9183,7 +9439,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239699:1|168}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial."
+          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239699:1|168}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9282,7 +9540,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239700:1|236}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial."
+          "descriptionTemplate": "Golpea al objetivo con energía e inflige {{s:1239700:1|236}} p. de daño Arcano. Cada vez que lances el hechizo Explosión Arcana, obtienes un {{s:400573:1|15}}% de tu intelecto como daño con hechizos y el coste de maná de Explosión Arcana aumenta un {{s:400573:2|175}}%. El efecto se acumula hasta 4 veces y dura {{d:400573:1|15 s}} desde el momento de la aplicación inicial.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9393,7 +9653,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1312002:1|28}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1312002:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:1312002:1|28}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1312002:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -9493,7 +9755,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:400640:1|36}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:400640:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:400640:1|36}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:400640:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -9593,7 +9857,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1240044:1|45}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240044:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:1240044:1|45}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240044:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -9693,7 +9959,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1240045:1|79}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240045:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:1240045:1|79}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240045:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -9793,7 +10061,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1240046:1|98}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240046:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:1240046:1|98}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240046:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -9893,7 +10163,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inflige {{s:1240047:1|145}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240047:2|200}}% más de daño contra objetivos congelados."
+          "descriptionTemplate": "Inflige {{s:1240047:1|145}} p. de daño de Escarcha a un objetivo enemigo. Inflige un {{s:1240047:2|200}}% más de daño contra objetivos congelados.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -9970,7 +10242,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:11366:1|110}} p. de daño de Fuego y {{o:11366:2|44}} p. de daño de Fuego extra durante {{d:11366:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:11366:1|110}} p. de daño de Fuego y {{o:11366:2|44}} p. de daño de Fuego extra durante {{d:11366:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -10036,7 +10310,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12505:1|134}} p. de daño de Fuego y {{o:12505:2|56}} p. de daño de Fuego extra durante {{d:12505:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12505:1|134}} p. de daño de Fuego y {{o:12505:2|56}} p. de daño de Fuego extra durante {{d:12505:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -10102,7 +10378,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12522:1|191}} p. de daño de Fuego y {{o:12522:2|76}} p. de daño de Fuego extra durante {{d:12522:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12522:1|191}} p. de daño de Fuego y {{o:12522:2|76}} p. de daño de Fuego extra durante {{d:12522:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -10168,7 +10446,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12523:1|245}} p. de daño de Fuego y {{o:12523:2|100}} p. de daño de Fuego extra durante {{d:12523:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12523:1|245}} p. de daño de Fuego y {{o:12523:2|100}} p. de daño de Fuego extra durante {{d:12523:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -10234,7 +10514,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12524:1|311}} p. de daño de Fuego y {{o:12524:2|124}} p. de daño de Fuego extra durante {{d:12524:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12524:1|311}} p. de daño de Fuego y {{o:12524:2|124}} p. de daño de Fuego extra durante {{d:12524:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -10300,7 +10582,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12525:1|394}} p. de daño de Fuego y {{o:12525:2|152}} p. de daño de Fuego extra durante {{d:12525:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12525:1|394}} p. de daño de Fuego y {{o:12525:2|152}} p. de daño de Fuego extra durante {{d:12525:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -10366,7 +10650,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12526:1|481}} p. de daño de Fuego y {{o:12526:2|184}} p. de daño de Fuego extra durante {{d:12526:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:12526:1|481}} p. de daño de Fuego y {{o:12526:2|184}} p. de daño de Fuego extra durante {{d:12526:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 8,
@@ -10432,7 +10718,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:18809:1|583}} p. de daño de Fuego y {{o:18809:2|212}} p. de daño de Fuego extra durante {{d:18809:1|12 s}}."
+          "descriptionTemplate": "Lanza una inmensa roca abrasadora que causa {{s:18809:1|583}} p. de daño de Fuego y {{o:18809:2|212}} p. de daño de Fuego extra durante {{d:18809:1|12 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10509,7 +10797,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Entrañas."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Entrañas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10586,7 +10876,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Forjaz."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Forjaz.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10663,7 +10955,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Orgrimmar."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Orgrimmar.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10740,7 +11034,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Ventormenta."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Ventormenta.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10834,7 +11130,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo 20 m hacia delante, a menos que haya algo en su camino. También libera al taumaturgo del aturdimiento y la inmovilidad."
+          "descriptionTemplate": "Teletransporta al taumaturgo 20 m hacia delante, a menos que haya algo en su camino. También libera al taumaturgo del aturdimiento y la inmovilidad.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -10953,7 +11251,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279976:1|192}} p. de daño de Escarcha durante {{d:10:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279976:1|192}} p. de daño de Escarcha durante {{d:10:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11061,7 +11361,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279977:1|336}} de daño de Escarcha durante {{d:6141:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279977:1|336}} de daño de Escarcha durante {{d:6141:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11169,7 +11471,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279978:1|496}} de daño de Escarcha durante {{d:8427:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279978:1|496}} de daño de Escarcha durante {{d:8427:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11277,7 +11581,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279979:1|696}} de daño de Escarcha durante {{d:10185:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279979:1|696}} de daño de Escarcha durante {{d:10185:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -11385,7 +11691,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279980:1|912}} de daño de Escarcha durante {{d:10186:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279980:1|912}} de daño de Escarcha durante {{d:10186:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -11493,7 +11801,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279949:1|1168}} de daño de Escarcha durante {{d:10187:1|8 s}}."
+          "descriptionTemplate": "Fragmentos de hielo acribillan la zona objetivo e infligen {{z:1279949:1|1168}} de daño de Escarcha durante {{d:10187:1|8 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11553,7 +11863,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:2948:1|39}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:2948:1|39}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11602,7 +11914,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8444:1|55}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8444:1|55}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -11651,7 +11965,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8445:1|69}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8445:1|69}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -11700,7 +12016,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8446:1|93}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:8446:1|93}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -11749,7 +12067,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10205:1|116}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10205:1|116}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 6,
@@ -11798,7 +12118,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10206:1|150}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10206:1|150}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 7,
@@ -11847,7 +12169,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10207:1|178}} p. de daño de Fuego."
+          "descriptionTemplate": "Chamusca al enemigo causándole {{s:10207:1|178}} p. de daño de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -11924,7 +12248,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:6143:1|162}} p. de daño de Escarcha. Dura {{d:6143:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:6143:1|162}} p. de daño de Escarchas11189y otorga un {{s:6143:2|0}}% de probabilidad de eludir el daño de Escarcha. Dura {{d:6143:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -11990,7 +12316,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:8461:1|284}} p. de daño de Escarcha. Dura {{d:8461:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:8461:1|284}} p. de daño de Escarchas11189y otorga un {{s:8461:2|0}}% de probabilidad de eludir el daño de Escarcha. Dura {{d:8461:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12056,7 +12384,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:8462:1|463}} p. de daño de Escarcha. Dura {{d:8462:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:8462:1|463}} p. de daño de Escarchas11189y otorga un {{s:8462:2|0}}% de probabilidad de eludir el daño de Escarcha. Dura {{d:8462:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -12122,7 +12452,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:10177:1|668}} p. de daño de Escarcha. Dura {{d:10177:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:10177:1|668}} p. de daño de Escarchas11189y otorga un {{s:10177:2|0}}% de probabilidad de eludir el daño de Escarcha. Dura {{d:10177:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -12188,7 +12520,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:28609:1|913}} p. de daño de Escarcha. Dura {{d:28609:1|30 s}}."
+          "descriptionTemplate": "Absorbe {{=@0+(0*0.1)*(1);s:28609:1|913}} p. de daño de Escarchas11189y otorga un {{s:28609:2|0}}% de probabilidad de eludir el daño de Escarcha. Dura {{d:28609:1|30 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12248,7 +12582,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Contrarresta el lanzamiento de hechizos del enemigo, evitando que lance hechizos de esa escuela de magia durante {{d:2139:1|10 s}}. Genera una gran cantidad de amenaza."
+          "descriptionTemplate": "Contrarresta el lanzamiento de hechizos del enemigo, evitando que lance hechizos de esa escuela de magia durante {{d:2139:1|10 s}}. Genera una gran cantidad de amenaza.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12325,7 +12661,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326053:2|26}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326053:1|40}}% durante {{d:1326053:1|9 s}}."
+          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326053:2|26}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326053:1|40}}% durante {{d:1326053:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12391,7 +12729,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326054:2|45}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326054:1|40}}% durante {{d:1326054:1|9 s}}."
+          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326054:2|45}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326054:1|40}}% durante {{d:1326054:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12457,7 +12797,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326055:2|77}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326055:1|40}}% durante {{d:1326055:1|9 s}}."
+          "descriptionTemplate": "Lanza rápidamente un débil estallido de Escarcha al enemigo que inflige {{s:1326055:2|77}} p. de daño de Escarcha y reduce su velocidad de movimiento un {{s:1326055:1|40}}% durante {{d:1326055:1|9 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12551,7 +12893,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te envuelve un bloque de hielo que te protege de todos los ataques físicos y hechizos durante {{d:11958:1|10 s}}, pero durante ese tiempo no puedes atacar, moverte ni usar hechizos."
+          "descriptionTemplate": "Te envuelve un bloque de hielo que te protege de todos los ataques físicos y hechizos durante {{d:11958:1|10 s}}, pero durante ese tiempo no puedes atacar, moverte ni usar hechizos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -12628,7 +12972,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326079:1|120}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326079:2|5}}% de tu maná máximo."
+          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326079:1|120}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326079:2|5}}% de tu maná máximo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -12694,7 +13040,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326080:1|187}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326080:2|5}}% de tu maná máximo."
+          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326080:1|187}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326080:2|5}}% de tu maná máximo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -12760,7 +13108,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326081:1|300}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326081:2|5}}% de tu maná máximo."
+          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326081:1|300}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326081:2|5}}% de tu maná máximo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -12826,7 +13176,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326082:1|451}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326082:2|5}}% de tu maná máximo."
+          "descriptionTemplate": "Lanza un proyectil de pura energía Arcana al objetivo enemigo, lo que inflige {{s:1326082:1|451}} p. de daño Arcano. Este hechizo obtiene daño con hechizos adicional equivalente al {{s:1326082:2|5}}% de tu maná máximo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13003,7 +13355,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:120:2|92,29}} a {{h:120:2|92,29}} p. de daño de Escarcha y sufren una ralentización del {{s:120:1|40}}% durante {{d:120:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más."
+          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:120:2|92,29}} a {{h:120:2|92,29}} p. de daño de Escarcha y sufren una ralentización del {{s:120:1|40}}% durante {{d:120:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13169,7 +13523,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:8492:2|137,41}} a {{h:8492:2|137,41}} p. de daño de Escarcha y sufren una ralentización del {{s:8492:1|40}}% durante {{d:8492:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más."
+          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:8492:2|137,41}} a {{h:8492:2|137,41}} p. de daño de Escarcha y sufren una ralentización del {{s:8492:1|40}}% durante {{d:8492:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -13335,7 +13691,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10159:2|194,42}} a {{h:10159:2|194,42}} p. de daño de Escarcha y sufren una ralentización del {{s:10159:1|40}}% durante {{d:10159:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más."
+          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10159:2|194,42}} a {{h:10159:2|194,42}} p. de daño de Escarcha y sufren una ralentización del {{s:10159:1|40}}% durante {{d:10159:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -13501,7 +13859,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10160:2|254,47}} a {{h:10160:2|254,47}} p. de daño de Escarcha y sufren una ralentización del {{s:10160:1|40}}% durante {{d:10160:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más."
+          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10160:2|254,47}} a {{h:10160:2|254,47}} p. de daño de Escarcha y sufren una ralentización del {{s:10160:1|40}}% durante {{d:10160:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -13618,7 +13978,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10161:2|325,43}} a {{h:10161:2|325,43}} p. de daño de Escarcha y sufren una ralentización del {{s:10161:1|40}}% durante {{d:10161:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más."
+          "descriptionTemplate": "Los objetivos situados en un cono frente al taumaturgo reciben de {{l:10161:2|325,43}} a {{h:10161:2|325,43}} p. de daño de Escarcha y sufren una ralentización del {{s:10161:1|40}}% durante {{d:10161:1|6 s}}. Los primeros {{s:10161:3|4}} objetivos golpeados por el cono sufren un {{s:10161:4|10}}% de ralentización adicional durante {{s:10161:5|3}} s más.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13695,7 +14057,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura una ágata de maná que se puede utilizar para recuperar al instante {{s:5405:1|400}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura una ágata de maná que se puede utilizar para recuperar al instante {{s:5405:1|400}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -13833,7 +14197,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta {{s:7302:1|290}} p. la armadura y {{s:7302:3|6}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7302:1|30 min}}."
+          "descriptionTemplate": "Aumenta {{s:7302:1|290}} p. la armadura y {{s:7302:3|6}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7302:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -13960,7 +14326,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta {{s:7320:1|380}} p. la armadura y {{s:7320:3|9}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7320:1|30 min}}."
+          "descriptionTemplate": "Aumenta {{s:7320:1|380}} p. la armadura y {{s:7320:3|9}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:7320:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -14087,7 +14455,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta {{s:10219:1|470}} p. la armadura y {{s:10219:3|12}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:10219:1|30 min}}."
+          "descriptionTemplate": "Aumenta {{s:10219:1|470}} p. la armadura y {{s:10219:3|12}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:10219:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -14214,7 +14584,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta {{s:10220:1|560}} p. la armadura y {{s:10220:3|15}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:10220:1|30 min}}."
+          "descriptionTemplate": "Aumenta {{s:10220:1|560}} p. la armadura y {{s:10220:3|15}} p. la resistencia a la Escarcha. Si un enemigo golpea al taumaturgo, su movimiento puede verse ralentizado un {{s:7321:1|30}}% y el tiempo entre sus ataques, aumentado un {{s:7321:2|25}}% durante {{d:7321:1|5 s}}. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:10220:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14274,7 +14646,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Termina el tiempo de reutilización restante de todos tus otros hechizos de Escarcha."
+          "descriptionTemplate": "Termina el tiempo de reutilización restante de todos tus otros hechizos de Escarcha.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14351,7 +14725,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:11113:1|163}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:11113:2|50}}% durante {{d:11113:1|6 s}}."
+          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:11113:1|163}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:11113:2|50}}% durante {{d:11113:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14417,7 +14793,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13018:1|212}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13018:2|50}}% durante {{d:13018:1|6 s}}."
+          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13018:1|212}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13018:2|50}}% durante {{d:13018:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -14483,7 +14861,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13019:1|293}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13019:2|50}}% durante {{d:13019:1|6 s}}."
+          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13019:1|293}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13019:2|50}}% durante {{d:13019:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -14549,7 +14929,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13020:1|389}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13020:2|50}}% durante {{d:13020:1|6 s}}."
+          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13020:1|389}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13020:2|50}}% durante {{d:13020:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 5,
@@ -14615,7 +14997,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13021:1|493}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13021:2|50}}% durante {{d:13021:1|6 s}}."
+          "descriptionTemplate": "El taumaturgo lanza hacia delante una ola de llamas que inflige daño a todos los enemigos alcanzados por la explosión y les inflige {{s:13021:1|493}} p. de daño de Fuego, además de atontarlos y reducir su velocidad de movimiento un {{s:13021:2|50}}% durante {{d:13021:1|6 s}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14675,7 +15059,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Tu próximo hechizo de mago con un tiempo de lanzamiento inferior a 10 segundos se convertirá en un hechizo de lanzamiento instantáneo."
+          "descriptionTemplate": "Tu próximo hechizo de mago con un tiempo de lanzamiento inferior a 10 segundos se convertirá en un hechizo de lanzamiento instantáneo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14752,7 +15138,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Darnassus."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Darnassus.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14829,7 +15217,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Cima del Trueno."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Cima del Trueno.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -14906,7 +15296,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:6117:1|5}} p. y permite un {{s:6117:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:6117:1|30 min}}."
+          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:6117:1|5}} p. y permite un {{s:6117:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:6117:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -14972,7 +15364,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:22782:1|10}} p. y permite un {{s:22782:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:22782:1|30 min}}."
+          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:22782:1|10}} p. y permite un {{s:22782:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:22782:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -15038,7 +15432,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:22783:1|15}} p. y permite un {{s:22783:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:22783:1|30 min}}."
+          "descriptionTemplate": "Aumenta tu resistencia a toda la magia en {{s:22783:1|15}} p. y permite un {{s:22783:2|50}}% de regeneración de tu maná mientras lo lanzas. Un mago solo puede tener un tipo de hechizo de armadura activo a la vez. Dura {{d:22783:1|30 min}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15115,7 +15511,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura un jade de maná que se puede utilizar para recuperar al instante {{s:10052:1|600}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura un jade de maná que se puede utilizar para recuperar al instante {{s:10052:1|600}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15229,7 +15627,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:11426:1|431}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:11426:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:11426:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño."
+          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:11426:1|431}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:11426:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:11426:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -15332,7 +15732,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13031:1|542}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13031:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13031:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño."
+          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13031:1|542}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13031:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13031:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -15435,7 +15837,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13032:1|671}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13032:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13032:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño."
+          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13032:1|671}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13032:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13032:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 4,
@@ -15538,7 +15942,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13033:1|811}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13033:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13033:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño."
+          "descriptionTemplate": "Te protege con un escudo que absorbe {{=@0+(0*0.1)*(1);s:13033:1|811}} p. de daño y aumenta un {{s:1326891:1|3}}% tu daño de Escarcha durante {{d:13033:1|1 min}}. Mientras tengas la protección, tu daño de Escarcha aumenta un {{s:13033:2|3}}% más y no pierdes tiempo de lanzamiento por recibir daño.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15640,7 +16046,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Cuando se activa, este hechizo provoca que los golpes de tu hechizo de daño de Fuego aumenten un {{s:28682:1|10}}% la probabilidad de golpe crítico de los hechizos de daño de Fuego. Este efecto dura hasta que asestes {{n:11129:1|3}} golpes críticos no periódicos con hechizos de Fuego."
+          "descriptionTemplate": "Cuando se activa, este hechizo provoca que los golpes de tu hechizo de daño de Fuego aumenten un {{s:28682:1|10}}% la probabilidad de golpe crítico de los hechizos de daño de Fuego. Este efecto dura hasta que asestes {{n:11129:1|3}} golpes críticos no periódicos con hechizos de Fuego.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15734,7 +16142,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:401502:2|100}} p. de daño de Pirofrío, reduce un {{s:401502:1|40}}% la velocidad de movimiento e inflige {{o:401502:3|27}} p. más de daño de Pirofrío durante {{d:401502:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo."
+          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:401502:2|100}} p. de daño de Pirofrío, reduce un {{s:401502:1|40}}% la velocidad de movimiento e inflige {{o:401502:3|27}} p. más de daño de Pirofrío durante {{d:401502:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 2,
@@ -15817,7 +16227,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:1237312:2|182}} p. de daño de Pirofrío, reduce un {{s:1237312:1|40}}% la velocidad de movimiento e inflige {{o:1237312:3|39}} p. más de daño de Pirofrío durante {{d:1237312:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo."
+          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:1237312:2|182}} p. de daño de Pirofrío, reduce un {{s:1237312:1|40}}% la velocidad de movimiento e inflige {{o:1237312:3|39}} p. más de daño de Pirofrío durante {{d:1237312:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo.",
+          "equipped": [],
+          "weaponHand": "main"
         },
         {
           "rank": 3,
@@ -15900,7 +16312,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:1237313:2|292}} p. de daño de Pirofrío, reduce un {{s:1237313:1|40}}% la velocidad de movimiento e inflige {{o:1237313:3|57}} p. más de daño de Pirofrío durante {{d:1237313:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo."
+          "descriptionTemplate": "Lanza una Descarga de Pirofrío contra el enemigo, lo que inflige {{s:1237313:2|292}} p. de daño de Pirofrío, reduce un {{s:1237313:1|40}}% la velocidad de movimiento e inflige {{o:1237313:3|57}} p. más de daño de Pirofrío durante {{d:1237313:1|9 s}}. Este hechizo se probará contra la más baja de las resistencias de Fuego o Escarcha del objetivo y cuenta como daño de Escarcha y Fuego al mismo tiempo.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -15994,7 +16408,9 @@
           "textOrigin": "client",
           "acquireMethod": null,
           "descriptionComplete": true,
-          "descriptionTemplate": "Durante los siguientes {{d:12042:1|15 s}}, tus hechizos infligen un {{s:12042:1|30}}% más de daño y cuestan un {{s:12042:2|30}}% más de maná."
+          "descriptionTemplate": "Durante los siguientes {{d:12042:1|15 s}}, tus hechizos infligen un {{s:12042:1|30}}% más de daño y cuestan un {{s:12042:2|30}}% más de maná.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16054,7 +16470,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal, teletransportando a los miembros del grupo que lo utilizan a Entrañas."
+          "descriptionTemplate": "Crea un portal, teletransportando a los miembros del grupo que lo utilizan a Entrañas.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16114,7 +16532,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Forjaz."
+          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Forjaz.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16174,7 +16594,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Orgrimmar."
+          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Orgrimmar.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16234,7 +16656,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Ventormenta."
+          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Ventormenta.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16311,7 +16735,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura un citrino de maná que se puede utilizar para recuperar al instante {{s:10057:1|850}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura un citrino de maná que se puede utilizar para recuperar al instante {{s:10057:1|850}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16371,7 +16797,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal, teletransportando a los miembros del grupo que lo utilizan a Cima del Trueno"
+          "descriptionTemplate": "Crea un portal, teletransportando a los miembros del grupo que lo utilizan a Cima del Trueno",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16431,7 +16859,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Darnassus."
+          "descriptionTemplate": "Crea un portal que teletransporta a los miembros del grupo que lo utilicen hasta Darnassus.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16508,7 +16938,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Teletransporta al taumaturgo a Dalaran."
+          "descriptionTemplate": "Teletransporta al taumaturgo a Dalaran.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16568,7 +17000,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Inunda de brillantez al grupo y a la banda, lo que aumenta {{s:23028:1|31}} p. su intelecto durante {{d:23028:1|1 h}}."
+          "descriptionTemplate": "Inunda de brillantez al grupo y a la banda, lo que aumenta {{s:23028:1|31}} p. su intelecto durante {{d:23028:1|1 h}}.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16645,7 +17079,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Conjura un rubí de maná que se puede utilizar para recuperar al instante {{s:10058:1|1100}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min."
+          "descriptionTemplate": "Conjura un rubí de maná que se puede utilizar para recuperar al instante {{s:10058:1|1100}} p. de maná.\r\n\r\nLos objetos conjurados desaparecen si el jugador permanece desconectado durante más de 15 min.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16705,7 +17141,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Crea {{s:468766:1|20}} botellas de agua de manantial de montaña, dándoles al mago y a sus aliados algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece más de 15 minutos desconectado."
+          "descriptionTemplate": "Crea {{s:468766:1|20}} botellas de agua de manantial de montaña, dándoles al mago y a sus aliados algo de beber.\r\n\r\nLos objetos creados por arte de magia desaparecen si el jugador permanece más de 15 minutos desconectado.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {
@@ -16799,7 +17237,9 @@
           "textOrigin": "client",
           "acquireMethod": 0,
           "descriptionComplete": true,
-          "descriptionTemplate": "Transforma al enemigo en vaca obligándolo a merodear hasta {{d:28270:1|50 s}}. Mientras merodea, la vaca no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos."
+          "descriptionTemplate": "Transforma al enemigo en vaca obligándolo a merodear hasta {{d:28270:1|50 s}}. Mientras merodea, la vaca no puede atacar ni lanzar hechizos, pero se regenera muy rápidamente. Si recibe daño volverá a su forma normal. Solo se puede aplicar polimorfia a 1 objetivo cada vez. Solo funciona con bestias, humanoides y bichos.",
+          "equipped": [],
+          "weaponHand": "main"
         }
       ],
       "talentsForever": {

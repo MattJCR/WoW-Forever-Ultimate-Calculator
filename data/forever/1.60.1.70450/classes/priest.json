@@ -30,6 +30,7 @@
           "spellId": 1309969,
           "name": "Poder en la Luz",
           "iconFileDataId": 135972,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -98,6 +99,13 @@
           "spellId": 14524,
           "name": "Especialización en varitas",
           "iconFileDataId": 135463,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 524288
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -154,6 +162,7 @@
           "spellId": 1225132,
           "name": "Disciplinas gemelas",
           "iconFileDataId": 135969,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -249,6 +258,7 @@
           "spellId": 14523,
           "name": "Resolución silenciosa",
           "iconFileDataId": 136053,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -373,6 +383,7 @@
           "spellId": 1309957,
           "name": "Precisión Sagrada",
           "iconFileDataId": 135895,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -437,6 +448,7 @@
           "spellId": 18551,
           "name": "Fuerza mental",
           "iconFileDataId": 136031,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -509,6 +521,7 @@
           "spellId": 14531,
           "name": "Martirio",
           "iconFileDataId": 136107,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -569,6 +582,7 @@
           "spellId": 14520,
           "name": "Agilidad mental",
           "iconFileDataId": 132156,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -638,6 +652,7 @@
           "spellId": 14751,
           "name": "Enfoque interno",
           "iconFileDataId": 135863,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -706,6 +721,7 @@
           "spellId": 14748,
           "name": "Poder de la palabra mejorado: escudo",
           "iconFileDataId": 135940,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -775,6 +791,7 @@
           "spellId": 14521,
           "name": "Meditación",
           "iconFileDataId": 136090,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -844,6 +861,7 @@
           "spellId": 14747,
           "name": "Fuego interno mejorado",
           "iconFileDataId": 135926,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -936,6 +954,7 @@
           "spellId": 14750,
           "name": "Quemar maná mejorado",
           "iconFileDataId": 136170,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1004,6 +1023,7 @@
           "spellId": 402000,
           "name": "Amparo de alma",
           "iconFileDataId": 135948,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1080,6 +1100,7 @@
           "spellId": 402174,
           "name": "Penitencia",
           "iconFileDataId": 237545,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1128,6 +1149,7 @@
           "spellId": 425280,
           "name": "Esperanza renovada",
           "iconFileDataId": 135923,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1238,6 +1260,7 @@
           "spellId": 431622,
           "name": "Égida divina",
           "iconFileDataId": 237539,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1330,6 +1353,7 @@
           "spellId": 10060,
           "name": "Infusión de poder",
           "iconFileDataId": 135939,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1422,6 +1446,7 @@
           "spellId": 14913,
           "name": "Enfoque crepuscular",
           "iconFileDataId": 135918,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1479,6 +1504,7 @@
           "spellId": 14908,
           "name": "Renovar mejorado",
           "iconFileDataId": 135953,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1536,6 +1562,7 @@
           "spellId": 14889,
           "name": "Especialización Sagrada",
           "iconFileDataId": 135967,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1601,6 +1628,7 @@
           "spellId": 27900,
           "name": "Custodia de hechizos",
           "iconFileDataId": 135976,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1673,6 +1701,7 @@
           "spellId": 18530,
           "name": "Furia divina",
           "iconFileDataId": 135971,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1745,6 +1774,7 @@
           "spellId": 15237,
           "name": "Nova Sagrada",
           "iconFileDataId": 135922,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -1784,6 +1814,7 @@
           "spellId": 27811,
           "name": "Recuperación bendita",
           "iconFileDataId": 135877,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1865,6 +1896,7 @@
           "spellId": 14892,
           "name": "Inspiración",
           "iconFileDataId": 135928,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1931,6 +1963,7 @@
           "spellId": 27789,
           "name": "Alcance Sagrado",
           "iconFileDataId": 135949,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2015,6 +2048,7 @@
           "spellId": 14912,
           "name": "Curación mejorada",
           "iconFileDataId": 135916,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2084,6 +2118,7 @@
           "spellId": 14909,
           "name": "Luz abrasadora",
           "iconFileDataId": 135973,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2173,6 +2208,7 @@
           "spellId": 401937,
           "name": "Sanación conjunta",
           "iconFileDataId": 135883,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2216,6 +2252,7 @@
           "spellId": 1317006,
           "name": "Letanía de la Luz",
           "iconFileDataId": 134943,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2285,6 +2322,7 @@
           "spellId": 20711,
           "name": "Espíritu de redencción",
           "iconFileDataId": 132864,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2344,6 +2382,7 @@
           "spellId": 14901,
           "name": "Guía espiritual",
           "iconFileDataId": 135977,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2447,6 +2486,7 @@
           "spellId": 14898,
           "name": "Curación espiritual",
           "iconFileDataId": 136057,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2543,6 +2583,7 @@
           "spellId": 401859,
           "name": "Rezo de alivio",
           "iconFileDataId": 135944,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -2610,6 +2651,7 @@
           "spellId": 15260,
           "name": "Enfoque de las Sombras",
           "iconFileDataId": 136126,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2675,6 +2717,7 @@
           "spellId": 15326,
           "name": "Desmayo",
           "iconFileDataId": 136160,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2740,6 +2783,7 @@
           "spellId": 15270,
           "name": "Transfusión de espíritu",
           "iconFileDataId": 136188,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2805,6 +2849,7 @@
           "spellId": 15273,
           "name": "Explosión mental mejorada",
           "iconFileDataId": 136224,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2877,6 +2922,7 @@
           "spellId": 15275,
           "name": "Palabra de las Sombras: dolor mejorada",
           "iconFileDataId": 136207,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2937,6 +2983,7 @@
           "spellId": 17322,
           "name": "Alcance de las Sombras",
           "iconFileDataId": 136130,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2997,6 +3044,7 @@
           "spellId": 15392,
           "name": "Alarido psíquico mejorado",
           "iconFileDataId": 136184,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3065,6 +3113,7 @@
           "spellId": 15407,
           "name": "Despelleje mental",
           "iconFileDataId": 136208,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3131,6 +3180,7 @@
           "spellId": 1225139,
           "name": "Tortura mental mejorada",
           "iconFileDataId": 136213,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3199,6 +3249,7 @@
           "spellId": 1326159,
           "name": "Inspiración macabra",
           "iconFileDataId": 463284,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3277,6 +3328,7 @@
           "spellId": 15286,
           "name": "Unirse a vampírica",
           "iconFileDataId": 136230,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3333,6 +3385,7 @@
           "spellId": 15257,
           "name": "Tejido de las Sombras",
           "iconFileDataId": 136123,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3403,6 +3456,7 @@
           "spellId": 15487,
           "name": "Silencio",
           "iconFileDataId": 136164,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3462,6 +3516,7 @@
           "spellId": 1309950,
           "name": "Contagio devorador",
           "iconFileDataId": 252996,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3564,6 +3619,7 @@
           "spellId": 1310076,
           "name": "Muerte prematura",
           "iconFileDataId": 136149,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3649,6 +3705,7 @@
           "spellId": 15259,
           "name": "Oscuridad",
           "iconFileDataId": 136223,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3732,6 +3789,7 @@
           "spellId": 15473,
           "name": "Forma de las Sombras",
           "iconFileDataId": 136200,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3857,6 +3915,7 @@
       "spellId": 14889,
       "name": "Especialización Sagrada",
       "iconFileDataId": 135967,
+      "equipped": [],
       "effectInfo": [
         {
           "index": 0,

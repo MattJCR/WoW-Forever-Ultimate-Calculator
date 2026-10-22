@@ -33,8 +33,22 @@ export const EffectInfo = z.object({
 });
 export type EffectInfo = z.infer<typeof EffectInfo>;
 
+/**
+ * Requisito de objeto equipado de un hechizo (SpellEquippedItems): hay que llevar un objeto de esa clase (2 arma, 4 armadura) cuyo subtipo
+ * (bit `1 << subclase`) y tipo de ranura (bit `1 << tipo de inventario`) estén en las máscaras; 0 = cualquiera. Un hechizo con varias filas
+ * se cumple con que se cumpla una. Procedencia client-db2.
+ */
+export const EquippedRequirement = z.object({
+  itemClass: z.number().int(),
+  invTypeMask: z.number().int(),
+  subclassMask: z.number().int(),
+});
+export type EquippedRequirement = z.infer<typeof EquippedRequirement>;
+
 /** Texto del talento por rango, resuelto a partir de la descripcion del hechizo del cliente. */
 const TextFields = {
+  /** Objetos que hay que llevar equipados para que valga el hechizo (armas de dos manos, varitas, escudo...); vacío = sin requisito. */
+  equipped: z.array(EquippedRequirement).default([]),
   /** Efectos de aura del hechizo del talento (para el motor: a que habilidades modifica). */
   effectInfo: z.array(EffectInfo).default([]),
   /** De donde sale el texto: del cliente en espanol, una traduccion propia (el cliente aun lo trae en ingles) o ingles sin traducir. */
@@ -504,6 +518,13 @@ export const AbilityRank = z.object({
    * d duracion, a radio, t periodo) para recalcularla con el nivel y los talentos.
    */
   descriptionTemplate: z.string().default(""),
+  /** Objetos que hay que llevar equipados para lanzarla (una daga para Mutilar, un arma cuerpo a cuerpo...); vacío = sin requisito. */
+  equipped: z.array(EquippedRequirement).default([]),
+  /**
+   * Con que arma(s) golpea una habilidad de daño de arma: la mano derecha (por defecto), solo la izquierda (Puyazo, Latigazo de lava: el atributo
+   * «requiere arma en la mano izquierda» del cliente o su texto) o las dos (el texto dice «con ambas armas»: Mutilar, Huracán). client-db2.
+   */
+  weaponHand: z.enum(["main", "off", "both"]).default("main"),
 });
 export type AbilityRank = z.infer<typeof AbilityRank>;
 
@@ -640,6 +661,8 @@ export const CombatFormulas = z.object({
   critMultiplier: z.object({ spell: z.number(), physical: z.number() }),
   /** Poder de ataque por punto de daño por segundo del arma (golpe de arma = arma + velocidad x PA / este valor). */
   attackPowerPerDps: z.number(),
+  /** Fraccion del daño que hace el arma de la mano izquierda (Classic: 0,5). Confirmada por el usuario (22/10/2026); los golpes con las dos armas la usan, con el bono de «daño del arma de la mano izquierda» de los talentos por encima. */
+  offHandDamageFactor: z.number().default(0.5),
   /** Armadura por punto de agilidad. */
   armorPerAgility: z.number(),
   /** Mana cada 5 s por espiritu sin lanzar hechizos (regla del cuadro de los 5 segundos): base + espiritu x factor, redondeado hacia abajo. */

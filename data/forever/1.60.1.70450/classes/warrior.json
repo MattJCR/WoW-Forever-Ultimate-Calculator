@@ -30,6 +30,7 @@
           "spellId": 12282,
           "name": "Golpe heroico mejorado",
           "iconFileDataId": 132282,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -87,6 +88,7 @@
           "spellId": 16462,
           "name": "Desvío",
           "iconFileDataId": 132269,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -152,6 +154,7 @@
           "spellId": 12286,
           "name": "Desgarrar mejorado",
           "iconFileDataId": 132155,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -209,6 +212,7 @@
           "spellId": 12285,
           "name": "Embestir mejorado",
           "iconFileDataId": 132337,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -269,6 +273,7 @@
           "spellId": 12295,
           "name": "Maestría táctica mejorada",
           "iconFileDataId": 136031,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -341,6 +346,7 @@
           "spellId": 12290,
           "name": "Abrumar mejorado",
           "iconFileDataId": 135275,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -401,6 +407,7 @@
           "spellId": 12296,
           "name": "Control de furia",
           "iconFileDataId": 135881,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -498,6 +505,13 @@
           "spellId": 12834,
           "name": "Heridas profundas",
           "iconFileDataId": 132090,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -570,6 +584,13 @@
           "spellId": 1310222,
           "name": "Lanzazo",
           "iconFileDataId": 135124,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -614,6 +635,13 @@
           "spellId": 12163,
           "name": "Especialización en armas de dos manos",
           "iconFileDataId": 132400,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 136546
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -683,6 +711,7 @@
           "spellId": 16493,
           "name": "Clavar",
           "iconFileDataId": 132312,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -753,6 +782,7 @@
           "spellId": 1289682,
           "name": "Fragor de la sangre",
           "iconFileDataId": 135271,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -833,6 +863,7 @@
           "spellId": 12292,
           "name": "Golpes de barrido",
           "iconFileDataId": 132306,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -891,6 +922,13 @@
           "spellId": 1290261,
           "name": "Maestro de armas",
           "iconFileDataId": 1085608,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 0
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1015,6 +1053,7 @@
           "spellId": 12862,
           "name": "Embate mejorado",
           "iconFileDataId": 132340,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1189,6 +1228,7 @@
           "spellId": 12289,
           "name": "Seccionar mejorado",
           "iconFileDataId": 132316,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1264,6 +1304,13 @@
           "spellId": 12294,
           "name": "Golpe mortal",
           "iconFileDataId": 132355,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1343,6 +1390,7 @@
           "spellId": 12321,
           "name": "Voz retumbante",
           "iconFileDataId": 136075,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1430,6 +1478,13 @@
           "spellId": 12320,
           "name": "Crueldad",
           "iconFileDataId": 132292,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1495,6 +1550,7 @@
           "spellId": 1323964,
           "name": "Ira persistente",
           "iconFileDataId": 132356,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1566,6 +1622,13 @@
           "spellId": 12322,
           "name": "Cólera desbocada",
           "iconFileDataId": 136097,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1637,6 +1700,13 @@
           "spellId": 1323963,
           "name": "Precisión furiosa",
           "iconFileDataId": 236309,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 4194304,
+              "subclassMask": 41105
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1702,6 +1772,7 @@
           "spellId": 12323,
           "name": "Aullido penetrante",
           "iconFileDataId": 136147,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1753,6 +1824,7 @@
           "spellId": 16487,
           "name": "Manía sangrienta",
           "iconFileDataId": 136218,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -1833,6 +1905,13 @@
           "spellId": 23584,
           "name": "Especialización en doble empuñadura",
           "iconFileDataId": 132147,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 4194304,
+              "subclassMask": 41105
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -1936,6 +2015,7 @@
           "spellId": 1310315,
           "name": "Golpes enfurecidos",
           "iconFileDataId": 132369,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2003,6 +2083,7 @@
           "spellId": 12317,
           "name": "Enfurecer",
           "iconFileDataId": 136224,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2079,6 +2160,7 @@
           "spellId": 20502,
           "name": "Ejecutar mejorado",
           "iconFileDataId": 135358,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2143,6 +2225,7 @@
           "spellId": 20500,
           "name": "Ira rabiosa mejorada",
           "iconFileDataId": 136009,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2230,6 +2313,7 @@
           "spellId": 12328,
           "name": "Deseo de la Muerte",
           "iconFileDataId": 136146,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2314,6 +2398,7 @@
           "spellId": 20504,
           "name": "Intercepción mejorada",
           "iconFileDataId": 132307,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2382,6 +2467,7 @@
           "spellId": 12319,
           "name": "Aluvión",
           "iconFileDataId": 132152,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2470,6 +2556,7 @@
           "spellId": 1323967,
           "name": "Bebedor de entrañas",
           "iconFileDataId": 135727,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2560,6 +2647,7 @@
           "spellId": 23881,
           "name": "Sed de sangre",
           "iconFileDataId": 136012,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 2,
@@ -2635,6 +2723,7 @@
           "spellId": 12301,
           "name": "Sanguinario mejorado",
           "iconFileDataId": 132277,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2688,6 +2777,7 @@
           "spellId": 12298,
           "name": "Especialización en escudos",
           "iconFileDataId": 134952,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2775,6 +2865,7 @@
           "spellId": 12962,
           "name": "Voluntad férrea",
           "iconFileDataId": 135995,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2857,6 +2948,7 @@
           "spellId": 12297,
           "name": "Anticipación",
           "iconFileDataId": 136056,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2929,6 +3021,7 @@
           "spellId": 12797,
           "name": "Revancha mejorada",
           "iconFileDataId": 132353,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -2993,6 +3086,7 @@
           "spellId": 12287,
           "name": "Trueno mejorado",
           "iconFileDataId": 132326,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3057,6 +3151,7 @@
           "spellId": 12975,
           "name": "Última posición",
           "iconFileDataId": 135871,
+          "equipped": [],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
@@ -3103,6 +3198,7 @@
           "spellId": 1310316,
           "name": "Maestro de defensa",
           "iconFileDataId": 132359,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3171,6 +3267,7 @@
           "spellId": 12313,
           "name": "Desarmar mejorado",
           "iconFileDataId": 132343,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3238,6 +3335,13 @@
           "spellId": 12792,
           "name": "Desafío",
           "iconFileDataId": 132347,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -3305,6 +3409,7 @@
           "spellId": 12308,
           "name": "Hender armadura mejorado",
           "iconFileDataId": 132363,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3376,6 +3481,7 @@
           "spellId": 1310317,
           "name": "Vanguardia",
           "iconFileDataId": 4667427,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3459,6 +3565,7 @@
           "spellId": 12311,
           "name": "Azote de escudo mejorado",
           "iconFileDataId": 132357,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3526,6 +3633,7 @@
           "spellId": 12312,
           "name": "Muro de escudo mejorado",
           "iconFileDataId": 132362,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3596,6 +3704,13 @@
           "spellId": 12809,
           "name": "Golpe de concusión",
           "iconFileDataId": 132325,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -3656,6 +3771,7 @@
           "spellId": 29787,
           "name": "Ira enfocada",
           "iconFileDataId": 132345,
+          "equipped": [],
           "effectInfo": [
             {
               "index": 0,
@@ -3730,6 +3846,13 @@
           "spellId": 16538,
           "name": "Bastión",
           "iconFileDataId": 134950,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
           "effectInfo": [
             {
               "index": 0,
@@ -3815,6 +3938,13 @@
           "spellId": 23922,
           "name": "Embate con escudo",
           "iconFileDataId": 134951,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
           "effectInfo": [],
           "passive": false,
           "textOrigin": "client",
