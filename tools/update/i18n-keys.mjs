@@ -21,6 +21,7 @@ const TABLES = {
   "components/ClassShell.tsx": ["VIEWS"],
   "components/StatEffects.tsx": ["FROM"],
   "components/Gear.tsx": ["ORIGIN_LABEL"],
+  "components/Buffs.tsx": ["CONSUMABLE_LABEL"],
   "components/LinkNotice.tsx": ["REASON"],
   "messages.ts": ["BLOCKER_TEXT"],
   "pages/ClassPage.tsx": ["FACTION_LABEL"],

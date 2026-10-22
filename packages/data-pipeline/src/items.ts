@@ -1,7 +1,7 @@
 import { int, type RawTables, type Row } from "./csv.js";
 import { renderSpellText } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
-import type { Item, ItemSetDef, ItemSpellAura, Items, ItemStat, ItemWeapon } from "./model.js";
+import type { Item, ItemProc, ItemSetDef, ItemSpellAura, Items, ItemStat, ItemWeapon } from "./model.js";
 
 /**
  * ItemSparse.StatModifier_bonusStat (ITEM_MOD_* de retail) -> clave propia. Los tipos 0-89 se interpretaron contra las lecturas del
@@ -161,11 +161,59 @@ export function spellAuras(spells: SpellTables, spellId: number): ItemSpellAura[
   return out;
 }
 
-/** Nombre, texto del cliente (cifras al nivel base) y auras de un hechizo de objeto, de conjunto o de encantamiento. */
-export function spellEffectInfo(spells: SpellTables, spellId: number): { name: string; text: string; textComplete: boolean; auras: ItemSpellAura[] } {
+const EFFECT_SCHOOL_DAMAGE = 2;
+const AURA_PROC_TRIGGER_SPELL = 42;
+const AURA_PROC_TRIGGER_DAMAGE = 43;
+/** SpellAuraOptions.ProcTypeMask[0]: eventos «recibidos» (golpe en melee, a distancia, hechizo…) y «hechos». Un proc solo de recibidos es defensivo. */
+const PROC_TAKEN = 0x8 | 0x20 | 0x80 | 0x200 | 0x800 | 0x2000;
+const PROC_DONE = 0x4 | 0x10 | 0x40 | 0x100 | 0x400 | 0x1000;
+
+/** Daño directo medio (puntos base) de un hechizo que hace daño de escuela; null si no hace. */
+function directDamage(spells: SpellTables, spellId: number): { average: number; schoolMask: number } | null {
+  for (let i = 0; i < spells.effectCount(spellId); i++) {
+    const e = spells.effect(spellId, i)!;
+    if (int(e.Effect) !== EFFECT_SCHOOL_DAMAGE) continue;
+    const average = Math.abs(Number(e.EffectBasePointsF));
+    if (Number.isFinite(average) && average > 0) return { average, schoolMask: spells.schoolMask(spellId) || 1 };
+  }
+  return null;
+}
+
+/**
+ * Proc de un efecto de objeto (`client-db2`): probabilidad por golpe (SpellAuraOptions.ProcChance entre 1 y 99), procs por minuto
+ * (SpellProcsPerMinute, solo los hechizos nuevos), enfriamiento interno y daño directo del hechizo que se dispara. `trigger` 2 = el
+ * objeto dice «probabilidad al golpear». null si el efecto no es un proc.
+ */
+export function spellProc(spells: SpellTables, spellId: number, trigger?: number): ItemProc | null {
+  const triggers: number[] = [];
+  for (let i = 0; i < spells.effectCount(spellId); i++) {
+    const e = spells.effect(spellId, i)!;
+    const aura = int(e.EffectAura);
+    if ((aura === AURA_PROC_TRIGGER_SPELL || aura === AURA_PROC_TRIGGER_DAMAGE || trigger === 2) && int(e.EffectTriggerSpell) > 0) triggers.push(int(e.EffectTriggerSpell));
+  }
+  const hasProcAura = spellAuras(spells, spellId).some((a) => a.aura === AURA_PROC_TRIGGER_SPELL || a.aura === AURA_PROC_TRIGGER_DAMAGE);
+  const ppm = spells.procsPerMinute(spellId) ?? triggers.map((t) => spells.procsPerMinute(t)).find((p) => p !== null) ?? null;
+  if (!hasProcAura && ppm === null && trigger !== 2) return null;
+  const options = spells.aura(spellId);
+  const mask = spells.procTypeMask(spellId);
+  const chance = options?.procChance ?? 0;
+  const damage = directDamage(spells, spellId) ?? triggers.map((t) => directDamage(spells, t)).find((d) => d !== null) ?? null;
+  return {
+    chancePct: ppm === null && chance >= 1 && chance <= 99 ? chance : null,
+    ppm,
+    icdMs: options && options.procCooldownMs > 0 ? options.procCooldownMs : null,
+    onTaken: (mask & PROC_TAKEN) !== 0 && (mask & PROC_DONE) === 0,
+    triggerSpellId: triggers[0] ?? null,
+    damage,
+    source: "client-db2",
+  };
+}
+
+/** Nombre, texto del cliente (cifras al nivel base), auras y proc de un hechizo de objeto, de conjunto o de encantamiento. */
+export function spellEffectInfo(spells: SpellTables, spellId: number, trigger?: number): { name: string; text: string; textComplete: boolean; auras: ItemSpellAura[]; proc: ItemProc | null } {
   const r = renderSpellText(spells, spells.description(spellId), { spellId, rank: 1, curves: new Map() });
   // El cliente escribe «%%» (formato de printf) en algunos textos de efectos de objeto: se muestra un solo «%»
-  return { name: spells.name(spellId) ?? "", text: r.text.trim().replace(/%%/g, "%"), textComplete: r.complete, auras: spellAuras(spells, spellId) };
+  return { name: spells.name(spellId) ?? "", text: r.text.trim().replace(/%%/g, "%"), textComplete: r.complete, auras: spellAuras(spells, spellId), proc: spellProc(spells, spellId, trigger) };
 }
 
 /**
@@ -179,7 +227,7 @@ export function spellEffectInfo(spells: SpellTables, spellId: number): { name: s
  *  - Armas de lanzador: daño reducido y poder con hechizos desde los indicadores del cliente (ver CASTER_*).
  */
 export function buildItems(raw: RawTables, build: string, spells: SpellTables): Items {
-  const spellText = (spellId: number) => spellEffectInfo(spells, spellId);
+  const spellText = (spellId: number, trigger?: number) => spellEffectInfo(spells, spellId, trigger);
   const sparse = raw.table("ItemSparse");
   const itemRows = raw.table("Item");
   const sparseById = new Map(sparse.map((r) => [r.ID!, r]));
@@ -201,7 +249,7 @@ export function buildItems(raw: RawTables, build: string, spells: SpellTables): 
     const e = effectById.get(x.ItemEffectID!);
     if (!e) continue;
     const list = effectsByItem.get(x.ItemID!) ?? [];
-    list.push({ spellId: int(e.SpellID), trigger: int(e.TriggerType), ...spellText(int(e.SpellID)) });
+    list.push({ spellId: int(e.SpellID), trigger: int(e.TriggerType), ...spellText(int(e.SpellID), int(e.TriggerType)) });
     effectsByItem.set(x.ItemID!, list);
   }
 

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Abilities, ClassTalents, Enchants, EnglishText, Items, Unassigned } from "./model.js";
+import type { Abilities, Buffs, ClassTalents, Enchants, EnglishText, Items, Unassigned } from "./model.js";
 import { hideUnresolved, numbersOf, renderSpellEnglish, sameNumbers, type OfficialEnglish } from "./english-official.js";
 import { withRenderLocale } from "./spell-text.js";
 
@@ -54,6 +54,8 @@ export interface OfficialInputs {
   items: Items | undefined;
   /** Encantamientos: sus hechizos (al equipar, al golpear, de uso) también llevan texto del cliente que hay que verificar en inglés. */
   enchants?: Enchants;
+  /** Beneficios: el texto de su hechizo también se verifica en inglés. */
+  buffs?: Buffs;
   unassigned: Unassigned;
   own: EnglishOverrides;
 }
@@ -238,6 +240,7 @@ export function applyOfficialEnglish(english: EnglishText, oe: OfficialEnglish, 
     for (const i of input.items.items) for (const e of i.effects) if (e.text) esText.set(e.spellId, { text: e.text, complete: e.textComplete });
     for (const s of input.items.sets) for (const b of s.bonuses) if (b.text) esText.set(b.spellId, { text: b.text, complete: b.textComplete });
     for (const en of input.enchants?.enchants ?? []) for (const e of en.effects) if (e.text && !esText.has(e.spellId)) esText.set(e.spellId, { text: e.text, complete: e.textComplete });
+    for (const b of input.buffs?.buffs ?? []) if (b.text && !esText.has(b.id)) esText.set(b.id, { text: b.text, complete: b.textComplete });
     for (const [id, { text: es, complete }] of esText) {
       report.effectSpells.total++;
       const have = english.spells[id];

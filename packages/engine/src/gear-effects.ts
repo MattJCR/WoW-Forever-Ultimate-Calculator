@@ -1,4 +1,4 @@
-import type { Enchant, ItemSpellAura } from "@wfuc/schema";
+import type { Enchant, ItemProc, ItemSpellAura } from "@wfuc/schema";
 import type { GearData, GearSelection, GearSlot } from "./gear.js";
 import { GEAR_SLOTS } from "./gear.js";
 import { attackPowerVsKey, spellDamageVsKey } from "./item-stat-keys.js";
@@ -13,7 +13,7 @@ import { AURA_ADD_FLAT_MODIFIER, AURA_ADD_PCT_MODIFIER, type SpellModifier } fro
  */
 
 export interface GearEffectSource {
-  kind: "set" | "item" | "enchant";
+  kind: "set" | "item" | "enchant" | "buff";
   /** Nombre del bono o del efecto del objeto (el del hechizo del cliente). */
   name: string;
   /** Conjunto o ranura de origen, para mostrarlo. */
@@ -21,6 +21,8 @@ export interface GearEffectSource {
   spellId: number;
   text: string;
   auras: ItemSpellAura[];
+  /** Proc del bono de conjunto (si lo es). */
+  proc?: ItemProc | null;
   /** Ranura y objeto de los efectos de objeto y de encantamiento (null en los conjuntos). */
   slot: GearSlot | null;
   itemId: number | null;
@@ -60,6 +62,9 @@ const SKILL_LINE_KEYS: Record<number, string> = {
 const SCHOOL_POWER: Record<number, string> = { 2: "holy-power", 4: "fire-power", 8: "nature-power", 16: "frost-power", 32: "shadow-power", 64: "arcane-power" };
 const SCHOOL_RESISTANCE: Record<number, string> = { 2: "holy-resistance", 4: "fire-resistance", 8: "nature-resistance", 16: "frost-resistance", 32: "shadow-resistance", 64: "arcane-resistance" };
 const ALL_MAGIC = 126;
+/** Máscaras de «todas las escuelas»: 126 = mágicas; 127 = también físico (Armadura vil); 124 = las cinco de las resistencias (sin Sagrado). */
+const isAllMagic = (mask: number): boolean => mask === ALL_MAGIC || mask === 127;
+const isAllResistances = (mask: number): boolean => mask === ALL_MAGIC || mask === 124;
 const HOLY_SCHOOL = 2;
 /** Auras 189 (puntuacion): la mascara es de tipos de puntuacion del juego (bit 5-7 impacto, 8-10 critico, 17-19 celeridad, 2 esquivar, 3 parada, 4 bloqueo, 23 pericia). */
 const RATING_GROUPS: [number, string][] = [
@@ -91,7 +96,8 @@ export function classifyGearAuras(auras: ItemSpellAura[], text: string, options:
   };
   const find = (aura: number, value: number) => auras.find((x) => x.aura === aura && x.value === value && !consumed.has(x.index));
   for (const a of auras) {
-    if (consumed.has(a.index) || a.levelScaled) continue;
+    // Los valores que escalan con el nivel solo se aceptan en beneficios y encantamientos (`trustValues`): su rango máximo se lanza a nivel 60
+    if (consumed.has(a.index) || (a.levelScaled && !options.trustValues)) continue;
     const v = a.value;
     if (a.aura !== 189 && !options.trustValues && !textHasNumber(text, v)) continue;
     switch (a.aura) {
@@ -111,11 +117,12 @@ export function classifyGearAuras(auras: ItemSpellAura[], text: string, options:
         break;
       case 13: {
         // Daño de hechizos por escuela; todas las escuelas magicas junto a la sanación gemela = poder con hechizos
-        const twin = a.miscValue === ALL_MAGIC ? find(135, v) : undefined;
+        const twin = isAllMagic(a.miscValue) ? find(135, v) : undefined;
         if (twin) {
           take(a, { key: "spell-power", value: v });
           consumed.add(twin.index);
-        } else if (a.miscValue === ALL_MAGIC) take(a, { key: "spell-damage", value: v });
+        } else if (isAllMagic(a.miscValue)) take(a, { key: "spell-damage", value: v });
+        else if (a.miscValue === 1) take(a, { key: "physical-damage", value: v }); // «+N de daño» físico: se suma a cada golpe de arma
         else if (SCHOOL_POWER[a.miscValue]) take(a, { key: SCHOOL_POWER[a.miscValue]!, value: v });
         break;
       }
@@ -160,7 +167,7 @@ export function classifyGearAuras(auras: ItemSpellAura[], text: string, options:
         if (a.miscValue === 0) take(a, { key: "mana-per-5", value: v });
         break;
       case 22: // resistencias
-        if (a.miscValue === ALL_MAGIC) take(a, ...Object.entries(SCHOOL_RESISTANCE).filter(([school]) => Number(school) !== HOLY_SCHOOL).map(([, key]) => ({ key, value: v }))); // «todas las resistencias»: sin Sagrado, como en los objetos
+        if (isAllResistances(a.miscValue)) take(a, ...Object.entries(SCHOOL_RESISTANCE).filter(([school]) => Number(school) !== HOLY_SCHOOL).map(([, key]) => ({ key, value: v }))); // «todas las resistencias»: sin Sagrado, como en los objetos
         else if (SCHOOL_RESISTANCE[a.miscValue]) take(a, { key: SCHOOL_RESISTANCE[a.miscValue]!, value: v });
         break;
       case 123: // penetracion de hechizos (el cliente la guarda negativa)
@@ -225,7 +232,7 @@ export function activeGearEffects(gear: GearSelection, data: GearData): GearEffe
     for (const b of def.bonuses) {
       if (pieces.size < b.threshold || seen.has(b.spellId)) continue;
       seen.add(b.spellId);
-      out.push({ kind: "set", name: b.name || def.name, origin: `${def.name} (${b.threshold})`, spellId: b.spellId, text: b.text, auras: b.auras, slot: null, itemId: null });
+      out.push({ kind: "set", name: b.name || def.name, origin: `${def.name} (${b.threshold})`, spellId: b.spellId, text: b.text, auras: b.auras, proc: b.proc, slot: null, itemId: null });
     }
   }
   return out;

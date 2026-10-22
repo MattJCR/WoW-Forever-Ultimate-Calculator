@@ -1,5 +1,5 @@
 import { GEAR_SLOTS, SLOT_LABEL, enchantStatLines, ratingPercents, suffixStats, type GearData, type GearSelection, type GearSlot, type GearSummary } from "@wfuc/engine";
-import type { CombatRatings, Item, ItemStat } from "@wfuc/schema";
+import type { CombatRatings, Item, ItemSourceEntry, ItemStat } from "@wfuc/schema";
 import { fmtNum, isEnglish, itemName, itemSetName, spellEn, tr, trn } from "../i18n";
 
 /** Color de calidad del juego (0 pobre ... 6 artefacto). */
@@ -20,6 +20,15 @@ export const effectLabel = (e: { spellId: number; text: string; name: string }):
   const en = isEnglish() ? spellEn(e.spellId) : null;
   return en?.description || e.text || en?.name || e.name || tr("hechizo {id}", { id: e.spellId });
 };
+/** Líneas de la tarjeta de un objeto con su fuente (hoy solo la profesión que lo fabrica). */
+export function sourceLines(entries: ItemSourceEntry[]): string[] {
+  const out: string[] = [];
+  for (const s of entries) {
+    out.push(tr("Fabricado: {skill} ({n})", { skill: isEnglish() ? s.skillEn : s.skill, n: s.minSkill }));
+  }
+  return out;
+}
+
 /** Nombre de un sufijo o encantamiento: el cliente no los trae; `nameEn` es el de la comunidad. */
 export const nameOf = (x: { name: string; nameEn?: string | null }): string => (isEnglish() && x.nameEn ? x.nameEn : x.name);
 /** Ranura en el idioma elegido. */

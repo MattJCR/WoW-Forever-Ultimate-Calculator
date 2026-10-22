@@ -4,6 +4,7 @@ import type { DerivedStats } from "./derived-stats.js";
 import { ratingPercents } from "./gear.js";
 import { attackPowerVsKey, CREATURE_TYPES, PENETRATION_SCHOOLS, PROFESSION_SKILLS, spellDamageVsKey, WEAPON_SKILLS } from "./item-stat-keys.js";
 import type { SwingEstimate } from "./power-bonus.js";
+import type { ProcEstimate } from "./procs.js";
 import type { StatSource, StatTotal } from "./stat-effects.js";
 
 /**
@@ -110,6 +111,8 @@ export function deriveCombatStats(input: {
   rules?: { formulas: CombatFormulas; classId: number } | null;
   /** Golpes automáticos de las armas llevadas (`autoAttacks`): salen como filas de «Armas». */
   swings?: SwingEstimate[];
+  /** Procs de daño del equipo (`estimateProcs`): salen como filas de «Armas». */
+  procs?: ProcEstimate[];
 }): CombatStats {
   const { derived, totals, classStats } = input;
   const classBase = input.rules ? classBaseOf(input.rules.formulas, input.rules.classId) : null;
@@ -198,6 +201,17 @@ export function deriveCombatStats(input: {
       unit: "",
       parts: [],
       note: `Golpe de ${Math.round(sw.min)}–${Math.round(sw.max)} cada ${round2(sw.hastedSpeed)} s (${sw.formula}). Estimación con las reglas de Classic: sin críticos ni fallos.`,
+    });
+  }
+  for (const p of input.procs ?? []) {
+    add({
+      key: `proc-${p.source.spellId}`,
+      group: "Armas",
+      label: `Proc de ${p.source.name}: daño por segundo`,
+      value: round2(p.dps),
+      unit: "",
+      parts: [],
+      note: `${p.source.origin}: ${Math.round(p.damagePerProc)} de daño por proc, ${round2(p.perSecond)} procs por segundo (${p.basis}${p.capped ? ", limitado por el enfriamiento interno" : ""}). Estimación: sin críticos, resistencias ni mitigación; ${p.source.proc.source === "community" ? "los procs por minuto de los objetos antiguos son de la comunidad (el cliente no los trae)." : "tasa y daño del cliente."}`,
     });
   }
   if (input.rules && (input.swings ?? []).some((x) => x.hand === "main") && (input.swings ?? []).some((x) => x.hand === "off")) {

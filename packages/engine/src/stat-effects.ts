@@ -34,7 +34,7 @@ export type StatCategory = (typeof STAT_CATEGORIES)[number];
 export type StatTarget = "str" | "agi" | "sta" | "int" | "spi" | "all-stats" | "health" | "mana" | "rage" | "energy" | "spell-damage" | "spell-healing" | "attack-power" | "ranged-attack-power";
 
 export interface StatSource {
-  from: "class" | "legacy" | "race" | "gear";
+  from: "class" | "legacy" | "race" | "gear" | "buff";
   name: string;
   rank: number;
   maxRank: number;
@@ -228,9 +228,12 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
       return RESIST_MECHANICS[misc] ? { category: "Defensa", label: `probabilidad de que te afecten los efectos de ${RESIST_MECHANICS[misc]}`, value: -Math.abs(value), unit: "puntos porcentuales", scope: null } : null;
     case 342:
       return { category: "Celeridad", label: "celeridad de ataque y de lanzamiento", value, unit: "%", scope: null };
+    case 65:
+      return { category: "Celeridad", label: "celeridad con hechizos", value, unit: "%", scope: null };
+    case 319:
+      return { category: "Celeridad", label: "celeridad cuerpo a cuerpo", value, unit: "%", scope: null };
     case 140:
-      // «Velocidad de ataque +1%» (encantamiento Arcano de prontitud): celeridad de los ataques, no de los hechizos
-      return { category: "Celeridad", label: "celeridad cuerpo a cuerpo y a distancia", value, unit: "%", scope: null };
+      return { category: "Celeridad", label: "celeridad a distancia", value, unit: "%", scope: null };
     case 185:
     case 186:
       return { category: "Defensa", label: "probabilidad de ser alcanzado por hechizos y ataques a distancia", value, unit: "puntos porcentuales", scope: null };
@@ -370,7 +373,7 @@ function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descrip
     // Impacto a distancia (55) junto a impacto cuerpo a cuerpo (54): el cliente lo guarda aparte (a veces con otra cifra); el texto da una sola
     if (info.aura === 55 && talent.effectInfo.some((e) => e.aura === 54)) continue;
     // Celeridad de ataque y de lanzamiento (342) junto a la velocidad de lanzamiento (65): la misma cifra, el texto da una sola
-    if (info.aura === 65 && talent.effectInfo.some((e) => e.aura === 342)) continue;
+    if ((info.aura === 65 || info.aura === 319 || info.aura === 140) && talent.effectInfo.some((e) => e.aura === 342)) continue;
     // Daño infligido (79) que depende del equipo o de un estado (varitas, armas de una o dos manos, a distancia, escudo, sin mascota): el cliente no trae la condicion
     // (SpellEquippedItems no esta exportada) pero el texto si; no se suma como un bono permanente del personaje, se conserva como texto
     // Si el talento trae su requisito de objeto (SpellEquippedItems) y ya se comprobó con el equipo, no hace falta el texto
@@ -453,13 +456,15 @@ export function collectStatEffects(input: {
 
   // Equipo: lo que no es una estadistica plana (ya sumada en el equipo) se clasifica como un talento. Solo se cuantifica si el texto del cliente nombra la cifra.
   for (const e of input.gearEffects ?? []) {
-    const source: StatSource = { from: "gear", name: e.name, rank: 1, maxRank: 1 };
-    const { consumed } = classifyGearAuras(e.auras, e.text, { trustValues: e.kind === "enchant" });
+    const source: StatSource = { from: e.kind === "buff" ? "buff" : "gear", name: e.name, rank: 1, maxRank: 1 };
+    // Encantamientos y beneficios: el hechizo suele no traer descripción con la cifra, y el valor del aura es el real
+    const trust = e.kind === "enchant" || e.kind === "buff";
+    const { consumed } = classifyGearAuras(e.auras, e.text, { trustValues: trust });
     const rest = remainingAuras(e.auras, consumed);
-    const named = rest.filter((a) => (e.kind === "enchant" || auraNumberInText(a, e.text)) && !a.levelScaled);
+    const named = rest.filter((a) => (trust || (auraNumberInText(a, e.text) && !a.levelScaled)));
     const rankValues: (number | null)[] = [];
     for (const a of named) rankValues[a.index] = a.value;
-    const { lines: found, unclassified } = talentLines({ effectInfo: named, rankValues: [rankValues], descriptions: [e.text] }, 1, source, input.abilities);
+    const { lines: found, unclassified } = talentLines({ effectInfo: named, rankValues: [rankValues], descriptions: [e.kind === "buff" ? "" : e.text] }, 1, source, input.abilities);
     lines.push(...found);
     if (e.text && (rest.length > 0 && (unclassified || found.length === 0 || named.length < rest.length))) conditional.push({ source, text: e.text, active: false });
     else if (e.text && e.auras.length === 0) conditional.push({ source, text: e.text, active: false });

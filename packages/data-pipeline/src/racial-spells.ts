@@ -59,10 +59,14 @@ const AURA_KINDS: Record<number, RacialEffect["kind"]> = {
   77: "mechanic-immunity",
   41: "dispel-immunity",
   45: "track-resources",
+  105: "slow-fall",
 };
 /** Toque de la tumba (no-muerto, una variante por clase): el efecto es un aura "dummy" cuyo valor es el % de salud maxima. */
 const DUMMY_KINDS: Record<number, RacialEffect["kind"]> = { 1260189: "proc-drain-health-pct", 1260201: "proc-drain-health-pct", 20593: "engineering-failure-pct" };
 const AURA_DUMMY = 4;
+const AURA_TOTAL_THREAT = 103;
+/** Correr planicies (Tauren): aura periodica «dummy» cada 1 s con dos valores dummy (5 y 30). Las guias de la comunidad dicen «+1 % de velocidad cada 5 s moviendote, hasta un 30 %». */
+const PLAINS_RUNNING = 1259918;
 const AURA_STAT_PCT = 137; // MOD_TOTAL_STAT_PERCENTAGE: solo el espiritu (miscValue 4) esta comprobado
 const AURA_MECHANIC_DURATION = 232; // MOD_MECHANIC_DURATION: solo el aturdimiento (miscValue 12)
 
@@ -80,8 +84,18 @@ function effectsOf(spells: SpellTables, spellId: number, fromSpellId: number | n
     const aura = int(e.EffectAura);
     if (aura === 0) continue;
     const misc = int(e["EffectMiscValue[0]"]);
-    const kind = aura === AURA_DUMMY ? (DUMMY_KINDS[spellId] ?? null) : classify(aura, misc);
-    out.push({ kind, aura, value: Number(e.EffectBasePointsF), miscValue: misc || null, periodMs: int(e.EffectAuraPeriod) || null, fromSpellId });
+    const value = Number(e.EffectBasePointsF);
+    const kind = aura === AURA_DUMMY ? (DUMMY_KINDS[spellId] ?? null) : aura === AURA_TOTAL_THREAT && value <= -100000 ? "threat-drop" : classify(aura, misc);
+    out.push({ kind, aura, value, miscValue: misc || null, periodMs: int(e.EffectAuraPeriod) || null, fromSpellId });
+  }
+  if (spellId === PLAINS_RUNNING) {
+    // Los tres efectos son uno solo: tope (30 %) y segundos por cada 1 % (5)
+    const dummies = out.filter((x) => x.aura === AURA_DUMMY).map((x) => x.value).sort((a, b) => a - b);
+    const tick = out.find((x) => x.aura === 226);
+    if (tick && dummies.length === 2) {
+      const rest = out.filter((x) => x !== tick && x.aura !== AURA_DUMMY);
+      return [{ kind: "stacking-speed-pct", aura: 226, value: dummies[1]!, miscValue: dummies[0]!, periodMs: tick.periodMs, fromSpellId }, ...rest];
+    }
   }
   return out;
 }

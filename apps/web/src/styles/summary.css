@@ -125,6 +125,71 @@ input[type="range"]::-moz-range-thumb {
   display: block;
   margin-top: 2px;
 }
+.buffs-panel {
+  margin-bottom: 24px;
+  padding: 20px 24px;
+}
+.buffs-panel h3 {
+  margin: 0 0 2px;
+  font-size: 20px;
+}
+.buffs-panel header p {
+  margin: 0 0 8px;
+}
+.buffs-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin: 8px 0 12px;
+}
+.buffs-tools input[type="search"] {
+  min-width: 220px;
+  min-height: 36px;
+}
+.buffs-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.buffs-section {
+  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.08));
+  padding: 8px 0;
+}
+.buffs-section > summary {
+  cursor: pointer;
+  padding: 4px 0;
+}
+.buffs-section ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 6px 24px;
+  margin: 8px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.buffs-section label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+.buffs-section label input {
+  margin-top: 6px;
+}
+.buffs-section label .icon,
+.buffs-section label .initials {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+.buffs-section .active-text {
+  display: block;
+  margin-top: 2px;
+}
 .summary-cols {
   display: flex;
   flex-wrap: wrap;

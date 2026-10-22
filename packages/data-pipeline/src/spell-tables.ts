@@ -30,6 +30,9 @@ export class SpellTables {
   /** SpellEquippedItems: objetos que hay que llevar para que valga el hechizo, por hechizo. */
   private readonly equippedItemsBySpell = new Map<string, { itemClass: number; invTypeMask: number; subclassMask: number }[]>();
 
+  /** SpellProcsPerMinute: id -> BaseProcRate (tabla opcional: el cliente solo trae las de los hechizos nuevos de Forever). */
+  private readonly procsPerMinuteById = new Map<string, number>();
+
   private readonly overrides: Overrides = loadOverrides("esES");
 
   constructor(raw: RawTables) {
@@ -47,6 +50,11 @@ export class SpellTables {
     for (const r of raw.table("SpellAuraOptions")) if (!this.auras.has(r.SpellID!) || r.DifficultyID === "0") this.auras.set(r.SpellID!, r);
     for (const r of raw.table("SpellCooldowns")) if (!this.cooldowns.has(r.SpellID!) || r.DifficultyID === "0") this.cooldowns.set(r.SpellID!, Math.max(int(r.RecoveryTime), int(r.CategoryRecoveryTime)));
     for (const r of raw.table("SpellPower")) if (!this.powers.has(r.SpellID!)) this.powers.set(r.SpellID!, { mana: int(r.ManaCost), pct: Number(r.PowerCostPct) || 0 });
+    try {
+      for (const r of raw.table("SpellProcsPerMinute")) this.procsPerMinuteById.set(r.ID!, Number(r.BaseProcRate) || 0);
+    } catch {
+      // tabla opcional
+    }
     this.loadDescriptionVariables(raw);
     for (const r of raw.table("SpellRange")) this.rangeMax.set(r.ID!, Math.max(Number(r["RangeMax[0]"]), Number(r["RangeMax[1]"])));
     try {
@@ -164,6 +172,11 @@ export class SpellTables {
     return id > 0 ? id : null;
   }
 
+  /** SpellMisc.SchoolMask: escuelas del hechizo (1 fisico, 2 Sagrado, 4 Fuego…). */
+  schoolMask(spellId: number): number {
+    return int(this.misc.get(String(spellId))?.SchoolMask);
+  }
+
   /** Duracion en milisegundos; null si no tiene o es indefinida. */
   durationMs(spellId: number): number | null {
     const idx = this.misc.get(String(spellId))?.DurationIndex;
@@ -180,6 +193,18 @@ export class SpellTables {
   aura(spellId: number): AuraOptions | null {
     const r = this.auras.get(String(spellId));
     return r ? { procChance: int(r.ProcChance), procCharges: int(r.ProcCharges), cumulativeAura: int(r.CumulativeAura), procCooldownMs: int(r.ProcCategoryRecovery) } : null;
+  }
+
+  /** Procs por minuto del hechizo (SpellAuraOptions.SpellProcsPerMinuteID → SpellProcsPerMinute); null si no tiene. */
+  procsPerMinute(spellId: number): number | null {
+    const id = this.auras.get(String(spellId))?.SpellProcsPerMinuteID;
+    const rate = id && id !== "0" ? this.procsPerMinuteById.get(id) : undefined;
+    return rate !== undefined && rate > 0 ? rate : null;
+  }
+
+  /** Mascara de tipos de evento que activan el proc (SpellAuraOptions.ProcTypeMask[0]). */
+  procTypeMask(spellId: number): number {
+    return int(this.auras.get(String(spellId))?.["ProcTypeMask[0]"]);
   }
 
   /** Alcance maximo en yardas del hechizo ($r) o null (SpellMisc.RangeIndex -> SpellRange). */

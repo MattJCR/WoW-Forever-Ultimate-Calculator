@@ -236,6 +236,12 @@ export function describeEffect(e: RacialEffect, spell?: Pick<RacialSpell, "durat
       return `inmune a ${DISPEL_LABEL[e.miscValue ?? 0] ?? "ciertos efectos"}`;
     case "track-resources":
       return e.miscValue === 6 ? "rastrea arquetas" : "rastrea recursos";
+    case "slow-fall":
+      return "caída lenta";
+    case "threat-drop":
+      return "elimina tu amenaza";
+    case "stacking-speed-pct":
+      return `+1 % velocidad de movimiento cada ${e.miscValue} s moviéndote (máx. ${e.value} %)`;
     case "engineering-failure-pct":
       return `${pct(-e.value)} fallo de dispositivos de ingeniería`;
     default:

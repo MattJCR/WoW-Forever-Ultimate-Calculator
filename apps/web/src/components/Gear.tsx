@@ -41,6 +41,7 @@ import {
   setLabel,
   shortStats,
   slotLabel,
+  sourceLines,
   statLine,
   statName,
 } from "./gear-format";
@@ -157,6 +158,11 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
         <p key={i} className="item-line good">
           {effectPrefix(e.trigger)}: {effectLabel(e)}
           {!e.textComplete && <span className="muted small"> {tr("(texto incompleto)")}</span>}
+        </p>
+      ))}
+      {sourceLines(data.sources.get(item.id) ?? []).map((line) => (
+        <p key={line} className="item-line muted">
+          {line}
         </p>
       ))}
       {set && (
@@ -296,9 +302,11 @@ function SlotPanel({
   const [onlyWearable, setOnlyWearable] = useState(true);
   // Tipo de objeto (tela, cuero, malla, placas, tipo de arma…); vacío = todos
   const [itemType, setItemType] = useState("");
+  // Fuente: vacío = todas; «crafted» = fabricados por una profesión
+  const [source, setSource] = useState("");
   const [limit, setLimit] = useState(60);
-  useEffect(() => setLimit(60), [slot, query, minQuality, onlyWearable, itemType]);
-  useEffect(() => setItemType(""), [slot]);
+  useEffect(() => setLimit(60), [slot, query, minQuality, onlyWearable, itemType, source]);
+  useEffect(() => { setItemType(""); setSource(""); }, [slot]);
   const [gallery, setGallery] = useState(() => { try { return window.localStorage.getItem("wfuc.gallery") === "1"; } catch { return false; } });
   const appearance = useAppearance(gallery);
   const setView = (g: boolean) => { setGallery(g); try { window.localStorage.setItem("wfuc.gallery", g ? "1" : "0"); } catch { /* solo se pierde la comodidad */ } };
@@ -315,8 +323,8 @@ function SlotPanel({
   const types = useMemo(() => [...new Set(candidates.map((i) => itemTypeName(i)).filter((t): t is string => t !== null))].sort((a, b) => a.localeCompare(b, "es")), [candidates]);
   const filtered = useMemo(() => {
     const q = norm(query.trim());
-    return candidates.filter((i) => i.quality >= minQuality && (itemType === "" || itemTypeName(i) === itemType) && (q === "" || norm(i.name).includes(q) || norm(iName(i)).includes(q)) && (!onlyWearable || canEquip(i, slot, ctx, data).ok));
-  }, [candidates, query, minQuality, itemType, onlyWearable, ctx, data, slot]);
+    return candidates.filter((i) => i.quality >= minQuality && (itemType === "" || itemTypeName(i) === itemType) && (source === "" || (data.sources.get(i.id) ?? []).some((e) => e.kind === source)) && (q === "" || norm(i.name).includes(q) || norm(iName(i)).includes(q)) && (!onlyWearable || canEquip(i, slot, ctx, data).ok));
+  }, [candidates, query, minQuality, itemType, source, onlyWearable, ctx, data, slot]);
 
   const enchants = useMemo(() => (wornItem ? [...data.enchants.values()].filter((e) => enchantFits(e, slot, wornItem)).sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es")) : []), [data, slot, wornItem]);
   const suffixes = wornItem ? suffixOptions(wornItem, data) : [];
@@ -395,6 +403,15 @@ function SlotPanel({
             <select value={itemType} onChange={(e) => setItemType(e.target.value)}>
               <option value="">{tr("todos")}</option>
               {types.map((t) => <option key={t} value={t}>{trn(t)}</option>)}
+            </select>
+          </label>
+        )}
+        {data.sources.size > 0 && (
+          <label>
+            {tr("Fuente")}
+            <select value={source} onChange={(e) => setSource(e.target.value)}>
+              <option value="">{tr("todas")}</option>
+              <option value="crafted">{tr("Fabricado")}</option>
             </select>
           </label>
         )}

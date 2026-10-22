@@ -372,27 +372,31 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
     expect(byId(3).classIds).toEqual([1, 2, 3, 4, 5, 7]);
   });
 
-  it("efectos de raciales: los de utilidad tienen significado (sesión 12) y los que quedan sin interpretar son exactamente los de esta lista (15 efectos distintos, 22 con las dos variantes de Cielonato y los repetidos de ¡Eureka!), con su motivo", () => {
+  it("efectos de raciales: los de utilidad tienen significado (sesión 12) y los que quedan sin interpretar son exactamente los de esta lista, con su motivo", () => {
     const nulls = racesData.races.flatMap((r) => r.racials.flatMap((a) => a.spells.flatMap((s) => s.effects.filter((e) => e.kind === null).map((e) => `${r.id}|${a.name}|${e.aura}:${e.miscValue}`))));
     expect([...new Set(nulls)].sort()).toEqual(
       [
-        "4|Fusión de las Sombras|103:null", // reduce la amenaza (-999999): sin cifra que enseñar
-        "7|¡Eureka!|4:null", // auras «dummy» cuyos valores (10 y 1) no explica el texto: la reducción de coste y el 10 % salen de las auras 108
-        "95|Caminar sobre el aire|105:null", // planeo: efecto de movimiento sin cifra
+        // Guías de la comunidad (fuentes de terceros, 2026-10-22): «Eureka!»: 8 s sin cargas, −10 % de coste y +10 % de daño o sanación; los valores 10 y 1 de las auras dummy son el
+        // porcentaje y el consumo de cargas de los periódicos, sin cifra propia que enseñar (el coste y el 10 % salen de las auras 108).
+        "7|¡Eureka!|4:null",
+        // «Caminar sobre el aire»: planeo de 10 s (la caída lenta, aura 105, ya tiene significado); 409 y 139 son efectos visuales y de reacción sin cifra
         "95|Caminar sobre el aire|409:null",
-        "95|Caminar sobre el aire|139:2402", // cambio de reacción/forma: sin cifra
+        "95|Caminar sobre el aire|139:2402",
         "95|Caminar sobre el aire|139:2403",
         "95|Caminar sobre el aire|139:2754",
-        "96|Caminar sobre el aire|105:null",
         "96|Caminar sobre el aire|409:null",
         "96|Caminar sobre el aire|139:2402",
         "96|Caminar sobre el aire|139:2403",
         "96|Caminar sobre el aire|139:2754",
-        "6|Pisotón de guerra|12:null", // el aturdimiento de la propia habilidad (duración y objetivos están en el hechizo)
-        "6|Correr planicies|226:null", // aura periódica «dummy» cada 1 s que acumula velocidad: el cliente no explica los topes (5 y 30)
-        "6|Correr planicies|4:null",
+        // «Pisotón de guerra»: el aturdimiento de la propia habilidad (2 s a un máximo de 5 enemigos: lo dice el texto; la duración está en el hechizo)
+        "6|Pisotón de guerra|12:null",
       ].sort(),
     );
+    // Correr planicies (Tauren): +1 % de velocidad cada 5 s moviéndote, hasta un 30 % (valores del cliente 5 y 30; el significado, de guías de la comunidad)
+    const plains = byId(6).racials.find((a) => a.name === "Correr planicies")!.spells[0]!.effects.find((e) => e.kind === "stacking-speed-pct")!;
+    expect([plains.miscValue, plains.value]).toEqual([5, 30]);
+    expect(byId(4).racials.find((a) => a.name === "Fusión de las Sombras")!.spells[0]!.effects.map((e) => e.kind)).toContain("threat-drop");
+    expect(byId(95).racials.find((a) => a.name === "Caminar sobre el aire")!.spells[0]!.effects.map((e) => e.kind)).toContain("slow-fall");
     // Los de utilidad: cifras del cliente
     const kind = (raceId: number, name: string) => [...new Set(byId(raceId).racials.find((a) => a.name === name)!.spells.flatMap((s) => s.effects.map((e) => e.kind)))];
     expect(kind(1, "Percepción")).toEqual(["stealth-detection"]);

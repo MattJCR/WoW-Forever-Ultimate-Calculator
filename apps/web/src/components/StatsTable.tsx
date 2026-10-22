@@ -1,4 +1,4 @@
-import { autoAttacks, baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, offHandFactorOf, powerContext, type CombatGroup, type CombatRow, type GearWeapon, type StatEffects, type UncountedItem } from "@wfuc/engine";
+import { autoAttacks, baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, estimateProcs, offHandFactorOf, powerContext, type CombatGroup, type CombatRow, type GearWeapon, type ProcEstimate, type ProcSource, type StatEffects, type UncountedItem } from "@wfuc/engine";
 import type { BaseStats, ClientStats, CombatFormulas, CombatRatings, Manifest } from "@wfuc/schema";
 import { BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema } from "@wfuc/schema";
 import { getJson, useAsync } from "../data";
@@ -21,6 +21,8 @@ export interface GearForStats {
   weapons: GearWeapon[];
   /** Objetos que se llevan pero exigen un nivel mayor: no suman. */
   uncounted: UncountedItem[];
+  /** Procs del equipo (objetos, conjuntos y encantamientos): los de daño con tasa conocida se estiman. */
+  procs?: ProcSource[];
 }
 
 export function StatsTable({ manifest, raceId, raceName, raceIsReference = false, classId, level, fx, fxReady, gear }: { manifest: Manifest; raceId: number | null; raceName: string | null; /** No se ha elegido raza: los atributos son los de esta raza de referencia (sin sus raciales). */ raceIsReference?: boolean; classId: number; level: number; fx: StatEffects | null; /** Los efectos ya llevan el libro de hechizos de la clase (sin el, las cifras de habilidades concretas parecerian del personaje entero). */ fxReady: boolean; gear?: GearForStats | null }) {
@@ -68,14 +70,15 @@ function Table({ data, raceId, raceName, raceIsReference, classId, level, fx, fx
   if (!derived) return <p className="muted">{tr("Cargando talentos…")}</p>;
   // Combate: armadura, crítico, impacto, celeridad, defensa, regeneración, resistencias y demás bonos del personaje (equipo + talentos + Legacy + raza)
   const gearHere = gear;
-  const combatInput = (swings?: ReturnType<typeof autoAttacks>) =>
+  const combatInput = (swings?: ReturnType<typeof autoAttacks>, procs?: ProcEstimate[]) =>
     fx && fxReady
-      ? deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: gearHere.armor, bonusArmor: gearHere.bonusArmor, ratings: gearHere.ratings } : null, classStats: clientClass?.levels.find((l) => l.level === level) ?? null, rules: formulas ? { formulas, classId } : null, swings })
+      ? deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: gearHere.armor, bonusArmor: gearHere.bonusArmor, ratings: gearHere.ratings } : null, classStats: clientClass?.levels.find((l) => l.level === level) ?? null, rules: formulas ? { formulas, classId } : null, swings, procs })
       : null;
   // Los golpes automáticos necesitan la celeridad, que sale del propio cálculo de combate: primero sin armas, luego con ellas
   const first = combatInput();
   const swings = first && gearHere && gearHere.weapons.length > 0 ? autoAttacks(powerContext(derived, gearHere.stats, gearHere.weapons, { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx?.totals ?? []) }), { melee: first.haste.melee, ranged: first.haste.ranged }) : [];
-  const combat = swings.length > 0 ? combatInput(swings) : first;
+  const procs = first && swings.length > 0 && (gearHere?.procs?.length ?? 0) > 0 ? estimateProcs(gearHere!.procs!, swings, first.haste.melee) : [];
+  const combat = swings.length > 0 ? combatInput(swings, procs) : first;
   const groups = combat ? COMBAT_GROUPS.map((g) => ({ group: g, rows: combat.rows.filter((r) => r.group === g) })).filter((g) => g.rows.length > 0) : [];
   return (
     <>

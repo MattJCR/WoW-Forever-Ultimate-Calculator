@@ -1,5 +1,10 @@
 import {
   addPoint,
+  addStats,
+  buffEffects,
+  buffFlatStats,
+  decodeBuffs,
+  encodeBuffs,
   decodeBuildReport,
   decodeGear,
   encodeBuild,
@@ -8,6 +13,7 @@ import {
   equippedStateOf,
   formatBuildForAI,
   indexClass,
+  procSourcesOf,
   rankOf,
   removePoint,
   requiredLevel,
@@ -17,7 +23,12 @@ import {
   summarizeGear,
   totalPoints,
   type Build,
+  type BuffIndex,
   type ClassIndex,
+  type EquippedState,
+  type GearWeapon,
+  type ProcSource,
+  type UncountedItem,
   type DecodeReport,
   type GearContext,
   type GearData,
@@ -38,7 +49,8 @@ import { LinkNotice } from "../components/LinkNotice";
 import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
 import { TreePanel, type Focus } from "../components/TreePanel";
-import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
+import { BuffsPanel } from "../components/Buffs";
+import { CLASS_COLORS, loadClass, loadRaces, useAsync, useBuffs } from "../data";
 import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, talentName, tr, treeLabel } from "../i18n";
 import { decodeAvatar, encodeAvatar, type Avatar } from "../viewer/avatar";
 import { useHistory } from "../viewer/history";
@@ -164,6 +176,26 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const look = useMemo(() => ({ gear, avatar }), [gear, avatar]);
   const history = useHistory(look, useCallback((v: { gear: GearSelection; avatar: Avatar }) => { setGearState(v.gear); setAvatar(v.avatar); }, []));
   const hasGear = gearCode !== "";
+  // Beneficios («buffs»): `u` = ids de hechizo en base 36; si el enlace no trae, el último de esta clase guardado en el navegador
+  const [buffCode, setBuffCode] = useState<string>(() => {
+    const fromLink = query.get("u");
+    if (fromLink !== null) return fromLink;
+    try {
+      return window.localStorage.getItem(`wfuc.buffs.${token}`) ?? "";
+    } catch {
+      return "";
+    }
+  });
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(`wfuc.buffs.${token}`, buffCode);
+    } catch {
+      /* sin almacenamiento: solo se pierde la comodidad */
+    }
+  }, [token, buffCode]);
+  const buffsState = useBuffs(manifest, view === "summary" || buffCode !== "");
+  const buffIndex = buffsState?.status === "ready" ? buffsState.value : null;
+  const buffSelection = useMemo(() => (buffIndex ? decodeBuffs(buffCode, buffIndex) : new Set<number>()), [buffIndex, buffCode]);
   useEffect(() => {
     try {
       window.localStorage.setItem(`${GEAR_STORAGE_PREFIX}${token}`, JSON.stringify({ g: gearCode, gl: gearLevel }));
@@ -191,10 +223,11 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (hasGear) q.g = gearCode;
     if (gearLevel !== DEFAULT_GEAR_LEVEL) q.gl = String(gearLevel);
     if (avatarCode) q.a = avatarCode;
+    if (buffCode) q.u = buffCode;
     q.v = view;
     replaceHash(`class/${token}`, q);
     setUrl(window.location.href);
-  }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel, avatarCode]);
+  }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel, avatarCode, buffCode]);
 
   const say = (msg: string) => {
     setToast(msg);
@@ -347,6 +380,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           referenceRace={races[0] ?? null}
           gear={hasGear && gearBundle?.status === "ready" ? { selection: gear, data: gearBundle.value.data, ctx: gearCtx, ratings: gearBundle.value.ratings } : null}
           gearLoading={hasGear && gearBundle?.status !== "ready"}
+          buffs={{ index: buffIndex, loading: buffsState?.status === "loading", selected: buffSelection, onChange: (next) => setBuffCode(encodeBuffs(next)) }}
           onGo={goTop}
         />
       )}
@@ -686,19 +720,24 @@ interface GearInSummary {
   ratings: CombatRatings | null;
 }
 
-function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; /** Raza con la que se calculan los atributos si no se ha elegido ninguna (la primera que admite la clase). */ referenceRace: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; onGo: (v: View) => void }) {
+function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, buffs, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; /** Raza con la que se calculan los atributos si no se ha elegido ninguna (la primera que admite la clase). */ referenceRace: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; buffs: { index: BuffIndex | null; loading: boolean; selected: ReadonlySet<number>; onChange: (next: Set<number>) => void }; onGo: (v: View) => void }) {
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
   // Un solo nivel para las estadisticas y las habilidades
   const [level, setLevel] = useState(60);
   // Habilidades activas de talento que se dan por activas (Poder Arcano…): no van en el enlace
   const [active, setActive] = useState<ReadonlySet<number>>(() => new Set());
   // Cada objeto cuenta desde su propio nivel necesario: al nivel elegido solo suman los que ya se pueden llevar
+  // Beneficios activos (bendiciones, marcas, consumibles…): se suman como los efectos del equipo
+  const buffSources = useMemo(() => (buffs.index ? buffEffects(buffs.selected, buffs.index) : []), [buffs.index, buffs.selected]);
+  const buffStats = useMemo(() => buffFlatStats(buffSources), [buffSources]);
   const gearAt = useMemo(() => {
-    if (!gear) return null;
+    if (!gear && buffSources.length === 0) return null;
+    if (!gear) return { summary: { stats: buffStats, armor: 0, bonusArmor: 0, weapons: [] as GearWeapon[], uncounted: [] as UncountedItem[] }, ratings: null as CombatRatings | null, effects: buffSources, equipped: null as EquippedState | null, procs: [] as ProcSource[] };
     const summaryAtLevel = summarizeGear(gear.selection, gear.ctx, gear.data, { countLevel: level });
     const { counted } = splitByLevel(gear.selection, gear.data.items, level);
-    return { summary: summaryAtLevel, ratings: gear.ratings, effects: activeGearEffects(counted, gear.data), equipped: equippedStateOf(counted, gear.data) };
-  }, [gear, level]);
+    const worn = activeGearEffects(counted, gear.data);
+    return { summary: { ...summaryAtLevel, stats: addStats(summaryAtLevel.stats, buffStats) }, ratings: gear.ratings, effects: [...worn, ...buffSources], equipped: equippedStateOf(counted, gear.data) as EquippedState | null, procs: procSourcesOf(summaryAtLevel.effects, worn) };
+  }, [gear, level, buffSources, buffStats]);
   const { fx, loading: fxLoading } = useStatEffects({ manifest, cls: idx, classBuild, legacy, legacyBuild, race, gearEffects: gearAt?.effects, equipped: gearAt?.equipped ?? null, active });
   // Sin raza elegida, los atributos base se toman de una raza de referencia (sin sus raciales): estimación marcada
   const statsRace = race ?? referenceRace;
@@ -727,6 +766,7 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
       </div>
 
       <ActiveStates cls={idx} classBuild={classBuild} active={active} onChange={setActive} />
+      <BuffsPanel manifest={manifest} index={buffs.index} loading={buffs.loading} selected={buffs.selected} onChange={buffs.onChange} />
 
       <div className="summary-cols">
         <section className="card stats-card" aria-label={tr("Estadísticas")}>
@@ -734,7 +774,7 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
             <h3>{tr("Estadísticas")}</h3>
             <p className="muted small">{tr("A nivel {level}. En verde, lo que suman talentos, raza y equipo.", { level })}</p>
           </header>
-          <StatsTable manifest={manifest} raceId={statsRace?.id ?? null} raceName={statsRace ? raceLabel(statsRace.id, statsRace.name) : null} raceIsReference={!race && !!referenceRace} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gearAt ? { stats: gearAt.summary.stats, armor: gearAt.summary.armor, bonusArmor: gearAt.summary.bonusArmor, ratings: gearAt.ratings, weapons: gearAt.summary.weapons, uncounted: gearAt.summary.uncounted } : null} />
+          <StatsTable manifest={manifest} raceId={statsRace?.id ?? null} raceName={statsRace ? raceLabel(statsRace.id, statsRace.name) : null} raceIsReference={!race && !!referenceRace} classId={idx.data.classId} level={level} fx={fx} fxReady={!fxLoading} gear={gearAt ? { stats: gearAt.summary.stats, armor: gearAt.summary.armor, bonusArmor: gearAt.summary.bonusArmor, ratings: gearAt.ratings, weapons: gearAt.summary.weapons, uncounted: gearAt.summary.uncounted, procs: gearAt.procs } : null} />
           {fx && !fxLoading && <ConditionalEffects fx={fx} />}
         </section>
         <section className="abilities-card" aria-label={tr("Habilidades")}>

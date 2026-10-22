@@ -1,5 +1,5 @@
 import { activeGearEffects, classifyGearAuras, enchantStatLines } from "./gear-effects.js";
-import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
+import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, ItemSourceEntry, ItemSources, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
 
 /**
  * Equipo: ranuras, reglas para equipar y suma de estadisticas. TS puro, sin UI.
@@ -63,12 +63,14 @@ export interface GearData {
   /** Categorias de limite por id (`Item.limitCategory`). */
   limitCategories: Map<number, ItemLimitCategoryDef>;
   sets: Items["sets"];
+  /** Fuente de cada objeto (hoy «Fabricado»); vacio si no se cargaron. */
+  sources: Map<number, ItemSourceEntry[]>;
   /** Equipables que el cliente no trae con datos (llegan por hotfix al verlos en el juego): no se pueden ofrecer. */
   unavailable: Items["unavailable"];
   rules: EquipRules;
 }
 
-export function indexGearData(input: { items: Items; rules: EquipRules; enchants?: Enchants | null; suffixes?: RandomSuffixes | null }): GearData {
+export function indexGearData(input: { items: Items; rules: EquipRules; enchants?: Enchants | null; suffixes?: RandomSuffixes | null; sources?: ItemSources | null }): GearData {
   return {
     items: new Map(input.items.items.map((i) => [i.id, i])),
     enchants: new Map((input.enchants?.enchants ?? []).map((e) => [e.effectId, e])),
@@ -76,6 +78,7 @@ export function indexGearData(input: { items: Items; rules: EquipRules; enchants
     suffixSets: input.items.suffixSets,
     limitCategories: new Map(input.items.limitCategories.map((c) => [c.id, c])),
     sets: input.items.sets,
+    sources: new Map(Object.entries(input.sources?.items ?? {}).map(([id, list]) => [Number(id), list])),
     unavailable: input.items.unavailable,
     rules: input.rules,
   };

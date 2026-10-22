@@ -280,6 +280,9 @@ export const RacialEffectKind = z.enum([
   "mechanic-immunity", // inmune a una mecanica de control (aura 77; miscValue = Mechanics: 1 embelesamiento, 5 miedo, 7 inmovilizacion, 10 sueno, 11 ralentizacion, 15 sangrado)
   "dispel-immunity", // inmune a un tipo de disipacion (aura 41; miscValue: 3 enfermedad, 4 veneno)
   "track-resources", // rastrea recursos en el minimapa (aura 45; miscValue 6 = arquetas)
+  "slow-fall", // caida lenta / planeo (aura 105; los Cielonato planean 10 s)
+  "threat-drop", // elimina la amenaza (aura 103 con -999999: Fusion de las Sombras)
+  "stacking-speed-pct", // acumula +1 % de velocidad de movimiento cada `miscValue` s moviendote hasta `value` % (Correr planicies; guias de la comunidad)
   "engineering-failure-pct", // % de fallo de los dispositivos de ingenieria (aura dummy del Gnomo: el valor es el % de reduccion)
 ]);
 export type RacialEffectKind = z.infer<typeof RacialEffectKind>;
@@ -722,7 +725,29 @@ export const ItemSpellAura = EffectInfo.extend({
   levelScaled: z.boolean().default(false),
 });
 export type ItemSpellAura = z.infer<typeof ItemSpellAura>;
+/**
+ * Proc de un efecto de objeto (probabilidad al golpear o al recibir un golpe), para estimar su aporte. Procedencia: la probabilidad,
+ * el enfriamiento y el daño del hechizo son del cliente; los procs por minuto de los objetos antiguos, de la comunidad (el cliente
+ * solo trae los de los hechizos nuevos). `damage`: daño directo medio del hechizo que se dispara (sin crítico ni mitigacion).
+ */
+export const ItemProc = z.object({
+  /** Probabilidad por golpe en % (null si el proc es por minuto o no se conoce). */
+  chancePct: z.number().nullable(),
+  /** Procs por minuto (null si es por probabilidad). */
+  ppm: z.number().nullable(),
+  /** Enfriamiento interno en ms. */
+  icdMs: z.number().int().nullable(),
+  /** true = se activa al recibir un golpe (defensivo): no suma daño por segundo. */
+  onTaken: z.boolean(),
+  /** Hechizo que se dispara y su daño directo medio, si hace daño. */
+  triggerSpellId: z.number().int().nullable(),
+  damage: z.object({ average: z.number(), schoolMask: z.number().int() }).nullable(),
+  source: Provenance,
+});
+export type ItemProc = z.infer<typeof ItemProc>;
 export const ItemEffectRef = z.object({
+  /** Proc del efecto (solo si es un proc). */
+  proc: ItemProc.nullable().default(null),
   /** Efectos de aura del hechizo (vacio si no tiene). */
   auras: z.array(ItemSpellAura).default([]),
   spellId: z.number().int(),
@@ -742,7 +767,7 @@ export const ItemSetDef = z.object({
   requiredSkill: z.number().int(),
   requiredSkillRank: z.number().int(),
   itemIds: z.array(z.number().int()),
-  bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable(), auras: z.array(ItemSpellAura).default([]) })),
+  bonuses: z.array(z.object({ threshold: z.number().int(), spellId: z.number().int(), name: z.string(), text: z.string(), textComplete: z.boolean(), specId: z.number().int().nullable(), auras: z.array(ItemSpellAura).default([]), proc: ItemProc.nullable().default(null) })),
 });
 export const ItemLimitCategoryDef = z.object({
   id: z.number().int(),
@@ -818,6 +843,61 @@ export type ItemSetDef = z.infer<typeof ItemSetDef>;
 export type ItemLimitCategoryDef = z.infer<typeof ItemLimitCategoryDef>;
 export type Item = z.infer<typeof Item>;
 export type Items = z.infer<typeof Items>;
+
+/** Fuente de un objeto: hoy solo «Fabricado» (hechizo de profesion del cliente que crea el objeto). */
+export const ItemSourceEntry = z.discriminatedUnion("kind", [
+  z.object({
+    kind: z.literal("crafted"),
+    /** SkillLine de la profesion (164 herreria, 165 peleteria, 171 alquimia, 197 sastreria, 202 ingenieria, 333 encantamiento...). */
+    skillLine: z.number().int(),
+    /** Nombre de la profesion en el cliente (esES) y en ingles. */
+    skill: z.string(),
+    skillEn: z.string(),
+    /** Habilidad minima de la profesion para aprender la receta. */
+    minSkill: z.number().int(),
+  }),
+]);
+export const ItemSources = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  /** Fuentes por id de objeto (solo los objetos con alguna fuente conocida). */
+  items: z.record(z.string(), z.array(ItemSourceEntry)),
+});
+export type ItemSourceEntry = z.infer<typeof ItemSourceEntry>;
+export type ItemSources = z.infer<typeof ItemSources>;
+
+/**
+ * Beneficio («buff») que puede tener el personaje: habilidad de clase (propia o de otra clase), tótem, mascota o consumible. Cifras y texto
+ * del cliente (`client-db2`); el motor las cuantifica como los efectos de equipo. `group`: dos del mismo grupo no se acumulan.
+ */
+export const Buff = z.object({
+  /** Hechizo que aplica el aura (clave unica del beneficio). */
+  id: z.number().int(),
+  category: z.enum(["class", "totem", "pet", "potion", "elixir", "flask", "scroll", "food", "other"]),
+  /** ChrClasses.ID de quien lo lanza (null en los consumibles). */
+  classId: z.number().int().nullable(),
+  /** Nombre en el cliente (esES): de la habilidad o del objeto. */
+  name: z.string(),
+  nameEn: z.string().nullable(),
+  itemId: z.number().int().nullable(),
+  iconFileDataId: z.number().int().nullable(),
+  /** Duracion del aura (null = hasta cancelarla o sin limite). */
+  durationMs: z.number().int().nullable(),
+  /** Exclusion mutua: dos beneficios del mismo grupo no se acumulan (assumption: reglas de Classic). */
+  group: z.string(),
+  /** Auras de estadistica con objetivo amistoso (propio, aliado, grupo o banda). */
+  auras: z.array(ItemSpellAura),
+  text: z.string(),
+  textComplete: z.boolean(),
+});
+export const Buffs = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  buffs: z.array(Buff),
+});
+export type Buff = z.infer<typeof Buff>;
+export type Buffs = z.infer<typeof Buffs>;
 
 /** Puntuacion necesaria por 1 % (defensa: por punto de habilidad) segun la comunidad (MIT), medida en la beta; `community`. */
 export const CombatRatings = z.object({
@@ -990,6 +1070,10 @@ export const Manifest = z.object({
   /** Puntuacion por 1 % de combate, encantamientos y sufijos aleatorios (la comunidad, MIT; `community`). */
   combatRatings: z.object({ file: z.string(), sha256: z.string() }).optional(),
   enchants: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
+  /** Fuente de cada objeto (hoy «Fabricado», del cliente). */
+  itemSources: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
+  /** Beneficios («buffs») de clase, tótems y consumibles (client-db2). */
+  buffs: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   randomSuffixes: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   /** Objetos equipables (armas y armadura) del cliente. */
   items: z.object({ file: z.string(), sha256: z.string(), itemCount: z.number().int(), unavailableCount: z.number().int() }).optional(),

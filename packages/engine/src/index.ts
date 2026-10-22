@@ -20,3 +20,5 @@ export * from "./known-spells.js";
 export * from "./equipped.js";
 export * from "./ability-outcome.js";
 export * from "./item-stat-keys.js";
+export * from "./buffs.js";
+export * from "./procs.js";

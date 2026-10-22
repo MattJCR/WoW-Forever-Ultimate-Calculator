@@ -1,0 +1,11 @@
+{
+  "note": "Hechizos de beneficio que el libro de hechizos no trae (los aplica un tótem o una mascota): se elige el rango de mayor cifra del hechizo con ese nombre en la clase. Procedencia assumption (la selección); las cifras son del cliente.",
+  "extraSpells": [
+    { "classId": 7, "name": "Fuerza de la Tierra", "category": "totem" },
+    { "classId": 7, "name": "Gracia del aire", "category": "totem" },
+    { "classId": 7, "name": "Resistencia al Fuego", "category": "totem" },
+    { "classId": 7, "name": "Resistencia a la Escarcha", "category": "totem" },
+    { "classId": 7, "name": "Resistencia a la naturaleza", "category": "totem" },
+    { "classId": 9, "name": "Pacto de sangre", "category": "pet" }
+  ]
+}

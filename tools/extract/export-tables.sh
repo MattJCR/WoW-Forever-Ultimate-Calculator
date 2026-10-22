@@ -49,10 +49,14 @@ ITEM_TABLES=(
   ItemClass ItemSubClass ItemNameDescription SpellItemEnchantment
   # Textos del cliente (ITEM_MOD_*, TOOLTIP_ITEM_STAT_*): etiqueta de cada tipo de estadistica de objeto
   GlobalStrings
+  # Fuente «Fabricado»: profesiones (SkillLine) y hechizos de creación de objeto (SkillLineAbility + SpellEffect)
+  SkillLine SkillLineAbility
   # Presupuesto de estadisticas, armadura y dano de arma por nivel de objeto
   RandPropPoints ItemArmorTotal ItemArmorQuality ItemArmorShield ArmorLocation
   ItemDamageOneHand ItemDamageOneHandCaster ItemDamageTwoHand ItemDamageTwoHandCaster
   ItemDamageWand ItemDamageThrown ItemDamageAmmo ItemDamageRanged
+  # Procs por minuto de los hechizos nuevos
+  SpellProcsPerMinute
 )
 # Apariencia (probador 3D): modelos de raza/sexo, personalizacion, apariencia de objetos y texturas.
 # APPEARANCE=1 exporta solo estas; algunas pueden no existir en este cliente (el script avisa).

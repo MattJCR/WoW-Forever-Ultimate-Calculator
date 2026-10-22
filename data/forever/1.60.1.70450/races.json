@@ -372,7 +372,7 @@
                   "fromSpellId": null
                 },
                 {
-                  "kind": null,
+                  "kind": "threat-drop",
                   "aura": 103,
                   "value": -999999,
                   "miscValue": null,
@@ -861,7 +861,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "slow-fall",
                   "aura": 105,
                   "value": 0,
                   "miscValue": null,
@@ -1424,27 +1424,11 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "stacking-speed-pct",
                   "aura": 226,
-                  "value": 1,
-                  "miscValue": null,
-                  "periodMs": 1000,
-                  "fromSpellId": null
-                },
-                {
-                  "kind": null,
-                  "aura": 4,
-                  "value": 5,
-                  "miscValue": null,
-                  "periodMs": null,
-                  "fromSpellId": null
-                },
-                {
-                  "kind": null,
-                  "aura": 4,
                   "value": 30,
-                  "miscValue": null,
-                  "periodMs": null,
+                  "miscValue": 5,
+                  "periodMs": 1000,
                   "fromSpellId": null
                 },
                 {
@@ -1698,7 +1682,7 @@
               "procCooldownMs": null,
               "effects": [
                 {
-                  "kind": null,
+                  "kind": "slow-fall",
                   "aura": 105,
                   "value": 0,
                   "miscValue": null,

@@ -1,0 +1,95 @@
+import { existsSync, readFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { Abilities, Buffs, ClassTalents } from "@wfuc/schema";
+import { describe, expect, it } from "vitest";
+import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, indexBuffs, indexClass, isLastingBuff, toggleBuff } from "../src/index.js";
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
+const D = join(root, "data", "forever", "1.60.1.70450");
+const has = existsSync(join(D, "buffs.json")) && existsSync(join(D, "classes", "warrior.json"));
+const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
+
+/** Beneficios (sesión 12): habilidades de clase propias y de otras clases, tótems, mascota y consumibles, todo del cliente. */
+describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
+  const data = Buffs.parse(json("buffs.json"));
+  const index = indexBuffs(data);
+  const byName = (name: string, category?: string) => data.buffs.find((b) => b.name === name && (!category || b.category === category))!;
+  const warrior = indexClass(ClassTalents.parse(json("classes/warrior.json")));
+  const abilities = Abilities.parse(json("abilities/warrior.json"));
+
+  it("hay beneficios de las nueve clases, tótems, mascota y consumibles; todos con cifras y del cliente", () => {
+    expect(data.provenance).toBe("client-db2");
+    const classes = new Set(data.buffs.filter((b) => b.category === "class").map((b) => b.classId));
+    expect([...classes].sort((a, b) => a! - b!)).toEqual([1, 2, 3, 4, 5, 7, 8, 9, 11]);
+    for (const c of ["totem", "pet", "potion", "elixir", "flask", "scroll", "food", "other"]) expect(data.buffs.some((b) => b.category === c), c).toBe(true);
+    expect(data.buffs.every((b) => b.auras.length > 0 && b.auras.some((a) => a.value !== 0))).toBe(true);
+    expect(new Set(data.buffs.map((b) => b.id)).size).toBe(data.buffs.length);
+  });
+
+  it("cifras conocidas: Grito de guerra +139 de poder de ataque, Bendición de los Reyes +10 % a todo, Marca de lo salvaje, Fuerza de la Tierra", () => {
+    expect(byName("Grito de guerra").auras.map((a) => [a.aura, a.value])).toEqual([[99, 139]]);
+    expect(byName("Bendición de los Reyes").auras.map((a) => [a.aura, a.miscValue, a.value])).toEqual([[137, -1, 10]]);
+    expect(buffFlatStats([byName("Marca de lo salvaje")].map((b) => ({ kind: "buff" as const, name: b.name, origin: b.name, spellId: b.id, text: b.text, auras: b.auras, slot: null, itemId: null })))).toMatchObject({ "extra-armor": 385, strength: 16, agility: 16, stamina: 16, intellect: 16, spirit: 16, "fire-resistance": 27 });
+    expect(byName("Fuerza de la Tierra", "totem").auras.map((a) => a.value)).toEqual([53]);
+  });
+
+  it("los beneficios de cada grupo no se acumulan: una sola bendición de Poderío (normal o superior), un solo aspecto, una sola armadura de mago", () => {
+    const might = byName("Bendición del poderío");
+    const greater = byName("Bendición superior de poderío");
+    expect(might.group).toBe(greater.group);
+    let sel = toggleBuff(new Set(), might, true, index);
+    sel = toggleBuff(sel, greater, true, index);
+    expect([...sel]).toEqual([greater.id]);
+    const hawk = byName("Aspecto del halcón");
+    const monkey = byName("Aspecto del mono");
+    expect([...toggleBuff(toggleBuff(new Set(), hawk, true, index), monkey, true, index)]).toEqual([monkey.id]);
+    // Marcas de otras clases sí se acumulan con las de la propia
+    const kings = byName("Bendición de los Reyes");
+    expect(new Set([...toggleBuff(sel, kings, true, index)]).size).toBe(2);
+    // Desmarcar quita solo ese
+    expect([...toggleBuff(sel, greater, false, index)]).toEqual([]);
+  });
+
+  it("el código del enlace va y vuelve, y descarta lo que ya no existe", () => {
+    const sel = new Set([byName("Grito de guerra").id, byName("Fuerza de la Tierra", "totem").id]);
+    const code = encodeBuffs(sel);
+    expect(code).toMatch(/^[0-9a-z.]+$/);
+    expect([...decodeBuffs(code, index)].sort()).toEqual([...sel].sort());
+    expect(decodeBuffs("zzzzzz.%%.", index).size).toBe(0);
+    expect(decodeBuffs(null, index).size).toBe(0);
+  });
+
+  it("al sumarlos entran como equipo: el poder de ataque plano y el porcentaje de todas las estadísticas", () => {
+    const picks = [byName("Grito de guerra"), byName("Bendición de los Reyes"), byName("Elixir de fuerza superior")];
+    const sources = buffEffects(new Set(picks.map((b) => b.id)), index);
+    expect(sources.every((s) => s.kind === "buff")).toBe(true);
+    const flat = buffFlatStats(sources);
+    expect(flat).toMatchObject({ "attack-power": 139, strength: 25 });
+    expect(addStats({ "attack-power": 10 }, flat)["attack-power"]).toBe(149);
+    const fx = collectStatEffects({ cls: warrior, classBuild: {}, legacy: null, legacyBuild: {}, race: null, abilities, gearEffects: sources });
+    const all = fx.totals.find((t) => t.label === "todos los atributos");
+    expect(all).toMatchObject({ value: 10, unit: "%" });
+    expect(all!.sources.every((s) => s.from === "buff")).toBe(true);
+    // Las cifras planas no se cuentan dos veces como porcentajes
+    expect(fx.totals.some((t) => t.label.includes("poder de ataque") && t.value === 139)).toBe(false);
+  });
+
+  it("AUDITORÍA: 270 de los 272 beneficios se cuantifican por completo; los 2 que quedan como texto son habilidades de profesión sin clave propia", () => {
+    const text: string[] = [];
+    for (const b of data.buffs) {
+      const e = buffAsEffect(b);
+      const fx = collectStatEffects({ cls: warrior, classBuild: {}, legacy: null, legacyBuild: {}, race: null, abilities, gearEffects: [e] });
+      if (Object.keys(buffFlatStats([e])).length + fx.totals.length === 0 || fx.conditional.length > 0) text.push(b.name);
+    }
+    expect(text.sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
+    expect(data.buffs.length).toBe(272);
+  });
+
+  it("duraderos o temporales: las auras y aspectos sin límite y las bendiciones son duraderos; Venas heladas (20 s) no", () => {
+    expect(isLastingBuff(byName("Aspecto del halcón"))).toBe(true);
+    expect(isLastingBuff(byName("Bendición del poderío"))).toBe(true);
+    expect(isLastingBuff(byName("Venas heladas"))).toBe(false);
+    expect(data.buffs.filter(isLastingBuff).length).toBeGreaterThan(150);
+  });
+});

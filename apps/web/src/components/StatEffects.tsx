@@ -17,7 +17,7 @@ const valueText = (t: StatTotal): string => {
 };
 
 const sourceText = (s: StatSource): string => (s.maxRank > 1 ? `${nm(s.name)} ${s.rank}/${s.maxRank}` : nm(s.name));
-const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Puntos de Legado", race: "raza", gear: "equipo" };
+const FROM: Record<StatSource["from"], string> = { class: "talento", legacy: "Puntos de Legado", race: "raza", gear: "equipo", buff: "beneficio" };
 const fromText = (f: StatSource["from"]): string => tr(FROM[f]);
 
 export interface EffectsInput {

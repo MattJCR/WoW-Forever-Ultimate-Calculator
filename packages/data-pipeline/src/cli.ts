@@ -5,9 +5,11 @@ import { fileURLToPath } from "node:url";
 import { buildClassTalents } from "./build.js";
 import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
 import { openRawTables } from "./csv.js";
-import { ClientStats, CombatFormulas, EnglishText, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Enchants, EquipRules, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { ClientStats, CombatFormulas, EnglishText, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Buffs, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
 import { buildEquipRules } from "./equip-rules.js";
 import { buildItems } from "./items.js";
+import { buildItemSources } from "./item-sources.js";
+import { buildBuffs, type BuffRules } from "./buffs.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
 import { buildEnglish } from "./english.js";
@@ -92,6 +94,9 @@ function build(): void {
   let equipEntry: Manifest["equipRules"];
   let ratingsEntry: Manifest["combatRatings"];
   let enchantsEntry: Manifest["enchants"];
+  let sourcesEntry: Manifest["itemSources"];
+  let buffsEntry: Manifest["buffs"];
+  let buffsData: Buffs | undefined;
   let suffixesEntry: Manifest["randomSuffixes"];
   let wsDb: WowsimsDb | null = null;
   let enchantsData: Enchants | undefined;
@@ -132,6 +137,16 @@ function build(): void {
     writeFileSync(join(outDir, "items.json"), itemsText);
     itemsEntry = { file: "items.json", sha256: sha256(itemsText), itemCount: itemsData.items.length, unavailableCount: itemsData.unavailable.length };
     for (const w of itemsData.warnings) console.log(`   aviso (objetos): ${w}`);
+    if (["SkillLine", "SkillLineAbility", "SpellEffect"].every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
+      const sources = ItemSources.parse(buildItemSources(raw, buildId, new Set(itemsData.items.filter((i) => !i.placeholder).map((i) => i.id))));
+      const sourcesText = `${JSON.stringify(sources)}
+`;
+      writeFileSync(join(outDir, "sources.json"), sourcesText);
+      sourcesEntry = { file: "sources.json", sha256: sha256(sourcesText), count: Object.keys(sources.items).length };
+      const kinds = new Map<string, number>();
+      for (const list of Object.values(sources.items)) for (const k of new Set(list.map((e) => e.kind))) kinds.set(k, (kinds.get(k) ?? 0) + 1);
+      console.log(`Fuentes (sources.json): ${sourcesEntry.count} objetos con fuente (${[...kinds].map(([k, n]) => `${k} ${n}`).join(", ")})`);
+    }
     const equip = EquipRules.parse(buildEquipRules(raw, buildId));
     const equipText = stableJson(equip);
     writeFileSync(join(outDir, "equip-rules.json"), equipText);
@@ -184,6 +199,16 @@ function build(): void {
     for (const w of parsed.warnings) console.log(`   aviso (habilidades ${cls.className}): ${w}`);
   }
 
+  // Beneficios («buffs»): habilidades de clase, tótems, mascota y consumibles (client-db2)
+  const buffRulesFile = resolve(repoRoot, "data", "rules", "buffs.json");
+  if (["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "SpellClassOptions"].every((t) => existsSync(join(rawDir, `${t}.csv`))) && existsSync(buffRulesFile)) {
+    const warnings: string[] = [];
+    buffsData = Buffs.parse(buildBuffs(raw, buildId, spells, abilityData, JSON.parse(readFileSync(buffRulesFile, "utf8")) as BuffRules, warnings));
+    const by = (c: string) => buffsData!.buffs.filter((b) => b.category === c).length;
+    console.log(`Beneficios (buffs.json): ${buffsData.buffs.length} (clase ${by("class")}, tótems ${by("totem")}, mascota ${by("pet")}, pociones ${by("potion")}, elixires ${by("elixir")}, frascos ${by("flask")}, pergaminos ${by("scroll")}, comida ${by("food")}, otros ${by("other")})`);
+    for (const w of warnings) console.log(`   aviso (buffs): ${w}`);
+  }
+
   // Formulas de combate de Classic (estimacion): se validan y se publican tal cual
   const formulasSource = resolve(repoRoot, "data", "rules", "combat-formulas.json");
   let formulasEntry: Manifest["combatFormulas"];
@@ -214,7 +239,9 @@ function build(): void {
     const enusDir = resolve(arg("enus", join(repoRoot, "data", "external", "enus")));
     const official = loadOfficialEnglish(enusDir, raw, spells);
     if (official) {
-      const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, enchants: enchantsData, unassigned, own: loadEnglishOverrides() });
+      const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, enchants: enchantsData, buffs: buffsData, unassigned, own: loadEnglishOverrides() });
+      // Nombre en inglés de cada beneficio (hechizo o objeto): de las tablas oficiales
+      for (const b of buffsData?.buffs ?? []) b.nameEn = (b.itemId !== null ? official.itemNames.get(b.itemId) : official.spells.name(b.id)) ?? null;
       console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);
       console.log(`   pendientes de traducción propia (cifras distintas o sin inglés): ${o.pending.length}; traducciones propias con otras cifras: ${o.ownMismatches.length}`);
       mkdirSync(join(repoRoot, "data", "i18n"), { recursive: true });
@@ -233,6 +260,13 @@ function build(): void {
     console.log("Inglés: sin export de la referencia; se omite i18n/en.json");
   }
 
+  if (buffsData) {
+    const buffsText = `${JSON.stringify(buffsData)}
+`;
+    writeFileSync(join(outDir, "buffs.json"), buffsText);
+    buffsEntry = { file: "buffs.json", sha256: sha256(buffsText), count: buffsData.buffs.length };
+  }
+
   // Iconos que necesita la web; tools/extract/fetch-icons.mjs los descarga del cliente (solo lectura).
   const iconIds = new Set<number>(abilityIcons);
   for (const c of classes) {
@@ -247,6 +281,7 @@ function build(): void {
   for (const t of unassigned.alternativeTrees) for (const n of t.nodes) if (n.iconFileDataId) iconIds.add(n.iconFileDataId);
   // Objetos: los iconos de todos los equipables que la web puede ofrecer (los de prueba no se ofrecen)
   if (itemsData) for (const i of itemsData.items) if (!i.placeholder && i.iconFileDataId) iconIds.add(i.iconFileDataId);
+  for (const b of buffsData?.buffs ?? []) if (b.iconFileDataId) iconIds.add(b.iconFileDataId);
   const iconsText = stableJson({ build: buildId, ids: [...iconIds].sort((a, b) => a - b) });
   writeFileSync(join(outDir, "icons.json"), iconsText);
 
@@ -271,6 +306,8 @@ function build(): void {
     equipRules: equipEntry,
     combatRatings: ratingsEntry,
     enchants: enchantsEntry,
+    itemSources: sourcesEntry,
+    buffs: buffsEntry,
     randomSuffixes: suffixesEntry,
     english: englishEntry,
     rules: ruleEntries,

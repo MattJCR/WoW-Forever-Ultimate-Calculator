@@ -6,7 +6,7 @@ import type { CombatRatings, Enchant, Enchants, Item, Items, ItemStat, RandomSuf
 /**
  * Datos de la comunidad (MIT), copiados a data/external/wowsims/ (ver su ATTRIBUTION.md).
  * Son `community`: los midió/generó otro equipo desde el mismo cliente, con hotfixes mas recientes que nuestra cache. Sirven para lo que
- * nuestro volcado no trae (objetos nuevos, sufijos aleatorios, puntuaciones). Su `sources` (botin) no se usa: deriva de AtlasLoot (GPL).
+ * nuestro volcado no trae (objetos nuevos, sufijos aleatorios, puntuaciones). Su `sources` (botin) no se usa.
  */
 export interface WowsimsItem {
   id: number;
@@ -20,6 +20,7 @@ export interface WowsimsItem {
   quality: number;
   unique?: boolean;
   randomSuffixOptions?: number[];
+  itemEffects?: { buffId: number; effectDurationMs?: number; proc?: { ppm?: number; procChance?: number; icdMs?: number } }[];
   scalingOptions?: Record<string, { ilvl?: number; stats?: Record<string, number>; weaponDamageMin?: number; weaponDamageMax?: number; unroundedDps?: number }>;
 }
 export interface WowsimsDb {
@@ -132,7 +133,7 @@ export function clientEnchantValues(row: Row, spells: SpellTables): { stats: Ite
       if (r) stats.push({ type: r.type, key: r.key, value: points });
       else unhandled.push(kind);
     } else if (kind === 2) stats.push({ type: PHYSICAL_DAMAGE_TYPE, key: ITEM_STAT_KEYS[PHYSICAL_DAMAGE_TYPE] ?? null, value: points });
-    else if (ENCHANT_TRIGGER[kind] !== undefined && arg > 0) effects.push({ spellId: arg, trigger: ENCHANT_TRIGGER[kind]!, ...spellEffectInfo(spells, arg) });
+    else if (ENCHANT_TRIGGER[kind] !== undefined && arg > 0) effects.push({ spellId: arg, trigger: ENCHANT_TRIGGER[kind]!, ...spellEffectInfo(spells, arg, ENCHANT_TRIGGER[kind]!) });
     else unhandled.push(kind);
   }
   return { stats, effects, unhandled };
@@ -310,6 +311,21 @@ export function applyWowsims(base: Items, db: WowsimsDb): { items: Items; extra:
     }
     return { ...item, randomSuffixSet: idx };
   };
-  const items = [...base.items.map(withBlock), ...extra].map(withSuffix).sort((a, b) => a.id - b.id);
+  // Procs por minuto, probabilidad y enfriamiento de los objetos antiguos: el cliente solo trae los de los hechizos nuevos; aqui los completa la comunidad
+  const procsOf = new Map(db.items.filter((i) => i.itemEffects?.some((e) => e.proc)).map((i) => [i.id, i.itemEffects!]));
+  const withProcs = (item: Item): Item => {
+    const theirs = procsOf.get(item.id);
+    if (!theirs || !item.effects.some((e) => e.proc && e.proc.ppm === null && e.proc.chancePct === null)) return item;
+    return {
+      ...item,
+      effects: item.effects.map((e) => {
+        if (!e.proc || e.proc.ppm !== null || e.proc.chancePct !== null) return e;
+        const t = theirs.find((x) => x.buffId === e.spellId || x.buffId === e.proc!.triggerSpellId)?.proc;
+        if (!t || (!t.ppm && !t.procChance)) return e;
+        return { ...e, proc: { ...e.proc, ppm: t.ppm ?? null, chancePct: t.ppm ? null : (t.procChance ?? null), icdMs: e.proc.icdMs ?? t.icdMs ?? null, source: "community" as const } };
+      }),
+    };
+  };
+  const items = [...base.items.map(withBlock), ...extra].map(withSuffix).map(withProcs).sort((a, b) => a.id - b.id);
   return { items: { ...base, items, unavailable, suffixSets: sets }, extra: extra.length, skipped };
 }

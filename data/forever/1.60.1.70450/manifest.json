@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-22T13:50:21.735Z",
+  "generatedAt": "2026-10-22T15:49:56.473Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -292,8 +292,18 @@
   },
   "enchants": {
     "file": "enchants.json",
-    "sha256": "4ce32c9ae8bf5de52e51cd905559076ba66f9d8cb7601424188fb65c5946c8f6",
+    "sha256": "5fa69d736010d713e56cbd052ceec598aabaf676f42872ee90aaca7d3be34933",
     "count": 246
+  },
+  "itemSources": {
+    "file": "sources.json",
+    "sha256": "5a09e3334d2c2d26ce392fc801d133bcc5d095897182fbf57cbaf39a31d4ad57",
+    "count": 1370
+  },
+  "buffs": {
+    "file": "buffs.json",
+    "sha256": "53e1f2163aa1cd99acc46dc85c9ed4a586a7f83501c0af05a95662e4867c2aa9",
+    "count": 272
   },
   "randomSuffixes": {
     "file": "random-suffixes.json",
@@ -302,7 +312,7 @@
   },
   "items": {
     "file": "items.json",
-    "sha256": "b47e16d2f5736d1da08a7d636db0387dfce11a168d06d8a2c8fc3e43b0a86df9",
+    "sha256": "268772ade9f05439c8d6ea7b60202275025467cfadff3793ecf96af215616ff1",
     "itemCount": 12515,
     "unavailableCount": 6380
   },
@@ -318,17 +328,17 @@
   },
   "races": {
     "file": "races.json",
-    "sha256": "3f252f5e43f8810c1c519fef2f4a51474640438d817b3aa366dad0202e024232",
+    "sha256": "64a27aeeff64802406fe654672cd2a97e9ac9c1c1f20d7070bd07d98b3114cd7",
     "raceCount": 10
   },
   "icons": {
     "file": "icons.json",
-    "count": 1772,
-    "sha256": "0a88dad94ebf4b04996bf8f172cbffc53c7317b8e0fd4824841f859860409be2"
+    "count": 1909,
+    "sha256": "16fd337bcdea485cf9d56b5c485667924335acf28fcf3ecc92a4b6622ecebb21"
   },
   "english": {
     "file": "i18n/en.json",
-    "sha256": "774486c17d84cedc76edc56005bfe6cfa862f8c1d146c6d518c2e2f643b053d5"
+    "sha256": "db552bb2db6ed54ce3045a17de04ca873c7beda88afbe2ea2288172e06cccd1e"
   },
   "unassigned": {
     "file": "unassigned.json",
@@ -442,6 +452,10 @@
       "sha256": "a0dbf24d8ff14a1f9f060eb29c6be08a8df73ed63c0ccec83156110707525acf"
     },
     {
+      "table": "SkillLine",
+      "sha256": "35b04d626739e2fce669b0e99ef21a17ce7281b73198185b9394b7a3c51793d9"
+    },
+    {
       "table": "SkillLineAbility",
       "sha256": "f7f3dd75f6232b57a1cc6192dc5c1a7ed579d2d0693955546579ad267d1b273e"
     },
@@ -508,6 +522,10 @@
     {
       "table": "SpellPower",
       "sha256": "401a35f9a3eaad5918f0fddd18d38ca69fb84eac70633e4672cd780cac170f6b"
+    },
+    {
+      "table": "SpellProcsPerMinute",
+      "sha256": "9b5de43a964598104e29b08c4f91c7182390f622000d08de8b4a19e521e9ab51"
     },
     {
       "table": "SpellRadius",
