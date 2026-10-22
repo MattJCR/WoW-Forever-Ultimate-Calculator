@@ -16,6 +16,21 @@ describe("estado del avatar en el enlace", () => {
     expect(decodeAvatar("1.9-60786~11-45")).toEqual(a);
     expect(decodeAvatar("1")).toEqual({ sex: 1, choices: {} });
   });
+  it("la raza del avatar viaja con el cuerpo y las armas envainadas", () => {
+    expect(encodeAvatar({ sex: 0, choices: {}, race: 6 })).toBe("0r6");
+    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96 })).toBe("1sr96.9-5");
+    expect(decodeAvatar("1sr96.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96 });
+    expect(decodeAvatar("0r6")).toEqual({ sex: 0, choices: {}, race: 6 });
+    expect(decodeAvatar("0s")).toEqual({ sex: 0, choices: {}, sheathed: true });
+  });
+  it("el fondo del probador viaja con b<id> (b0 = liso) y sin él sigue a la raza", () => {
+    expect(encodeAvatar({ sex: 0, choices: {}, bg: 2 })).toBe("0b2");
+    expect(encodeAvatar({ sex: 0, choices: {}, bg: 0 })).toBe("0b0");
+    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96, bg: 6 })).toBe("1sr96b6.9-5");
+    expect(decodeAvatar("1sr96b6.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96, bg: 6 });
+    expect(decodeAvatar("0b0")).toEqual({ sex: 0, choices: {}, bg: 0 });
+    expect(decodeAvatar("0r6")).toEqual({ sex: 0, choices: {}, race: 6 });
+  });
   it("ignora basura", () => {
     expect(decodeAvatar("0.x-y~3")).toEqual({ sex: 0, choices: {} });
   });
@@ -157,5 +172,12 @@ describe("equipo → lo que se ve", () => {
     const r = resolveEquipment(ap, 1, 0, [eq(999, 5)], url);
     expect(r.geosets.size).toBe(0);
     expect(r.models).toEqual([]);
+  });
+  it("avisa de los objetos que el cliente no deja dibujar (sin apariencia o con un modelo sin fichero), no de cuello ni anillos", () => {
+    const hole = { ...ap, items: { ...ap.items, "9": 900 }, display: { ...ap.display, "900": { m: [[90, 0, 0]] as [number, number, number][] } } };
+    expect(resolveEquipment(hole, 1, 0, [eq(999, 3)], url).missing).toEqual([999]);
+    expect(resolveEquipment(hole, 1, 0, [eq(9, 3)], url).missing).toEqual([9]);
+    expect(resolveEquipment(hole, 1, 0, [eq(999, 2), eq(998, 11), eq(997, 12)], url).missing).toEqual([]);
+    expect(resolveEquipment(ap, 1, 0, [eq(6, 3)], url).missing).toEqual([]);
   });
 });

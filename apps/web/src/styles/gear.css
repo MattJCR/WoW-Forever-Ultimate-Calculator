@@ -417,6 +417,16 @@ p.gear-warn {
   padding: 2px 10px;
   font-size: 0.85em;
 }
+.avatar-missing {
+  margin: 4px 0 0;
+  text-align: center;
+}
+.avatar-bar select.avatar-race {
+  width: auto;
+  min-height: 32px;
+  padding: 2px 8px;
+  font-size: 0.85em;
+}
 .avatar-bar button.on {
   border-color: var(--accent);
   color: var(--accent);
@@ -427,8 +437,37 @@ p.gear-warn {
   min-height: 420px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: radial-gradient(ellipse at 50% 35%, #2a2116 0%, #120e09 70%);
+  background: radial-gradient(ellipse at 50% 30%, var(--stage-a) 0%, var(--stage-b) 58%, var(--stage-c) 100%);
   overflow: hidden;
+  --stage-a: #4a3c28;
+  --stage-b: #2a2116;
+  --stage-c: #120e09;
+  --stage-ground: #6b573a;
+}
+/* Escena de fondo (SVG propio, ver viewer/backdrops.tsx); sin escena queda el degradado liso */
+.avatar-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.avatar-stage[data-scene]::before {
+  display: none;
+}
+/* Suelo: un óvalo de luz bajo los pies, por debajo del lienzo */
+.avatar-stage::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 78%;
+  height: 16%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, var(--stage-ground) 0%, transparent 70%);
+  opacity: 0.7;
+  pointer-events: none;
 }
 .avatar-options {
   display: grid;

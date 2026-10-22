@@ -21,11 +21,13 @@ interface Props {
   sheathed?: boolean;
   onClips?: (names: string[]) => void;
   onRecipe?: (recipe: Recipe) => void;
+  /** Objetos equipados que el cliente no deja dibujar (sin apariencia o sin fichero de modelo). */
+  onMissing?: (itemIds: number[]) => void;
   className?: string;
 }
 
 /** Lienzo 3D del personaje. Carga three.js y el modelo solo cuando se monta. */
-export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, onClips, onRecipe, className }: Props) {
+export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, onClips, onRecipe, onMissing, className }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const holder = useRef<HTMLDivElement>(null);
   const view = useRef<CharacterView | null>(null);
@@ -72,8 +74,9 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
     if (!v || !recipe || loading || loadedModel.current !== chrModelId) return;
     let dead = false;
     (async () => {
-      const state: ViewState = { selection: selection ?? defaultSelection(recipe) };
+      const state: ViewState = { selection: selection ?? defaultSelection(recipe), pose: "Stand" };
       const list: Equipped[] = JSON.parse(equippedKey);
+      let missing: number[] = [];
       if (list.length) {
         const ap = await loadAppearance(MODELS_BASE);
         if (ap) {
@@ -82,9 +85,11 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
             extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides,
             models: e.models, objectTextures: e.objectTextures, pose: e.pose,
           });
+          missing = e.missing;
         }
       }
       if (pose) state.pose = pose;
+      if (!dead) onMissing?.(missing);
       if (!dead) await v.apply(state);
     })();
     return () => { dead = true; };

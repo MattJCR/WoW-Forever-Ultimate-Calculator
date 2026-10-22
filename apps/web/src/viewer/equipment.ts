@@ -57,7 +57,12 @@ export interface EquipResult {
   objectTextures: Record<number, number>;
   /** Animación acorde con las armas que lleva. */
   pose: string;
+  /** Objetos que el cliente no deja dibujar: sin apariencia o con un modelo sin fichero asociado. */
+  missing: number[];
 }
+
+/** Tipos de objeto que se ven en el personaje (cuello, anillos y abalorios no). */
+const DRAWN = new Set([1, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 25, 26]);
 
 /** Grupo de subgeometría del personaje que mueve cada GeosetGroup[i] según la ranura. */
 const GROUPS: Record<number, number[]> = {
@@ -89,12 +94,15 @@ export interface EquipOptions {
 export function resolveEquipment(
   ap: AppearanceData, race: number, sex: number, equipped: Equipped[], textureUrl: (f: number) => string, opts: EquipOptions = {},
 ): EquipResult {
-  const res: EquipResult = { geosets: new Set(), hiddenGroups: new Set(), overlays: [], helmetHides: [], models: [], objectTextures: {}, pose: "Stand" };
+  const res: EquipResult = { geosets: new Set(), hiddenGroups: new Set(), overlays: [], helmetHides: [], models: [], objectTextures: {}, pose: "Stand", missing: [] };
   const bySlot = new Map<number, DisplayRecord>();
   const slotItem = new Map<number, Equipped>();
   for (const e of equipped) {
     const d = ap.display[String(ap.items[String(e.itemId)] ?? 0)];
-    if (!d) continue;
+    if (!d) {
+      if (DRAWN.has(e.inventoryType)) res.missing.push(e.itemId);
+      continue;
+    }
     bySlot.set(e.inventoryType, d);
     slotItem.set(e.inventoryType, e);
   }
@@ -140,6 +148,10 @@ export function resolveEquipment(
     (d.m ?? []).forEach(([modelRes, matRes], idx) => {
       if (!modelRes) return;
       const variants = ap.model[String(modelRes)] ?? [];
+      if (!variants.length) {
+        const id = slotItem.get(slot)?.itemId;
+        if (id !== undefined && !res.missing.includes(id)) res.missing.push(id);
+      }
       const bySex = variants.filter((v) => v.g === sex || v.g === 3 || v.g === 2);
       const mine = bySex.filter((v) => v.r === 0 || v.r === race);
       // Una raza sin modelo propio (Cielonato) usa el de la primera raza que lo tenga para su sexo.

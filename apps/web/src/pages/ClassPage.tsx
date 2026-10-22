@@ -145,6 +145,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (r) setRaceId(r);
   }, [query]);
   registerRaces(races);
+  const allRaces = useMemo(() => (racesState.status === "ready" ? racesState.value.races.map((r) => ({ id: r.id, name: r.name, faction: r.faction })) : []), [racesState]);
   const race = races.find((r) => r.id === raceId) ?? null;
   const raceQuery: Record<string, string> = race ? { r: String(race.id) } : {};
 
@@ -329,7 +330,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       )}
       {view === "gear" && (
         <div className="gear-wrap">
-          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race ? raceLabel(race.id, race.name) : null} avatarRaceId={race?.id ?? races[0]?.id ?? 1} avatar={avatar} setAvatar={setAvatar} history={history} />
+          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race ? raceLabel(race.id, race.name) : null} avatarRaceId={race?.id ?? races[0]?.id ?? 1} avatarRaces={allRaces} avatar={avatar} setAvatar={setAvatar} history={history} />
           <StepNav view={view} onGo={goTop} />
         </div>
       )}

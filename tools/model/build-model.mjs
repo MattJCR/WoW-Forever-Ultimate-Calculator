@@ -79,7 +79,7 @@ function addMeshes(g, m2, skin, V, skinIdx, opts = {}) {
   return { nodes, meshInfo };
 }
 
-export async function buildModel(chrModelId, { sequenceIds = [0, 4, 5, 25, 26, 27, 28, 29, 30], collections = [] } = {}) {
+export async function buildModel(chrModelId, { sequenceIds = [0, 4, 5, 25, 26, 27, 28, 29, 48], collections = [] } = {}) {
   const { chr, fileId } = await findModelFile(chrModelId);
   const m2 = parseM2(await fetchFile(fileId));
   const skin = parseSkin(await fetchFile(m2.fileIds.skin[0]));
@@ -147,7 +147,7 @@ export async function buildModel(chrModelId, { sequenceIds = [0, 4, 5, 25, 26, 2
 
   // Animaciones incrustadas en el M2 (las demas viven en ficheros .anim aparte y no se usan aqui)
   const animations = [];
-  const NAMES = { 0: "Stand", 25: "ReadyUnarmed", 26: "Ready1H", 27: "Ready2H", 28: "Ready2HL", 29: "ReadyBow", 30: "ReadyRifle", 4: "Walk", 5: "Run" };
+  const NAMES = { 0: "Stand", 25: "ReadyUnarmed", 26: "Ready1H", 27: "Ready2H", 28: "Ready2HL", 29: "ReadyBow", 48: "ReadyRifle", 4: "Walk", 5: "Run" };
   for (const id of sequenceIds) {
     const seqIndex = m2.sequences.findIndex((s) => s.id === id && s.variation === 0);
     const seq = m2.sequences[seqIndex];

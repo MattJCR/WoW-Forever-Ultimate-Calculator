@@ -8,15 +8,19 @@ export interface Avatar {
   choices: Selection;
   /** Armas envainadas (no en la mano). */
   sheathed?: boolean;
+  /** Raza con la que se dibuja el avatar (ChrRaces.ID); sin ella, la del paso Raza. Solo cambia el aspecto. */
+  race?: number;
+  /** Escena de fondo del probador (id de `BACKDROPS`; 0 = liso); sin ella, la de la raza que se ve. */
+  bg?: number;
 }
 
 export const DEFAULT_AVATAR: Avatar = { sex: 0, choices: {} };
 
-/** `0` o `1.<opcion>-<eleccion>~<opcion>-<eleccion>`; una `s` tras el cuerpo (`0s`) = armas envainadas. Cadena vacía = valores por defecto. */
+/** `0` o `1.<opcion>-<eleccion>~<opcion>-<eleccion>`; tras el cuerpo, `s` = armas envainadas y `r<id>` = raza del avatar y `b<id>` = fondo (`0sr6b2`). Cadena vacía = valores por defecto. */
 export function encodeAvatar(a: Avatar): string {
   const parts = Object.entries(a.choices).map(([o, c]) => `${o}-${c}`);
-  if (a.sex === 0 && !parts.length && !a.sheathed) return "";
-  const head = `${a.sex}${a.sheathed ? "s" : ""}`;
+  if (a.sex === 0 && !parts.length && !a.sheathed && !a.race && a.bg === undefined) return "";
+  const head = `${a.sex}${a.sheathed ? "s" : ""}${a.race ? `r${a.race}` : ""}${a.bg !== undefined ? `b${a.bg}` : ""}`;
   return parts.length ? `${head}.${parts.join("~")}` : head;
 }
 
@@ -28,7 +32,9 @@ export function decodeAvatar(code: string | null): Avatar {
     const [o, c] = p.split("-").map(Number);
     if (o && c) choices[o] = c;
   }
-  return { sex: s.startsWith("1") ? 1 : 0, choices, ...(s.endsWith("s") ? { sheathed: true } : {}) };
+  const race = Number(/r(\d+)/.exec(s)?.[1]) || 0;
+  const bg = /b(\d+)/.exec(s)?.[1];
+  return { sex: s.startsWith("1") ? 1 : 0, choices, ...(/^\ds/.test(s) ? { sheathed: true } : {}), ...(race ? { race } : {}), ...(bg !== undefined ? { bg: Number(bg) } : {}) };
 }
 
 export interface ModelIndexEntry {

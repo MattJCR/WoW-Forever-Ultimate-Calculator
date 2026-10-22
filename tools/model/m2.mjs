@@ -156,5 +156,8 @@ export function readTrack(m, at, seqIndex, kind, dataFor) {
       values.push([d.readFloatLE(p), d.readFloatLE(p + 4), d.readFloatLE(p + 8)]);
     }
   }
+  // Una pista con secuencia global corre en su propia linea de tiempo (cientos de segundos), no en la de la animacion:
+  // se deja fija en su primer valor para que el clip dure lo que dura la animacion.
+  if (globalSeq >= 0 && times.length > 1) return { interpolation: 0, globalSeq, times: [0], values: [values[0]], comps };
   return { interpolation, globalSeq, times, values, comps };
 }

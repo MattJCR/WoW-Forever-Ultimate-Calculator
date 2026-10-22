@@ -43,7 +43,7 @@ import {
   statName,
 } from "./gear-format";
 import type { Avatar } from "../viewer/avatar";
-import { AvatarPanel } from "./AvatarPanel";
+import { AvatarPanel, type AvatarRace } from "./AvatarPanel";
 import { ItemGallery, useAppearance } from "./ItemGallery";
 import { Icon } from "./Icon";
 
@@ -441,6 +441,7 @@ export function GearStep({
   summary,
   raceName,
   avatarRaceId,
+  avatarRaces,
   avatar,
   setAvatar,
   history,
@@ -454,6 +455,8 @@ export function GearStep({
   raceName: string | null;
   /** Raza con la que se dibuja el avatar (la elegida o, si no hay, la primera que admite la clase). */
   avatarRaceId: number;
+  /** Todas las razas del juego (el probador deja elegir cualquiera con modelo). */
+  avatarRaces: AvatarRace[];
   avatar: Avatar;
   setAvatar: (a: Avatar) => void;
   history: { canUndo: boolean; canRedo: boolean; undo: () => void; redo: () => void };
@@ -494,7 +497,7 @@ export function GearStep({
       <div className="gear-layout">
         <div className="doll">
           <div className="doll-col">{SLOT_ORDER_LEFT.map(slotButton)}</div>
-          <AvatarPanel raceId={avatarRaceId} avatar={avatar} setAvatar={setAvatar} gear={gear} setGear={setGear} data={data} ctx={ctx} history={history} />
+          <AvatarPanel raceId={avatarRaceId} races={avatarRaces} avatar={avatar} setAvatar={setAvatar} gear={gear} setGear={setGear} data={data} ctx={ctx} history={history} />
           <div className="doll-col">{SLOT_ORDER_RIGHT.map(slotButton)}</div>
           <div className="doll-bottom">{SLOT_ORDER_BOTTOM.map(slotButton)}</div>
         </div>
