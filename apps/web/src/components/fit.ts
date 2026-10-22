@@ -6,6 +6,7 @@ const MIN_SCALE = 0.4;
 /**
  * Ajusta una tarjeta flotante para que quepa entera en la ventana SIN scroll: reduce su escala de letra y de relleno
  * (variable CSS `--fit`, 1 = tamaño normal) lo justo para que su altura sea como mucho la de la ventana menos los margenes.
+ * También exige que nada se salga por el ancho (`scrollWidth`): si una línea no cabe, se encoge la letra.
  * Busca por biseccion la mayor escala que cabe (el texto se reparte en mas lineas al crecer, asi que no es lineal).
  * Devuelve la escala aplicada. Debe llamarse antes de medir la tarjeta para colocarla.
  */
@@ -13,7 +14,7 @@ export function fitCardToViewport(el: HTMLElement): number {
   const maxHeight = window.innerHeight - 2 * CARD_MARGIN;
   const fits = (scale: number): boolean => {
     el.style.setProperty("--fit", String(scale));
-    return el.offsetHeight <= maxHeight;
+    return el.offsetHeight <= maxHeight && el.scrollWidth <= el.clientWidth + 1;
   };
   if (fits(1)) return 1;
   let lo = MIN_SCALE;

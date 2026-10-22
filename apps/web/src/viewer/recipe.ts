@@ -69,7 +69,10 @@ export type Selection = Record<number, number>;
 
 /** Elección por defecto de una opción: la primera que ofrece el juego a los jugadores (en las de color, con color). */
 export function defaultChoice(o: RecipeOption): RecipeChoice | undefined {
-  const players = o.choices.filter((c) => !c.npc);
+  // Un peinado «rapado» (sin pelo) solo si no hay otro: así el personaje sale completo
+  const bald = (c: RecipeChoice) => c.elements.some((e) => e.hair && e.geoset === 0) && !c.elements.some((e) => e.hair && (e.geoset ?? 0) > 0);
+  const withHair = o.choices.filter((c) => !c.npc && !bald(c));
+  const players = o.choices.some((c) => c.elements.some((e) => e.hair)) && withHair.length ? withHair : o.choices.filter((c) => !c.npc);
   const colored = players.filter((c) => c.swatch !== 0);
   return (colored.length ? colored : players.length ? players : o.choices)[0];
 }

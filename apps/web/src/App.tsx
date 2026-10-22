@@ -11,6 +11,7 @@ import { href, scrollToSection, useRoute, type Route } from "./router";
 // Pantallas de pruebas del probador 3D: solo existen en desarrollo
 const ViewerLab = import.meta.env.DEV ? lazy(() => import("./pages/ViewerLab").then((m) => ({ default: m.ViewerLab }))) : null;
 const BustLab = import.meta.env.DEV ? lazy(() => import("./pages/BustLab").then((m) => ({ default: m.BustLab }))) : null;
+const SceneLab = import.meta.env.DEV ? lazy(() => import("./pages/SceneLab").then((m) => ({ default: m.SceneLab }))) : null;
 
 export function App() {
   const manifest = useAsync("manifest", loadManifest);
@@ -147,6 +148,7 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
   if (page === "unassigned") return <UnassignedPage />;
   if (import.meta.env.DEV && page === "viewer-lab" && ViewerLab) return <Suspense fallback={null}><ViewerLab query={route.query} /></Suspense>;
   if (import.meta.env.DEV && page === "bust-lab" && BustLab) return <Suspense fallback={null}><BustLab query={route.query} /></Suspense>;
+  if (import.meta.env.DEV && page === "scene-lab" && SceneLab) return <Suspense fallback={null}><SceneLab query={route.query} /></Suspense>;
   if (page === "class" && arg) {
     const entry = manifest.classes.find((c) => classToken(c.file) === arg);
     if (entry) return <ClassPage key={arg} token={arg} entry={entry} query={route.query} />;

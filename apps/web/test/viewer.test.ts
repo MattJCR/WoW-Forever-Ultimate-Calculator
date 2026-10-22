@@ -64,9 +64,13 @@ const recipe = {
 } as unknown as Recipe;
 
 describe("personalización", () => {
-  it("por defecto: la primera elección que el juego ofrece a los jugadores y, en los colores, con color", () => {
+  it("por defecto: la primera elección que el juego ofrece a los jugadores, en los colores con color y en el peinado una con pelo", () => {
     expect(defaultChoice(recipe.options[0]!)?.id).toBe(12);
-    expect(defaultSelection(recipe)).toEqual({ 1: 12, 2: 20, 3: 30 });
+    expect(defaultSelection(recipe)).toEqual({ 1: 12, 2: 20, 3: 31 });
+  });
+  it("el rapado solo es el peinado por defecto si no hay otro", () => {
+    const only = { ...recipe.options[2]!, choices: [recipe.options[2]!.choices[0]!] };
+    expect(defaultChoice(only)?.id).toBe(30);
   });
   it("la textura de la cara depende del color de piel elegido", () => {
     expect(resolveSelection(recipe, { 1: 11, 2: 20, 3: 30 }).targets.get(5)).toBe(211);

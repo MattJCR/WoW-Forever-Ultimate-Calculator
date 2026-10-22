@@ -30,8 +30,8 @@ export interface ViewState {
 /** Tipos de textura de malla que se pintan con otro compuesto (los de las colecciones usan el del pelo). */
 const TEXTURE_ALIAS: Record<number, number> = { 7: 6 };
 
-/** Grupos de subgeometría que el equipo sustituye; sin equipo enseñan su variante 01. */
-const EQUIPMENT_GROUPS = new Set([4, 5, 8, 9, 10, 11, 12, 13, 15, 18, 20, 22]);
+/** Grupos de subgeometría que el equipo sustituye; sin equipo enseñan su variante 01. El 23 son las manos de los modelos nuevos (elfos, Cielonato). */
+const EQUIPMENT_GROUPS = new Set([4, 5, 8, 9, 10, 11, 12, 13, 15, 18, 20, 22, 23]);
 
 /** Encuadre de las miniaturas: altura a la que mira (fracción del alto), distancia (en altos) y giro. */
 export const BUST_PRESETS = {
@@ -214,6 +214,13 @@ export class CharacterView {
     if (!groups.has(32)) {
       const head = recipe.geosets.map((i) => i.geoset).filter((g) => Math.floor(g / 100) === 32 && g % 100 >= 2).sort((a, b) => a - b)[0];
       if (head !== undefined) visible.add(head);
+    }
+    // Las orejas (grupo 7) solo las elige la personalización en algunas razas; en el resto va la variante con orejas
+    // (la 02 si el modelo trae varias, porque la 01 suele ser «sin orejas»; la única si solo hay una).
+    if (!groups.has(7)) {
+      const ears = recipe.geosets.map((i) => i.geoset).filter((g) => Math.floor(g / 100) === 7).sort((a, b) => a - b);
+      const pick = ears.find((g) => g % 100 >= 2) ?? ears[0];
+      if (pick !== undefined) visible.add(pick);
     }
     for (const [id, list] of this.meshes) for (const m of list) m.visible = visible.has(id);
 

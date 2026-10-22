@@ -67,6 +67,39 @@ export function parseM2(file) {
     return { id: m.readUInt32LE(p), bone: m.readUInt16LE(p + 4), pos: [m.readFloatLE(p + 8), m.readFloatLE(p + 12), m.readFloatLE(p + 16)] };
   });
   out.attachmentLookup = u16(H.attachmentLookup);
+  // Camaras (116 bytes en las versiones modernas): tipo, planos lejano y cercano, posicion y objetivo
+  // (base + primer valor de su pista) y, al final, giro y campo de vision como pistas.
+  const firstKey = (at, comps, stride) => {
+    const seqs = arr(m, at + 12);
+    if (!seqs.count || seqs.offset + 8 > m.length) return null;
+    const keys = arr(m, seqs.offset);
+    if (!keys.count || keys.offset + comps * 4 > m.length) return null;
+    return Array.from({ length: comps }, (_, k) => m.readFloatLE(keys.offset + k * 4));
+  };
+  // Color y opacidad de cada capa en el primer fotograma (las pistas se animan; aqui solo el valor inicial).
+  const firstFixed = (at) => {
+    const seqs = arr(m, at + 12);
+    if (!seqs.count || seqs.offset + 8 > m.length) return null;
+    const keys = arr(m, seqs.offset);
+    if (!keys.count || keys.offset + 2 > m.length) return null;
+    return m.readInt16LE(keys.offset) / 32767;
+  };
+  out.colors = Array.from({ length: H.colors.count }, (_, i) => {
+    const p = H.colors.offset + i * 40;
+    return [...(firstKey(p, 3) ?? [1, 1, 1]), firstFixed(p + 20) ?? 1];
+  });
+  out.weights = Array.from({ length: H.textureWeights.count }, (_, i) => firstFixed(H.textureWeights.offset + i * 20) ?? 1);
+  out.cameras = Array.from({ length: H.cameras.count }, (_, i) => {
+    const p = H.cameras.offset + i * 116;
+    const vec = (o) => [m.readFloatLE(p + o), m.readFloatLE(p + o + 4), m.readFloatLE(p + o + 8)];
+    const pb = vec(32), tb = vec(64);
+    const pv = firstKey(p + 12, 3) ?? [0, 0, 0], tv = firstKey(p + 44, 3) ?? [0, 0, 0];
+    const fov = firstKey(p + 96, 1)?.[0];
+    return {
+      type: m.readInt32LE(p), far: m.readFloatLE(p + 4), near: m.readFloatLE(p + 8),
+      position: pb.map((v, k) => v + pv[k]), target: tb.map((v, k) => v + tv[k]), fov: fov ?? null,
+    };
+  });
   out.fileIds = {
     skin: chunks.SFID?.[0] ? Array.from({ length: chunks.SFID[0].length / 4 }, (_, i) => chunks.SFID[0].readUInt32LE(i * 4)) : [],
     txid: chunks.TXID?.[0] ? Array.from({ length: chunks.TXID[0].length / 4 }, (_, i) => chunks.TXID[0].readUInt32LE(i * 4)) : [],
@@ -122,7 +155,7 @@ export function parseSkin(buf) {
     return {
       flags: buf[p], priority: buf.readInt8(p + 1), shader: buf.readUInt16LE(p + 2), section: buf.readUInt16LE(p + 4),
       colorIndex: buf.readUInt16LE(p + 8), material: buf.readUInt16LE(p + 10), layer: buf.readUInt16LE(p + 12),
-      textureCount: buf.readUInt16LE(p + 14), textureCombo: buf.readUInt16LE(p + 16), transformCombo: buf.readUInt16LE(p + 22),
+      textureCount: buf.readUInt16LE(p + 14), textureCombo: buf.readUInt16LE(p + 16), weightCombo: buf.readUInt16LE(p + 20), transformCombo: buf.readUInt16LE(p + 22),
     };
   });
   return { vertices, indices, sections, batches, boneProps: B };

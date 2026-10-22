@@ -4,7 +4,7 @@ import { Fragment, lazy, Suspense, useEffect, useMemo, useRef, useState } from "
 import { raceLabel, tr } from "../i18n";
 import { MODELS_BASE } from "../viewer/config";
 import { DEFAULT_AVATAR, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
-import { BACKDROPS, BackdropArt } from "../viewer/backdrops";
+import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
 import { iName, qualityColor } from "./gear-format";
@@ -133,7 +133,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const withModel = races.filter((r) => index?.some((e) => e.race === r.id));
   const pickRace = (id: number) => setAvatar({ sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, bg: avatar.bg, ...(id === raceId ? {} : { race: id }) });
   // Escena de fondo: la elegida (0 = liso) o, por defecto, la de la raza que se ve
-  const sceneId = avatar.bg ?? (BACKDROPS.some((b) => b.id === shownRace) ? shownRace : 0);
+  const sceneId = avatar.bg ?? backdropOfRace(shownRace);
   const pickScene = (value: string) => setAvatar({ ...avatar, bg: value === "auto" ? undefined : Number(value) });
   const equipped = useMemo(() => equippedOf(gear, data.items), [gear, data.items]);
   const selection = useMemo(() => (recipe ? { ...defaultSelection(recipe), ...avatar.choices } : undefined), [recipe, avatar.choices]);

@@ -201,6 +201,17 @@ dd {
   pointer-events: none;
   font-size: calc(13.5px * var(--fit, 1));
 }
+.ab-card {
+  overflow-wrap: anywhere;
+}
+/* Las etiquetas de procedencia pueden ser largas: parten línea dentro de la tarjeta en vez de salirse */
+.ab-card .tag {
+  max-width: 100%;
+  white-space: normal;
+  border-radius: 10px;
+  text-align: left;
+  line-height: 1.25;
+}
 .ab-card.pinned {
   pointer-events: auto;
   border-color: var(--info);
@@ -240,6 +251,10 @@ dd {
   font-size: calc(11.5px * var(--fit, 1));
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+.ab-grid dt,
+.ab-grid dd {
+  min-width: 0;
 }
 .ab-grid dd {
   margin: 0;
@@ -454,4 +469,12 @@ dd {
   width: 44px;
   height: 44px;
   border-radius: 9px;
+}
+
+/* Cabeceras de la cuadrícula de la tarjeta: no se parten a media palabra; si no caben, letra algo menor */
+.ab-card .ab-grid dt {
+  overflow-wrap: normal;
+  word-break: normal;
+  font-size: calc(10.5px * var(--fit, 1));
+  letter-spacing: 0.02em;
 }

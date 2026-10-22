@@ -67,6 +67,9 @@ function addMeshes(g, m2, skin, V, skinIdx, opts = {}) {
       return {
         texType: m2.textures[tex]?.type ?? -1, texFile: m2.fileIds.txid[tex] || 0, blend: m2.materials[b.material]?.blend ?? 0,
         shader: b.shader, layer: b.layer, priority: b.priority, textureCount: b.textureCount,
+        // Color y opacidad iniciales de la capa (colores y pesos de textura del M2); 1 = sin cambio
+        color: b.colorIndex !== 0xffff && m2.colors[b.colorIndex] ? m2.colors[b.colorIndex].map((v) => +v.toFixed(3)) : [1, 1, 1, 1],
+        weight: +(m2.weights[m2.transparencyLookup[b.weightCombo]] ?? 1).toFixed(3),
       };
     });
     // Las mallas de una coleccion (cuernos, plumas...) llevan una clave unica: fichero * 10000 + subgeometria.

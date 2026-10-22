@@ -152,8 +152,17 @@
   color: var(--muted);
   font-size: 12px;
 }
-.slot-current select {
+.slot-current label {
+  flex: 1 1 200px;
+  min-width: 0;
   max-width: 100%;
+}
+.slot-current select,
+.slot-filters select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
 }
 .slot-filters {
   display: flex;
@@ -286,7 +295,7 @@ p.gear-warn {
   color: var(--bad);
   list-style: none;
 }
-@media (max-width: 900px) {
+@media (max-width: 1280px) {
   .gear-layout {
     grid-template-columns: 1fr;
   }
@@ -364,7 +373,7 @@ p.gear-warn {
 .doll-bottom {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-@media (min-width: 901px) {
+@media (min-width: 1281px) {
   .gear-layout {
     grid-template-columns: minmax(560px, 800px) minmax(0, 1fr);
   }
@@ -450,7 +459,10 @@ p.gear-warn {
   inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
   pointer-events: none;
+  user-select: none;
 }
 .avatar-stage[data-scene]::before {
   display: none;
@@ -605,4 +617,21 @@ p.gear-warn {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* Que nada del panel de ranura se salga de su caja, sea cual sea el ancho */
+.slot-panel {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.slot-panel p,
+.slot-panel .muted {
+  overflow-wrap: anywhere;
+}
+.slot-filters label {
+  min-width: 0;
+  max-width: 100%;
+}
+.slot-filters select {
+  max-width: 100%;
 }
