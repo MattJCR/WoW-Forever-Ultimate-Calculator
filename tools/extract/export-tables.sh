@@ -52,9 +52,23 @@ ITEM_TABLES=(
   ItemDamageOneHand ItemDamageOneHandCaster ItemDamageTwoHand ItemDamageTwoHandCaster
   ItemDamageWand ItemDamageThrown ItemDamageAmmo ItemDamageRanged
 )
+# Apariencia (probador 3D): modelos de raza/sexo, personalizacion, apariencia de objetos y texturas.
+# APPEARANCE=1 exporta solo estas; algunas pueden no existir en este cliente (el script avisa).
+APPEARANCE_TABLES=(
+  ItemModifiedAppearance ItemAppearance ItemDisplayInfo ItemDisplayInfoMaterialRes ItemDisplayInfoModelMatRes
+  ItemDisplayInfoMaterial ItemVisuals ItemVisualEffects ModelFileData TextureFileData ComponentModelFileData
+  ComponentTextureFileData ChrModel ChrRaceXChrModel ChrCustomization ChrCustomizationOption ChrCustomizationChoice
+  ChrCustomizationElement ChrCustomizationDisplayInfo ChrCustomizationGeoset ChrCustomizationMaterial
+  ChrCustomizationSkinnedModel ChrCustomizationBoneSet ChrCustomizationReq ChrCustomizationCategory
+  CharComponentTextureLayouts CharComponentTextureSections CharSections CharacterFacialHairStyles CharHairGeosets
+  GeosetGroup CreatureDisplayInfo CreatureDisplayInfoExtra CreatureModelData ItemSetSpell AnimationData
+  AnimKit ModelAnimData ChrRaces ItemSet ItemClass ItemSubClass HelmetGeosetData HelmetGeosetVisData
+  ItemDisplayInfoGeosetOverride SkinnedModel
+)
 TABLES=("$@")
 if [ ${#TABLES[@]} -eq 0 ]; then
-  if [ "${ITEMS:-0}" = "1" ]; then TABLES=("${ITEM_TABLES[@]}"); else TABLES=("${DEFAULT_TABLES[@]}"); fi
+  if [ "${APPEARANCE:-0}" = "1" ]; then TABLES=("${APPEARANCE_TABLES[@]}")
+  elif [ "${ITEMS:-0}" = "1" ]; then TABLES=("${ITEM_TABLES[@]}"); else TABLES=("${DEFAULT_TABLES[@]}"); fi
 fi
 
 for t in "${TABLES[@]}"; do

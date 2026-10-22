@@ -17,13 +17,13 @@
 }
 .gear-layout {
   display: grid;
-  grid-template-columns: minmax(300px, 520px) minmax(300px, 1fr);
+  grid-template-columns: minmax(300px, 820px) minmax(300px, 1fr);
   gap: 16px;
   align-items: start;
 }
 .doll {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(150px, 1fr) minmax(220px, 1.3fr) minmax(150px, 1fr);
   gap: 6px 10px;
   padding: 10px;
   background: var(--panel);
@@ -358,7 +358,7 @@ p.gear-warn {
   min-height: 44px;
 }
 .doll {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 1.2fr) minmax(0, 1fr);
   border-radius: var(--radius);
 }
 .doll-bottom {
@@ -366,7 +366,16 @@ p.gear-warn {
 }
 @media (min-width: 901px) {
   .gear-layout {
-    grid-template-columns: minmax(300px, 520px) minmax(0, 1fr);
+    grid-template-columns: minmax(560px, 800px) minmax(0, 1fr);
+  }
+}
+@media (max-width: 760px) {
+  .doll {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .doll .avatar {
+    grid-column: 1 / -1;
+    order: -1;
   }
 }
 .slot-hint {
@@ -382,4 +391,179 @@ p.gear-warn {
   .doll-bottom {
     grid-template-columns: 1fr;
   }
+}
+
+/* ------------------------------------------------------------------ Probador 3D (avatar) */
+.avatar {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 6px;
+}
+.avatar-off {
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+.avatar-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+.avatar-bar button,
+.avatar-options-bar button {
+  min-height: 32px;
+  padding: 2px 10px;
+  font-size: 0.85em;
+}
+.avatar-bar button.on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.avatar-stage {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: radial-gradient(ellipse at 50% 35%, #2a2116 0%, #120e09 70%);
+  overflow: hidden;
+}
+.avatar-options {
+  display: grid;
+  gap: 6px;
+  max-height: 260px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+}
+.avatar-options label {
+  display: grid;
+  gap: 2px;
+  font-size: 0.85em;
+}
+.avatar-options-bar {
+  display: flex;
+  gap: 6px;
+}
+
+.avatar-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+.avatar-tools button {
+  min-height: 30px;
+  padding: 2px 8px;
+  font-size: 0.8em;
+}
+.avatar-stage:fullscreen {
+  border: 0;
+  border-radius: 0;
+}
+.modal-back {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.65);
+}
+.modal {
+  display: grid;
+  gap: 8px;
+  width: min(640px, 100%);
+  max-height: min(80vh, 720px);
+  padding: 14px;
+  overflow: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-head h3 {
+  margin: 0;
+}
+.sets-list {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sets-list button {
+  display: grid;
+  width: 100%;
+  gap: 2px;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 400;
+}
+.sets-list small {
+  line-height: 1.35;
+}
+
+.slot-view {
+  display: flex;
+  gap: 4px;
+}
+.slot-view button {
+  min-height: 30px;
+  padding: 2px 12px;
+  font-size: 0.85em;
+}
+.slot-view button.on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.item-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.gallery-item {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 2px;
+  width: 100%;
+  min-height: 0;
+  padding: 4px;
+  font-weight: 400;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.gallery-item.on {
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.gallery-item img,
+.gallery-icon {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+}
+.gallery-item b {
+  width: 100%;
+  overflow: hidden;
+  font-size: 0.74em;
+  line-height: 1.2;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

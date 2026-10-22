@@ -27,3 +27,6 @@ data/external/
 
 # Tablas del juego en inglés en bruto (se regeneran con tools/extract/fetch-enus-tables.mjs); no se redistribuyen
 data/external/enus/
+
+# Los modelos 3D generados (data/models/) SI se versionan; la copia para la web se regenera con sync-data
+apps/web/public/models/

@@ -42,6 +42,9 @@ import {
   statLine,
   statName,
 } from "./gear-format";
+import type { Avatar } from "../viewer/avatar";
+import { AvatarPanel } from "./AvatarPanel";
+import { ItemGallery, useAppearance } from "./ItemGallery";
 import { Icon } from "./Icon";
 
 const fmt = (n: number): string => fmtNum(n, 2);
@@ -279,6 +282,9 @@ function SlotPanel({
   const [onlyWearable, setOnlyWearable] = useState(true);
   const [limit, setLimit] = useState(60);
   useEffect(() => setLimit(60), [slot, query, minQuality, onlyWearable]);
+  const [gallery, setGallery] = useState(() => { try { return window.localStorage.getItem("wfuc.gallery") === "1"; } catch { return false; } });
+  const appearance = useAppearance(gallery);
+  const setView = (g: boolean) => { setGallery(g); try { window.localStorage.setItem("wfuc.gallery", g ? "1" : "0"); } catch { /* solo se pierde la comodidad */ } };
 
   const worn = gear[slot];
   const wornItem = worn ? data.items.get(worn.itemId) : undefined;
@@ -369,6 +375,13 @@ function SlotPanel({
           <input type="checkbox" checked={onlyWearable} onChange={(e) => setOnlyWearable(e.target.checked)} /> {tr("Solo los que puede llevar mi personaje")}
         </label>
       </div>
+      <div className="slot-view" role="group" aria-label={tr("Vista")}>
+        <button type="button" className={gallery ? "" : "on"} aria-pressed={!gallery} onClick={() => setView(false)}>{tr("Lista")}</button>
+        <button type="button" className={gallery ? "on" : ""} aria-pressed={gallery} onClick={() => setView(true)}>{tr("Galería")}</button>
+      </div>
+      {gallery ? (
+        <ItemGallery items={filtered.slice(0, limit)} wornId={worn?.itemId} appearance={appearance} onEquip={onEquip} onTip={(t) => onTip(t ? { item: t.item, slot, x: t.x, y: t.y } : null)} />
+      ) : (
       <ul className="item-list">
         {filtered.slice(0, limit).map((i) => {
           const check = onlyWearable ? null : canEquip(i, slot, ctx, data);
@@ -400,6 +413,7 @@ function SlotPanel({
           );
         })}
       </ul>
+      )}
       {filtered.length === 0 && <p className="muted">{tr("Ningún objeto cumple los filtros.")}</p>}
       {filtered.length > limit && (
         <button type="button" className="more" onClick={() => setLimit((l) => l + 120)}>
@@ -426,6 +440,10 @@ export function GearStep({
   setLevel,
   summary,
   raceName,
+  avatarRaceId,
+  avatar,
+  setAvatar,
+  history,
 }: {
   bundle: Async<GearBundle> | null;
   gear: GearSelection;
@@ -434,6 +452,11 @@ export function GearStep({
   setLevel: (n: number) => void;
   summary: GearSummary | null;
   raceName: string | null;
+  /** Raza con la que se dibuja el avatar (la elegida o, si no hay, la primera que admite la clase). */
+  avatarRaceId: number;
+  avatar: Avatar;
+  setAvatar: (a: Avatar) => void;
+  history: { canUndo: boolean; canRedo: boolean; undo: () => void; redo: () => void };
 }) {
   const [slot, setSlot] = useState<GearSlot | null>(null);
   const [tip, setTip] = useState<Tip | null>(null);
@@ -471,6 +494,7 @@ export function GearStep({
       <div className="gear-layout">
         <div className="doll">
           <div className="doll-col">{SLOT_ORDER_LEFT.map(slotButton)}</div>
+          <AvatarPanel raceId={avatarRaceId} avatar={avatar} setAvatar={setAvatar} gear={gear} setGear={setGear} data={data} ctx={ctx} history={history} />
           <div className="doll-col">{SLOT_ORDER_RIGHT.map(slotButton)}</div>
           <div className="doll-bottom">{SLOT_ORDER_BOTTOM.map(slotButton)}</div>
         </div>

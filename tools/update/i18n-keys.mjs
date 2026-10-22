@@ -17,6 +17,7 @@ const files = walk(root).filter((f) => /\.tsx?$/.test(f) && !/i18n-en/.test(f));
 const TABLES = {
   "components/gear-format.ts": ["QUALITY_NAMES", "STAT_LABELS", "INVENTORY_LABEL", "ARMOR_TYPE", "WEAPON_TYPE", "BONDING", "EFFECT_PREFIX", "CLASS_NAMES"],
   "components/Abilities.tsx": ["POWER_LABEL", "KIND_LABEL", "BASIS"],
+  "components/AvatarPanel.tsx": ["POSE_LABEL"],
   "components/ClassShell.tsx": ["VIEWS"],
   "components/StatEffects.tsx": ["FROM"],
   "components/Gear.tsx": ["ORIGIN_LABEL"],

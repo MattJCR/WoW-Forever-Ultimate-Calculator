@@ -16,3 +16,12 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 cpSync(join(forever, build), out, { recursive: true });
 console.log(`Datos ${build} -> ${out}`);
+
+// Modelos 3D del probador (data/models/<build>/, los genera tools/model; aun no se versionan): solo si existen.
+const models = join(root, "data", "models");
+const modelsOut = resolve(dirname(fileURLToPath(import.meta.url)), "../public/models");
+rmSync(modelsOut, { recursive: true, force: true });
+if (existsSync(models)) {
+  cpSync(models, modelsOut, { recursive: true });
+  console.log(`Modelos -> ${modelsOut}`);
+}

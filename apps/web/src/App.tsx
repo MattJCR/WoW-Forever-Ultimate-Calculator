@@ -1,4 +1,5 @@
 import type { Manifest } from "@wfuc/schema";
+import { lazy, Suspense } from "react";
 import { CharacterProvider, legacyQuery, useCharacter } from "./character";
 import { loadManifest, useAsync } from "./data";
 import { LangContext, tr, useLang, useLangRoot } from "./i18n";
@@ -6,6 +7,10 @@ import { ClassPage } from "./pages/ClassPage";
 import { classToken, Home } from "./pages/Home";
 import { UnassignedPage } from "./pages/UnassignedPage";
 import { href, scrollToSection, useRoute, type Route } from "./router";
+
+// Pantallas de pruebas del probador 3D: solo existen en desarrollo
+const ViewerLab = import.meta.env.DEV ? lazy(() => import("./pages/ViewerLab").then((m) => ({ default: m.ViewerLab }))) : null;
+const BustLab = import.meta.env.DEV ? lazy(() => import("./pages/BustLab").then((m) => ({ default: m.BustLab }))) : null;
 
 export function App() {
   const manifest = useAsync("manifest", loadManifest);
@@ -140,6 +145,8 @@ function Layout({ manifest }: { manifest: Manifest }) {
 function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
   const [page, arg] = route.path;
   if (page === "unassigned") return <UnassignedPage />;
+  if (import.meta.env.DEV && page === "viewer-lab" && ViewerLab) return <Suspense fallback={null}><ViewerLab query={route.query} /></Suspense>;
+  if (import.meta.env.DEV && page === "bust-lab" && BustLab) return <Suspense fallback={null}><BustLab query={route.query} /></Suspense>;
   if (page === "class" && arg) {
     const entry = manifest.classes.find((c) => classToken(c.file) === arg);
     if (entry) return <ClassPage key={arg} token={arg} entry={entry} query={route.query} />;

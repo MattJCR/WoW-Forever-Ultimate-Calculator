@@ -40,6 +40,8 @@ import { StatsTable } from "../components/StatsTable";
 import { TreePanel, type Focus } from "../components/TreePanel";
 import { CLASS_COLORS, loadClass, loadRaces, useAsync } from "../data";
 import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, talentName, tr, treeLabel } from "../i18n";
+import { decodeAvatar, encodeAvatar, type Avatar } from "../viewer/avatar";
+import { useHistory } from "../viewer/history";
 import { parseHash, replaceHash } from "../router";
 
 type Entry = Manifest["classes"][number];
@@ -154,6 +156,12 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const [gearLevel, setGearLevel] = useState(() => Math.max(1, Math.min(60, Number(initialGearSource.gl) || DEFAULT_GEAR_LEVEL)));
   const setGear = useCallback((update: (g: GearSelection) => GearSelection) => setGearState((g) => update(g)), []);
   const gearCode = useMemo(() => encodeGear(gear), [gear]);
+  // Avatar del paso Equipo: `a` = cuerpo y personalización (solo viaja si no es el de por defecto)
+  const [avatar, setAvatar] = useState<Avatar>(() => decodeAvatar(query.get("a")));
+  const avatarCode = useMemo(() => encodeAvatar(avatar), [avatar]);
+  // Deshacer / rehacer del equipo y la apariencia (lo que se ve en el probador)
+  const look = useMemo(() => ({ gear, avatar }), [gear, avatar]);
+  const history = useHistory(look, useCallback((v: { gear: GearSelection; avatar: Avatar }) => { setGearState(v.gear); setAvatar(v.avatar); }, []));
   const hasGear = gearCode !== "";
   useEffect(() => {
     try {
@@ -181,10 +189,11 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (race) q.r = String(race.id);
     if (hasGear) q.g = gearCode;
     if (gearLevel !== DEFAULT_GEAR_LEVEL) q.gl = String(gearLevel);
+    if (avatarCode) q.a = avatarCode;
     q.v = view;
     replaceHash(`class/${token}`, q);
     setUrl(window.location.href);
-  }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel]);
+  }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel, avatarCode]);
 
   const say = (msg: string) => {
     setToast(msg);
@@ -320,7 +329,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       )}
       {view === "gear" && (
         <div className="gear-wrap">
-          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race ? raceLabel(race.id, race.name) : null} />
+          <GearStep bundle={gearBundle} gear={gear} setGear={setGear} ctx={gearCtx} setLevel={setGearLevel} summary={gearSummary} raceName={race ? raceLabel(race.id, race.name) : null} avatarRaceId={race?.id ?? races[0]?.id ?? 1} avatar={avatar} setAvatar={setAvatar} history={history} />
           <StepNav view={view} onGo={goTop} />
         </div>
       )}
