@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { classLabel, fmtNum, isEnglish, tr, trn } from "../i18n";
 import { effectLabel } from "./gear-format";
 import { StepNav, type View } from "./ClassShell";
-import { FloatingCard } from "./Detail";
+import { FloatingCard, originNote } from "./Detail";
 import { Icon } from "./Icon";
 import { anchorOf, type Anchor } from "./TreePanel";
 
@@ -42,6 +42,7 @@ function BuffCard({ b }: { b: Buff }) {
         </div>
       </div>
       <p className="desc-text">{trn(effectLabel({ spellId: b.id, text: b.text, name: b.name }))}</p>
+      {originNote(b.textOrigin) && <p className="origin-note">{originNote(b.textOrigin)}</p>}
     </div>
   );
 }

@@ -130,6 +130,11 @@ export class SpellTables {
     return this.equippedItemsBySpell.get(String(spellId)) ?? [];
   }
 
+  /** Nombre con la traducción propia si el cliente lo trae en inglés (`names` de data/i18n/esES-overrides.json); el mismo nombre si no hay. */
+  ownName(name: string): string {
+    return this.overrides.names[name] ?? name;
+  }
+
   name(spellId: number): string | null {
     const name = this.names.get(String(spellId));
     return name === undefined ? null : (this.overrides.names[name] ?? name);

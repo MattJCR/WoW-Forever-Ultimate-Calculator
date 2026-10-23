@@ -5,8 +5,29 @@
     "24119": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "24120": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "400588": "Da a tu hechizo Explosión Arcana un $m1% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha, Explosión de Escarcha y Descarga de Pirofrío un ${$m1/2}% de probabilidad, de reducir un $400589s1% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un $400589s3% y hacer que los misiles se lancen cada ${$m2/10}.1 s.",
-    "1225435": "Descubres un $s1% más de materiales escasos con minería, herboristería y desuello."
+    "1225435": "Descubres un $s1% más de materiales escasos con minería, herboristería y desuello.",
+    "1327736": "Aumenta el intelecto un $s1% durante $d. Este efecto se acumula hasta $u veces.",
+    "1327737": "Aumenta el daño infligido un $s1% durante $d. Este efecto se acumula hasta $u veces.",
+    "1327738": "Aumenta la sanación realizada un $s1% durante $d. Este efecto se acumula hasta $u veces.",
+    "1327751": "Aumenta la celeridad un $s1% durante $d. Este efecto se acumula hasta $u veces.",
+    "1327753": "Mejora un $s1% tu probabilidad de conseguir un golpe crítico durante $d. Este efecto se acumula hasta $u veces.",
+    "1327754": "Aumenta el aguante de los aliados cercanos un $s1% durante $d.",
+    "1328032": "Aumenta la regeneración de maná un $s1% durante $d.",
+    "1328118": "Aumenta mucho el tamaño de quien lo bebe durante $d. Este efecto se acumula hasta $u veces.",
+    "1328119": "Aumenta la velocidad de carrera de los aliados cercanos un $s1% durante $d.",
+    "1328127": "Aumenta la experiencia obtenida un $s1% durante $d."
   },
-  "names": {},
+  "names": {
+    "Elixir of Endless Intellect": "Elixir de intelecto interminable",
+    "Elixir of Endless Power": "Elixir de poder interminable",
+    "Elixir of Endless Healing": "Elixir de sanación interminable",
+    "Elixir of Endless Rapidity": "Elixir de presteza interminable",
+    "Elixir of Endless Opportunity": "Elixir de oportunidad interminable",
+    "Elixir of Endless Mana": "Elixir de maná interminable",
+    "Elixir of Endless Growth": "Elixir de crecimiento interminable",
+    "Elixir of Endless Experience": "Elixir de experiencia interminable",
+    "Scroll of Endless Fortitude": "Pergamino de entereza interminable",
+    "Scroll of Endless Speed": "Pergamino de velocidad interminable"
+  },
   "racials": {}
 }

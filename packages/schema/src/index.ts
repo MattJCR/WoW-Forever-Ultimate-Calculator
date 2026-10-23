@@ -898,6 +898,8 @@ export const Buff = z.object({
   auras: z.array(ItemSpellAura),
   text: z.string(),
   textComplete: z.boolean(),
+  /** De dónde sale el texto: del cliente, traducción propia (el cliente lo trae en inglés) o inglés sin traducir. */
+  textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
 });
 export const Buffs = z.object({
   schemaVersion: z.literal(1),

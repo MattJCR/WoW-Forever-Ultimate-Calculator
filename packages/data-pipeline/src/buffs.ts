@@ -116,7 +116,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
   };
   const text = (spellId: number) => {
     const t = spellEffectInfo(spells, spellId);
-    return { text: t.text, textComplete: t.textComplete };
+    return { text: t.text, textComplete: t.textComplete, textOrigin: spells.textOrigin(spellId) };
   };
 
   // --- Habilidades de clase: el rango más alto de cada una ---------------------------------------------------------
@@ -220,7 +220,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
           id: spellId,
           category,
           classId: null,
-          name: s.Display_lang ?? "",
+          name: spells.ownName(s.Display_lang ?? ""),
           nameEn: null,
           itemId: int(item.ID),
           iconFileDataId: int(item.IconFileDataID) || spells.iconFileDataId(spellId),
