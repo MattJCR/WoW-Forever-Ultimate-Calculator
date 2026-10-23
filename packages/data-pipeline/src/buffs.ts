@@ -1,6 +1,7 @@
 import { int, type RawTables } from "./csv.js";
 import { spellEffectInfo } from "./items.js";
 import { resolveLevelFormulas } from "./level-formula.js";
+import { SKILL_EN } from "./item-sources.js";
 import type { SpellTables } from "./spell-tables.js";
 import type { Abilities, Buff, Buffs } from "./model.js";
 
@@ -24,6 +25,8 @@ const BUFF_AURAS = new Set([
  */
 const CONSUMABLE_AURAS = new Set([...BUFF_AURAS, 136, 193, 80, 110]);
 /** Solo consumibles sin ninguna otra aura: tamaño (61) y experiencia ganada (200, 291). No suman estadísticas; se enseña el texto del cliente. */
+/** Objetos de campamento: además de las auras de estadística, 24 = restaura poder cada cierto tiempo (Pozo de maná); el motor no lo suma, se enseña el texto. */
+const CAMP_AURAS = new Set([...BUFF_AURAS, 24]);
 const TEXT_ONLY_AURAS = new Set([61, 200, 291]);
 /** SpellEffect.ImplicitTarget[0] amistosos: 1 uno mismo, 20 grupo, 21 aliado, 56/57/153 banda y bendiciones superiores. */
 const FRIENDLY_TARGETS = new Set([1, 20, 21, 56, 57, 153]);
@@ -86,12 +89,17 @@ export interface BuffRules {
   levelFormulas: { classId: number; name: string; auras: number[]; note: string }[];
   /** Beneficios que se dejan fuera con su motivo (la cifra depende de algo que el personaje no tiene fijo). */
   skip: { classId: number; name: string; reason: string }[];
+  /** Hechizo «Beneficios de campamento»: su texto lista, por objeto de campamento, el hechizo del aura (`$?a<id>[Nombre: …]`). */
+  camp?: { spellId: number };
+  /** Pasivos de profesión que el cliente aún no trae (`community`, estimación): cifra y texto de la referencia externa, traducidos por nosotros. */
+  professionPerks?: { id: number; skillLine: number; name: string; nameEn: string; text: string; auras: { aura: number; value: number; miscValue?: number }[]; note: string }[];
 }
 
 
 export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, abilities: Abilities[], rules: BuffRules, warnings: string[]): Buffs {
   const buffs = new Map<number, Buff>();
-  const add = (b: Buff) => {
+  const add = (input: Omit<Buff, "profession" | "professionEn" | "provenance"> & Partial<Pick<Buff, "profession" | "professionEn" | "provenance">>) => {
+    let b: Buff = { profession: null, professionEn: null, provenance: "client-db2", ...input };
     const skipped = rules.skip.find((x) => x.name === b.name && x.classId === b.classId);
     if (skipped) {
       warnings.push(`beneficio «${b.name}» omitido: ${skipped.reason}`);
@@ -232,6 +240,85 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
         });
       }
     }
+  }
+
+  // --- Campamento: los objetos que fabrican las profesiones y que dan estadísticas junto a una hoguera ---------------------------
+  // El texto de «Beneficios de campamento» lista cada objeto con el hechizo de su aura; las cifras (`$<hechizo>w<n>`) son el efecto n de ese hechizo.
+  const skillNames = new Map(raw.table("SkillLine").map((r) => [int(r.ID), r.DisplayName_lang ?? ""]));
+  if (rules.camp) {
+    const skillBySpell = new Map<string, number>();
+    for (const a of raw.table("SkillLineAbility")) if (int(a.AcquireMethod) !== 2 && skillNames.has(int(a.SkillLine))) skillBySpell.set(a.Spell!, int(a.SkillLine));
+    // Objeto fabricado por nombre: el hechizo de profesión que lo crea (efecto 24) dice la profesión
+    const craftedBy = new Map<string, { itemId: number; skillLine: number }>();
+    for (const e of raw.table("SpellEffect")) {
+      if (int(e.Effect) !== 24) continue;
+      const skillLine = skillBySpell.get(e.SpellID!);
+      const name = skillLine ? sparse.get(e.EffectItemType!)?.Display_lang : undefined;
+      if (name && skillLine && !craftedBy.has(name)) craftedBy.set(name, { itemId: int(e.EffectItemType), skillLine });
+    }
+    const itemIcon = new Map(raw.table("Item").map((r) => [r.ID!, int(r.IconFileDataID)]));
+    const campText = spells.description(rules.camp.spellId);
+    const entries = [...campText.matchAll(/\$\?a(\d+)\[([^:\]]+):/g)];
+    if (entries.length === 0) warnings.push(`campamento: el hechizo ${rules.camp.spellId} no trae ningún objeto en su texto`);
+    for (const m of entries) {
+      const auraSpell = int(m[1]);
+      const name = m[2]!.trim();
+      const auras = friendlyAuras(spells, auraSpell, FRIENDLY_TARGETS, CAMP_AURAS);
+      const made = craftedBy.get(name);
+      if (auras.length === 0 || !made) {
+        warnings.push(`campamento «${name}» omitido: ${auras.length === 0 ? "sin aura de estadística" : "no se encuentra el objeto que lo fabrica"}`);
+        continue;
+      }
+      // «Aumenta la armadura en $1230653w1, …»: se sustituyen las cifras por las del hechizo del aura
+      const line = new RegExp(`\\$\\?a${auraSpell}\\[[^:\\]]+:([^\\]]*)\\]`).exec(campText)![1]!;
+      const text = line
+        .replace(/\$(\d+)w(\d)/g, (_, id: string, n: string) => String(Math.abs(Number(spells.effect(Number(id), Number(n) - 1)?.EffectBasePointsF ?? 0))))
+        .replace(/\$(\d+)t(\d)?/g, (_, id: string, n?: string) => String(int(spells.effect(Number(id), Number(n ?? 1) - 1)?.EffectAuraPeriod) / 1000))
+        .replace(/\s+/g, " ")
+        .trim();
+      add({
+        id: auraSpell,
+        category: "camp",
+        classId: null,
+        profession: skillNames.get(made.skillLine) ?? null,
+        professionEn: SKILL_EN[made.skillLine] ?? null,
+        provenance: "client-db2",
+        name,
+        nameEn: null,
+        itemId: made.itemId,
+        iconFileDataId: itemIcon.get(String(made.itemId)) || spells.iconFileDataId(auraSpell),
+        durationMs: null,
+        group: `spell-${auraSpell}`,
+        classMask: null,
+        auras,
+        text,
+        textComplete: !/\$/.test(text),
+        textOrigin: "client",
+      });
+    }
+  }
+
+  // --- Pasivos de profesión (estimación): el cliente aún no trae «Hecho de metal», «Bestias salvajes» ni «Talento natural» ----------
+  for (const p of rules.professionPerks ?? []) {
+    add({
+      id: p.id,
+      category: "profession",
+      classId: null,
+      profession: skillNames.get(p.skillLine) ?? null,
+      professionEn: SKILL_EN[p.skillLine] ?? null,
+      provenance: "community",
+      name: p.name,
+      nameEn: p.nameEn,
+      itemId: null,
+      iconFileDataId: null,
+      durationMs: null,
+      group: `profession-${p.id}`,
+      classMask: null,
+      auras: p.auras.map((a, index) => ({ index, aura: a.aura, value: a.value, levelScaled: false, miscValue: a.miscValue ?? 0, miscValueB: 0, classMask: [0, 0, 0, 0] })),
+      text: p.text,
+      textComplete: true,
+      textOrigin: "translated-by-us",
+    });
   }
 
   const list = [...buffs.values()].sort((a, b) => (a.classId ?? 99) - (b.classId ?? 99) || a.category.localeCompare(b.category) || a.name.localeCompare(b.name, "es"));

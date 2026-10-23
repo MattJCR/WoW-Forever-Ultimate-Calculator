@@ -10,9 +10,25 @@
     "13031": "Shields you, absorbing 542 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
     "13032": "Shields you, absorbing 671 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
     "13033": "Shields you, absorbing 811 damage and increasing your Frost damage by 3% for 1 min. While the shield holds, your Frost damage is increased by an additional 3% and your spellcasts will not be interrupted or delayed from taking damage.",
-    "24658": "Increases your spell damage by up to 240 and your healing by up to 408 for 20 sec. Every time you cast a spell, the bonus is reduced by 17 spell damage and 34 healing."
+    "24658": "Increases your spell damage by up to 240 and your healing by up to 408 for 20 sec. Every time you cast a spell, the bonus is reduced by 17 spell damage and 34 healing.",
+    "1229513": "Increases Intellect by 25.",
+    "1229519": "Increases the chance to get a critical strike with all spells and attacks by 2%.",
+    "1229718": "Increases Spirit by 32.",
+    "1230098": "Increases all stats by 8%.",
+    "1230124": "Increases Stamina by 56.",
+    "1230164": "Increases melee attack power by 90.",
+    "1230172": "Increases Strength by 34.",
+    "1230587": "Restores 29 mana every 5 sec.",
+    "1230653": "Increases armor by 308, all attributes by 13 and all resistances by 22.",
+    "9000001": "All your hard work spent mining has made you exceptionally tough, increasing your total health by 5%.",
+    "9000002": "Increases the damage you deal to Beasts and Dragonkin by 5%.",
+    "9000003": "Increases your resistance to all schools of magic."
   },
-  "spellNames": {},
+  "spellNames": {
+    "9000001": "Made of Metal",
+    "9000002": "Beasts of the Wild",
+    "9000003": "Natural Talent"
+  },
   "talents": {
     "104718": [
       "Gives you a 10% chance to enter a Clearcasting state after casting any Nature, Fire or Frost damage spell. Clearcasting reduces the mana cost of your next damage spell by 100%."

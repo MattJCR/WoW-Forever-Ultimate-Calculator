@@ -2,9 +2,9 @@ import { int, type RawTables } from "./csv.js";
 import type { ItemSources, ItemSourceEntry } from "./model.js";
 
 /** Nombre en inglés de las profesiones de fabricación (SkillLine del cliente), para la web en inglés. */
-const SKILL_EN: Record<number, string> = {
+export const SKILL_EN: Record<number, string> = {
   129: "First Aid", 164: "Blacksmithing", 165: "Leatherworking", 171: "Alchemy", 185: "Cooking", 186: "Mining",
-  197: "Tailoring", 202: "Engineering", 333: "Enchanting", 755: "Jewelcrafting",
+  197: "Tailoring", 202: "Engineering", 333: "Enchanting", 755: "Jewelcrafting", 182: "Herbalism", 393: "Skinning", 356: "Fishing",
 };
 
 /**

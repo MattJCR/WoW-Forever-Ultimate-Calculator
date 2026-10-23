@@ -22,8 +22,10 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     expect(data.provenance).toBe("client-db2");
     const classes = new Set(data.buffs.filter((b) => b.category === "class").map((b) => b.classId));
     expect([...classes].sort((a, b) => a! - b!)).toEqual([1, 2, 3, 4, 5, 7, 8, 9, 11]);
-    for (const c of ["totem", "pet", "potion", "elixir", "flask", "scroll", "food", "other"]) expect(data.buffs.some((b) => b.category === c), c).toBe(true);
-    expect(data.buffs.every((b) => b.auras.length > 0 && b.auras.some((a) => a.value !== 0))).toBe(true);
+    for (const c of ["totem", "pet", "camp", "profession", "potion", "elixir", "flask", "scroll", "food", "other"]) expect(data.buffs.some((b) => b.category === c), c).toBe(true);
+    // Los pasivos de profesión son la única excepción: estimación de la comunidad, y dos no traen cifra (solo texto)
+    expect(data.buffs.filter((b) => b.provenance !== "client-db2").map((b) => b.category)).toEqual(["profession", "profession", "profession"]);
+    expect(data.buffs.filter((b) => b.category !== "profession").every((b) => b.auras.length > 0 && b.auras.some((a) => a.value !== 0))).toBe(true);
     expect(new Set(data.buffs.map((b) => b.id)).size).toBe(data.buffs.length);
   });
 
@@ -91,10 +93,10 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     const own = data.buffs.filter((b) => /interminable$/.test(b.name));
     expect(own).toHaveLength(10);
     expect(own.every((b) => b.textOrigin === "translated-by-us" && /^(Elixir|Scroll) of Endless /.test(b.nameEn ?? ""))).toBe(true);
-    expect(data.buffs.filter((b) => b.textOrigin !== "client" && !/interminable$/.test(b.name))).toEqual([]);
+    expect(data.buffs.filter((b) => b.textOrigin !== "client" && !/interminable$/.test(b.name) && b.category !== "profession")).toEqual([]);
   });
 
-  it("AUDITORÍA: 287 de los 300 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
+  it("AUDITORÍA: 294 de los 312 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 7 más (sin estadística que sumar o con daño según el tipo de criatura)", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
@@ -104,8 +106,8 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     const absorb = text.filter((n) => /^Poción de protección/.test(n));
     expect(absorb).toHaveLength(11);
     for (const n of absorb) expect(byName(n).text).toMatch(/^Amortigua \d+ p\. de daño/);
-    expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Elixir de crecimiento interminable", "Elixir de experiencia interminable", "Pergamino de Comprensión", "Té de espina de oro"]); // los dos «Endless»: experiencia y tamaño, sin estadísticas
-    expect(data.buffs.length).toBe(300); // 290 + los 10 consumibles «Endless» del hotfix del 22/10
+    expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Bestias salvajes", "Elixir de crecimiento interminable", "Elixir de experiencia interminable", "Pergamino de Comprensión", "Pozo de maná", "Talento natural", "Té de espina de oro"]); // los dos «Endless»: experiencia y tamaño, sin estadísticas; Bestias salvajes (daño según el tipo de criatura), Talento natural (sin cifra) y Pozo de maná (restaura maná)
+    expect(data.buffs.length).toBe(312); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 + 9 objetos de campamento + 3 pasivos de profesión
   });
 
   it("los aumentos permanentes al consumir (sin duración) suman su cifra y cuentan como duraderos", () => {

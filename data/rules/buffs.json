@@ -57,5 +57,43 @@
       "name": "Danza de hojas",
       "reason": "Su poder de ataque depende de los puntos de habilidad de defensa por encima de 5 × nivel: no es una cifra fija."
     }
+  ],
+  "camp": {
+    "spellId": 1229741
+  },
+  "campNote": "«Beneficios de campamento»: el texto del hechizo lista cada objeto con el hechizo de su aura; nombre, cifras y profesión (el hechizo de profesión que fabrica el objeto) salen del cliente (client-db2). Hay que pasar un rato junto a una Hoguera agradable con el objeto colocado cerca.",
+  "professionPerks": [
+    {
+      "id": 9000001,
+      "skillLine": 186,
+      "name": "Hecho de metal",
+      "nameEn": "Made of Metal",
+      "text": "Todo el trabajo de minería te ha hecho excepcionalmente resistente: aumenta tu salud total un 5 %.",
+      "auras": [
+        {
+          "aura": 133,
+          "value": 5
+        }
+      ],
+      "note": "Pasivo de la Minería anunciado en la demo de la BlizzCon; el cliente aún no lo trae. Cifra de la referencia externa (community, estimación)."
+    },
+    {
+      "id": 9000002,
+      "skillLine": 393,
+      "name": "Bestias salvajes",
+      "nameEn": "Beasts of the Wild",
+      "text": "Aumenta un 5 % el daño que infliges a las bestias y los dragonantes.",
+      "auras": [],
+      "note": "Pasivo del Desuello anunciado en la demo de la BlizzCon; el cliente aún no lo trae. Cifra de la referencia externa (community, estimación). El motor no aplica daño condicionado al tipo de criatura: solo se enseña el texto."
+    },
+    {
+      "id": 9000003,
+      "skillLine": 182,
+      "name": "Talento natural",
+      "nameEn": "Natural Talent",
+      "text": "Aumenta tu resistencia a todas las escuelas de magia.",
+      "auras": [],
+      "note": "Pasivo de la Herboristería anunciado en la demo de la BlizzCon; el cliente aún no lo trae y la referencia externa no da cifra (community, estimación). Solo se enseña el texto."
+    }
   ]
 }

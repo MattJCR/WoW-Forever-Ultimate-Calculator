@@ -201,11 +201,11 @@ function build(): void {
 
   // Beneficios («buffs»): habilidades de clase, tótems, mascota y consumibles (client-db2)
   const buffRulesFile = resolve(repoRoot, "data", "rules", "buffs.json");
-  if (["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "SpellClassOptions"].every((t) => existsSync(join(rawDir, `${t}.csv`))) && existsSync(buffRulesFile)) {
+  if (["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "SpellClassOptions", "SkillLine", "SkillLineAbility"].every((t) => existsSync(join(rawDir, `${t}.csv`))) && existsSync(buffRulesFile)) {
     const warnings: string[] = [];
     buffsData = Buffs.parse(buildBuffs(raw, buildId, spells, abilityData, JSON.parse(readFileSync(buffRulesFile, "utf8")) as BuffRules, warnings));
     const by = (c: string) => buffsData!.buffs.filter((b) => b.category === c).length;
-    console.log(`Beneficios (buffs.json): ${buffsData.buffs.length} (clase ${by("class")}, tótems ${by("totem")}, mascota ${by("pet")}, pociones ${by("potion")}, elixires ${by("elixir")}, frascos ${by("flask")}, pergaminos ${by("scroll")}, comida ${by("food")}, otros ${by("other")})`);
+    console.log(`Beneficios (buffs.json): ${buffsData.buffs.length} (clase ${by("class")}, tótems ${by("totem")}, mascota ${by("pet")}, campamento ${by("camp")}, profesión ${by("profession")}, pociones ${by("potion")}, elixires ${by("elixir")}, frascos ${by("flask")}, pergaminos ${by("scroll")}, comida ${by("food")}, otros ${by("other")})`);
     for (const w of warnings) console.log(`   aviso (buffs): ${w}`);
   }
 
@@ -243,7 +243,7 @@ function build(): void {
       const racials = applyOfficialRacials(english, races, official);
       console.log(`   raciales con el inglés del cliente: ${racials.official}/${racials.official + racials.fallback.length}${racials.fallback.length ? `; con el inglés de la comunidad: ${racials.fallback.join(", ")}` : ""}`);
       // Nombre en inglés de cada beneficio (hechizo o objeto): de las tablas oficiales
-      for (const b of buffsData?.buffs ?? []) b.nameEn = (b.itemId !== null ? official.itemNames.get(b.itemId) : official.spells.name(b.id)) ?? null;
+      for (const b of buffsData?.buffs ?? []) b.nameEn = (b.itemId !== null ? official.itemNames.get(b.itemId) : official.spells.name(b.id)) ?? b.nameEn;
       console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);
       console.log(`   pendientes de traducción propia (cifras distintas o sin inglés): ${o.pending.length}; traducciones propias con otras cifras: ${o.ownMismatches.length}`);
       mkdirSync(join(repoRoot, "data", "i18n"), { recursive: true });

@@ -885,9 +885,14 @@ export type ItemSources = z.infer<typeof ItemSources>;
 export const Buff = z.object({
   /** Hechizo que aplica el aura (clave unica del beneficio). */
   id: z.number().int(),
-  category: z.enum(["class", "totem", "pet", "potion", "elixir", "flask", "scroll", "food", "other"]),
+  category: z.enum(["class", "totem", "pet", "camp", "profession", "potion", "elixir", "flask", "scroll", "food", "other"]),
   /** ChrClasses.ID de quien lo lanza (null en los consumibles). */
   classId: z.number().int().nullable(),
+  /** Profesión de la que sale (objeto de campamento fabricado por ella o pasivo de profesión); null en el resto. */
+  profession: z.string().nullable().default(null),
+  professionEn: z.string().nullable().default(null),
+  /** De dónde sale la cifra: del cliente, salvo los pasivos de profesión, que son una estimación de la comunidad (el cliente aún no los trae). */
+  provenance: Provenance.default("client-db2"),
   /** Nombre en el cliente (esES): de la habilidad o del objeto. */
   name: z.string(),
   nameEn: z.string().nullable(),

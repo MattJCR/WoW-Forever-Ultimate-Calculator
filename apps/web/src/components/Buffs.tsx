@@ -28,7 +28,10 @@ const CONSUMABLE_LABEL: Record<string, string> = {
   scroll: "Pergaminos",
   other: "Otros consumibles",
 };
-const CONSUMABLE_ORDER = ["elixir", "flask", "food", "potion", "scroll", "other"];
+/** Profesión de un beneficio en el idioma elegido. */
+const professionName = (b: Buff): string | null => (isEnglish() && b.professionEn ? b.professionEn : b.profession);
+
+const CONSUMABLE_ORDER =["elixir", "flask", "food", "potion", "scroll", "other"];
 
 /** Tarjeta flotante de un beneficio: icono, nombre, duración y el texto del cliente (el mismo estilo que la de las raciales). */
 function BuffCard({ b }: { b: Buff }) {
@@ -38,11 +41,17 @@ function BuffCard({ b }: { b: Buff }) {
         <Icon id={b.iconFileDataId} name={buffName(b)} />
         <div>
           <h4>{buffName(b)}</h4>
-          <p className="rank-line">{tr("Beneficio")} · {durationText(b.durationMs)}</p>
+          <p className="rank-line">
+            {b.category === "camp" ? tr("Objeto de campamento") : b.category === "profession" ? tr("Pasivo de profesión") : tr("Beneficio")}
+            {professionName(b) ? ` · ${professionName(b)}` : ""}
+            {b.category === "camp" || b.category === "profession" ? "" : ` · ${durationText(b.durationMs)}`}
+          </p>
         </div>
       </div>
       <p className="desc-text">{trn(effectLabel({ spellId: b.id, text: b.text, name: b.name }))}</p>
-      {originNote(b.textOrigin) && <p className="origin-note">{originNote(b.textOrigin)}</p>}
+      {b.category === "camp" && <p className="origin-note">{tr("Hace falta pasar un rato junto a una Hoguera agradable con el objeto colocado cerca.")}</p>}
+      {b.provenance !== "client-db2" && <p className="origin-note">{tr("Estimación: el cliente aún no trae este pasivo; la cifra viene de la comunidad y puede cambiar.")}</p>}
+      {b.provenance === "client-db2" && originNote(b.textOrigin) && <p className="origin-note">{originNote(b.textOrigin)}</p>}
     </div>
   );
 }
@@ -85,6 +94,10 @@ export function BuffsStep({ manifest, index, loading, selected, onChange, onGo }
     if (!index) return [];
     const shown = index.list.filter((b) => (temporary || isLastingBuff(b) || selected.has(b.id)) && (q === "" || buffName(b).toLowerCase().includes(q) || b.name.toLowerCase().includes(q)));
     const out: Section[] = [];
+    for (const c of ["camp", "profession"] as const) {
+      const list = shown.filter((b) => b.category === c);
+      if (list.length > 0) out.push({ id: c, title: tr(c === "camp" ? "Campamento (objetos de profesión)" : "Pasivos de profesión (estimación)"), buffs: list });
+    }
     for (const [classId, info] of classToken) {
       const list = shown.filter((b) => b.classId === classId && (b.category === "class" || b.category === "totem" || b.category === "pet"));
       if (list.length > 0) out.push({ id: `class-${classId}`, title: classLabel(info.token, info.name), buffs: list });
@@ -104,7 +117,7 @@ export function BuffsStep({ manifest, index, loading, selected, onChange, onGo }
       <header className="step-head">
         <h2>{tr("Beneficios y consumibles")}</h2>
         <p>
-          {tr("Marca los beneficios que tendrías: bendiciones, marcas, gritos, auras, aspectos, tótems de otras clases y las tuyas, elixires, frascos, comida… Cifras del cliente; los que no se acumulan (una sola bendición de cada tipo, un solo aspecto o armadura) se desmarcan solos. No incluye los perjuicios sobre el enemigo.")}
+          {tr("Marca los beneficios que tendrías: objetos de campamento y pasivos de profesión, bendiciones, marcas, gritos, auras, aspectos, tótems de otras clases y las tuyas, elixires, frascos, comida… Cifras del cliente; los que no se acumulan (una sola bendición de cada tipo, un solo aspecto o armadura) se desmarcan solos. No incluye los perjuicios sobre el enemigo.")}
         </p>
       </header>
       {loading && !index && <p className="muted small">{tr("Cargando los beneficios…")}</p>}
