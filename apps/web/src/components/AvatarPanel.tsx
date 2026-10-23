@@ -1,6 +1,6 @@
-import { equipItem, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "@wfuc/engine";
+import { canEquip, equipItem, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "@wfuc/engine";
 import type { Item } from "@wfuc/schema";
-import { Fragment, lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { raceLabel, tr } from "../i18n";
 import { MODELS_BASE } from "../viewer/config";
 import { DEFAULT_AVATAR, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
@@ -8,7 +8,8 @@ import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
 import { AvatarOptions } from "./AvatarOptions";
-import { iName, qualityColor } from "./gear-format";
+import { effectLabel, iName, inventoryLabel, qualityColor, setLabel } from "./gear-format";
+import { Icon } from "./Icon";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
 
@@ -49,49 +50,119 @@ function equipSet(gear: GearSelection, itemIds: number[], items: Map<number, Ite
   return next;
 }
 
-function SetsDialog({ data, onPick, onClose }: { data: GearData; onPick: (itemIds: number[]) => void; onClose: () => void }) {
+function SetsDialog({ data, ctx, gear, onPick, onClose }: { data: GearData; ctx: GearContext; gear: GearSelection; onPick: (itemIds: number[]) => void; onClose: () => void }) {
   const [query, setQuery] = useState("");
-  const [limit, setLimit] = useState(40);
+  const [mine, setMine] = useState(true);
+  const [limit, setLimit] = useState(60);
+  const [sel, setSel] = useState<number | null>(null);
+  const wornIds = useMemo(() => new Set(Object.values(gear).map((w) => w?.itemId)), [gear]);
+  // Conjuntos con alguna pieza que tu clase puede llevar (a nivel 60: aquí interesa la clase y la competencia, no el nivel)
+  const mineIds = useMemo(() => {
+    const at60 = { ...ctx, level: 60 };
+    const ok = new Set<number>();
+    for (const s of data.sets) {
+      if (s.itemIds.some((id) => { const it = data.items.get(id); const slot = it ? slotsForItem(it)[0] : undefined; return !!it && !!slot && canEquip(it, slot, at60, data).ok; })) ok.add(s.id);
+    }
+    return ok;
+  }, [data, ctx]);
   const sets = useMemo(() => {
     const q = norm(query.trim());
-    return data.sets.filter((s) => s.itemIds.length > 1 && (!q || norm(s.name).includes(q))).sort((a, b) => a.name.localeCompare(b.name, "es"));
-  }, [data, query]);
-  useEffect(() => setLimit(40), [query]);
+    return data.sets.filter((s) => s.itemIds.length > 1 && (!mine || mineIds.has(s.id)) && (!q || norm(setLabel(s)).includes(q))).sort((a, b) => setLabel(a).localeCompare(setLabel(b), "es"));
+  }, [data, query, mine, mineIds]);
+  useEffect(() => setLimit(60), [query, mine]);
   useEffect(() => {
     const on = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", on);
     return () => window.removeEventListener("keydown", on);
   }, [onClose]);
+  const current = sets.find((s) => s.id === sel) ?? sets[0];
+  const pieces = current ? current.itemIds.map((id) => data.items.get(id)).filter((it): it is Item => !!it) : [];
+  const wornCount = pieces.filter((it) => wornIds.has(it.id)).length;
   return (
     <div className="modal-back" onClick={onClose}>
       <div className="modal sets-dialog" role="dialog" aria-modal="true" aria-label={tr("Conjuntos")} onClick={(e) => e.stopPropagation()}>
         <div className="modal-head">
           <h3>{tr("Conjuntos")}</h3>
-          <button type="button" onClick={onClose} aria-label={tr("Cerrar")}>×</button>
+          <button type="button" className="modal-close" onClick={onClose} aria-label={tr("Cerrar")}>×</button>
         </div>
-        <input type="search" placeholder={tr("Buscar conjunto…")} value={query} onChange={(e) => setQuery(e.target.value)} />
-        <ul className="sets-list">
-          {sets.slice(0, limit).map((s) => {
-            const pieces = s.itemIds.map((id) => data.items.get(id)).filter((it): it is Item => !!it);
-            return (
-              <li key={s.id}>
-                <button type="button" onClick={() => { onPick(s.itemIds); onClose(); }}>
-                  <b>{s.name}</b>
-                  <small className="muted">
-                    {pieces.map((it, i) => (
-                      <Fragment key={it.id}>
-                        {i > 0 && ", "}
-                        <span style={{ color: qualityColor(it.quality) }}>{iName(it)}</span>
-                      </Fragment>
-                    ))}
-                  </small>
-                </button>
+        <div className="sets-tools">
+          <input type="search" placeholder={tr("Buscar conjunto…")} value={query} onChange={(e) => setQuery(e.target.value)} aria-label={tr("Buscar conjunto…")} autoFocus />
+          <label className="check">
+            <input type="checkbox" checked={mine} onChange={(e) => setMine(e.target.checked)} /> {tr("Solo los que puede llevar mi clase")}
+          </label>
+          <span className="muted small">{sets.length} {tr("conjuntos")}</span>
+        </div>
+        <div className="sets-body">
+          <ul className="sets-list" aria-label={tr("Conjuntos")}>
+            {sets.slice(0, limit).map((s) => {
+              const its = s.itemIds.map((id) => data.items.get(id)).filter((it): it is Item => !!it);
+              const on = current?.id === s.id;
+              return (
+                <li key={s.id}>
+                  <button type="button" className={`set-row${on ? " on" : ""}`} aria-pressed={on} onClick={() => setSel(s.id)}>
+                    <span className="set-row-name">{setLabel(s)}</span>
+                    <span className="set-row-meta">
+                      {its.length} {tr("piezas")}
+                      {its.length > 0 ? ` · ${tr("nivel")} ${Math.max(...its.map((it) => it.requiredLevel))}` : ""}
+                    </span>
+                    <span className="set-row-pips" aria-hidden="true">
+                      {its.map((it) => (
+                        <i key={it.id} style={{ background: qualityColor(it.quality) }} />
+                      ))}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+            {sets.length > limit && (
+              <li>
+                <button type="button" className="more" onClick={() => setLimit((l) => l + 60)}>{tr("Mostrar más")} ({sets.length - limit} {tr("restantes")})</button>
               </li>
-            );
-          })}
-        </ul>
-        {sets.length > limit && <button type="button" className="more" onClick={() => setLimit((l) => l + 60)}>{tr("Mostrar más")}</button>}
-        {sets.length === 0 && <p className="muted">{tr("Ningún conjunto coincide.")}</p>}
+            )}
+            {sets.length === 0 && <li className="muted set-empty">{tr("Ningún conjunto coincide.")}</li>}
+          </ul>
+          {current && (
+            <section className="set-detail" aria-label={setLabel(current)}>
+              <header>
+                <h4>{setLabel(current)}</h4>
+                <span className="muted small">
+                  {wornCount}/{pieces.length} {tr("piezas")} {tr("equipadas")}
+                </span>
+              </header>
+              <ul className="set-pieces">
+                {pieces.map((it) => (
+                  <li key={it.id} className={wornIds.has(it.id) ? "worn" : ""}>
+                    <span className="gear-icon small" style={{ borderColor: qualityColor(it.quality) }}>
+                      <Icon id={it.iconFileDataId} name={iName(it)} />
+                    </span>
+                    <span className="set-piece-text">
+                      <b style={{ color: qualityColor(it.quality) }}>{iName(it)}</b>
+                      <small className="muted">
+                        {inventoryLabel(it.inventoryType)} · {tr("nivel")} {it.requiredLevel}
+                      </small>
+                    </span>
+                    {wornIds.has(it.id) && <span className="set-piece-on">{tr("Equipada")}</span>}
+                  </li>
+                ))}
+              </ul>
+              {current.bonuses.length > 0 && (
+                <ul className="set-bonus-list">
+                  {current.bonuses.map((b) => (
+                    <li key={b.spellId} className={wornCount >= b.threshold ? "good active" : "muted"}>
+                      <span className="set-th">{b.threshold}</span>
+                      <span>{effectLabel(b)}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="set-actions">
+                <button type="button" className="btn btn-primary" onClick={() => { onPick(current.itemIds); onClose(); }}>
+                  {tr("Equipar conjunto")}
+                </button>
+              </div>
+            </section>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -103,7 +174,7 @@ export interface AvatarRace {
   faction: string;
 }
 
-export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, data, history }: {
+export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, data, ctx, history }: {
   /** Raza del paso Raza (la del avatar si no se elige otra aquí). */
   raceId: number;
   /** Todas las razas con modelo, para el selector del probador. */
@@ -179,22 +250,6 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
             {tr("Cuerpo {n}", { n: s + 1 })}
           </button>
         ))}
-        {withModel.length > 1 && (
-          <select className="avatar-race" value={shownRace} aria-label={tr("Raza del personaje")} title={tr("Solo cambia el aspecto del personaje; las estadísticas siguen con la raza del paso Raza")} onChange={(e) => pickRace(Number(e.target.value))}>
-            {([["alliance", "Alianza"], ["horde", "Horda"]] as const).map(([f, label]) => (
-              <optgroup key={f} label={tr(label)}>
-                {withModel.filter((r) => r.faction === f).map((r) => <option key={r.id} value={r.id}>{raceLabel(r.id, r.name)}</option>)}
-              </optgroup>
-            ))}
-          </select>
-        )}
-        <select className="avatar-race" value={avatar.bg === undefined ? "auto" : String(avatar.bg)} aria-label={tr("Fondo")} title={tr("Fondo del probador")} onChange={(e) => pickScene(e.target.value)}>
-          <option value="auto">{tr("Fondo: según la raza")}</option>
-          {BACKDROPS.map((b) => <option key={b.id} value={b.id}>{tr(b.name)}</option>)}
-          <option value="0">{tr("Liso")}</option>
-        </select>
-        <button type="button" className={open ? "on" : ""} aria-expanded={open} onClick={() => setOpen((v) => !v)}>{tr("Personalizar")}</button>
-        <button type="button" onClick={() => setSets(true)}>{tr("Conjuntos")}</button>
       </div>
       <div className="avatar-stage" ref={stage} data-scene={sceneId || undefined}>
         <BackdropArt id={sceneId} />
@@ -208,6 +263,8 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
         </p>
       )}
       <div className="avatar-tools" role="toolbar" aria-label={tr("Herramientas del probador")}>
+        <button type="button" onClick={() => setSets(true)}>{tr("Conjuntos")}</button>
+        <button type="button" className={open ? "on" : ""} aria-expanded={open} onClick={() => setOpen((v) => !v)}>{tr("Personalizar")}</button>
         <button type="button" onClick={history.undo} disabled={!history.canUndo}>{tr("Deshacer")}</button>
         <button type="button" onClick={history.redo} disabled={!history.canRedo}>{tr("Rehacer")}</button>
         <button type="button" aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>{avatar.sheathed ? tr("Desenvainar") : tr("Envainar")}</button>
@@ -215,8 +272,25 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
         <button type="button" onClick={capture}>{tr("Captura")}</button>
         <button type="button" onClick={fullscreen}>{tr("Pantalla completa")}</button>
       </div>
-      {open && recipe && (
+      {open && (
         <div className="avatar-options">
+          <div className="avatar-selects">
+          {withModel.length > 1 && (
+            <select className="avatar-race" value={shownRace} aria-label={tr("Raza del personaje")} title={tr("Solo cambia el aspecto del personaje; las estadísticas siguen con la raza del paso Raza")} onChange={(e) => pickRace(Number(e.target.value))}>
+              {([["alliance", "Alianza"], ["horde", "Horda"]] as const).map(([f, label]) => (
+                <optgroup key={f} label={tr(label)}>
+                    {withModel.filter((r) => r.faction === f).map((r) => <option key={r.id} value={r.id}>{raceLabel(r.id, r.name)}</option>)}
+                </optgroup>
+              ))}
+            </select>
+          )}
+          <select className="avatar-race" value={avatar.bg === undefined ? "auto" : String(avatar.bg)} aria-label={tr("Fondo")} title={tr("Fondo del probador")} onChange={(e) => pickScene(e.target.value)}>
+            <option value="auto">{tr("Fondo: según la raza")}</option>
+            {BACKDROPS.map((b) => <option key={b.id} value={b.id}>{tr(b.name)}</option>)}
+            <option value="0">{tr("Liso")}</option>
+          </select>
+          </div>
+          {recipe && (<>
           <div className="avatar-options-bar">
             <button type="button" onClick={randomize}>{tr("Aleatorio")}</button>
             <button type="button" onClick={() => setAvatar({ ...DEFAULT_AVATAR, sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg })}>{tr("Restablecer")}</button>
@@ -234,9 +308,10 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
             <input type="checkbox" checked={npc} onChange={(e) => setNpc(e.target.checked)} /> {tr("Opciones de PNJ")}
           </label>
           <AvatarOptions recipe={recipe} selection={selection} npc={npc} onPick={(optionId, choiceId) => setAvatar({ ...avatar, choices: { ...avatar.choices, [optionId]: choiceId } })} />
+          </>)}
         </div>
       )}
-      {sets && <SetsDialog data={data} onPick={(ids) => setGear((g) => equipSet(g, ids, data.items))} onClose={() => setSets(false)} />}
+      {sets && <SetsDialog data={data} ctx={ctx} gear={gear} onPick={(ids) => setGear((g) => equipSet(g, ids, data.items))} onClose={() => setSets(false)} />}
     </div>
   );
 }

@@ -124,6 +124,12 @@ export const UI: Record<string, string> = {
   "de tu nivel": "same level",
   "jefe (+3 niveles)": "boss (+3 levels)",
   "Solo las afectadas por mis talentos": "Only those affected by my talents",
+  "Habilidad": "Ability",
+  "Resultado": "Result",
+  "Mejoras": "Boosts",
+  "Talentos, Puntos de Legado y piezas de equipo que la mejoran": "Talents, Legacy points and gear pieces that improve it",
+  "Ficha de la habilidad": "Ability sheet",
+  "Elige una habilidad de la lista para ver su ficha completa.": "Pick an ability from the list to see its full sheet.",
   "Las habilidades que la referencia lista. Desmárcalo para ver también las que Forever no lista (runas, auxiliares) o da por retiradas: salen marcadas «sin referencia» o «retirada según la referencia»":
     "The abilities the reference lists. Untick to also see those Forever does not list (runes, auxiliary spells) or that are retired: they are marked “no reference” or “retired according to the reference”",
   "Solo activas en Forever": "Only active in Forever",

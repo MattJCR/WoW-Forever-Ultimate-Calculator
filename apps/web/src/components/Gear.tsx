@@ -19,7 +19,7 @@ import {
   type GearSummary,
 } from "@wfuc/engine";
 import type { CombatRatings, Enchant, Item } from "@wfuc/schema";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useGearBundle, type Async, type GearBundle } from "../data";
 import { fmtNum, isEnglish, tr, trn } from "../i18n";
 import { fitCardToViewport } from "./fit";
@@ -106,9 +106,12 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
   const cmp = useMemo(() => (tip.slot ? compareGear(gear, tip.slot, item, ctx, data) : null), [gear, tip.slot, item, ctx, data]);
   const wornItemData = tip.slot && gear[tip.slot] ? data.items.get(gear[tip.slot]!.itemId) : undefined;
   const wornName = wornItemData ? iName(wornItemData) : undefined;
+  // Con comparación la tarjeta se reparte en dos columnas (objeto | «si lo pones») y el conjunto va debajo a todo el ancho, en lugar de alargarse
+  const side = !!cmp;
 
   return (
-    <div ref={ref} className="ab-card item-card" style={style} role="tooltip">
+    <div ref={ref} className={`ab-card item-card${side ? " two-col" : ""}`} style={style} role="tooltip">
+      <div className="item-col">
       <h4 className="item-name" style={{ color: qualityColor(item.quality) }}>
         {iName(item)}
         {suffix ? ` ${nameOf(suffix)}` : ""}
@@ -165,21 +168,6 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
           {line}
         </p>
       ))}
-      {set && (
-        <div className="item-set">
-          <p className="item-line gold">
-            {setLabel(set)} ({wornInSet.size}/{set.itemIds.length})
-          </p>
-          <ul>
-            {set.bonuses.map((b) => (
-              <li key={b.spellId} className={wornInSet.size >= b.threshold ? "good" : "muted"}>
-                ({b.threshold}) {effectLabel(b)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {cmp && <CompareBlock cmp={cmp} wornName={wornName} />}
       <p className="item-line muted">
         {item.requiredLevel > 0 ? tr("Requiere nivel {n}", { n: item.requiredLevel }) : tr("Sin nivel mínimo")}
         {classes ? ` · ${tr("Clases:")} ${classes.join(", ")}` : ""}
@@ -192,6 +180,48 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
         </ul>
       )}
       {item.provenance === "community" && <p className="item-line muted small">{tr("Objeto de la comunidad (comunidad): el cliente no lo trae.")}</p>}
+      </div>
+      {cmp && (
+        <div className="item-col item-side">
+          <CompareBlock cmp={cmp} wornName={wornName} />
+        </div>
+      )}
+      {set && (
+        <div className="item-set">
+          <div className="item-set-head">
+            <p className="item-line gold">{setLabel(set)}</p>
+            <b>
+              {wornInSet.size}
+              <small>/{set.itemIds.length}</small>
+            </b>
+          </div>
+          <div className="set-pips" aria-hidden="true">
+            {set.itemIds.map((id) => (
+              <i key={id} className={wornInSet.has(id) ? "on" : ""} />
+            ))}
+          </div>
+          <div className="item-set-body">
+            <ul className="item-set-pieces">
+              {set.itemIds.map((id) => {
+                const piece = data.items.get(id);
+                return (
+                  <li key={id} className={wornInSet.has(id) ? "on" : ""}>
+                    {piece ? iName(piece) : `#${id}`}
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className="set-bonus-list">
+              {set.bonuses.map((b) => (
+                <li key={b.spellId} className={wornInSet.size >= b.threshold ? "good active" : "muted"}>
+                  <span className="set-th">{b.threshold}</span>
+                  <span>{effectLabel(b)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -207,9 +237,21 @@ function EnchantNotes({ enchant }: { enchant: Enchant }) {
   );
 }
 
+const signed = (n: number): string => `${n > 0 ? "+" : "−"}${fmt(Math.abs(n))}`;
+
+/** Lo que cambia al poner el objeto, para la fila de la lista: armadura, estadísticas y conjunto, de mayor a menor cambio (sube = true). */
+function rowDeltas(cmp: GearComparison): { text: string; up: boolean }[] {
+  const rows: { text: string; up: boolean; mag: number }[] = [];
+  if (cmp.armor.before !== cmp.armor.after) rows.push({ text: `${signed(cmp.armor.after - cmp.armor.before)} ${tr("de armadura")}`, up: cmp.armor.after > cmp.armor.before, mag: Math.abs(cmp.armor.after - cmp.armor.before) / 10 });
+  for (const d of cmp.stats) rows.push({ text: `${signed(d.after - d.before)} ${statName(d.key)}`, up: d.after > d.before, mag: Math.abs(d.after - d.before) });
+  rows.sort((a, b) => b.mag - a.mag);
+  const out = rows.map(({ text, up }) => ({ text, up }));
+  for (const st of cmp.sets) out.push({ text: `${setLabel(st)} ${st.countBefore}→${st.countAfter}`, up: st.activeAfter >= st.activeBefore });
+  return out;
+}
+
 /** «Si lo pones»: diferencia de estadísticas, armadura, arma y conjuntos frente a lo que llevas (verde sube, rojo baja). */
 function CompareBlock({ cmp, wornName }: { cmp: GearComparison; wornName: string | undefined }) {
-  const signed = (n: number): string => `${n > 0 ? "+" : "−"}${fmt(Math.abs(n))}`;
   const rows: { text: string; up: boolean }[] = [];
   if (cmp.armor.before !== cmp.armor.after) rows.push({ text: `${signed(cmp.armor.after - cmp.armor.before)} ${tr("de armadura")}`, up: cmp.armor.after > cmp.armor.before });
   if (cmp.weaponDps.before !== cmp.weaponDps.after) rows.push({ text: `${signed(Math.round((cmp.weaponDps.after - cmp.weaponDps.before) * 100) / 100)} ${tr("de daño por segundo del arma")}`, up: cmp.weaponDps.after > cmp.weaponDps.before });
@@ -261,9 +303,17 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
         {item ? <Icon id={item.iconFileDataId} name={iName(item)} /> : <span className="gear-empty">{slotLabel(slot).slice(0, 3)}</span>}
       </span>
       <span className="gear-slot-text">
-        <small>{slotLabel(slot)}</small>
+        <small>
+          {slotLabel(slot)}
+          {item && item.itemSetId !== null && <i className="gear-set-dot" role="img" aria-label={tr("Pieza de conjunto")} title={tr("Pieza de conjunto")} />}
+          {enchant && (
+            <i className="gear-ench" role="img" aria-label={nameOf(enchant)} title={nameOf(enchant)}>
+              ✦
+            </i>
+          )}
+        </small>
         {item ? (
-          <b style={{ color: qualityColor(item.quality) }}>
+          <b style={{ color: qualityColor(item.quality) }} title={`${iName(item)}${suffix ? ` ${nameOf(suffix)}` : ""}`}>
             {iName(item)}
             {suffix ? ` ${nameOf(suffix)}` : ""}
           </b>
@@ -272,11 +322,58 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
         ) : (
           <span className="muted">{tr("vacía")}</span>
         )}
-        {enchant && <small className="good">{nameOf(enchant)}</small>}
       </span>
     </button>
   );
 }
+
+/** Una fila de la lista de objetos de la ranura: icono, nombre, cifras y lo que cambia frente a lo que llevas puesto. */
+const ItemRow = memo(function ItemRow({ item: i, slot, gear, ctx, data, wornId, onlyWearable, onEquip, onTip }: { item: Item; slot: GearSlot; gear: GearSelection; ctx: GearContext; data: GearData; wornId: number | undefined; onlyWearable: boolean; onEquip: (item: Item) => void; onTip: (t: Tip | null) => void }) {
+  const isWorn = wornId === i.id;
+  const check = onlyWearable ? null : canEquip(i, slot, ctx, data);
+  const cmp = useMemo(() => (isWorn ? null : compareGear(gear, slot, i, ctx, data)), [isWorn, gear, slot, i, ctx, data]);
+  const deltas = cmp ? rowDeltas(cmp) : [];
+  return (
+    <li>
+      <button
+        type="button"
+        className={`item-row${isWorn ? " on" : ""}`}
+        onClick={() => onEquip(i)}
+        onMouseEnter={(e) => onTip({ item: i, slot, x: e.clientX, y: e.clientY })}
+        onMouseMove={(e) => onTip({ item: i, slot, x: e.clientX, y: e.clientY })}
+        onMouseLeave={() => onTip(null)}
+      >
+        <span className="gear-icon small" style={{ borderColor: qualityColor(i.quality) }}>
+          <Icon id={i.iconFileDataId} name={iName(i)} />
+        </span>
+        <span className="item-row-text">
+          <b style={{ color: qualityColor(i.quality) }}>{iName(i)}</b>
+          <small className="muted">
+            {tr("nivel")} {i.requiredLevel} · {tr("objeto")} {i.itemLevel}
+            {itemTypeLabel(i) ? ` · ${itemTypeLabel(i)}` : ""}
+            {i.randomSuffixSet !== null ? ` · ${tr("sufijo aleatorio")}` : ""}
+          </small>
+          {i.stats.length > 0 && <small className="item-row-stats">{shortStats(i.stats)}</small>}
+          {check && !check.ok && <small className="bad">{trn(check.reasons[0]!)}</small>}
+        </span>
+        <span className="item-row-delta">
+          {isWorn ? (
+            <em>{tr("Equipado")}</em>
+          ) : deltas.length === 0 ? (
+            <em className="muted">—</em>
+          ) : (
+            (deltas.length > 3 ? deltas.slice(0, 2) : deltas).map((d) => (
+              <span key={d.text} className={d.up ? "good" : "bad"} title={d.text}>
+                {d.up ? "▲" : "▼"} {d.text}
+              </span>
+            ))
+          )}
+          {deltas.length > 3 && <em className="muted">+{deltas.length - 2} {tr("más")}</em>}
+        </span>
+      </button>
+    </li>
+  );
+});
 
 function SlotPanel({
   slot,
@@ -329,66 +426,82 @@ function SlotPanel({
   const enchants = useMemo(() => (wornItem ? [...data.enchants.values()].filter((e) => enchantFits(e, slot, wornItem)).sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es")) : []), [data, slot, wornItem]);
   const suffixes = wornItem ? suffixOptions(wornItem, data) : [];
 
+  const wornSuffix = worn?.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
+  const wornSet = wornItem && wornItem.itemSetId !== null ? data.sets.find((x) => x.id === wornItem.itemSetId) : undefined;
+
   return (
     <section className="slot-panel" aria-label={tr("Ranura {name}", { name: slotLabel(slot) })}>
-      <div className="panel-head">
-        <h3>{slotLabel(slot)}</h3>
-        <span className="left">
-          {filtered.length} {tr("de")} {candidates.length} {tr("objetos")}
+      <div className="slot-head">
+        <span className="gear-icon big" style={wornItem ? { borderColor: qualityColor(wornItem.quality) } : undefined}>
+          {wornItem ? <Icon id={wornItem.iconFileDataId} name={iName(wornItem)} /> : <span className="gear-empty">{slotLabel(slot).slice(0, 3)}</span>}
         </span>
-      </div>
-      {worn && (
-        <div className="slot-current">
+        <div className="slot-head-text">
+          <small className="slot-kicker">
+            {tr("Ranura")} · {slotLabel(slot)}
+          </small>
           {wornItem ? (
             <>
-              <b style={{ color: qualityColor(wornItem.quality) }}>{iName(wornItem)}</b>
-              <button type="button" onClick={onClear}>
-               {tr("Quitar")}
-              </button>
-              <label>
-               {tr("Encantamiento")}
-                <select value={worn.enchantId ?? ""} onChange={(e) => onExtra({ enchantId: e.target.value ? Number(e.target.value) : null })} disabled={enchants.length === 0}>
-                  <option value="">{enchants.length === 0 ? tr("ninguno disponible") : tr("sin encantamiento")}</option>
-                  {enchants.map((e) => (
-                    <option key={e.effectId} value={e.effectId}>
-                      {nameOf(e)}
-                      {e.level ? ` (${tr("nivel {n}", { n: e.level })})` : ""}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {suffixes.length > 0 && (
-                <label>
-                 {tr("Sufijo aleatorio")}
-                  <select value={worn.suffixId ?? ""} onChange={(e) => onExtra({ suffixId: e.target.value ? Number(e.target.value) : null })}>
-                    <option value="">{tr("sin sufijo")}</option>
-                    {suffixes.map((id) => {
-                      const s = data.suffixes.get(id);
-                      return s ? (
-                        <option key={id} value={id}>
-                          {nameOf(s)} — {suffixStats(wornItem, s).map(statLine).join(", ")}
-                        </option>
-                      ) : null;
-                    })}
-                  </select>
-                  <small className="muted">{tr("Nombres: traducción propia. Cifras: estimación.")}</small>
-                </label>
-              )}
+              <b style={{ color: qualityColor(wornItem.quality) }}>
+                {iName(wornItem)}
+                {wornSuffix ? ` ${nameOf(wornSuffix)}` : ""}
+              </b>
+              <small className="muted">
+                {itemTypeLabel(wornItem) ? `${itemTypeLabel(wornItem)} · ` : ""}
+                {tr("objeto")} {wornItem.itemLevel} · {tr("nivel")} {wornItem.requiredLevel}
+                {wornSet ? ` · ${setLabel(wornSet)}` : ""}
+              </small>
             </>
+          ) : worn ? (
+            <b className="bad">
+              {tr("El objeto")} {worn.itemId} {tr("del enlace ya no existe en los datos.")}
+            </b>
           ) : (
-            <>
-              <b className="bad">{tr("El objeto")} {worn.itemId} {tr("del enlace ya no existe en los datos.")}</b>
-              <button type="button" onClick={onClear}>
-               {tr("Quitar")}
-              </button>
-            </>
+            <b className="muted">{tr("vacía")}</b>
+          )}
+        </div>
+        {worn && (
+          <button type="button" className="slot-clear" onClick={onClear}>
+            {tr("Quitar")}
+          </button>
+        )}
+      </div>
+      {wornItem && (
+        <div className="slot-current">
+          <label>
+            {tr("Encantamiento")}
+            <select value={worn!.enchantId ?? ""} onChange={(e) => onExtra({ enchantId: e.target.value ? Number(e.target.value) : null })} disabled={enchants.length === 0}>
+              <option value="">{enchants.length === 0 ? tr("ninguno disponible") : tr("sin encantamiento")}</option>
+              {enchants.map((e) => (
+                <option key={e.effectId} value={e.effectId}>
+                  {nameOf(e)}
+                  {e.level ? ` (${tr("nivel {n}", { n: e.level })})` : ""}
+                </option>
+              ))}
+            </select>
+          </label>
+          {suffixes.length > 0 && (
+            <label>
+              {tr("Sufijo aleatorio")}
+              <select value={worn!.suffixId ?? ""} onChange={(e) => onExtra({ suffixId: e.target.value ? Number(e.target.value) : null })}>
+                <option value="">{tr("sin sufijo")}</option>
+                {suffixes.map((id) => {
+                  const sf = data.suffixes.get(id);
+                  return sf ? (
+                    <option key={id} value={id}>
+                      {nameOf(sf)} — {suffixStats(wornItem, sf).map(statLine).join(", ")}
+                    </option>
+                  ) : null;
+                })}
+              </select>
+              <small className="muted">{tr("Nombres: traducción propia. Cifras: estimación.")}</small>
+            </label>
           )}
         </div>
       )}
       <div className="slot-filters">
         <input type="search" placeholder={tr("Buscar por nombre…")} value={query} onChange={(e) => setQuery(e.target.value)} aria-label={tr("Buscar objeto")} />
         <label>
-         {tr("Calidad mínima")}
+          {tr("Calidad mínima")}
           <select value={minQuality} onChange={(e) => setMinQuality(Number(e.target.value))}>
             {QUALITY_NAMES.slice(0, 5).map((n, i) => (
               <option key={n} value={i}>
@@ -415,53 +528,36 @@ function SlotPanel({
             </select>
           </label>
         )}
+      </div>
+      <div className="slot-filters slot-filters-2">
         <label className="check">
           <input type="checkbox" checked={onlyWearable} onChange={(e) => setOnlyWearable(e.target.checked)} /> {tr("Solo los que puede llevar mi personaje")}
         </label>
+        <div className="slot-view" role="group" aria-label={tr("Vista")}>
+          <button type="button" className={gallery ? "" : "on"} aria-pressed={!gallery} onClick={() => setView(false)}>{tr("Lista")}</button>
+          <button type="button" className={gallery ? "on" : ""} aria-pressed={gallery} onClick={() => setView(true)}>{tr("Galería")}</button>
+        </div>
       </div>
-      <div className="slot-view" role="group" aria-label={tr("Vista")}>
-        <button type="button" className={gallery ? "" : "on"} aria-pressed={!gallery} onClick={() => setView(false)}>{tr("Lista")}</button>
-        <button type="button" className={gallery ? "on" : ""} aria-pressed={gallery} onClick={() => setView(true)}>{tr("Galería")}</button>
-      </div>
+      <p className="slot-count muted small">
+        <span>
+          {filtered.length} {tr("de")} {candidates.length} {tr("objetos")}
+        </span>
+        {!gallery && <span>{tr("Frente a lo que llevas")}</span>}
+      </p>
+      <div className="slot-scroll">
       {gallery ? (
         <ItemGallery items={filtered.slice(0, limit)} wornId={worn?.itemId} appearance={appearance} onEquip={onEquip} onTip={(t) => onTip(t ? { item: t.item, slot, x: t.x, y: t.y } : null)} />
       ) : (
-      <ul className="item-list">
-        {filtered.slice(0, limit).map((i) => {
-          const check = onlyWearable ? null : canEquip(i, slot, ctx, data);
-          return (
-            <li key={i.id}>
-              <button
-                type="button"
-                className={`item-row${worn?.itemId === i.id ? " on" : ""}`}
-                onClick={() => onEquip(i)}
-                onMouseEnter={(e) => onTip({ item: i, slot, x: e.clientX, y: e.clientY })}
-                onMouseMove={(e) => onTip({ item: i, slot, x: e.clientX, y: e.clientY })}
-                onMouseLeave={() => onTip(null)}
-              >
-                <span className="gear-icon small" style={{ borderColor: qualityColor(i.quality) }}>
-                  <Icon id={i.iconFileDataId} name={iName(i)} />
-                </span>
-                <span className="item-row-text">
-                  <b style={{ color: qualityColor(i.quality) }}>{iName(i)}</b>
-                  <small className="muted">
-                   {tr("nivel")} {i.requiredLevel}  · {tr("objeto")} {i.itemLevel}
-                    {itemTypeLabel(i) ? ` · ${itemTypeLabel(i)}` : ""}
-                    {i.randomSuffixSet !== null ? ` · ${tr("sufijo aleatorio")}` : ""}
-                  </small>
-                  {i.stats.length > 0 && <small className="item-row-stats">{shortStats(i.stats)}</small>}
-                  {check && !check.ok && <small className="bad">{trn(check.reasons[0]!)}</small>}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+        <ul className="item-list">
+          {filtered.slice(0, limit).map((i) => (
+            <ItemRow key={i.id} item={i} slot={slot} gear={gear} ctx={ctx} data={data} wornId={worn?.itemId} onlyWearable={onlyWearable} onEquip={onEquip} onTip={onTip} />
+          ))}
+        </ul>
       )}
       {filtered.length === 0 && <p className="muted">{tr("Ningún objeto cumple los filtros.")}</p>}
       {filtered.length > limit && (
         <button type="button" className="more" onClick={() => setLimit((l) => l + 120)}>
-         {tr("Mostrar más")} ({filtered.length - limit} {tr("restantes")})
+          {tr("Mostrar más")} ({filtered.length - limit} {tr("restantes")})
         </button>
       )}
       {unavailable > 0 && (
@@ -469,6 +565,7 @@ function SlotPanel({
           <span className="tag tag-inactive">{tr("datos incompletos")}</span> {tr("Para esta ranura existen otros")} {fmtNum(unavailable)} {tr("objetos que el cliente no trae con nombre ni estadísticas (llegan por hotfix al verlos en el juego): no se pueden ofrecer.")}
         </p>
       )}
+      </div>
     </section>
   );
 }
@@ -505,7 +602,7 @@ export function GearStep({
   setAvatar: (a: Avatar) => void;
   history: { canUndo: boolean; canRedo: boolean; undo: () => void; redo: () => void };
 }) {
-  const [slot, setSlot] = useState<GearSlot | null>(null);
+  const [slot, setSlot] = useState<GearSlot>("head");
   const [tip, setTip] = useState<Tip | null>(null);
   if (!bundle || bundle.status === "loading") return <p className="status">{tr("Cargando objetos y encantamientos (unos 7 MB, solo la primera vez)…")}</p>;
   if (bundle.status === "error") return <p className="status error">{bundle.message}</p>;
@@ -513,7 +610,7 @@ export function GearStep({
   const problems = new Map((summary?.problems ?? []).map((p) => [p.slot, p]));
   const count = Object.keys(gear).length;
   const slotButton = (s: GearSlot) => (
-    <SlotButton key={s} slot={s} gear={gear} data={data} problem={problems.has(s)} selected={slot === s} onSelect={() => setSlot((cur) => (cur === s ? null : s))} onTip={setTip} />
+    <SlotButton key={s} slot={s} gear={gear} data={data} problem={problems.has(s)} selected={slot === s} onSelect={() => setSlot(s)} onTip={setTip} />
   );
 
   return (
@@ -521,22 +618,21 @@ export function GearStep({
       <div className="panel-head">
         <h3>{tr("Equipo")}</h3>
         <span className="left">
-         {tr("Ranuras con objeto")} <b>{count}</b>/{GEAR_SLOTS.length}
+          {tr("Ranuras con objeto")} <b>{count}</b>/{GEAR_SLOTS.length}
+        </span>
+        <span className="left gear-hint">
+          {tr("Pasa el cursor por un objeto para ver su tarjeta.")} {ctx.raceId > 0 ? `${tr("Raza")}: ${raceName ?? ctx.raceId}.` : tr("Sin raza elegida: no se comprueban las restricciones de raza.")}
         </span>
         <span className="lvl">
           <label className="gear-level">
-           {tr("Nivel del personaje")}
+            {tr("Nivel del personaje")}
             <input type="number" min={1} max={60} value={ctx.level} onChange={(e) => setLevel(Math.max(1, Math.min(60, Number(e.target.value) || 1)))} />
           </label>
           <button type="button" onClick={() => setGear(() => ({}))} disabled={count === 0}>
-           {tr("Quitar todo el equipo")}
+            {tr("Quitar todo el equipo")}
           </button>
         </span>
       </div>
-      <p className="muted small">
-       {tr("Pasa el cursor por un objeto para ver su tarjeta.")} {ctx.raceId > 0 ? `${tr("Raza")}: ${raceName ?? ctx.raceId}.` : tr("Sin raza elegida: no se comprueban las restricciones de raza.")} {tr("Objetos, armadura y daño de arma salen del cliente de la beta; encantamientos, sufijos aleatorios y puntuaciones, de la comunidad.")}
-        {partial && ` ${tr("Faltan datos de la comunidad (encantamientos, sufijos o puntuaciones).")}`}
-      </p>
 
       <div className="gear-layout">
         <div className="doll">
@@ -545,26 +641,33 @@ export function GearStep({
           <div className="doll-col">{SLOT_ORDER_RIGHT.map(slotButton)}</div>
           <div className="doll-bottom">{SLOT_ORDER_BOTTOM.map(slotButton)}</div>
         </div>
-        {slot ? (
-          <SlotPanel
-            slot={slot}
-            gear={gear}
-            data={data}
-            ctx={ctx}
-            onEquip={(item) => {
-              setGear((g) => equipItem(g, slot, item, data.items));
-              setTip(null);
-            }}
-            onClear={() => setGear((g) => Object.fromEntries(Object.entries(g).filter(([k]) => k !== slot)))}
-            onExtra={(extra) => setGear((g) => (g[slot] ? { ...g, [slot]: { ...g[slot]!, ...extra } } : g))}
-            onTip={setTip}
-          />
-        ) : (
-          <p className="muted slot-hint">{tr("Elige una ranura para ver los objetos que caben en ella, sus encantamientos y sufijos.")}</p>
+        <div className="gear-col">
+        <SlotPanel
+          slot={slot}
+          gear={gear}
+          data={data}
+          ctx={ctx}
+          onEquip={(item) => {
+            setGear((g) => equipItem(g, slot, item, data.items));
+            setTip(null);
+          }}
+          onClear={() => setGear((g) => Object.fromEntries(Object.entries(g).filter(([k]) => k !== slot)))}
+          onExtra={(extra) => setGear((g) => (g[slot] ? { ...g, [slot]: { ...g[slot]!, ...extra } } : g))}
+          onTip={setTip}
+        />
+        </div>
+        {summary && (
+          <div className="gear-col is-side">
+            <aside className="gear-side" aria-label={tr("Lo que suma tu equipo")}>
+              <GearTotals compact summary={summary} ratings={ratings} tips={{ gear, data, onTip: setTip }} />
+            </aside>
+          </div>
         )}
       </div>
-
-      {summary && <GearTotals summary={summary} ratings={ratings} tips={{ gear, data, onTip: setTip }} />}
+      <p className="muted small gear-foot">
+        {tr("Objetos, armadura y daño de arma salen del cliente de la beta; encantamientos, sufijos aleatorios y puntuaciones, de la comunidad.")}
+        {partial && ` ${tr("Faltan datos de la comunidad (encantamientos, sufijos o puntuaciones).")}`}
+      </p>
       {tip && <ItemCard tip={tip} data={data} ctx={ctx} gear={gear} />}
     </section>
   );
@@ -589,7 +692,35 @@ export interface TotalsTips {
   onTip: (t: Tip | null) => void;
 }
 
-export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; ratings: CombatRatings | null; tips?: TotalsTips }) {
+/** Un conjunto que llevas: piezas puestas (barra), y cada bono con el número de piezas que pide y si está activo. */
+function SetCard({ s }: { s: GearSummary["sets"][number] }) {
+  return (
+    <article className="gear-set">
+      <header>
+        <b>{setLabel(s)}</b>
+        <span className="set-count">
+          {s.count}
+          <small>/{s.total}</small>
+        </span>
+      </header>
+      <div className="set-pips" aria-hidden="true">
+        {Array.from({ length: s.total }, (_, i) => (
+          <i key={i} className={i < s.count ? "on" : ""} />
+        ))}
+      </div>
+      <ul className="set-bonus-list">
+        {s.bonuses.map((b) => (
+          <li key={b.threshold + b.name} className={b.active ? "good active" : "muted"}>
+            <span className="set-th">{b.threshold}</span>
+            <span>{effectLabel(b)}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+export function GearTotals({ summary, ratings, tips, compact }: { summary: GearSummary; ratings: CombatRatings | null; tips?: TotalsTips; /** Columna estrecha del paso Equipo: cifras en rejilla (de dónde salen, en el título) y sin tablas anchas. */ compact?: boolean }) {
   // Manejadores de cursor de lo que nombra el objeto de una ranura (tarjeta del objeto con su sufijo y encantamiento)
   const hover = (slot: GearSlot | null) => {
     const worn = slot ? tips?.gear[slot] : undefined;
@@ -604,7 +735,7 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
   const empty = summary.lines.length === 0 && summary.weapons.length === 0 && summary.armor === 0;
   if (empty && summary.problems.length === 0 && summary.missing.length === 0) return <p className="muted">{tr("Aún no llevas ningún objeto con estadísticas.")}</p>;
   return (
-    <div className="gear-totals">
+    <div className={`gear-totals${compact ? " compact" : ""}`}>
       <h4>{tr("Lo que suma tu equipo")}</h4>
       {summary.missing.length > 0 && (
         <p className="gear-warn">
@@ -621,13 +752,29 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
           ))}
         </ul>
       )}
-      {armor > 0 && (
+      {armor > 0 && !compact && (
         <p>
          {tr("Armadura")}: <b>{fmt(Math.round(armor))}</b>
           {summary.stats["extra-armor"] ? <small className="muted"> ({fmt(Math.round(summary.armor))} {tr("de las piezas")} + {fmt(summary.stats["extra-armor"])} {tr("extra")})</small> : null}
         </p>
       )}
-      {sortedLines.length > 0 && (
+      {sortedLines.length > 0 && compact && (
+        <dl className="gear-stat-grid">
+          {armor > 0 && (
+            <div title={summary.stats["extra-armor"] ? `${fmt(Math.round(summary.armor))} ${tr("de las piezas")} + ${fmt(summary.stats["extra-armor"])} ${tr("extra")}` : undefined}>
+              <dt>{tr("Armadura")}</dt>
+              <dd>{fmt(Math.round(armor))}</dd>
+            </div>
+          )}
+          {sortedLines.map((l) => (
+            <div key={l.key} title={l.sources.map((x) => `${x.slot ? slotLabel(x.slot) : x.itemName} ${x.value > 0 ? "+" : ""}${x.value}${originText(x.origin)}`).join(" · ")}>
+              <dt>{statName(l.key)}</dt>
+              <dd>{fmt(l.value)}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {sortedLines.length > 0 && !compact && (
         <table className="stats-table gear-stats">
           <thead>
             <tr>
@@ -656,6 +803,17 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
             ))}
           </tbody>
         </table>
+      )}
+      {summary.sets.length > 0 && (
+        <>
+          <h5 className="fx-sub">{tr("Conjuntos")}</h5>
+          <div className="gear-sets">
+            {summary.sets.map((s) => (
+              <SetCard key={s.setId} s={s} />
+            ))}
+          </div>
+          <p className="muted small">{tr("Los bonos de conjunto y efectos de objeto que son una cifra (atributos, poder, puntuaciones, porcentajes) ya se suman; los demás (procs, efectos con condición) son texto del cliente.")}</p>
+        </>
       )}
       {percents.length > 0 && (
         <>
@@ -688,26 +846,6 @@ export function GearTotals({ summary, ratings, tips }: { summary: GearSummary; r
               </li>
             ))}
           </ul>
-        </>
-      )}
-      {summary.sets.length > 0 && (
-        <>
-          <h5 className="fx-sub">{tr("Conjuntos")}</h5>
-          {summary.sets.map((s) => (
-            <div key={s.setId} className="gear-set">
-              <b>
-                {setLabel(s)} ({s.count}/{s.total})
-              </b>
-              <ul>
-                {s.bonuses.map((b) => (
-                  <li key={b.threshold + b.name} className={b.active ? "good" : "muted"}>
-                    ({b.threshold}) {effectLabel(b)}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          <p className="muted small">{tr("Los bonos de conjunto y efectos de objeto que son una cifra (atributos, poder, puntuaciones, porcentajes) ya se suman; los demás (procs, efectos con condición) son texto del cliente.")}</p>
         </>
       )}
       {summary.effects.length > 0 && (

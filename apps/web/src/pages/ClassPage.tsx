@@ -302,7 +302,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const sheetNav = <StepNav view={view} onGo={goTop} className="in-sheet" />;
 
   return (
-    <div className={`class-page${view === "talents" || view === "legacy" ? " has-sheet" : ""}`} style={{ ["--accent" as string]: color }}>
+    <div className={`class-page${view === "talents" || view === "legacy" ? " has-sheet" : ""}${view === "gear" || view === "summary" ? " is-wide" : ""}`} style={{ ["--accent" as string]: color }}>
       <ClassSwitcher current={token} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
       <CharacterBar
         className={classLabel(token, data.className ?? token)}

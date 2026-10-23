@@ -2,10 +2,18 @@
 .class-page {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 20px 24px 64px;
+  padding: 12px 24px 48px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
+}
+/* Equipo y Resumen: pantalla ancha para ver las columnas a la vez, sin bajar */
+.class-page.is-wide {
+  max-width: 1640px;
+}
+body:has(.class-page.is-wide) .topbar-in,
+body:has(.class-page.is-wide) .wrap {
+  max-width: 1640px;
 }
 
 /* Selector de clase */
@@ -20,9 +28,9 @@
   flex: none;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 0 16px 0 7px;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px 0 6px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--panel);
@@ -34,8 +42,8 @@
 .class-chip .icon,
 .class-chip .initials {
   flex: none;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: 1px solid var(--c);
   object-fit: cover;
@@ -53,28 +61,36 @@
 
 /* Tu personaje */
 .char-bar {
-  padding: 20px 24px;
+  padding: 10px 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px 24px;
+  gap: 8px 20px;
 }
 .char-id {
   flex: 1 1 320px;
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+/* Nombre y chips en una sola fila (antes el nombre y los chips ocupaban dos) */
+.char-id > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  min-width: 0;
 }
 .char-crest {
   flex: none;
-  width: 56px;
-  height: 56px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 11px;
   border: 2px solid var(--accent);
   background: rgba(255, 255, 255, 0.05);
 }
@@ -87,19 +103,23 @@
 }
 .char-id h1 {
   margin: 0;
-  font-size: 28px;
+  font-size: 22px;
   line-height: 1.1;
 }
 .char-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 0;
 }
 .char-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+.char-actions .btn {
+  min-height: 36px;
+  padding: 0 14px;
 }
 
 /* Pasos del personaje */
@@ -111,17 +131,17 @@
   scrollbar-width: none;
 }
 .steps > li {
-  flex: 1 0 176px;
+  flex: 1 0 150px;
   display: flex;
 }
 .step {
   width: 100%;
-  min-height: 60px;
-  padding: 8px 16px;
+  min-height: 46px;
+  padding: 5px 12px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 10px;
   text-align: left;
   white-space: normal;
   color: var(--text);
@@ -138,11 +158,11 @@
   border-color: var(--accent);
 }
 .step .step-n {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-color: var(--line-2);
   color: var(--muted);
-  font: 700 14px var(--sans);
+  font: 700 13px var(--sans);
 }
 .step.done .step-n {
   background: var(--gold);

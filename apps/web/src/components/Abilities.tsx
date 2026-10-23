@@ -186,73 +186,17 @@ function improvedBy(d: RowData): string[] {
   return names;
 }
 
-const MODS_SHOWN = 4;
-
 /** Qué da la habilidad: daño, curación o las dos cosas. */
 const outcomeKind = (o: AbilityOutcome): string => (o.lines.every((l) => l.heal) ? tr("Curación") : o.lines.some((l) => l.heal) ? tr("Daño y curación") : tr("Daño"));
 const pctText = (v: number): string => `${v > 0 ? "+" : ""}${fmt(v, 1)} %`;
 const BASIS: Record<NonNullable<AbilityOutcome["perSecond"]>["basis"], string> = { cast: "por segundo de lanzamiento", channel: "por segundo de canalización", cooldown: "por segundo de reutilización" };
 
-/** Resumen del resultado de la habilidad en su fila: total, incremento de talentos y poder, esperado y por segundo. */
-function OutcomeStrip({ o }: { o: AbilityOutcome }) {
-  return (
-    <dl className="ab-outcome" title={tr("Por lanzamiento, con todo sumado. Pasa el cursor sobre la habilidad para ver el desglose.")}>
-      <div>
-        <dt>{outcomeKind(o)} {tr("por lanzamiento")}</dt>
-        <dd>
-          <b>{fmt(o.total)}</b>
-        </dd>
-      </div>
-      {o.talentGain !== 0 && (
-        <div className={o.talentGain > 0 ? "pos" : "neg"}>
-          <dt>{tr("Incremento de talentos, Legado, raza y equipo")}</dt>
-          <dd>
-            <b>{o.talentGain > 0 ? "+" : ""}{fmt(o.talentGain)}</b> <span>({pctText(o.talentGainPct)})</span>
-          </dd>
-        </div>
-      )}
-      {o.powerGain > 0 && (
-        <div className="est">
-          <dt>{tr("Tu poder (estimación)")}</dt>
-          <dd>
-            <b>+{fmt(o.powerGain)}</b>
-          </dd>
-        </div>
-      )}
-      {o.expected !== null && (
-        <div>
-          <dt>{tr("Esperado con crítico y fallo")}</dt>
-          <dd>
-            <b>{fmt(o.expected)}</b>
-          </dd>
-        </div>
-      )}
-      {o.perSecond && (
-        <div>
-          <dt>{tr(BASIS[o.perSecond.basis])}</dt>
-          <dd>
-            <b>{fmt(o.perSecond.value, 1)}</b>
-          </dd>
-        </div>
-      )}
-    </dl>
-  );
-}
-
-/** Una cifra de la tarjeta de la habilidad; resaltada si los talentos la cambian. */
-function Tile({ label, value, changed, tone }: { label: string; value: string; changed?: boolean; tone?: "pos" | "muted" }) {
-  return (
-    <div className={`ab-tile${changed ? " changed" : ""}${tone ? ` ${tone}` : ""}`}>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-    </div>
-  );
-}
-
+/** Fila de la lista: lo esencial en columnas (coste, lanzamiento, reutilización, resultado, crítico y nº de talentos); todo lo demás, en la ficha. */
 function Row({ d, races, selected, onHover, onToggle }: { d: RowData; /** Razas del cliente (para nombrar a las de la habilidad). */ races: Race[]; selected: boolean; onHover: (e: { x: number; y: number } | null) => void; onToggle: (e: { x: number; y: number }) => void }) {
   const { m, ability, base } = d;
   const mods = improvedBy(d);
   const name = abilityLabel(ability);
+  const o = d.outcome;
   // Con teclado: Intro o Espacio fijan la tarjeta junto a la habilidad
   const onKey = (e: ReactKeyboardEvent<HTMLElement>) => {
     if (e.key !== "Enter" && e.key !== " ") return;
@@ -260,6 +204,7 @@ function Row({ d, races, selected, onHover, onToggle }: { d: RowData; /** Razas 
     const r = e.currentTarget.getBoundingClientRect();
     onToggle({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
   };
+  const changed = (a: string, b: string): string => (a !== b ? " changed" : "");
   return (
     <li>
       <article
@@ -272,59 +217,47 @@ function Row({ d, races, selected, onHover, onToggle }: { d: RowData; /** Razas 
         onClick={(e) => onToggle({ x: e.clientX, y: e.clientY })}
         onKeyDown={onKey}
       >
-        <div className="ab-top">
-          <div className="ab-name">
-            <Icon id={ability.iconFileDataId} name={name} />
-            <div>
-              <h4>{name}</h4>
-              <p className="ab-sub">
-                <span className="rank-chip">{tr("rango")} {m.rank.rank}</span>
-                {d.rank.races && (
-                  <span className="race-chip" title={tr("Habilidad de clase ligada a la raza (o facción) en el cliente")}>
-                    {tr("Solo {races}", { races: racesText(d.rank.races, races) })}
-                  </span>
-                )}
-                {ability.talentsForever && ability.talentsForever.status !== "listed" && (
-                  <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ? trn(ability.talentsForever.note) : undefined}>
-                    {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
-                  </span>
-                )}
-                {d.requirement && (
-                  <span className={`req-chip${d.requirement.met ? "" : " unmet"}`} title={d.requirement.met ? undefined : tr("Con tu equipo no puedes lanzarla")}>
-                    {tr("Requiere")} {trn(d.requirement.text)}
-                  </span>
-                )}
-              </p>
-            </div>
+        <div className="ab-name">
+          <Icon id={ability.iconFileDataId} name={name} />
+          <div>
+            <h4 title={name}>{name}</h4>
+            <p className="ab-sub">
+              <span className="rank-chip">{tr("rango")} {m.rank.rank}</span>
+              {d.rank.races && (
+                <span className="race-chip" title={tr("Habilidad de clase ligada a la raza (o facción) en el cliente")}>
+                  {tr("Solo {races}", { races: racesText(d.rank.races, races) })}
+                </span>
+              )}
+              {ability.talentsForever && ability.talentsForever.status !== "listed" && (
+                <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ? trn(ability.talentsForever.note) : undefined}>
+                  {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
+                </span>
+              )}
+              {d.requirement && (
+                <span className={`req-chip${d.requirement.met ? "" : " unmet"}`} title={d.requirement.met ? undefined : tr("Con tu equipo no puedes lanzarla")}>
+                  {tr("Requiere")} {trn(d.requirement.text)}
+                </span>
+              )}
+            </p>
           </div>
-          <dl className="ab-tiles">
-            <Tile label={tr("Coste")} value={costText(m)} changed={costText(m) !== costText(base)} />
-            <Tile label={tr("Lanzamiento")} value={castText(m)} changed={castText(m) !== castText(base)} />
-            <Tile label={tr("Reutilización")} value={cooldownText(m)} changed={cooldownText(m) !== cooldownText(base)} />
-            <Tile label={tr("Alcance")} value={rangeText(m)} changed={rangeText(m) !== rangeText(base)} />
-            <Tile label={tr("Crítico")} value={d.crit !== null ? `${fmt(d.crit, 1)} %` : "—"} tone={d.crit !== null ? "pos" : "muted"} />
-          </dl>
         </div>
-        {m.effects.length > 0 && (
-          <div className="ab-effects">
-            {m.effects.map((e) => (
-              <EffectLine key={`${e.effect.viaSpellId ?? 0}-${e.effect.index}`} m={e} durationMs={m.durationMs} detailed={false} />
-            ))}
-          </div>
-        )}
-        {d.outcome && <OutcomeStrip o={d.outcome} />}
-        {d.count > 0 && (
-          <div className="ab-mods" title={tr("Efectos de tus talentos que afectan a esta habilidad: pasa el cursor para verlos")}>
-            <span>{tr("Mejorada por")}</span>
-            {mods.slice(0, MODS_SHOWN).map((n) => (
-              <span key={n} className="chip">
-                {n}
-              </span>
-            ))}
-            {mods.length > MODS_SHOWN && <span className="chip">+{mods.length - MODS_SHOWN} {tr("más")}</span>}
-            {mods.length === 0 && <span className="chip">{d.count} {tr("efectos de talentos")}</span>}
-          </div>
-        )}
+        <span className={`ab-c c-cost${changed(costText(m), costText(base))}`}>{costText(m)}</span>
+        <span className={`ab-c c-cast${changed(castText(m), castText(base))}`}>{castText(m)}</span>
+        <span className={`ab-c c-cd${changed(cooldownText(m), cooldownText(base))}`}>{cooldownText(m)}</span>
+        <span className="ab-c c-out" title={o ? tr("Por lanzamiento, con todo sumado. Pasa el cursor sobre la habilidad para ver el desglose.") : undefined}>
+          {o ? (
+            <>
+              <b>{fmt(o.total)}</b>
+              {o.expected !== null && <small>≈ {fmt(o.expected)}</small>}
+            </>
+          ) : (
+            "—"
+          )}
+        </span>
+        <span className={`ab-c c-crit${d.crit !== null ? " pos" : ""}`}>{d.crit !== null ? `${fmt(d.crit, 1)} %` : "—"}</span>
+        <span className={`ab-c c-mods${d.count > 0 ? " has" : ""}`} title={mods.length > 0 ? mods.join(", ") : undefined}>
+          {d.count > 0 ? mods.length || d.count : "—"}
+        </span>
       </article>
     </li>
   );
@@ -348,7 +281,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; races: Race[]; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; forms: Partial<Record<FormKey, PowerContext>>; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
+function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power, textKnown, docked }: { tip: Tip; races: Race[]; base: boolean; onClose: () => void; /** Ficha fija en el lateral de la lista (sin cursor ni reducción de letra), en lugar de tarjeta flotante. */ docked?: boolean; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; forms: Partial<Record<FormKey, PowerContext>>; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   const abName = abilityLabel(ability);
@@ -374,7 +307,7 @@ function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power,
   const [pos, setPos] = useState<{ left: number; top: number }>({ left: 8, top: 8 });
   const place = () => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || docked) return;
     fitCardToViewport(el); // sin scroll: la letra se reduce lo justo para que quepa entera
     const { width: w, height: h } = el.getBoundingClientRect();
     const vw = window.innerWidth;
@@ -398,9 +331,9 @@ function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tip.x, tip.y]);
-  const style: CSSProperties = { left: pos.left, top: pos.top };
+  const style: CSSProperties | undefined = docked ? undefined : { left: pos.left, top: pos.top };
   return (
-    <div ref={ref} className={`ab-card${showBase ? " is-base" : ""}${tip.pinned ? " pinned" : ""}`} style={style} role="tooltip">
+    <div ref={ref} className={`ab-card${docked ? " docked" : ""}${showBase ? " is-base" : ""}${tip.pinned ? " pinned" : ""}`} style={style} role={docked ? undefined : "tooltip"}>
       {tip.pinned && (
         <button type="button" className="ab-card-close" onClick={onClose} aria-label={tr("Cerrar")}>
           ×
@@ -665,6 +598,19 @@ function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power,
   );
 }
 
+/** Si la ventana cumple la media query (para elegir entre ficha fija o tarjeta flotante). */
+function useMedia(query: string): boolean {
+  const [on, setOn] = useState(() => typeof window !== "undefined" && window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const change = () => setOn(mq.matches);
+    change();
+    mq.addEventListener("change", change);
+    return () => mq.removeEventListener("change", change);
+  }, [query]);
+  return on;
+}
+
 /**
  * Habilidades de la clase al nivel elegido. La tabla enseña lo esencial; la tarjeta de cada habilidad (cursor encima, o
  * clic para fijarla) trae todo: texto del cliente con cifras recalculadas, efectos y la suma de lo que le aportan tus
@@ -715,7 +661,17 @@ export function AbilitiesTable({
   const allRaces: Race[] = racesState.status === "ready" ? racesState.value.races : [];
   const [hover, setHover] = useState<{ name: string; x: number; y: number } | null>(null);
   const [pin, setPin] = useState<{ name: string; x: number; y: number } | null>(null);
+  // Última habilidad bajo el cursor: la ficha fija no vuelve a la primera al apartar el ratón de la lista (así se puede bajar por la ficha)
+  const [last, setLast] = useState<string | null>(null);
   const [ctrl, setCtrl] = useState(false);
+  // Con sitio de sobra, la ficha de la habilidad queda fija a la derecha; si no, tarjeta flotante junto al cursor
+  const dock = useMedia("(min-width: 1100px)");
+  const dockRef = useRef<HTMLElement>(null);
+  // La ficha vuelve arriba al cambiar de habilidad
+  const dockName = pin?.name ?? last;
+  useEffect(() => {
+    if (dockRef.current) dockRef.current.scrollTop = 0;
+  }, [dockName]);
 
   // Ctrl pulsado = ver la base sin mejoras (mientras la tarjeta esta abierta)
   useEffect(() => {
@@ -736,12 +692,12 @@ export function AbilitiesTable({
     const esc = (e: KeyboardEvent) => e.key === "Escape" && setPin(null);
     const close = () => setPin(null);
     window.addEventListener("keydown", esc);
-    window.addEventListener("scroll", close, { passive: true });
+    if (!dock) window.addEventListener("scroll", close, { passive: true });
     return () => {
       window.removeEventListener("keydown", esc);
       window.removeEventListener("scroll", close);
     };
-  }, [pin]);
+  }, [pin, dock]);
 
   const rules = rulesState.status === "ready" ? rulesState.value : null;
   const formulas = formulasState.status === "ready" ? formulasState.value : null;
@@ -841,9 +797,14 @@ export function AbilitiesTable({
   const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && ofMyRace(d));
   const shown = pin ?? hover;
   const tipRow = shown ? data.find((d) => d.ability.name === shown.name) : undefined;
+  // Ficha fija: la fijada, la de debajo del cursor o, si no hay ninguna, la primera de la lista
+  const dockRow = tipRow ?? rows.find((d) => d.ability.name === last) ?? rows[0];
+  const chancesInput = formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null;
 
   return (
     <>
+      <div className={`ab-layout${dock ? " docked" : ""}`}>
+      <div className="ab-main">
       <div className="ab-controls">
         <label title={tr("Contra quien se calcula la probabilidad de impacto")}>
         {tr("Objetivo")}{" "}
@@ -877,6 +838,15 @@ export function AbilitiesTable({
         </span>
       </div>
       <div className="ab-scroll">
+        <div className="ab-head" aria-hidden="true">
+          <span>{tr("Habilidad")}</span>
+          <span className="c-cost">{tr("Coste")}</span>
+          <span className="c-cast">{tr("Lanzamiento")}</span>
+          <span className="c-cd">{tr("Reutilización")}</span>
+          <span className="c-out">{tr("Resultado")}</span>
+          <span className="c-crit">{tr("Crítico")}</span>
+          <span className="c-mods" title={tr("Talentos, Puntos de Legado y piezas de equipo que la mejoran")}>{tr("Mejoras")}</span>
+        </div>
         <ul className="ab-list">
           {rows.map((d) => (
             <Row
@@ -884,7 +854,10 @@ export function AbilitiesTable({
               d={d}
               races={allRaces}
               selected={pin?.name === d.ability.name}
-              onHover={(pos) => setHover(pos ? { name: d.ability.name, ...pos } : null)}
+              onHover={(pos) => {
+                setHover(pos ? { name: d.ability.name, ...pos } : null);
+                if (pos) setLast(d.ability.name);
+              }}
               onToggle={(pos) => setPin((p) => (p?.name === d.ability.name ? null : { name: d.ability.name, ...pos }))}
             />
           ))}
@@ -896,7 +869,18 @@ export function AbilitiesTable({
       <p className="muted small">
         <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa, salvo que los marques en «Habilidades activas». El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
       </p>
-      {shown && tipRow && <AbilityCard races={allRaces} tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
+      </div>
+      {dock && (
+        <aside className="ab-dock" ref={dockRef} aria-label={tr("Ficha de la habilidad")}>
+          {dockRow ? (
+            <AbilityCard docked races={allRaces} tip={{ row: dockRow, x: 0, y: 0, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={chancesInput} power={power} />
+          ) : (
+            <p className="muted small">{tr("Elige una habilidad de la lista para ver su ficha completa.")}</p>
+          )}
+        </aside>
+      )}
+      </div>
+      {!dock && shown && tipRow && <AbilityCard races={allRaces} tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={chancesInput} power={power} />}
     </>
   );
 }
