@@ -25,7 +25,7 @@ describe.skipIf(!existsSync(join(RAW, "ItemSparse.csv")) || !existsSync(join(OUT
 
   it("cumple el esquema, sin avisos, con las 9 clases, tótems, mascota y los seis tipos de consumible", () => {
     expect(warnings.map((w) => /«(.+?)»/.exec(w)![1])).toEqual(["Danza de hojas"]); // su poder de ataque depende de la habilidad de defensa; Valor de Azeroth y Cuerno de Lordaeron se resuelven con la fórmula a nivel 60
-    expect(data.buffs.length).toBe(274);
+    expect(data.buffs.length).toBe(290);
     const cats = new Set(data.buffs.map((b) => b.category));
     expect([...cats].sort()).toEqual(["class", "elixir", "flask", "food", "other", "pet", "potion", "scroll", "totem"]);
   });
@@ -42,5 +42,13 @@ describe.skipIf(!existsSync(join(RAW, "ItemSparse.csv")) || !existsSync(join(OUT
     const elixir = data.buffs.find((b) => b.name === "Elixir de la mangosta")!;
     expect(elixir).toMatchObject({ category: "elixir", itemId: 13452, classId: null });
     expect(data.buffs.filter((b) => ["potion", "elixir", "flask", "scroll", "food", "other"].includes(b.category)).every((b) => b.itemId !== null)).toBe(true);
+  });
+
+  it("consumibles que no entraban: aumentos permanentes al consumir (sin duración) y pociones de protección (absorben daño)", () => {
+    const permanent = data.buffs.find((b) => b.name === "IFRDHR permanente")!;
+    expect(permanent).toMatchObject({ category: "other", durationMs: null });
+    expect(permanent.auras.map((a) => a.value)).toEqual([25]);
+    const shadow = data.buffs.filter((b) => /^Poción de protección de las Sombras/.test(b.name));
+    expect(shadow.map((b) => [b.category, b.durationMs, b.auras[0]!.aura, b.auras[0]!.value])).toEqual([["potion", 120000, 69, 900], ["potion", 120000, 69, 2600]]);
   });
 });

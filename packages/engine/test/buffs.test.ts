@@ -75,15 +75,27 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
     expect(fx.totals.some((t) => t.label.includes("poder de ataque") && t.value === 139)).toBe(false);
   });
 
-  it("AUDITORÍA: 272 de los 274 beneficios se cuantifican por completo; los 2 que quedan como texto son habilidades de profesión sin clave propia", () => {
+  it("AUDITORÍA: 277 de los 290 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
       const fx = collectStatEffects({ cls: warrior, classBuild: {}, legacy: null, legacyBuild: {}, race: null, abilities, gearEffects: [e] });
       if (Object.keys(buffFlatStats([e])).length + fx.totals.length === 0 || fx.conditional.length > 0) text.push(b.name);
     }
-    expect(text.sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
-    expect(data.buffs.length).toBe(274);
+    const absorb = text.filter((n) => /^Poción de protección/.test(n));
+    expect(absorb).toHaveLength(11);
+    for (const n of absorb) expect(byName(n).text).toMatch(/^Amortigua \d+ p\. de daño/);
+    expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
+    expect(data.buffs.length).toBe(290);
+  });
+
+  it("los aumentos permanentes al consumir (sin duración) suman su cifra y cuentan como duraderos", () => {
+    for (const [name, key] of [["Polvo de scorpok permanente", "agility"], ["Compuesto de córtex cerebral permanente", "intellect"], ["Chicle permanente de mollejas", "spirit"], ["IFRDHR permanente", "strength"], ["Cóctel de zumo de pulmón perpetuo", "stamina"]] as const) {
+      const b = byName(name);
+      expect(b.durationMs).toBeNull();
+      expect(isLastingBuff(b)).toBe(true);
+      expect(buffFlatStats([buffAsEffect(b)])).toEqual({ [key]: 25 });
+    }
   });
 
   it("duraderos o temporales: las auras y aspectos sin límite y las bendiciones son duraderos; Venas heladas (20 s) no", () => {

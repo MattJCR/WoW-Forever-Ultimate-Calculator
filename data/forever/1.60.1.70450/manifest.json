@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70450",
   "locale": "esES",
-  "generatedAt": "2026-10-23T05:44:07.400Z",
+  "generatedAt": "2026-10-23T06:51:34.201Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -302,8 +302,8 @@
   },
   "buffs": {
     "file": "buffs.json",
-    "sha256": "d1dd4af325cb0204081755fc13292d3d642b05d2340468e2fc9c968a65406a23",
-    "count": 274
+    "sha256": "bb630f266b2c1a10775731e9fa84852d48af5810ac6e55056243ef6ddf31db19",
+    "count": 290
   },
   "randomSuffixes": {
     "file": "random-suffixes.json",
@@ -333,12 +333,12 @@
   },
   "icons": {
     "file": "icons.json",
-    "count": 1909,
-    "sha256": "16fd337bcdea485cf9d56b5c485667924335acf28fcf3ecc92a4b6622ecebb21"
+    "count": 1916,
+    "sha256": "4dc48699c0f53b37e6937f70217a9f988ea041e4ddf5cdee2e6229ebbec250ea"
   },
   "english": {
     "file": "i18n/en.json",
-    "sha256": "cf2f32265104d36c01131587cea1afcd99a2975cf86ad20f1e8ec5269ba96a97"
+    "sha256": "ac17549a4d510fdeb630f15391ad6e1746ae80a0c271d36bf96e9654c7a5da1b"
   },
   "unassigned": {
     "file": "unassigned.json",

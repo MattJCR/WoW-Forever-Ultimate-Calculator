@@ -21,6 +21,11 @@ const BUFF_AURAS = new Set([
 /** SpellEffect.ImplicitTarget[0] amistosos: 1 uno mismo, 20 grupo, 21 aliado, 56/57/153 banda y bendiciones superiores. */
 const FRIENDLY_TARGETS = new Set([1, 20, 21, 56, 57, 153]);
 
+/** Solo consumibles: objetivo «unidad elegida» (25) de los que dan un aumento permanente al consumirse («Aumenta la agilidad en 25 p. cuando se consume»); no tienen duración. */
+const PERMANENT_TARGETS = new Set([25]);
+/** Solo consumibles: aura de absorción de daño (pociones de protección: «Amortigua 900 p. de daño de las Sombras»); no suma estadísticas, se enseña como texto del cliente. */
+const ABSORB_AURAS = new Set([69]);
+
 /** Duración mínima (ms) para contar como mejora duradera; las cortas son efectos de reutilización (Venas heladas…). */
 export const LASTING_MS = 60_000;
 /** Nivel máximo de Forever (rangos de hechizo que se aprenden como mucho a este nivel). */
@@ -48,12 +53,12 @@ const GROUPS: [RegExp, string][] = [
 const groupOf = (name: string, spellId: number): string => GROUPS.find(([re]) => re.test(name))?.[1] ?? `spell-${spellId}`;
 
 /** Auras de un hechizo que valen para el personaje (estadística y objetivo amistoso); vacío si no hay ninguna. */
-function friendlyAuras(spells: SpellTables, spellId: number): Buff["auras"] {
+function friendlyAuras(spells: SpellTables, spellId: number, targets: ReadonlySet<number> = FRIENDLY_TARGETS, auraTypes: ReadonlySet<number> = BUFF_AURAS): Buff["auras"] {
   const out: Buff["auras"] = [];
   const info = spellEffectInfo(spells, spellId);
   for (const a of info.auras) {
     const e = spells.effect(spellId, a.index);
-    if (!e || !BUFF_AURAS.has(a.aura) || !FRIENDLY_TARGETS.has(int(e["ImplicitTarget[0]"]))) continue;
+    if (!e || !auraTypes.has(a.aura) || !targets.has(int(e["ImplicitTarget[0]"]))) continue;
     out.push(a);
   }
   // Un beneficio cuyas cifras son todas 0 (aura que solo marca un estado: Aspecto del falcón) no suma nada
@@ -188,11 +193,15 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
       const e = effectById.get(eid);
       if (!e || int(e.TriggerType) !== 0) continue;
       for (const spellId of [int(e.SpellID), ...triggered(int(e.SpellID))]) {
-        const auras = friendlyAuras(spells, spellId);
-        if (auras.length === 0 || seen.has(spellId)) continue;
+        if (seen.has(spellId)) continue;
         const duration = spells.durationMs(spellId);
+        // Un aumento permanente al consumir (sin duración) apunta a la «unidad elegida»; las pociones de protección absorben daño
+        let auras = friendlyAuras(spells, spellId);
+        if (auras.length === 0 && !duration) auras = friendlyAuras(spells, spellId, PERMANENT_TARGETS);
+        if (auras.length === 0) auras = friendlyAuras(spells, spellId, FRIENDLY_TARGETS, ABSORB_AURAS);
+        if (auras.length === 0) continue;
         // Bebidas y comidas sin beneficio duradero no son consumibles de estadística; las pociones cuentan aunque duren poco
-        if (!duration || (duration < LASTING_MS && category !== "potion")) continue;
+        if (duration ? duration < LASTING_MS && category !== "potion" : !auras.some((a) => PERMANENT_TARGETS.has(int(spells.effect(spellId, a.index)?.["ImplicitTarget[0]"])))) continue;
         if (auras.every((a) => a.value <= 0 && a.aura !== 87)) continue; // solo perjuicios (bromas, malos efectos)
         seen.add(spellId);
         add({
