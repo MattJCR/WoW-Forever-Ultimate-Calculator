@@ -130,9 +130,6 @@ export const UI: Record<string, string> = {
   "ocultas": "hidden",
   "Solo {races}": "{races} only",
   "Habilidad de clase ligada a la raza (o facción) en el cliente": "Class ability tied to a race (or faction) in the client",
-  "Solo las de mi raza": "Only my race's",
-  "Algunas habilidades de clase solo las tiene una raza (el Enano sacerdote, Rezo desesperado). Desmárcalo para ver también las de otras razas":
-    "Some class abilities belong to a single race (the Dwarf priest's Desperate Prayer). Untick to also see those of other races",
   "habilidades · pasa el cursor por una para ver todo (Ctrl = base sin mejoras; clic para fijar la tarjeta":
     "abilities · hover one to see everything (Ctrl = base without improvements; click to pin the card",
   "Ninguna habilidad está afectada por tus talentos todavía. Elige talentos en el paso anterior o desmarca «Solo las afectadas por mis talentos» para ver todas.":

@@ -711,8 +711,6 @@ export function AbilitiesTable({
   const [creatureType, setCreatureType] = useState<string | null>(null);
   const [onlyAffected, setOnlyAffected] = useState(true);
   const [onlyActive, setOnlyActive] = useState(true);
-  // Con raza elegida, las habilidades de clase de otras razas (Rezo desesperado del Enano…) se ocultan; se pueden ver desmarcando
-  const [onlyMyRace, setOnlyMyRace] = useState(true);
   const racesState = useAsync(manifest.races.file, () => loadRaces(manifest.races.file));
   const allRaces: Race[] = racesState.status === "ready" ? racesState.value.races : [];
   const [hover, setHover] = useState<{ name: string; x: number; y: number } | null>(null);
@@ -838,9 +836,9 @@ export function AbilitiesTable({
   // «Activa en Forever» = la lista de la referencia (o no hay referencia para la clase). Las runas de Forever que la referencia no lista y las que da por retiradas se ven al desmarcar
   const isActive = (d: (typeof data)[number]): boolean => !d.ability.talentsForever || d.ability.talentsForever.status === "listed" || d.ability.talentsForever.status === "partial";
   const hiddenInactive = data.filter((d) => (!onlyAffected || d.count > 0) && !isActive(d)).length;
+  // Con raza elegida, solo las habilidades de clase de tu raza o sin raza (el Enano ve Rezo desesperado, no Toque de debilidad)
   const ofMyRace = (d: (typeof data)[number]): boolean => !race || !d.rank.races || d.rank.races.includes(race.id);
-  const hiddenOtherRace = race ? data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && !ofMyRace(d)).length : 0;
-  const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && (!onlyMyRace || ofMyRace(d)));
+  const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && ofMyRace(d));
   const shown = pin ?? hover;
   const tipRow = shown ? data.find((d) => d.ability.name === shown.name) : undefined;
 
@@ -874,12 +872,6 @@ export function AbilitiesTable({
           <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} /> {tr("Solo activas en Forever")}
           {onlyActive && hiddenInactive > 0 ? <small className="muted"> ({hiddenInactive} {tr("ocultas")})</small> : null}
         </label>
-        {race && (
-          <label title={tr("Algunas habilidades de clase solo las tiene una raza (el Enano sacerdote, Rezo desesperado). Desmárcalo para ver también las de otras razas")}>
-            <input type="checkbox" checked={onlyMyRace} onChange={(e) => setOnlyMyRace(e.target.checked)} /> {tr("Solo las de mi raza")}
-            {onlyMyRace && hiddenOtherRace > 0 ? <small className="muted"> ({hiddenOtherRace} {tr("ocultas")})</small> : null}
-          </label>
-        )}
         <span className="muted small">
           {rows.length} {tr("habilidades · pasa el cursor por una para ver todo (Ctrl = base sin mejoras; clic para fijar la tarjeta")})
         </span>
