@@ -1,5 +1,6 @@
 import { int } from "./csv.js";
 import { polyAt } from "./desc-variables.js";
+import { evalLevelFormula } from "./level-formula.js";
 import type { SpellTables } from "./spell-tables.js";
 
 export interface RenderContext {
@@ -262,6 +263,13 @@ function evaluate(expr: string): number {
 
 /** Evalua el interior de ${...}: sustituye los marcadores por su valor numerico y calcula. */
 function evaluateExpression(t: SpellTables, ctx: RenderContext, inner: string): { value: number; approx: boolean } | null {
+  // Un «$» suelto detrás de una variable (`$m2$*…` en Descarga de Escarcha) es un error de escritura del cliente: se ignora
+  inner = inner.replace(/\$(?=[*+\-/)]|$)/g, "");
+  // Fórmulas del nivel del lanzador ($PL, $cond, $gte): se evalúan a nivel 60 (valor aproximado)
+  if (/\$PL|\$cond/.test(inner)) {
+    const v = evalLevelFormula(inner, 60);
+    return v === null ? null : { value: v, approx: true };
+  }
   let failed = false;
   let approx = false;
   const substituted = inner.replace(TOKEN, (_m, ref: string | undefined, kind: string, idx: string) => {
@@ -559,6 +567,13 @@ export function renderSpellText(t: SpellTables, template: string, ctx: RenderCon
     if (nameRef) {
       out += t.name(int(nameRef[1])) ?? "";
       i += nameRef[0].length;
+      continue;
+    }
+
+    // $@spellicon1234: marca del icono de un hechizo dentro del texto (no lleva información): se quita sin marcar el texto como incompleto
+    const iconRef = /^\$@spellicon\d+/.exec(rest);
+    if (iconRef) {
+      i += iconRef[0].length;
       continue;
     }
 

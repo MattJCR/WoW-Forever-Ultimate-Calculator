@@ -158,9 +158,11 @@ export function trn(es: string): string {
  * × 50 % (mano izquierda) × 75 %»): la frase es siempre la misma con cifras distintas, así que se traduce por trozos.
  */
 function formulaEn(es: string): string | null {
-  if (!/(?:^|; )(?:mano (?:derecha|izquierda) )?arma \d/.test(es)) return null;
+  if (!/(?:^|; )(?:(?:mano (?:derecha|izquierda) )?arma \d|Forma (?:felina|de oso) \(sin arma\))/.test(es)) return null;
   return es
     .replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/Forma felina \(sin arma\)/g, "Cat Form (no weapon)")
+    .replace(/Forma de oso \(sin arma\)/g, "Bear Form (no weapon)")
     .replace(/mano derecha arma/g, "main-hand weapon")
     .replace(/mano izquierda arma/g, "off-hand weapon")
     .replace(/(^|; )arma /g, "$1weapon ")

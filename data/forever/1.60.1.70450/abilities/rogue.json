@@ -279,11 +279,11 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Remate que aumenta tu probabilidad de parada un 10% y otorga 4 p. de poder de ataque por cada punto de tu habilidad de defensa más allá de ${$PL*5}. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s",
+          "description": "Remate que aumenta tu probabilidad de parada un 10% y otorga 4 p. de poder de ataque por cada punto de tu habilidad de defensa más allá de 300. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s",
           "textOrigin": "client",
           "acquireMethod": 3,
-          "descriptionComplete": false,
-          "descriptionTemplate": "Remate que aumenta tu probabilidad de parada un {{s:400012:2|10}}% y otorga {{s:400012:4|4}} p. de poder de ataque por cada punto de tu habilidad de defensa más allá de ${$PL*5}. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s",
+          "descriptionComplete": true,
+          "descriptionTemplate": "Remate que aumenta tu probabilidad de parada un {{s:400012:2|10}}% y otorga {{s:400012:4|4}} p. de poder de ataque por cada punto de tu habilidad de defensa más allá de 300. Se prolonga por cada punto de combo:\r\n\r\n   1 p.: 14 s\r\n   2 p.: 18 s\r\n   3 p.: 22 s\r\n   4 p.: 26 s\r\n   5 p.: 30 s",
           "equipped": [],
           "weaponHand": "main"
         }

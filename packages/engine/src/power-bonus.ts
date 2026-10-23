@@ -19,6 +19,8 @@ export interface PowerWeapon {
   normalizedSpeed: number;
   /** false en las varitas: su daño no usa el poder de ataque. */
   usesAttackPower: boolean;
+  /** Nombre en la fórmula en lugar de «arma» (formas del druida: «Forma felina (sin arma)»). */
+  name?: string;
 }
 
 export interface PowerContext {
@@ -161,9 +163,13 @@ function handDamage(flat: { min: number; max: number }, weapon: PowerWeapon, spe
 function weaponEstimate(m: ModifiedAbility, ctx: PowerContext): WeaponPowerEstimate | null {
   if (m.weaponEffects.length === 0) return null;
   const ranged = m.rank.rangeYd !== null && m.rank.rangeYd > MELEE_RANGE_YD && m.rank.rangeYd < 1000;
-  const hand = ranged ? "main" : m.rank.weaponHand;
+  // Lanzar el arma de la mano izquierda (Cuchillo envenenado) es a distancia pero usa esa arma, con la fracción de la mano izquierda
+  const thrownOffHand = ranged && m.rank.weaponHand === "off";
+  const hand = ranged && !thrownOffHand ? "main" : m.rank.weaponHand;
   const hands: { weapon: PowerWeapon; factor: number; label: string }[] = [];
-  if (ranged) {
+  if (thrownOffHand) {
+    if (ctx.offHand) hands.push({ weapon: ctx.offHand, factor: ctx.offHandFactor, label: "mano izquierda " });
+  } else if (ranged) {
     if (ctx.ranged) hands.push({ weapon: ctx.ranged, factor: 1, label: "" });
   } else {
     if (hand !== "off" && ctx.mainHand) hands.push({ weapon: ctx.mainHand, factor: 1, label: hand === "both" ? "mano derecha " : "" });
@@ -194,7 +200,7 @@ function weaponEstimate(m: ModifiedAbility, ctx: PowerContext): WeaponPowerEstim
     max += hMax * h.factor;
     const speed = parts[0]!.speed;
     texts.push(
-      `${h.label}arma ${fmt(h.weapon.min)}–${fmt(h.weapon.max)}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(apOf(h.weapon))} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => flatOf(x).average !== 0) ? " + daño plano" : ""}${h.factor !== 1 ? ` × ${fmt(h.factor * 100)} % (mano izquierda)` : ""}`,
+      `${h.weapon.name ?? `${h.label}arma ${fmt(h.weapon.min)}–${fmt(h.weapon.max)}`}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(apOf(h.weapon))} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => flatOf(x).average !== 0) ? " + daño plano" : ""}${h.factor !== 1 ? ` × ${fmt(h.factor * 100)} % (mano izquierda)` : ""}`,
     );
   }
   min *= pct * factor;

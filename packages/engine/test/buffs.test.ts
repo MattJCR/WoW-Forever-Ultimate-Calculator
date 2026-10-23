@@ -3,7 +3,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Abilities, Buffs, ClassTalents } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
-import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, indexBuffs, indexClass, isLastingBuff, toggleBuff } from "../src/index.js";
+import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, improveBuff, indexBuffs, indexClass, isLastingBuff, spellModifiersOf, toggleBuff } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const D = join(root, "data", "forever", "1.60.1.70450");
@@ -75,7 +75,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
     expect(fx.totals.some((t) => t.label.includes("poder de ataque") && t.value === 139)).toBe(false);
   });
 
-  it("AUDITORÍA: 270 de los 272 beneficios se cuantifican por completo; los 2 que quedan como texto son habilidades de profesión sin clave propia", () => {
+  it("AUDITORÍA: 272 de los 274 beneficios se cuantifican por completo; los 2 que quedan como texto son habilidades de profesión sin clave propia", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
@@ -83,7 +83,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
       if (Object.keys(buffFlatStats([e])).length + fx.totals.length === 0 || fx.conditional.length > 0) text.push(b.name);
     }
     expect(text.sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
-    expect(data.buffs.length).toBe(272);
+    expect(data.buffs.length).toBe(274);
   });
 
   it("duraderos o temporales: las auras y aspectos sin límite y las bendiciones son duraderos; Venas heladas (20 s) no", () => {
@@ -91,5 +91,42 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
     expect(isLastingBuff(byName("Bendición del poderío"))).toBe(true);
     expect(isLastingBuff(byName("Venas heladas"))).toBe(false);
     expect(data.buffs.filter(isLastingBuff).length).toBeGreaterThan(150);
+  });
+});
+
+/** Mejoras de talento sobre los beneficios propios: los modificadores de hechizos cuya máscara cruza la del hechizo del beneficio (sesión 13). */
+describe.skipIf(!has)("talentos que mejoran beneficios", () => {
+  const data = Buffs.parse(json("buffs.json"));
+  const classes = (token: string) => indexClass(ClassTalents.parse(json(`classes/${token}.json`)));
+  const full = (idx: ReturnType<typeof classes>, name: string) => {
+    const t = idx.ordered.find((i) => i.talent.name === name)!.talent;
+    return { [t.nodeId]: t.maxRank } as Record<number, number>;
+  };
+  const buff = (name: string) => data.buffs.find((b) => b.name === name && b.category === "class")!;
+  const armorOf = (b: ReturnType<typeof buff>) => b.auras.find((a) => a.aura === 674)?.value ?? 0;
+
+  it("Fuego interno mejorado (+45 %) sube la armadura de Fuego interno; sin el talento no cambia", () => {
+    const priest = classes("priest");
+    const inner = buff("Fuego interno");
+    const mods = spellModifiersOf(priest, full(priest, "Fuego interno mejorado"));
+    expect(improveBuff(inner, [])).toBe(inner);
+    expect(armorOf(improveBuff(inner, mods))).toBe(Math.round(armorOf(inner) * 1.45));
+  });
+
+  it("Égida demoníaca (+30 %) sube Armadura demoníaca y Piel de demonio", () => {
+    const warlock = classes("warlock");
+    const mods = spellModifiersOf(warlock, full(warlock, "Égida demoníaca"));
+    for (const name of ["Armadura demoníaca", "Piel de demonio"]) {
+      const b = buff(name);
+      const improved = improveBuff(b, mods);
+      expect(improved.auras.some((a, i) => a.value !== b.auras[i]!.value), name).toBe(true);
+    }
+  });
+
+  it("un talento que no cruza la máscara del beneficio no lo cambia", () => {
+    const priest = classes("priest");
+    const mods = spellModifiersOf(priest, full(priest, "Fuego interno mejorado"));
+    const fort = buff("Palabra de poder: entereza");
+    expect(improveBuff(fort, mods)).toBe(fort);
   });
 });

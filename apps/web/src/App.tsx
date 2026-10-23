@@ -74,7 +74,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
       <header className="topbar">
         <div className="topbar-in">
           <a className="brand" href={href("", q)}>
-            <img className="brand-mark" src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`} alt="" width={52} height={52} />
+            <img className="brand-mark" src={`${import.meta.env.BASE_URL}logo-forever-mark.png`} alt="" width={52} height={52} />
             <span className="brand-text">
               <b>WoW Forever</b>
               <small>{tr("Calculadora definitiva")}</small>

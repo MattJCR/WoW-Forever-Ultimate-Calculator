@@ -3,6 +3,7 @@ import {
   addStats,
   buffEffects,
   buffFlatStats,
+  spellModifiersOf,
   decodeBuffs,
   encodeBuffs,
   decodeBuildReport,
@@ -728,7 +729,9 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
   const [active, setActive] = useState<ReadonlySet<number>>(() => new Set());
   // Cada objeto cuenta desde su propio nivel necesario: al nivel elegido solo suman los que ya se pueden llevar
   // Beneficios activos (bendiciones, marcas, consumibles…): se suman como los efectos del equipo
-  const buffSources = useMemo(() => (buffs.index ? buffEffects(buffs.selected, buffs.index) : []), [buffs.index, buffs.selected]);
+  // Los talentos y la Legacy mejoran las cifras de los beneficios propios (Fuego interno mejorado, Égida demoníaca…)
+  const buffMods = useMemo(() => [...spellModifiersOf(idx, classBuild), ...(legacy ? spellModifiersOf(legacy, legacyBuild) : [])], [idx, classBuild, legacy, legacyBuild]);
+  const buffSources = useMemo(() => (buffs.index ? buffEffects(buffs.selected, buffs.index, buffMods) : []), [buffs.index, buffs.selected, buffMods]);
   const buffStats = useMemo(() => buffFlatStats(buffSources), [buffSources]);
   const gearAt = useMemo(() => {
     if (!gear && buffSources.length === 0) return null;

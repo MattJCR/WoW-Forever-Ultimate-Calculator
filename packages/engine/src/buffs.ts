@@ -1,5 +1,6 @@
 import type { Buff, Buffs } from "@wfuc/schema";
 import { classifyGearAuras, type GearEffectSource } from "./gear-effects.js";
+import { masksIntersect, type SpellModifier } from "./spell-mods.js";
 
 /**
  * Beneficios («buffs») que se pueden activar en el Resumen: habilidades de clase (propias o de otras clases), tótems, mascotas y
@@ -44,13 +45,34 @@ export function decodeBuffs(code: string | null | undefined, index: BuffIndex): 
   return out;
 }
 
-/** Un beneficio como efecto de equipo (`kind: "buff"`): sus auras se cuantifican como las de un conjunto o un encantamiento. */
-export const buffAsEffect = (b: Buff): GearEffectSource => ({ kind: "buff", name: b.name, origin: b.name, spellId: b.id, text: b.text || b.name, auras: b.auras, slot: null, itemId: null });
+/**
+ * Lo que los talentos (y la Legacy) mejoran de un beneficio: los modificadores de hechizos cuya máscara cruza la del hechizo del beneficio
+ * (Fuego interno mejorado +45 % de armadura, Égida demoníaca +30 %, Custodia de Escarcha, Protección Arcana, Encontrar camino, Aspecto del mono
+ * mejorado). «Todos los efectos» (operación 8) escala todas sus cifras y «efecto 1/2/3» (3, 12, 23) la del efecto de ese índice. Sin máscara no se mejora.
+ */
+export function improveBuff(b: Buff, modifiers: readonly SpellModifier[]): Buff {
+  const own = b.classMask ? modifiers.filter((m) => masksIntersect(m.mask, b.classMask!)) : [];
+  if (own.length === 0) return b;
+  const auras = b.auras.map((a) => {
+    const ops = [8, [3, 12, 23][a.index] ?? -1];
+    const total = (kind: SpellModifier["kind"]): number => own.filter((m) => m.kind === kind && ops.includes(m.op)).reduce((n, m) => n + m.value, 0);
+    const flat = total("flat");
+    const pct = total("pct");
+    return flat === 0 && pct === 0 ? a : { ...a, value: Math.round((a.value + flat) * (1 + pct / 100)) };
+  });
+  return { ...b, auras };
+}
 
-export function buffEffects(selected: ReadonlySet<number>, index: BuffIndex): GearEffectSource[] {
+/** Un beneficio como efecto de equipo (`kind: "buff"`): sus auras se cuantifican como las de un conjunto o un encantamiento. */
+export const buffAsEffect = (b: Buff, modifiers: readonly SpellModifier[] = []): GearEffectSource => {
+  const imp = improveBuff(b, modifiers);
+  return { kind: "buff", name: imp.name, origin: imp.name, spellId: imp.id, text: imp.text || imp.name, auras: imp.auras, slot: null, itemId: null };
+};
+
+export function buffEffects(selected: ReadonlySet<number>, index: BuffIndex, modifiers: readonly SpellModifier[] = []): GearEffectSource[] {
   return [...selected].flatMap((id) => {
     const b = index.byId.get(id);
-    return b ? [buffAsEffect(b)] : [];
+    return b ? [buffAsEffect(b, modifiers)] : [];
   });
 }
 

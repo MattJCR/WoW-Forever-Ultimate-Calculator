@@ -11,7 +11,8 @@
   "scripts": {
     "pipeline": "npm run build-data -w @wfuc/data-pipeline",
     "contrast": "npm run contrast -w @wfuc/data-pipeline",
-    "test": "npm run test --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present && npm run test:tools",
+    "test:tools": "node --test tools/model/test/model.test.mjs",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },
   "engines": {

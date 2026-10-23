@@ -748,11 +748,11 @@
           "radiusYd": 30,
           "charges": [],
           "procs": [],
-          "description": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta ${$cond($gte($PL,56),74,$cond($gte($PL,52),60,$cond($gte($PL,42),45,$cond($gte($PL,32),26,$cond($gte($PL,22),17,$cond($gte($PL,12),11,6)))))))} p. la fuerza y la agilidad de todos los miembros del grupo en un radio de 30 m. Dura 2 min. Incompatible con Bendición de poderío.",
+          "description": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta 74 p. la fuerza y la agilidad de todos los miembros del grupo en un radio de 30 m. Dura 2 min. Incompatible con Bendición de poderío.",
           "textOrigin": "client",
           "acquireMethod": 3,
-          "descriptionComplete": false,
-          "descriptionTemplate": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta s2529189${$cond($gte($PL,56),74,$cond($gte($PL,52),60,$cond($gte($PL,42),45,$cond($gte($PL,32),26,$cond($gte($PL,22),17,$cond($gte($PL,12),11,6)))))))} p. la fuerza y la agilidad de todos los miembros del grupo en un radio de {{a:425600:1|30}} m. Dura {{d:425600:1|2 min}}. Incompatible con Bendición de poderío.",
+          "descriptionComplete": true,
+          "descriptionTemplate": "El paladín sopla el Cuerno de Lordaeron, lo que aumenta s252918974 p. la fuerza y la agilidad de todos los miembros del grupo en un radio de {{a:425600:1|30}} m. Dura {{d:425600:1|2 min}}. Incompatible con Bendición de poderío.",
           "equipped": [],
           "weaponHand": "main"
         }

@@ -23,6 +23,10 @@ import {
   meetsEquipped,
   offHandFactorOf,
   powerContext,
+  formOfRank,
+  formPowerContext,
+  formFlatAttackPower,
+  type FormKey,
   powerEstimate,
   rankAtLevel,
   renderAbilityText,
@@ -138,6 +142,8 @@ interface RowData {
   outcome: AbilityOutcome | null;
   /** El rango exige un objeto equipado: null = sin requisito; met = lo llevas (o no has elegido equipo). */
   requirement: { text: string; met: boolean } | null;
+  /** Forma del druida bajo la que se lanza (felina o de oso): el golpe usa el poder de la forma, no el arma. */
+  form: FormKey | null;
 }
 
 /** Lo necesario para calcular impacto y critico en la tarjeta (formulas de Classic, estadisticas base y objetivo). */
@@ -328,7 +334,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
+function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; forms: Partial<Record<FormKey, PowerContext>>; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   const abName = abilityLabel(ability);
@@ -343,7 +349,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKn
   const lines = showBase ? [] : row.summaryLines;
   const rules = showBase ? [] : row.ruleTexts;
   const chances = chancesInput ? abilityChances({ rank, classId: chancesInput.classId, level: chancesInput.level, target: chancesInput.target, formulas: chancesInput.formulas, stats: chancesInput.stats, classStats: chancesInput.classStats, lines, gear: chancesInput.gear }) : null;
-  const est = power ? powerEstimate(m, power.ctx) : null;
+  const est = power ? powerEstimate(m, (row.form ? power.forms[row.form] : null) ?? power.ctx) : null;
   // Celeridad (puntuación del equipo, talentos, Legacy y raza): reduce el tiempo de lanzamiento. Estimación: tiempo ÷ (1 + celeridad)
   const haste = power && !showBase ? hasteFor(power.haste, rank) : 0;
   const hasteCast = haste > 0 && m.castMs > 0 && !m.rank.channeled ? m.castMs / (1 + haste / 100) : null;
@@ -765,8 +771,17 @@ export function AbilitiesTable({
     });
     // La celeridad se suma como el resto de estadisticas de combate (puntuacion del equipo + talentos, Legacy y raza)
     const combat = deriveCombatStats({ derived, totals: fx.totals, gear: gearHere ? { stats: gearHere.stats, armor: 0, ratings: gearHere.ratings } : null, classStats });
-    return { ctx: powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? [], { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx.totals), creatureType }), attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
-  }, [clientStatsState, statsState, statsRaceId, idx.data.classId, level, fx, gearHere, classStats, formulas, creatureType]);
+    const ctx = powerContext(derived, gearHere?.stats ?? null, gearHere?.weapons ?? [], { offHandFactor: offHandFactorOf(formulas?.offHandDamageFactor ?? 0.5, fx.totals), creatureType });
+    // Druida: bajo forma felina o de oso no se golpea con el arma, sino con el poder de ataque de la forma (estimacion de Classic)
+    const final = (k: string): number => derived.rows.find((r) => r.key === k)?.final ?? 0;
+    const forms: Partial<Record<FormKey, PowerContext>> = {};
+    if (formulas?.forms && abilities && idx.data.classId === 11) {
+      for (const form of ["cat", "bear"] as const) {
+        forms[form] = formPowerContext(ctx, { form, forms: formulas.forms, level, strength: final("str"), agility: final("agi"), gearAttackPower: gearHere?.stats["attack-power"] ?? 0, formFlatAttackPower: formFlatAttackPower(abilities, form, level) });
+      }
+    }
+    return { ctx, forms, attributesKnown: !!row, hasGear: !!gearHere, haste: combat.haste };
+  }, [clientStatsState, statsState, statsRaceId, idx.data.classId, level, fx, gearHere, classStats, formulas, creatureType, abilities]);
   // Tipos de criatura para los que el equipo da algún bono
   const vsTypes = useMemo(() => CREATURE_TYPES.filter((c) => (gearHere?.stats[attackPowerVsKey(c.key)] ?? 0) !== 0 || (gearHere?.stats[spellDamageVsKey(c.key)] ?? 0) !== 0), [gearHere]);
   const gearBonus = useMemo(() => (gearHere?.ratings ? gearChanceBonus(gearHere.stats, gearHere.ratings) : null), [gearHere]);
@@ -789,9 +804,10 @@ export function AbilitiesTable({
       const chances: Chances | null = formulas ? abilityChances({ rank, classId: idx.data.classId, level, target, formulas, stats: baseStats, classStats, lines: sum.lines, gear: gearBonus }) : null;
       const crit = chances ? chances.crit.vsTargetPct : null;
       // Resultado por lanzamiento: sin talentos, con talentos, con tu poder y esperado con crítico y fallo
-      const outcome = abilityOutcome({ rank, level, modifiers: mods, damageDonePct: dmg ? damageDonePct(fx, rank.schoolMask) : 0, power: power?.ctx ?? null, chances, critMultiplier: formulas?.critMultiplier ?? null, hastePct: power ? hasteFor(power.haste, rank) : 0 });
+      const form = formOfRank(rank, idx.data.classId);
+      const outcome = abilityOutcome({ rank, level, modifiers: mods, damageDonePct: dmg ? damageDonePct(fx, rank.schoolMask) : 0, power: (form ? power?.forms[form] : null) ?? power?.ctx ?? null, chances, critMultiplier: formulas?.critMultiplier ?? null, hastePct: power ? hasteFor(power.haste, rank) : 0 });
       const requirement = rank.equipped.length > 0 ? { text: describeEquipped(rank.equipped), met: meetsEquipped(rank.equipped, equipped) } : null;
-      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit, outcome, requirement });
+      out.push({ ability: a, rank, m, base, summaryLines: sum.lines, inline: sum.inline, ruleTexts, count, crit, outcome, requirement, form });
     }
     return out;
   }, [abilities, level, mods, fx, ruled, formulas, baseStats, classStats, gearBonus, target, idx.data.classId, power, equipped]);

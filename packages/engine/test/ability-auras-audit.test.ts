@@ -17,7 +17,7 @@ const has = existsSync(D);
  * si un parche añade un efecto nuevo la prueba falla y hay que decidir qué es.
  */
 const KNOWN_AURAS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 31, 33, 34, 36, 39, 41, 42, 43, 44, 45, 47, 49, 51, 52, 53, 54, 56, 57,
+  1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 31, 33, 34, 36, 39, 41, 42, 43, 44, 45, 47, 49, 51, 52, 54, 56, 57,
   58, 60, 61, 64, 65, 66, 67, 68, 72, 74, 75, 77, 79, 80, 81, 82, 86, 87, 88, 91, 92, 94, 97, 99, 101, 103, 104, 105, 106, 107, 108, 110, 113, 115, 118, 120, 121, 124,
   127, 133, 134, 135, 136, 137, 140, 142, 149, 151, 161, 168, 174, 175, 184, 185, 197, 226, 227, 230, 232, 270, 271, 290, 319, 332, 342, 378, 466, 560, 562, 588, 668, 674,
 ];
@@ -44,7 +44,7 @@ describe.skipIf(!has)("auditoría: efectos de habilidades que no son daño, cura
     }
   }
 
-  it("las auras y los efectos que quedan como texto son exactamente los inventariados (117 auras y 50 efectos distintos)", () => {
+  it("las auras y los efectos que quedan como texto son exactamente los inventariados (115 auras y 50 efectos distintos)", () => {
     expect([...auras].sort((a, b) => a - b)).toEqual(KNOWN_AURAS);
     expect([...effects].sort((a, b) => a - b)).toEqual(KNOWN_EFFECTS);
   });

@@ -67,9 +67,13 @@ const SPELL_ATTR1_CHANNELED = 0x44; // CHANNELED_1 | CHANNELED_2
 const EFFECT_SCHOOL_DAMAGE = 2;
 const EFFECT_HEAL = 10;
 const EFFECT_APPLY_AURA = 6;
+/** Auras de zona sobre el grupo o la banda (Tótem de corriente curativa: aura 8 cada 2 s sobre el grupo): se tratan como aplicar un aura. */
+const AREA_AURA_EFFECTS: ReadonlySet<number> = new Set([EFFECT_APPLY_AURA, 35, 65, 128]);
 /** Drenar salud (Espiral mortal): daño directo que ademas cura al lanzador. */
 const EFFECT_HEALTH_LEECH = 9;
 const AURA_PERIODIC_DAMAGE = 3;
+/** Drenar periódico (Drenar vida, Succionar vida, Peste devoradora): daño cada periodo que además cura al lanzador. */
+const AURA_PERIODIC_LEECH = 53;
 const AURA_PERIODIC_HEAL = 8;
 const AURA_SCHOOL_ABSORB = 69;
 
@@ -88,8 +92,8 @@ const POWER_TYPES: Record<number, AbilityRank["costType"]> = { 0: "mana", 1: "ra
 function kindOf(effect: number, aura: number): AbilityEffect["kind"] {
   if (effect === EFFECT_SCHOOL_DAMAGE || effect === EFFECT_HEALTH_LEECH) return "direct-damage";
   if (effect === EFFECT_HEAL) return "direct-heal";
-  if (effect === EFFECT_APPLY_AURA && aura === AURA_PERIODIC_DAMAGE) return "periodic-damage";
-  if (effect === EFFECT_APPLY_AURA && aura === AURA_PERIODIC_HEAL) return "periodic-heal";
+  if (AREA_AURA_EFFECTS.has(effect) && (aura === AURA_PERIODIC_DAMAGE || aura === AURA_PERIODIC_LEECH)) return "periodic-damage";
+  if (AREA_AURA_EFFECTS.has(effect) && aura === AURA_PERIODIC_HEAL) return "periodic-heal";
   if (effect === EFFECT_APPLY_AURA && aura === AURA_SCHOOL_ABSORB) return "absorb";
   return "other";
 }

@@ -36,6 +36,31 @@ export const WEAPON_PERCENT_EFFECT = 31;
 export const WEAPON_FLAT_EFFECTS: ReadonlySet<number> = new Set([17, 58, 121]);
 export const isWeaponDamageEffect = (e: AbilityEffect): boolean => e.effect === WEAPON_PERCENT_EFFECT || WEAPON_FLAT_EFFECTS.has(e.effect);
 
+/**
+ * Golpes con el arma cuyo efecto el cliente deja en «dummy» sin cifra (Puyazo y Cuchillo envenenado rango 1: «infligir daño normal» con el arma de la
+ * mano izquierda): se tratan como daño de arma normalizado (efecto 121, 100 %), como el rango 2 de Cuchillo envenenado y Golpe siniestro. Si el rango ya
+ * trae efectos de daño de arma, esos.
+ */
+export function weaponDamageEffects(rank: AbilityRank): AbilityEffect[] {
+  const real = rank.effects.filter(isWeaponDamageEffect);
+  if (real.length > 0 || rank.effects.some((e) => e.kind === "direct-damage" || e.kind === "periodic-damage")) return real;
+  const dummy = rank.effects.find((e) => e.index === 0 && e.effect === 3 && e.kind === "other" && e.base === 0);
+  return dummy && /infligir da[ñn]o normal/i.test(rank.description) ? [{ ...dummy, effect: 121 }] : real;
+}
+
+/**
+ * Ejecutar: el cliente aplica su daño por código del juego y deja un efecto «dummy» con la cifra del texto («causando 600 p. de daño»). Índice del efecto
+ * y, si el texto la da, la cifra extra por cada punto de ira sobrante; null si el rango no es de este tipo.
+ */
+export function dummyDamageOf(rank: AbilityRank): { index: number; perExtraRage: number | null } | null {
+  if (rank.schoolMask !== 1) return null;
+  if (rank.effects.some((e) => e.kind === "direct-damage" || e.kind === "periodic-damage" || isWeaponDamageEffect(e))) return null;
+  const e = rank.effects.find((x) => x.index === 0 && x.effect === 3 && x.kind === "other" && x.base > 0);
+  if (!e || !/causando [\d.,]+ p\. de da[ñn]o/i.test(rank.description)) return null;
+  const extra = /en ([\d.,]+) p\. de da[ñn]o extra/i.exec(rank.description);
+  return { index: e.index, perExtraRage: extra ? Number(extra[1]!.replace(/\./g, "").replace(",", ".")) : null };
+}
+
 export const isDamageOrHeal = (e: AbilityEffect): boolean => e.kind !== "other" && e.kind !== "absorb";
 
 export function findAbility(data: Abilities, name: string): Ability | undefined {

@@ -1,5 +1,5 @@
 import type { AbilityEffect, AbilityRank } from "@wfuc/schema";
-import { effectAt, isWeaponDamageEffect, WEAPON_PERCENT_EFFECT } from "./abilities.js";
+import { effectAt, isWeaponDamageEffect, weaponDamageEffects, WEAPON_PERCENT_EFFECT } from "./abilities.js";
 import { meetsEquipped, type EquippedState } from "./equipped.js";
 import { rankOf, type Build, type ClassIndex } from "./rules.js";
 
@@ -236,7 +236,8 @@ export function applyModifiers(rank: AbilityRank, level: number, all: SpellModif
     });
   // Daño de arma: el % de daño de los talentos multiplica tanto el % de arma como el daño plano que se suma; los puntos planos
   // (aura 107) solo se suman al daño plano, nunca al porcentaje del arma
-  const weaponEffects: ModifiedEffect[] = rank.effects.filter(isWeaponDamageEffect).map((e) => {
+  const weaponList = weaponDamageEffects(rank);
+  const weaponEffects: ModifiedEffect[] = weaponList.map((e) => {
     const base = effectAt(e, rank, level);
     const ops = [8, 0, [3, 12, 23][e.index] ?? -1].filter((o) => o >= 0);
     const mods = modsOf(e);
@@ -246,7 +247,7 @@ export function applyModifiers(rank: AbilityRank, level: number, all: SpellModif
   });
   // Resto de efectos (reducciones de velocidad, aturdimientos, auras...): solo los modifican «todos los efectos» y «efecto 1/2/3»
   const otherEffects: ModifiedEffect[] = rank.effects
-    .filter((e) => (e.kind === "other" || e.kind === "absorb") && !isWeaponDamageEffect(e))
+    .filter((e) => (e.kind === "other" || e.kind === "absorb") && !isWeaponDamageEffect(e) && !weaponList.some((w) => w.index === e.index && w.viaSpellId === e.viaSpellId))
     .map((e) => {
       const base = effectAt(e, rank, level);
       const ops = [8, [3, 12, 23][e.index] ?? -1].filter((o) => o >= 0);

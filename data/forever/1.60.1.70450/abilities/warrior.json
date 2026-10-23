@@ -363,11 +363,11 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a ${$PL+1} o que estén marcados como jefes enemigos.",
+          "description": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a 61 o que estén marcados como jefes enemigos.",
           "textOrigin": "client",
           "acquireMethod": 3,
-          "descriptionComplete": false,
-          "descriptionTemplate": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a ${$PL+1} o que estén marcados como jefes enemigos.",
+          "descriptionComplete": true,
+          "descriptionTemplate": "Lanzas una cadena con gancho para retener al objetivo y acercarlo a ti. No se puede usar en enemigos con un nivel superior a 61 o que estén marcados como jefes enemigos.",
           "equipped": [],
           "weaponHand": "main"
         }
@@ -1662,11 +1662,11 @@
           "radiusYd": 100,
           "charges": [],
           "procs": [],
-          "description": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un 5% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga ${$PL*1.5} p. de poder de ataque. Dura 2 h.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida.",
+          "description": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un 5% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga 90 p. de poder de ataque. Dura 2 h.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida.",
           "textOrigin": "client",
           "acquireMethod": 3,
-          "descriptionComplete": false,
-          "descriptionTemplate": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un {{s:461475:1|5}}% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga ${$PL*1.5} p. de poder de ataque. Dura {{d:461475:1|2 h}}.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida.",
+          "descriptionComplete": true,
+          "descriptionTemplate": "Inspira a todos los miembros de tu grupo o banda para que luchen por el Valor de Azeroth, lo que aumenta un {{s:461475:1|5}}% la probabilidad de golpe crítico de todos los hechizos y ataques y otorga 90 p. de poder de ataque. Dura {{d:461475:1|2 h}}.\r\n\r\nNo puede combinarse con efectos que tengan una duración parecida.",
           "equipped": [],
           "weaponHand": "main"
         }

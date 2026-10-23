@@ -1,4 +1,5 @@
 import type { AbilityEffect, AbilityRank } from "@wfuc/schema";
+import { dummyDamageOf } from "./abilities.js";
 import type { Chances } from "./chances.js";
 import { applyModifiers, type ModifiedAbility, type ModifiedEffect, type SpellModifier } from "./spell-mods.js";
 import { powerEstimate, type PowerContext, type PowerEstimate } from "./power-bonus.js";
@@ -69,7 +70,7 @@ function ticksOf(e: AbilityEffect, m: ModifiedAbility): number {
 }
 
 /** Líneas de resultado de una habilidad: un efecto de daño o sanación por línea, y el golpe de arma si lo hay. */
-function linesOf(base: ModifiedAbility, m: ModifiedAbility, est: PowerEstimate, estBase: PowerEstimate): OutcomeLine[] {
+function linesOf(base: ModifiedAbility, m: ModifiedAbility, est: PowerEstimate, estBase: PowerEstimate, damageDone: number): OutcomeLine[] {
   const lines: OutcomeLine[] = [];
   for (const me of m.effects) {
     const e = me.effect;
@@ -88,6 +89,15 @@ function linesOf(base: ModifiedAbility, m: ModifiedAbility, est: PowerEstimate, 
       critable: isDirect(e),
       heal,
     });
+  }
+  // Ejecutar: su daño es un efecto «dummy» con la cifra del texto (los talentos solo multiplican con el daño infligido)
+  const dummy = dummyDamageOf(m.rank);
+  if (dummy) {
+    const me = m.otherEffects.find((x) => x.effect.index === dummy.index);
+    if (me) {
+      const extra = dummy.perExtraRage !== null ? ` (más ${String(dummy.perExtraRage).replace(".", ",")} por cada punto de ira extra)` : "";
+      lines.push({ label: `Daño directo${extra}`, base: base.otherEffects.find((x) => x.effect.index === dummy.index)?.final.average ?? me.base.average, talents: me.final.average * damageDone, total: me.final.average * damageDone, critable: true, heal: false });
+    }
   }
   if (est.weapon) {
     // El golpe de arma ya incluye el arma y el poder de ataque: «sin talentos» es la misma cuenta con los modificadores sin talentos
@@ -123,7 +133,7 @@ export function abilityOutcome(input: {
   const base = applyModifiers(rank, level, []);
   const est = powerEstimate(m, power);
   const estBase = powerEstimate(base, power);
-  const lines = linesOf(base, m, est, estBase);
+  const lines = linesOf(base, m, est, estBase, 1 + dd / 100);
   if (lines.length === 0) return null;
   const totals = { base: sumOf(lines, "base"), talents: sumOf(lines, "talents"), total: sumOf(lines, "total") };
 
@@ -133,7 +143,7 @@ export function abilityOutcome(input: {
   for (const name of names) {
     const without = modifiers.filter((x) => (x.source.name ?? `Hechizo ${x.source.spellId}`) !== name);
     const mw = applyModifiers(rank, level, without, { damageDonePct: dd });
-    const lw = linesOf(base, mw, powerEstimate(mw, power), estBase);
+    const lw = linesOf(base, mw, powerEstimate(mw, power), estBase, 1 + dd / 100);
     const gain = totals.total - sumOf(lw, "total");
     if (Math.abs(gain) >= 0.5) sources.push({ name, gain, gainPct: sumOf(lw, "total") > 0 ? (gain / sumOf(lw, "total")) * 100 : 0 });
   }

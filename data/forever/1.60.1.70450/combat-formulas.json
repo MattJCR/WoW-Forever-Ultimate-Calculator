@@ -28,6 +28,26 @@
   "attackPowerPerDps": 14,
   "offHandDamageFactor": 0.5,
   "armorPerAgility": 2,
+  "forms": {
+    "cat": {
+      "attackPower": {
+        "perLevel": 0,
+        "perStrength": 2,
+        "perAgility": 1,
+        "flat": -20
+      },
+      "weaponSpeed": 1
+    },
+    "bear": {
+      "attackPower": {
+        "perLevel": 0,
+        "perStrength": 2,
+        "perAgility": 0,
+        "flat": -20
+      },
+      "weaponSpeed": 2.5
+    }
+  },
   "spiritManaRegen": {
     "per5sBase": 31.25,
     "per5sPerSpirit": 0.625

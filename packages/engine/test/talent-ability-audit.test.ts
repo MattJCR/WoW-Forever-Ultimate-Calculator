@@ -39,6 +39,7 @@ describe("la mejora de un talento se ve en la descripción de la habilidad (las 
   const UNCHANGED: Record<string, string> = {
     "druid: Génesis → Arreglo rápido": "el texto no lleva cifra (la sanación se calcula con los efectos de otro hechizo)",
     "druid: Regalo de la Naturaleza → Arreglo rápido": "el texto no lleva cifra (la sanación se calcula con los efectos de otro hechizo)",
+    "druid: Regalo de la Naturaleza → Tranquilidad": "la máscara de sanación directa (operación 0) la cruza pero Tranquilidad es periódica y la de sanación periódica (22) no la incluye, como en Classic",
     "hunter: Picaduras mejoradas → Disparo de quimera": "la cifra es un % del daño de la Picadura: el talento sube la Picadura, no esta cifra",
     "hunter: Aluvión → Multidisparo": "el daño de Multidisparo lo calcula el juego (efecto de arma sin cifra en el texto)",
     "mage: Escarcha permanente → Orbe congelado": "la ralentización del texto es una cifra escrita en el texto del cliente (30 %), no un hueco",

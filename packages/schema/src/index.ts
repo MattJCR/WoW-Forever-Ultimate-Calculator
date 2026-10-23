@@ -676,6 +676,13 @@ export const CombatFormulas = z.object({
   offHandDamageFactor: z.number().default(0.5),
   /** Armadura por punto de agilidad. */
   armorPerAgility: z.number(),
+  /** Formas del druida (felina y de oso): sin arma, el golpe usa solo el poder de ataque de la forma y una velocidad fija. Estimacion de Classic. */
+  forms: z
+    .object({
+      cat: z.object({ attackPower: z.object({ perLevel: z.number(), perStrength: z.number(), perAgility: z.number(), flat: z.number() }), weaponSpeed: z.number() }),
+      bear: z.object({ attackPower: z.object({ perLevel: z.number(), perStrength: z.number(), perAgility: z.number(), flat: z.number() }), weaponSpeed: z.number() }),
+    })
+    .optional(),
   /** Mana cada 5 s por espiritu sin lanzar hechizos (regla del cuadro de los 5 segundos): base + espiritu x factor, redondeado hacia abajo. */
   spiritManaRegen: z.object({ per5sBase: z.number(), per5sPerSpirit: z.number() }),
   /** Valores base por clase que el cliente no trae: critico, esquive y poder de ataque base. */
@@ -885,6 +892,8 @@ export const Buff = z.object({
   durationMs: z.number().int().nullable(),
   /** Exclusion mutua: dos beneficios del mismo grupo no se acumulan (assumption: reglas de Classic). */
   group: z.string(),
+  /** Mascara de clase del hechizo (SpellClassOptions): los talentos con modificadores de hechizos que la cruzan mejoran sus cifras (Fuego interno mejorado, Egida demoniaca...). */
+  classMask: z.array(z.number().int()).length(4).nullable().default(null),
   /** Auras de estadistica con objetivo amistoso (propio, aliado, grupo o banda). */
   auras: z.array(ItemSpellAura),
   text: z.string(),

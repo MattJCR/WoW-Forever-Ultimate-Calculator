@@ -1,11 +1,61 @@
 {
   "note": "Hechizos de beneficio que el libro de hechizos no trae (los aplica un tótem o una mascota): se elige el rango de mayor cifra del hechizo con ese nombre en la clase. Procedencia assumption (la selección); las cifras son del cliente.",
   "extraSpells": [
-    { "classId": 7, "name": "Fuerza de la Tierra", "category": "totem" },
-    { "classId": 7, "name": "Gracia del aire", "category": "totem" },
-    { "classId": 7, "name": "Resistencia al Fuego", "category": "totem" },
-    { "classId": 7, "name": "Resistencia a la Escarcha", "category": "totem" },
-    { "classId": 7, "name": "Resistencia a la naturaleza", "category": "totem" },
-    { "classId": 9, "name": "Pacto de sangre", "category": "pet" }
+    {
+      "classId": 7,
+      "name": "Fuerza de la Tierra",
+      "category": "totem"
+    },
+    {
+      "classId": 7,
+      "name": "Gracia del aire",
+      "category": "totem"
+    },
+    {
+      "classId": 7,
+      "name": "Resistencia al Fuego",
+      "category": "totem"
+    },
+    {
+      "classId": 7,
+      "name": "Resistencia a la Escarcha",
+      "category": "totem"
+    },
+    {
+      "classId": 7,
+      "name": "Resistencia a la naturaleza",
+      "category": "totem"
+    },
+    {
+      "classId": 9,
+      "name": "Pacto de sangre",
+      "category": "pet"
+    }
+  ],
+  "levelFormulas": [
+    {
+      "classId": 1,
+      "name": "Valor de Azeroth.",
+      "auras": [
+        99,
+        124
+      ],
+      "note": "El texto dice «${$PL*1.5} p. de poder de ataque» (PL = nivel del lanzador): a nivel 60, 90. El aura trae 3 + 1,5 por nivel."
+    },
+    {
+      "classId": 2,
+      "name": "Cuerno de Lordaeron",
+      "auras": [
+        29
+      ],
+      "note": "El texto escoge la cifra de fuerza y agilidad según el nivel del lanzador (74 desde el 56). El aura trae 1."
+    }
+  ],
+  "skip": [
+    {
+      "classId": 4,
+      "name": "Danza de hojas",
+      "reason": "Su poder de ataque depende de los puntos de habilidad de defensa por encima de 5 × nivel: no es una cifra fija."
+    }
   ]
 }

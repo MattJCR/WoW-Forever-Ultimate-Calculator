@@ -348,6 +348,7 @@ export const ENGINE: Record<string, string> = {
   "Daño directo": "Direct damage",
   "Curación directa": "Direct healing",
   "Daño periódico ({#} ticks)": "Periodic damage ({#} ticks)",
+  "Daño directo (más {#} por cada punto de ira extra)": "Direct damage (plus {#} per extra point of rage)",
   "Curación periódica ({#} ticks)": "Periodic healing ({#} ticks)",
   "Golpe de arma": "Weapon strike",
   "Golpe de arma a distancia": "Ranged weapon strike",

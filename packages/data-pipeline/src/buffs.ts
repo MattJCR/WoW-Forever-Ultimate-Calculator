@@ -1,5 +1,6 @@
 import { int, type RawTables } from "./csv.js";
 import { spellEffectInfo } from "./items.js";
+import { resolveLevelFormulas } from "./level-formula.js";
 import type { SpellTables } from "./spell-tables.js";
 import type { Abilities, Buff, Buffs } from "./model.js";
 
@@ -66,12 +67,32 @@ const JUNK_NAME = /Deprecated|DEPRECATED|\(OLD\)|\bOLD\b|\(DND\)|\bTEST\b|\(DNT\
 export interface BuffRules {
   /** Hechizos extra (tótems, Pacto de sangre…) que no están en el libro de hechizos: nombre del cliente y clase. Se elige el rango de mayor cifra. */
   extraSpells: { classId: number; name: string; category: Buff["category"] }[];
+  /** Beneficios cuyo texto trae una fórmula del nivel del lanzador: se evalúa a nivel 60 y esa cifra sustituye al valor de las auras indicadas. */
+  levelFormulas: { classId: number; name: string; auras: number[]; note: string }[];
+  /** Beneficios que se dejan fuera con su motivo (la cifra depende de algo que el personaje no tiene fijo). */
+  skip: { classId: number; name: string; reason: string }[];
 }
+
 
 export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, abilities: Abilities[], rules: BuffRules, warnings: string[]): Buffs {
   const buffs = new Map<number, Buff>();
   const add = (b: Buff) => {
-    // El texto lleva una fórmula del nivel del lanzador («${$PL*1.5} p. de poder de ataque») que el aura no refleja (su valor base es otro): fuera
+    const skipped = rules.skip.find((x) => x.name === b.name && x.classId === b.classId);
+    if (skipped) {
+      warnings.push(`beneficio «${b.name}» omitido: ${skipped.reason}`);
+      return;
+    }
+    // El aura de algunos beneficios trae otra cifra que la fórmula del nivel del lanzador de su texto («${$PL*1.5} p. de poder de ataque»): las reglas
+    // dicen qué auras toman la cifra de la fórmula evaluada a nivel 60. Sin regla, un texto con fórmula sin resolver se deja fuera.
+    const rule = rules.levelFormulas.find((x) => x.name === b.name && x.classId === b.classId);
+    if (rule) {
+      const resolved = resolveLevelFormulas(spells.description(b.id) ?? "", MAX_LEVEL);
+      if (!resolved || resolved.values.length === 0) {
+        warnings.push(`beneficio «${b.name}» omitido: no se pudo evaluar la fórmula del nivel del lanzador`);
+        return;
+      }
+      b = { ...b, auras: b.auras.map((a) => (rule.auras.includes(a.aura) ? { ...a, value: resolved.values[0]! } : a)) };
+    }
     if (/\$\{/.test(b.text)) {
       warnings.push(`beneficio «${b.name}» omitido: su texto depende del nivel del lanzador (${b.text.match(/\$\{[^}]*\}/)?.[0]})`);
       return;
@@ -100,6 +121,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
         iconFileDataId: a.iconFileDataId ?? spells.iconFileDataId(rank.spellId),
         durationMs: spells.durationMs(rank.spellId),
         group: groupOf(a.name, rank.spellId),
+        classMask: rank.classMask,
         auras,
         ...text(rank.spellId),
       });
@@ -108,6 +130,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
 
   // --- Hechizos extra: tótems y auras de mascota que el libro de hechizos no trae ---------------------------------------
   const classSet = new Map(raw.table("SpellClassOptions").map((r) => [r.SpellID!, int(r.SpellClassSet)]));
+  const classMask = new Map(raw.table("SpellClassOptions").map((r) => [Number(r.SpellID), [0, 1, 2, 3].map((i) => int(r[`SpellClassMask[${i}]`]))]));
   // Solo rangos que se aprenden a nivel 60 o antes (los de nivel mayor son de contenido posterior)
   const baseLevel = new Map(raw.table("SpellLevels").map((r) => [r.SpellID!, int(r.BaseLevel)]));
   const CLASS_SET: Record<number, number> = { 1: 4, 2: 10, 3: 9, 4: 8, 5: 6, 7: 11, 8: 3, 9: 5, 11: 7 };
@@ -136,6 +159,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
       iconFileDataId: spells.iconFileDataId(best.id),
       durationMs: spells.durationMs(best.id),
       group: `spell-${best.id}`,
+      classMask: classMask.get(best.id) ?? null,
       auras: friendlyAuras(spells, best.id),
       ...text(best.id),
     });
@@ -181,6 +205,7 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
           iconFileDataId: int(item.IconFileDataID) || spells.iconFileDataId(spellId),
           durationMs: duration,
           group: `spell-${spellId}`,
+          classMask: null,
           auras,
           ...text(spellId),
         });
