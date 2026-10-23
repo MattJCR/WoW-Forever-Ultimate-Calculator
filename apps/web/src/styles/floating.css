@@ -348,6 +348,14 @@ dd {
   font-weight: 400;
   color: var(--muted);
 }
+/* Las cifras y sus cabeceras no se parten por la mitad: si la etiqueta es larga, es la primera columna la que baja de línea */
+.ab-outcome-table td {
+  white-space: nowrap;
+}
+.ab-outcome-table th:not(:first-child) {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
 .ab-outcome-table thead th {
   color: var(--muted);
   font-weight: 400;
