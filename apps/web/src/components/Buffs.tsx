@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { classLabel, fmtNum, isEnglish, tr, trn } from "../i18n";
 import { effectLabel } from "./gear-format";
 import { StepNav, type View } from "./ClassShell";
+import { FloatingCard } from "./Detail";
 import { Icon } from "./Icon";
+import { anchorOf, type Anchor } from "./TreePanel";
 
 /** Nombre de un beneficio en el idioma elegido (el inglés es el de las tablas oficiales; si falta, el del cliente). */
 const buffName = (b: Buff): string => (isEnglish() && b.nameEn ? b.nameEn : b.name).replace(/(?<=\w\w)\.$/, "");
@@ -27,6 +29,40 @@ const CONSUMABLE_LABEL: Record<string, string> = {
   other: "Otros consumibles",
 };
 const CONSUMABLE_ORDER = ["elixir", "flask", "food", "potion", "scroll", "other"];
+
+/** Tarjeta flotante de un beneficio: icono, nombre, duración y el texto del cliente (el mismo estilo que la de las raciales). */
+function BuffCard({ b }: { b: Buff }) {
+  return (
+    <div className="racial-tip">
+      <div className="detail-head">
+        <Icon id={b.iconFileDataId} name={buffName(b)} />
+        <div>
+          <h4>{buffName(b)}</h4>
+          <p className="rank-line">{tr("Beneficio")} · {durationText(b.durationMs)}</p>
+        </div>
+      </div>
+      <p className="desc-text">{trn(effectLabel({ spellId: b.id, text: b.text, name: b.name }))}</p>
+    </div>
+  );
+}
+
+/** Casilla de un beneficio: solo icono y nombre; al pasar el cursor o enfocarla con el teclado enseña su tarjeta. */
+function BuffTile({ b, on, onToggle }: { b: Buff; on: boolean; onToggle: () => void }) {
+  const [anchor, setAnchor] = useState<Anchor | null>(null);
+  return (
+    <li onMouseEnter={(e) => setAnchor(anchorOf(e.currentTarget))} onMouseLeave={() => setAnchor(null)} onFocus={(e) => setAnchor(anchorOf(e.currentTarget))} onBlur={() => setAnchor(null)}>
+      <button type="button" className={`buff-card${on ? " on" : ""}`} aria-pressed={on} onClick={onToggle}>
+        <Icon id={b.iconFileDataId} name={buffName(b)} />
+        <b>{buffName(b)}</b>
+      </button>
+      {anchor && (
+        <FloatingCard anchor={anchor} placement="below">
+          <BuffCard b={b} />
+        </FloatingCard>
+      )}
+    </li>
+  );
+}
 
 interface Section {
   id: string;
@@ -104,24 +140,9 @@ export function BuffsStep({ manifest, index, loading, selected, onChange, onGo }
                   <b>{s.title}</b> <span className="muted small">({n}/{s.buffs.length})</span>
                 </summary>
                 <ul className="buff-grid">
-                  {s.buffs.map((b) => {
-                    const on = selected.has(b.id);
-                    return (
-                      <li key={b.id}>
-                        <button
-                          type="button"
-                          className={`buff-card${on ? " on" : ""}`}
-                          aria-pressed={on}
-                          onClick={() => toggle(b, !on)}
-                          title={`${buffName(b)} · ${durationText(b.durationMs)}
-${trn(effectLabel({ spellId: b.id, text: b.text, name: b.name }))}`}
-                        >
-                          <Icon id={b.iconFileDataId} name={buffName(b)} />
-                          <b>{buffName(b)}</b>
-                        </button>
-                      </li>
-                    );
-                  })}
+                  {s.buffs.map((b) => (
+                    <BuffTile key={b.id} b={b} on={selected.has(b.id)} onToggle={() => toggle(b, !selected.has(b.id))} />
+                  ))}
                 </ul>
               </details>
             );

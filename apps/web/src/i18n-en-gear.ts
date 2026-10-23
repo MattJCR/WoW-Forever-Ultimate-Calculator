@@ -64,6 +64,7 @@ export const GEAR: Record<string, string> = {
   "Quitar todos": "Remove all",
   "Beneficios activos": "Active buffs",
   "Beneficios": "Buffs",
+  "Beneficio": "Buff",
   "{n} activos": "{n} active",
   "Ninguno": "None",
   "Beneficios activos: {n}.": "Active buffs: {n}.",
