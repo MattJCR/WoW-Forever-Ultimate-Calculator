@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70532",
   "locale": "esES",
-  "generatedAt": "2026-10-23T09:50:46.805Z",
+  "generatedAt": "2026-10-23T14:13:13.668Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -221,63 +221,63 @@
     {
       "classId": 1,
       "file": "abilities/warrior.json",
-      "sha256": "1d91bc1ee7d5cfdb905c1176dee48910a7a8f5b740bacc58352eacf4cd2318b6",
+      "sha256": "efbadd931de141adc78e6430983db6ca5d4f2e6dafffc8676a9b8b910497f660",
       "abilityCount": 50,
       "rankCount": 125
     },
     {
       "classId": 2,
       "file": "abilities/paladin.json",
-      "sha256": "50b872229f5b898824e871a1c352bc6393901927f7d94ee4440b274733905f37",
+      "sha256": "f242ab959796df52480a76aef9f6dfdfc9e035d1847149b86993f2c02b291a56",
       "abilityCount": 66,
       "rankCount": 184
     },
     {
       "classId": 3,
       "file": "abilities/hunter.json",
-      "sha256": "a076ae24966f7f7c7be8090b20164e45cded4bf300eb1826fc2c5c4da7f2b448",
+      "sha256": "1389c97ae9c74e23938add181fc38ba0ddb3468a4d012830607547a4c8e159b4",
       "abilityCount": 68,
       "rankCount": 171
     },
     {
       "classId": 4,
       "file": "abilities/rogue.json",
-      "sha256": "f503627de7aa97f3f953a748f887017d5a10c8ba13eee71451c6042f958598d6",
+      "sha256": "96f931b36969bc5dbc42241081a7a9b0e6221d116cb11dc50eb6e3557794aaad",
       "abilityCount": 53,
       "rankCount": 135
     },
     {
       "classId": 5,
       "file": "abilities/priest.json",
-      "sha256": "4d293449fed173231013a0cfb00b4d12376cb4cb43ab2b17635b4409bce51b37",
-      "abilityCount": 70,
-      "rankCount": 264
+      "sha256": "cf99b60f9c1b3bf5e73924e3f95d806ec14ae3bdfe9e09b7b6b582514e9ed546",
+      "abilityCount": 75,
+      "rankCount": 269
     },
     {
       "classId": 7,
       "file": "abilities/shaman.json",
-      "sha256": "09ea21a6ebb051f425b1d0ff3a83a21a1f654df3492dbf4d0cce8856c36831fb",
+      "sha256": "743f5c26f7e74fa1193869ae04e6161e8c744a49aae775b3164165b1beb0261a",
       "abilityCount": 66,
       "rankCount": 207
     },
     {
       "classId": 8,
       "file": "abilities/mage.json",
-      "sha256": "4fcfda850557a3aea9969e227e756534bfbd7a5d7a32baeba1d1a00ad20dc5c1",
+      "sha256": "5d3a440b9d71116b6cf31a544104e69ea0ebb74fae265ff8a9dc2962e0f92b08",
       "abilityCount": 72,
       "rankCount": 220
     },
     {
       "classId": 9,
       "file": "abilities/warlock.json",
-      "sha256": "4562990d91f75ba9c6b978ef7f1a905e83aa3e0eff411d52c7dd0fe9e4e6fdd1",
+      "sha256": "b611aada039d522f3a73fade78f67095317f9d3afb4cba30edffb71f038606ad",
       "abilityCount": 66,
       "rankCount": 198
     },
     {
       "classId": 11,
       "file": "abilities/druid.json",
-      "sha256": "62d0e8150bab269dde5ae7d8ec4559276a90954786dcb77a194f5d24acb5e524",
+      "sha256": "20ec3115a5861b14cb2ac150d4accaa7e433b977cf1effc2d3c8a98f32c6b0f9",
       "abilityCount": 69,
       "rankCount": 221
     }
@@ -333,12 +333,12 @@
   },
   "icons": {
     "file": "icons.json",
-    "count": 1923,
-    "sha256": "44c46fb0b41ec144868e9f217abe69336b29648a5b78ed3986a6ccf9e412f206"
+    "count": 1924,
+    "sha256": "7e396ad865e317f0d43e5434d2005b276684a60b2e319214b9eb4c4fc39b3698"
   },
   "english": {
     "file": "i18n/en.json",
-    "sha256": "f20c3544990c6aa947d6a2057f4c9afa6aaaf4b19ddc8f1baefa4598fc9e5ba0"
+    "sha256": "57332eb94a03efc24f3142ba0a1b029fdf633644705fbbd95113077cfb846672"
   },
   "unassigned": {
     "file": "unassigned.json",

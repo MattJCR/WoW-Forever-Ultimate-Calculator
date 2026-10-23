@@ -2,6 +2,7 @@ import { CLASS_ID_BY_SPELL_SET } from "./build.js";
 import type { Poly } from "./desc-variables.js";
 import { int, type RawTables, type Row } from "./csv.js";
 import type { Abilities, Ability, AbilityEffect, AbilityRank, ClassTalents } from "./model.js";
+import { RACIAL_SKILL_LINES } from "./racial-spells.js";
 import { renderSpellText, withoutConditions } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
 
@@ -180,6 +181,29 @@ const NAME_ALIASES: Record<string, string> = {
 const LEARNED_WITHOUT_LEVEL = new Set([5502]);
 
 /**
+ * Hechizos raciales de la clase que el cliente guarda fuera de sus SkillLines (2885 «Secretos…», 2853 ranuras de runa) y sin nivel:
+ * Sacerdote (classId 5): «Facultad racial de sacerdote» (la ranura donde se aprende un hechizo de otra raza) y los cuatro «Secretos de…»
+ * (meditar en lugares de la Luz, Elune, los loa y la no-muerte). Son pasivos o sin cifras; se ofrecen desde el nivel 1 (`assumption` solo en el nivel)
+ * y con su texto del cliente. «Priest Racial Ability RAQ» (1219274) duplica la ranura para Humano, Enano, Elfo de la noche y Trol y no trae
+ * nombre en español: queda fuera y se anota en docs/DATA-FINDINGS.md.
+ */
+export const RACIAL_CLASS_SPELLS: Record<number, number[]> = { 5: [459695, 424035, 424036, 424037, 424041] };
+
+/** Razas jugables del cliente (ChrRaces.ID): las de RACIAL_SKILL_LINES. */
+const PLAYABLE_RACES = Object.keys(RACIAL_SKILL_LINES).map(Number).sort((a, b) => a - b);
+
+/**
+ * Razas que marca una fila de SkillLineAbility. Los bits de RaceMasks[0] son id-1 (Humano 1, Orco 2, Enano 4, Elfo de la noche 8,
+ * No-muerto 16, Tauren 32, Gnomo 64, Trol 128); en RaceMasks[1], el bit 0 es Cielonato de la Orden Eminente (95) y el bit 1 Formavientos (96).
+ * 0 y -1 no restringen. Las mascaras de faccion (portales del Mago) salen como la lista de razas de esa faccion.
+ */
+export function racesOfMasks(m0: number, m1: number): number[] | null {
+  if ((m0 === 0 && m1 === 0) || (m0 === -1 && m1 === -1)) return null;
+  const ids = PLAYABLE_RACES.filter((id) => (id < 33 ? (m0 >>> (id - 1)) & 1 : id === 95 ? m1 & 1 : id === 96 ? (m1 >>> 1) & 1 : 0));
+  return ids.length === PLAYABLE_RACES.length ? null : ids;
+}
+
+/**
  * Habilidades de una clase tal como las da el cliente: los hechizos de su familia (SpellClassOptions), de sus SkillLines,
  * no pasivos y que se aprenden a un nivel (SpellLevels.BaseLevel > 0). Cada rango trae coste, tiempo de lanzamiento,
  * enfriamiento, alcance y sus efectos con base, variacion, puntos por nivel y coeficiente de poder con hechizos.
@@ -203,7 +227,24 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
   /** Spells cuya fila de SkillLineAbility los marca para la clase (ClassMask), aunque no tengan SpellClassOptions (p. ej. Polvo cegador). */
   const classMarked = new Set<number>();
   const acquire = new Map<number, number>();
+  /** Razas por hechizo: union de sus filas de SkillLineAbility para la clase (una fila sin restriccion lo abre a todas). */
+  const raceRows = new Map<number, { all: boolean; ids: Set<number> }>();
+  const extraSpells = new Set(RACIAL_CLASS_SPELLS[classId] ?? []);
+  /** Razas que pueden ser de esta clase (CharBaseInfo): una lista que las cubre todas no restringe nada. */
+  const classRaces = new Set(raw.table("CharBaseInfo").filter((r) => int(r.ClassID) === classId).map((r) => int(r.RaceID)));
   for (const r of raw.table("SkillLineAbility")) {
+    const cm = int(r.ClassMask);
+    if (cm <= 0 || (cm & classBit) !== 0) {
+      const entry = raceRows.get(int(r.Spell)) ?? raceRows.set(int(r.Spell), { all: false, ids: new Set() }).get(int(r.Spell))!;
+      const ids = racesOfMasks(int(r["RaceMasks[0]"]), int(r["RaceMasks[1]"]));
+      if (ids === null) entry.all = true;
+      else for (const id of ids) entry.ids.add(id);
+    }
+    if (extraSpells.has(int(r.Spell)) && (cm & classBit) !== 0) {
+      candidates.add(int(r.Spell));
+      classMarked.add(int(r.Spell));
+      if (!acquire.has(int(r.Spell))) acquire.set(int(r.Spell), int(r.AcquireMethod));
+    }
     if (!lineSet.has(r.SkillLine!)) continue;
     candidates.add(int(r.Spell));
     acquire.set(int(r.Spell), int(r.AcquireMethod));
@@ -213,6 +254,14 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
   const talentLevel = new Map<number, number>();
   for (const t of classTalents?.specs.flatMap((s) => s.talents) ?? []) if (!spells.isPassive(t.spellId)) talentLevel.set(t.spellId, 10 + t.requiredPoints);
   for (const id of talentLevel.keys()) candidates.add(id);
+
+  /** Razas de la clase que pueden usar el hechizo; null = todas (sin restriccion, o una que cubre a todas las razas de la clase). */
+  const racesFor = (spellId: number): number[] | null => {
+    const e = raceRows.get(spellId);
+    if (!e || e.all || e.ids.size === 0) return null;
+    const ids = [...e.ids].filter((id) => classRaces.size === 0 || classRaces.has(id)).sort((a, b) => a - b);
+    return ids.length === 0 || (classRaces.size > 0 && ids.length === classRaces.size) ? null : ids;
+  };
 
   /** Nombres de las habilidades normales (no de runa): una runa que los repite se separa. */
   const plainNames = new Set<string>();
@@ -234,10 +283,10 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
     const lv = levels.get(String(spellId));
     // Nivel de aprendizaje: BaseLevel; los venenos del Picaro lo traen en SpellLevel; las de talento, el de su fila
     const fromTalent = talentLevel.get(spellId);
-    const baseLevel = fromTalent ?? (int(lv?.BaseLevel) || (classMarked.has(spellId) ? int(lv?.SpellLevel) : 0) || (LEARNED_WITHOUT_LEVEL.has(spellId) && classMarked.has(spellId) ? 1 : 0));
+    const baseLevel = fromTalent ?? (int(lv?.BaseLevel) || (classMarked.has(spellId) ? int(lv?.SpellLevel) : 0) || ((LEARNED_WITHOUT_LEVEL.has(spellId) || extraSpells.has(spellId)) && classMarked.has(spellId) ? 1 : 0));
     const m = misc.get(String(spellId));
     if (baseLevel <= 0 || !m) continue;
-    if (int(m["Attributes[0]"]) & SPELL_ATTR0_PASSIVE) continue;
+    if (int(m["Attributes[0]"]) & SPELL_ATTR0_PASSIVE && !extraSpells.has(spellId)) continue;
     // Algunos rangos traen el numero romano en el nombre (Veneno instantaneo III): se agrupan bajo el nombre base
     const rawName = baseNameOf(spellId);
     if (!rawName) continue;
@@ -286,6 +335,7 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
       level: baseLevel,
       learnedByTalent: fromTalent !== undefined,
       acquireMethod: fromTalent !== undefined ? null : (acquire.get(spellId) ?? null),
+      races: racesFor(spellId),
       textOrigin: spells.textOrigin(spellId),
       maxLevel: int(lv?.MaxLevel) || null,
       costType,

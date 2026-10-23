@@ -2,10 +2,10 @@
   "build": "1.60.1.70532",
   "tablesBuild": "1.60.1.70532",
   "ranks": {
-    "total": 1725,
-    "templated": 1714,
-    "named": 1725,
-    "filledByOfficial": 181,
+    "total": 1730,
+    "templated": 1719,
+    "named": 1730,
+    "filledByOfficial": 186,
     "own": 10
   },
   "nameDifferences": [],

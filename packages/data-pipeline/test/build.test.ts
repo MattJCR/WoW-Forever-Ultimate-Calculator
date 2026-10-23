@@ -8,7 +8,7 @@ import { openRawTables } from "../src/csv.js";
 import { Abilities, BaseStats, ClassTalents, ClientStats, CombatFormulas, Races } from "../src/model.js";
 import { buildBaseStats, type ClassicEra } from "../src/stats.js";
 import { auditLevelStats } from "../src/stats-audit.js";
-import { buildAbilities } from "../src/abilities.js";
+import { buildAbilities, racesOfMasks } from "../src/abilities.js";
 import { looksEnglish } from "../src/language.js";
 import { CLIENT_TYPOS, buildRaces, parseRacialName } from "../src/races.js";
 import { buildLegacy } from "../src/legacy.js";
@@ -1010,8 +1010,36 @@ describe("habilidades del Sacerdote (libro de hechizos del cliente)", () => {
 
   it("cumple el esquema y trae las lineas de Disciplina, Sagrado y Sombras", () => {
     expect(() => Abilities.parse(data)).not.toThrow();
-    expect(data.abilities).toHaveLength(70);
-    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(264);
+    expect(data.abilities).toHaveLength(75);
+    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(269);
+  });
+
+  it("las habilidades de raza del Sacerdote van ligadas a su raza por las mascaras del cliente; Peste devoradora y Custodia de miedo son de todas", () => {
+    const races = (name: string) => [...new Set(data.abilities.find((a) => a.name === name)!.ranks.map((r) => JSON.stringify(r.races)))];
+    // Humano 1, Enano 3, Elfo de la noche 4, No-muerto 5, Gnomo 7, Trol 8
+    expect(races("Rezo desesperado")).toEqual(["[3]"]);
+    expect(races("Castigar")).toEqual(["[3]"]);
+    expect(races("Rebote")).toEqual(["[1]"]);
+    expect(races("Gracia divina")).toEqual(["[1]"]);
+    expect(races("Gracia de Elune")).toEqual(["[4]"]);
+    expect(races("Fragmentos estelares")).toEqual(["[4]"]);
+    expect(races("Toque de debilidad")).toEqual(["[5]"]);
+    expect(races("Sacrificio oscuro")).toEqual(["[5]"]);
+    expect(races("Plan de contingencia")).toEqual(["[7]"]);
+    expect(races("Destello desconcertante")).toEqual(["[7]"]);
+    expect(races("Maleficio de debilidad")).toEqual(["[8]"]);
+    expect(races("Guardia de las Sombras")).toEqual(["[8]"]);
+    expect(races("Peste devoradora")).toEqual(["null"]);
+    expect(races("Custodia de miedo")).toEqual(["null"]);
+    expect(races("Palabra de poder: escudo")).toEqual(["null"]);
+  });
+
+  it("la ranura «Facultad racial de sacerdote» y los cuatro «Secretos de…» entran como habilidades del Sacerdote (sin cifras)", () => {
+    for (const n of ["Facultad racial de sacerdote", "Secretos de la Luz", "Secretos de Elune", "Secretos de los loa", "Secretos de la no-muerte"]) {
+      const a = data.abilities.find((x) => x.name === n);
+      expect(a, n).toBeDefined();
+      expect(a!.ranks[0]!.level).toBe(1);
+    }
   });
 
   it("los hechizos auxiliares (descargas de Guardia de las Sombras, debilitamiento de Toque de debilidad, golpes de Penitencia) no son rangos: los rangos por nombre cuadran con la referencia", () => {
@@ -1441,5 +1469,20 @@ describe("condicionales de la plantilla, requisitos de objeto equipado y mano de
     expect(new Set(hand(4, "Puyazo"))).toEqual(new Set(["off"]));
     expect(new Set(hand(7, "Latigazo de lava"))).toEqual(new Set(["off"]));
     expect(new Set(hand(4, "Puñalada"))).toEqual(new Set(["main"]));
+  });
+});
+
+describe("razas de una fila de SkillLineAbility", () => {
+  it("decodifica las mascaras: bit = id de raza - 1 y Cielonato en RaceMasks[1]", () => {
+    expect(racesOfMasks(4, 0)).toEqual([3]);
+    expect(racesOfMasks(5, 0)).toEqual([1, 3]);
+    expect(racesOfMasks(16, 0)).toEqual([5]);
+    expect(racesOfMasks(0, 3)).toEqual([95, 96]);
+    expect(racesOfMasks(0, 1)).toEqual([95]);
+    // Sin restriccion: 0 o -1
+    expect(racesOfMasks(0, 0)).toBeNull();
+    expect(racesOfMasks(-1, -1)).toBeNull();
+    // Mascara de faccion (portales del Mago): Alianza = Humano, Enano, Elfo de la noche, Gnomo + Cielonato de la Orden Eminente
+    expect(racesOfMasks(-1321907123, 1427461461)).toEqual([1, 3, 4, 7, 95]);
   });
 });

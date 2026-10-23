@@ -54,16 +54,25 @@ import {
 import type { Ability, AbilityRank, ClassStatLevel, CombatFormulas, CombatRatings, Manifest, Race } from "@wfuc/schema";
 import { Abilities as AbilitiesSchema, BaseStats as BaseStatsSchema, ClientStats as ClientStatsSchema, CombatFormulas as CombatFormulasSchema, TalentRules as TalentRulesSchema } from "@wfuc/schema";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent } from "react";
-import { getJson, useAsync } from "../data";
+import { getJson, loadRaces, useAsync } from "../data";
 import { fitCardToViewport } from "./fit";
 import { Icon } from "./Icon";
 
-import { abilityName, classLabel, fmtNum, isEnglish, isOwnTranslation, nm, registerAbilities, spellEn, tr, trn } from "../i18n";
+import { abilityName, classLabel, fmtNum, isEnglish, isOwnTranslation, nm, raceLabel, registerAbilities, spellEn, tr, trn } from "../i18n";
 const fmt = (n: number, digits = 0): string => fmtNum(n, digits);
 /** Nombre de la habilidad en el idioma elegido (el inglés es de la comunidad; sin él, el español del cliente). */
 const abilityLabel = (a: Ability): string => abilityName(a.ranks.map((r) => r.spellId), a.name);
 const seconds = (ms: number): string => `${fmt(ms / 1000, 1)} s`;
 const sign = (v: number): string => `${v > 0 ? "+" : ""}${fmt(v, 1)}`;
+
+/** A quién se limita una habilidad ligada a raza: «Alianza», «Horda» o los nombres de las razas (SkillLineAbility.RaceMasks, client-db2). */
+function racesText(ids: number[], all: Race[]): string {
+  for (const f of ["alliance", "horde"] as const) {
+    const ofFaction = all.filter((r) => r.faction === f).map((r) => r.id);
+    if (ofFaction.length > 0 && ofFaction.length === ids.length && ofFaction.every((id) => ids.includes(id))) return f === "alliance" ? tr("Alianza") : tr("Horda");
+  }
+  return ids.map((id) => raceLabel(id, all.find((r) => r.id === id)?.name ?? String(id))).join(", ");
+}
 
 /** Tipo de recurso del coste, en español. */
 const POWER_LABEL: Record<string, string> = { mana: "maná", rage: "ira", energy: "energía", focus: "enfoque", other: "" };
@@ -240,7 +249,7 @@ function Tile({ label, value, changed, tone }: { label: string; value: string; c
   );
 }
 
-function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean; onHover: (e: { x: number; y: number } | null) => void; onToggle: (e: { x: number; y: number }) => void }) {
+function Row({ d, races, selected, onHover, onToggle }: { d: RowData; /** Razas del cliente (para nombrar a las de la habilidad). */ races: Race[]; selected: boolean; onHover: (e: { x: number; y: number } | null) => void; onToggle: (e: { x: number; y: number }) => void }) {
   const { m, ability, base } = d;
   const mods = improvedBy(d);
   const name = abilityLabel(ability);
@@ -270,6 +279,11 @@ function Row({ d, selected, onHover, onToggle }: { d: RowData; selected: boolean
               <h4>{name}</h4>
               <p className="ab-sub">
                 <span className="rank-chip">{tr("rango")} {m.rank.rank}</span>
+                {d.rank.races && (
+                  <span className="race-chip" title={tr("Habilidad de clase ligada a la raza (o facción) en el cliente")}>
+                    {tr("Solo {races}", { races: racesText(d.rank.races, races) })}
+                  </span>
+                )}
                 {ability.talentsForever && ability.talentsForever.status !== "listed" && (
                   <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ? trn(ability.talentsForever.note) : undefined}>
                     {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
@@ -334,7 +348,7 @@ function Stat({ label, now, was }: { label: string; now: string; was: string }) 
  * Tarjeta completa de una habilidad: cifras, texto del cliente con los numeros recalculados, efectos, y todo lo que tus
  * talentos, Legacy y raza le suman (ya sumado). Con Ctrl pulsado muestra la base sin mejoras.
  */
-function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; forms: Partial<Record<FormKey, PowerContext>>; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
+function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power, textKnown }: { tip: Tip; races: Race[]; base: boolean; onClose: () => void; chancesInput: ChancesInput | null; /** Talentos escogidos para las condicionales del texto («si tienes el talento X»). */ textKnown: { known: ReadonlySet<number>; talentValue: (spellId: number, effectIndex: number) => number | null } | null; power: { ctx: PowerContext; forms: Partial<Record<FormKey, PowerContext>>; attributesKnown: boolean; hasGear: boolean; haste: CombatStats["haste"] } | null }) {
   const { row } = tip;
   const { ability, rank } = row;
   const abName = abilityLabel(ability);
@@ -398,6 +412,7 @@ function AbilityCard({ tip, base: showBase, onClose, chancesInput, power, textKn
           <h4>{abName}</h4>
           <p className="rank-line">
           {tr("Rango")} {rank.rank} · {rank.learnedByTalent ? tr("lo enseña un talento") : tr("se aprende")} {tr("al nivel")} {rank.level}
+          {rank.races && ` · ${tr("Solo {races}", { races: racesText(rank.races, races) })}`}
           </p>
           {ability.talentsForever && ability.talentsForever.status !== "listed" && (
             <p className={`tf-note tf-${ability.talentsForever.status}`}>{trn(ability.talentsForever.note ?? "")}</p>
@@ -696,6 +711,10 @@ export function AbilitiesTable({
   const [creatureType, setCreatureType] = useState<string | null>(null);
   const [onlyAffected, setOnlyAffected] = useState(true);
   const [onlyActive, setOnlyActive] = useState(true);
+  // Con raza elegida, las habilidades de clase de otras razas (Rezo desesperado del Enano…) se ocultan; se pueden ver desmarcando
+  const [onlyMyRace, setOnlyMyRace] = useState(true);
+  const racesState = useAsync(manifest.races.file, () => loadRaces(manifest.races.file));
+  const allRaces: Race[] = racesState.status === "ready" ? racesState.value.races : [];
   const [hover, setHover] = useState<{ name: string; x: number; y: number } | null>(null);
   const [pin, setPin] = useState<{ name: string; x: number; y: number } | null>(null);
   const [ctrl, setCtrl] = useState(false);
@@ -819,7 +838,9 @@ export function AbilitiesTable({
   // «Activa en Forever» = la lista de la referencia (o no hay referencia para la clase). Las runas de Forever que la referencia no lista y las que da por retiradas se ven al desmarcar
   const isActive = (d: (typeof data)[number]): boolean => !d.ability.talentsForever || d.ability.talentsForever.status === "listed" || d.ability.talentsForever.status === "partial";
   const hiddenInactive = data.filter((d) => (!onlyAffected || d.count > 0) && !isActive(d)).length;
-  const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)));
+  const ofMyRace = (d: (typeof data)[number]): boolean => !race || !d.rank.races || d.rank.races.includes(race.id);
+  const hiddenOtherRace = race ? data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && !ofMyRace(d)).length : 0;
+  const rows = data.filter((d) => (!onlyAffected || d.count > 0) && (!onlyActive || isActive(d)) && (!onlyMyRace || ofMyRace(d)));
   const shown = pin ?? hover;
   const tipRow = shown ? data.find((d) => d.ability.name === shown.name) : undefined;
 
@@ -853,6 +874,12 @@ export function AbilitiesTable({
           <input type="checkbox" checked={onlyActive} onChange={(e) => setOnlyActive(e.target.checked)} /> {tr("Solo activas en Forever")}
           {onlyActive && hiddenInactive > 0 ? <small className="muted"> ({hiddenInactive} {tr("ocultas")})</small> : null}
         </label>
+        {race && (
+          <label title={tr("Algunas habilidades de clase solo las tiene una raza (el Enano sacerdote, Rezo desesperado). Desmárcalo para ver también las de otras razas")}>
+            <input type="checkbox" checked={onlyMyRace} onChange={(e) => setOnlyMyRace(e.target.checked)} /> {tr("Solo las de mi raza")}
+            {onlyMyRace && hiddenOtherRace > 0 ? <small className="muted"> ({hiddenOtherRace} {tr("ocultas")})</small> : null}
+          </label>
+        )}
         <span className="muted small">
           {rows.length} {tr("habilidades · pasa el cursor por una para ver todo (Ctrl = base sin mejoras; clic para fijar la tarjeta")})
         </span>
@@ -863,6 +890,7 @@ export function AbilitiesTable({
             <Row
               key={d.ability.name}
               d={d}
+              races={allRaces}
               selected={pin?.name === d.ability.name}
               onHover={(pos) => setHover(pos ? { name: d.ability.name, ...pos } : null)}
               onToggle={(pos) => setPin((p) => (p?.name === d.ability.name ? null : { name: d.ability.name, ...pos }))}
@@ -876,7 +904,7 @@ export function AbilitiesTable({
       <p className="muted small">
         <span className="tag tag-unassigned">{tr("Cliente")}</span> {tr("Cifras de los hechizos de la beta con el valor del rango al nivel elegido. En azul lo que cambian tus talentos; «Mejorada por» nombra los talentos, Puntos de Legado y piezas de equipo que le afectan (los efectos de la raza se aplican a todas y no se listan). Los talentos que dan una habilidad activa (Poder Arcano, Presencia mental…) no cuentan porque solo valen mientras está activa, salvo que los marques en «Habilidades activas». El daño infligido por escuela de talentos, raza y equipo ya multiplica el daño; los que dependen de un arma o un estado (varitas, armas de una o dos manos, escudo) quedan como texto. El poder con hechizos y de ataque se estima aparte («Con tu poder»: reglas de Classic, sin confirmar en Forever")}).
       </p>
-      {shown && tipRow && <AbilityCard tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
+      {shown && tipRow && <AbilityCard races={allRaces} tip={{ row: tipRow, x: shown.x, y: shown.y, pinned: !!pin }} base={ctrl} onClose={() => setPin(null)} textKnown={textKnown} chancesInput={formulas ? { formulas, stats: baseStats, classStats, target, level, classId: idx.data.classId, gear: gearBonus } : null} power={power} />}
     </>
   );
 }

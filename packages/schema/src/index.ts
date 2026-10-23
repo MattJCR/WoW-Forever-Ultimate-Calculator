@@ -522,6 +522,11 @@ export const AbilityRank = z.object({
   textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
   /** SkillLineAbility.AcquireMethod: 0 se aprende (entrenador), 2 viene con la clase, 3 habilidad de runa de Forever; null = la ensena un talento. */
   acquireMethod: z.number().int().nullable().default(null),
+  /**
+   * Razas que pueden usarla (id de ChrRaces: 1 Humano … 8 Trol, 95/96 Cielonato), de las mascaras de raza de SkillLineAbility (client-db2);
+   * null = todas. Hay habilidades de clase ligadas a una raza (Sacerdote: Rezo desesperado, Toque de debilidad…) o a una faccion (portales del Mago).
+   */
+  races: z.array(z.number().int()).nullable().default(null),
   /** false si el texto lleva marcadores que no se pudieron calcular (expresiones nuevas de Forever como `${$123m1*$d}`). */
   descriptionComplete: z.boolean(),
   /**
