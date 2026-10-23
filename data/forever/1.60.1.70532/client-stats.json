@@ -1,0 +1,3860 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70532",
+  "provenance": "client-db2",
+  "maxLevel": 60,
+  "classes": [
+    {
+      "classId": 1,
+      "attackPowerPerStrength": 2,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 2,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0025,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 2,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002381,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 3,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002381,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 4,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002273,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 5,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002174,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 6,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002083,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 7,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002083,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 8,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 9,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001923,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 10,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001923,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 11,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001852,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 12,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001786,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 13,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001667,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 14,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001613,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 15,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001563,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 16,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001515,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 17,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001471,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 18,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001389,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 19,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001351,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 20,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001282,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 21,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001282,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 22,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00125,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 23,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00119,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 24,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001163,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 25,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001111,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 26,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001087,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 27,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001064,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 28,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00102,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 29,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 30,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000962,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 31,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000943,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 32,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000926,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 33,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000893,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 34,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000877,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 35,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000847,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 36,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 37,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00082,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 38,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000794,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 39,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000781,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 40,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000758,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 41,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000735,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 42,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000725,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 43,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000704,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 44,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000694,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 45,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000676,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 46,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 47,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000649,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 48,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000633,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 49,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 50,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00061,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 51,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000595,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 52,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000588,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 53,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000575,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 54,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000562,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 55,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000549,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 56,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000543,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 57,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000532,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 58,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000521,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 59,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00051,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 60,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0005,
+          "spellCritPerIntellect": 0
+        }
+      ]
+    },
+    {
+      "classId": 2,
+      "attackPowerPerStrength": 2,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 60,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00215,
+          "spellCritPerIntellect": 0.00075
+        },
+        {
+          "level": 2,
+          "baseMana": 64,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002048,
+          "spellCritPerIntellect": 0.000714
+        },
+        {
+          "level": 3,
+          "baseMana": 84,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002048,
+          "spellCritPerIntellect": 0.000714
+        },
+        {
+          "level": 4,
+          "baseMana": 90,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001955,
+          "spellCritPerIntellect": 0.000682
+        },
+        {
+          "level": 5,
+          "baseMana": 112,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001955,
+          "spellCritPerIntellect": 0.000682
+        },
+        {
+          "level": 6,
+          "baseMana": 120,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00187,
+          "spellCritPerIntellect": 0.000652
+        },
+        {
+          "level": 7,
+          "baseMana": 129,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00187,
+          "spellCritPerIntellect": 0.000625
+        },
+        {
+          "level": 8,
+          "baseMana": 154,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001792,
+          "spellCritPerIntellect": 0.000625
+        },
+        {
+          "level": 9,
+          "baseMana": 165,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001792,
+          "spellCritPerIntellect": 0.0006
+        },
+        {
+          "level": 10,
+          "baseMana": 192,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00172,
+          "spellCritPerIntellect": 0.0006
+        },
+        {
+          "level": 11,
+          "baseMana": 205,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00172,
+          "spellCritPerIntellect": 0.000577
+        },
+        {
+          "level": 12,
+          "baseMana": 219,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001654,
+          "spellCritPerIntellect": 0.000556
+        },
+        {
+          "level": 13,
+          "baseMana": 249,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001536,
+          "spellCritPerIntellect": 0.000536
+        },
+        {
+          "level": 14,
+          "baseMana": 265,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001536,
+          "spellCritPerIntellect": 0.000517
+        },
+        {
+          "level": 15,
+          "baseMana": 282,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001433,
+          "spellCritPerIntellect": 0.000484
+        },
+        {
+          "level": 16,
+          "baseMana": 315,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001433,
+          "spellCritPerIntellect": 0.000484
+        },
+        {
+          "level": 17,
+          "baseMana": 334,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001387,
+          "spellCritPerIntellect": 0.000469
+        },
+        {
+          "level": 18,
+          "baseMana": 354,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001303,
+          "spellCritPerIntellect": 0.000441
+        },
+        {
+          "level": 19,
+          "baseMana": 390,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001303,
+          "spellCritPerIntellect": 0.000441
+        },
+        {
+          "level": 20,
+          "baseMana": 412,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001229,
+          "spellCritPerIntellect": 0.000417
+        },
+        {
+          "level": 21,
+          "baseMana": 435,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001194,
+          "spellCritPerIntellect": 0.000405
+        },
+        {
+          "level": 22,
+          "baseMana": 459,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001194,
+          "spellCritPerIntellect": 0.000395
+        },
+        {
+          "level": 23,
+          "baseMana": 499,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001132,
+          "spellCritPerIntellect": 0.000385
+        },
+        {
+          "level": 24,
+          "baseMana": 525,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001103,
+          "spellCritPerIntellect": 0.000375
+        },
+        {
+          "level": 25,
+          "baseMana": 552,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001075,
+          "spellCritPerIntellect": 0.000357
+        },
+        {
+          "level": 26,
+          "baseMana": 579,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001049,
+          "spellCritPerIntellect": 0.000349
+        },
+        {
+          "level": 27,
+          "baseMana": 621,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001024,
+          "spellCritPerIntellect": 0.000349
+        },
+        {
+          "level": 28,
+          "baseMana": 648,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.000333
+        },
+        {
+          "level": 29,
+          "baseMana": 675,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000977,
+          "spellCritPerIntellect": 0.000326
+        },
+        {
+          "level": 30,
+          "baseMana": 702,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000935,
+          "spellCritPerIntellect": 0.000313
+        },
+        {
+          "level": 31,
+          "baseMana": 729,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000915,
+          "spellCritPerIntellect": 0.000306
+        },
+        {
+          "level": 32,
+          "baseMana": 756,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000915,
+          "spellCritPerIntellect": 0.0003
+        },
+        {
+          "level": 33,
+          "baseMana": 798,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000878,
+          "spellCritPerIntellect": 0.000294
+        },
+        {
+          "level": 34,
+          "baseMana": 825,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00086,
+          "spellCritPerIntellect": 0.000288
+        },
+        {
+          "level": 35,
+          "baseMana": 852,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000827,
+          "spellCritPerIntellect": 0.000278
+        },
+        {
+          "level": 36,
+          "baseMana": 879,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000811,
+          "spellCritPerIntellect": 0.000273
+        },
+        {
+          "level": 37,
+          "baseMana": 906,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000811,
+          "spellCritPerIntellect": 0.000268
+        },
+        {
+          "level": 38,
+          "baseMana": 933,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000782,
+          "spellCritPerIntellect": 0.000259
+        },
+        {
+          "level": 39,
+          "baseMana": 960,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000768,
+          "spellCritPerIntellect": 0.000254
+        },
+        {
+          "level": 40,
+          "baseMana": 987,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000741,
+          "spellCritPerIntellect": 0.000246
+        },
+        {
+          "level": 41,
+          "baseMana": 1014,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000729,
+          "spellCritPerIntellect": 0.000242
+        },
+        {
+          "level": 42,
+          "baseMana": 1041,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000729,
+          "spellCritPerIntellect": 0.000238
+        },
+        {
+          "level": 43,
+          "baseMana": 1068,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000705,
+          "spellCritPerIntellect": 0.000231
+        },
+        {
+          "level": 44,
+          "baseMana": 1110,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000694,
+          "spellCritPerIntellect": 0.000231
+        },
+        {
+          "level": 45,
+          "baseMana": 1137,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000672,
+          "spellCritPerIntellect": 0.000224
+        },
+        {
+          "level": 46,
+          "baseMana": 1164,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000662,
+          "spellCritPerIntellect": 0.000221
+        },
+        {
+          "level": 47,
+          "baseMana": 1176,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000652,
+          "spellCritPerIntellect": 0.000214
+        },
+        {
+          "level": 48,
+          "baseMana": 1203,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000632,
+          "spellCritPerIntellect": 0.000208
+        },
+        {
+          "level": 49,
+          "baseMana": 1230,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000623,
+          "spellCritPerIntellect": 0.000205
+        },
+        {
+          "level": 50,
+          "baseMana": 1257,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000606,
+          "spellCritPerIntellect": 0.0002
+        },
+        {
+          "level": 51,
+          "baseMana": 1284,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000597,
+          "spellCritPerIntellect": 0.000197
+        },
+        {
+          "level": 52,
+          "baseMana": 1311,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000589,
+          "spellCritPerIntellect": 0.000195
+        },
+        {
+          "level": 53,
+          "baseMana": 1338,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000573,
+          "spellCritPerIntellect": 0.00019
+        },
+        {
+          "level": 54,
+          "baseMana": 1365,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000566,
+          "spellCritPerIntellect": 0.000188
+        },
+        {
+          "level": 55,
+          "baseMana": 1392,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000551,
+          "spellCritPerIntellect": 0.000183
+        },
+        {
+          "level": 56,
+          "baseMana": 1419,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000544,
+          "spellCritPerIntellect": 0.000181
+        },
+        {
+          "level": 57,
+          "baseMana": 1446,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000538,
+          "spellCritPerIntellect": 0.000179
+        },
+        {
+          "level": 58,
+          "baseMana": 1458,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000524,
+          "spellCritPerIntellect": 0.000172
+        },
+        {
+          "level": 59,
+          "baseMana": 1485,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000518,
+          "spellCritPerIntellect": 0.00017
+        },
+        {
+          "level": 60,
+          "baseMana": 1512,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000506,
+          "spellCritPerIntellect": 0.000167
+        }
+      ]
+    },
+    {
+      "classId": 3,
+      "attackPowerPerStrength": 1,
+      "attackPowerPerAgility": 1,
+      "rangedAttackPowerPerAgility": 2,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 65,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002174,
+          "spellCritPerIntellect": 0.0007
+        },
+        {
+          "level": 2,
+          "baseMana": 70,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002083,
+          "spellCritPerIntellect": 0.000667
+        },
+        {
+          "level": 3,
+          "baseMana": 91,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002,
+          "spellCritPerIntellect": 0.000667
+        },
+        {
+          "level": 4,
+          "baseMana": 98,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001852,
+          "spellCritPerIntellect": 0.000636
+        },
+        {
+          "level": 5,
+          "baseMana": 121,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001786,
+          "spellCritPerIntellect": 0.000636
+        },
+        {
+          "level": 6,
+          "baseMana": 130,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001724,
+          "spellCritPerIntellect": 0.000609
+        },
+        {
+          "level": 7,
+          "baseMana": 155,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001667,
+          "spellCritPerIntellect": 0.000609
+        },
+        {
+          "level": 8,
+          "baseMana": 166,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001613,
+          "spellCritPerIntellect": 0.000583
+        },
+        {
+          "level": 9,
+          "baseMana": 193,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001515,
+          "spellCritPerIntellect": 0.000583
+        },
+        {
+          "level": 10,
+          "baseMana": 206,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001471,
+          "spellCritPerIntellect": 0.00056
+        },
+        {
+          "level": 11,
+          "baseMana": 235,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001351,
+          "spellCritPerIntellect": 0.00056
+        },
+        {
+          "level": 12,
+          "baseMana": 250,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00119,
+          "spellCritPerIntellect": 0.000538
+        },
+        {
+          "level": 13,
+          "baseMana": 266,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001087,
+          "spellCritPerIntellect": 0.0005
+        },
+        {
+          "level": 14,
+          "baseMana": 298,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.0005
+        },
+        {
+          "level": 15,
+          "baseMana": 316,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.000467
+        },
+        {
+          "level": 16,
+          "baseMana": 350,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000862,
+          "spellCritPerIntellect": 0.000467
+        },
+        {
+          "level": 17,
+          "baseMana": 370,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000806,
+          "spellCritPerIntellect": 0.000452
+        },
+        {
+          "level": 18,
+          "baseMana": 391,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000746,
+          "spellCritPerIntellect": 0.000424
+        },
+        {
+          "level": 19,
+          "baseMana": 428,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000704,
+          "spellCritPerIntellect": 0.000424
+        },
+        {
+          "level": 20,
+          "baseMana": 451,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000658,
+          "spellCritPerIntellect": 0.0004
+        },
+        {
+          "level": 21,
+          "baseMana": 475,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000633,
+          "spellCritPerIntellect": 0.000389
+        },
+        {
+          "level": 22,
+          "baseMana": 515,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000595,
+          "spellCritPerIntellect": 0.000389
+        },
+        {
+          "level": 23,
+          "baseMana": 541,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000568,
+          "spellCritPerIntellect": 0.000368
+        },
+        {
+          "level": 24,
+          "baseMana": 568,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000538,
+          "spellCritPerIntellect": 0.000359
+        },
+        {
+          "level": 25,
+          "baseMana": 611,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000515,
+          "spellCritPerIntellect": 0.00035
+        },
+        {
+          "level": 26,
+          "baseMana": 640,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000495,
+          "spellCritPerIntellect": 0.000341
+        },
+        {
+          "level": 27,
+          "baseMana": 670,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000472,
+          "spellCritPerIntellect": 0.000333
+        },
+        {
+          "level": 28,
+          "baseMana": 715,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000455,
+          "spellCritPerIntellect": 0.000326
+        },
+        {
+          "level": 29,
+          "baseMana": 745,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000435,
+          "spellCritPerIntellect": 0.000318
+        },
+        {
+          "level": 30,
+          "baseMana": 775,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000417,
+          "spellCritPerIntellect": 0.000304
+        },
+        {
+          "level": 31,
+          "baseMana": 805,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000407,
+          "spellCritPerIntellect": 0.000298
+        },
+        {
+          "level": 32,
+          "baseMana": 850,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000391,
+          "spellCritPerIntellect": 0.000298
+        },
+        {
+          "level": 33,
+          "baseMana": 880,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000376,
+          "spellCritPerIntellect": 0.000286
+        },
+        {
+          "level": 34,
+          "baseMana": 910,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000365,
+          "spellCritPerIntellect": 0.00028
+        },
+        {
+          "level": 35,
+          "baseMana": 940,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000352,
+          "spellCritPerIntellect": 0.000269
+        },
+        {
+          "level": 36,
+          "baseMana": 970,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000342,
+          "spellCritPerIntellect": 0.000264
+        },
+        {
+          "level": 37,
+          "baseMana": 1015,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000331,
+          "spellCritPerIntellect": 0.000264
+        },
+        {
+          "level": 38,
+          "baseMana": 1045,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000321,
+          "spellCritPerIntellect": 0.000255
+        },
+        {
+          "level": 39,
+          "baseMana": 1075,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000311,
+          "spellCritPerIntellect": 0.00025
+        },
+        {
+          "level": 40,
+          "baseMana": 1105,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000303,
+          "spellCritPerIntellect": 0.000241
+        },
+        {
+          "level": 41,
+          "baseMana": 1135,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000296,
+          "spellCritPerIntellect": 0.000237
+        },
+        {
+          "level": 42,
+          "baseMana": 1180,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000287,
+          "spellCritPerIntellect": 0.000237
+        },
+        {
+          "level": 43,
+          "baseMana": 1210,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000279,
+          "spellCritPerIntellect": 0.00023
+        },
+        {
+          "level": 44,
+          "baseMana": 1240,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000272,
+          "spellCritPerIntellect": 0.000226
+        },
+        {
+          "level": 45,
+          "baseMana": 1270,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000265,
+          "spellCritPerIntellect": 0.000219
+        },
+        {
+          "level": 46,
+          "baseMana": 1300,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000259,
+          "spellCritPerIntellect": 0.000215
+        },
+        {
+          "level": 47,
+          "baseMana": 1330,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000253,
+          "spellCritPerIntellect": 0.000212
+        },
+        {
+          "level": 48,
+          "baseMana": 1360,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000245,
+          "spellCritPerIntellect": 0.000206
+        },
+        {
+          "level": 49,
+          "baseMana": 1390,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000239,
+          "spellCritPerIntellect": 0.000203
+        },
+        {
+          "level": 50,
+          "baseMana": 1420,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000234,
+          "spellCritPerIntellect": 0.000197
+        },
+        {
+          "level": 51,
+          "baseMana": 1450,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000229,
+          "spellCritPerIntellect": 0.000194
+        },
+        {
+          "level": 52,
+          "baseMana": 1480,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000224,
+          "spellCritPerIntellect": 0.000192
+        },
+        {
+          "level": 53,
+          "baseMana": 1510,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000219,
+          "spellCritPerIntellect": 0.000187
+        },
+        {
+          "level": 54,
+          "baseMana": 1540,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000214,
+          "spellCritPerIntellect": 0.000184
+        },
+        {
+          "level": 55,
+          "baseMana": 1570,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000209,
+          "spellCritPerIntellect": 0.000179
+        },
+        {
+          "level": 56,
+          "baseMana": 1600,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000206,
+          "spellCritPerIntellect": 0.000177
+        },
+        {
+          "level": 57,
+          "baseMana": 1630,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000201,
+          "spellCritPerIntellect": 0.000175
+        },
+        {
+          "level": 58,
+          "baseMana": 1660,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000197,
+          "spellCritPerIntellect": 0.000171
+        },
+        {
+          "level": 59,
+          "baseMana": 1690,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000192,
+          "spellCritPerIntellect": 0.000169
+        },
+        {
+          "level": 60,
+          "baseMana": 1720,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000189,
+          "spellCritPerIntellect": 0.000165
+        }
+      ]
+    },
+    {
+      "classId": 4,
+      "attackPowerPerStrength": 1,
+      "attackPowerPerAgility": 1,
+      "rangedAttackPowerPerAgility": 2,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.004348,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 2,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.004167,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 3,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.004,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 4,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.003704,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 5,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.003571,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 6,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.003448,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 7,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.003226,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 8,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.003125,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 9,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00303,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 10,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002857,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 11,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002564,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 12,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002326,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 13,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.002083,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 14,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001923,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 15,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001724,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 16,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001613,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 17,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001515,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 18,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001408,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 19,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001316,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 20,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001235,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 21,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001163,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 22,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001111,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 23,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001053,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 24,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00101,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 25,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000952,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 26,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 27,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000877,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 28,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00084,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 29,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000806,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 30,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000769,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 31,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000746,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 32,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000719,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 33,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000694,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 34,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000671,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 35,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000645,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 36,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 37,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00061,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 38,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000592,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 39,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000575,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 40,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000556,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 41,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000541,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 42,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000526,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 43,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000513,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 44,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000498,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 45,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000483,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 46,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000472,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 47,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000461,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 48,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00045,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 49,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000441,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 50,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000427,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 51,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000418,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 52,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00041,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 53,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0004,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 54,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000392,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 55,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000383,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 56,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000375,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 57,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000368,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 58,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00036,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 59,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000353,
+          "spellCritPerIntellect": 0
+        },
+        {
+          "level": 60,
+          "baseMana": 0,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000345,
+          "spellCritPerIntellect": 0
+        }
+      ]
+    },
+    {
+      "classId": 5,
+      "attackPowerPerStrength": 1,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 110,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.001909
+        },
+        {
+          "level": 2,
+          "baseMana": 119,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.001826
+        },
+        {
+          "level": 3,
+          "baseMana": 129,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.00175
+        },
+        {
+          "level": 4,
+          "baseMana": 140,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000952,
+          "spellCritPerIntellect": 0.00168
+        },
+        {
+          "level": 5,
+          "baseMana": 137,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000952,
+          "spellCritPerIntellect": 0.001556
+        },
+        {
+          "level": 6,
+          "baseMana": 150,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000952,
+          "spellCritPerIntellect": 0.0015
+        },
+        {
+          "level": 7,
+          "baseMana": 164,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000952,
+          "spellCritPerIntellect": 0.001448
+        },
+        {
+          "level": 8,
+          "baseMana": 179,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.0014
+        },
+        {
+          "level": 9,
+          "baseMana": 195,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.001355
+        },
+        {
+          "level": 10,
+          "baseMana": 212,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.001273
+        },
+        {
+          "level": 11,
+          "baseMana": 215,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.001167
+        },
+        {
+          "level": 12,
+          "baseMana": 234,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00087,
+          "spellCritPerIntellect": 0.00105
+        },
+        {
+          "level": 13,
+          "baseMana": 254,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00087,
+          "spellCritPerIntellect": 0.000977
+        },
+        {
+          "level": 14,
+          "baseMana": 260,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00087,
+          "spellCritPerIntellect": 0.000875
+        },
+        {
+          "level": 15,
+          "baseMana": 282,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00087,
+          "spellCritPerIntellect": 0.000808
+        },
+        {
+          "level": 16,
+          "baseMana": 305,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0.000764
+        },
+        {
+          "level": 17,
+          "baseMana": 329,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0.0007
+        },
+        {
+          "level": 18,
+          "baseMana": 339,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0.000667
+        },
+        {
+          "level": 19,
+          "baseMana": 365,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0008,
+          "spellCritPerIntellect": 0.000627
+        },
+        {
+          "level": 20,
+          "baseMana": 377,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0008,
+          "spellCritPerIntellect": 0.000583
+        },
+        {
+          "level": 21,
+          "baseMana": 405,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0008,
+          "spellCritPerIntellect": 0.00056
+        },
+        {
+          "level": 22,
+          "baseMana": 434,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0008,
+          "spellCritPerIntellect": 0.000525
+        },
+        {
+          "level": 23,
+          "baseMana": 449,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000769,
+          "spellCritPerIntellect": 0.000506
+        },
+        {
+          "level": 24,
+          "baseMana": 480,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000769,
+          "spellCritPerIntellect": 0.000477
+        },
+        {
+          "level": 25,
+          "baseMana": 497,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000769,
+          "spellCritPerIntellect": 0.000457
+        },
+        {
+          "level": 26,
+          "baseMana": 530,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000741,
+          "spellCritPerIntellect": 0.000438
+        },
+        {
+          "level": 27,
+          "baseMana": 549,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000741,
+          "spellCritPerIntellect": 0.00042
+        },
+        {
+          "level": 28,
+          "baseMana": 584,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000741,
+          "spellCritPerIntellect": 0.000404
+        },
+        {
+          "level": 29,
+          "baseMana": 605,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000714,
+          "spellCritPerIntellect": 0.000389
+        },
+        {
+          "level": 30,
+          "baseMana": 627,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000714,
+          "spellCritPerIntellect": 0.000372
+        },
+        {
+          "level": 31,
+          "baseMana": 665,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000714,
+          "spellCritPerIntellect": 0.000359
+        },
+        {
+          "level": 32,
+          "baseMana": 689,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00069,
+          "spellCritPerIntellect": 0.000347
+        },
+        {
+          "level": 33,
+          "baseMana": 728,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00069,
+          "spellCritPerIntellect": 0.000336
+        },
+        {
+          "level": 34,
+          "baseMana": 752,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00069,
+          "spellCritPerIntellect": 0.000323
+        },
+        {
+          "level": 35,
+          "baseMana": 776,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000313
+        },
+        {
+          "level": 36,
+          "baseMana": 800,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000304
+        },
+        {
+          "level": 37,
+          "baseMana": 839,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000294
+        },
+        {
+          "level": 38,
+          "baseMana": 863,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000645,
+          "spellCritPerIntellect": 0.000286
+        },
+        {
+          "level": 39,
+          "baseMana": 887,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000645,
+          "spellCritPerIntellect": 0.000278
+        },
+        {
+          "level": 40,
+          "baseMana": 911,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000645,
+          "spellCritPerIntellect": 0.000269
+        },
+        {
+          "level": 41,
+          "baseMana": 950,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0.000263
+        },
+        {
+          "level": 42,
+          "baseMana": 974,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0.000255
+        },
+        {
+          "level": 43,
+          "baseMana": 998,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000606,
+          "spellCritPerIntellect": 0.000249
+        },
+        {
+          "level": 44,
+          "baseMana": 1022,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000606,
+          "spellCritPerIntellect": 0.000241
+        },
+        {
+          "level": 45,
+          "baseMana": 1046,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000606,
+          "spellCritPerIntellect": 0.000235
+        },
+        {
+          "level": 46,
+          "baseMana": 1070,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000588,
+          "spellCritPerIntellect": 0.00023
+        },
+        {
+          "level": 47,
+          "baseMana": 1094,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000588,
+          "spellCritPerIntellect": 0.000223
+        },
+        {
+          "level": 48,
+          "baseMana": 1118,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000571,
+          "spellCritPerIntellect": 0.000219
+        },
+        {
+          "level": 49,
+          "baseMana": 1142,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000571,
+          "spellCritPerIntellect": 0.000213
+        },
+        {
+          "level": 50,
+          "baseMana": 1166,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000571,
+          "spellCritPerIntellect": 0.000208
+        },
+        {
+          "level": 51,
+          "baseMana": 1190,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000556,
+          "spellCritPerIntellect": 0.000204
+        },
+        {
+          "level": 52,
+          "baseMana": 1214,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000556,
+          "spellCritPerIntellect": 0.000199
+        },
+        {
+          "level": 53,
+          "baseMana": 1238,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000541,
+          "spellCritPerIntellect": 0.000195
+        },
+        {
+          "level": 54,
+          "baseMana": 1262,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000541,
+          "spellCritPerIntellect": 0.000191
+        },
+        {
+          "level": 55,
+          "baseMana": 1271,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000526,
+          "spellCritPerIntellect": 0.000186
+        },
+        {
+          "level": 56,
+          "baseMana": 1295,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000526,
+          "spellCritPerIntellect": 0.000183
+        },
+        {
+          "level": 57,
+          "baseMana": 1319,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000513,
+          "spellCritPerIntellect": 0.000179
+        },
+        {
+          "level": 58,
+          "baseMana": 1343,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000513,
+          "spellCritPerIntellect": 0.000176
+        },
+        {
+          "level": 59,
+          "baseMana": 1352,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0005,
+          "spellCritPerIntellect": 0.000171
+        },
+        {
+          "level": 60,
+          "baseMana": 1376,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0005,
+          "spellCritPerIntellect": 0.000168
+        }
+      ]
+    },
+    {
+      "classId": 7,
+      "attackPowerPerStrength": 2,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 55,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00165,
+          "spellCritPerIntellect": 0.001286
+        },
+        {
+          "level": 2,
+          "baseMana": 61,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00165,
+          "spellCritPerIntellect": 0.001227
+        },
+        {
+          "level": 3,
+          "baseMana": 68,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001571,
+          "spellCritPerIntellect": 0.001174
+        },
+        {
+          "level": 4,
+          "baseMana": 91,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001571,
+          "spellCritPerIntellect": 0.001174
+        },
+        {
+          "level": 5,
+          "baseMana": 100,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0015,
+          "spellCritPerIntellect": 0.001125
+        },
+        {
+          "level": 6,
+          "baseMana": 110,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0015,
+          "spellCritPerIntellect": 0.00108
+        },
+        {
+          "level": 7,
+          "baseMana": 121,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0015,
+          "spellCritPerIntellect": 0.001038
+        },
+        {
+          "level": 8,
+          "baseMana": 133,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001435,
+          "spellCritPerIntellect": 0.001
+        },
+        {
+          "level": 9,
+          "baseMana": 161,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001435,
+          "spellCritPerIntellect": 0.000964
+        },
+        {
+          "level": 10,
+          "baseMana": 175,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001375,
+          "spellCritPerIntellect": 0.000964
+        },
+        {
+          "level": 11,
+          "baseMana": 190,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001375,
+          "spellCritPerIntellect": 0.0009
+        },
+        {
+          "level": 12,
+          "baseMana": 206,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00132,
+          "spellCritPerIntellect": 0.000844
+        },
+        {
+          "level": 13,
+          "baseMana": 223,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00132,
+          "spellCritPerIntellect": 0.000771
+        },
+        {
+          "level": 14,
+          "baseMana": 241,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001269,
+          "spellCritPerIntellect": 0.00073
+        },
+        {
+          "level": 15,
+          "baseMana": 260,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001222,
+          "spellCritPerIntellect": 0.000675
+        },
+        {
+          "level": 16,
+          "baseMana": 280,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001179,
+          "spellCritPerIntellect": 0.000643
+        },
+        {
+          "level": 17,
+          "baseMana": 301,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001179,
+          "spellCritPerIntellect": 0.000614
+        },
+        {
+          "level": 18,
+          "baseMana": 323,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001138,
+          "spellCritPerIntellect": 0.000574
+        },
+        {
+          "level": 19,
+          "baseMana": 346,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001138,
+          "spellCritPerIntellect": 0.000551
+        },
+        {
+          "level": 20,
+          "baseMana": 370,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001065,
+          "spellCritPerIntellect": 0.000519
+        },
+        {
+          "level": 21,
+          "baseMana": 395,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001065,
+          "spellCritPerIntellect": 0.0005
+        },
+        {
+          "level": 22,
+          "baseMana": 421,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001031,
+          "spellCritPerIntellect": 0.000482
+        },
+        {
+          "level": 23,
+          "baseMana": 448,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001031,
+          "spellCritPerIntellect": 0.000458
+        },
+        {
+          "level": 24,
+          "baseMana": 476,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.000443
+        },
+        {
+          "level": 25,
+          "baseMana": 505,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000971,
+          "spellCritPerIntellect": 0.000422
+        },
+        {
+          "level": 26,
+          "baseMana": 535,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000943,
+          "spellCritPerIntellect": 0.000409
+        },
+        {
+          "level": 27,
+          "baseMana": 566,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000943,
+          "spellCritPerIntellect": 0.000397
+        },
+        {
+          "level": 28,
+          "baseMana": 598,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000917,
+          "spellCritPerIntellect": 0.00038
+        },
+        {
+          "level": 29,
+          "baseMana": 631,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000917,
+          "spellCritPerIntellect": 0.00037
+        },
+        {
+          "level": 30,
+          "baseMana": 665,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000868,
+          "spellCritPerIntellect": 0.000355
+        },
+        {
+          "level": 31,
+          "baseMana": 699,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000868,
+          "spellCritPerIntellect": 0.000342
+        },
+        {
+          "level": 32,
+          "baseMana": 733,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000846,
+          "spellCritPerIntellect": 0.000333
+        },
+        {
+          "level": 33,
+          "baseMana": 767,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000825,
+          "spellCritPerIntellect": 0.000321
+        },
+        {
+          "level": 34,
+          "baseMana": 786,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000825,
+          "spellCritPerIntellect": 0.000314
+        },
+        {
+          "level": 35,
+          "baseMana": 820,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000786,
+          "spellCritPerIntellect": 0.000303
+        },
+        {
+          "level": 36,
+          "baseMana": 854,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000767,
+          "spellCritPerIntellect": 0.000293
+        },
+        {
+          "level": 37,
+          "baseMana": 888,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000767,
+          "spellCritPerIntellect": 0.000287
+        },
+        {
+          "level": 38,
+          "baseMana": 922,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000278
+        },
+        {
+          "level": 39,
+          "baseMana": 941,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000273
+        },
+        {
+          "level": 40,
+          "baseMana": 975,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000717,
+          "spellCritPerIntellect": 0.000262
+        },
+        {
+          "level": 41,
+          "baseMana": 1009,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000702,
+          "spellCritPerIntellect": 0.000257
+        },
+        {
+          "level": 42,
+          "baseMana": 1028,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000702,
+          "spellCritPerIntellect": 0.000252
+        },
+        {
+          "level": 43,
+          "baseMana": 1062,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000688,
+          "spellCritPerIntellect": 0.000245
+        },
+        {
+          "level": 44,
+          "baseMana": 1096,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000673,
+          "spellCritPerIntellect": 0.000239
+        },
+        {
+          "level": 45,
+          "baseMana": 1115,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00066,
+          "spellCritPerIntellect": 0.000233
+        },
+        {
+          "level": 46,
+          "baseMana": 1149,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000647,
+          "spellCritPerIntellect": 0.000227
+        },
+        {
+          "level": 47,
+          "baseMana": 1183,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000635,
+          "spellCritPerIntellect": 0.000223
+        },
+        {
+          "level": 48,
+          "baseMana": 1202,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000623,
+          "spellCritPerIntellect": 0.000218
+        },
+        {
+          "level": 49,
+          "baseMana": 1236,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000623,
+          "spellCritPerIntellect": 0.000213
+        },
+        {
+          "level": 50,
+          "baseMana": 1255,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0006,
+          "spellCritPerIntellect": 0.000208
+        },
+        {
+          "level": 51,
+          "baseMana": 1289,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000589,
+          "spellCritPerIntellect": 0.000203
+        },
+        {
+          "level": 52,
+          "baseMana": 1323,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000579,
+          "spellCritPerIntellect": 0.0002
+        },
+        {
+          "level": 53,
+          "baseMana": 1342,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000579,
+          "spellCritPerIntellect": 0.000194
+        },
+        {
+          "level": 54,
+          "baseMana": 1376,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000569,
+          "spellCritPerIntellect": 0.000191
+        },
+        {
+          "level": 55,
+          "baseMana": 1395,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00055,
+          "spellCritPerIntellect": 0.000186
+        },
+        {
+          "level": 56,
+          "baseMana": 1414,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000541,
+          "spellCritPerIntellect": 0.000184
+        },
+        {
+          "level": 57,
+          "baseMana": 1448,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000532,
+          "spellCritPerIntellect": 0.00018
+        },
+        {
+          "level": 58,
+          "baseMana": 1467,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000532,
+          "spellCritPerIntellect": 0.000175
+        },
+        {
+          "level": 59,
+          "baseMana": 1501,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000524,
+          "spellCritPerIntellect": 0.000173
+        },
+        {
+          "level": 60,
+          "baseMana": 1520,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000508,
+          "spellCritPerIntellect": 0.000169
+        }
+      ]
+    },
+    {
+      "classId": 8,
+      "attackPowerPerStrength": 1,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 100,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0009,
+          "spellCritPerIntellect": 0.00192
+        },
+        {
+          "level": 2,
+          "baseMana": 110,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0009,
+          "spellCritPerIntellect": 0.001846
+        },
+        {
+          "level": 3,
+          "baseMana": 121,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0009,
+          "spellCritPerIntellect": 0.001778
+        },
+        {
+          "level": 4,
+          "baseMana": 118,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.001655
+        },
+        {
+          "level": 5,
+          "baseMana": 131,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.0016
+        },
+        {
+          "level": 6,
+          "baseMana": 145,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.001548
+        },
+        {
+          "level": 7,
+          "baseMana": 160,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.0015
+        },
+        {
+          "level": 8,
+          "baseMana": 161,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.001455
+        },
+        {
+          "level": 9,
+          "baseMana": 178,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000857,
+          "spellCritPerIntellect": 0.001371
+        },
+        {
+          "level": 10,
+          "baseMana": 196,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000818,
+          "spellCritPerIntellect": 0.001333
+        },
+        {
+          "level": 11,
+          "baseMana": 215,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000818,
+          "spellCritPerIntellect": 0.001231
+        },
+        {
+          "level": 12,
+          "baseMana": 220,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000818,
+          "spellCritPerIntellect": 0.001091
+        },
+        {
+          "level": 13,
+          "baseMana": 241,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000818,
+          "spellCritPerIntellect": 0.001021
+        },
+        {
+          "level": 14,
+          "baseMana": 263,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000818,
+          "spellCritPerIntellect": 0.000857
+        },
+        {
+          "level": 15,
+          "baseMana": 271,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000783,
+          "spellCritPerIntellect": 0.000787
+        },
+        {
+          "level": 16,
+          "baseMana": 295,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000783,
+          "spellCritPerIntellect": 0.00075
+        },
+        {
+          "level": 17,
+          "baseMana": 305,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000783,
+          "spellCritPerIntellect": 0.000706
+        },
+        {
+          "level": 18,
+          "baseMana": 331,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000783,
+          "spellCritPerIntellect": 0.000667
+        },
+        {
+          "level": 19,
+          "baseMana": 343,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000783,
+          "spellCritPerIntellect": 0.000632
+        },
+        {
+          "level": 20,
+          "baseMana": 371,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000593
+        },
+        {
+          "level": 21,
+          "baseMana": 385,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000571
+        },
+        {
+          "level": 22,
+          "baseMana": 415,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000539
+        },
+        {
+          "level": 23,
+          "baseMana": 431,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000522
+        },
+        {
+          "level": 24,
+          "baseMana": 463,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00072,
+          "spellCritPerIntellect": 0.000495
+        },
+        {
+          "level": 25,
+          "baseMana": 481,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00072,
+          "spellCritPerIntellect": 0.000475
+        },
+        {
+          "level": 26,
+          "baseMana": 515,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00072,
+          "spellCritPerIntellect": 0.000457
+        },
+        {
+          "level": 27,
+          "baseMana": 535,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00072,
+          "spellCritPerIntellect": 0.000436
+        },
+        {
+          "level": 28,
+          "baseMana": 556,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00072,
+          "spellCritPerIntellect": 0.000397
+        },
+        {
+          "level": 29,
+          "baseMana": 592,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000692,
+          "spellCritPerIntellect": 0.000381
+        },
+        {
+          "level": 30,
+          "baseMana": 613,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000692,
+          "spellCritPerIntellect": 0.000366
+        },
+        {
+          "level": 31,
+          "baseMana": 634,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000692,
+          "spellCritPerIntellect": 0.000358
+        },
+        {
+          "level": 32,
+          "baseMana": 670,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000692,
+          "spellCritPerIntellect": 0.000345
+        },
+        {
+          "level": 33,
+          "baseMana": 691,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000336
+        },
+        {
+          "level": 34,
+          "baseMana": 712,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000327
+        },
+        {
+          "level": 35,
+          "baseMana": 733,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000316
+        },
+        {
+          "level": 36,
+          "baseMana": 754,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000643,
+          "spellCritPerIntellect": 0.000308
+        },
+        {
+          "level": 37,
+          "baseMana": 790,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000643,
+          "spellCritPerIntellect": 0.000298
+        },
+        {
+          "level": 38,
+          "baseMana": 811,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000643,
+          "spellCritPerIntellect": 0.000291
+        },
+        {
+          "level": 39,
+          "baseMana": 832,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000643,
+          "spellCritPerIntellect": 0.000282
+        },
+        {
+          "level": 40,
+          "baseMana": 853,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000621,
+          "spellCritPerIntellect": 0.000276
+        },
+        {
+          "level": 41,
+          "baseMana": 874,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000621,
+          "spellCritPerIntellect": 0.00027
+        },
+        {
+          "level": 42,
+          "baseMana": 895,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000621,
+          "spellCritPerIntellect": 0.000253
+        },
+        {
+          "level": 43,
+          "baseMana": 916,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000621,
+          "spellCritPerIntellect": 0.000247
+        },
+        {
+          "level": 44,
+          "baseMana": 937,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0006,
+          "spellCritPerIntellect": 0.000241
+        },
+        {
+          "level": 45,
+          "baseMana": 958,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0006,
+          "spellCritPerIntellect": 0.000235
+        },
+        {
+          "level": 46,
+          "baseMana": 979,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0006,
+          "spellCritPerIntellect": 0.000231
+        },
+        {
+          "level": 47,
+          "baseMana": 1000,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000581,
+          "spellCritPerIntellect": 0.000225
+        },
+        {
+          "level": 48,
+          "baseMana": 1021,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000581,
+          "spellCritPerIntellect": 0.00022
+        },
+        {
+          "level": 49,
+          "baseMana": 1042,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000581,
+          "spellCritPerIntellect": 0.000215
+        },
+        {
+          "level": 50,
+          "baseMana": 1048,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000563,
+          "spellCritPerIntellect": 0.000211
+        },
+        {
+          "level": 51,
+          "baseMana": 1069,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000563,
+          "spellCritPerIntellect": 0.000207
+        },
+        {
+          "level": 52,
+          "baseMana": 1090,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000563,
+          "spellCritPerIntellect": 0.000203
+        },
+        {
+          "level": 53,
+          "baseMana": 1111,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000545,
+          "spellCritPerIntellect": 0.000199
+        },
+        {
+          "level": 54,
+          "baseMana": 1117,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000545,
+          "spellCritPerIntellect": 0.000194
+        },
+        {
+          "level": 55,
+          "baseMana": 1138,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000545,
+          "spellCritPerIntellect": 0.00019
+        },
+        {
+          "level": 56,
+          "baseMana": 1159,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000529,
+          "spellCritPerIntellect": 0.000181
+        },
+        {
+          "level": 57,
+          "baseMana": 1165,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000529,
+          "spellCritPerIntellect": 0.000177
+        },
+        {
+          "level": 58,
+          "baseMana": 1186,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000529,
+          "spellCritPerIntellect": 0.000175
+        },
+        {
+          "level": 59,
+          "baseMana": 1192,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000514,
+          "spellCritPerIntellect": 0.000171
+        },
+        {
+          "level": 60,
+          "baseMana": 1213,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000514,
+          "spellCritPerIntellect": 0.000168
+        }
+      ]
+    },
+    {
+      "classId": 9,
+      "attackPowerPerStrength": 1,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 90,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0015,
+          "spellCritPerIntellect": 0.0015
+        },
+        {
+          "level": 2,
+          "baseMana": 98,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0015,
+          "spellCritPerIntellect": 0.001435
+        },
+        {
+          "level": 3,
+          "baseMana": 107,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001429,
+          "spellCritPerIntellect": 0.001375
+        },
+        {
+          "level": 4,
+          "baseMana": 117,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001429,
+          "spellCritPerIntellect": 0.00132
+        },
+        {
+          "level": 5,
+          "baseMana": 128,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001429,
+          "spellCritPerIntellect": 0.001269
+        },
+        {
+          "level": 6,
+          "baseMana": 140,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001364,
+          "spellCritPerIntellect": 0.001222
+        },
+        {
+          "level": 7,
+          "baseMana": 153,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001364,
+          "spellCritPerIntellect": 0.001179
+        },
+        {
+          "level": 8,
+          "baseMana": 167,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001364,
+          "spellCritPerIntellect": 0.001138
+        },
+        {
+          "level": 9,
+          "baseMana": 182,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001304,
+          "spellCritPerIntellect": 0.0011
+        },
+        {
+          "level": 10,
+          "baseMana": 198,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001304,
+          "spellCritPerIntellect": 0.001065
+        },
+        {
+          "level": 11,
+          "baseMana": 200,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00125,
+          "spellCritPerIntellect": 0.000971
+        },
+        {
+          "level": 12,
+          "baseMana": 218,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00125,
+          "spellCritPerIntellect": 0.000892
+        },
+        {
+          "level": 13,
+          "baseMana": 237,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00125,
+          "spellCritPerIntellect": 0.000825
+        },
+        {
+          "level": 14,
+          "baseMana": 257,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0012,
+          "spellCritPerIntellect": 0.000767
+        },
+        {
+          "level": 15,
+          "baseMana": 278,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001154,
+          "spellCritPerIntellect": 0.000717
+        },
+        {
+          "level": 16,
+          "baseMana": 300,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001111,
+          "spellCritPerIntellect": 0.000688
+        },
+        {
+          "level": 17,
+          "baseMana": 308,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001111,
+          "spellCritPerIntellect": 0.000635
+        },
+        {
+          "level": 18,
+          "baseMana": 332,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001111,
+          "spellCritPerIntellect": 0.0006
+        },
+        {
+          "level": 19,
+          "baseMana": 357,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001071,
+          "spellCritPerIntellect": 0.000569
+        },
+        {
+          "level": 20,
+          "baseMana": 383,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001034,
+          "spellCritPerIntellect": 0.000541
+        },
+        {
+          "level": 21,
+          "baseMana": 395,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.000516
+        },
+        {
+          "level": 22,
+          "baseMana": 423,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.000493
+        },
+        {
+          "level": 23,
+          "baseMana": 452,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000968,
+          "spellCritPerIntellect": 0.000471
+        },
+        {
+          "level": 24,
+          "baseMana": 467,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000968,
+          "spellCritPerIntellect": 0.000446
+        },
+        {
+          "level": 25,
+          "baseMana": 498,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.000429
+        },
+        {
+          "level": 26,
+          "baseMana": 530,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.000418
+        },
+        {
+          "level": 27,
+          "baseMana": 548,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000909,
+          "spellCritPerIntellect": 0.000398
+        },
+        {
+          "level": 28,
+          "baseMana": 582,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000882,
+          "spellCritPerIntellect": 0.000384
+        },
+        {
+          "level": 29,
+          "baseMana": 602,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000882,
+          "spellCritPerIntellect": 0.000367
+        },
+        {
+          "level": 30,
+          "baseMana": 638,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0.000355
+        },
+        {
+          "level": 31,
+          "baseMana": 674,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000833,
+          "spellCritPerIntellect": 0.000347
+        },
+        {
+          "level": 32,
+          "baseMana": 695,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000811,
+          "spellCritPerIntellect": 0.000333
+        },
+        {
+          "level": 33,
+          "baseMana": 731,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000811,
+          "spellCritPerIntellect": 0.000324
+        },
+        {
+          "level": 34,
+          "baseMana": 752,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000789,
+          "spellCritPerIntellect": 0.000311
+        },
+        {
+          "level": 35,
+          "baseMana": 788,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000769,
+          "spellCritPerIntellect": 0.000303
+        },
+        {
+          "level": 36,
+          "baseMana": 809,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00075,
+          "spellCritPerIntellect": 0.000295
+        },
+        {
+          "level": 37,
+          "baseMana": 830,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000732,
+          "spellCritPerIntellect": 0.000284
+        },
+        {
+          "level": 38,
+          "baseMana": 866,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000732,
+          "spellCritPerIntellect": 0.000277
+        },
+        {
+          "level": 39,
+          "baseMana": 887,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000714,
+          "spellCritPerIntellect": 0.000268
+        },
+        {
+          "level": 40,
+          "baseMana": 923,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000698,
+          "spellCritPerIntellect": 0.000262
+        },
+        {
+          "level": 41,
+          "baseMana": 944,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000682,
+          "spellCritPerIntellect": 0.000256
+        },
+        {
+          "level": 42,
+          "baseMana": 965,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000682,
+          "spellCritPerIntellect": 0.000248
+        },
+        {
+          "level": 43,
+          "baseMana": 1001,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000243
+        },
+        {
+          "level": 44,
+          "baseMana": 1022,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000667,
+          "spellCritPerIntellect": 0.000236
+        },
+        {
+          "level": 45,
+          "baseMana": 1043,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000638,
+          "spellCritPerIntellect": 0.000229
+        },
+        {
+          "level": 46,
+          "baseMana": 1064,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0.000224
+        },
+        {
+          "level": 47,
+          "baseMana": 1100,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000625,
+          "spellCritPerIntellect": 0.00022
+        },
+        {
+          "level": 48,
+          "baseMana": 1121,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000612,
+          "spellCritPerIntellect": 0.000214
+        },
+        {
+          "level": 49,
+          "baseMana": 1142,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0006,
+          "spellCritPerIntellect": 0.000209
+        },
+        {
+          "level": 50,
+          "baseMana": 1163,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000588,
+          "spellCritPerIntellect": 0.000204
+        },
+        {
+          "level": 51,
+          "baseMana": 1184,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000577,
+          "spellCritPerIntellect": 0.0002
+        },
+        {
+          "level": 52,
+          "baseMana": 1205,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000577,
+          "spellCritPerIntellect": 0.000195
+        },
+        {
+          "level": 53,
+          "baseMana": 1226,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000566,
+          "spellCritPerIntellect": 0.000191
+        },
+        {
+          "level": 54,
+          "baseMana": 1247,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000556,
+          "spellCritPerIntellect": 0.000186
+        },
+        {
+          "level": 55,
+          "baseMana": 1268,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000545,
+          "spellCritPerIntellect": 0.000182
+        },
+        {
+          "level": 56,
+          "baseMana": 1289,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000536,
+          "spellCritPerIntellect": 0.000179
+        },
+        {
+          "level": 57,
+          "baseMana": 1310,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000526,
+          "spellCritPerIntellect": 0.000176
+        },
+        {
+          "level": 58,
+          "baseMana": 1331,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000517,
+          "spellCritPerIntellect": 0.000172
+        },
+        {
+          "level": 59,
+          "baseMana": 1352,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000517,
+          "spellCritPerIntellect": 0.000168
+        },
+        {
+          "level": 60,
+          "baseMana": 1373,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0005,
+          "spellCritPerIntellect": 0.000165
+        }
+      ]
+    },
+    {
+      "classId": 11,
+      "attackPowerPerStrength": 2,
+      "attackPowerPerAgility": 0,
+      "rangedAttackPowerPerAgility": 0,
+      "levels": [
+        {
+          "level": 1,
+          "baseMana": 50,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00205,
+          "spellCritPerIntellect": 0.001455
+        },
+        {
+          "level": 2,
+          "baseMana": 57,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00205,
+          "spellCritPerIntellect": 0.001391
+        },
+        {
+          "level": 3,
+          "baseMana": 65,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001952,
+          "spellCritPerIntellect": 0.001333
+        },
+        {
+          "level": 4,
+          "baseMana": 74,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001952,
+          "spellCritPerIntellect": 0.00128
+        },
+        {
+          "level": 5,
+          "baseMana": 84,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001864,
+          "spellCritPerIntellect": 0.001231
+        },
+        {
+          "level": 6,
+          "baseMana": 95,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001864,
+          "spellCritPerIntellect": 0.001185
+        },
+        {
+          "level": 7,
+          "baseMana": 107,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001783,
+          "spellCritPerIntellect": 0.001143
+        },
+        {
+          "level": 8,
+          "baseMana": 120,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001783,
+          "spellCritPerIntellect": 0.001143
+        },
+        {
+          "level": 9,
+          "baseMana": 134,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001708,
+          "spellCritPerIntellect": 0.001103
+        },
+        {
+          "level": 10,
+          "baseMana": 149,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001577,
+          "spellCritPerIntellect": 0.001
+        },
+        {
+          "level": 11,
+          "baseMana": 165,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001519,
+          "spellCritPerIntellect": 0.000941
+        },
+        {
+          "level": 12,
+          "baseMana": 182,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001519,
+          "spellCritPerIntellect": 0.000865
+        },
+        {
+          "level": 13,
+          "baseMana": 200,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001464,
+          "spellCritPerIntellect": 0.000821
+        },
+        {
+          "level": 14,
+          "baseMana": 219,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001464,
+          "spellCritPerIntellect": 0.000762
+        },
+        {
+          "level": 15,
+          "baseMana": 239,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001367,
+          "spellCritPerIntellect": 0.000696
+        },
+        {
+          "level": 16,
+          "baseMana": 260,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001367,
+          "spellCritPerIntellect": 0.000667
+        },
+        {
+          "level": 17,
+          "baseMana": 282,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001323,
+          "spellCritPerIntellect": 0.000627
+        },
+        {
+          "level": 18,
+          "baseMana": 305,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001281,
+          "spellCritPerIntellect": 0.000604
+        },
+        {
+          "level": 19,
+          "baseMana": 329,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001281,
+          "spellCritPerIntellect": 0.000571
+        },
+        {
+          "level": 20,
+          "baseMana": 354,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001139,
+          "spellCritPerIntellect": 0.000525
+        },
+        {
+          "level": 21,
+          "baseMana": 380,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001139,
+          "spellCritPerIntellect": 0.000508
+        },
+        {
+          "level": 22,
+          "baseMana": 392,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001108,
+          "spellCritPerIntellect": 0.000485
+        },
+        {
+          "level": 23,
+          "baseMana": 420,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001079,
+          "spellCritPerIntellect": 0.000471
+        },
+        {
+          "level": 24,
+          "baseMana": 449,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001079,
+          "spellCritPerIntellect": 0.000444
+        },
+        {
+          "level": 25,
+          "baseMana": 479,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001025,
+          "spellCritPerIntellect": 0.000427
+        },
+        {
+          "level": 26,
+          "baseMana": 509,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001025,
+          "spellCritPerIntellect": 0.000416
+        },
+        {
+          "level": 27,
+          "baseMana": 524,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.001,
+          "spellCritPerIntellect": 0.0004
+        },
+        {
+          "level": 28,
+          "baseMana": 554,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000976,
+          "spellCritPerIntellect": 0.00039
+        },
+        {
+          "level": 29,
+          "baseMana": 584,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000976,
+          "spellCritPerIntellect": 0.000372
+        },
+        {
+          "level": 30,
+          "baseMana": 614,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000891,
+          "spellCritPerIntellect": 0.000352
+        },
+        {
+          "level": 31,
+          "baseMana": 629,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000872,
+          "spellCritPerIntellect": 0.000344
+        },
+        {
+          "level": 32,
+          "baseMana": 659,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000872,
+          "spellCritPerIntellect": 0.00033
+        },
+        {
+          "level": 33,
+          "baseMana": 689,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000854,
+          "spellCritPerIntellect": 0.000323
+        },
+        {
+          "level": 34,
+          "baseMana": 704,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000837,
+          "spellCritPerIntellect": 0.000314
+        },
+        {
+          "level": 35,
+          "baseMana": 734,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.00082,
+          "spellCritPerIntellect": 0.000302
+        },
+        {
+          "level": 36,
+          "baseMana": 749,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000804,
+          "spellCritPerIntellect": 0.000296
+        },
+        {
+          "level": 37,
+          "baseMana": 779,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000788,
+          "spellCritPerIntellect": 0.000288
+        },
+        {
+          "level": 38,
+          "baseMana": 809,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000788,
+          "spellCritPerIntellect": 0.000281
+        },
+        {
+          "level": 39,
+          "baseMana": 824,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000774,
+          "spellCritPerIntellect": 0.000274
+        },
+        {
+          "level": 40,
+          "baseMana": 854,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000719,
+          "spellCritPerIntellect": 0.00026
+        },
+        {
+          "level": 41,
+          "baseMana": 869,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000707,
+          "spellCritPerIntellect": 0.000256
+        },
+        {
+          "level": 42,
+          "baseMana": 899,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000707,
+          "spellCritPerIntellect": 0.000248
+        },
+        {
+          "level": 43,
+          "baseMana": 914,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000695,
+          "spellCritPerIntellect": 0.000244
+        },
+        {
+          "level": 44,
+          "baseMana": 944,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000683,
+          "spellCritPerIntellect": 0.000237
+        },
+        {
+          "level": 45,
+          "baseMana": 959,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000661,
+          "spellCritPerIntellect": 0.000232
+        },
+        {
+          "level": 46,
+          "baseMana": 989,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000651,
+          "spellCritPerIntellect": 0.000227
+        },
+        {
+          "level": 47,
+          "baseMana": 1004,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000651,
+          "spellCritPerIntellect": 0.000222
+        },
+        {
+          "level": 48,
+          "baseMana": 1019,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000641,
+          "spellCritPerIntellect": 0.000218
+        },
+        {
+          "level": 49,
+          "baseMana": 1049,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000631,
+          "spellCritPerIntellect": 0.000212
+        },
+        {
+          "level": 50,
+          "baseMana": 1064,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000594,
+          "spellCritPerIntellect": 0.000205
+        },
+        {
+          "level": 51,
+          "baseMana": 1079,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000586,
+          "spellCritPerIntellect": 0.000201
+        },
+        {
+          "level": 52,
+          "baseMana": 1109,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000577,
+          "spellCritPerIntellect": 0.000196
+        },
+        {
+          "level": 53,
+          "baseMana": 1124,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000569,
+          "spellCritPerIntellect": 0.000194
+        },
+        {
+          "level": 54,
+          "baseMana": 1139,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000569,
+          "spellCritPerIntellect": 0.000189
+        },
+        {
+          "level": 55,
+          "baseMana": 1154,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000554,
+          "spellCritPerIntellect": 0.000185
+        },
+        {
+          "level": 56,
+          "baseMana": 1169,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000547,
+          "spellCritPerIntellect": 0.000182
+        },
+        {
+          "level": 57,
+          "baseMana": 1199,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000539,
+          "spellCritPerIntellect": 0.000179
+        },
+        {
+          "level": 58,
+          "baseMana": 1214,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000532,
+          "spellCritPerIntellect": 0.000176
+        },
+        {
+          "level": 59,
+          "baseMana": 1229,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.000526,
+          "spellCritPerIntellect": 0.000172
+        },
+        {
+          "level": 60,
+          "baseMana": 1244,
+          "hpPerStamina": 10,
+          "critPerAgility": 0.0005,
+          "spellCritPerIntellect": 0.000167
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4247 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70532",
+  "locale": "esES",
+  "classId": 11,
+  "className": "Druida",
+  "classToken": "DRUID",
+  "iconFileDataId": 625999,
+  "traitTreeId": 1089,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Equilibrio",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136096,
+      "backgroundFile": "DruidBalance",
+      "talents": [
+        {
+          "nodeId": 104923,
+          "spellId": 16814,
+          "name": "Cólera mejorada",
+          "iconFileDataId": 136006,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100,
+              -10
+            ],
+            [
+              -200,
+              -20
+            ],
+            [
+              -300,
+              -30
+            ],
+            [
+              -400,
+              -40
+            ],
+            [
+              -500,
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento y un 10% el coste de maná de tu hechizo Cólera.",
+            "Reduce 0,2 s el tiempo de lanzamiento y un 20% el coste de maná de tu hechizo Cólera.",
+            "Reduce 0,3 s el tiempo de lanzamiento y un 30% el coste de maná de tu hechizo Cólera.",
+            "Reduce 0,4 s el tiempo de lanzamiento y un 40% el coste de maná de tu hechizo Cólera.",
+            "Reduce 0,5 s el tiempo de lanzamiento y un 50% el coste de maná de tu hechizo Cólera."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85324
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 108163
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104924,
+          "spellId": 1223081,
+          "name": "Génesis",
+          "iconFileDataId": 135730,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                2228818,
+                67109120,
+                2097152,
+                1073741824
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                2,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% el daño y la sanación periódicos de tus hechizos y facultades.",
+            "Aumenta un 2% el daño y la sanación periódicos de tus hechizos y facultades.",
+            "Aumenta un 3% el daño y la sanación periódicos de tus hechizos y facultades.",
+            "Aumenta un 4% el daño y la sanación periódicos de tus hechizos y facultades.",
+            "Aumenta un 5% el daño y la sanación periódicos de tus hechizos y facultades."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85325
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 97153
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104925,
+          "spellId": 16845,
+          "name": "Brillo lunar",
+          "iconFileDataId": 136087,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                7340807,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -8
+            ],
+            [
+              -17
+            ],
+            [
+              -25
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 8% el coste de maná de tus hechizos de daño.",
+            "Reduce un 17% el coste de maná de tus hechizos de daño.",
+            "Reduce un 25% el coste de maná de tus hechizos de daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104923,
+              104924
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85328
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104931,
+          "spellId": 16821,
+          "name": "Fuegolunar mejorado",
+          "iconFileDataId": 136096,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              5,
+              5
+            ],
+            [
+              10,
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 5% la probabilidad de golpe crítico y el daño de tus hechizos de Fuegolunar.",
+            "Aumenta en un 10% la probabilidad de golpe crítico y el daño de tus hechizos de Fuegolunar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104923,
+              104924
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85327
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 111698
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 111699
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104927,
+          "spellId": 1223082,
+          "name": "Majestuosidad de la naturaleza",
+          "iconFileDataId": 135138,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la probabilidad de conseguir un golpe crítico con hechizos y ataques cuerpo a cuerpo en un 2%.",
+            "Aumenta la probabilidad de conseguir un golpe crítico con hechizos y ataques cuerpo a cuerpo en un 4%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104923,
+              104924
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104928,
+              "edgeType": 0
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85326
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104929,
+          "spellId": 16819,
+          "name": "Alcance de la naturaleza",
+          "iconFileDataId": 136065,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                6292999,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 55,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              2,
+              2
+            ],
+            [
+              20,
+              4,
+              4
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el alcance de tus hechizos de Equilibrio ofensivos y un 2% la probabilidad de golpear.",
+            "Aumenta un 20% el alcance de tus hechizos de Equilibrio ofensivos y un 4% la probabilidad de golpear."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104923,
+              104924
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85330
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85329
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 102877
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104926,
+          "spellId": 16918,
+          "name": "Enredaderas",
+          "iconFileDataId": 136100,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                512,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25
+            ],
+            [
+              50
+            ],
+            [
+              75
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 25% el daño infligido por tu hechizo Raíces enredadoras, y sus víctimas pueden recibir hasta un 25% más de daño sin que se interrumpa su efecto.",
+            "Aumenta un 50% el daño infligido por tu hechizo Raíces enredadoras, y sus víctimas pueden recibir hasta un 50% más de daño sin que se interrumpa su efecto.",
+            "Aumenta un 75% el daño infligido por tu hechizo Raíces enredadoras, y sus víctimas pueden recibir hasta un 75% más de daño sin que se interrumpa su efecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104927,
+              104929,
+              104931
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85331
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104928,
+          "spellId": 1223083,
+          "name": "Esplendor de la naturaleza",
+          "iconFileDataId": 136061,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                18,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                2097152,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3000,
+              6000,
+              2000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la duración de tu Fuego lunar y Rejuvenecimiento 3 s, tu Recrecimiento 6 s, y tu Enjambre de insectos 2 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104927,
+              104929,
+              104931
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104927,
+              "edgeType": 3
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104930,
+          "spellId": 5570,
+          "name": "Enjambre de insectos",
+          "iconFileDataId": 136045,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 3,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8,
+              -2
+            ]
+          ],
+          "descriptions": [
+            "Rodea al objetivo enemigo de insectos, lo que reduce su probabilidad de golpear con ataques un 2% y causa 48 p. de daño de Naturaleza durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104931
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104932,
+          "spellId": 16909,
+          "name": "Venganza",
+          "iconFileDataId": 136075,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                6291975,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 20% el bonus de daño de golpe crítico de tus hechizos de Naturaleza y Arcanos.",
+            "Aumenta un 40% el bonus de daño de golpe crítico de tus hechizos de Naturaleza y Arcanos.",
+            "Aumenta un 60% el bonus de daño de golpe crítico de tus hechizos de Naturaleza y Arcanos.",
+            "Aumenta un 80% el bonus de daño de golpe crítico de tus hechizos de Naturaleza y Arcanos.",
+            "Aumenta un 100% el bonus de daño de golpe crítico de tus hechizos de Naturaleza y Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104931
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104931,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85334
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104933,
+          "spellId": 16850,
+          "name": "Fuego estelar mejorado",
+          "iconFileDataId": 135753,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                4,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100,
+              3
+            ],
+            [
+              -200,
+              6
+            ],
+            [
+              -300,
+              9
+            ],
+            [
+              -400,
+              12
+            ],
+            [
+              -500,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de Fuego estelar, que obtiene una probabilidad del 3% de aturdir a su objetivo durante 3 s.",
+            "Reduce 0,2 s el tiempo de lanzamiento de Fuego estelar, que obtiene una probabilidad del 6% de aturdir a su objetivo durante 3 s.",
+            "Reduce 0,3 s el tiempo de lanzamiento de Fuego estelar, que obtiene una probabilidad del 9% de aturdir a su objetivo durante 3 s.",
+            "Reduce 0,4 s el tiempo de lanzamiento de Fuego estelar, que obtiene una probabilidad del 12% de aturdir a su objetivo durante 3 s.",
+            "Reduce 0,5 s el tiempo de lanzamiento de Fuego estelar, que obtiene una probabilidad del 15% de aturdir a su objetivo durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104931
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85333
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 109039
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 110844,
+          "spellId": 17245,
+          "name": "Sobrecrecimiento",
+          "iconFileDataId": 134196,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en 1 el número máximo de objetivos a los que puede afectar Raíces enredadoras.",
+            "Aumenta en 2 el número máximo de objetivos a los que puede afectar Raíces enredadoras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104930,
+              104931,
+              104932,
+              104933
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 108304
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104934,
+          "spellId": 16880,
+          "name": "Gracia de la naturaleza",
+          "iconFileDataId": 136062,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Todos los golpes críticos con hechizos no periódicos te conceden una bendición de la Naturaleza, que aumenta tu velocidad de lanzamiento de hechizos y reduce tu tiempo de reutilización global un 10% durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104930,
+              104931,
+              104932,
+              104933
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104935,
+          "spellId": 408248,
+          "name": "Eclipse",
+          "iconFileDataId": 236151,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              -170,
+              2,
+              100
+            ],
+            [
+              0,
+              -330,
+              2,
+              100
+            ],
+            [
+              0,
+              -500,
+              2,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Tu hechizo Cólera reduce 0,17 s el tiempo de lanzamiento de tus siguientes 2 hechizos Fuego estelar. Acumula hasta 4 cargas. Dura 15 s.",
+            "Tu hechizo Cólera reduce 0,33 s el tiempo de lanzamiento de tus siguientes 2 hechizos Fuego estelar. Acumula hasta 4 cargas. Dura 15 s.",
+            "Tu hechizo Cólera reduce 0,50 s el tiempo de lanzamiento de tus siguientes 2 hechizos Fuego estelar. Acumula hasta 4 cargas. Dura 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104930,
+              104931,
+              104932,
+              104933
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85336
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 108156
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104936,
+          "spellId": 16896,
+          "name": "Furia de luna",
+          "iconFileDataId": 136057,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 72,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el daño que infligen tus hechizos Arcanos y de Naturaleza.",
+            "Aumenta un 4% el daño que infligen tus hechizos Arcanos y de Naturaleza.",
+            "Aumenta un 6% el daño que infligen tus hechizos Arcanos y de Naturaleza.",
+            "Aumenta un 8% el daño que infligen tus hechizos Arcanos y de Naturaleza.",
+            "Aumenta un 10% el daño que infligen tus hechizos Arcanos y de Naturaleza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 1,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104930,
+              104931,
+              104932,
+              104933,
+              104934,
+              104935,
+              110844
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85335
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104937,
+          "spellId": 24858,
+          "name": "Forma de lechúcico lunar",
+          "iconFileDataId": 136036,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 36,
+              "miscValue": 31,
+              "miscValueB": 7,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 77,
+              "miscValue": 17,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 4,
+              "aura": 108,
+              "miscValue": 18,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                262144
+              ]
+            },
+            {
+              "index": 5,
+              "aura": 108,
+              "miscValue": 38,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                262144
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              0,
+              0,
+              0,
+              100,
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Cambia a la forma de lechúcido lunar, lo que aumenta la probabilidad de activación de Augurio de claridad un 100%, la contribución de armadura de los objetos un 360% y la probabilidad de golpe crítico con hechizo de todos los miembros del grupo o de la banda un 3% en un radio de 45 m. Además, protege al taumaturgo de los efectos de Polimorfia e impide el uso de hechizos de sanación. \r\n\r\nEl acto de cambiar de forma libera al taumaturgo de los efectos de Polimorfia y de reducción del movimiento."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104923,
+              104924,
+              104925,
+              104926,
+              104927,
+              104928,
+              104929,
+              104930,
+              104931,
+              104932,
+              104933,
+              104934,
+              104935,
+              104936,
+              104937,
+              110844
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Combate feral",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132276,
+      "backgroundFile": "DruidFeralCombat",
+      "talents": [
+        {
+          "nodeId": 104938,
+          "spellId": 16934,
+          "name": "Ferocidad",
+          "iconFileDataId": 132190,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                2048,
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                4096,
+                1024,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10,
+              -1
+            ],
+            [
+              -20,
+              -2
+            ],
+            [
+              -30,
+              -3
+            ],
+            [
+              -40,
+              -4
+            ],
+            [
+              -50,
+              -5
+            ]
+          ],
+          "descriptions": [
+            "Reduce el consumo de tus facultades Magullar, Mordisco primigenio, Flagelo, Zarpa y Arañazo en 1 p. de ira o energía.",
+            "Reduce el consumo de tus facultades Magullar, Mordisco primigenio, Flagelo, Zarpa y Arañazo en 2 p. de ira o energía.",
+            "Reduce el consumo de tus facultades Magullar, Mordisco primigenio, Flagelo, Zarpa y Arañazo en 3 p. de ira o energía.",
+            "Reduce el consumo de tus facultades Magullar, Mordisco primigenio, Flagelo, Zarpa y Arañazo en 4 p. de ira o energía.",
+            "Reduce el consumo de tus facultades Magullar, Mordisco primigenio, Flagelo, Zarpa y Arañazo en 5 p. de ira o energía."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85338
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85339
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104939,
+          "spellId": 17003,
+          "name": "Corazón de lo Salvaje",
+          "iconFileDataId": 135879,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 8,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              4,
+              2
+            ],
+            [
+              4,
+              8,
+              4
+            ],
+            [
+              6,
+              12,
+              6
+            ],
+            [
+              8,
+              16,
+              8
+            ],
+            [
+              10,
+              20,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu intelecto. Además, mientras estás en forma de oso o de oso temible, tu aguante aumenta un 4%, y mientras estás en forma felina, tu fuerza aumenta un 2%.",
+            "Aumenta un 4% tu intelecto. Además, mientras estás en forma de oso o de oso temible, tu aguante aumenta un 8%, y mientras estás en forma felina, tu fuerza aumenta un 4%.",
+            "Aumenta un 6% tu intelecto. Además, mientras estás en forma de oso o de oso temible, tu aguante aumenta un 12%, y mientras estás en forma felina, tu fuerza aumenta un 6%.",
+            "Aumenta un 8% tu intelecto. Además, mientras estás en forma de oso o de oso temible, tu aguante aumenta un 16%, y mientras estás en forma felina, tu fuerza aumenta un 8%.",
+            "Aumenta un 10% tu intelecto. Además, mientras estás en forma de oso o de oso temible, tu aguante aumenta un 20%, y mientras estás en forma felina, tu fuerza aumenta un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85337
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 112809
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 112808
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104943,
+          "spellId": 17002,
+          "name": "Presteza feral",
+          "iconFileDataId": 136095,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 49,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              15
+            ],
+            [
+              4,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% tu velocidad de movimiento y un 2% tu probabilidad de esquivar mientras estás en forma felina.",
+            "Aumenta un 30% tu velocidad de movimiento y un 4% tu probabilidad de esquivar mientras estás en forma felina."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104938,
+              104939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85345
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85344
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104940,
+          "spellId": 16947,
+          "name": "Instinto feral",
+          "iconFileDataId": 132089,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                16384,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                1048576,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              10
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              15,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el daño infligido por tu facultad Flagelo y reduce la probabilidad que tienen los enemigos de detectarte mientras acechas como si tuvieras 1 nivel más.",
+            "Aumenta un 20% el daño infligido por tu facultad Flagelo y reduce la probabilidad que tienen los enemigos de detectarte mientras acechas como si tuvieras 2 niveles más.",
+            "Aumenta un 30% el daño infligido por tu facultad Flagelo y reduce la probabilidad que tienen los enemigos de detectarte mientras acechas como si tuvieras 3 niveles más."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104938,
+              104939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85342
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85343
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104941,
+          "spellId": 16940,
+          "name": "Impacto brutal",
+          "iconFileDataId": 132114,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                139264,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                8192,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              500,
+              -15000
+            ],
+            [
+              1000,
+              -30000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 0,5 s la duración de aturdimiento de tus facultades Azote y Abalanzarse, y reduce 15 s el tiempo de reutilización de Azote.",
+            "Aumenta 1 s la duración de aturdimiento de tus facultades Azote y Abalanzarse, y reduce 30 s el tiempo de reutilización de Azote."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104938,
+              104939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85340
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85341
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104942,
+          "spellId": 16929,
+          "name": "Pellejo grueso",
+          "iconFileDataId": 134355,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              67,
+              1
+            ],
+            [
+              133,
+              2
+            ],
+            [
+              200,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Mientras estás en forma de oso, oso temible, felina o de lechúcico lunar, obtienes 1 p. de armadura base adicional por nivel y 0,67 p. de armadura base por cada punto de habilidad de defensa cinco veces superior a tu nivel. Esta cantidad se incrementará aún más en función de los multiplicadores de cada forma.",
+            "Mientras estás en forma de oso, oso temible, felina o de lechúcico lunar, obtienes 2 p. de armadura base adicional por nivel y 1,33 p. de armadura base por cada punto de habilidad de defensa cinco veces superior a tu nivel. Esta cantidad se incrementará aún más en función de los multiplicadores de cada forma.",
+            "Mientras estás en forma de oso, oso temible, felina o de lechúcico lunar, obtienes 3 p. de armadura base adicional por nivel y 2,00 p. de armadura base por cada punto de habilidad de defensa cinco veces superior a tu nivel. Esta cantidad se incrementará aún más en función de los multiplicadores de cada forma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104938,
+              104939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85346
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 111990
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104945,
+          "spellId": 16966,
+          "name": "Ataques trituradores",
+          "iconFileDataId": 136231,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                32768,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                256,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -6,
+              -10
+            ],
+            [
+              -12,
+              -20
+            ],
+            [
+              -18,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce 6 p. el coste de energía de tu facultad Triturar y 1 p. el coste de ira de tu facultad Lacerar.",
+            "Reduce 12 p. el coste de energía de tu facultad Triturar y 2 p. el coste de ira de tu facultad Lacerar.",
+            "Reduce 18 p. el coste de energía de tu facultad Triturar y 3 p. el coste de ira de tu facultad Lacerar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85350
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85349
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104948,
+          "spellId": 16998,
+          "name": "Furia salvaje",
+          "iconFileDataId": 132141,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                38912,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                4096,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              5
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño infligido por tus facultades Zarpa, Arañazo, Triturar, Magullar y Flagelo.",
+            "Aumenta un 10% el daño infligido por tus facultades Zarpa, Arañazo, Triturar, Magullar y Flagelo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85347
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110556
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104944,
+          "spellId": 1238122,
+          "name": "Carga feral",
+          "iconFileDataId": 132183,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Requiere forma de oso, forma de oso temible\r\nCargas contra un objetivo, lo que lo inmoviliza e interrumpe el lanzamiento de hechizos durante 4 s.\r\n\r\nSaltas y te colocas tras el enemigo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104946,
+          "spellId": 16942,
+          "name": "Garras afiladas",
+          "iconFileDataId": 134297,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3 % tu probabilidad de golpe crítico mientras estás en forma de oso, forma de oso temible o forma felina.",
+            "Aumenta un 6 % tu probabilidad de golpe crítico mientras estás en forma de oso, forma de oso temible o forma felina."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85348
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104951,
+          "spellId": 1322605,
+          "name": "Poder cambiante",
+          "iconFileDataId": 538514,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              40
+            ]
+          ],
+          "descriptions": [
+            "Convierte al instante 55 % del maná base en 40 p. de energía. El coste de Poder cambiante se ve reducido por los efectos que reducen el coste de Cambio de forma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104948
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104945,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104949,
+          "spellId": 407995,
+          "name": "Mordisco primigenio",
+          "iconFileDataId": 132278,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              26,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Muerde al objetivo, lo que le inflige un 100% de daño normal más 26 p. y genera una gran cantidad de amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104948
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104948,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104952,
+          "spellId": 16972,
+          "name": "Golpes depredadores",
+          "iconFileDataId": 132185,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 99,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              0
+            ],
+            [
+              100,
+              0
+            ],
+            [
+              150,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 50 % de tu nivel tu poder de ataque cuerpo a cuerpo al estar en forma felina, de oso o de oso temible.",
+            "Aumenta en un 100 % de tu nivel tu poder de ataque cuerpo a cuerpo al estar en forma felina, de oso o de oso temible.",
+            "Aumenta en un 150 % de tu nivel tu poder de ataque cuerpo a cuerpo al estar en forma felina, de oso o de oso temible."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104948
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85353
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104947,
+          "spellId": 16958,
+          "name": "Frenesí sangriento",
+          "iconFileDataId": 132152,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              50
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Te da un 50% de probabilidad de obtener 5 p. más de ira cada vez que asestas un golpe crítico en forma de oso o de oso temible. Además, los golpes críticos no periódicos de facultades de la forma felina que generan puntos de combo tienen un 50% de probabilidad de otorgar un punto de combo extra.",
+            "Te da un 100% de probabilidad de obtener 5 p. más de ira cada vez que asestas un golpe crítico en forma de oso o de oso temible. Además, los golpes críticos no periódicos de facultades de la forma felina que generan puntos de combo tienen un 100% de probabilidad de otorgar un punto de combo extra."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104948
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104946,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85352
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85351
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 113563,
+          "spellId": 1322670,
+          "name": "Poder cambiante mejorado",
+          "iconFileDataId": 236172,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                -2147483648,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -4000
+            ],
+            [
+              -8000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 4 s el tiempo de reutilización de tu hechizo Poder cambiante.",
+            "Reduce 8 s el tiempo de reutilización de tu hechizo Poder cambiante."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104951,
+              104952
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104951,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 124948
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104955,
+          "spellId": 17007,
+          "name": "Líder de la manada",
+          "iconFileDataId": 136112,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Cuando estás en forma felina, forma de oso o forma de oso nefasto, el líder de la manada aumenta la probabilidad de golpe crítico cuerpo a cuerpo y a distancia de los miembros del grupo o de la banda un 3% en un radio de 45 m."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104951,
+              104952
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104950,
+          "spellId": 1223242,
+          "name": "Instinto natural",
+          "iconFileDataId": 132138,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                8624128,
+                1344,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 175,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              12
+            ],
+            [
+              20,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el bonus de daño de golpe crítico de tus facultades cuerpo a cuerpo y aumenta tu sanación con hechizos un 12% de tu intelecto.",
+            "Aumenta un 20% el bonus de daño de golpe crítico de tus facultades cuerpo a cuerpo y aumenta tu sanación con hechizos un 25% de tu intelecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104951,
+              104952
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85354
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 125352
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104954,
+          "spellId": 417051,
+          "name": "Reacción natural",
+          "iconFileDataId": 132091,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 49,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              20,
+              10,
+              1
+            ],
+            [
+              2,
+              40,
+              10,
+              1
+            ],
+            [
+              3,
+              60,
+              10,
+              1
+            ],
+            [
+              4,
+              80,
+              10,
+              1
+            ],
+            [
+              5,
+              100,
+              10,
+              1
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% la probabilidad de esquivar y te da un 20% de probabilidad de obtener 5 p. de ira cada vez que esquivas.",
+            "Aumenta un 2% la probabilidad de esquivar y te da un 40% de probabilidad de obtener 5 p. de ira cada vez que esquivas.",
+            "Aumenta un 3% la probabilidad de esquivar y te da un 60% de probabilidad de obtener 5 p. de ira cada vez que esquivas.",
+            "Aumenta un 4% la probabilidad de esquivar y te da un 80% de probabilidad de obtener 5 p. de ira cada vez que esquivas.",
+            "Aumenta un 5% la probabilidad de esquivar y te da un 100% de probabilidad de obtener 5 p. de ira cada vez que esquivas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 0,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104950,
+              104951,
+              104952,
+              104955,
+              113563
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85358
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85359
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104953,
+          "spellId": 1223246,
+          "name": "Desgarrar y rasgar",
+          "iconFileDataId": 236164,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño infligido por tus facultades cuerpo a cuerpo un 2% contra los objetivos que sangran.",
+            "Aumenta el daño infligido por tus facultades cuerpo a cuerpo un 4% contra los objetivos que sangran.",
+            "Aumenta el daño infligido por tus facultades cuerpo a cuerpo un 6% contra los objetivos que sangran.",
+            "Aumenta el daño infligido por tus facultades cuerpo a cuerpo un 8% contra los objetivos que sangran.",
+            "Aumenta el daño infligido por tus facultades cuerpo a cuerpo un 10% contra los objetivos que sangran."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104950,
+              104951,
+              104952,
+              104955,
+              113563
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104952,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85357
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104956,
+          "spellId": 417141,
+          "name": "Rabia",
+          "iconFileDataId": 236149,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                233472,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 17,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                64,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 77,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100,
+              -100,
+              3,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Requiere forma felina, forma de oso, forma de oso temible\r\nHace que tu facultad Mordisco primigenio golpee a un máximo de 3 objetivos, elimine su tiempo de reutilización y aumente un 100% la probabilidad de golpe crítico de tus facultades que generan puntos de combo. Elimina los efectos de miedo y te vuelve inmune a ellos mientras dure. Dura 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104938,
+              104939,
+              104940,
+              104941,
+              104942,
+              104943,
+              104944,
+              104945,
+              104946,
+              104947,
+              104948,
+              104949,
+              104950,
+              104951,
+              104952,
+              104953,
+              104954,
+              104955,
+              104956,
+              113563
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104955,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Recuperación",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136041,
+      "backgroundFile": "DruidRestoration",
+      "talents": [
+        {
+          "nodeId": 104957,
+          "spellId": 17063,
+          "name": "Enfoque de la naturaleza",
+          "iconFileDataId": 136042,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                272630501,
+                33554432,
+                41472,
+                65536
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              14
+            ],
+            [
+              28
+            ],
+            [
+              42
+            ],
+            [
+              56
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos Arcanos y de Naturaleza un 14% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Arcanos y de Naturaleza un 28% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Arcanos y de Naturaleza un 42% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Arcanos y de Naturaleza un 56% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Arcanos y de Naturaleza un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85362
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104958,
+          "spellId": 17056,
+          "name": "Furor",
+          "iconFileDataId": 135881,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              20
+            ],
+            [
+              40,
+              40
+            ],
+            [
+              60,
+              60
+            ],
+            [
+              80,
+              80
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Te da un 20% de probabilidad de obtener 10 p. de ira cuando adoptas la forma de oso o la forma de oso nefasto. Cuando adoptas la forma felina, recuperas un 20% de la energía que tenías la última vez que adoptaste la forma felina, y 2 p. más de energía por cada segundo que hayas pasado fuera de la forma de oso o la forma de oso nefasto, hasta un máximo de 20 p. de energía.",
+            "Te da un 40% de probabilidad de obtener 10 p. de ira cuando adoptas la forma de oso o la forma de oso nefasto. Cuando adoptas la forma felina, recuperas un 40% de la energía que tenías la última vez que adoptaste la forma felina, y 4 p. más de energía por cada segundo que hayas pasado fuera de la forma de oso o la forma de oso nefasto, hasta un máximo de 40 p. de energía.",
+            "Te da un 60% de probabilidad de obtener 10 p. de ira cuando adoptas la forma de oso o la forma de oso nefasto. Cuando adoptas la forma felina, recuperas un 60% de la energía que tenías la última vez que adoptaste la forma felina, y 6 p. más de energía por cada segundo que hayas pasado fuera de la forma de oso o la forma de oso nefasto, hasta un máximo de 60 p. de energía.",
+            "Te da un 80% de probabilidad de obtener 10 p. de ira cuando adoptas la forma de oso o la forma de oso nefasto. Cuando adoptas la forma felina, recuperas un 80% de la energía que tenías la última vez que adoptaste la forma felina, y 8 p. más de energía por cada segundo que hayas pasado fuera de la forma de oso o la forma de oso nefasto, hasta un máximo de 80 p. de energía.",
+            "Te da un 100% de probabilidad de obtener 10 p. de ira cuando adoptas la forma de oso o la forma de oso nefasto. Cuando adoptas la forma felina, recuperas un 100% de la energía que tenías la última vez que adoptaste la forma felina, y 10 p. más de energía por cada segundo que hayas pasado fuera de la forma de oso o la forma de oso nefasto, hasta un máximo de 100 p. de energía."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85361
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85360
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 104922,
+          "spellId": 17069,
+          "name": "Naturalista",
+          "iconFileDataId": 136041,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                32,
+                33554432,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 79,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100,
+              1
+            ],
+            [
+              -200,
+              2
+            ],
+            [
+              -300,
+              3
+            ],
+            [
+              -400,
+              4
+            ],
+            [
+              -500,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tu hechizo Toque de sanación y aumenta un 1% todo el daño que infliges.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tu hechizo Toque de sanación y aumenta un 2% todo el daño que infliges.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tu hechizo Toque de sanación y aumenta un 3% todo el daño que infliges.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tu hechizo Toque de sanación y aumenta un 4% todo el daño que infliges.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tu hechizo Toque de sanación y aumenta un 5% todo el daño que infliges."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85364
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85363
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104920,
+          "spellId": 17118,
+          "name": "Sutileza",
+          "iconFileDataId": 132150,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 10,
+              "miscValue": 72,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10
+            ],
+            [
+              -20
+            ],
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 10% la amenaza generada por tus hechizos de Naturaleza y Arcanos.",
+            "Reduce un 20% la amenaza generada por tus hechizos de Naturaleza y Arcanos.",
+            "Reduce un 30% la amenaza generada por tus hechizos de Naturaleza y Arcanos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85365
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104919,
+          "spellId": 16833,
+          "name": "Metamorfosis natural",
+          "iconFileDataId": 136116,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                -536870912,
+                65536,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10
+            ],
+            [
+              -20
+            ],
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce el coste de maná de todos los hechizos de Metamorfosis en un 10%.",
+            "Reduce el coste de maná de todos los hechizos de Metamorfosis en un 20%.",
+            "Reduce el coste de maná de todos los hechizos de Metamorfosis en un 30%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85366
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 104917,
+          "spellId": 17106,
+          "name": "Refracción",
+          "iconFileDataId": 135863,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              17
+            ],
+            [
+              33
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Permite que un 17% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 33% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 50% de la regeneración de maná continúe mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85389
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104916,
+          "spellId": 17104,
+          "name": "Regalo de la Naturaleza",
+          "iconFileDataId": 136074,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                224,
+                2,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                80,
+                67108864,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el efecto de todos tus hechizos de sanación.",
+            "Aumenta un 4% el efecto de todos tus hechizos de sanación.",
+            "Aumenta un 6% el efecto de todos tus hechizos de sanación.",
+            "Aumenta un 8% el efecto de todos tus hechizos de sanación.",
+            "Aumenta un 10% el efecto de todos tus hechizos de sanación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85390
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 97152
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104918,
+          "spellId": 414673,
+          "name": "Don de la Madre Tierra",
+          "iconFileDataId": 136094,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 21,
+              "miscValueB": 0,
+              "classMask": [
+                16,
+                67108882,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,5 s el tiempo de reutilización global de tus hechizos Rejuvenecimiento, Alivio presto y Crecimiento salvaje."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10880,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 104915,
+          "spellId": 24968,
+          "name": "Espíritu sosegado",
+          "iconFileDataId": 135900,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                160,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2
+            ],
+            [
+              -4
+            ],
+            [
+              -6
+            ],
+            [
+              -8
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce el coste de maná de tus hechizos Toque curativo y Tranquilidad en un 2%.",
+            "Reduce el coste de maná de tus hechizos Toque curativo y Tranquilidad en un 4%.",
+            "Reduce el coste de maná de tus hechizos Toque curativo y Tranquilidad en un 6%.",
+            "Reduce el coste de maná de tus hechizos Toque curativo y Tranquilidad en un 8%.",
+            "Reduce el coste de maná de tus hechizos Toque curativo y Tranquilidad en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85404
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104914,
+          "spellId": 17111,
+          "name": "Rejuvenecimiento mejorado",
+          "iconFileDataId": 136081,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                16,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 5% el efecto de tu hechizo de Rejuvenecimiento.",
+            "Aumenta en un 10% el efecto de tu hechizo de Rejuvenecimiento.",
+            "Aumenta en un 15% el efecto de tu hechizo de Rejuvenecimiento."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85403
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104912,
+          "spellId": 18562,
+          "name": "Arreglo rápido",
+          "iconFileDataId": 134914,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ]
+          ],
+          "descriptions": [
+            "Sana al instante a un objetivo con un efecto activo de Rejuvenecimiento o de Recrecimiento una cantidad equivalente a la duración total del efecto periódico de uno de esos hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10880,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 104921,
+          "spellId": 17116,
+          "name": "Rapidez de la Naturaleza",
+          "iconFileDataId": 136076,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                16777825,
+                33554432,
+                33554432,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ]
+          ],
+          "descriptions": [
+            "Tu próximo hechizo de Naturaleza se convertirá en un hechizo de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104912,
+              104914,
+              104915,
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104922,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104911,
+          "spellId": 1309631,
+          "name": "Espíritu vivo",
+          "iconFileDataId": 136037,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 16,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% tu espíritu.",
+            "Aumenta un 10% tu espíritu.",
+            "Aumenta un 15% tu espíritu."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104912,
+              104914,
+              104915,
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85407
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104909,
+          "spellId": 17123,
+          "name": "Tranquilidad mejorada",
+          "iconFileDataId": 136107,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -50,
+              -30
+            ],
+            [
+              -100,
+              -60
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 50% la amenaza causada por Tranquilidad y un 30% su tiempo de reutilización.",
+            "Reduce un 100% la amenaza causada por Tranquilidad y un 60% su tiempo de reutilización."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              104912,
+              104914,
+              104915,
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85408
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85409
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 104913,
+          "spellId": 17074,
+          "name": "Recrecimiento mejorado",
+          "iconFileDataId": 136085,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ],
+            [
+              30
+            ],
+            [
+              40
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% la probabilidad de efecto crítico de tus hechizos de Recrecimiento.",
+            "Aumenta en un 20% la probabilidad de efecto crítico de tus hechizos de Recrecimiento.",
+            "Aumenta en un 30% la probabilidad de efecto crítico de tus hechizos de Recrecimiento.",
+            "Aumenta en un 40% la probabilidad de efecto crítico de tus hechizos de Recrecimiento.",
+            "Aumenta en un 50% la probabilidad de efecto crítico de tus hechizos de Recrecimiento."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              104909,
+              104911,
+              104912,
+              104914,
+              104915,
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104921,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104914,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 85410
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 104910,
+          "spellId": 408120,
+          "name": "Crecimiento salvaje",
+          "iconFileDataId": 236153,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 8,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              40,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Sana 280 p. al objetivo y a su grupo durante 7 s. Los miembros del grupo deben estar en un radio de 43,5 m del objetivo. La cantidad sanada se aplica con rapidez al principio y va disminuyendo a medida que surte efecto Crecimiento salvaje."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              104909,
+              104910,
+              104911,
+              104912,
+              104913,
+              104914,
+              104915,
+              104916,
+              104917,
+              104918,
+              104919,
+              104920,
+              104921,
+              104922,
+              104957,
+              104958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 104911,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": []
+}

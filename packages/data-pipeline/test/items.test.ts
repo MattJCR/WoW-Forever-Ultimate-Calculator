@@ -8,16 +8,16 @@ import { Items } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70450";
+const BUILD = "1.60.1.70532";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 
-describe.skipIf(!existsSync(join(RAW, "ItemSetSpell.csv")))("conjuntos y efectos de objeto (cliente 1.60.1.70450, con hotfixes)", () => {
+describe.skipIf(!existsSync(join(RAW, "ItemSetSpell.csv")))("conjuntos y efectos de objeto (cliente 1.60.1.70532, con hotfixes)", () => {
   const raw = openRawTables(RAW);
   const data = Items.parse(buildItems(raw, BUILD, new SpellTables(raw)));
   const byId = new Map(data.items.map((i) => [i.id, i]));
 
-  it("536 conjuntos y todos menos uno con bonos; los bonos van ordenados por piezas", () => {
-    expect(data.sets).toHaveLength(536);
+  it("545 conjuntos (536 + los 9 de nivel 30 del hotfix del 22/10) y todos menos uno con bonos; los bonos van ordenados por piezas", () => {
+    expect(data.sets).toHaveLength(545);
     expect(data.sets.filter((s) => s.bonuses.length === 0)).toHaveLength(1);
     for (const s of data.sets) expect(s.bonuses.map((b) => b.threshold)).toEqual([...s.bonuses.map((b) => b.threshold)].sort((a, b) => a - b));
   });

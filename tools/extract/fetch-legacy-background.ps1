@@ -6,7 +6,7 @@
 #   data/forever/<build>/backgrounds/LegacyTree-Panel.png
 #
 # Uso (con wow.tools.local arrancado):  powershell -File tools/extract/fetch-legacy-background.ps1 [build]
-param([string]$Build = "1.60.1.70450", [string]$Base = "http://localhost:5000")
+param([string]$Build = "1.60.1.70532", [string]$Base = "http://localhost:5000")
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Drawing
 $root = Resolve-Path (Join-Path $PSScriptRoot "..\..")

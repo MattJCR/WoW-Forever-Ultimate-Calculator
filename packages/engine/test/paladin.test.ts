@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, effectAt, findAbility, indexClass, ruleAppliesTo, ruleLines, type Build } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70450");
+const D = join(root, "data", "forever", "1.60.1.70532");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const paladin = indexClass(ClassTalents.parse(json("classes/paladin.json")));
 const abilities = Abilities.parse(json("abilities/paladin.json"));

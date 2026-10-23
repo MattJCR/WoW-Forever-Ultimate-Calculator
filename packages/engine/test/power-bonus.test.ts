@@ -5,7 +5,7 @@ import { Abilities } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import { applyModifiers, findAbility, powerEstimate, rankAtLevel, type PowerContext } from "../src/index.js";
 
-const D = join(resolve(dirname(fileURLToPath(import.meta.url)), "../../.."), "data", "forever", "1.60.1.70450");
+const D = join(resolve(dirname(fileURLToPath(import.meta.url)), "../../.."), "data", "forever", "1.60.1.70532");
 const load = (c: string) => Abilities.parse(JSON.parse(readFileSync(join(D, "abilities", `${c}.json`), "utf8")));
 const mage = load("mage");
 const warlock = load("warlock");

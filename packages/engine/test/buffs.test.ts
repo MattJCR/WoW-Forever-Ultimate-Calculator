@@ -6,12 +6,12 @@ import { describe, expect, it } from "vitest";
 import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, improveBuff, indexBuffs, indexClass, isLastingBuff, spellModifiersOf, toggleBuff } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70450");
+const D = join(root, "data", "forever", "1.60.1.70532");
 const has = existsSync(join(D, "buffs.json")) && existsSync(join(D, "classes", "warrior.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 /** Beneficios (sesión 12): habilidades de clase propias y de otras clases, tótems, mascota y consumibles, todo del cliente. */
-describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
+describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
   const data = Buffs.parse(json("buffs.json"));
   const index = indexBuffs(data);
   const byName = (name: string, category?: string) => data.buffs.find((b) => b.name === name && (!category || b.category === category))!;
@@ -75,7 +75,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
     expect(fx.totals.some((t) => t.label.includes("poder de ataque") && t.value === 139)).toBe(false);
   });
 
-  it("AUDITORÍA: 277 de los 290 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
+  it("AUDITORÍA: 280 de los 293 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
@@ -86,7 +86,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70450", () => {
     expect(absorb).toHaveLength(11);
     for (const n of absorb) expect(byName(n).text).toMatch(/^Amortigua \d+ p\. de daño/);
     expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
-    expect(data.buffs.length).toBe(290);
+    expect(data.buffs.length).toBe(293); // 290 + 3 elixires «Endless» del hotfix del 22/10
   });
 
   it("los aumentos permanentes al consumir (sin duración) suman su cifra y cuentan como duraderos", () => {

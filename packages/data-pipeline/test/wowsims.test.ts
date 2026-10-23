@@ -9,7 +9,7 @@ import { SpellTables } from "../src/spell-tables.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "../src/wowsims.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70450";
+const BUILD = "1.60.1.70532";
 const WS = join(root, "data", "external", "wowsims");
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const ready = existsSync(join(WS, "db.json")) && existsSync(join(WS, "CombatRatings.txt")) && existsSync(join(RAW, "RandPropPoints.csv"));
@@ -78,19 +78,19 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
     expect(extra.length).toBeGreaterThan(5);
     const clientIds = new Set(client.items.map((i) => i.id));
     expect(extra.every((i) => !clientIds.has(i.id) && i.textOrigin === "untranslated")).toBe(true);
-    // los que el cliente lista sin datos y la comunidad si trae pasan a ser objetos community y salen de «sin datos»
-    expect(extra.map((i) => i.id)).toContain(1979);
-    expect(merged.unavailable.some((u) => u.id === 1979)).toBe(false);
+    // El Muro de los Muertos (1979) era el único que el cliente listaba sin datos y la comunidad traía; el hotfix del 22/10 ya lo trae el cliente
+    expect(extra.map((i) => i.id)).not.toContain(1979);
+    expect(client.items.some((i) => i.id === 1979)).toBe(true);
     // lo del cliente no se toca
     expect(merged.items.filter((i) => i.provenance === "client-db2")).toHaveLength(client.items.length);
   });
 
-  it("de los 6 381 equipables que el cliente no trae solo uno lo trae la comunidad (Muro de los Muertos, hotfix posterior a nuestra caché)", () => {
+  it("de los equipables que el cliente no trae (6 375 desde el parche 70532) ninguno lo trae la comunidad; el Muro de los Muertos (hotfix posterior a nuestra caché anterior) ya es del cliente con las mismas cifras", () => {
     const wsIds = new Set(db.items.map((i) => i.id));
-    expect(client.unavailable.filter((u) => wsIds.has(u.id)).map((u) => u.id)).toEqual([1979]);
+    expect(client.unavailable.filter((u) => wsIds.has(u.id)).map((u) => u.id)).toEqual([]);
     const wall = merged.items.find((i) => i.id === 1979)!;
-    expect(wall.provenance).toBe("community");
-    expect(wall.armor).toBe(1937);
+    expect(wall.provenance).toBe("client-db2");
+    expect(wall.armor).toBe(1937); // = la cifra que traía la comunidad
     expect(wall.stats.find((x) => x.key === "block-value")?.value).toBe(41);
   });
 

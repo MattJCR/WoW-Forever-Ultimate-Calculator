@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const { parse } = createRequire(root + "packages/data-pipeline/package.json")("csv-parse/sync");
-const build = process.argv[2] ?? "1.60.1.70450";
+const build = process.argv[2] ?? "1.60.1.70532";
 const dir = `${root}data/raw/${build}-hotfix/`;
 const T = (n) => parse(readFileSync(dir + n + ".csv"), { columns: true, bom: true, skip_empty_lines: true, relax_column_count: true });
 const by = (arr, f) => { const m = {}; for (const x of arr) { const k = f(x); m[k] = (m[k] ?? 0) + 1; } return m; };

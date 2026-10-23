@@ -340,9 +340,11 @@ function expandReferences(t: SpellTables, ctx: RenderContext, text: string, dept
   out = out.replace(/\$\?(\$?)([sap]\d+(?:\|[sap]\d+)*)\[([^\]]*)\]\[([^\]]*)\]/g, (m, dollar: string, cond: string, yes: string, no: string) =>
     ctx.slots && !dollar && /^[sa]\d+(?:\|[sa]\d+)*$/.test(cond) && yes !== no ? m : no,
   );
-  // Poder de ataque: `${1+$AP*$m3/100}` -> «un 15% de tu poder de ataque» (el poder no se calcula: no hay estadisticas de Forever)
+  // Poder de ataque: `${1+$AP*$m3/100}` -> «un 15% de tu poder de ataque» (el poder no se calcula: no hay estadisticas de Forever).
+  // El hotfix del 22/10 reescribio Ataque de la victoria con `$apm` en lugar de `$AP`: misma forma y misma cifra, se lee igual
+  // (alias deducido de ese unico texto; `assumption` hasta ver otro uso)
   const en = locale === "en";
-  out = out.replace(/\$\{(?:(\d+(?:\.\d+)?)\+)?\$AP\*(\$\d*[mMsS]\d)\/100\}/g, (_m, k: string | undefined, ref: string) =>
+  out = out.replace(/\$\{(?:(\d+(?:\.\d+)?)\+)?\$(?:AP|apm)\*(\$\d*[mMsS]\d)\/100\}/g, (_m, k: string | undefined, ref: string) =>
     en ? `${k && Number(k) > 1 ? `\${${k}} plus ` : ""}\${${ref}}% of your attack power` : `${k && Number(k) > 1 ? `\${${k}} más ` : ""}un \${${ref}}% de tu poder de ataque`,
   );
   out = out.replace(en ? /\$c mana/g : /\$c p\. de maná/g, () => {

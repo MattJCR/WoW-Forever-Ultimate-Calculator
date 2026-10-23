@@ -1,0 +1,3988 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70532",
+  "locale": "esES",
+  "classId": 5,
+  "className": "Sacerdote",
+  "classToken": "PRIEST",
+  "iconFileDataId": 626004,
+  "traitTreeId": 1114,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Disciplina",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135987,
+      "backgroundFile": "PriestDiscipline",
+      "talents": [
+        {
+          "nodeId": 110853,
+          "spellId": 1309969,
+          "name": "Poder en la Luz",
+          "iconFileDataId": 135972,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Tus hechizos Punición y Penitencia infligen un 2% más de daño a los objetivos afectados por tu Fuego Sagrado o Palabra de las Sombras: dolor.",
+            "Tus hechizos Punición y Penitencia infligen un 4% más de daño a los objetivos afectados por tu Fuego Sagrado o Palabra de las Sombras: dolor.",
+            "Tus hechizos Punición y Penitencia infligen un 6% más de daño a los objetivos afectados por tu Fuego Sagrado o Palabra de las Sombras: dolor.",
+            "Tus hechizos Punición y Penitencia infligen un 8% más de daño a los objetivos afectados por tu Fuego Sagrado o Palabra de las Sombras: dolor.",
+            "Tus hechizos Punición y Penitencia infligen un 10% más de daño a los objetivos afectados por tu Fuego Sagrado o Palabra de las Sombras: dolor."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": {
+            "points": 0,
+            "fromNodeIds": []
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109048
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105850,
+          "spellId": 14524,
+          "name": "Especialización en varitas",
+          "iconFileDataId": 135463,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 524288
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              13
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el daño con varitas en un 13%.",
+            "Aumenta el daño con varitas en un 25%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": {
+            "points": 0,
+            "fromNodeIds": []
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83144
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105849,
+          "spellId": 1225132,
+          "name": "Disciplinas gemelas",
+          "iconFileDataId": 135969,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                424149024,
+                98322,
+                0,
+                2097152
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                10518624,
+                0,
+                0,
+                16
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              5,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% el daño y la sanación de tus hechizos de lanzamiento instantáneo.",
+            "Aumenta un 2% el daño y la sanación de tus hechizos de lanzamiento instantáneo.",
+            "Aumenta un 3% el daño y la sanación de tus hechizos de lanzamiento instantáneo.",
+            "Aumenta un 4% el daño y la sanación de tus hechizos de lanzamiento instantáneo.",
+            "Aumenta un 5% el daño y la sanación de tus hechizos de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": {
+            "points": 0,
+            "fromNodeIds": []
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83143
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 100636
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 100635
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105848,
+          "spellId": 14523,
+          "name": "Resolución silenciosa",
+          "iconFileDataId": 136053,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 10,
+              "miscValue": 34,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 232,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 232,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10,
+              -5,
+              -5,
+              -5
+            ],
+            [
+              -20,
+              -10,
+              -10,
+              -10
+            ],
+            [
+              -30,
+              -15,
+              -15,
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 10% la amenaza generada por tus hechizos y un 5% la duración de los efectos de aturdimiento, miedo y silencio sobre ti.",
+            "Reduce un 20% la amenaza generada por tus hechizos y un 10% la duración de los efectos de aturdimiento, miedo y silencio sobre ti.",
+            "Reduce un 30% la amenaza generada por tus hechizos y un 15% la duración de los efectos de aturdimiento, miedo y silencio sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105849,
+              105850,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83142
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 108480
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 108479
+            },
+            {
+              "effectIndex": 3,
+              "operationType": 0,
+              "curveId": 108478
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 110852,
+          "spellId": 1309957,
+          "name": "Precisión Sagrada",
+          "iconFileDataId": 135895,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                -934281088,
+                32769,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              6
+            ],
+            [
+              12
+            ],
+            [
+              18
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 6% tu probabilidad de golpear con hechizos Sagrados.",
+            "Aumenta un 12% tu probabilidad de golpear con hechizos Sagrados.",
+            "Aumenta un 18% tu probabilidad de golpear con hechizos Sagrados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105849,
+              105850,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109040
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105837,
+          "spellId": 18551,
+          "name": "Fuerza mental",
+          "iconFileDataId": 136031,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 8,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% tu intelecto total.",
+            "Aumenta un 4% tu intelecto total.",
+            "Aumenta un 6% tu intelecto total.",
+            "Aumenta un 8% tu intelecto total.",
+            "Aumenta un 10% tu intelecto total."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105849,
+              105850,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83132
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105845,
+          "spellId": 14531,
+          "name": "Martirio",
+          "iconFileDataId": 136107,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Te da un 50% de probabilidad de ganar el efecto de Conjuración enfocada durante 6 s después de ser víctima de un golpe crítico a distancia o cuerpo a cuerpo. El efecto de Conjuración enfocada evita que pierdas tiempo de lanzamiento cuando sufres daños y aumenta tu resistencia a efectos de interrupción un 20%.",
+            "Te da un 100% de probabilidad de ganar el efecto de Conjuración enfocada durante 6 s después de ser víctima de un golpe crítico a distancia o cuerpo a cuerpo. El efecto de Conjuración enfocada evita que pierdas tiempo de lanzamiento cuando sufres daños y aumenta tu resistencia a efectos de interrupción un 20%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105849,
+              105850,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83139
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105842,
+          "spellId": 14520,
+          "name": "Agilidad mental",
+          "iconFileDataId": 132156,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                -2108571157,
+                48,
+                0,
+                1073741824
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3
+            ],
+            [
+              -7
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 3% el coste de maná de Punición, Fuego Sagrado y tus hechizos de lanzamiento instantáneo.",
+            "Reduce un 7% el coste de maná de Punición, Fuego Sagrado y tus hechizos de lanzamiento instantáneo.",
+            "Reduce un 10% el coste de maná de Punición, Fuego Sagrado y tus hechizos de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105837,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83137
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105844,
+          "spellId": 14751,
+          "name": "Enfoque interno",
+          "iconFileDataId": 135863,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                -721944581,
+                278135862,
+                83952128,
+                268436624
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                -638304624,
+                623668,
+                0,
+                270532608
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Al activarse, reduce un 100% el coste de maná de tu próximo hechizo y aumenta su probabilidad de efecto crítico un 25% si se trata de un hechizo no periódico capaz de infligir efectos críticos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105837,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105846,
+          "spellId": 14748,
+          "name": "Poder de la palabra mejorado: escudo",
+          "iconFileDataId": 135940,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 3,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              7
+            ],
+            [
+              14
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la absorción de daño de tu Palabra de poder: escudo en un 7%.",
+            "Aumenta la absorción de daño de tu Palabra de poder: escudo en un 14%.",
+            "Aumenta la absorción de daño de tu Palabra de poder: escudo en un 20%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105837,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83140
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105843,
+          "spellId": 14521,
+          "name": "Meditación",
+          "iconFileDataId": 136090,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              17
+            ],
+            [
+              33
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Permite que un 17% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 33% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 50% de la regeneración de maná continúe mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105837,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83138
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105841,
+          "spellId": 14747,
+          "name": "Fuego interno mejorado",
+          "iconFileDataId": 135926,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 4,
+              "miscValueB": 0,
+              "classMask": [
+                2,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              4
+            ],
+            [
+              30,
+              8
+            ],
+            [
+              45,
+              12
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% el bonus de armadura de tu hechizo Fuego interno y 4 sus cargas totales.",
+            "Aumenta un 30% el bonus de armadura de tu hechizo Fuego interno y 8 sus cargas totales.",
+            "Aumenta un 45% el bonus de armadura de tu hechizo Fuego interno y 12 sus cargas totales."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105837,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83136
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83135
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105838,
+          "spellId": 14750,
+          "name": "Quemar maná mejorado",
+          "iconFileDataId": 136170,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                16,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -500
+            ],
+            [
+              -1000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,5 s el tiempo de lanzamiento de tu hechizo Quemadura de maná.",
+            "Reduce 1,0 s el tiempo de lanzamiento de tu hechizo Quemadura de maná."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105837,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83133
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105839,
+          "spellId": 402000,
+          "name": "Amparo de alma",
+          "iconFileDataId": 135948,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -4000,
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce 4 s el tiempo de reutilización de tu hechizo Palabra de poder: escudo y un 15% su coste de maná."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105837,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105846,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105834,
+          "spellId": 402174,
+          "name": "Penitencia",
+          "iconFileDataId": 237545,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Lanza una salva de luz Sagrada al objetivo que inflige 42 p. de daño Sagrado a un enemigo o aplica 126 p. de sanación a un aliado de forma instantánea y cada 1 s durante 2 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105837,
+              105838,
+              105839,
+              105841,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105835,
+          "spellId": 425280,
+          "name": "Esperanza renovada",
+          "iconFileDataId": 135923,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              -1000
+            ],
+            [
+              4,
+              -2000
+            ],
+            [
+              6,
+              -3000
+            ],
+            [
+              8,
+              -4000
+            ],
+            [
+              10,
+              -5000
+            ]
+          ],
+          "descriptions": [
+            "Las sanaciones de Sanación relámpago, Sanación conjunta, Sanación inferior, Sanar, Sanación superior y Penitencia tienen un 2% más de probabilidad de golpe crítico al lanzarlos a objetivos con Alma debilitada, y reducen 1 s la duración restante de Alma debilitada del objetivo.",
+            "Las sanaciones de Sanación relámpago, Sanación conjunta, Sanación inferior, Sanar, Sanación superior y Penitencia tienen un 4% más de probabilidad de golpe crítico al lanzarlos a objetivos con Alma debilitada, y reducen 2 s la duración restante de Alma debilitada del objetivo.",
+            "Las sanaciones de Sanación relámpago, Sanación conjunta, Sanación inferior, Sanar, Sanación superior y Penitencia tienen un 6% más de probabilidad de golpe crítico al lanzarlos a objetivos con Alma debilitada, y reducen 3 s la duración restante de Alma debilitada del objetivo.",
+            "Las sanaciones de Sanación relámpago, Sanación conjunta, Sanación inferior, Sanar, Sanación superior y Penitencia tienen un 8% más de probabilidad de golpe crítico al lanzarlos a objetivos con Alma debilitada, y reducen 4 s la duración restante de Alma debilitada del objetivo.",
+            "Las sanaciones de Sanación relámpago, Sanación conjunta, Sanación inferior, Sanar, Sanación superior y Penitencia tienen un 10% más de probabilidad de golpe crítico al lanzarlos a objetivos con Alma debilitada, y reducen 5 s la duración restante de Alma debilitada del objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105837,
+              105838,
+              105839,
+              105841,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105839,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83131
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83130
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105840,
+          "spellId": 431622,
+          "name": "Égida divina",
+          "iconFileDataId": 237539,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              20
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              15,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Las sanaciones críticas no periódicas crean un escudo protector sobre el objetivo que absorbe el 5% de la cantidad sanada. Absorbe 1200 p. de daño y dura 12 s.",
+            "Las sanaciones críticas no periódicas crean un escudo protector sobre el objetivo que absorbe el 10% de la cantidad sanada. Absorbe 1200 p. de daño y dura 12 s.",
+            "Las sanaciones críticas no periódicas crean un escudo protector sobre el objetivo que absorbe el 15% de la cantidad sanada. Absorbe 1200 p. de daño y dura 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105834,
+              105835,
+              105837,
+              105838,
+              105839,
+              105841,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83134
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105836,
+          "spellId": 10060,
+          "name": "Infusión de poder",
+          "iconFileDataId": 135939,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 136,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 79,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Imbuye de poder al objetivo, lo que aumenta su daño con hechizos y la sanación un 20% durante 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105834,
+              105835,
+              105836,
+              105837,
+              105838,
+              105839,
+              105840,
+              105841,
+              105842,
+              105843,
+              105844,
+              105845,
+              105846,
+              105848,
+              105849,
+              105850,
+              110852,
+              110853
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105834,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Sagrado",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 237542,
+      "backgroundFile": "PriestHoly",
+      "talents": [
+        {
+          "nodeId": 105867,
+          "spellId": 14913,
+          "name": "Enfoque crepuscular",
+          "iconFileDataId": 135918,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                11943568,
+                8486916,
+                128,
+                1074790400
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              23
+            ],
+            [
+              47
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos un 23% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos un 47% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83172
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105866,
+          "spellId": 14908,
+          "name": "Renovar mejorado",
+          "iconFileDataId": 135953,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta la efectividad curativa de tu hechizo Renovar en un 5%.",
+            "Aumenta la efectividad curativa de tu hechizo Renovar en un 10%.",
+            "Aumenta la efectividad curativa de tu hechizo Renovar en un 15%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83171
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 110855,
+          "spellId": 14889,
+          "name": "Especialización Sagrada",
+          "iconFileDataId": 135967,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                156507840,
+                98340,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+            "Aumenta un 2% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+            "Aumenta un 3% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+            "Aumenta un 4% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+            "Aumenta un 5% la probabilidad de efecto crítico de tus hechizos Sagrados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109314
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105864,
+          "spellId": 27900,
+          "name": "Custodia de hechizos",
+          "iconFileDataId": 135976,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 87,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2
+            ],
+            [
+              -4
+            ],
+            [
+              -6
+            ],
+            [
+              -8
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce el daño por hechizos recibido en un 2%.",
+            "Reduce el daño por hechizos recibido en un 4%.",
+            "Reduce el daño por hechizos recibido en un 6%.",
+            "Reduce el daño por hechizos recibido en un 8%.",
+            "Reduce el daño por hechizos recibido en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83168
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105863,
+          "spellId": 18530,
+          "name": "Furia divina",
+          "iconFileDataId": 135971,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                1053824,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -100
+            ],
+            [
+              -200
+            ],
+            [
+              -300
+            ],
+            [
+              -400
+            ],
+            [
+              -500
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,1 s el tiempo de lanzamiento de tus hechizos Punición, Fuego Sagrado, Sanación y Sanación superior.",
+            "Reduce 0,2 s el tiempo de lanzamiento de tus hechizos Punición, Fuego Sagrado, Sanación y Sanación superior.",
+            "Reduce 0,3 s el tiempo de lanzamiento de tus hechizos Punición, Fuego Sagrado, Sanación y Sanación superior.",
+            "Reduce 0,4 s el tiempo de lanzamiento de tus hechizos Punición, Fuego Sagrado, Sanación y Sanación superior.",
+            "Reduce 0,5 s el tiempo de lanzamiento de tus hechizos Punición, Fuego Sagrado, Sanación y Sanación superior."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83167
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105862,
+          "spellId": 15237,
+          "name": "Nova Sagrada",
+          "iconFileDataId": 135922,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              27
+            ]
+          ],
+          "descriptions": [
+            "Provoca una explosión de Luz Sagrada alrededor del taumaturgo que inflige 27 p. de daño Sagrado a todos los objetivos enemigos en un radio de 10 m y sana 51 p. a todos los miembros del grupo en un radio de 10 m. Estos efectos no generan amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105861,
+          "spellId": 27811,
+          "name": "Recuperación bendita",
+          "iconFileDataId": 135877,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8,
+              30
+            ],
+            [
+              17,
+              30
+            ],
+            [
+              25,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Tras haber recibido un golpe crítico cuerpo a cuerpo o a distancia, o tras perder más de un 30% de tu salud máxima por un solo golpe, te sanas un 8% del daño recibido durante 6 s. Al renovar este efecto, se mantiene la sanación restante.",
+            "Tras haber recibido un golpe crítico cuerpo a cuerpo o a distancia, o tras perder más de un 30% de tu salud máxima por un solo golpe, te sanas un 17% del daño recibido durante 6 s. Al renovar este efecto, se mantiene la sanación restante.",
+            "Tras haber recibido un golpe crítico cuerpo a cuerpo o a distancia, o tras perder más de un 30% de tu salud máxima por un solo golpe, te sanas un 25% del daño recibido durante 6 s. Al renovar este efecto, se mantiene la sanación restante."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83166
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105860,
+          "spellId": 14892,
+          "name": "Inspiración",
+          "iconFileDataId": 135928,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8
+            ],
+            [
+              17
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Tus sanaciones críticas no periódicas aumentan un 8% la armadura de tu objetivo durante 15 s.",
+            "Tus sanaciones críticas no periódicas aumentan un 17% la armadura de tu objetivo durante 15 s.",
+            "Tus sanaciones críticas no periódicas aumentan un 25% la armadura de tu objetivo durante 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83165
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105859,
+          "spellId": 27789,
+          "name": "Alcance Sagrado",
+          "iconFileDataId": 135949,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                1048704,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 6,
+              "miscValueB": 0,
+              "classMask": [
+                138412544,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              10
+            ],
+            [
+              20,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% el alcance de tu hechizo de Acometida y del de Fuego Sagrado, así como el radio de tu hechizo de Rezo de curación y del de Nova Sagrada.",
+            "Aumenta en un 20% el alcance de tu hechizo de Acometida y del de Fuego Sagrado, así como el radio de tu hechizo de Rezo de curación y del de Nova Sagrada."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83164
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 97488
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105858,
+          "spellId": 14912,
+          "name": "Curación mejorada",
+          "iconFileDataId": 135916,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                267264,
+                8388640,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5
+            ],
+            [
+              -10
+            ],
+            [
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 5% el coste de maná de tus hechizos Sanación inferior, Sanación, Sanación superior, Penitencia y Rezo de alivio.",
+            "Reduce un 10% el coste de maná de tus hechizos Sanación inferior, Sanación, Sanación superior, Penitencia y Rezo de alivio.",
+            "Reduce un 15% el coste de maná de tus hechizos Sanación inferior, Sanación, Sanación superior, Penitencia y Rezo de alivio."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83163
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105857,
+          "spellId": 14909,
+          "name": "Luz abrasadora",
+          "iconFileDataId": 135973,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              5
+            ],
+            [
+              5,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el daño Sagrado que infliges. Cada vez que tu hechizo Fuego Sagrado inflige daño periódico, tienes un 5% de probabilidades de hacer que tu siguiente Nova Sagrada no cueste maná.",
+            "Aumenta un 5% el daño Sagrado que infliges. Cada vez que tu hechizo Fuego Sagrado inflige daño periódico, tienes un 10% de probabilidades de hacer que tu siguiente Nova Sagrada no cueste maná."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105863,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83162
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110197
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105856,
+          "spellId": 401937,
+          "name": "Sanación conjunta",
+          "iconFileDataId": 135883,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              247,
+              247
+            ]
+          ],
+          "descriptions": [
+            "Sana 247 p. a un objetivo amistoso y al taumaturgo. Poca amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 6820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105855,
+          "spellId": 1317006,
+          "name": "Letanía de la Luz",
+          "iconFileDataId": 134943,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Al lanzar un hechizo de sanación, ganas una cantidad de maná igual al 5% del coste base del hechizo si tu sanación anterior provino de un hechizo distinto.",
+            "Al lanzar un hechizo de sanación, ganas una cantidad de maná igual al 10% del coste base del hechizo si tu sanación anterior provino de un hechizo distinto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105856,
+              105857,
+              105858,
+              105859,
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83161
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105854,
+          "spellId": 20711,
+          "name": "Espíritu de redencción",
+          "iconFileDataId": 132864,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Al morir, el sacerdote se convierte en el Espíritu de Redención durante 15 s. No se puede mover ni atacar, ni recibir ataques de ningún hechizo o efecto. Puede lanzar hechizos curativos sin coste. El sacerdote muere al terminar el efecto."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105856,
+              105857,
+              105858,
+              105859,
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105853,
+          "spellId": 14901,
+          "name": "Guía espiritual",
+          "iconFileDataId": 135977,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 174,
+              "miscValue": 126,
+              "miscValueB": 4,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 175,
+              "miscValue": 4,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              5
+            ],
+            [
+              3,
+              10
+            ],
+            [
+              5,
+              15
+            ],
+            [
+              6,
+              20
+            ],
+            [
+              8,
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta hasta un 5% de tu espíritu total la sanación de tus hechizos, y hasta un 1% de tu espíritu total tu daño con hechizos.",
+            "Aumenta hasta un 10% de tu espíritu total la sanación de tus hechizos, y hasta un 3% de tu espíritu total tu daño con hechizos.",
+            "Aumenta hasta un 15% de tu espíritu total la sanación de tus hechizos, y hasta un 5% de tu espíritu total tu daño con hechizos.",
+            "Aumenta hasta un 20% de tu espíritu total la sanación de tus hechizos, y hasta un 6% de tu espíritu total tu daño con hechizos.",
+            "Aumenta hasta un 25% de tu espíritu total la sanación de tus hechizos, y hasta un 8% de tu espíritu total tu daño con hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105856,
+              105857,
+              105858,
+              105859,
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83160
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87617
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105852,
+          "spellId": 14898,
+          "name": "Curación espiritual",
+          "iconFileDataId": 136057,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                151264800,
+                65572,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              3
+            ],
+            [
+              7,
+              7
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% la cantidad sanada por tus hechizos.",
+            "Aumenta un 7% la cantidad sanada por tus hechizos.",
+            "Aumenta un 10% la cantidad sanada por tus hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105853,
+              105854,
+              105855,
+              105856,
+              105857,
+              105858,
+              105859,
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83159
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87616
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105851,
+          "spellId": 401859,
+          "name": "Rezo de alivio",
+          "iconFileDataId": 135944,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              172,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Lanza un hechizo sobre el objetivo que lo sanará 172 p. la próxima vez que reciba daño o sanación no periódica. Una vez curado, Rezo de alivio saltará a otro miembro del grupo o banda que se encuentre en un radio de 20 m. Salta hasta 5 veces y dura 30 s tras cada salto. Este hechizo solo puede estar activo en un único objetivo a la vez por taumaturgo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105851,
+              105852,
+              105853,
+              105854,
+              105855,
+              105856,
+              105857,
+              105858,
+              105859,
+              105860,
+              105861,
+              105862,
+              105863,
+              105864,
+              105865,
+              105866,
+              105867,
+              110855
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105854,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Sombra",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 136207,
+      "backgroundFile": "PriestShadow",
+      "talents": [
+        {
+          "nodeId": 110851,
+          "spellId": 15260,
+          "name": "Enfoque de las Sombras",
+          "iconFileDataId": 136126,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                109813760,
+                1573890,
+                65536,
+                268436480
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% tu probabilidad de golpear con hechizos de las Sombras.",
+            "Aumenta un 2% tu probabilidad de golpear con hechizos de las Sombras.",
+            "Aumenta un 3% tu probabilidad de golpear con hechizos de las Sombras.",
+            "Aumenta un 4% tu probabilidad de golpear con hechizos de las Sombras.",
+            "Aumenta un 5% tu probabilidad de golpear con hechizos de las Sombras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109036
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105832,
+          "spellId": 15326,
+          "name": "Desmayo",
+          "iconFileDataId": 136160,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos de daño de las Sombras un 2% de probabilidad de aturdir al objetivo durante 3 s.",
+            "Da a tus hechizos de daño de las Sombras un 4% de probabilidad de aturdir al objetivo durante 3 s.",
+            "Da a tus hechizos de daño de las Sombras un 6% de probabilidad de aturdir al objetivo durante 3 s.",
+            "Da a tus hechizos de daño de las Sombras un 8% de probabilidad de aturdir al objetivo durante 3 s.",
+            "Da a tus hechizos de daño de las Sombras un 10% de probabilidad de aturdir al objetivo durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83157
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105833,
+          "spellId": 15270,
+          "name": "Transfusión de espíritu",
+          "iconFileDataId": 136188,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ],
+            [
+              80
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Te da un 20% de probabilidad de aumentar tu espíritu un 100% durante 15 s después de matar a un objetivo no trivial o cuando muera un enemigo afectado por tu Abrazo vampírico. Mientras dure, el 50% de tu regeneración de maná continuará mientras lanzas hechizos.",
+            "Te da un 40% de probabilidad de aumentar tu espíritu un 100% durante 15 s después de matar a un objetivo no trivial o cuando muera un enemigo afectado por tu Abrazo vampírico. Mientras dure, el 50% de tu regeneración de maná continuará mientras lanzas hechizos.",
+            "Te da un 60% de probabilidad de aumentar tu espíritu un 100% durante 15 s después de matar a un objetivo no trivial o cuando muera un enemigo afectado por tu Abrazo vampírico. Mientras dure, el 50% de tu regeneración de maná continuará mientras lanzas hechizos.",
+            "Te da un 80% de probabilidad de aumentar tu espíritu un 100% durante 15 s después de matar a un objetivo no trivial o cuando muera un enemigo afectado por tu Abrazo vampírico. Mientras dure, el 50% de tu regeneración de maná continuará mientras lanzas hechizos.",
+            "Te da un 100% de probabilidad de aumentar tu espíritu un 100% durante 15 s después de matar a un objetivo no trivial o cuando muera un enemigo afectado por tu Abrazo vampírico. Mientras dure, el 50% de tu regeneración de maná continuará mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83158
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105831,
+          "spellId": 15273,
+          "name": "Explosión mental mejorada",
+          "iconFileDataId": 136224,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                8192,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -500
+            ],
+            [
+              -1000
+            ],
+            [
+              -1500
+            ],
+            [
+              -2000
+            ],
+            [
+              -2500
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de regeneración de tu hechizo Explosión mental en 0,5 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Explosión mental en 1 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Explosión mental en 1,5 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Explosión mental en 2 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Explosión mental en 2,5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83156
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105830,
+          "spellId": 15275,
+          "name": "Palabra de las Sombras: dolor mejorada",
+          "iconFileDataId": 136207,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                32768,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3000
+            ],
+            [
+              6000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 3 s la duración de tu hechizo Palabra de las Sombras: dolor.",
+            "Aumenta 6 s la duración de tu hechizo Palabra de las Sombras: dolor."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83155
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105829,
+          "spellId": 17322,
+          "name": "Alcance de las Sombras",
+          "iconFileDataId": 136130,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                41984000,
+                1573890,
+                67174400,
+                268436608
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 10% el alcance de tus hechizos ofensivos de las Sombras.",
+            "Aumenta en un 20% el alcance de tus hechizos ofensivos de las Sombras."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83154
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105828,
+          "spellId": 15392,
+          "name": "Alarido psíquico mejorado",
+          "iconFileDataId": 136184,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                65536,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2000
+            ],
+            [
+              -4000
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de regeneración de tu hechizo Alarido psíquico en 2 s.",
+            "Reduce el tiempo de regeneración de tu hechizo Alarido psíquico en 4 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105832,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83153
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105826,
+          "spellId": 15407,
+          "name": "Despelleje mental",
+          "iconFileDataId": 136208,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 3,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 33,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              21,
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Asalta la mente del objetivo con energía de las Sombras, lo que inflige 63 p. de daño de las Sombras durante 3 s y ralentiza su velocidad de movimiento un 50%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105825,
+          "spellId": 1225139,
+          "name": "Tortura mental mejorada",
+          "iconFileDataId": 136213,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Cada vez que Tortura mental inflige daño, inflige un 10% más de daño que la vez anterior.",
+            "Cada vez que Tortura mental inflige daño, inflige un 20% más de daño que la vez anterior."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105826,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83151
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105823,
+          "spellId": 1326159,
+          "name": "Inspiración macabra",
+          "iconFileDataId": 463284,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Tu Explosión mental y tus canalizaciones completas de Tortura mental provocan Inspiración macabra, que aumenta un 3% tu espíritu y el de tu grupo durante 10 s.",
+            "Tu Explosión mental y tus canalizaciones completas de Tortura mental provocan Inspiración macabra, que aumenta un 6% tu espíritu y el de tu grupo durante 10 s.",
+            "Tu Explosión mental y tus canalizaciones completas de Tortura mental provocan Inspiración macabra, que aumenta un 9% tu espíritu y el de tu grupo durante 10 s.",
+            "Tu Explosión mental y tus canalizaciones completas de Tortura mental provocan Inspiración macabra, que aumenta un 12% tu espíritu y el de tu grupo durante 10 s.",
+            "Tu Explosión mental y tus canalizaciones completas de Tortura mental provocan Inspiración macabra, que aumenta un 15% tu espíritu y el de tu grupo durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83149
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105820,
+          "spellId": 15286,
+          "name": "Unirse a vampírica",
+          "iconFileDataId": 136230,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Atacas a tu objetivo con energía de las Sombras, lo que hace que todos los miembros del grupo reciban una sanación equivalente a un 20% del daño que inflijas con hechizos de las Sombras durante 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105821,
+          "spellId": 15257,
+          "name": "Tejido de las Sombras",
+          "iconFileDataId": 136123,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33
+            ],
+            [
+              67
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Tus hechizos de daño de las Sombras tienen un 33% de probabilidad de aumentar un 2% el daño de las Sombras que recibe el objetivo de tus ataques durante 15 s. Se acumula hasta 5 veces.",
+            "Tus hechizos de daño de las Sombras tienen un 67% de probabilidad de aumentar un 2% el daño de las Sombras que recibe el objetivo de tus ataques durante 15 s. Se acumula hasta 5 veces.",
+            "Tus hechizos de daño de las Sombras tienen un 100% de probabilidad de aumentar un 2% el daño de las Sombras que recibe el objetivo de tus ataques durante 15 s. Se acumula hasta 5 veces."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83147
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105824,
+          "spellId": 15487,
+          "name": "Silencio",
+          "iconFileDataId": 136164,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 27,
+              "miscValue": 126,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ]
+          ],
+          "descriptions": [
+            "Silencia al objetivo, lo que impide que lance hechizos durante 5 s e interrumpe sus lanzamientos de hechizos durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105820,
+              105821,
+              105823,
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105819,
+          "spellId": 1309950,
+          "name": "Contagio devorador",
+          "iconFileDataId": 252996,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                16
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -25,
+              5,
+              2
+            ],
+            [
+              -50,
+              10,
+              2
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 25% el coste de maná de tu Peste devoradora.\r\n\r\nLos objetivos que mueran mientras Peste devoradora esté activa la propagan, lo que hace que salte a 2 enemigos cercanos en un radio de 5 m el resto de su duración.",
+            "Reduce un 50% el coste de maná de tu Peste devoradora.\r\n\r\nLos objetivos que mueran mientras Peste devoradora esté activa la propagan, lo que hace que salte a 2 enemigos cercanos en un radio de 10 m el resto de su duración."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105820,
+              105821,
+              105823,
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83146
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 109037
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110854,
+          "spellId": 1310076,
+          "name": "Muerte prematura",
+          "iconFileDataId": 136149,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              20
+            ],
+            [
+              30,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% la probabilidad de golpe crítico de Palabra de las Sombras: muerte contra objetivos que tengan un 20% de salud o menos.",
+            "Aumenta un 30% la probabilidad de golpe crítico de Palabra de las Sombras: muerte contra objetivos que tengan un 20% de salud o menos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 5,
+          "col": 0,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105819,
+              105820,
+              105821,
+              105823,
+              105824,
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109097
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105818,
+          "spellId": 15259,
+          "name": "Oscuridad",
+          "iconFileDataId": 136223,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 32,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el daño de las Sombras que infliges.",
+            "Aumenta un 4% el daño de las Sombras que infliges.",
+            "Aumenta un 6% el daño de las Sombras que infliges.",
+            "Aumenta un 8% el daño de las Sombras que infliges.",
+            "Aumenta un 10% el daño de las Sombras que infliges."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105819,
+              105820,
+              105821,
+              105823,
+              105824,
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83145
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105817,
+          "spellId": 15473,
+          "name": "Forma de las Sombras",
+          "iconFileDataId": 136200,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 36,
+              "miscValue": 28,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 79,
+              "miscValue": 32,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 87,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 72,
+              "miscValue": 32,
+              "miscValueB": 1,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 4,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                41984016,
+                2,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              10,
+              -15,
+              -50,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Adoptas la forma de las Sombras, lo que aumenta un 10% el daño de las Sombras que infliges, reduce un 50% el coste de maná de todos los hechizos de las Sombras, aumenta un 100% el bonus de daño crítico de tus hechizos de las Sombras y reduce un 15% el daño físico que recibes. Sin embargo, no puedes lanzar hechizos de sanación mientras estás en esta forma."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105817,
+              105818,
+              105819,
+              105820,
+              105821,
+              105823,
+              105824,
+              105825,
+              105826,
+              105828,
+              105829,
+              105830,
+              105831,
+              105832,
+              105833,
+              110851,
+              110854
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105820,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [
+    {
+      "nodeId": 105865,
+      "spellId": 14889,
+      "name": "Especialización Sagrada",
+      "iconFileDataId": 135967,
+      "equipped": [],
+      "effectInfo": [
+        {
+          "index": 0,
+          "aura": 107,
+          "miscValue": 7,
+          "miscValueB": 0,
+          "classMask": [
+            156507840,
+            98340,
+            0,
+            0
+          ]
+        }
+      ],
+      "passive": true,
+      "textOrigin": "client",
+      "rankValues": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ]
+      ],
+      "descriptions": [
+        "Aumenta un 1% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+        "Aumenta un 2% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+        "Aumenta un 3% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+        "Aumenta un 4% la probabilidad de efecto crítico de tus hechizos Sagrados.",
+        "Aumenta un 5% la probabilidad de efecto crítico de tus hechizos Sagrados."
+      ],
+      "descriptionsComplete": true,
+      "descriptionsApproximate": false,
+      "maxRank": 5,
+      "selectable": false,
+      "inactiveReason": "off-grid",
+      "nearestSpecIndex": 2,
+      "requiredPoints": 0,
+      "prerequisites": [],
+      "effectPoints": [
+        {
+          "effectIndex": 0,
+          "operationType": 0,
+          "curveId": 83170
+        },
+        {
+          "effectIndex": 1,
+          "operationType": 0,
+          "curveId": 83169
+        }
+      ],
+      "raw": {
+        "posX": 9280,
+        "posY": 21300
+      }
+    }
+  ],
+  "warnings": [
+    "Nodo 105865 fuera de la rejilla (9280, 21300): Especialización Sagrada (hechizo 14889); se conserva como nodo no activo"
+  ]
+}

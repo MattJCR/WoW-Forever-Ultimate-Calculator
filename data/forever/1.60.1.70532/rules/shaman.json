@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70532",
+  "classId": 7,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 30160,
+      "name": "Devastación elemental",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Devastación elemental: tus golpes críticos con hechizos de daño directo aumentan un {v} % tu probabilidad de crítico cuerpo a cuerpo durante 10 s",
+          "scope": {
+            "schools": [
+              4,
+              8,
+              16
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 16164,
+      "name": "Enfoque elemental",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Enfoque elemental: 10 % de probabilidad, tras lanzar un hechizo de daño de Naturaleza, Fuego o Escarcha, de que tu siguiente hechizo de daño no cueste maná (Lanzamiento libre)",
+          "scope": {
+            "schools": [
+              4,
+              8,
+              16
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 408438,
+      "name": "Sobrecarga de relámpagos",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Sobrecarga de relámpagos: {v} % de probabilidad de lanzar un segundo hechizo similar sobre el mismo objetivo sin coste, con la mitad de daño y sin amenaza",
+          "scope": {
+            "spells": [
+              "Descarga de relámpagos",
+              "Descarga de relámpagos (runa)",
+              "Cadena de relámpagos",
+              "Cadena de relámpagos (runa)"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 16256,
+      "name": "Aluvión",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Aluvión: tras un golpe crítico cuerpo a cuerpo, +{v} % de velocidad de ataque en tus siguientes 3 golpes",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1223031,
+      "name": "Golpe de tormenta mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Golpe de tormenta mejorado: al lanzarlo, {v} % de probabilidad de un 50 % de regeneración de maná mientras lanzas durante 15 s; su reutilización se reinicia con {v} % de probabilidad al esquivar o parar",
+          "scope": {
+            "spells": [
+              "Golpe de tormenta"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 408498,
+      "name": "Arma vorágine",
+      "effects": [
+        {
+          "index": 0,
+          "factor": -1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Arma vorágine: al golpear cuerpo a cuerpo, {w} % de probabilidad de reducir un {v} % el lanzamiento y el coste de maná de tu siguiente Descarga de relámpagos (hasta 5 veces, 30 s)",
+          "scope": {
+            "spells": [
+              "Descarga de relámpagos",
+              "Descarga de relámpagos (runa)"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 16176,
+      "name": "Curación ancestral",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Curación ancestral: tus sanaciones críticas aumentan un {v} % la armadura del objetivo durante 15 s",
+          "scope": {
+            "spells": [
+              "Onda de curación",
+              "Onda inferior de curación",
+              "Curación en cadena",
+              "Lluvia de sanación"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1222988,
+      "name": "Vinculado a la tierra",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Vinculado a la tierra: al lanzarlo, tu Tótem Nexo Terrestre inmoviliza a los enemigos cercanos 5 s ({v} % de probabilidad)",
+          "scope": {
+            "spells": [
+              "Tótem Nexo Terrestre"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

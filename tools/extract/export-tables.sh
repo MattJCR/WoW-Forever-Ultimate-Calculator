@@ -9,7 +9,7 @@
 #  iniciar sesion; wow.tools.local los lee al arrancar. Hay que volver a arrancarlo tras entrar al juego.)
 set -euo pipefail
 
-BUILD="${1:-1.60.1.70450}"
+BUILD="${1:-1.60.1.70532}"
 shift || true
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 if [ "${HOTFIXES:-0}" = "1" ]; then
@@ -70,6 +70,8 @@ APPEARANCE_TABLES=(
   GeosetGroup CreatureDisplayInfo CreatureDisplayInfoExtra CreatureModelData ItemSetSpell AnimationData
   AnimKit ModelAnimData ChrRaces ItemSet ItemClass ItemSubClass HelmetGeosetData HelmetGeosetVisData
   ItemDisplayInfoGeosetOverride SkinnedModel
+  # Los usa tools/model (modelos de personaje); se olvidaron en la lista hasta el parche 70532
+  ChrModelMaterial ChrModelTextureLayer
 )
 TABLES=("$@")
 if [ ${#TABLES[@]} -eq 0 ]; then

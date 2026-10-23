@@ -53,7 +53,7 @@ function LanguageSwitch() {
   );
 }
 
-/** «1.60.1.70450» -> versión «1.60.1» y número de compilación «70450». */
+/** «1.60.1.70532» -> versión «1.60.1» y número de compilación «70450». */
 function splitBuild(build: string): { version: string; number: string } {
   const parts = build.split(".");
   return parts.length > 3 ? { version: parts.slice(0, 3).join("."), number: parts.slice(3).join(".") } : { version: build, number: "" };
