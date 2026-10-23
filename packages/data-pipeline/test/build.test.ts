@@ -10,7 +10,7 @@ import { buildBaseStats, type ClassicEra } from "../src/stats.js";
 import { auditLevelStats } from "../src/stats-audit.js";
 import { buildAbilities } from "../src/abilities.js";
 import { looksEnglish } from "../src/language.js";
-import { buildRaces, parseRacialName } from "../src/races.js";
+import { CLIENT_TYPOS, buildRaces, parseRacialName } from "../src/races.js";
 import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
@@ -401,7 +401,7 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
     const kind = (raceId: number, name: string) => [...new Set(byId(raceId).racials.find((a) => a.name === name)!.spells.flatMap((s) => s.effects.map((e) => e.kind)))];
     expect(kind(1, "Percepción")).toEqual(["stealth-detection"]);
     expect(kind(5, "Respiración subacuática")).toEqual(["water-breathing-pct"]);
-    expect(kind(3, "Forma de piedra")).toEqual(expect.arrayContaining(["mechanic-immunity", "dispel-immunity", "damage-taken-pct"]));
+    expect(kind(3, "Petraforma")).toEqual(expect.arrayContaining(["mechanic-immunity", "dispel-immunity", "damage-taken-pct"]));
     expect(kind(7, "Artista del escape")).toEqual(["mechanic-immunity"]);
     expect(kind(7, "Especialización de ingeniería")).toEqual(["engineering-failure-pct"]);
   });
@@ -576,6 +576,14 @@ describe("raciales que pueden compartir enfriamiento con la insignia de PvP (sin
   });
 });
 
+/** Nombre de cada racial en la tabla ChrRaceRacialAbility («raza:orden» -> nombre), sin el prefijo «Raza - Activa - ». */
+function parseRawNames(dir: string): [string, string][] {
+  return openRawTables(dir).table("ChrRaceRacialAbility").map((r) => [`${r.ChrRacesID}:${r.Order}`, parseRacialName(r.Name_lang ?? "")!.name] as [string, string]);
+}
+function parseRawDescriptions(dir: string): Map<string, string> {
+  return new Map(openRawTables(dir).table("ChrRaceRacialAbility").map((r) => [`${r.ChrRacesID}:${r.Order}`, r.Description_lang ?? ""] as [string, string]));
+}
+
 describe("cifras de las raciales (hechizos del cliente)", () => {
   const racesData = buildRaces(openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`)), BUILD, "esES", live.spells);
   const spell = (raceId: number, name: string, spellId?: number) =>
@@ -587,21 +595,62 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     for (const r of racesData.races) for (const a of r.racials) expect(a.spells.length, `${r.name}: ${a.name}`).toBeGreaterThan(0);
   });
 
-  it("pasivas: Crueldad +2 % critico, Espiritu humano +5 % espiritu, Salvajismo +1 %, Robustez +5 % salud", () => {
+  it("el nombre de cada racial es el de su hechizo (libro de hechizos), no el de la tabla de raciales: lista exacta de las que difieren", () => {
+    const table = new Map(parseRawNames(join(root, "data", "raw", `${BUILD}-hotfix`)));
+    const differ = racesData.races.flatMap((r) => r.racials.filter((a) => table.get(`${r.id}:${a.order}`) !== a.name).map((a) => `${table.get(`${r.id}:${a.order}`)} -> ${a.name}`));
+    expect(differ.sort()).toEqual(
+      [
+        "Canibalismo -> Canibalizar",
+        "Encontrar tesoro -> Buscar tesoro",
+        "Forma de piedra -> Petraforma",
+        "Presura -> Prontitud",
+        "Robustez -> Aguante",
+        "Rabiar -> Iracundia",
+        // Cielonato trae los nombres en inglés en la tabla (sus hechizos sí están en español)
+        "Elemental Insight -> Perspicacia elemental",
+        "Elemental Insight -> Perspicacia elemental",
+        "Read Leyline -> Leer línea Ley",
+        "Skysight -> Visión cielonata",
+        "Walk on Air -> Caminar sobre el aire",
+        "Walk on Air -> Caminar sobre el aire",
+        "Wind Blessed -> Bendición del viento",
+        "Wind Blessed -> Bendición del viento",
+      ].sort(),
+    );
+  });
+
+  it("Leer línea Ley y Visión cielonata: la tabla dice «5 min» pero sus hechizos duran 30 s / 15 min; se muestra el texto del hechizo (si el cliente corrige la tabla, esta prueba avisa)", () => {
+    const rows = parseRawDescriptions(join(root, "data", "raw", `${BUILD}-hotfix`));
+    expect(rows.get("95:1")).toContain("5 min");
+    expect(rows.get("96:1")).toContain("5 min");
+    for (const [raceId, name] of [[95, "Leer línea Ley"], [96, "Visión cielonata"]] as const) {
+      const a = racesData.races.find((r) => r.id === raceId)!.racials.find((x) => x.name === name)!;
+      expect(a.description, name).toMatch(/Dura 30 s .* 15 min/);
+      expect(a.description, name).not.toMatch(/b5 min/);
+    }
+  });
+
+  it("erratas del cliente corregidas: solo «amentados» (Mente expansiva)", () => {
+    expect(CLIENT_TYPOS).toEqual([["amentados", "aumentados"]]);
+    const text = racesData.races.find((r) => r.id === 7)!.racials.find((a) => a.name === "Mente expansiva")!.description;
+    expect(text).toBe("Maná, ira o energía máximos aumentados un 5%.");
+  });
+
+  it("pasivas: Crueldad +2 % critico, Espiritu humano +5 % espiritu, Salvajismo +1 %, Aguante +5 % salud", () => {
     expect(effect(1, "Crueldad", "crit-chance")?.value).toBe(2);
     expect(effect(1, "El espíritu humano", "spirit-pct")).toMatchObject({ value: 5, miscValue: 4 });
     expect(effect(2, "Salvajismo", "crit-chance")?.value).toBe(1);
-    expect(effect(6, "Robustez", "health-pct")?.value).toBe(5);
-    expect(effect(6, "Robustez", "crit-damage-bonus")?.value).toBe(2);
+    expect(effect(6, "Aguante", "health-pct")?.value).toBe(5);
+    expect(effect(6, "Aguante", "crit-damage-bonus")?.value).toBe(2);
   });
 
-  it("activas: Furia sangrienta +10 % poder de ataque y con hechizos, 15 s, 3 min; Rabiar +10 % celeridad", () => {
+  it("activas: Furia sangrienta +10 % poder de ataque y con hechizos, 15 s, 3 min; Iracundia +10 % celeridad", () => {
     const bf = spell(2, "Furia sangrienta");
     expect(bf.durationMs).toBe(15000);
     expect(bf.cooldownMs).toBe(180000);
     expect(bf.effects.map((e) => e.kind).sort()).toEqual(["attack-power-pct", "ranged-attack-power-pct", "spell-power-pct"]);
-    expect(effect(8, "Rabiar", "haste-spell-pct")?.value).toBe(10);
-    expect(spell(8, "Rabiar").durationMs).toBe(10000);
+    expect(effect(8, "Iracundia", "haste-spell-pct")?.value).toBe(10);
+    expect(spell(8, "Iracundia").durationMs).toBe(10000);
   });
 
   it("variantes por clase: Mente expansiva del Gnomo (5 % de mana, ira o energia segun clase)", () => {
@@ -702,8 +751,8 @@ describe("raciales cuyo valor esta en otro hechizo o es un proc", () => {
     expect(e.map((x) => `${x.kind}=${x.value}`).sort()).toEqual(["mounted-speed-pct=10", "movement-speed-pct=10"]);
   });
 
-  it("Canibalismo recupera 7 % de salud y de mana cada 2 s durante 10 s (35 % en total)", () => {
-    const s = spells(5, "Canibalismo")[0]!;
+  it("Canibalizar recupera 7 % de salud y de mana cada 2 s durante 10 s (35 % en total)", () => {
+    const s = spells(5, "Canibalizar")[0]!;
     expect(s.durationMs).toBe(10000);
     expect(s.effects.map((x) => `${x.kind}=${x.value}/${x.periodMs}`).sort()).toEqual(["periodic-health-pct=7/2000", "periodic-mana-pct=7/2000"]);
   });

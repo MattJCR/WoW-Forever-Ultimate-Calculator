@@ -96,6 +96,17 @@ describe.skipIf(!ready)("textos en inglés (del juego, contrastados con las cifr
     expect(human.racials.map((a) => en.races[1]!.racials[a.order]!.name)).toEqual(["Will to Survive", "Perception", "Ruthless", "The Human Spirit"]);
   });
 
+  it("las raciales usan el inglés oficial del cliente (nombre del hechizo y texto de la tabla), con las cifras del español", () => {
+    const enus = join(root, "data", "external", "enus", "ChrRaceRacialAbility.csv");
+    if (!existsSync(enus)) return; // las tablas inglesas no se versionan
+    const lines = readFileSync(enus, "utf8").split(/\r?\n/).slice(1).filter(Boolean);
+    expect(lines).toHaveLength(40);
+    expect(en.races[7]!.racials[2]!.description).toBe("Maximum Mana, Rage, or Energy increased by 5%");
+    // las dos que la tabla da con otra duración se leen del hechizo: 30 sec / 15 min
+    expect(en.races[95]!.racials[1]!.description).toMatch(/Lasts 30 sec .* 15 min/);
+    expect(en.races[96]!.racials[1]!.description).toMatch(/Lasts 30 sec .* 15 min/);
+  });
+
   it("los objetos visibles en la web tienen nombre inglés", () => {
     if (!existsSync(join(DATA, "items.json"))) return;
     const items = Items.parse(read("items.json"));

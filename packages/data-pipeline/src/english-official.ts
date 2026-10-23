@@ -2,6 +2,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { int, openRawTables, type RawTables } from "./csv.js";
 import type { SpellTables } from "./spell-tables.js";
+import type { EnglishText, Races } from "./model.js";
+import { RACIAL_TEXT_FROM_SPELL } from "./racial-spells.js";
 import { renderSpellText, withRenderLocale, type Rendered } from "./spell-text.js";
 import { TraitIndex } from "./trait-index.js";
 
@@ -21,6 +23,8 @@ export interface OfficialEnglish {
   /** Calidad con que se consultaron los nombres de `ItemNamesExtra.csv` (objetos que las tablas no traen): sirve para comprobar que es el mismo objeto. */
   itemQuality: Map<number, number>;
   itemSets: Map<number, string>;
+  /** Texto inglés de cada racial en ChrRaceRacialAbility, por «razaId:orden». */
+  racialDescriptions: Map<string, string>;
   /** Hechizos con texto en inglés. */
   hasSpell(spellId: number): boolean;
 }
@@ -59,6 +63,10 @@ export function loadOfficialEnglish(dir: string, clientRaw: RawTables, clientSpe
     }
   }
   const itemSets = new Map(read(raw, "ItemSet").filter((r) => r.Name_lang).map((r) => [int(r.ID), r.Name_lang!] as const));
+  const racialDescriptions = new Map<string, string>();
+  if (existsSync(join(dir, "ChrRaceRacialAbility.csv"))) {
+    for (const r of read(raw, "ChrRaceRacialAbility")) if (r.Description_lang) racialDescriptions.set(`${int(r.ChrRacesID)}:${int(r.Order)}`, r.Description_lang);
+  }
   return {
     tablesBuild,
     spells,
@@ -66,6 +74,7 @@ export function loadOfficialEnglish(dir: string, clientRaw: RawTables, clientSpe
     itemNames,
     itemQuality,
     itemSets,
+    racialDescriptions,
     hasSpell: (spellId) => !!(descriptions.get(String(spellId)) || auraDescriptions.get(String(spellId)) || names.get(String(spellId))),
   };
 }
@@ -123,4 +132,34 @@ export function sameNumbers(a: string, b: string): boolean {
 /** Marcadores que el cliente deja sin resolver (formulas con el personaje, referencias a otros textos): se ocultan con «…», como hace el motor. */
 export function hideUnresolved(text: string): string {
   return text.replace(/\$\{[^{}]*\}/g, "…").replace(/\$@[A-Za-z]+\d*/g, "").replace(/\$\d*[A-Za-z]\w*/g, "…");
+}
+
+export interface RacialsReport {
+  /** Raciales con nombre y texto del inglés oficial del cliente. */
+  official: number;
+  /** Raciales que se quedan con el inglés de la comunidad (el oficial falta o trae otras cifras): «raza: racial». */
+  fallback: string[];
+}
+
+/**
+ * Inglés de las raciales: el del cliente manda. El nombre es el del hechizo (como en español); el texto, el de ChrRaceRacialAbility, o el del
+ * propio hechizo si el español de la tabla se sustituyó por el del hechizo (RACIAL_TEXT_FROM_SPELL). Solo se acepta si sus cifras son las del
+ * texto español; si no, se conserva el inglés que ya hubiera (comunidad) y se avisa.
+ */
+export function applyOfficialRacials(english: EnglishText, races: Races, oe: OfficialEnglish): RacialsReport {
+  const report: RacialsReport = { official: 0, fallback: [] };
+  for (const race of races.races) {
+    const out = (english.races[race.id] ??= { name: race.token, racials: [] });
+    for (const a of race.racials) {
+      const spellId = a.spells[0]?.spellId;
+      const name = spellId ? oe.spells.name(spellId) : null;
+      const fromSpell = spellId !== undefined && RACIAL_TEXT_FROM_SPELL.has(spellId);
+      const text = fromSpell ? renderSpellEnglish(oe, spellId)?.text.text : oe.racialDescriptions.get(`${race.id}:${a.order}`);
+      if (name && text && sameNumbers(a.description, text)) {
+        out.racials[a.order] = { name, description: text.trim() };
+        report.official++;
+      } else report.fallback.push(`${race.name}: ${a.name}`);
+    }
+  }
+  return report;
 }

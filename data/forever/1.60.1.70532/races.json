@@ -154,7 +154,7 @@
       "racialSkillLineId": 101,
       "racials": [
         {
-          "name": "Forma de piedra",
+          "name": "Petraforma",
           "kind": "active",
           "description": "Reduce el daño físico recibido y elimina al instante el sangrado, el veneno y las enfermedades.",
           "iconFileDataId": 136225,
@@ -207,7 +207,7 @@
           "pvpTrinket": null
         },
         {
-          "name": "Encontrar tesoro",
+          "name": "Buscar tesoro",
           "kind": "active",
           "description": "Rastrea arquetas cercanas en el minimapa.",
           "iconFileDataId": 135725,
@@ -385,7 +385,7 @@
           "pvpTrinket": null
         },
         {
-          "name": "Presura",
+          "name": "Prontitud",
           "kind": "passive",
           "description": "Probabilidad de esquivar aumentada un 1%, y velocidad de movimiento aumentada un 2%.",
           "iconFileDataId": 132279,
@@ -736,7 +736,7 @@
         {
           "name": "Mente expansiva",
           "kind": "passive",
-          "description": "Maná, ira o energía máximos amentados un 5%.",
+          "description": "Maná, ira o energía máximos aumentados un 5%.",
           "iconFileDataId": 132864,
           "order": 2,
           "textOrigin": "client",
@@ -908,7 +908,7 @@
         {
           "name": "Leer línea Ley",
           "kind": "active",
-          "description": "Activa una línea Ley que aumenta un 100% la regeneración de salud y de maná durante 5 min",
+          "description": "Intentas aprovechar el poder de una línea Ley cercana para aumentar un 100% tu regeneración de salud y maná. Dura 30 s si no hay una línea Ley cerca y 15 min cuando sí la haya.",
           "iconFileDataId": 236219,
           "order": 1,
           "textOrigin": "client",
@@ -1230,7 +1230,7 @@
           }
         },
         {
-          "name": "Canibalismo",
+          "name": "Canibalizar",
           "kind": "active",
           "description": "Consume un cadáver no-muerto o humanoide para regenerar un 35% de la salud y el maná durante 10 s.",
           "iconFileDataId": 132278,
@@ -1445,7 +1445,7 @@
           "pvpTrinket": null
         },
         {
-          "name": "Robustez",
+          "name": "Aguante",
           "kind": "passive",
           "description": "La salud total aumenta un 5% y el daño crítico y la sanación aumentan un 2%.",
           "iconFileDataId": 136112,
@@ -1509,7 +1509,7 @@
       "racialSkillLineId": 733,
       "racials": [
         {
-          "name": "Rabiar",
+          "name": "Iracundia",
           "kind": "active",
           "description": "Aumenta un 10% la velocidad de ataque y lanzamiento.",
           "iconFileDataId": 135727,
@@ -1729,7 +1729,7 @@
         {
           "name": "Visión cielonata",
           "kind": "active",
-          "description": "Recibes una bendición elemental que aumenta un 10% la velocidad de movimiento durante 5 min",
+          "description": "Intentas obtener poder de una convergencia de elementos para recibir su bendición, lo que aumenta un 10% tu velocidad de movimiento y tu velocidad de movimiento sobre una montura. Dura 30 s si no hay una convergencia elemental cerca y 15 min cuando sí la haya.",
           "iconFileDataId": 1029587,
           "order": 1,
           "textOrigin": "client",

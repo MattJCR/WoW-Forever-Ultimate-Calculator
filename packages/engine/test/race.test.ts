@@ -128,7 +128,7 @@ describe("todas las clases: cada raza resuelve las variantes de su clase", () =>
 describe("efectos disparados y procs", () => {
   it("Espiritu de fuego fatuo (75 % de velocidad como fantasma) no cuenta como bonus permanente", () => {
     const b = raceBonuses(race(4), WARRIOR);
-    expect(b.movementSpeedPct).toBe(2); // solo Presura (+2 %), no el +75 % de fantasma
+    expect(b.movementSpeedPct).toBe(2); // solo Prontitud (+2 %), no el +75 % de fantasma
   });
 
   it("Planicies del Tauren: +3 % de velocidad al montar", () => {
@@ -138,7 +138,7 @@ describe("efectos disparados y procs", () => {
   it("describeEffect explica procs y regeneraciones periodicas con su contexto", () => {
     const touch = race(5).racials.find((a) => a.name === "Toque de la tumba")!.spells.find((s) => s.classMask === 400)!;
     expect(describeEffect(touch.effects[0]!, touch)).toBe("30 % de probabilidad: drena hasta 5 % de tu salud máxima (enfriamiento interno 25 s)");
-    const cannibalize = race(5).racials.find((a) => a.name === "Canibalismo")!.spells[0]!;
+    const cannibalize = race(5).racials.find((a) => a.name === "Canibalizar")!.spells[0]!;
     expect(describeEffect(cannibalize.effects.find((e) => e.kind === "periodic-health-pct")!, cannibalize)).toBe("35 % de la salud total (7 % cada 2 s)");
   });
 });

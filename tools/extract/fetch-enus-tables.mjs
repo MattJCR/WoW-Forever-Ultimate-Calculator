@@ -22,6 +22,7 @@ const TABLES = {
   TraitDefinition: ["ID", "SpellID", "OverrideName_lang", "OverrideSubtext_lang", "OverrideDescription_lang"],
   ItemSet: ["ID", "Name_lang"],
   SpellItemEnchantment: ["ID", "Name_lang"],
+  ChrRaceRacialAbility: ["ID", "ChrRacesID", "Order", "Description_lang"],
 };
 
 function parseCsv(text) {

@@ -26,6 +26,12 @@ export const RACIAL_SPELLS: Record<number, number[][]> = {
   96: [[1259416], [1259686], [1259710], [1259707]], // Cielonato (Formavientos)
 };
 
+/**
+ * Raciales cuyo texto de ChrRaceRacialAbility contradice al de su propio hechizo (el cliente trae «5 min» en la tabla, pero el hechizo dura
+ * 30 s sin línea Ley / convergencia cerca y 15 min con ella): la web usa el texto del hechizo, que lleva las duraciones que sí se aplican.
+ */
+export const RACIAL_TEXT_FROM_SPELL = new Set([1259705 /* Leer línea Ley */, 1259686 /* Visión cielonata */]);
+
 /** Aura del cliente -> significado. Cada una se comprobo contra el texto de las raciales que la usan. */
 const AURA_KINDS: Record<number, RacialEffect["kind"]> = {
   290: "crit-chance",

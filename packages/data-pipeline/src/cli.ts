@@ -14,7 +14,7 @@ import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, t
 import { buildAbilities } from "./abilities.js";
 import { buildEnglish } from "./english.js";
 import { applyOfficialEnglish, loadEnglishOverrides } from "./english-apply.js";
-import { loadOfficialEnglish } from "./english-official.js";
+import { applyOfficialRacials, loadOfficialEnglish } from "./english-official.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
 import { buildRaces } from "./races.js";
@@ -240,6 +240,8 @@ function build(): void {
     const official = loadOfficialEnglish(enusDir, raw, spells);
     if (official) {
       const o = applyOfficialEnglish(english, official, { classes, legacy, abilities: abilityData, items: itemsData, enchants: enchantsData, buffs: buffsData, unassigned, own: loadEnglishOverrides() });
+      const racials = applyOfficialRacials(english, races, official);
+      console.log(`   raciales con el inglés del cliente: ${racials.official}/${racials.official + racials.fallback.length}${racials.fallback.length ? `; con el inglés de la comunidad: ${racials.fallback.join(", ")}` : ""}`);
       // Nombre en inglés de cada beneficio (hechizo o objeto): de las tablas oficiales
       for (const b of buffsData?.buffs ?? []) b.nameEn = (b.itemId !== null ? official.itemNames.get(b.itemId) : official.spells.name(b.id)) ?? null;
       console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);

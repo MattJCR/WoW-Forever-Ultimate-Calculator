@@ -1,8 +1,12 @@
 import { int, type RawTables } from "./csv.js";
 import type { RacialAbility, Races } from "./model.js";
 import { loadOverrides, looksEnglish } from "./language.js";
-import { RACIAL_SKILL_LINES, pvpTrinketShare, racialSpells } from "./racial-spells.js";
+import { RACIAL_SKILL_LINES, RACIAL_TEXT_FROM_SPELL, pvpTrinketShare, racialSpells } from "./racial-spells.js";
+import { renderSpellText } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
+
+/** Erratas de texto del cliente (esES) corregidas a mano: [errata, corrección]. Lista exacta fijada en las pruebas. */
+export const CLIENT_TYPOS: [string, string][] = [["amentados", "aumentados"]];
 
 /**
  * El cliente de Forever es "unificado" y trae las 58 razas de retail en `ChrRaces`. Las jugables son las que
@@ -45,9 +49,16 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
     for (const a of racials) {
       a.spells = racialSpells(raw, spells, id, a.order, warnings);
       if (a.kind === "active") a.pvpTrinket = pvpTrinketShare(raw, spells, a.spells.map((s) => s.spellId));
-      // Cielonato trae los nombres de sus raciales en ingles en ChrRaceRacialAbility, pero sus hechizos si tienen nombre en espanol
+      // El nombre es el del hechizo (el del libro de hechizos): en 6 raciales la tabla trae otro y Cielonato la trae en ingles; el propio texto corto del cliente usa el del hechizo
       const spellName = spells.name(a.spells[0]?.spellId ?? 0);
-      if ((id === 95 || id === 96) && spellName && spellName !== a.name) a.name = spellName;
+      if (spellName && spellName !== a.name) a.name = spellName;
+      const first = a.spells[0]?.spellId;
+      if (first !== undefined && RACIAL_TEXT_FROM_SPELL.has(first)) {
+        const r = renderSpellText(spells, spells.clientDescription(first), { spellId: first, rank: 1, curves: new Map() });
+        if (r.complete) a.description = r.text.trim();
+        else warnings.push(`Racial ${a.name}: el texto de su hechizo no se pudo calcular; se queda el de la tabla`);
+      }
+      for (const [typo, fix] of CLIENT_TYPOS) a.description = a.description.replaceAll(typo, fix);
       const own = overrides.racials[a.name];
       if (own?.name) a.name = own.name;
       if (looksEnglish(a.description)) {
