@@ -50,7 +50,7 @@ import { LinkNotice } from "../components/LinkNotice";
 import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
 import { TreePanel, type Focus } from "../components/TreePanel";
-import { BuffsPanel } from "../components/Buffs";
+import { BuffsStep } from "../components/Buffs";
 import { CLASS_COLORS, loadClass, loadRaces, useAsync, useBuffs } from "../data";
 import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, talentName, tr, treeLabel } from "../i18n";
 import { decodeAvatar, encodeAvatar, type Avatar } from "../viewer/avatar";
@@ -194,7 +194,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
       /* sin almacenamiento: solo se pierde la comodidad */
     }
   }, [token, buffCode]);
-  const buffsState = useBuffs(manifest, view === "summary" || buffCode !== "");
+  const buffsState = useBuffs(manifest, view === "buffs" || view === "summary" || buffCode !== "");
   const buffIndex = buffsState?.status === "ready" ? buffsState.value : null;
   const buffSelection = useMemo(() => (buffIndex ? decodeBuffs(buffCode, buffIndex) : new Set<number>()), [buffIndex, buffCode]);
   useEffect(() => {
@@ -294,6 +294,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     legacy: { sub: legacy ? `${legacyTotal}/${legacy.data.rules.maxPoints}` : "…", done: legacyTotal > 0 },
     talents: { sub: `${classTotal}/${idx.data.rules.maxPoints}`, done: classTotal > 0 },
     gear: { sub: tr("{n}/{max} piezas", { n: gearCount, max: GEAR_SLOTS }), done: gearCount > 0 },
+    buffs: { sub: buffSelection.size > 0 ? tr("{n} activos", { n: buffSelection.size }) : tr("Ninguno"), done: buffSelection.size > 0 },
     summary: { sub: tr("Estadísticas y daño"), done: false },
   };
 
@@ -368,6 +369,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           <StepNav view={view} onGo={goTop} />
         </div>
       )}
+      {view === "buffs" && <BuffsStep manifest={manifest} index={buffIndex} loading={buffsState?.status === "loading"} selected={buffSelection} onChange={(next) => setBuffCode(encodeBuffs(next))} onGo={goTop} />}
       {view === "summary" && (
         <Summary
           idx={idx}
@@ -381,7 +383,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
           referenceRace={races[0] ?? null}
           gear={hasGear && gearBundle?.status === "ready" ? { selection: gear, data: gearBundle.value.data, ctx: gearCtx, ratings: gearBundle.value.ratings } : null}
           gearLoading={hasGear && gearBundle?.status !== "ready"}
-          buffs={{ index: buffIndex, loading: buffsState?.status === "loading", selected: buffSelection, onChange: (next) => setBuffCode(encodeBuffs(next)) }}
+          buffs={{ index: buffIndex, selected: buffSelection }}
           onGo={goTop}
         />
       )}
@@ -721,7 +723,7 @@ interface GearInSummary {
   ratings: CombatRatings | null;
 }
 
-function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, buffs, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; /** Raza con la que se calculan los atributos si no se ha elegido ninguna (la primera que admite la clase). */ referenceRace: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; buffs: { index: BuffIndex | null; loading: boolean; selected: ReadonlySet<number>; onChange: (next: Set<number>) => void }; onGo: (v: View) => void }) {
+function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, classBuild, legacy, legacyBuild, gear, gearLoading, buffs, onGo }: { idx: ClassIndex; summary: ReturnType<typeof summarizeCharacter>; legacyLoaded: boolean; race: Race | null; /** Raza con la que se calculan los atributos si no se ha elegido ninguna (la primera que admite la clase). */ referenceRace: Race | null; manifest: Manifest; classBuild: Build; legacy: ClassIndex | null; legacyBuild: Build; gear: GearInSummary | null; gearLoading: boolean; buffs: { index: BuffIndex | null; selected: ReadonlySet<number> }; onGo: (v: View) => void }) {
   const minLevel = summary.classPoints === 0 ? 1 : summary.requiredLevel;
   // Un solo nivel para las estadisticas y las habilidades
   const [level, setLevel] = useState(60);
@@ -769,7 +771,12 @@ function Summary({ idx, summary, legacyLoaded, race, referenceRace, manifest, cl
       </div>
 
       <ActiveStates cls={idx} classBuild={classBuild} active={active} onChange={setActive} />
-      <BuffsPanel manifest={manifest} index={buffs.index} loading={buffs.loading} selected={buffs.selected} onChange={buffs.onChange} />
+      <p className="muted small buffs-note">
+        {buffs.selected.size > 0 ? tr("Beneficios activos: {n}.", { n: buffs.selected.size }) : tr("No has marcado ningún beneficio.")}{" "}
+        <button type="button" className="link-btn" onClick={() => onGo("buffs")}>
+          {tr("Cambiar los beneficios")}
+        </button>
+      </p>
 
       <div className="summary-cols">
         <section className="card stats-card" aria-label={tr("Estadísticas")}>

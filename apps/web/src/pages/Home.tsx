@@ -13,6 +13,7 @@ const STEPS = [
   { title: "Puntos de Legado", text: "Ventajas de cuenta. Talentoso adelanta tu primer punto de talento, por eso van antes." },
   { title: "Talentos", text: "Gasta tus puntos en los tres árboles con las reglas reales del cliente." },
   { title: "Equipo", text: "Prueba piezas, encantamientos y bonos de conjunto en los 19 huecos." },
+  { title: "Beneficios", text: "Marca bendiciones, auras, tótems, elixires, frascos y comida: se suman a tus estadísticas." },
   { title: "Resumen", text: "Consulta estadísticas y daño de cada habilidad según tu nivel, del 1 al 60." },
 ];
 
@@ -149,7 +150,7 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
         <div className="wrap home-section">
           <header className="section-head">
             <p className="eyebrow">{tr("Cómo funciona")}</p>
-            <h2>{tr("Cinco pasos, de la raza al daño final")}</h2>
+            <h2>{tr("Seis pasos, de la raza al daño final")}</h2>
             <p>{tr("Puedes saltar de un paso a otro cuando quieras: todo se recalcula y se guarda en el enlace.")}</p>
           </header>
           <ol className="home-steps">

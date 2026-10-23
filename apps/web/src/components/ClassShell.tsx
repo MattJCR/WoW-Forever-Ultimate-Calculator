@@ -6,7 +6,7 @@ import { classLabel, tr } from "../i18n";
 import { href } from "../router";
 import { Icon } from "./Icon";
 
-export type View = "race" | "legacy" | "talents" | "gear" | "summary";
+export type View = "race" | "legacy" | "talents" | "gear" | "buffs" | "summary";
 
 // La raza va primero (paso propio, con su caja como los talentos). Legacy va ANTES que los talentos de clase:
 // Talentoso (Legacy) adelanta el primer punto de talento y cambia el nivel que exigen.
@@ -15,6 +15,7 @@ export const VIEWS: { id: View; label: string }[] = [
   { id: "legacy", label: "Puntos de Legado" },
   { id: "talents", label: "Talentos" },
   { id: "gear", label: "Equipo" },
+  { id: "buffs", label: "Beneficios" },
   { id: "summary", label: "Resumen" },
 ];
 /** Nombre del paso en el idioma elegido (`VIEWS` guarda el texto en español, que es la clave del diccionario). */
