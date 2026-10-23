@@ -75,7 +75,21 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     expect(fx.totals.some((t) => t.label.includes("poder de ataque") && t.value === 139)).toBe(false);
   });
 
-  it("AUDITORÍA: 280 de los 293 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
+  it("los consumibles «Endless» (hotfix del 22/10) suman la cifra de su texto del cliente", () => {
+    const lines = (name: string) => {
+      const fx = collectStatEffects({ cls: warrior, classBuild: {}, legacy: null, legacyBuild: {}, race: null, abilities, gearEffects: [buffAsEffect(byName(name))] });
+      return fx.totals.map((t) => `${t.label} ${t.value}${t.unit === "%" ? "%" : ""}`);
+    };
+    expect(lines("Elixir of Endless Healing")).toEqual(["sanación realizada 2%"]); // «Increases healing done by 2%»
+    expect(lines("Elixir of Endless Rapidity")).toEqual(["celeridad cuerpo a cuerpo y a distancia 4%"]); // «Increases Haste by 4%»
+    expect(lines("Elixir of Endless Mana")).toEqual(["regeneración de maná (%) 30%"]); // «Increases mana regeneration by 30%»
+    expect(lines("Scroll of Endless Fortitude")).toEqual(["Aguante 10%"]); // «Increases Stamina of nearby allies by 10%»
+    expect(lines("Scroll of Endless Speed")).toEqual(["velocidad de movimiento 50%"]); // «Increases run speed … by 50%»
+    expect(byName("Scroll of Endless Speed").durationMs).toBe(30_000); // el único pergamino corto
+    expect(lines("Elixir of Endless Experience")).toEqual([]); // solo texto: experiencia +200 %
+  });
+
+  it("AUDITORÍA: 287 de los 300 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 2 habilidades de profesión sin clave propia", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
@@ -85,8 +99,8 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     const absorb = text.filter((n) => /^Poción de protección/.test(n));
     expect(absorb).toHaveLength(11);
     for (const n of absorb) expect(byName(n).text).toMatch(/^Amortigua \d+ p\. de daño/);
-    expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Pergamino de Comprensión", "Té de espina de oro"]);
-    expect(data.buffs.length).toBe(293); // 290 + 3 elixires «Endless» del hotfix del 22/10
+    expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Elixir of Endless Experience", "Elixir of Endless Growth", "Pergamino de Comprensión", "Té de espina de oro"]); // los dos «Endless»: experiencia y tamaño, sin estadísticas
+    expect(data.buffs.length).toBe(300); // 290 + los 10 consumibles «Endless» del hotfix del 22/10
   });
 
   it("los aumentos permanentes al consumir (sin duración) suman su cifra y cuentan como duraderos", () => {

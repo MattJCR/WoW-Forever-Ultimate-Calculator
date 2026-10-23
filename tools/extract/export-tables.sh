@@ -17,6 +17,8 @@ if [ "${HOTFIXES:-0}" = "1" ]; then
 else
   OUT="$ROOT/data/raw/$BUILD"; EXTRA=""
 fi
+# OUT_SUFFIX=-enUS deja la exportacion en data/raw/<build>-hotfix-enUS (textos en ingles del cliente: ver docs/EXTRACTION.md)
+OUT="$OUT${OUT_SUFFIX:-}"
 mkdir -p "$OUT"
 
 DEFAULT_TABLES=(

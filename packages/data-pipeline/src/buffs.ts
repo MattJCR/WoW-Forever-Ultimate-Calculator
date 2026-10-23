@@ -16,10 +16,20 @@ import type { Abilities, Buff, Buffs } from "./model.js";
 
 /** Auras de estadística que el motor sabe cuantificar o que se enseñan como texto del cliente. */
 const BUFF_AURAS = new Set([
-  29, 137, 99, 124, 13, 135, 22, 674, 142, 31, 65, 319, 140, 342, 52, 57, 54, 55, 49, 47, 51, 133, 34, 35, 85, 161, 79, 87, 290, 134, 102, 131, 59, 180, 30, 274, 117,
-]);
+  29, 137, 99, 124, 13, 135, 22, 674, 142, 31, 65, 319, 140, 342, 52, 57, 54, 55, 49, 47, 51, 133, 34, 35, 85, 161, 79, 87, 290, 134, 102, 131, 59, 180, 30, 274, 117,]);
+/**
+ * Solo consumibles (elixires «Endless», hotfix del 22/10): sanación realizada % (136), celeridad cuerpo a cuerpo y a distancia % (193), atributo % (80),
+ * regeneración de poder % (110). No valen para los beneficios de clase: las formas del druida (aura 80) y las habilidades de enfriamiento largo
+ * (110) se tratan aparte.
+ */
+const CONSUMABLE_AURAS = new Set([...BUFF_AURAS, 136, 193, 80, 110]);
+/** Solo consumibles sin ninguna otra aura: tamaño (61) y experiencia ganada (200, 291). No suman estadísticas; se enseña el texto del cliente. */
+const TEXT_ONLY_AURAS = new Set([61, 200, 291]);
 /** SpellEffect.ImplicitTarget[0] amistosos: 1 uno mismo, 20 grupo, 21 aliado, 56/57/153 banda y bendiciones superiores. */
 const FRIENDLY_TARGETS = new Set([1, 20, 21, 56, 57, 153]);
+
+/** Solo consumibles: además de lo amistoso, 22 = «alrededor del lanzador» (Pergamino de entereza interminable: «aliados cercanos»). */
+const CONSUMABLE_TARGETS = new Set([...FRIENDLY_TARGETS, 22]);
 
 /** Solo consumibles: objetivo «unidad elegida» (25) de los que dan un aumento permanente al consumirse («Aumenta la agilidad en 25 p. cuando se consume»); no tienen duración. */
 const PERMANENT_TARGETS = new Set([25]);
@@ -196,12 +206,14 @@ export function buildBuffs(raw: RawTables, build: string, spells: SpellTables, a
         if (seen.has(spellId)) continue;
         const duration = spells.durationMs(spellId);
         // Un aumento permanente al consumir (sin duración) apunta a la «unidad elegida»; las pociones de protección absorben daño
-        let auras = friendlyAuras(spells, spellId);
+        let auras = friendlyAuras(spells, spellId, CONSUMABLE_TARGETS, CONSUMABLE_AURAS);
         if (auras.length === 0 && !duration) auras = friendlyAuras(spells, spellId, PERMANENT_TARGETS);
         if (auras.length === 0) auras = friendlyAuras(spells, spellId, FRIENDLY_TARGETS, ABSORB_AURAS);
+        if (auras.length === 0) auras = friendlyAuras(spells, spellId, CONSUMABLE_TARGETS, TEXT_ONLY_AURAS);
         if (auras.length === 0) continue;
-        // Bebidas y comidas sin beneficio duradero no son consumibles de estadística; las pociones cuentan aunque duren poco
-        if (duration ? duration < LASTING_MS && category !== "potion" : !auras.some((a) => PERMANENT_TARGETS.has(int(spells.effect(spellId, a.index)?.["ImplicitTarget[0]"])))) continue;
+        // Bebidas y comidas sin beneficio duradero no son consumibles de estadística; las pociones cuentan aunque duren poco, y los pergaminos
+        // también (Pergamino de velocidad interminable: 30 s, el único pergamino corto)
+        if (duration ? duration < LASTING_MS && category !== "potion" && category !== "scroll" : !auras.some((a) => PERMANENT_TARGETS.has(int(spells.effect(spellId, a.index)?.["ImplicitTarget[0]"])))) continue;
         if (auras.every((a) => a.value <= 0 && a.aura !== 87)) continue; // solo perjuicios (bromas, malos efectos)
         seen.add(spellId);
         add({

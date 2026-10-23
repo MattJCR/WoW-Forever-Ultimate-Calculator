@@ -25,7 +25,7 @@ describe.skipIf(!existsSync(join(RAW, "ItemSparse.csv")) || !existsSync(join(OUT
 
   it("cumple el esquema, sin avisos, con las 9 clases, tótems, mascota y los seis tipos de consumible", () => {
     expect(warnings.map((w) => /«(.+?)»/.exec(w)![1])).toEqual(["Danza de hojas"]); // su poder de ataque depende de la habilidad de defensa; Valor de Azeroth y Cuerno de Lordaeron se resuelven con la fórmula a nivel 60
-    expect(data.buffs.length).toBe(293); // 290 + 3 elixires «Endless» del hotfix del 22/10 (intelecto, poder, oportunidad); los otros 7 usan auras que el motor no cuantifica
+    expect(data.buffs.length).toBe(300); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 (el elixir de tamaño y el de experiencia solo traen texto)
     const cats = new Set(data.buffs.map((b) => b.category));
     expect([...cats].sort()).toEqual(["class", "elixir", "flask", "food", "other", "pet", "potion", "scroll", "totem"]);
   });

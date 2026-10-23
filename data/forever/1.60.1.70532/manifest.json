@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70532",
   "locale": "esES",
-  "generatedAt": "2026-10-23T08:29:03.323Z",
+  "generatedAt": "2026-10-23T09:10:46.814Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -302,8 +302,8 @@
   },
   "buffs": {
     "file": "buffs.json",
-    "sha256": "4e418468539d8cffab4677355b858538e9cf4260179e3242e7d8e944d004a559",
-    "count": 293
+    "sha256": "4354532c1cc75faa4352065cd34cb82ccf79d43e2e218dcfb2686b87d7402c42",
+    "count": 300
   },
   "randomSuffixes": {
     "file": "random-suffixes.json",
@@ -312,9 +312,9 @@
   },
   "items": {
     "file": "items.json",
-    "sha256": "edf843a2cb8b86580643265e44c3b88a9ddd224679e3aea1627f6b22c340356f",
-    "itemCount": 12630,
-    "unavailableCount": 6375
+    "sha256": "e394fd1224d182d7f67bc1874d7db05c01a002c9e1d68d49701c149a91608199",
+    "itemCount": 12632,
+    "unavailableCount": 6373
   },
   "equipRules": {
     "file": "equip-rules.json",
@@ -333,12 +333,12 @@
   },
   "icons": {
     "file": "icons.json",
-    "count": 1922,
-    "sha256": "6e6e9c20946a2dff65930791d7a74cb29e3c735d903d832396631b7f19bccdea"
+    "count": 1923,
+    "sha256": "44c46fb0b41ec144868e9f217abe69336b29648a5b78ed3986a6ccf9e412f206"
   },
   "english": {
     "file": "i18n/en.json",
-    "sha256": "1bf901cf735a2e914df5db1c7e378e7c4d57732756092d4090f580ced1780f89"
+    "sha256": "0dc9820aa7529436285b348d6f24e1bab58fd5aecd6d4659c4850b3ebed797c6"
   },
   "unassigned": {
     "file": "unassigned.json",
@@ -437,7 +437,7 @@
     },
     {
       "table": "ItemSparse",
-      "sha256": "17fca32eae5faac04efdeb979a951dad59d11bc6cda1072396528beac05ac5e8"
+      "sha256": "0c931a05d51bc05444f93292cc12834b4724f8bb01bd83c8bafcccf24af28ee5"
     },
     {
       "table": "ItemXItemEffect",

@@ -234,6 +234,14 @@ function generalLine(aura: number, misc: number, value: number, miscB = 0): Omit
       return { category: "Celeridad", label: "celeridad cuerpo a cuerpo", value, unit: "%", scope: null };
     case 140:
       return { category: "Celeridad", label: "celeridad a distancia", value, unit: "%", scope: null };
+    case 193:
+      return { category: "Celeridad", label: "celeridad cuerpo a cuerpo y a distancia", value, unit: "%", scope: null };
+    case 136:
+      // Sanación realizada en % (Elixir de curación interminable: «Aumenta la sanación realizada un 2 %»)
+      return { category: "Daño y curación", label: "sanación realizada", value, unit: "%", scope: null };
+    case 110:
+      // Regeneración de poder en %: misc 0 = maná (Elixir de maná interminable: «Aumenta la regeneración de maná un 30 %»)
+      return misc === 0 ? { category: "Regeneración", label: "regeneración de maná (%)", value, unit: "%", scope: null } : null;
     case 185:
     case 186:
       return { category: "Defensa", label: "probabilidad de ser alcanzado por hechizos y ataques a distancia", value, unit: "puntos porcentuales", scope: null };
@@ -364,7 +372,8 @@ function talentLines(talent: Pick<Talent, "effectInfo" | "rankValues" | "descrip
       if (m) lines.push({ ...m, scope, source });
       continue;
     }
-    if (info.aura === 137) {
+    // 137 = atributo en % (máscara en misc[1]); 80 = el mismo efecto con el índice del atributo en misc[0] (Pergamino de entereza interminable: aguante +10 %)
+    if (info.aura === 137 || info.aura === 80) {
       const found = statPercentLines(info.miscValue, info.miscValueB, value);
       if (found.length > 0) lines.push(...found.map((l) => ({ ...l, source })));
       else unclassified = true;
