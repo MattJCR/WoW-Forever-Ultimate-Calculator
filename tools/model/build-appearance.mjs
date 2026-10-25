@@ -31,7 +31,8 @@ function texturesOf(resId) {
   return out;
 }
 
-const out = { build: BUILD, items: {}, display: {}, tex: {}, model: {}, helm: {}, sheathe: {} };
+const out = { build: BUILD, items: {}, display: {}, tex: {}, model: {}, helm: {}, sheathe: {}, sheatheTransform: {} };
+const transformBy = indexBy("TransformMatrix", "ID");
 const sheatheBy = indexBy("Item", "ID");
 const usedModels = new Set();
 
@@ -56,6 +57,12 @@ for (const it of items) {
   const h = [num(d["HelmetGeosetVis[0]"]), num(d["HelmetGeosetVis[1]"])];
   if (h.some((v) => v)) rec.h = h;
   if (d.GeosetGroupOverride !== "0") rec.o = num(d.GeosetGroupOverride);
+  // Ajuste del objeto envainado: [x, y, z, giro, cabeceo, alabeo (grados), escala] en ejes del M2 (TransformMatrix)
+  const tm = d.SheatheTransformMatrixID !== "0" ? transformBy.get(d.SheatheTransformMatrixID) : undefined;
+  if (tm) {
+    rec.x = num(tm.ID);
+    out.sheatheTransform[tm.ID] = [num(tm["Pos[0]"]), num(tm["Pos[1]"]), num(tm["Pos[2]"]), num(tm.Yaw), num(tm.Pitch), num(tm.Roll), num(tm.Scale)];
+  }
   const secs = (sectionsBy.get(a.ItemDisplayInfoID) ?? []).map((r) => [num(r.ComponentSection), num(r.MaterialResourcesID)]);
   if (secs.length) {
     rec.s = secs;

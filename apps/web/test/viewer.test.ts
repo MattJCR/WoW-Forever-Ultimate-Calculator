@@ -231,6 +231,12 @@ describe("equipo → lo que se ve", () => {
     expect(resolveEquipment(ap, 1, 0, [sword], url, { fx: null }).models[0]).not.toHaveProperty("fx");
     expect(resolveEquipment(ap, 1, 0, [sword], url).models[0]).not.toHaveProperty("own");
   });
+  it("envainado: el ajuste de la apariencia (TransformMatrix) solo se pasa a las armas en su funda", () => {
+    const adj = { ...ap, display: { ...ap.display, "700": { ...ap.display["700"]!, x: 900 } }, sheatheTransform: { "900": [0.25, 0, 0, 0, 0, 0, 1] } };
+    expect(resolveEquipment(adj, 1, 0, [eq(7, 17, "mainHand")], url, { sheathed: true }).models[0]?.transform).toEqual([0.25, 0, 0, 0, 0, 0, 1]);
+    expect(resolveEquipment(adj, 1, 0, [eq(7, 17, "mainHand")], url).models[0]).not.toHaveProperty("transform");
+    expect(resolveEquipment(ap, 1, 0, [eq(7, 17, "mainHand")], url, { sheathed: true }).models[0]).not.toHaveProperty("transform");
+  });
   it("objetos sin apariencia se ignoran", () => {
     const r = resolveEquipment(ap, 1, 0, [eq(999, 5)], url);
     expect(r.geosets.size).toBe(0);

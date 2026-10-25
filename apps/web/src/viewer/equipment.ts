@@ -12,6 +12,8 @@ export interface AppearanceData {
   helm: Record<string, Record<string, number[]>>;
   /** Objeto -> tipo de envaine (Item.SheatheType). */
   sheathe?: Record<string, number>;
+  /** TransformMatrix.ID -> [x, y, z, giro, cabeceo, alabeo (grados), escala] del objeto envainado, en ejes del M2. */
+  sheatheTransform?: Record<string, number[]>;
 }
 
 export interface DisplayRecord {
@@ -25,6 +27,8 @@ export interface DisplayRecord {
   m?: [number, number, number][];
   /** [índice de modelo, tipo de textura, recurso] */
   t?: [number, number, number][];
+  /** Ajuste del objeto envainado (clave de `sheatheTransform`). */
+  x?: number;
 }
 
 export interface Equipped {
@@ -58,6 +62,8 @@ export interface AttachedModel {
   fx?: EffectRef[];
   /** El modelo trae emisores de partículas propios (llamas, chispas…). */
   own?: boolean;
+  /** Ajuste de posición, giro y escala del objeto envainado: [x, y, z, giro, cabeceo, alabeo (grados), escala] en ejes del M2. */
+  transform?: number[];
 }
 
 export interface EquipResult {
@@ -246,6 +252,9 @@ export function resolveEquipment(
       addModels(e.inventoryType, d, () => att);
       const fx = effectsOf(opts.fx, ap.items[String(e.itemId)], e.classId === 2 ? e.enchantId : null);
       if (fx.length) for (let k = before; k < res.models.length; k++) res.models[k]!.fx = fx.map((x) => ({ ...x }));
+      // En la funda, cada apariencia puede traer su propio ajuste de posición y giro
+      const tr = opts.sheathed && d.x ? ap.sheatheTransform?.[String(d.x)] : undefined;
+      if (tr) for (let k = before; k < res.models.length; k++) res.models[k]!.transform = tr;
     }
   }
   const own = new Set(opts.fx?.own ?? []);

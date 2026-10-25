@@ -2,7 +2,7 @@
 // texturas compuestas) y deja girar el modelo con el ratón. Se carga solo en el paso Equipo.
 import {
   AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, MeshStandardMaterial,
-  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight, Group, NoColorSpace, CustomBlending, OneFactor, SrcAlphaFactor, ZeroFactor,
+  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight, Group, NoColorSpace, Euler, Matrix4, Quaternion, CustomBlending, OneFactor, SrcAlphaFactor, ZeroFactor,
 } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -31,6 +31,16 @@ export interface ViewState {
 
 /** Mezcla aditiva (llamas, brillos) que solo suma color: la de three.js también suma el alfa y oscurece el fondo al ser el lienzo transparente. */
 const ADDITIVE = { blending: CustomBlending, blendSrc: SrcAlphaFactor, blendDst: OneFactor, blendSrcAlpha: ZeroFactor, blendDstAlpha: OneFactor } as const;
+
+/** Pasa los ejes del M2 (x adelante, y izquierda, z arriba) a los de glTF: (x, y, z) -> (y, z, x). */
+const TO_GLTF = new Matrix4().set(0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1);
+
+/** Ajuste del objeto envainado (TransformMatrix: posición, giro-cabeceo-alabeo en grados y escala, en ejes del M2) como matriz de glTF. */
+function sheatheMatrix([x = 0, y = 0, z = 0, yaw = 0, pitch = 0, roll = 0, scale = 1]: number[]): Matrix4 {
+  const rad = Math.PI / 180;
+  const m2 = new Matrix4().compose(new Vector3(x, y, z), new Quaternion().setFromEuler(new Euler(roll * rad, pitch * rad, yaw * rad, "ZYX")), new Vector3(scale, scale, scale));
+  return TO_GLTF.clone().multiply(m2).multiply(TO_GLTF.clone().invert());
+}
 
 /** Tipos de textura de malla que se pintan con otro compuesto (los de las colecciones usan el del pelo). */
 const TEXTURE_ALIAS: Record<number, number> = { 7: 6 };
@@ -323,6 +333,7 @@ export class CharacterView {
       const inst = await this.itemInstance(scene, m.textures);
       if (seq !== this.attachSeq || root !== this.root) return;
       if (m.mirror) inst.scale.x = -1;
+      if (m.transform) sheatheMatrix(m.transform).decompose(inst.position, inst.quaternion, inst.scale);
       point.add(inst);
       this.attached.push(inst);
       await this.attachEffects(m, inst, () => seq !== this.attachSeq || root !== this.root);
