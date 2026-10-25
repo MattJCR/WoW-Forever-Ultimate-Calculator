@@ -6,7 +6,7 @@ import path from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import { ARRAY_BUFFER, ELEMENT_ARRAY_BUFFER, FLOAT, GlbBuilder, USHORT } from "../glb.mjs";
-import { parseSkin, readChunks, readTrack } from "../m2.mjs";
+import { parseM2, parseParticles, parseSkin, readChunks, readTrack } from "../m2.mjs";
 import { SCENES } from "../scenes.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -230,5 +230,51 @@ describe("datos generados (data/models)", { skip: !fs.existsSync(MODELS) }, () =
     const busts = new Set(listing("bust"));
     const missing = Object.keys(appearance.display).filter((id) => !busts.has(`${id}.webp`));
     assert.deepEqual(missing.sort(), ["33431", "698986"], "objetos 240132 y 21127 sin miniatura (documentado en STATUS)");
+  });
+});
+
+describe("efectos visuales de objetos (fx/)", () => {
+  const FX = path.join(MODELS, "fx");
+  const has = fs.existsSync(path.join(FX, "index.json"));
+
+  it("el índice enlaza encantamientos y apariencias con efectos que existen", { skip: !has }, () => {
+    const index = JSON.parse(fs.readFileSync(path.join(FX, "index.json"), "utf8"));
+    assert.ok(Object.keys(index.enchant).length > 30 && Object.keys(index.display).length > 500);
+    for (const v of [...Object.values(index.enchant), ...Object.values(index.display)]) assert.ok(index.visuals[v], `visual ${v} sin modelos`);
+    for (const files of Object.values(index.visuals)) {
+      assert.equal(files.length, 5);
+      for (const f of files.filter(Boolean)) if (index.effects[f]) assert.match(index.effects[f], /^(p|m|pm)$/);
+    }
+    for (const [file, kind] of Object.entries(index.effects)) {
+      if (kind.includes("p")) assert.ok(fs.existsSync(path.join(FX, `${file}.json`)), `falta fx/${file}.json`);
+      if (kind.includes("m")) assert.ok(fs.existsSync(path.join(MODELS, "item", `${file}.glb`)), `falta item/${file}.glb`);
+    }
+  });
+
+  it("los emisores son coherentes y sus texturas están en tex/", { skip: !has }, () => {
+    const index = JSON.parse(fs.readFileSync(path.join(FX, "index.json"), "utf8"));
+    const files = [...Object.keys(index.effects).filter((f) => index.effects[f].includes("p")), ...index.own];
+    assert.ok(files.length > 300);
+    for (const f of files) {
+      const emitters = JSON.parse(fs.readFileSync(path.join(FX, `${f}.json`), "utf8"));
+      assert.ok(emitters.length > 0);
+      for (const e of emitters) {
+        assert.ok(e.rate > 0 && e.life > 0, `${f}: tasa o vida no válidas`);
+        assert.ok(e.color.length && e.alpha.length && e.scale.length, `${f}: faltan pistas de vida`);
+        for (const [t] of [...e.color, ...e.alpha, ...e.scale]) assert.ok(t >= 0 && t <= 1);
+        assert.ok(e.rows >= 1 && e.cols >= 1);
+        assert.ok(e.tex === 0 || fs.existsSync(path.join(MODELS, "tex", `${e.tex}.webp`)), `${f}: falta la textura ${e.tex}`);
+      }
+    }
+  });
+
+  it("lee los emisores de un M2 real (fuego de «Arma candente»: un emisor plano, mezcla aditiva y color que va del rojo al ámbar)", { skip: !fs.existsSync(path.join(ROOT, ".tools", "model-cache", "166011.bin")) }, () => {
+    const m2 = parseM2(fs.readFileSync(path.join(ROOT, ".tools", "model-cache", "166011.bin")));
+    const [e] = parseParticles(m2);
+    assert.ok(e);
+    assert.equal(e.emitter, 1);
+    assert.equal(e.blend, 4);
+    assert.deepEqual(e.color[0].map(Math.round), [0, 195, 14, 0]);
+    assert.equal(e.lifespan[0], 1);
   });
 });

@@ -42,6 +42,7 @@ const TOOL_PATH = {
   redo: "M15 14l5-5-5-5 M20 9H10a6 6 0 0 0 0 12h3",
   sheathe: "M19 4h1v5L10 19l-5-5L15 4z M5 14l-2 2 M10 19l-2 2 M3 21l3-3",
   pause: "M8 5v14 M16 5v14",
+  effects: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z",
   play: "M7 5l12 7-12 7z",
   capture: "M4 8h3l2-3h6l2 3h3v11H4z M12 9.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z",
   fullscreen: "M4 9V4h5 M15 4h5v5 M20 15v5h-5 M9 20H4v-5",

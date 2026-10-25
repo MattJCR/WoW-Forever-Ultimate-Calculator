@@ -1,13 +1,15 @@
 // Escena three.js del probador: carga el .glb de una raza/sexo, aplica la personalización (geosets y
 // texturas compuestas) y deja girar el modelo con el ratón. Se carga solo en el paso Equipo.
 import {
-  AdditiveBlending, AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, MeshStandardMaterial,
-  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight,
+  AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, MeshStandardMaterial,
+  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight, Group, NoColorSpace, CustomBlending, OneFactor, SrcAlphaFactor, ZeroFactor,
 } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { composeTexture, type Overlay } from "./compose";
 import type { AttachedModel } from "./equipment";
+import { loadEmitters } from "./fx-index";
+import { ParticleEmitter } from "./particles";
 import { resolveSelection, type BatchInfo, type Recipe, type Selection } from "./recipe";
 
 export interface ViewState {
@@ -26,6 +28,9 @@ export interface ViewState {
   /** Animación del personaje (Stand, Ready1H, Ready2H…). */
   pose?: string;
 }
+
+/** Mezcla aditiva (llamas, brillos) que solo suma color: la de three.js también suma el alfa y oscurece el fondo al ser el lienzo transparente. */
+const ADDITIVE = { blending: CustomBlending, blendSrc: SrcAlphaFactor, blendDst: OneFactor, blendSrcAlpha: ZeroFactor, blendDstAlpha: OneFactor } as const;
 
 /** Tipos de textura de malla que se pintan con otro compuesto (los de las colecciones usan el del pelo). */
 const TEXTURE_ALIAS: Record<number, number> = { 7: 6 };
@@ -61,13 +66,18 @@ export class CharacterView {
   private raf = 0;
   private disposed = false;
   private loadSeq = 0;
+  /** Partículas de los efectos de objetos (brillos de arma, encantamientos, llamas propias). */
+  private fxGroup = new Group();
+  private fx: ParticleEmitter[] = [];
+  private effectsOn = true;
+  private pxScale = { value: 600 };
 
   constructor(private canvas: HTMLCanvasElement, private base: string) {
     this.renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.camera = new PerspectiveCamera(28, 1, 0.1, 100);
     this.camera.position.set(0, 1.1, 5.2);
-    this.scene.add(new HemisphereLight(0xfff2dd, 0x40382e, 1.6), new AmbientLight(0xffffff, 0.6));
+    this.scene.add(new HemisphereLight(0xfff2dd, 0x40382e, 1.6), new AmbientLight(0xffffff, 0.6), this.fxGroup);
     const key = new DirectionalLight(0xfff0d8, 2.2);
     key.position.set(2.5, 3.5, 4);
     this.scene.add(key);
@@ -90,6 +100,12 @@ export class CharacterView {
       const dt = this.clock.getDelta();
       if (!this.paused) this.mixer?.update(dt);
       this.controls.update();
+      if (!this.touched && this.attached.length && ++this.reachTick % 15 === 0) this.measureReach(true);
+      if (this.fx.length && this.effectsOn) {
+        // Píxeles por unidad a distancia 1: el tamaño de cada sprite sigue al del lienzo y al zoom
+        this.pxScale.value = this.renderer.domElement.height / (2 * Math.tan((this.camera.fov * Math.PI) / 360));
+        if (!this.paused) for (const e of this.fx) e.update(dt);
+      }
       this.renderer.render(this.scene, this.camera);
     };
     loop();
@@ -108,8 +124,17 @@ export class CharacterView {
     this.paused = p;
   }
 
+  /** Enseña u oculta las partículas de los efectos de objetos. */
+  setEffects(on: boolean) {
+    this.effectsOn = on;
+    this.fxGroup.visible = on;
+  }
+
   private modelHeight = 2;
   private touched = false;
+  /** Lo que sobresale del personaje con sus armas y piezas colgadas: mitad del ancho y cota más alta (en unidades del modelo). */
+  private reachX = 0;
+  private reachTop = 0;
 
   resize(w: number, h: number) {
     this.renderer.setSize(w, h, false);
@@ -122,8 +147,11 @@ export class CharacterView {
   private frame() {
     const h = this.modelHeight;
     const half = Math.tan((this.camera.fov * Math.PI) / 360);
-    const byHeight = (h * 0.54) / half;
-    const byWidth = (h * 0.44) / (half * Math.max(this.camera.aspect, 0.2));
+    // Alto y ancho a encuadrar: el personaje y, si sobresalen, sus armas (nunca más que ~1,6 veces)
+    const halfH = Math.min(Math.max(h * 0.54, this.reachTop - h * 0.46), h * 0.86);
+    const halfW = Math.min(Math.max(h * 0.44, this.reachX + h * 0.06), h * 0.7);
+    const byHeight = halfH / half;
+    const byWidth = halfW / (half * Math.max(this.camera.aspect, 0.2));
     const d = Math.max(byHeight, byWidth);
     const dir = this.camera.position.clone().sub(this.controls.target).normalize();
     this.controls.target.set(0, h * 0.5, 0);
@@ -268,7 +296,11 @@ export class CharacterView {
     const url = `${this.base}/item/${file}.glb`;
     let p = this.modelCache.get(url);
     if (!p) {
-      p = new GLTFLoader().loadAsync(url).then((g) => g.scene, () => null);
+      p = new GLTFLoader().loadAsync(url).then((g) => {
+        // Anclajes propios del modelo (M2 en ejes del juego): de ellos cuelgan los efectos del arma
+        g.scene.userData.attachments = (g.asset as { extras?: { attachments?: unknown } }).extras?.attachments ?? [];
+        return g.scene;
+      }, () => null);
       this.modelCache.set(url, p);
     }
     return p;
@@ -283,6 +315,8 @@ export class CharacterView {
     if (seq !== this.attachSeq || root !== this.root) return;
     for (const o of this.attached) o.removeFromParent();
     this.attached = [];
+    for (const e of this.fx) e.dispose();
+    this.fx = [];
     for (const { m, scene } of loaded) {
       const point = root.getObjectByName(`att_${m.attachment}`);
       if (!scene || !point) continue;
@@ -291,7 +325,71 @@ export class CharacterView {
       if (m.mirror) inst.scale.x = -1;
       point.add(inst);
       this.attached.push(inst);
+      await this.attachEffects(m, inst, () => seq !== this.attachSeq || root !== this.root);
     }
+    this.measureReach();
+  }
+
+  /** Cuánto sobresalen del encuadre las piezas colgadas (en la pose de ese momento), para que el arma no quede cortada. */
+  private measureReach(grow = false) {
+    const box = new Box3();
+    for (const o of this.attached) { o.updateWorldMatrix(true, true); box.expandByObject(o, true); }
+    const x = box.isEmpty() ? 0 : Math.max(Math.abs(box.min.x), Math.abs(box.max.x));
+    const top = box.isEmpty() ? 0 : box.max.y;
+    // Con la animación el arma se mueve: mientras nadie toque la cámara solo se amplía el encuadre, nunca se encoge
+    const nx = grow ? Math.max(this.reachX, x) : x;
+    const nt = grow ? Math.max(this.reachTop, top) : top;
+    const changed = Math.abs(nx - this.reachX) > 0.03 || Math.abs(nt - this.reachTop) > 0.03;
+    this.reachX = nx;
+    this.reachTop = nt;
+    if (!this.touched && (!grow || changed)) this.frame();
+  }
+  private reachTick = 0;
+
+  /** Efectos de un objeto ya colgado: partículas propias del modelo y brillos/encantamientos en los anclajes 0-4 del arma. */
+  private async attachEffects(m: AttachedModel, inst: Object3D, stale: () => boolean) {
+    const jobs: { file: number; anchor: Object3D; particles: boolean; mesh: boolean }[] = [];
+    if (m.own) jobs.push({ file: m.file, anchor: inst, particles: true, mesh: false });
+    const points = (inst.userData.attachments ?? []) as { id: number; pos: [number, number, number] }[];
+    for (const ref of m.fx ?? []) {
+      const at = points.find((a) => a.id === ref.attach);
+      if (!at) continue;
+      // Los anclajes vienen en ejes del M2 (x adelante, y izquierda, z arriba); el modelo está en los de glTF
+      const anchor = new Object3D();
+      anchor.position.set(at.pos[1], at.pos[2], at.pos[0]);
+      inst.add(anchor);
+      jobs.push({ file: ref.file, anchor, particles: ref.kind.includes("p"), mesh: ref.kind.includes("m") });
+    }
+    await Promise.all(jobs.map(async (j) => {
+      const emitters = j.particles ? await loadEmitters(this.base, j.file) : null;
+      const meshModel = j.mesh ? await this.loadItemModel(j.file) : null;
+      if (stale()) return;
+      if (meshModel) j.anchor.add(await this.itemInstance(meshModel, {}));
+      for (const data of emitters ?? []) {
+        const map = await this.particleTexture(data.tex);
+        if (stale()) return;
+        if (!map) continue;
+        const e = new ParticleEmitter(data, j.anchor, map, this.pxScale);
+        this.fxGroup.add(e.points);
+        this.fx.push(e);
+      }
+    }));
+  }
+
+  private particleTextures = new Map<number, Promise<Texture | null>>();
+
+  /** Textura de partículas: sin conversión de color (el juego multiplica los valores tal cual). */
+  private particleTexture(file: number): Promise<Texture | null> {
+    let p = this.particleTextures.get(file);
+    if (!p) {
+      p = new TextureLoader().loadAsync(this.textureUrl(file)).then((t) => {
+        t.flipY = false;
+        t.colorSpace = NoColorSpace;
+        return t;
+      }, () => null);
+      this.particleTextures.set(file, p);
+    }
+    return p;
   }
   private attachSeq = 0;
 
@@ -330,7 +428,7 @@ export class CharacterView {
         if (blend === 3 || blend === 4 || blend === 7) {
           mesh.visible = !!map;
           mesh.renderOrder = 10;
-          mesh.material = new MeshBasicMaterial({ map, transparent: true, blending: AdditiveBlending, depthWrite: false, side: DoubleSide });
+          mesh.material = new MeshBasicMaterial({ map, transparent: true, ...ADDITIVE, depthWrite: false, side: DoubleSide });
           return;
         }
         mesh.material = new MeshStandardMaterial({
@@ -350,7 +448,7 @@ export class CharacterView {
     // Brillos (mezcla aditiva: el resplandor de los ojos «Primalista» y de otras opciones): se suman a lo que hay detrás, sin iluminar
     if (blend === 3 || blend === 4 || blend === 7) {
       m.renderOrder = 10;
-      m.material = new MeshBasicMaterial({ map: map ?? null, transparent: true, blending: AdditiveBlending, depthWrite: false, side: DoubleSide });
+      m.material = new MeshBasicMaterial({ map: map ?? null, transparent: true, ...ADDITIVE, depthWrite: false, side: DoubleSide });
       return;
     }
     m.renderOrder = 0;
@@ -370,10 +468,12 @@ export class CharacterView {
     this.renderer.setSize(size, size, false);
     this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
+    this.fxGroup.visible = false;
     this.camera.position.set(p.x * h + Math.sin(p.yaw) * p.d * h, p.y * h + 0.04 * h, Math.cos(p.yaw) * p.d * h);
     this.camera.lookAt(p.x * h, p.y * h, 0);
     this.renderer.render(this.scene, this.camera);
     const url = this.canvas.toDataURL("image/png");
+    this.fxGroup.visible = this.effectsOn;
     this.renderer.setSize(prevSize.x, prevSize.y, false);
     this.camera.aspect = prevAspect;
     this.camera.updateProjectionMatrix();
@@ -392,11 +492,13 @@ export class CharacterView {
     this.renderer.setSize(size, size, false);
     this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
+    this.fxGroup.visible = false;
     const d = Math.max(h * 0.3, (h - head.y) * 3) / zoom;
     this.camera.position.set(head.x + Math.sin(yaw) * d, head.y, head.z + Math.cos(yaw) * d);
     this.camera.lookAt(head);
     this.renderer.render(this.scene, this.camera);
     const url = this.canvas.toDataURL("image/png");
+    this.fxGroup.visible = this.effectsOn;
     this.renderer.setSize(prevSize.x, prevSize.y, false);
     this.camera.aspect = prevAspect;
     this.camera.updateProjectionMatrix();
@@ -410,6 +512,7 @@ export class CharacterView {
     const inst = await this.itemInstance(scene, textures);
     const hidden = this.root;
     if (hidden) hidden.visible = false;
+    this.fxGroup.visible = false;
     const box = new Box3().setFromObject(inst);
     const center = box.getCenter(new Vector3());
     const sz = box.getSize(new Vector3());
@@ -436,6 +539,7 @@ export class CharacterView {
     const url = this.canvas.toDataURL("image/png");
     this.scene.remove(wrap);
     if (hidden) hidden.visible = true;
+    this.fxGroup.visible = this.effectsOn;
     this.renderer.setSize(prevSize.x, prevSize.y, false);
     this.camera.aspect = prevAspect;
     this.camera.updateProjectionMatrix();

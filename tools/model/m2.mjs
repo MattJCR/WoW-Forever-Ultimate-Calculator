@@ -40,6 +40,8 @@ export function parseM2(file) {
   const out = { version, flags, numSkinProfiles, chunks, m };
 
   out.vertices = H.vertices;
+  out.particleArray = H.particles;
+  out.ribbonArray = H.ribbons;
   out.boneLookup = u16(H.boneLookup);
   out.textureLookup = u16(H.textureLookup);
   out.replaceableTextureLookup = u16(H.replaceableTextureLookup);
@@ -193,4 +195,60 @@ export function readTrack(m, at, seqIndex, kind, dataFor) {
   // se deja fija en su primer valor para que el clip dure lo que dura la animacion.
   if (globalSeq >= 0 && times.length > 1) return { interpolation: 0, globalSeq, times: [0], values: [values[0]], comps };
   return { interpolation, globalSeq, times, values, comps };
+}
+
+/** Tamano de un emisor de particulas (M2Particle) en la version 272 del cliente (476 de la estructura clasica + 16 de las nuevas). */
+const PARTICLE_SIZE = 492;
+
+/**
+ * Emisores de particulas del M2. Solo los valores iniciales de las pistas animadas (primera secuencia) y las pistas por
+ * vida (color, opacidad, tamano, celda de textura) completas. Posicion en ejes del M2 (x adelante, y izquierda, z arriba)
+ * y en el espacio del modelo (coincide con el pivote de su hueso; no se suman).
+ */
+export function parseParticles(m2) {
+  const m = m2.m;
+  const a = m2.particleArray;
+  const out = [];
+  for (let i = 0; i < a.count; i++) {
+    const p = a.offset + i * PARTICLE_SIZE;
+    if (p + PARTICLE_SIZE > m.length) break;
+    const f = (o) => m.readFloatLE(p + o);
+    const flags = m.readUInt32LE(p + 4);
+    const bone = m.readUInt16LE(p + 20);
+    const texField = m.readUInt16LE(p + 22);
+    const track = (o) => {
+      const ts = arr(m, p + o + 4), vs = arr(m, p + o + 12);
+      if (!ts.count || !vs.count || vs.offset + 8 > m.length) return [];
+      const v = arr(m, vs.offset);
+      if (!v.count || v.offset + 4 > m.length) return [];
+      return Array.from({ length: Math.min(v.count, 16) }, (_, k) => m.readFloatLE(v.offset + k * 4));
+    };
+    const fblock = (o, comps, kind) => {
+      const ts = arr(m, p + o), vs = arr(m, p + o + 8);
+      const n = Math.min(ts.count, vs.count, 16);
+      const keys = [];
+      for (let k = 0; k < n; k++) {
+        const t = m.readUInt16LE(ts.offset + k * 2) / 32767;
+        const base = vs.offset + k * (kind === "i16" || kind === "u16" ? 2 : comps * 4);
+        if (kind === "i16") keys.push([t, m.readInt16LE(base) / 32767]);
+        else if (kind === "u16") keys.push([t, m.readUInt16LE(base)]);
+        else keys.push([t, ...Array.from({ length: comps }, (_, c) => m.readFloatLE(base + c * 4))]);
+      }
+      return keys;
+    };
+    const first = (arr0, d) => (arr0.length ? arr0[0] : d);
+    out.push({
+      flags, bone, pos: [f(8), f(12), f(16)],
+      texture: flags & 0x10000000 ? texField & 31 : texField,
+      blend: m.readUInt8(p + 40), emitter: m.readUInt8(p + 41),
+      rows: m.readUInt16LE(p + 48) || 1, cols: m.readUInt16LE(p + 50) || 1,
+      speed: track(52), speedVar: track(72), vertical: track(92), horizontal: track(112), gravity: track(132), lifespan: track(152),
+      lifespanVary: f(172), rate: track(176), rateVary: f(196), length: track(200), width: track(220),
+      color: fblock(260, 3), alpha: fblock(276, 1, "i16"), scale: fblock(292, 2), scaleVary: [f(308), f(312)],
+      head: fblock(316, 1, "u16"), tail: fblock(332, 1, "u16"), tailLength: f(348),
+      drag: f(372), spin: f(384), spinVary: f(388), baseSpin: f(376), baseSpinVary: f(380),
+      wind: [f(416), f(420), f(424)], first,
+    });
+  }
+  return out;
 }

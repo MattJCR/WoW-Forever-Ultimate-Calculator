@@ -40,6 +40,8 @@ export const GEAR: Record<string, string> = {
   "Rehacer": "Redo",
   "Reanudar": "Resume",
   "Pausar": "Pause",
+  "Ocultar efectos": "Hide effects",
+  "Mostrar efectos": "Show effects",
   "Captura": "Screenshot",
   "Pantalla completa": "Fullscreen",
   "Opciones de PNJ": "NPC options",

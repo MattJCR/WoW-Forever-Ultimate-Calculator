@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { CharacterView, ViewState } from "./scene";
 import { loadAppearance } from "./appearance";
 import { resolveEquipment, type Equipped } from "./equipment";
+import { loadFxIndex } from "./fx-index";
 import { defaultSelection, type Recipe, type Selection } from "./recipe";
 
 import { MODELS_BASE } from "./config";
@@ -19,6 +20,8 @@ interface Props {
   pose?: string;
   /** Armas envainadas. */
   sheathed?: boolean;
+  /** Partículas de los efectos de objetos (brillos de arma, encantamientos, llamas). */
+  effects?: boolean;
   onClips?: (names: string[]) => void;
   onRecipe?: (recipe: Recipe) => void;
   /** Objetos equipados que el cliente no deja dibujar (sin apariencia o sin fichero de modelo). */
@@ -27,7 +30,7 @@ interface Props {
 }
 
 /** Lienzo 3D del personaje. Carga three.js y el modelo solo cuando se monta. */
-export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, onClips, onRecipe, onMissing, className }: Props) {
+export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, effects = true, onClips, onRecipe, onMissing, className }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const holder = useRef<HTMLDivElement>(null);
   const view = useRef<CharacterView | null>(null);
@@ -78,9 +81,9 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
       const list: Equipped[] = JSON.parse(equippedKey);
       let missing: number[] = [];
       if (list.length) {
-        const ap = await loadAppearance(MODELS_BASE);
+        const [ap, fx] = await Promise.all([loadAppearance(MODELS_BASE), loadFxIndex(MODELS_BASE)]);
         if (ap) {
-          const e = resolveEquipment(ap, race, recipe.sex, list, v.textureUrl, { sheathed });
+          const e = resolveEquipment(ap, race, recipe.sex, list, v.textureUrl, { sheathed, fx });
           Object.assign(state, {
             extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides,
             models: e.models, objectTextures: e.objectTextures, pose: e.pose,
@@ -97,6 +100,7 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
   }, [recipe, loading, selKey, equippedKey, race, chrModelId, pose, sheathed]);
 
   useEffect(() => { view.current?.setPaused(!!paused); }, [paused, loading]);
+  useEffect(() => { view.current?.setEffects(effects); }, [effects, loading]);
 
   useEffect(() => () => { view.current?.dispose(); view.current = null; }, []);
 

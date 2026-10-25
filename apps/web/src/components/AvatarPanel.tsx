@@ -22,7 +22,7 @@ function equippedOf(gear: GearSelection, items: Map<number, Item>): Equipped[] {
   const out: Equipped[] = [];
   for (const [slot, worn] of Object.entries(gear)) {
     const item = worn ? items.get(worn.itemId) : undefined;
-    if (item) out.push({ slot, inventoryType: item.inventoryType, classId: item.classId, subclassId: item.subclassId, itemId: item.id });
+    if (item) out.push({ slot, inventoryType: item.inventoryType, classId: item.classId, subclassId: item.subclassId, itemId: item.id, enchantId: worn?.enchantId ?? null });
   }
   return out;
 }
@@ -200,6 +200,8 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const [open, setOpen] = useState(false);
   const [sets, setSets] = useState(false);
   const [paused, setPaused] = useState(false);
+  // Efectos de objetos (partículas): activos, salvo que el sistema pida menos movimiento
+  const [effects, setEffects] = useState(() => !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
   const [npc, setNpc] = useState(false);
   const [clips, setClips] = useState<string[]>([]);
   const [missing, setMissing] = useState<number[]>([]);
@@ -302,7 +304,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
           <div className="avatar-stage" ref={stage} data-scene={sceneId || undefined}>
             <BackdropArt id={sceneId} />
             <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
-              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} />
+              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} effects={effects} />
             </Suspense>
           </div>
           {missing.length > 0 && (
@@ -360,6 +362,9 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
           </button>
           <button type="button" {...tip(paused ? tr("Reanudar") : tr("Pausar"))} className={paused ? "active" : ""} aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
             <ToolGlyph name={paused ? "play" : "pause"} />
+          </button>
+          <button type="button" {...tip(effects ? tr("Ocultar efectos") : tr("Mostrar efectos"))} className={effects ? "active" : ""} aria-pressed={effects} onClick={() => setEffects((v) => !v)}>
+            <ToolGlyph name="effects" />
           </button>
           <span className="tool-sep" aria-hidden="true" />
           <button type="button" {...tip(tr("Captura"))} onClick={capture}><ToolGlyph name="capture" /></button>

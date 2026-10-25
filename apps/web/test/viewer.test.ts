@@ -206,6 +206,19 @@ describe("equipo → lo que se ve", () => {
     expect(r.models.filter((m) => m.slot === 14).map((m) => m.attachment)).toEqual([28]);
     expect(r.models).toHaveLength(5);
   });
+  it("efectos: el brillo del arma y el del encantamiento cuelgan de los anclajes 0-4; el encantamiento solo cuenta en armas", () => {
+    const fx = { build: "t", visuals: { "5": [0, 0, 0, 900, 901], "6": [902, 0, 0, 0, 0] }, enchant: { "77": 5 }, display: { "700": 6 }, effects: { "900": "p", "901": "pm", "902": "m" }, own: [7001] };
+    const sword = { ...eq(7, 17, "mainHand"), classId: 2, enchantId: 77 };
+    const r = resolveEquipment(ap, 1, 0, [sword], url, { fx });
+    // primero el brillo propio de la apariencia y luego el del encantamiento
+    expect(r.models[0]?.fx).toEqual([{ attach: 0, file: 902, kind: "m" }, { attach: 3, file: 900, kind: "p" }, { attach: 4, file: 901, kind: "pm" }]);
+    expect(r.models[0]?.own).toBe(true);
+    // un escudo con encantamiento no enseña su efecto; sin índice de efectos no se añade nada
+    const shield = resolveEquipment(ap, 1, 0, [{ ...eq(8, 14, "offHand"), enchantId: 77 }], url, { fx });
+    expect(shield.models[0]?.fx).toBeUndefined();
+    expect(resolveEquipment(ap, 1, 0, [sword], url, { fx: null }).models[0]).not.toHaveProperty("fx");
+    expect(resolveEquipment(ap, 1, 0, [sword], url).models[0]).not.toHaveProperty("own");
+  });
   it("objetos sin apariencia se ignoran", () => {
     const r = resolveEquipment(ap, 1, 0, [eq(999, 5)], url);
     expect(r.geosets.size).toBe(0);

@@ -1,6 +1,7 @@
 // De qué objetos lleva el personaje a lo que se ve: subgeometrías (mangas, botas, guantes, capa…), texturas
 // sobre el cuerpo y modelos anclados (casco, hombreras, armas). Los datos salen de appearance.json.
 import type { Overlay } from "./compose";
+import type { FxIndex } from "./fx-index";
 
 export interface AppearanceData {
   build: string;
@@ -33,6 +34,15 @@ export interface Equipped {
   classId: number;
   subclassId: number;
   itemId: number;
+  /** Encantamiento puesto (SpellItemEnchantment.ID): los de arma pueden llevar un efecto visual. */
+  enchantId?: number | null;
+}
+
+/** Modelo de efecto que cuelga de un anclaje (0-4) del modelo del objeto: partículas (`p`), malla (`m`) o ambas. */
+export interface EffectRef {
+  attach: number;
+  file: number;
+  kind: string;
 }
 
 export interface AttachedModel {
@@ -44,6 +54,10 @@ export interface AttachedModel {
   slot: number;
   /** Se pinta reflejado (la hombrera derecha cuando el objeto solo trae la izquierda). */
   mirror?: boolean;
+  /** Efectos que lleva el objeto (brillo propio y encantamiento) en los anclajes del arma. */
+  fx?: EffectRef[];
+  /** El modelo trae emisores de partículas propios (llamas, chispas…). */
+  own?: boolean;
 }
 
 export interface EquipResult {
@@ -89,6 +103,23 @@ const SHEATH = { shield: 28, backLeft: 30, backRight: 31, hipLeft: 32, hipRight:
 export interface EquipOptions {
   /** Armas envainadas en vez de en la mano (el personaje queda en reposo). */
   sheathed?: boolean;
+  /** Efectos visuales (fx/index.json); sin él no se añade ninguno. */
+  fx?: FxIndex | null;
+}
+
+/** Modelos de efecto de un arma: el brillo de su apariencia y el del encantamiento, cada uno en los anclajes 0-4 del arma. */
+function effectsOf(fx: FxIndex | null | undefined, displayId: number | undefined, enchantId: number | null | undefined): EffectRef[] {
+  if (!fx) return [];
+  const out: EffectRef[] = [];
+  const visuals = [displayId === undefined ? undefined : fx.display[String(displayId)], enchantId ? fx.enchant[String(enchantId)] : undefined];
+  for (const v of visuals) {
+    const files = v === undefined ? undefined : fx.visuals[String(v)];
+    files?.forEach((file, attach) => {
+      const kind = file ? fx.effects[String(file)] : undefined;
+      if (kind) out.push({ attach, file, kind });
+    });
+  }
+  return out;
 }
 
 export function resolveEquipment(
@@ -202,8 +233,15 @@ export function resolveEquipment(
       else if (e.inventoryType === 17 || sh === 1 || sh === 2 || e.inventoryType === 15) att = SHEATH.backRight;
       else att = SHEATH.hipRight;
     }
-    if (att !== null) addModels(e.inventoryType, d, () => att);
+    if (att !== null) {
+      const before = res.models.length;
+      addModels(e.inventoryType, d, () => att);
+      const fx = effectsOf(opts.fx, ap.items[String(e.itemId)], e.classId === 2 ? e.enchantId : null);
+      if (fx.length) for (let k = before; k < res.models.length; k++) res.models[k]!.fx = fx.map((x) => ({ ...x }));
+    }
   }
+  const own = new Set(opts.fx?.own ?? []);
+  if (own.size) for (const m of res.models) if (own.has(m.file)) m.own = true;
   if (opts.sheathed) { /* en reposo */ }
   else if (twoHanded) res.pose = "Ready2H";
   else if (bow) res.pose = "ReadyBow";
