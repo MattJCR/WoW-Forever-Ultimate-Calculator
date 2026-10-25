@@ -72,6 +72,8 @@ APPEARANCE_TABLES=(
   GeosetGroup CreatureDisplayInfo CreatureDisplayInfoExtra CreatureModelData ItemSetSpell AnimationData
   AnimKit ModelAnimData ChrRaces ItemSet ItemClass ItemSubClass HelmetGeosetData HelmetGeosetVisData
   ItemDisplayInfoGeosetOverride SkinnedModel
+  # Ajustes de posición de objetos envainados (ItemDisplayInfo.SheatheTransformMatrixID, 173 apariencias, casi todo atrezo); aún sin aplicar
+  TransformMatrix
   # Los usa tools/model (modelos de personaje); se olvidaron en la lista hasta el parche 70532
   ChrModelMaterial ChrModelTextureLayer
 )

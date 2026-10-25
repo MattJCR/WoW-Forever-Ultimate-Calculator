@@ -97,8 +97,15 @@ const GEOSET_ORDER = [4, 7, 8, 10, 16, 19, 5, 20];
 const PAINT_ORDER = [4, 7, 8, 5, 20, 10, 9, 6, 19];
 
 
-/** Puntos de anclaje de las armas envainadas: 28 escudo a la espalda, 30/31 arma grande a la espalda, 32/33 arma a la cadera izquierda/derecha. */
-const SHEATH = { shield: 28, backLeft: 30, backRight: 31, hipLeft: 32, hipRight: 33 };
+/**
+ * Puntos de anclaje de las armas envainadas (posición y giro de los huesos del personaje): 28 escudo a la espalda;
+ * 26 arma a dos manos en diagonal por la espalda, con la empuñadura sobre el hombro derecho y la hoja hacia abajo;
+ * 31 bastón o asta en diagonal con la punta hacia arriba (y arcos); 32/33 arma a la cadera izquierda/derecha.
+ */
+const SHEATH = { shield: 28, backDown: 26, backUp: 31, hipLeft: 32, hipRight: 33 };
+
+/** Tipo de envaine del objeto (Item.SheatheType): 1 dos manos, 2 bastón o asta; sin dato, bastones y astas hacia arriba y el resto hacia abajo. */
+const staffLike = (sheathe: number, subclassId: number): boolean => sheathe === 2 || (sheathe !== 1 && (subclassId === 10 || subclassId === 6));
 
 export interface EquipOptions {
   /** Armas envainadas en vez de en la mano (el personaje queda en reposo). */
@@ -230,7 +237,8 @@ export function resolveEquipment(
       const sh = ap.sheathe?.[String(e.itemId)] ?? 0;
       if (e.inventoryType === 14) att = SHEATH.shield;
       else if (e.slot === "offHand") att = SHEATH.hipLeft;
-      else if (e.inventoryType === 17 || sh === 1 || sh === 2 || e.inventoryType === 15) att = SHEATH.backRight;
+      else if (e.inventoryType === 15) att = SHEATH.backUp;
+      else if (e.inventoryType === 17 || sh === 1 || sh === 2) att = staffLike(sh, e.classId === 2 ? e.subclassId : -1) ? SHEATH.backUp : SHEATH.backDown;
       else att = SHEATH.hipRight;
     }
     if (att !== null) {

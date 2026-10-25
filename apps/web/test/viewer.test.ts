@@ -202,9 +202,21 @@ describe("equipo → lo que se ve", () => {
     const r = resolveEquipment(ap, 1, 0, [eq(5, 1, "head"), eq(6, 3, "shoulder"), eq(7, 17, "mainHand"), eq(8, 14, "offHand")], url, { sheathed: true });
     expect(r.models.filter((m) => m.slot === 1).map((m) => m.attachment)).toEqual([11]);
     expect(r.models.filter((m) => m.slot === 3).map((m) => m.attachment).sort()).toEqual([5, 6]);
-    expect(r.models.filter((m) => m.slot === 17).map((m) => m.attachment)).toEqual([31]);
+    expect(r.models.filter((m) => m.slot === 17).map((m) => m.attachment)).toEqual([26]);
     expect(r.models.filter((m) => m.slot === 14).map((m) => m.attachment)).toEqual([28]);
     expect(r.models).toHaveLength(5);
+  });
+  it("envainado: las armas a dos manos van con la hoja hacia abajo (26) y los bastones y astas con la punta hacia arriba (31)", () => {
+    const sheathe = (s: Record<string, number>, over: Partial<Equipped> = {}) =>
+      resolveEquipment({ ...ap, sheathe: s }, 1, 0, [eq(7, 17, "mainHand", { classId: 2, ...over })], url, { sheathed: true }).models.map((m) => m.attachment);
+    expect(sheathe({ "7": 1 }, { subclassId: 8 })).toEqual([26]);
+    expect(sheathe({ "7": 2 }, { subclassId: 10 })).toEqual([31]);
+    // sin dato de envaine, por la clase del objeto: bastón y asta arriba, espada, hacha y maza abajo
+    expect(sheathe({}, { subclassId: 10 })).toEqual([31]);
+    expect(sheathe({}, { subclassId: 6 })).toEqual([31]);
+    expect(sheathe({}, { subclassId: 8 })).toEqual([26]);
+    // el dato del objeto manda sobre la clase (un asta marcada «dos manos» va hacia abajo)
+    expect(sheathe({ "7": 1 }, { subclassId: 6 })).toEqual([26]);
   });
   it("efectos: el brillo del arma y el del encantamiento cuelgan de los anclajes 0-4; el encantamiento solo cuenta en armas", () => {
     const fx = { build: "t", visuals: { "5": [0, 0, 0, 900, 901], "6": [902, 0, 0, 0, 0] }, enchant: { "77": 5 }, display: { "700": 6 }, effects: { "900": "p", "901": "pm", "902": "m" }, own: [7001] };
