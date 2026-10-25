@@ -57,7 +57,10 @@ export interface GearContext {
 /** Datos de equipo indexados por id (se construye una vez con `indexGearData`). */
 export interface GearData {
   items: Map<number, Item>;
+  /** Un encantamiento por `effectId` (para consultar los efectos de uno puesto; las entradas de un mismo id tienen el mismo contenido). */
   enchants: Map<number, Enchant>;
+  /** Todas las entradas, también las que comparten `effectId` con otra en otra ranura (el mismo efecto se aplica a varias ranuras). */
+  enchantEntries: Enchant[];
   suffixes: Map<number, RandomSuffix>;
   suffixSets: number[][];
   /** Categorias de limite por id (`Item.limitCategory`). */
@@ -74,6 +77,7 @@ export function indexGearData(input: { items: Items; rules: EquipRules; enchants
   return {
     items: new Map(input.items.items.map((i) => [i.id, i])),
     enchants: new Map((input.enchants?.enchants ?? []).map((e) => [e.effectId, e])),
+    enchantEntries: input.enchants?.enchants ?? [],
     suffixes: new Map((input.suffixes?.suffixes ?? []).map((s) => [s.id, s])),
     suffixSets: input.items.suffixSets,
     limitCategories: new Map(input.items.limitCategories.map((c) => [c.id, c])),
@@ -207,6 +211,21 @@ export function enchantFits(enchant: Enchant, slot: GearSlot, item: Item | undef
   if (/Off-Hand/i.test(name)) return slot === "offHand" && !shield;
   if (/^Enchant 2H Weapon/i.test(name)) return item.inventoryType === TWO_HAND;
   return item.classId === CLASS_WEAPON && MELEE_WEAPON_INVENTORY.has(item.inventoryType);
+}
+
+/**
+ * Encantamientos que ofrece una ranura con su objeto: cada efecto una vez, aunque lo comparta con entradas de otras ranuras
+ * (el cliente usa el mismo `effectId` para «Menor Aguante» de brazales, botas y escudo). Por nivel y por nombre.
+ */
+export function enchantOptions(data: Pick<GearData, "enchantEntries">, slot: GearSlot, item: Item | undefined): Enchant[] {
+  const seen = new Set<number>();
+  const out: Enchant[] = [];
+  for (const e of data.enchantEntries) {
+    if (seen.has(e.effectId) || !enchantFits(e, slot, item)) continue;
+    seen.add(e.effectId);
+    out.push(e);
+  }
+  return out.sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es"));
 }
 
 /** Sufijos que puede llevar el objeto (ids de `RandomSuffixes`). */

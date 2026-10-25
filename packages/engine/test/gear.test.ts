@@ -11,6 +11,7 @@ import {
   encodeGear,
   deriveStats,
   enchantFits,
+  enchantOptions,
   equipItem,
   gearChanceBonus,
   gearSpellPower,
@@ -268,6 +269,26 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70532
     const weapon = named(/^Enchant Weapon/);
     expect(enchantFits(weapon, "mainHand", item(DAGGER))).toBe(true);
     expect(enchantFits(weapon, "offHand", item(SHIELD))).toBe(false);
+  });
+
+  it("encantamientos: un efecto que el cliente comparte entre ranuras (mismo effectId) sale en todas ellas, no solo en la de la última entrada", () => {
+    const stamina = data.enchantEntries.filter((e) => e.effectId === 66);
+    expect(stamina.map((e) => e.slotType).sort((a, b) => a - b)).toEqual([6, 10, 13]);
+    const wrist = enchantOptions(data, "wrist", undefined).map((e) => e.effectId);
+    const feet = enchantOptions(data, "feet", undefined).map((e) => e.effectId);
+    expect(wrist).toContain(66);
+    expect(feet).toContain(66);
+    // sin repetir: cada efecto una vez por ranura
+    expect(new Set(wrist).size).toBe(wrist.length);
+  });
+
+  it("auditoría: ninguna entrada de encantamiento queda oculta: su efecto se ofrece en alguna ranura con algún objeto", () => {
+    const items = [...data.items.values()].filter((i) => !i.placeholder);
+    const offered = new Set<number>();
+    for (const slot of GEAR_SLOTS) for (const i of items) if (slotsForItem(i).includes(slot)) for (const e of enchantOptions(data, slot, i)) offered.add(e.effectId);
+    const hidden = data.enchantEntries.filter((e) => !offered.has(e.effectId)).map((e) => `${e.effectId} ${e.nameEn}`);
+    expect(hidden).toEqual([]);
+    expect(data.enchantEntries.length).toBeGreaterThan(data.enchants.size);
   });
 
   it("auditoría: todo encantamiento cabe en alguna ranura con algún objeto", () => {

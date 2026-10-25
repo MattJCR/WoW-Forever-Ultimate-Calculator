@@ -3,7 +3,7 @@ import {
   SLOT_LABEL,
   canEquip,
   compareGear,
-  enchantFits,
+  enchantOptions,
   enchantNotes,
   itemTypeName,
   equipItem,
@@ -390,7 +390,7 @@ function SlotPanel({
     return candidates.filter((i) => i.quality >= minQuality && (itemType === "" || itemTypeName(i) === itemType) && (source === "" || (data.sources.get(i.id) ?? []).some((e) => e.kind === source)) && (q === "" || norm(i.name).includes(q) || norm(iName(i)).includes(q)) && (!onlyWearable || canEquip(i, slot, ctx, data).ok));
   }, [candidates, query, minQuality, itemType, source, onlyWearable, ctx, data, slot]);
 
-  const enchants = useMemo(() => (wornItem ? [...data.enchants.values()].filter((e) => enchantFits(e, slot, wornItem)).sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es")) : []), [data, slot, wornItem]);
+  const enchants = useMemo(() => (wornItem ? enchantOptions(data, slot, wornItem) : []), [data, slot, wornItem]);
   const suffixes = wornItem ? suffixOptions(wornItem, data) : [];
 
   const wornSuffix = worn?.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
