@@ -263,7 +263,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
 
   return (
     <>
-      <div className="doll">
+      <div className={`doll${open ? " custom" : ""}`}>
         {open ? (
           <section className="doll-col avatar-panel" aria-label={tr("Personaje")}>
             <h4>{tr("Personaje")}</h4>

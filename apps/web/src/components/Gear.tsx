@@ -278,11 +278,16 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
   const item = worn ? data.items.get(worn.itemId) : undefined;
   const enchant = worn?.enchantId ? data.enchants.get(worn.enchantId) : undefined;
   const suffix = worn?.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
+  const itemName = item ? `${iName(item)}${suffix ? ` ${nameOf(suffix)}` : ""}` : null;
+  const state = itemName ?? (worn ? `${tr("Objeto")} ${worn.itemId}: ${tr("ya no existe")}` : tr("vacía"));
   return (
     <button
       type="button"
       className={`gear-slot${selected ? " on" : ""}${problem ? " problem" : ""}${worn && !item ? " missing" : ""}`}
       aria-pressed={selected}
+      aria-label={`${slotLabel(slot)}: ${state}`}
+      // Sin objeto no sale la tarjeta: el nombre de la ranura va como globo propio
+      data-tip={item ? undefined : `${slotLabel(slot)} · ${state}`}
       onClick={onSelect}
       onMouseEnter={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
       onMouseMove={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
@@ -291,27 +296,16 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
       <span className={`gear-icon${item ? "" : " empty"}`} style={item ? { borderColor: qualityColor(item.quality) } : undefined}>
         {item ? <Icon id={item.iconFileDataId} name={iName(item)} /> : <SlotGlyph slot={slot} />}
       </span>
-      <span className="gear-slot-text">
-        <small>
-          {slotLabel(slot)}
+      {(item?.itemSetId != null || enchant) && (
+        <span className="gear-badges">
           {item && item.itemSetId !== null && <i className="gear-set-dot" role="img" aria-label={tr("Pieza de conjunto")} title={tr("Pieza de conjunto")} />}
           {enchant && (
             <i className="gear-ench" role="img" aria-label={nameOf(enchant)} title={nameOf(enchant)}>
               ✦
             </i>
           )}
-        </small>
-        {item ? (
-          <b style={{ color: qualityColor(item.quality) }} title={`${iName(item)}${suffix ? ` ${nameOf(suffix)}` : ""}`}>
-            {iName(item)}
-            {suffix ? ` ${nameOf(suffix)}` : ""}
-          </b>
-        ) : worn ? (
-          <b className="bad">{tr("Objeto")} {worn.itemId}: {tr("ya no existe")}</b>
-        ) : (
-          <span className="muted">{tr("vacía")}</span>
-        )}
-      </span>
+        </span>
+      )}
     </button>
   );
 }

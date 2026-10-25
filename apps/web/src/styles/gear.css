@@ -1562,3 +1562,179 @@ p.gear-warn {
     margin-top: 0;
   }
 }
+
+/* ================================================================== Probador ampliado
+   Ranuras de solo icono a los lados (el nombre y la tarjeta salen al pasar el cursor, como en la hoja de personaje del juego),
+   para que el visor gane ancho; la lista de objetos queda en una columna estrecha y el visor, tan alto como deje la ventana. */
+.doll {
+  /* Alto del visor: lo que deja la ventana con el resto del panel de Equipo (cabecera, armas, barra y pie); las ranuras de cada columna lo reparten */
+  --stage-h: clamp(440px, calc(100vh - 270px), 900px);
+  --slot: min(64px, calc((var(--stage-h) - 56px) / 8));
+}
+.doll:not(.custom) {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px 12px;
+}
+.doll:not(.custom) .doll-col {
+  justify-content: space-between;
+}
+.doll:not(.custom) .gear-slot {
+  position: relative;
+  justify-content: center;
+  width: var(--slot);
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0;
+}
+.doll:not(.custom) .gear-icon {
+  width: calc(var(--slot) - 12px);
+  height: calc(var(--slot) - 12px);
+}
+/* Marcas de la ranura (pieza de conjunto, encantamiento) en la esquina del icono */
+.gear-badges {
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  pointer-events: none;
+}
+.gear-badges .gear-ench {
+  font-size: 12px;
+  text-shadow: 0 0 3px #000, 0 0 3px #000;
+}
+.gear-badges .gear-set-dot {
+  width: 8px;
+  height: 8px;
+  box-shadow: 0 0 0 1px #000;
+}
+/* Globo con el nombre de la ranura vacía */
+.gear-slot[data-tip]:hover::after,
+.gear-slot[data-tip]:focus-visible::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  z-index: 5;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text);
+  background: var(--panel-3);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.doll:not(.custom) > .doll-col:nth-child(3) .gear-slot[data-tip]:hover::after,
+.doll:not(.custom) > .doll-col:nth-child(3) .gear-slot[data-tip]:focus-visible::after {
+  left: auto;
+  right: calc(100% + 8px);
+}
+.doll:not(.custom) > .doll-bottom .gear-slot[data-tip]:hover::after,
+.doll:not(.custom) > .doll-bottom .gear-slot[data-tip]:focus-visible::after {
+  top: auto;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Armas: bajo el visor, entre las dos columnas */
+.doll:not(.custom) > .doll-bottom {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 0;
+  border-top: 0;
+}
+/* Visor: el alto sigue a la ventana; «Cuerpo 1/2» flota sobre el escenario en vez de quitarle una fila */
+.avatar {
+  position: relative;
+}
+.avatar-stage {
+  flex: none;
+  height: var(--stage-h);
+  min-height: 0;
+}
+.avatar-bar {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 2;
+  flex-wrap: nowrap;
+  gap: 0;
+  transform: translateX(-50%);
+  background: rgba(15, 12, 8, 0.6);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
+}
+.avatar-bar button {
+  flex: none;
+  min-height: 26px;
+  padding: 0 12px;
+  background: transparent;
+  border: 0;
+}
+.avatar-bar button.on {
+  color: var(--gold-ink);
+  background: var(--gold);
+}
+.gear-col > .slot-panel,
+.gear-col > .gear-side {
+  min-height: 0;
+}
+@media (min-width: 1360px) {
+  .gear-layout {
+    grid-template-columns: minmax(0, 1fr) clamp(400px, 30vw, 520px) clamp(270px, 20vw, 330px);
+  }
+}
+@media (max-width: 1359px) {
+  .doll {
+    --stage-h: clamp(380px, 60vh, 560px);
+  }
+}
+@media (max-width: 760px) {
+  .doll:not(.custom) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .doll:not(.custom) .avatar {
+    grid-column: 2;
+    order: 0;
+  }
+  .doll {
+    --stage-h: clamp(340px, 55vh, 460px);
+  }
+}
+@media (max-width: 520px) {
+  .doll:not(.custom) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .doll:not(.custom) > .doll-bottom {
+    grid-template-columns: none;
+  }
+}
+.doll.custom .avatar-panel {
+  height: var(--stage-h);
+}
+@media (max-width: 520px) {
+  .doll.custom .avatar-panel {
+    height: auto;
+  }
+}
+/* «Personalizar»: el visor sigue siendo lo más ancho; los paneles de ajustes se reparten el resto */
+.doll.custom {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 1.6fr) minmax(0, 1.1fr);
+}
+@media (max-width: 760px) {
+  .doll.custom {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 520px) {
+  .doll.custom {
+    grid-template-columns: 1fr;
+  }
+}
