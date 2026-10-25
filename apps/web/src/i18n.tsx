@@ -15,7 +15,13 @@ const STORAGE_KEY = "wfuc.lang";
 /** Idioma y textos en inglés vigentes. Los fija `useLangRoot` al renderizar la raíz, antes que sus hijos. */
 let current: { lang: Lang; en: EnglishText | null } = { lang: "es", en: null };
 
-/** Idioma elegido: `?lang=` del enlace (se conserva), luego el guardado en el navegador; por defecto español. */
+/** Idioma preferido del navegador: español si es el primero de su lista, inglés para cualquier otro. */
+function browserLang(): Lang {
+  const first = (navigator.languages?.[0] ?? navigator.language ?? "es").toLowerCase();
+  return first.startsWith("es") ? "es" : "en";
+}
+
+/** Idioma elegido: `?lang=` del enlace (se conserva), luego el guardado en el navegador; si no hay ninguno, el del navegador. */
 function initialLang(): Lang {
   try {
     const fromUrl = new URLSearchParams(window.location.search).get("lang") ?? new URLSearchParams(window.location.hash.split("?")[1] ?? "").get("lang");
@@ -23,9 +29,13 @@ function initialLang(): Lang {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "en" || stored === "es") return stored;
   } catch {
-    /* sin almacenamiento: español */
+    /* sin almacenamiento: se usa el idioma del navegador */
   }
-  return "es";
+  try {
+    return browserLang();
+  } catch {
+    return "es";
+  }
 }
 
 export const currentLang = (): Lang => current.lang;
