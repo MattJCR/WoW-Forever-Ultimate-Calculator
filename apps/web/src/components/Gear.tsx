@@ -39,7 +39,6 @@ import {
   qualityColor,
   qualityName,
   setLabel,
-  shortStats,
   slotLabel,
   sourceLines,
   statLine,
@@ -47,6 +46,7 @@ import {
 } from "./gear-format";
 import type { Avatar } from "../viewer/avatar";
 import { AvatarPanel, type AvatarRace } from "./AvatarPanel";
+import { SlotGlyph } from "./glyphs";
 import { ItemGallery, useAppearance } from "./ItemGallery";
 import { Icon } from "./Icon";
 
@@ -239,17 +239,6 @@ function EnchantNotes({ enchant }: { enchant: Enchant }) {
 
 const signed = (n: number): string => `${n > 0 ? "+" : "−"}${fmt(Math.abs(n))}`;
 
-/** Lo que cambia al poner el objeto, para la fila de la lista: armadura, estadísticas y conjunto, de mayor a menor cambio (sube = true). */
-function rowDeltas(cmp: GearComparison): { text: string; up: boolean }[] {
-  const rows: { text: string; up: boolean; mag: number }[] = [];
-  if (cmp.armor.before !== cmp.armor.after) rows.push({ text: `${signed(cmp.armor.after - cmp.armor.before)} ${tr("de armadura")}`, up: cmp.armor.after > cmp.armor.before, mag: Math.abs(cmp.armor.after - cmp.armor.before) / 10 });
-  for (const d of cmp.stats) rows.push({ text: `${signed(d.after - d.before)} ${statName(d.key)}`, up: d.after > d.before, mag: Math.abs(d.after - d.before) });
-  rows.sort((a, b) => b.mag - a.mag);
-  const out = rows.map(({ text, up }) => ({ text, up }));
-  for (const st of cmp.sets) out.push({ text: `${setLabel(st)} ${st.countBefore}→${st.countAfter}`, up: st.activeAfter >= st.activeBefore });
-  return out;
-}
-
 /** «Si lo pones»: diferencia de estadísticas, armadura, arma y conjuntos frente a lo que llevas (verde sube, rojo baja). */
 function CompareBlock({ cmp, wornName }: { cmp: GearComparison; wornName: string | undefined }) {
   const rows: { text: string; up: boolean }[] = [];
@@ -299,8 +288,8 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
       onMouseMove={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
       onMouseLeave={() => onTip(null)}
     >
-      <span className="gear-icon" style={item ? { borderColor: qualityColor(item.quality) } : undefined}>
-        {item ? <Icon id={item.iconFileDataId} name={iName(item)} /> : <span className="gear-empty">{slotLabel(slot).slice(0, 3)}</span>}
+      <span className={`gear-icon${item ? "" : " empty"}`} style={item ? { borderColor: qualityColor(item.quality) } : undefined}>
+        {item ? <Icon id={item.iconFileDataId} name={iName(item)} /> : <SlotGlyph slot={slot} />}
       </span>
       <span className="gear-slot-text">
         <small>
@@ -327,12 +316,10 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
   );
 }
 
-/** Una fila de la lista de objetos de la ranura: icono, nombre, cifras y lo que cambia frente a lo que llevas puesto. */
-const ItemRow = memo(function ItemRow({ item: i, slot, gear, ctx, data, wornId, onlyWearable, onEquip, onTip }: { item: Item; slot: GearSlot; gear: GearSelection; ctx: GearContext; data: GearData; wornId: number | undefined; onlyWearable: boolean; onEquip: (item: Item) => void; onTip: (t: Tip | null) => void }) {
+/** Una fila de la lista de objetos de la ranura: icono, nombre y nivel; las cifras y lo que cambia salen en la tarjeta al pasar el cursor. */
+const ItemRow = memo(function ItemRow({ item: i, slot, ctx, data, wornId, onlyWearable, onEquip, onTip }: { item: Item; slot: GearSlot; ctx: GearContext; data: GearData; wornId: number | undefined; onlyWearable: boolean; onEquip: (item: Item) => void; onTip: (t: Tip | null) => void }) {
   const isWorn = wornId === i.id;
   const check = onlyWearable ? null : canEquip(i, slot, ctx, data);
-  const cmp = useMemo(() => (isWorn ? null : compareGear(gear, slot, i, ctx, data)), [isWorn, gear, slot, i, ctx, data]);
-  const deltas = cmp ? rowDeltas(cmp) : [];
   return (
     <li>
       <button
@@ -353,23 +340,9 @@ const ItemRow = memo(function ItemRow({ item: i, slot, gear, ctx, data, wornId, 
             {itemTypeLabel(i) ? ` · ${itemTypeLabel(i)}` : ""}
             {i.randomSuffixSet !== null ? ` · ${tr("sufijo aleatorio")}` : ""}
           </small>
-          {i.stats.length > 0 && <small className="item-row-stats">{shortStats(i.stats)}</small>}
           {check && !check.ok && <small className="bad">{trn(check.reasons[0]!)}</small>}
         </span>
-        <span className="item-row-delta">
-          {isWorn ? (
-            <em>{tr("Equipado")}</em>
-          ) : deltas.length === 0 ? (
-            <em className="muted">—</em>
-          ) : (
-            (deltas.length > 3 ? deltas.slice(0, 2) : deltas).map((d) => (
-              <span key={d.text} className={d.up ? "good" : "bad"} title={d.text}>
-                {d.up ? "▲" : "▼"} {d.text}
-              </span>
-            ))
-          )}
-          {deltas.length > 3 && <em className="muted">+{deltas.length - 2} {tr("más")}</em>}
-        </span>
+        {isWorn && <em className="item-row-worn">{tr("Equipado")}</em>}
       </button>
     </li>
   );
@@ -432,8 +405,8 @@ function SlotPanel({
   return (
     <section className="slot-panel" aria-label={tr("Ranura {name}", { name: slotLabel(slot) })}>
       <div className="slot-head">
-        <span className="gear-icon big" style={wornItem ? { borderColor: qualityColor(wornItem.quality) } : undefined}>
-          {wornItem ? <Icon id={wornItem.iconFileDataId} name={iName(wornItem)} /> : <span className="gear-empty">{slotLabel(slot).slice(0, 3)}</span>}
+        <span className={`gear-icon big${wornItem ? "" : " empty"}`} style={wornItem ? { borderColor: qualityColor(wornItem.quality) } : undefined}>
+          {wornItem ? <Icon id={wornItem.iconFileDataId} name={iName(wornItem)} /> : <SlotGlyph slot={slot} />}
         </span>
         <div className="slot-head-text">
           <small className="slot-kicker">
@@ -500,6 +473,21 @@ function SlotPanel({
       )}
       <div className="slot-filters">
         <input type="search" placeholder={tr("Buscar por nombre…")} value={query} onChange={(e) => setQuery(e.target.value)} aria-label={tr("Buscar objeto")} />
+        <div className="slot-view" role="group" aria-label={tr("Vista")}>
+          <button type="button" className={gallery ? "" : "on"} aria-pressed={!gallery} onClick={() => setView(false)}>{tr("Lista")}</button>
+          <button type="button" className={gallery ? "on" : ""} aria-pressed={gallery} onClick={() => setView(true)}>{tr("Galería")}</button>
+        </div>
+      </div>
+      <div className="slot-filters slot-filter-selects">
+        {data.sources.size > 0 && (
+          <label>
+            {tr("Fuente")}
+            <select value={source} onChange={(e) => setSource(e.target.value)}>
+              <option value="">{tr("todas")}</option>
+              <option value="crafted">{tr("Fabricado")}</option>
+            </select>
+          </label>
+        )}
         <label>
           {tr("Calidad mínima")}
           <select value={minQuality} onChange={(e) => setMinQuality(Number(e.target.value))}>
@@ -519,38 +507,22 @@ function SlotPanel({
             </select>
           </label>
         )}
-        {data.sources.size > 0 && (
-          <label>
-            {tr("Fuente")}
-            <select value={source} onChange={(e) => setSource(e.target.value)}>
-              <option value="">{tr("todas")}</option>
-              <option value="crafted">{tr("Fabricado")}</option>
-            </select>
-          </label>
-        )}
       </div>
       <div className="slot-filters slot-filters-2">
         <label className="check">
           <input type="checkbox" checked={onlyWearable} onChange={(e) => setOnlyWearable(e.target.checked)} /> {tr("Solo los que puede llevar mi personaje")}
         </label>
-        <div className="slot-view" role="group" aria-label={tr("Vista")}>
-          <button type="button" className={gallery ? "" : "on"} aria-pressed={!gallery} onClick={() => setView(false)}>{tr("Lista")}</button>
-          <button type="button" className={gallery ? "on" : ""} aria-pressed={gallery} onClick={() => setView(true)}>{tr("Galería")}</button>
-        </div>
-      </div>
-      <p className="slot-count muted small">
-        <span>
+        <span className="slot-count muted small">
           {filtered.length} {tr("de")} {candidates.length} {tr("objetos")}
         </span>
-        {!gallery && <span>{tr("Frente a lo que llevas")}</span>}
-      </p>
+      </div>
       <div className="slot-scroll">
       {gallery ? (
         <ItemGallery items={filtered.slice(0, limit)} wornId={worn?.itemId} appearance={appearance} onEquip={onEquip} onTip={(t) => onTip(t ? { item: t.item, slot, x: t.x, y: t.y } : null)} />
       ) : (
         <ul className="item-list">
           {filtered.slice(0, limit).map((i) => (
-            <ItemRow key={i.id} item={i} slot={slot} gear={gear} ctx={ctx} data={data} wornId={worn?.itemId} onlyWearable={onlyWearable} onEquip={onEquip} onTip={onTip} />
+            <ItemRow key={i.id} item={i} slot={slot} ctx={ctx} data={data} wornId={worn?.itemId} onlyWearable={onlyWearable} onEquip={onEquip} onTip={onTip} />
           ))}
         </ul>
       )}
@@ -635,12 +607,20 @@ export function GearStep({
       </div>
 
       <div className="gear-layout">
-        <div className="doll">
-          <div className="doll-col">{SLOT_ORDER_LEFT.map(slotButton)}</div>
-          <AvatarPanel raceId={avatarRaceId} races={avatarRaces} avatar={avatar} setAvatar={setAvatar} gear={gear} setGear={setGear} data={data} ctx={ctx} history={history} />
-          <div className="doll-col">{SLOT_ORDER_RIGHT.map(slotButton)}</div>
-          <div className="doll-bottom">{SLOT_ORDER_BOTTOM.map(slotButton)}</div>
-        </div>
+        <AvatarPanel
+          raceId={avatarRaceId}
+          races={avatarRaces}
+          avatar={avatar}
+          setAvatar={setAvatar}
+          gear={gear}
+          setGear={setGear}
+          data={data}
+          ctx={ctx}
+          history={history}
+          left={<div className="doll-col">{SLOT_ORDER_LEFT.map(slotButton)}</div>}
+          right={<div className="doll-col">{SLOT_ORDER_RIGHT.map(slotButton)}</div>}
+          bottom={<div className="doll-bottom">{SLOT_ORDER_BOTTOM.map(slotButton)}</div>}
+        />
         <div className="gear-col">
         <SlotPanel
           slot={slot}

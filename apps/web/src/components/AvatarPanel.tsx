@@ -1,6 +1,6 @@
 import { canEquip, equipItem, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "@wfuc/engine";
 import type { Item } from "@wfuc/schema";
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { raceLabel, tr } from "../i18n";
 import { MODELS_BASE } from "../viewer/config";
 import { DEFAULT_AVATAR, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
@@ -9,6 +9,7 @@ import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
 import { AvatarOptions } from "./AvatarOptions";
 import { effectLabel, iName, inventoryLabel, qualityColor, setLabel } from "./gear-format";
+import { ToolGlyph } from "./glyphs";
 import { Icon } from "./Icon";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
@@ -174,7 +175,11 @@ export interface AvatarRace {
   faction: string;
 }
 
-export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, data, ctx, history }: {
+/**
+ * El muñeco entero: ranuras a los lados (`left`, `right`), armas debajo (`bottom`), el avatar en medio y la barra de herramientas al pie.
+ * «Personalizar» cambia las ranuras por los ajustes del personaje, en el mismo sitio.
+ */
+export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, data, ctx, history, left, right, bottom }: {
   /** Raza del paso Raza (la del avatar si no se elige otra aquí). */
   raceId: number;
   /** Todas las razas con modelo, para el selector del probador. */
@@ -186,6 +191,9 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   data: GearData;
   ctx: GearContext;
   history: { canUndo: boolean; canRedo: boolean; undo: () => void; redo: () => void };
+  left: ReactNode;
+  right: ReactNode;
+  bottom: ReactNode;
 }) {
   const [index, setIndex] = useState<ModelIndexEntry[] | null | undefined>(undefined);
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -210,9 +218,17 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const equipped = useMemo(() => equippedOf(gear, data.items), [gear, data.items]);
   const selection = useMemo(() => (recipe ? { ...defaultSelection(recipe), ...avatar.choices } : undefined), [recipe, avatar.choices]);
 
-  if (!gl) return <div className="avatar avatar-off"><p className="muted small">{tr("Tu navegador no admite WebGL 2: el probador 3D no está disponible.")}</p></div>;
-  if (index === undefined) return <div className="avatar avatar-off"><p className="muted small">{tr("Cargando…")}</p></div>;
-  if (!index || !entry) return <div className="avatar avatar-off"><p className="muted small">{tr("El probador 3D no tiene modelos en esta versión de la web.")}</p></div>;
+  const off = (message: string) => (
+    <div className="doll">
+      {left}
+      <div className="avatar avatar-off"><p className="muted small">{message}</p></div>
+      {right}
+      {bottom}
+    </div>
+  );
+  if (!gl) return off(tr("Tu navegador no admite WebGL 2: el probador 3D no está disponible."));
+  if (index === undefined) return off(tr("Cargando…"));
+  if (!index || !entry) return off(tr("El probador 3D no tiene modelos en esta versión de la web."));
 
   const randomize = () => {
     if (!recipe) return;
@@ -242,76 +258,115 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
     else void el.requestFullscreen?.();
   };
 
+  const resetLook = () => setAvatar({ ...DEFAULT_AVATAR, sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg });
+  const tip = (label: string) => ({ "aria-label": label, "data-tip": label });
+
   return (
-    <div className="avatar">
-      <div className="avatar-bar" role="group" aria-label={tr("Cuerpo del personaje")}>
-        {([0, 1] as const).map((s) => (
-          <button key={s} type="button" className={avatar.sex === s ? "on" : ""} aria-pressed={avatar.sex === s} onClick={() => setAvatar({ sex: s, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg })}>
-            {tr("Cuerpo {n}", { n: s + 1 })}
-          </button>
-        ))}
-      </div>
-      <div className="avatar-stage" ref={stage} data-scene={sceneId || undefined}>
-        <BackdropArt id={sceneId} />
-        <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
-          <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} />
-        </Suspense>
-      </div>
-      {missing.length > 0 && (
-        <p className="avatar-missing muted small" role="note">
-          {tr("El cliente no trae el modelo 3D de:")} {missing.map((id) => iName(data.items.get(id) ?? { id, name: String(id) } as Item)).join(", ")}
-        </p>
-      )}
-      <div className="avatar-tools" role="toolbar" aria-label={tr("Herramientas del probador")}>
-        <button type="button" onClick={() => setSets(true)}>{tr("Conjuntos")}</button>
-        <button type="button" className={open ? "on" : ""} aria-expanded={open} onClick={() => setOpen((v) => !v)}>{tr("Personalizar")}</button>
-        <button type="button" onClick={history.undo} disabled={!history.canUndo}>{tr("Deshacer")}</button>
-        <button type="button" onClick={history.redo} disabled={!history.canRedo}>{tr("Rehacer")}</button>
-        <button type="button" aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>{avatar.sheathed ? tr("Desenvainar") : tr("Envainar")}</button>
-        <button type="button" aria-pressed={paused} onClick={() => setPaused((p) => !p)}>{paused ? tr("Reanudar") : tr("Pausar")}</button>
-        <button type="button" onClick={capture}>{tr("Captura")}</button>
-        <button type="button" onClick={fullscreen}>{tr("Pantalla completa")}</button>
-      </div>
-      {open && (
-        <div className="avatar-options">
-          <div className="avatar-selects">
-          {withModel.length > 1 && (
-            <select className="avatar-race" value={shownRace} aria-label={tr("Raza del personaje")} title={tr("Solo cambia el aspecto del personaje; las estadísticas siguen con la raza del paso Raza")} onChange={(e) => pickRace(Number(e.target.value))}>
-              {([["alliance", "Alianza"], ["horde", "Horda"]] as const).map(([f, label]) => (
-                <optgroup key={f} label={tr(label)}>
-                    {withModel.filter((r) => r.faction === f).map((r) => <option key={r.id} value={r.id}>{raceLabel(r.id, r.name)}</option>)}
-                </optgroup>
-              ))}
-            </select>
-          )}
-          <select className="avatar-race" value={avatar.bg === undefined ? "auto" : String(avatar.bg)} aria-label={tr("Fondo")} title={tr("Fondo del probador")} onChange={(e) => pickScene(e.target.value)}>
-            <option value="auto">{tr("Fondo: según la raza")}</option>
-            {BACKDROPS.map((b) => <option key={b.id} value={b.id}>{tr(b.name)}</option>)}
-            <option value="0">{tr("Liso")}</option>
-          </select>
-          </div>
-          {recipe && (<>
-          <div className="avatar-options-bar">
-            <button type="button" onClick={randomize}>{tr("Aleatorio")}</button>
-            <button type="button" onClick={() => setAvatar({ ...DEFAULT_AVATAR, sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg })}>{tr("Restablecer")}</button>
-          </div>
-          {clips.length > 1 && (
+    <>
+      <div className="doll">
+        {open ? (
+          <section className="doll-col avatar-panel" aria-label={tr("Personaje")}>
+            <h4>{tr("Personaje")}</h4>
+            {withModel.length > 1 && (
+              <label>
+                <span>{tr("Raza del personaje")}</span>
+                <select className="avatar-race" value={shownRace} onChange={(e) => pickRace(Number(e.target.value))}>
+                  {([["alliance", "Alianza"], ["horde", "Horda"]] as const).map(([f, label]) => (
+                    <optgroup key={f} label={tr(label)}>
+                      {withModel.filter((r) => r.faction === f).map((r) => <option key={r.id} value={r.id}>{raceLabel(r.id, r.name)}</option>)}
+                    </optgroup>
+                  ))}
+                </select>
+              </label>
+            )}
             <label>
-              <span>{tr("Animación")}</span>
-              <select value={pose} onChange={(e) => setPose(e.target.value)}>
-                <option value="">{tr("Según las armas")}</option>
-                {clips.map((c) => <option key={c} value={c}>{tr(POSE_LABEL[c] ?? c)}</option>)}
+              <span>{tr("Fondo del probador")}</span>
+              <select className="avatar-race" value={avatar.bg === undefined ? "auto" : String(avatar.bg)} onChange={(e) => pickScene(e.target.value)}>
+                <option value="auto">{tr("Fondo: según la raza")}</option>
+                {BACKDROPS.map((b) => <option key={b.id} value={b.id}>{tr(b.name)}</option>)}
+                <option value="0">{tr("Liso")}</option>
               </select>
             </label>
+            <p className="muted small">{tr("Solo cambia el aspecto del personaje; las estadísticas siguen con la raza del paso Raza")}</p>
+          </section>
+        ) : left}
+
+        <div className="avatar">
+          <div className="avatar-bar" role="group" aria-label={tr("Cuerpo del personaje")}>
+            {([0, 1] as const).map((s) => (
+              <button key={s} type="button" className={avatar.sex === s ? "on" : ""} aria-pressed={avatar.sex === s} onClick={() => setAvatar({ sex: s, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg })}>
+                {tr("Cuerpo {n}", { n: s + 1 })}
+              </button>
+            ))}
+          </div>
+          <div className="avatar-stage" ref={stage} data-scene={sceneId || undefined}>
+            <BackdropArt id={sceneId} />
+            <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
+              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} />
+            </Suspense>
+          </div>
+          {missing.length > 0 && (
+            <p className="avatar-missing muted small" role="note">
+              {tr("El cliente no trae el modelo 3D de:")} {missing.map((id) => iName(data.items.get(id) ?? { id, name: String(id) } as Item)).join(", ")}
+            </p>
           )}
-          <label className="check">
-            <input type="checkbox" checked={npc} onChange={(e) => setNpc(e.target.checked)} /> {tr("Opciones de PNJ")}
-          </label>
-          <AvatarOptions recipe={recipe} selection={selection} npc={npc} onPick={(optionId, choiceId) => setAvatar({ ...avatar, choices: { ...avatar.choices, [optionId]: choiceId } })} />
-          </>)}
         </div>
-      )}
+
+        {open ? (
+          <section className="doll-col avatar-panel" aria-label={tr("Aspecto")}>
+            <h4>{tr("Aspecto")}</h4>
+            {recipe ? (
+              <AvatarOptions recipe={recipe} selection={selection} npc={npc} onPick={(optionId, choiceId) => setAvatar({ ...avatar, choices: { ...avatar.choices, [optionId]: choiceId } })} />
+            ) : (
+              <p className="muted small">{tr("Cargando…")}</p>
+            )}
+          </section>
+        ) : right}
+
+        {open ? (
+          <div className="doll-bottom avatar-extra">
+            {clips.length > 1 && (
+              <label>
+                <span>{tr("Animación")}</span>
+                <select value={pose} onChange={(e) => setPose(e.target.value)}>
+                  <option value="">{tr("Según las armas")}</option>
+                  {clips.map((c) => <option key={c} value={c}>{tr(POSE_LABEL[c] ?? c)}</option>)}
+                </select>
+              </label>
+            )}
+            <label className="check">
+              <input type="checkbox" checked={npc} onChange={(e) => setNpc(e.target.checked)} /> {tr("Opciones de PNJ")}
+            </label>
+            <button type="button" onClick={randomize} disabled={!recipe}>{tr("Aleatorio")}</button>
+            <button type="button" onClick={resetLook}>{tr("Restablecer")}</button>
+          </div>
+        ) : bottom}
+
+        <div className="doll-tools" role="toolbar" aria-label={tr("Herramientas del probador")}>
+          <button type="button" className="tool-text gold" onClick={() => setSets(true)}>
+            <ToolGlyph name="sets" /> {tr("Conjuntos")}
+          </button>
+          <button type="button" className={`tool-text${open ? " active" : ""}`} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+            <ToolGlyph name={open ? "done" : "customize"} /> {open ? tr("Listo") : tr("Personalizar")}
+          </button>
+          <span className="tool-sep" aria-hidden="true" />
+          <span className="tool-seg">
+            <button type="button" {...tip(tr("Deshacer"))} onClick={history.undo} disabled={!history.canUndo}><ToolGlyph name="undo" /></button>
+            <button type="button" {...tip(tr("Rehacer"))} onClick={history.redo} disabled={!history.canRedo}><ToolGlyph name="redo" /></button>
+          </span>
+          <span className="tool-sep" aria-hidden="true" />
+          <button type="button" {...tip(avatar.sheathed ? tr("Desenvainar") : tr("Envainar"))} className={avatar.sheathed ? "active" : ""} aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>
+            <ToolGlyph name="sheathe" />
+          </button>
+          <button type="button" {...tip(paused ? tr("Reanudar") : tr("Pausar"))} className={paused ? "active" : ""} aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
+            <ToolGlyph name={paused ? "play" : "pause"} />
+          </button>
+          <span className="tool-sep" aria-hidden="true" />
+          <button type="button" {...tip(tr("Captura"))} onClick={capture}><ToolGlyph name="capture" /></button>
+          <button type="button" {...tip(tr("Pantalla completa"))} onClick={fullscreen}><ToolGlyph name="fullscreen" /></button>
+        </div>
+      </div>
       {sets && <SetsDialog data={data} ctx={ctx} gear={gear} onPick={(ids) => setGear((g) => equipSet(g, ids, data.items))} onClose={() => setSets(false)} />}
-    </div>
+    </>
   );
 }

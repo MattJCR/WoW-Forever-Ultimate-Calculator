@@ -81,8 +81,7 @@
   height: 100%;
   object-fit: cover;
 }
-.gear-icon .initials,
-.gear-empty {
+.gear-icon .initials {
   font-size: 11px;
   color: var(--muted);
 }
@@ -211,9 +210,6 @@
 }
 .item-row-text small {
   font-size: 11.5px;
-}
-.item-row-stats {
-  color: var(--info);
 }
 .more {
   margin: 8px 0;
@@ -400,8 +396,7 @@ p.gear-warn {
   justify-content: center;
   gap: 4px;
 }
-.avatar-bar button,
-.avatar-options-bar button {
+.avatar-bar button {
   min-height: 32px;
   padding: 2px 10px;
   font-size: 0.85em;
@@ -460,21 +455,6 @@ p.gear-warn {
   background: radial-gradient(ellipse at center, var(--stage-ground) 0%, transparent 70%);
   opacity: 0.7;
   pointer-events: none;
-}
-.avatar-options {
-  display: grid;
-  gap: 6px;
-  max-height: 260px;
-  overflow: auto;
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--panel-2);
-}
-.avatar-options label {
-  display: grid;
-  gap: 2px;
-  font-size: 0.85em;
 }
 .avatar-custom {
   display: grid;
@@ -538,22 +518,6 @@ p.gear-warn {
   box-shadow: 0 0 0 2px var(--bg);
   outline: 2px solid var(--accent);
   outline-offset: 1px;
-}
-.avatar-options-bar {
-  display: flex;
-  gap: 6px;
-}
-
-.avatar-tools {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px;
-}
-.avatar-tools button {
-  min-height: 30px;
-  padding: 2px 8px;
-  font-size: 0.8em;
 }
 .avatar-stage:fullscreen {
   border: 0;
@@ -823,26 +787,181 @@ p.gear-warn {
 .avatar-stage {
   min-height: 240px;
 }
-.avatar-tools {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
-}
-.avatar-tools button {
-  min-width: 0;
-  min-height: 26px;
-  padding: 1px 4px;
-  font-size: 11.5px;
-  line-height: 1.1;
-  white-space: normal;
-}
-.avatar-selects {
-  display: grid;
+
+/* Barra de herramientas: pie del muñeco, bajo las armas */
+.doll-tools {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: 6px;
+  margin: 4px -8px -8px;
+  padding: 8px;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  border-radius: 0 0 calc(var(--radius) - 1px) calc(var(--radius) - 1px);
 }
-.avatar-selects select {
+.doll-tools button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 36px;
+  min-height: 36px;
+  padding: 0;
+  font-size: 12.5px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.doll-tools button.tool-text {
+  width: auto;
+  padding: 0 12px;
+}
+.doll-tools button.gold {
+  color: var(--gold-2);
+  border-color: var(--line-3);
+}
+.doll-tools button.active,
+.doll-tools button.tool-text.active {
+  color: var(--gold-ink);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.doll-tools button.active:hover {
+  background: var(--gold-2);
+}
+.tool-glyph {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+.tool-sep {
+  align-self: center;
+  width: 1px;
+  height: 22px;
+  margin: 0 3px;
+  background: var(--line-2);
+}
+.tool-seg {
+  display: inline-flex;
+}
+.tool-seg button:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+.tool-seg button:last-child {
+  margin-left: -1px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+/* Nombre del botón de solo icono, al pasar el ratón o con el teclado */
+.doll-tools button[data-tip]:hover::after,
+.doll-tools button[data-tip]:focus-visible::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 5;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text);
+  background: var(--panel-3);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.doll-tools > button[data-tip]:last-child::after {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+/* «Personalizar»: paneles que sustituyen a las columnas de ranuras mientras está activo */
+.avatar-panel {
+  gap: 10px;
+  height: 410px;
+  padding: 10px;
+  overflow: auto;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.avatar-panel > *,
+.avatar-panel .avatar-custom {
+  min-width: 0;
+}
+.avatar-panel {
+  overflow-x: hidden;
+}
+.avatar-panel .avatar-tabs button {
+  padding: 2px 4px;
+}
+.avatar-panel .stepper {
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+}
+.avatar-panel h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold-2);
+}
+.avatar-panel label,
+.avatar-extra label {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  font-size: 0.85em;
+  color: var(--muted);
+}
+.avatar-panel select,
+.avatar-extra select {
   width: 100%;
   min-width: 0;
+  min-height: 34px;
+}
+.avatar-panel > .muted {
+  margin: auto 0 0;
+}
+.avatar-extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 10px;
+  min-height: 46px;
+}
+.avatar-extra label:not(.check) {
+  flex: 1 1 160px;
+}
+.avatar-extra label.check {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 6px;
+  color: var(--text);
+}
+.avatar-extra button {
+  min-height: 34px;
+  padding: 0 14px;
+}
+
+/* Hueco sin pieza: como en el inventario del juego, hundido y oscuro con la silueta grabada de la ranura */
+.gear-icon.empty {
+  color: #6f6044;
+  background: linear-gradient(160deg, #17130d, #0a0806);
+  border-color: #3a3122;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+.slot-glyph {
+  width: 58%;
+  height: 58%;
+}
+.gear-slot:hover .gear-icon.empty {
+  color: var(--line-3);
 }
 
 /* Ranura elegida */
@@ -926,6 +1045,24 @@ p.gear-warn {
   min-width: 0;
   min-height: 32px;
 }
+/* Fuente, Calidad mínima y Tipo: tres selectores al mismo nivel, con su nombre encima */
+.slot-filter-selects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  align-items: end;
+}
+.slot-filter-selects label {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  min-width: 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.slot-filter-selects select {
+  width: 100%;
+  max-width: none;
+}
 .slot-filters-2 {
   justify-content: space-between;
   margin-bottom: 2px;
@@ -935,10 +1072,9 @@ p.gear-warn {
   min-width: 0;
 }
 .slot-count {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 4px 2px;
+  flex: none;
+  margin: 0 2px;
+  white-space: nowrap;
 }
 /* En la ranura todo ocupa lo suyo; solo la lista (con su «mostrar más» y avisos) hace scroll */
 .slot-panel > * {
@@ -947,7 +1083,7 @@ p.gear-warn {
 .slot-panel > .slot-scroll {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 560px;
+  max-height: 640px;
   padding-right: 3px;
   overflow-y: auto;
 }
@@ -959,10 +1095,10 @@ p.gear-warn {
 }
 .item-row {
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) minmax(150px, 48%);
+  grid-template-columns: 36px minmax(0, 1fr) auto;
   align-items: center;
   gap: 4px 10px;
-  min-height: 50px;
+  min-height: 46px;
   padding: 4px 8px;
 }
 .item-row-text b,
@@ -971,28 +1107,11 @@ p.gear-warn {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.item-row-delta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  min-width: 0;
+.item-row-worn {
   font-size: 12px;
-  font-weight: 600;
-  line-height: 1.3;
-  text-align: right;
-}
-.item-row-delta > * {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.item-row-delta em {
   font-style: normal;
+  font-weight: 600;
   color: var(--gold-2);
-}
-.item-row-delta .muted {
-  color: var(--muted);
 }
 .slot-scroll .more {
   display: flex;
@@ -1427,18 +1546,19 @@ p.gear-warn {
   .doll-bottom {
     grid-template-columns: minmax(0, 1fr);
   }
-  .item-row {
-    grid-template-columns: 36px minmax(0, 1fr);
-  }
-  .item-row-delta {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0 12px;
-    text-align: left;
-  }
   .slot-filters select {
     max-width: 100%;
+  }
+}
+
+/* Móvil: los paneles de «Personalizar» ocupan todo el ancho en vez de dos columnas estrechas */
+@media (max-width: 520px) {
+  .avatar-panel {
+    grid-column: 1 / -1;
+    height: auto;
+    max-height: 420px;
+  }
+  .avatar-panel > .muted {
+    margin-top: 0;
   }
 }
