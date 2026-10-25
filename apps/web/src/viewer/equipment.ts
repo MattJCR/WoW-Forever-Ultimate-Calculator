@@ -194,7 +194,8 @@ export function resolveEquipment(
       if (e.inventoryType === 15) { att = 2; bow = true; }
       else { att = 1; if (e.classId === 2 && e.subclassId === 3) gun = true; }
     }
-    if (opts.sheathed) {
+    // Solo las armas (att ya decidido arriba) van a su funda; el casco, las hombreras y el resto ya se pintaron en su sitio
+    if (opts.sheathed && att !== null) {
       const sh = ap.sheathe?.[String(e.itemId)] ?? 0;
       if (e.inventoryType === 14) att = SHEATH.shield;
       else if (e.slot === "offHand") att = SHEATH.hipLeft;

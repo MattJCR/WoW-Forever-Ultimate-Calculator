@@ -198,6 +198,14 @@ describe("equipo → lo que se ve", () => {
     expect(one.models.map((m) => m.attachment).sort()).toEqual([0, 1]);
     expect(resolveEquipment(ap, 1, 0, [eq(1, 5)], url).pose).toBe("Stand");
   });
+  it("envainado: solo las armas van a su funda; casco y hombreras no se repiten en la cadera ni en la espalda", () => {
+    const r = resolveEquipment(ap, 1, 0, [eq(5, 1, "head"), eq(6, 3, "shoulder"), eq(7, 17, "mainHand"), eq(8, 14, "offHand")], url, { sheathed: true });
+    expect(r.models.filter((m) => m.slot === 1).map((m) => m.attachment)).toEqual([11]);
+    expect(r.models.filter((m) => m.slot === 3).map((m) => m.attachment).sort()).toEqual([5, 6]);
+    expect(r.models.filter((m) => m.slot === 17).map((m) => m.attachment)).toEqual([31]);
+    expect(r.models.filter((m) => m.slot === 14).map((m) => m.attachment)).toEqual([28]);
+    expect(r.models).toHaveLength(5);
+  });
   it("objetos sin apariencia se ignoran", () => {
     const r = resolveEquipment(ap, 1, 0, [eq(999, 5)], url);
     expect(r.geosets.size).toBe(0);
