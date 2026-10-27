@@ -1,7 +1,8 @@
 # Compara el build instalado del cliente con el build de nuestros datos. SOLO LEE (.build.info y el manifest).
-# Uso:  powershell -File tools/update/check-client-build.ps1 [-Client "C:\World of Warcraft"] [-Product wow_classic_beta]
+# Uso:  powershell -File tools/update/check-client-build.ps1 [-Client "C:\World of Warcraft"] [-Product wowf]
 # Sale con codigo 0 si coincide, 10 si el cliente tiene un build distinto (hay parche: ver la skill forever-patch-review).
-param([string]$Client = "C:\World of Warcraft", [string]$Product = "wow_classic_beta")
+# Desde 2026-10-27 Forever es el producto `wowf` (carpeta _forever_), instalado junto a retail; antes era wow_classic_beta (_classic_beta_).
+param([string]$Client = "C:\World of Warcraft", [string]$Product = "wowf", [string]$Folder = "_forever_")
 
 $repo = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $info = Join-Path $Client ".build.info"
@@ -22,7 +23,7 @@ if (-not $clientVersion) { Write-Host "No hay fila activa de $Product en .build.
 $ours = Get-ChildItem (Join-Path $repo "data\forever") -Directory | Where-Object { $_.Name -notmatch "-static$" } |
         Sort-Object Name | Select-Object -Last 1
 $ourBuild = if ($ours) { (Get-Content (Join-Path $ours.FullName "manifest.json") -Raw | ConvertFrom-Json).build } else { "(sin datos)" }
-$dbcache = Join-Path $Client "_classic_beta_\Cache\ADB\esES\DBCache.bin"
+$dbcache = Join-Path $Client "$Folder\Cache\ADB\esES\DBCache.bin"
 $dbTime = if (Test-Path $dbcache) { (Get-Item $dbcache).LastWriteTime } else { "(no existe)" }
 
 Write-Host "Cliente instalado : $clientVersion  (Build Key $buildKey)"

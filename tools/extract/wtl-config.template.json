@@ -8,7 +8,7 @@
     "manifestFolder": "manifests",
     "extractionDir": "extract",
     "cdnFolder": "",
-    "wowProduct": "wow_classic_beta",
+    "wowProduct": "wowf",
     "region": "us",
     "showAllFiles": "false",
     "locale": "esES",
