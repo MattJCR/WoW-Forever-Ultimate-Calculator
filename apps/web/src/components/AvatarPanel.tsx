@@ -1,15 +1,18 @@
-import { canEquip, equipItem, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "@wfuc/engine";
+import { canEquip, encodeGear, equipItem, itemTypeName, randomGear, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "@wfuc/engine";
 import type { Item } from "@wfuc/schema";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { raceLabel, tr } from "../i18n";
-import { DEFAULT_AVATAR, loadModelIndex, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
+import { DEFAULT_AVATAR, encodeAvatar, loadModelIndex, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
+import { MODELS_BASE } from "../viewer/config";
 import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
 import { AvatarOptions } from "./AvatarOptions";
+import { CaptureMenu, EquippedDialog, LinksDialog, type ProbeLinks } from "./AvatarDialogs";
 import { effectLabel, iName, inventoryLabel, qualityColor, setLabel } from "./gear-format";
 import { ToolGlyph } from "./glyphs";
 import { Icon } from "./Icon";
+import { useAppearance } from "./ItemGallery";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
 
@@ -52,6 +55,11 @@ function SetsDialog({ data, ctx, gear, onPick, onClose }: { data: GearData; ctx:
   const [mine, setMine] = useState(true);
   const [limit, setLimit] = useState(60);
   const [sel, setSel] = useState<number | null>(null);
+  // «Galería» (miniaturas 3D de las piezas) o «Texto» (lista de nombres); se recuerda
+  const [view, setViewState] = useState<"gallery" | "text">(() => { try { return window.localStorage.getItem("wfuc.setsView") === "text" ? "text" : "gallery"; } catch { return "gallery"; } });
+  const setView = (v: "gallery" | "text") => { setViewState(v); try { window.localStorage.setItem("wfuc.setsView", v); } catch { /* solo se pierde la comodidad */ } };
+  const [style, setStyle] = useState("");
+  const appearance = useAppearance(view === "gallery");
   const wornIds = useMemo(() => new Set(Object.values(gear).map((w) => w?.itemId)), [gear]);
   // Conjuntos con alguna pieza que tu clase puede llevar (a nivel 60: aquí interesa la clase y la competencia, no el nivel)
   const mineIds = useMemo(() => {
@@ -62,11 +70,26 @@ function SetsDialog({ data, ctx, gear, onPick, onClose }: { data: GearData; ctx:
     }
     return ok;
   }, [data, ctx]);
+  // Estilo del conjunto: el tipo de armadura que más se repite en sus piezas (tela, cuero, malla, placas); sin armadura, «otros»
+  const styleOf = useMemo(() => {
+    const out = new Map<number, string>();
+    for (const s of data.sets) {
+      const count = new Map<string, number>();
+      for (const id of s.itemIds) {
+        const it = data.items.get(id);
+        const t = it && it.classId === 4 ? itemTypeName(it) : null;
+        if (t) count.set(t, (count.get(t) ?? 0) + 1);
+      }
+      out.set(s.id, [...count.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "otros");
+    }
+    return out;
+  }, [data]);
+  const styles = useMemo(() => [...new Set(styleOf.values())].sort((a, b) => a.localeCompare(b, "es")), [styleOf]);
   const sets = useMemo(() => {
     const q = norm(query.trim());
-    return data.sets.filter((s) => s.itemIds.length > 1 && (!mine || mineIds.has(s.id)) && (!q || norm(setLabel(s)).includes(q))).sort((a, b) => setLabel(a).localeCompare(setLabel(b), "es"));
-  }, [data, query, mine, mineIds]);
-  useEffect(() => setLimit(60), [query, mine]);
+    return data.sets.filter((s) => s.itemIds.length > 1 && (!mine || mineIds.has(s.id)) && (!style || styleOf.get(s.id) === style) && (!q || norm(setLabel(s)).includes(q))).sort((a, b) => setLabel(a).localeCompare(setLabel(b), "es"));
+  }, [data, query, mine, mineIds, style, styleOf]);
+  useEffect(() => setLimit(60), [query, mine, style, view]);
   useEffect(() => {
     const on = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", on);
@@ -87,13 +110,46 @@ function SetsDialog({ data, ctx, gear, onPick, onClose }: { data: GearData; ctx:
           <label className="check">
             <input type="checkbox" checked={mine} onChange={(e) => setMine(e.target.checked)} /> {tr("Solo los que puede llevar mi clase")}
           </label>
+          <label className="check">
+            {tr("Estilo")}
+            <select value={style} onChange={(e) => setStyle(e.target.value)} aria-label={tr("Estilo")}>
+              <option value="">{tr("todos")}</option>
+              {styles.map((s) => <option key={s} value={s}>{tr(s)}</option>)}
+            </select>
+          </label>
+          <span className="slot-view" role="group" aria-label={tr("Vista")}>
+            <button type="button" className={view === "gallery" ? "on" : ""} aria-pressed={view === "gallery"} onClick={() => setView("gallery")}>{tr("Galería")}</button>
+            <button type="button" className={view === "text" ? "on" : ""} aria-pressed={view === "text"} onClick={() => setView("text")}>{tr("Texto")}</button>
+          </span>
           <span className="muted small">{sets.length} {tr("conjuntos")}</span>
         </div>
         <div className="sets-body">
-          <ul className="sets-list" aria-label={tr("Conjuntos")}>
+          <ul className={view === "gallery" ? "sets-list sets-gallery" : "sets-list"} aria-label={tr("Conjuntos")}>
             {sets.slice(0, limit).map((s) => {
               const its = s.itemIds.map((id) => data.items.get(id)).filter((it): it is Item => !!it);
               const on = current?.id === s.id;
+              if (view === "gallery") {
+                // Miniatura 3D de las primeras piezas visibles; sin ella, el icono
+                const shown = its.filter((it) => it.inventoryType !== 0).slice(0, 4);
+                return (
+                  <li key={s.id}>
+                    <button type="button" className={`set-card${on ? " on" : ""}`} aria-pressed={on} onClick={() => setSel(s.id)}>
+                      <span className="set-card-mosaic" aria-hidden="true">
+                        {shown.map((it) => {
+                          const display = appearance?.items[String(it.id)];
+                          return display ? (
+                            <img key={it.id} src={`${MODELS_BASE}/bust/${display}.webp`} alt="" loading="lazy" width={48} height={48} onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
+                          ) : (
+                            <span key={it.id} className="set-card-icon"><Icon id={it.iconFileDataId} name={iName(it)} /></span>
+                          );
+                        })}
+                      </span>
+                      <b className="set-row-name">{setLabel(s)}</b>
+                      <small className="set-row-meta">{its.length} {tr("piezas")} · {tr(styleOf.get(s.id) ?? "otros")}</small>
+                    </button>
+                  </li>
+                );
+              }
               return (
                 <li key={s.id}>
                   <button type="button" className={`set-row${on ? " on" : ""}`} aria-pressed={on} onClick={() => setSel(s.id)}>
@@ -195,6 +251,11 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [open, setOpen] = useState(false);
   const [sets, setSets] = useState(false);
+  const [equippedOpen, setEquippedOpen] = useState(false);
+  const [links, setLinks] = useState<ProbeLinks | null>(null);
+  const [captureOpen, setCaptureOpen] = useState(false);
+  // Solo el visor: sin ranuras, barra ni ajustes (Escape o el botón del visor lo devuelven)
+  const [bare, setBare] = useState(false);
   const [paused, setPaused] = useState(false);
   // Efectos de objetos (partículas): activos, salvo que el sistema pida menos movimiento
   const [effects, setEffects] = useState(() => !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
@@ -205,6 +266,12 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const stage = useRef<HTMLDivElement>(null);
   const gl = useMemo(webglAvailable, []);
   useEffect(() => { void loadModelIndex().then(setIndex); }, []);
+  useEffect(() => {
+    if (!bare) return;
+    const on = (e: KeyboardEvent) => e.key === "Escape" && setBare(false);
+    window.addEventListener("keydown", on);
+    return () => window.removeEventListener("keydown", on);
+  }, [bare]);
 
   const shownRace = avatar.race && index?.some((e) => e.race === avatar.race) ? avatar.race : raceId;
   const entry = index?.find((e) => e.race === shownRace && e.sex === avatar.sex);
@@ -238,17 +305,16 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
     }
     setAvatar({ ...avatar, choices });
   };
-  const capture = () => {
-    const canvas = stage.current?.querySelector("canvas");
-    canvas?.toBlob((blob) => {
-      if (!blob) return;
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "wow-forever-personaje.png";
-      a.click();
-      window.setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    }, "image/png");
+  const openLinks = () => {
+    const base = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+    const params = new URLSearchParams({ r: String(shownRace) });
+    const g = encodeGear(gear);
+    const a = encodeAvatar(avatar);
+    if (g) params.set("g", g);
+    if (a) params.set("a", a);
+    setLinks({ page: window.location.href, embed: `${base}#/embed?${params}` });
   };
+  const randomLook = () => setGear(() => randomGear(data, ctx));
   const fullscreen = () => {
     const el = stage.current;
     if (!el) return;
@@ -261,13 +327,15 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
 
   return (
     <>
-      <div className={`doll${open ? " custom" : ""}`}>
+      <div className={`doll${open ? " custom" : ""}${bare ? " bare" : ""}`}>
         {open ? (
           <section className="doll-col avatar-panel" aria-label={tr("Personaje")}>
             <h4>{tr("Personaje")}</h4>
             {withModel.length > 1 && (
               <label>
                 <span>{tr("Raza del personaje")}</span>
+                <span className="avatar-race-row">
+                  <img className="avatar-race-face" src={`${MODELS_BASE}/race/${entry.chrModel}.webp`} alt="" width={40} height={40} onError={(e) => { e.currentTarget.style.visibility = "hidden"; }} />
                 <select className="avatar-race" value={shownRace} onChange={(e) => pickRace(Number(e.target.value))}>
                   {([["alliance", "Alianza"], ["horde", "Horda"]] as const).map(([f, label]) => (
                     <optgroup key={f} label={tr(label)}>
@@ -275,6 +343,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
                     </optgroup>
                   ))}
                 </select>
+                </span>
               </label>
             )}
             <label>
@@ -299,6 +368,11 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
           </div>
           <div className="avatar-stage" ref={stage} data-scene={sceneId || undefined}>
             <BackdropArt id={sceneId} />
+            {bare && (
+              <button type="button" className="bare-restore" onClick={() => setBare(false)} aria-label={tr("Mostrar la interfaz")} data-tip={tr("Mostrar la interfaz")}>
+                <ToolGlyph name="show" />
+              </button>
+            )}
             <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
               <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} effects={effects} />
             </Suspense>
@@ -336,6 +410,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
               <input type="checkbox" checked={npc} onChange={(e) => setNpc(e.target.checked)} /> {tr("Opciones de PNJ")}
             </label>
             <button type="button" onClick={randomize} disabled={!recipe}>{tr("Aleatorio")}</button>
+            <button type="button" onClick={randomLook} title={tr("Equipo que tu personaje puede llevar, al azar")}>{tr("Equipo aleatorio")}</button>
             <button type="button" onClick={resetLook}>{tr("Restablecer")}</button>
           </div>
         ) : bottom}
@@ -347,6 +422,8 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
           <button type="button" className={`tool-text${open ? " active" : ""}`} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
             <ToolGlyph name={open ? "done" : "customize"} /> {open ? tr("Listo") : tr("Personalizar")}
           </button>
+          <button type="button" {...tip(tr("Equipado"))} onClick={() => setEquippedOpen(true)}><ToolGlyph name="equipped" /></button>
+          <button type="button" {...tip(tr("Enlaces"))} onClick={openLinks}><ToolGlyph name="link" /></button>
           <span className="tool-sep" aria-hidden="true" />
           <span className="tool-seg">
             <button type="button" {...tip(tr("Deshacer"))} onClick={history.undo} disabled={!history.canUndo}><ToolGlyph name="undo" /></button>
@@ -363,10 +440,16 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
             <ToolGlyph name="effects" />
           </button>
           <span className="tool-sep" aria-hidden="true" />
-          <button type="button" {...tip(tr("Captura"))} onClick={capture}><ToolGlyph name="capture" /></button>
+          <span className="tool-menu">
+            <button type="button" {...tip(tr("Captura"))} aria-haspopup="menu" aria-expanded={captureOpen} onClick={() => setCaptureOpen((v) => !v)}><ToolGlyph name="capture" /></button>
+            {captureOpen && <CaptureMenu stage={stage.current} onClose={() => setCaptureOpen(false)} />}
+          </span>
           <button type="button" {...tip(tr("Pantalla completa"))} onClick={fullscreen}><ToolGlyph name="fullscreen" /></button>
+          <button type="button" {...tip(tr("Ocultar la interfaz"))} onClick={() => setBare(true)}><ToolGlyph name="hide" /></button>
         </div>
       </div>
+      {equippedOpen && <EquippedDialog gear={gear} data={data} onClose={() => setEquippedOpen(false)} />}
+      {links && <LinksDialog links={links} onClose={() => setLinks(null)} />}
       {sets && <SetsDialog data={data} ctx={ctx} gear={gear} onPick={(ids) => setGear((g) => equipSet(g, ids, data.items))} onClose={() => setSets(false)} />}
     </>
   );

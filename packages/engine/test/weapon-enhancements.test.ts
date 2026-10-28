@@ -6,12 +6,14 @@ import { describe, expect, it } from "vitest";
 import {
   GEAR_SLOTS,
   autoAttacks,
+  canEquip,
   decodeGear,
   encodeGear,
   enhancementFits,
   enhancementOptions,
   indexGearData,
   powerContext,
+  randomGear,
   summarizeGear,
   type GearContext,
   type GearSelection,
@@ -143,5 +145,34 @@ describe.skipIf(!has)("mejoras temporales de arma (cliente 1.60.1.70658 con hotf
     }
     // Exacto: si el cliente trae una mejora que no cabe en ninguna arma, se decide aquí (no se calla)
     expect(nowhere).toEqual([]);
+  });
+});
+
+describe.skipIf(!has)("equipo aleatorio", () => {
+  const data = indexGearData({ items: Items.parse(json("items.json")), rules: EquipRules.parse(json("equip-rules.json")) });
+  // Generador con semilla: la prueba no depende del azar
+  const seeded = (seed: number) => () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+
+  it("cada pieza la puede llevar el personaje y no hay objetos de prueba, para todas las clases", () => {
+    for (const classId of [1, 2, 3, 4, 5, 7, 8, 9, 11]) {
+      const c = ctx(classId);
+      const gear = randomGear(data, c, seeded(classId * 7919));
+      const worn = Object.entries(gear);
+      expect(worn.length, `clase ${classId}`).toBeGreaterThan(8);
+      for (const [slot, w] of worn) {
+        const item = data.items.get(w!.itemId)!;
+        expect(item.placeholder, `${item.name}`).toBeFalsy();
+        // Se vuelve a comprobar sin el resto de lo puesto (el propio objeto cuenta en las categorías únicas)
+        const others = Object.fromEntries(worn.filter(([s]) => s !== slot)) as GearSelection;
+        expect(canEquip(item, slot as (typeof GEAR_SLOTS)[number], c, data, others).ok, `clase ${classId} ${slot} ${item.name}`).toBe(true);
+      }
+      // Un arma a dos manos deja libre la mano izquierda
+      if (gear.mainHand && data.items.get(gear.mainHand.itemId)!.inventoryType === 17) expect(gear.offHand).toBeUndefined();
+    }
+  });
+
+  it("con la misma semilla sale el mismo equipo y con otra, otro", () => {
+    expect(randomGear(data, ctx(WARRIOR), seeded(1))).toEqual(randomGear(data, ctx(WARRIOR), seeded(1)));
+    expect(randomGear(data, ctx(WARRIOR), seeded(1))).not.toEqual(randomGear(data, ctx(WARRIOR), seeded(2)));
   });
 });

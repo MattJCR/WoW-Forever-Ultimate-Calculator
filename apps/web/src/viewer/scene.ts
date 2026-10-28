@@ -538,6 +538,12 @@ export class CharacterView {
     wrap.add(holder);
     // Las armas largas y finas se colocan en diagonal para llenar el cuadro.
     if (Math.max(sz.x, sz.y, sz.z) > 2.2 * Math.min(...[sz.x, sz.y, sz.z].sort((a, b) => a - b).slice(1))) wrap.rotation.z = Math.PI / 4;
+    // Se encuadra lo que ocupa de verdad en pantalla (ya girado), no la esfera que envuelve al objeto: un arma larga y fina en diagonal llena el cuadro
+    wrap.updateMatrixWorld(true);
+    const placed = new Box3().setFromObject(wrap, true);
+    const placedSize = placed.getSize(new Vector3());
+    wrap.position.sub(placed.getCenter(new Vector3()));
+    const half = Math.max(placedSize.x, placedSize.y) / 2;
     this.scene.add(wrap);
     const prevSize = this.renderer.getSize(new Vector2());
     const prevAspect = this.camera.aspect;
@@ -545,7 +551,7 @@ export class CharacterView {
     this.renderer.setSize(size, size, false);
     this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
-    const dist = (radius * 1.15) / Math.tan((this.camera.fov * Math.PI) / 360);
+    const dist = (Math.max(half, radius * 0.2) * 1.08) / Math.tan((this.camera.fov * Math.PI) / 360) + placedSize.z / 2;
     this.camera.position.set(0, 0, dist);
     this.camera.lookAt(0, 0, 0);
     this.renderer.render(this.scene, this.camera);

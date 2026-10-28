@@ -46,6 +46,10 @@ const TOOL_PATH = {
   play: "M7 5l12 7-12 7z",
   capture: "M4 8h3l2-3h6l2 3h3v11H4z M12 9.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z",
   fullscreen: "M4 9V4h5 M15 4h5v5 M20 15v5h-5 M9 20H4v-5",
+  equipped: "M5 5h14 M5 10h14 M5 15h14 M5 20h9",
+  link: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
+  hide: "M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z M4 4l16 16",
+  show: "M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z",
 } as const;
 
 /** Icono de la barra de herramientas del probador (decorativo: el botón lleva su nombre). */

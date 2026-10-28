@@ -6,6 +6,7 @@ import { LangContext, tr, useLang, useLangRoot } from "./i18n";
 import { ClassPage } from "./pages/ClassPage";
 import { classToken, Home } from "./pages/Home";
 import { UnassignedPage } from "./pages/UnassignedPage";
+import { EmbedPage } from "./pages/EmbedPage";
 import { href, scrollToSection, useRoute, type Route } from "./router";
 
 // Pantallas de pruebas del probador 3D: solo existen en desarrollo
@@ -68,6 +69,8 @@ function Layout({ manifest }: { manifest: Manifest }) {
   const page = route.path[0];
   const section = route.query.get("s");
   const onHome = page === undefined;
+  // Probador insertado en otra web: solo el visor, sin cabecera ni pie
+  if (page === "embed") return <Routes route={route} manifest={manifest} />;
 
   return (
     <>
@@ -146,6 +149,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
 function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
   const [page, arg] = route.path;
   if (page === "unassigned") return <UnassignedPage />;
+  if (page === "embed") return <EmbedPage manifest={manifest} query={route.query} />;
   if (import.meta.env.DEV && page === "viewer-lab" && ViewerLab) return <Suspense fallback={null}><ViewerLab query={route.query} /></Suspense>;
   if (import.meta.env.DEV && page === "bust-lab" && BustLab) return <Suspense fallback={null}><BustLab query={route.query} /></Suspense>;
   if (import.meta.env.DEV && page === "scene-lab" && SceneLab) return <Suspense fallback={null}><SceneLab query={route.query} /></Suspense>;

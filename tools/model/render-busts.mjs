@@ -56,10 +56,15 @@ async function worker(n) {
     const j = todo.shift();
     if (!j) break;
     try {
-      const url = await withTimeout(page.evaluate(([id, inv, kind]) => (kind ? window.__bust.armor(id, inv, kind) : window.__bust.object(id, inv)), [j.itemId, j.inv, KIND[j.inv] ?? null]), 30000);
+      const url = await withTimeout(page.evaluate(([id, inv, kind]) => (kind ? window.__bust.armor(id, inv, kind) : window.__bust.object(id, inv, 384)), [j.itemId, j.inv, KIND[j.inv] ?? null]), 30000);
       if (!url) { fail++; console.log(`sin imagen: objeto ${j.itemId} (apariencia ${j.display})`); continue; }
       const png = Buffer.from(url.split(",")[1], "base64");
-      const webp = await sharp(png).resize(128, 128).webp({ quality: 82, alphaQuality: 90, effort: 4 }).toBuffer();
+      // Armas y escudos: se recorta lo transparente y se centra la pieza llenando el cuadro (el encuadre del visor no siempre la centra)
+      const clear = { r: 0, g: 0, b: 0, alpha: 0 };
+      const piece = KIND[j.inv]
+        ? sharp(png).resize(128, 128)
+        : sharp(await sharp(png).trim({ background: clear, threshold: 8 }).resize(116, 116, { fit: "contain", background: clear }).extend({ top: 6, bottom: 6, left: 6, right: 6, background: clear }).png().toBuffer());
+      const webp = await piece.webp({ quality: 82, alphaQuality: 90, effort: 4 }).toBuffer();
       fs.writeFileSync(path.join(dir, "bust", `${j.display}.webp`), webp);
       done++;
       if (done % 100 === 0) console.log(`${done} hechas (${fail} fallos), ${((Date.now() - t0) / 60000).toFixed(1)} min`);

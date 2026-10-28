@@ -208,7 +208,8 @@ export function gearLinesForAI(args: { gear: GearSelection; summary: GearSummary
     const suffix = worn.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
     const enchant = worn.enchantId ? data.enchants.get(worn.enchantId) : undefined;
     const stats = [...item.stats, ...(suffix ? suffixStats(item, suffix) : [])].map(statLine);
-    const extra = [suffix ? suffix.name : "", enchant ? `Enchant: ${enchant.name}${enchantStatLines(enchant).length ? ` (${enchantStatLines(enchant).map((s) => statLine({ key: s.key, type: 0, value: s.value })).join(", ")})` : ""}` : ""].filter(Boolean);
+    const temp = worn.tempId ? data.enhancements.get(worn.tempId) : undefined;
+    const extra = [suffix ? suffix.name : "", temp ? `Temporary enhancement: ${temp.nameEn ?? temp.name} (${Math.round(temp.durationMs / 60000)} min${temp.stats.length ? `; ${temp.stats.map(statLine).join(", ")}` : ""})` : "", enchant ? `Enchant: ${enchant.name}${enchantStatLines(enchant).length ? ` (${enchantStatLines(enchant).map((s) => statLine({ key: s.key, type: 0, value: s.value })).join(", ")})` : ""}` : ""].filter(Boolean);
     lines.push(`- ${SLOT_LABEL[slot]}: ${item.name}${extra.length ? ` [${extra.join("; ")}]` : ""} (item level ${item.itemLevel}${item.requiredLevel ? `, requires level ${item.requiredLevel}` : ""})${stats.length ? `: ${stats.join(", ")}` : ""}`);
   }
   const armor = summary.armor + (summary.stats["extra-armor"] ?? 0);

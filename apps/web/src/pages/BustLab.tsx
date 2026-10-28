@@ -13,7 +13,7 @@ export interface BustApi {
   /** Miniatura de una pieza de armadura sobre el personaje base. */
   armor(itemId: number, inventoryType: number, kind: BustKind): Promise<string>;
   /** Miniatura de un arma o escudo suelto. */
-  object(itemId: number, inventoryType: number): Promise<string | null>;
+  object(itemId: number, inventoryType: number, size?: number): Promise<string | null>;
   /** Personaje desnudo, para comprobar el modelo base. */
   base(kind: BustKind, size?: number): Promise<string>;
   /** Primer plano de la cara de frente (yaw 0) o girada. */
@@ -48,10 +48,10 @@ export function BustLab({ query }: { query: URLSearchParams }) {
           await v.apply({ selection, extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides, models: e.models, objectTextures: e.objectTextures, pose: "Stand" });
           return v.bust(kind);
         },
-        async object(itemId, inventoryType) {
+        async object(itemId, inventoryType, size) {
           const e = resolveEquipment(ap, race, recipe.sex, [{ slot: "mainHand", inventoryType, classId: 2, subclassId: 0, itemId }], v.textureUrl);
           const m = e.models[0];
-          return m ? v.objectBust(m.file, m.textures) : null;
+          return m ? v.objectBust(m.file, m.textures, size) : null;
         },
         async base(kind, size) {
           await v.apply({ selection, pose: "Stand" });

@@ -1738,3 +1738,225 @@ p.gear-warn {
     grid-template-columns: 1fr;
   }
 }
+
+/* Tabla «Equipado» y «Enlaces» del probador */
+.modal.equipped-dialog {
+  width: min(760px, 100%);
+}
+.equipped-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.equipped-table th,
+.equipped-table td {
+  padding: 5px 8px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
+}
+.equipped-table thead th {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.equipped-table tbody th {
+  color: var(--muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.equipped-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.equipped-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.modal.links-dialog {
+  width: min(640px, 100%);
+}
+.link-field {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.link-row {
+  display: flex;
+  gap: 6px;
+}
+.link-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+/* Menú de la captura: cuelga sobre el botón de la barra */
+.tool-menu {
+  position: relative;
+  display: inline-flex;
+}
+.capture-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 30;
+  display: grid;
+  gap: 2px;
+  min-width: 230px;
+  padding: 6px;
+  transform: translateX(-50%);
+  background: var(--panel);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+}
+.doll-tools .capture-menu button {
+  width: auto;
+  justify-content: flex-start;
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+}
+.capture-menu p {
+  margin: 4px 8px;
+}
+
+/* Solo el visor: sin ranuras, barra ni ajustes; un botón en el visor lo devuelve */
+.doll.bare {
+  grid-template-columns: 1fr;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.doll.bare > :not(.avatar) {
+  display: none;
+}
+.doll.bare .avatar-bar {
+  display: none;
+}
+.bare-restore {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  opacity: 0.55;
+  cursor: pointer;
+}
+.bare-restore:hover,
+.bare-restore:focus-visible {
+  opacity: 1;
+}
+
+/* Retrato de la raza del personaje junto a su selector */
+.avatar-race-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.avatar-race-row .avatar-race {
+  flex: 1;
+  min-width: 0;
+}
+.avatar-race-face {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 2px solid var(--line-2);
+  border-radius: 50%;
+  background: var(--panel-3);
+}
+
+/* Probador insertado en otra web: solo el visor, a pantalla completa */
+.embed-page {
+  position: fixed;
+  inset: 0;
+  display: grid;
+}
+.embed-page .avatar-stage {
+  border: 0;
+  border-radius: 0;
+  min-height: 0;
+}
+
+/* Conjuntos en galería: tarjetas con las miniaturas 3D de sus primeras piezas */
+.sets-tools select {
+  margin-left: 6px;
+}
+.sets-list.sets-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  align-content: start;
+}
+.set-card {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.set-card:hover,
+.set-card.on {
+  border-color: var(--accent);
+}
+.set-card-mosaic {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  justify-items: center;
+}
+.set-card-mosaic img,
+.set-card-icon {
+  width: 100%;
+  max-width: 64px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--bg-2);
+  border-radius: 6px;
+}
+.set-card-icon {
+  display: grid;
+  place-items: center;
+}
+.set-card-icon .icon {
+  width: 70%;
+  height: 70%;
+}
+.sets-gallery > li {
+  min-width: 0;
+}
+.set-card .set-row-name,
+.set-card .set-row-meta {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.sets-list.sets-gallery {
+  overflow-x: hidden;
+}
