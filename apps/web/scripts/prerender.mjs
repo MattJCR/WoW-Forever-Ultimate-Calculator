@@ -9,7 +9,12 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const web = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(web, "dist");
 const ssrDir = join(web, "dist-ssr");
-const siteUrl = (process.env.SITE_URL ?? "").replace(/\/+$/, "");
+const siteUrl = (() => {
+  const raw = (process.env.SITE_URL ?? "").trim();
+  if (!raw) return "";
+  const u = new URL(raw); // el host se normaliza a minúsculas
+  return `${u.origin}${u.pathname.replace(/\/+$/, "")}`;
+})();
 
 const entryFile = ["entry-server.js", "entry-server.mjs"].map((f) => join(ssrDir, f)).find(existsSync);
 if (!entryFile) throw new Error("Falta dist-ssr/entry-server.js: ejecuta `vite build --ssr src/entry-server.tsx --outDir dist-ssr` antes.");

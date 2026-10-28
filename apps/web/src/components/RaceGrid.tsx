@@ -1,5 +1,6 @@
 import type { ClassRacial, Race, ReferenceOnlyRacial } from "@wfuc/schema";
 import { useEffect, useState } from "react";
+import { STATIC_RACE_ICONS } from "../data";
 import { isEnglish, raceLabel, spellEn, tr } from "../i18n";
 import { loadModelIndex } from "../viewer/avatar";
 import { MODELS_BASE } from "../viewer/config";
@@ -139,9 +140,6 @@ function ReferenceOnlyGroup({ race, open, onToggle }: { race: Race; open: boolea
     </>
   );
 }
-
-/** Iconos de raza que el cliente no trae (ClientFileString → ruta en `public/`). */
-const STATIC_RACE_ICONS: Record<string, string> = { Skyborne: "race/skyborne.png" };
 
 /**
  * Retrato de la raza: el icono del juego (`Achievement_Character_<raza>_<sexo>`, varón). Los Cielonatos no tienen icono en el cliente: llevan

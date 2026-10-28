@@ -3,7 +3,12 @@ import { defineConfig } from "vite";
 
 // Dirección pública de la web (sin barra final) para canonical, hreflang, Open Graph y sitemap: SITE_URL
 // (p. ej. https://usuario.github.io/repositorio, o https://midominio.com con dominio propio). Vacía en local.
-const siteUrl = (process.env.SITE_URL ?? "").replace(/\/+$/, "");
+const siteUrl = (() => {
+  const raw = (process.env.SITE_URL ?? "").trim();
+  if (!raw) return "";
+  const u = new URL(raw); // el host se normaliza a minúsculas
+  return `${u.origin}${u.pathname.replace(/\/+$/, "")}`;
+})();
 
 // Las URLs son reales (/es/clases/mago/): los recursos se piden con ruta absoluta. La ruta base sale de SITE_URL
 // (en GitHub Pages sin dominio propio es «/repositorio/»; con dominio propio, «/»). VITE_BASE la fuerza.

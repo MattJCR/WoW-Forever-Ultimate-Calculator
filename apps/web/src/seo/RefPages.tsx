@@ -2,7 +2,7 @@
 // Son componentes puros: la web los pinta con los datos que descarga y el prerender los convierte en HTML con los mismos datos.
 import type { Abilities, Ability, AbilityRank, ClassTalents, Manifest, Race, Talent } from "@wfuc/schema";
 import { Icon } from "../components/Icon";
-import { CLASS_COLORS, loadAbilities, loadClass, loadRaces } from "../data";
+import { CLASS_COLORS, loadAbilities, loadClass, loadRaces, STATIC_RACE_ICONS } from "../data";
 import { abilityName, classLabel, currentLang, fmtNum, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr } from "../i18n";
 import { getSeoIndex, href } from "../router";
 import { breadcrumbs, clip, plain, type PageMeta } from "./meta";
@@ -166,10 +166,17 @@ function Crumbs({ items }: { items: { name: string; to?: Page }[] }) {
   );
 }
 
-function RefHead({ icon, eyebrow, title, lead, color }: { icon?: number | null; eyebrow: string; title: string; lead?: string; color?: string }) {
+/** Icono de una raza: el del cliente o, si no lo trae (Cielonato), el propio de la web. */
+function RaceIcon({ race, name }: { race: Race; name: string }) {
+  const fixed = STATIC_RACE_ICONS[race.token];
+  if (race.iconFileDataId === null && fixed) return <img className="icon" src={`${import.meta.env.BASE_URL}${fixed}`} alt="" width={64} height={64} loading="lazy" decoding="async" draggable={false} />;
+  return <Icon id={race.iconFileDataId} name={name} />;
+}
+
+function RefHead({ icon, eyebrow, title, lead, color }: { icon?: number | null | JSX.Element; eyebrow: string; title: string; lead?: string; color?: string }) {
   return (
     <header className="ref-head" style={color ? { ["--c" as string]: color } : undefined}>
-      {icon ? <Icon id={icon} name={title} /> : null}
+      {typeof icon === "object" && icon !== null ? icon : icon ? <Icon id={icon} name={title} /> : null}
       <div>
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
@@ -453,7 +460,7 @@ export function RacesView({ data }: { data: RefData }) {
       <ul className="ref-list">
         {races.map((r) => (
           <li key={r.id} className="ref-item">
-            <Icon id={r.iconFileDataId} name={raceLabel(r.id, r.name)} />
+            <RaceIcon race={r} name={raceLabel(r.id, r.name)} />
             <div>
               <h3>
                 <a href={href({ kind: "race", id: r.id })}>{raceLabel(r.id, r.name)}</a>
@@ -478,7 +485,7 @@ export function RaceView({ data, id }: { data: RefData; id: number }) {
     <div className="ref wrap">
       <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: tr("Razas"), to: { kind: "races" } }, { name }]} />
       <RefHead
-        icon={r.iconFileDataId}
+        icon={<RaceIcon race={r} name={name} />}
         eyebrow={tr(FACTION[r.faction] ?? "")}
         title={name}
         lead={tr("{raza} es una raza de la {faccion} con {n} habilidades raciales. Puede ser {clases}.", { raza: name, faccion: tr(FACTION[r.faction] ?? ""), n: r.racials.length, clases: classes.map((c) => classNameOf(data.manifest, classTokenOf(c.file))).join(", ") })}

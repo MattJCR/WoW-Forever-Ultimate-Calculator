@@ -52,6 +52,9 @@ export function useAsync<T>(key: string, load: () => Promise<T>): Async<T> {
   return state;
 }
 
+/** Iconos de raza que el cliente no trae (ClientFileString → ruta en `public/`). */
+export const STATIC_RACE_ICONS: Record<string, string> = { Skyborne: "race/skyborne.png" };
+
 /** Color de cada clase (los de la interfaz del juego). Clave: ChrClasses.Filename en minusculas. */
 export const CLASS_COLORS: Record<string, string> = {
   warrior: "#c79c6e",
