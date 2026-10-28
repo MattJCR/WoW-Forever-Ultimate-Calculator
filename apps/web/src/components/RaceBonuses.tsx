@@ -16,10 +16,27 @@ export function formatMs(ms: number): string {
   return `${fmtNum(s / 60, 1)} min`;
 }
 
-/** Nombre y texto de una racial en el idioma elegido (el inglés es de la comunidad; si falta, el español del cliente). */
-function racialText(a: RacialAbility, raceId: number): { name: string; description: string; english: boolean } {
+/**
+ * Nombre y texto completo de una racial en el idioma elegido: el del hechizo de la clase (el resumen de la tabla del cliente solo se usa
+ * si el hechizo no trae texto calculable). En inglés, el del juego; si falta, el español.
+ */
+function racialText(a: RacialAbility, raceId: number, classId: number): { name: string; description: string; english: boolean } {
+  const spell = a.spells.find((s) => (s.classMask === 0 || (s.classMask & classBit(classId)) !== 0) && s.description);
   const en = isEnglish() ? racialEn(raceId, a.order) : null;
-  return en ? { name: en.name, description: en.description, english: true } : { name: a.name, description: a.description, english: false };
+  if (en) return { name: en.name, description: (spell && en.spellTexts?.[spell.spellId]) || en.description, english: true };
+  return { name: a.name, description: (a.textOrigin === "client" && spell?.description) || a.description, english: false };
+}
+
+/** Nombre de una racial en el idioma elegido. */
+export function racialName(a: RacialAbility, raceId: number): string {
+  return (isEnglish() ? racialEn(raceId, a.order)?.name : null) ?? a.name;
+}
+
+/** Enfriamiento de una racial activa para la etiqueta de la tarjeta («3 min», «10 s»); null si no tiene. */
+export function racialCooldown(a: RacialAbility, classId: number): string | null {
+  if (a.kind !== "active") return null;
+  const ms = a.spells.find((s) => s.classMask === 0 || (s.classMask & classBit(classId)) !== 0)?.cooldownMs;
+  return ms ? formatMs(ms) : null;
 }
 
 /** Cifras de una racial para esta clase (variante por clase ya elegida): efectos modelados, duracion y enfriamiento. */
@@ -36,13 +53,6 @@ function chipsOf(a: RacialAbility, classId: number): string[] {
     if (s?.cooldownMs) chips.push(tr("enfriamiento {t}", { t: formatMs(s.cooldownMs) }));
   }
   return chips;
-}
-
-/** Aviso de enfriamiento compartido con la insignia de PvP (solo raciales que quitan el mismo control; sin confirmar). */
-function trinketNote(a: RacialAbility): string | null {
-  const t = a.pvpTrinket;
-  if (!t) return null;
-  return tr("Quita {what}, igual que la insignia de PvP ({t}). Si comparte enfriamiento con ella, y cuántos segundos si es parcial, está sin confirmar: el cliente no lo indica; hay que medirlo en el juego.", { what: t.overlaps.map((o) => trn(o)).join(` ${tr("y")} `), t: formatMs(t.trinketCooldownMs) });
 }
 
 /** Descripcion del cliente mas sus cifras, en una linea (para «Copiar build para IA»). */
@@ -62,7 +72,7 @@ function trinketShort(a: RacialAbility): string | null {
 function RacialCard({ a, classId, raceId }: { a: RacialAbility; classId: number; raceId: number }) {
   const chips = chipsOf(a, classId).map(trn);
   const translated = originNote(a.textOrigin);
-  const txt = racialText(a, raceId);
+  const txt = racialText(a, raceId, classId);
   return (
     <div className="racial-tip">
       <div className="detail-head">
@@ -91,67 +101,53 @@ function RacialCard({ a, classId, raceId }: { a: RacialAbility; classId: number;
   );
 }
 
-/** Envuelve cualquier icono o nombre de una racial para que enseñe su tarjeta al pasar el cursor o al enfocarlo con el teclado. */
-export function RacialTip({ a, classId, raceId, as: Tag = "span", className, children }: { a: RacialAbility; classId: number; raceId: number; as?: ElementType; className?: string; children: ReactNode }) {
+/**
+ * Envuelve cualquier elemento para que enseñe una tarjeta flotante al pasar el cursor o al enfocarlo con el teclado. La tarjeta va junto
+ * al elemento, no dentro (un botón no puede contener una tarjeta); con `as="button"` el elemento recibe el foco con Tab.
+ */
+export function HoverTip({ card, as: Tag = "span", className, children }: { card: ReactNode; as?: ElementType; className?: string; children: ReactNode }) {
   const [anchor, setAnchor] = useState<Anchor | null>(null);
   return (
-    <Tag className={className} onMouseEnter={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onMouseLeave={() => setAnchor(null)} onFocus={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))} onBlur={() => setAnchor(null)}>
-      {children}
+    <>
+      <Tag
+        className={className}
+        type={Tag === "button" ? "button" : undefined}
+        onMouseEnter={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))}
+        onMouseLeave={() => setAnchor(null)}
+        onFocus={(e: { currentTarget: Element }) => setAnchor(anchorOf(e.currentTarget))}
+        onBlur={() => setAnchor(null)}
+      >
+        {children}
+      </Tag>
       {anchor && (
         <FloatingCard anchor={anchor} placement="below">
-          <RacialCard a={a} classId={classId} raceId={raceId} />
+          {card}
         </FloatingCard>
       )}
-    </Tag>
+    </>
   );
 }
 
-/** Habilidades raciales: texto del cliente y, debajo, las cifras que salen de sus hechizos. */
-export function RacialList({ race, classId }: { race: Race; classId: number }) {
+/** Envuelve cualquier icono o nombre de una racial para que enseñe su tarjeta al pasar el cursor o al enfocarlo con el teclado. */
+export function RacialTip({ a, classId, raceId, as, className, children }: { a: RacialAbility; classId: number; raceId: number; as?: ElementType; className?: string; children: ReactNode }) {
   return (
-    <ul className="effects racials">
-      {race.racials.map((a) => {
-        const chips = chipsOf(a, classId).map(trn);
-        const txt = racialText(a, race.id);
-        return (
-          <li key={a.order}>
-            <RacialTip a={a} classId={classId} raceId={race.id}>
-              <Icon id={a.iconFileDataId} name={txt.name} />
-            </RacialTip>
-            <div>
-              <RacialTip a={a} classId={classId} raceId={race.id}>
-                <b>{txt.name}</b>
-              </RacialTip>{" "}
-              <span className="rank-chip">{a.kind === "active" ? tr("activa") : tr("pasiva")}</span>
-              <p>{txt.description}</p>
-              {originNote(a.textOrigin) && <p className="origin-note">{originNote(a.textOrigin)}</p>}
-              {a.pvpTrinket && (
-                <p className="origin-note trinket-note">
-                  <span className="chip chip-info chip-unconfirmed">{tr("Insignia de PvP: enfriamiento compartido sin confirmar")}</span> {trinketNote(a)}
-                </p>
-              )}
-              {chips.length > 0 && (
-                <p className="racial-chips" aria-label={tr("Cifras del cliente")}>
-                  {chips.map((c) => (
-                    <span key={c} className="chip chip-info">
-                      {c}
-                    </span>
-                  ))}
-                </p>
-              )}
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+    <HoverTip as={as} className={className} card={<RacialCard a={a} classId={classId} raceId={raceId} />}>
+      {children}
+    </HoverTip>
   );
 }
 
-/** Suma de las bonificaciones pasivas de la raza para la clase (las activas no cuentan: solo duran un rato). */
-export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
+export interface TotalRow {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+/** Bonificaciones pasivas de la raza para la clase, una fila por cifra (las activas no cuentan: solo duran un rato). */
+export function raceTotalRows(race: Race, classId: number): TotalRow[] {
   const b = raceBonuses(race, classId);
   const pct = (v: number) => `${v > 0 ? "+" : ""}${v} %`;
-  const rows: { label: string; value: string; note?: string }[] = [];
+  const rows: TotalRow[] = [];
   if (b.critChancePct) rows.push({ label: tr("Probabilidad de crítico"), value: pct(b.critChancePct) });
   if (b.spiritPct) rows.push({ label: tr("Espíritu"), value: pct(b.spiritPct), note: tr("se aplica sobre el espíritu base; mira «Con tus talentos, Puntos de Legado y raza»") });
   for (const [power, label] of [["mana", "Maná máximo"], ["rage", "Ira máxima"], ["energy", "Energía máxima"]] as const) {
@@ -168,7 +164,12 @@ export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
   if (b.healthRegenPct) rows.push({ label: tr("Regeneración de salud"), value: pct(b.healthRegenPct), note: b.healthRegenInCombatPct ? tr("y {n} % de ella continúa en combate", { n: b.healthRegenInCombatPct }) : undefined });
   if (b.stunDurationPct) rows.push({ label: tr("Duración de aturdimientos"), value: pct(b.stunDurationPct) });
   for (const d of b.damageVsCreature) rows.push({ label: tr("Daño contra {what}", { what: tr(d.label) }), value: pct(d.pct) });
+  return rows;
+}
 
+/** Suma de las bonificaciones pasivas de la raza para la clase, en tabla. */
+export function RaceTotals({ race, classId }: { race: Race; classId: number }) {
+  const rows = raceTotalRows(race, classId);
   if (rows.length === 0) return <p className="muted">{tr("Esta raza no da bonificaciones pasivas con cifras para esta clase.")}</p>;
   return (
     <>

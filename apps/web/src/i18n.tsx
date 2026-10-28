@@ -358,6 +358,6 @@ export function raceLabel(raceId: number, fallback: string): string {
 }
 
 /** Racial `order` (0..3) de una raza. */
-export function racialEn(raceId: number, order: number): { name: string; description: string } | null {
+export function racialEn(raceId: number, order: number): EnglishText["races"][string]["racials"][number] | null {
   return en()?.races[raceId]?.racials[order] ?? null;
 }

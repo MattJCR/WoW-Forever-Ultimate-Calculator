@@ -164,6 +164,14 @@ export function applyOfficialRacials(english: EnglishText, races: Races, oe: Off
         out.racials[a.order] = { name, description: text.trim() };
         report.official++;
       } else report.fallback.push(`${race.name}: ${a.name}`);
+      // Texto completo de cada hechizo (la variante por clase incluida), solo con las cifras del español
+      const spellTexts: Record<string, string> = {};
+      for (const s of a.spells) {
+        const full = s.description === null ? undefined : renderSpellEnglish(oe, s.spellId)?.text;
+        if (full?.complete && full.text.trim() && sameNumbers(s.description!, full.text)) spellTexts[s.spellId] = full.text.trim();
+      }
+      const entry = out.racials[a.order];
+      if (entry && Object.keys(spellTexts).length > 0) entry.spellTexts = spellTexts;
     }
   }
   return report;

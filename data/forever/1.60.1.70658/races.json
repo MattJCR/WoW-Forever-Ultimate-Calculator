@@ -36,7 +36,8 @@
               "cooldownMs": 180000,
               "procChance": null,
               "procCooldownMs": null,
-              "effects": []
+              "effects": [],
+              "description": "Elimina al instante todos los efectos de aturdimiento."
             }
           ],
           "pvpTrinket": {
@@ -72,7 +73,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta drásticamente la detección de sigilo durante 20 s."
             }
           ],
           "pvpTrinket": null
@@ -101,7 +103,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 2% la probabilidad de conseguir un golpe crítico con todos los hechizos y ataques."
             }
           ],
           "pvpTrinket": null
@@ -130,10 +133,35 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Espíritu aumentado en un 5%."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Gracia divina",
+          "iconFileDataId": 1022949,
+          "spellId": 1277378,
+          "level": 10,
+          "durationMs": null,
+          "cooldownMs": 600000,
+          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 1383 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Rebote",
+          "iconFileDataId": 136189,
+          "spellId": 19275,
+          "level": 20,
+          "durationMs": 15000,
+          "cooldownMs": 180000,
+          "description": "El sacerdote se rodea de energía antimagia. Los hechizos contra él quemarán 105 p. de maná del atacante causando 1 p. de daño de las Sombras por cada punto de maná quemado. Dura 15 s.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -201,7 +229,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Elimina al instante todos los efectos de sangrado, veneno y enfermedad y otorga inmunidad a ellos. Además, reduce un 10% todo el daño físico recibido durante 8 s."
             }
           ],
           "pvpTrinket": null
@@ -230,7 +259,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": null
             }
           ],
           "pvpTrinket": null
@@ -267,7 +297,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta el bonus de golpe crítico del daño y la sanación un 2%."
             }
           ],
           "pvpTrinket": null
@@ -296,10 +327,35 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Daño infligido contra bestias aumentado un 5%."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Rezo desesperado",
+          "iconFileDataId": 135954,
+          "spellId": 19243,
+          "level": 10,
+          "durationMs": null,
+          "cooldownMs": 600000,
+          "description": "Cura instantáneamente 1383 p.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Castigar",
+          "iconFileDataId": 135886,
+          "spellId": 1277335,
+          "level": 20,
+          "durationMs": 2000,
+          "cooldownMs": 120000,
+          "description": "Castiga al objetivo, le inflige 289 p. de daño Sagrado y lo inmoviliza hasta 2 s. Solo funciona frente a humanoides. Este hechizo genera muy poca amenaza.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -342,7 +398,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 10% tu probabilidad de golpe crítico con todos los hechizos y ataques durante 15 s."
             }
           ],
           "pvpTrinket": null
@@ -379,7 +436,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Actívalo para escurrirte entre las sombras, lo que reduce la probabilidad de que los enemigos detecten tu presencia. Dura hasta que se cancela o te mueves. Si se activa en combate, disuade a los enemigos de atacarte, pero el tiempo de reutilización aumenta a 2 min."
             }
           ],
           "pvpTrinket": null
@@ -416,7 +474,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Probabilidad de esquivar aumentada un 1% y velocidad de movimiento aumentada un 2%. Los pícaros y druidas elfos de la noche aumentan el sigilo como si tuvieran 1 nivel más."
             }
           ],
           "pvpTrinket": null
@@ -445,10 +504,35 @@
                   "periodMs": null,
                   "fromSpellId": 20584
                 }
-              ]
+              ],
+              "description": "Al morir se transforma en un fuego fatuo, lo que aumenta la velocidad de movimiento un 75%."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Fragmentos estelares",
+          "iconFileDataId": 135753,
+          "spellId": 19305,
+          "level": 10,
+          "durationMs": 6000,
+          "cooldownMs": 30000,
+          "description": "Lanza una lluvia de Fragmentos estelares sobre la cabeza del enemigo objetivo causando 1800 p. de daño Arcano durante 6 s.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Gracia de Elune",
+          "iconFileDataId": 135900,
+          "spellId": 2651,
+          "level": 20,
+          "durationMs": 15000,
+          "cooldownMs": 300000,
+          "description": "Reduce un 50% la probabilidad de que recibas un golpe por ataques cuerpo a cuerpo y a distancia durante 15 s o hasta que fallen 3 veces.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -499,7 +583,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Escapas al instante de los efectos de reducción de movimiento y obtienes inmunidad a esos efectos durante 3 s."
             }
           ],
           "pvpTrinket": {
@@ -560,7 +645,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Las facultades dañinas no periódicas cuestan un 10% menos de energía e infligen un 10% más de daño durante 8 s."
             },
             {
               "spellId": 1259813,
@@ -602,7 +688,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Las facultades dañinas no periódicas cuestan un 10% menos de ira e infligen un 10% más de daño durante 8 s."
             },
             {
               "spellId": 1259817,
@@ -644,7 +731,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Las facultades dañinas cuestan un 10% menos de maná e infligen un 10% más de daño durante 8 s."
             },
             {
               "spellId": 1259821,
@@ -686,7 +774,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Las facultades dañinas no periódicas cuestan un 10% menos de maná e infligen un 10% más de daño durante 8 s."
             },
             {
               "spellId": 1259823,
@@ -728,7 +817,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Las facultades dañinas o sanadoras no periódicas cuestan un 10% menos de maná e infligen un 10% más de daño o de sanación durante 8 s."
             }
           ],
           "pvpTrinket": null
@@ -757,7 +847,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Maná máximo aumentado un 5%."
             },
             {
               "spellId": 1259802,
@@ -775,7 +866,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Ira máxima aumentada un 5%."
             },
             {
               "spellId": 1259803,
@@ -793,7 +885,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Energía máxima aumentada un 5%."
             }
           ],
           "pvpTrinket": null
@@ -822,10 +915,35 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Tu ingenio gnómico reduce un 20% el índice de fallo o defecto de los dispositivos de ingeniería al usarlos."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Destello desconcertante",
+          "iconFileDataId": 571554,
+          "spellId": 1277455,
+          "level": 10,
+          "durationMs": 3000,
+          "cooldownMs": 120000,
+          "description": "Confunde a un máximo de 5 enemigos en un radio de 8 m durante 3 s. Cualquier daño recibido anulará el efecto.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Plan de contingencia",
+          "iconFileDataId": 458722,
+          "spellId": 1277640,
+          "level": 20,
+          "durationMs": 30000,
+          "cooldownMs": 600000,
+          "description": "Coloca un resguardo Sagrado sobre un aliado durante 30 s. La próxima vez que reciba una cantidad de daño que reduzca su salud por debajo del 35%, obtendrá un escudo que absorberá 926 p. de daño y le sanará 670 p. de salud durante 15 s. Cada objetivo solo puede verse afectado por un Plan de contingencia.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -900,7 +1018,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Planeas hacia abajo en el aire durante 10 s. Mantienes el control de la dirección mientras te desplazas."
             }
           ],
           "pvpTrinket": null
@@ -937,7 +1056,8 @@
                   "periodMs": null,
                   "fromSpellId": 1259691
                 }
-              ]
+              ],
+              "description": "Intentas aprovechar el poder de una línea Ley cercana para aumentar un 100% tu regeneración de salud y maná. Dura 30 s si no hay una línea Ley cerca y 15 min cuando sí la haya."
             }
           ],
           "pvpTrinket": null
@@ -974,7 +1094,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 3% la celeridad con hechizos, cuerpo a cuerpo y a distancia."
             }
           ],
           "pvpTrinket": null
@@ -1003,12 +1124,14 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Daño infligido contra elementales aumentado un 5%."
             }
           ],
           "pvpTrinket": null
         }
-      ]
+      ],
+      "classRacials": []
     },
     {
       "id": 2,
@@ -1066,7 +1189,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 10% el poder de ataque y el poder con hechizos durante 15 s."
             }
           ],
           "pvpTrinket": null
@@ -1095,7 +1219,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Elimina instantáneamente todos los terrores y las maldiciones, y reduce el daño mágico recibido un 5% durante 8 s."
             }
           ],
           "pvpTrinket": null
@@ -1124,7 +1249,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 1% la probabilidad de conseguir un golpe crítico con todos los hechizos y habilidades."
             }
           ],
           "pvpTrinket": null
@@ -1153,12 +1279,14 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Duración de los efectos de aturdimiento sobre ti reducida un 20%."
             }
           ],
           "pvpTrinket": null
         }
-      ]
+      ],
+      "classRacials": []
     },
     {
       "id": 5,
@@ -1216,7 +1344,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Elimina al instante todos los efectos de embelesamiento, miedo y sueño."
             }
           ],
           "pvpTrinket": {
@@ -1261,7 +1390,8 @@
                   "periodMs": 2000,
                   "fromSpellId": 20578
                 }
-              ]
+              ],
+              "description": "Cuando se activa, regenera un 7% de la salud total y un 7% del maná total cada 2 s durante 10 s. Solo funciona en cadáveres de humanoides o no-muertos en un radio de 5 m. Cualquier movimiento, acción o daño durante Canibalismo cancelará el efecto."
             }
           ],
           "pvpTrinket": null
@@ -1290,7 +1420,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "La respiración subacuática dura un 300% más de lo normal."
             }
           ],
           "pvpTrinket": null
@@ -1319,7 +1450,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Tus hechizos y ataques tienen un 20% de probabilidades de drenar salud del objetivo, hasta un máximo de un 5% de tu salud máxima."
             },
             {
               "spellId": 1260201,
@@ -1337,10 +1469,35 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Tus hechizos y ataques tienen un 30% de probabilidades de drenar salud del objetivo, hasta un máximo de un 5% de tu salud máxima."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Toque de debilidad",
+          "iconFileDataId": 136143,
+          "spellId": 19266,
+          "level": 10,
+          "durationMs": 600000,
+          "cooldownMs": null,
+          "description": "El siguiente ataque cuerpo a cuerpo contra el taumaturgo infligirá 56 p. de daño de las Sombras y reducirá 204 p. el poder de ataque cuerpo a cuerpo del atacante durante 2 min.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Sacrificio oscuro",
+          "iconFileDataId": 5852175,
+          "spellId": 1277328,
+          "level": 20,
+          "durationMs": 15000,
+          "cooldownMs": 600000,
+          "description": "Canibalizas 1600 p. de tu propia salud durante 15 s para obtener 1600 p. de maná.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -1382,7 +1539,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aturde a un máximo de 5 enemigos en un radio de 8 metros durante 2 s."
             }
           ],
           "pvpTrinket": null
@@ -1402,7 +1560,8 @@
               "cooldownMs": null,
               "procChance": null,
               "procCooldownMs": null,
-              "effects": []
+              "effects": [],
+              "description": "Cultiva una hierba cercana para hacer brotar una copia que puedes cosechar sin necesidad de conocer la habilidad herboristería. Cada hierba solo se puede cultivar una vez."
             }
           ],
           "pvpTrinket": null
@@ -1439,7 +1598,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Obtienes un aumento del 1% de velocidad de movimiento por cada 5 s que pases moviéndote, hasta un máximo del 30%. Recibir daño o quedarte quieto reducirá este efecto. Además, te mueves un 3% más rápido al montar."
             }
           ],
           "pvpTrinket": null
@@ -1484,12 +1644,14 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "La salud total aumenta un 5% y el bonus de golpe crítico y la sanación aumentan un 2%."
             }
           ],
           "pvpTrinket": null
         }
-      ]
+      ],
+      "classRacials": []
     },
     {
       "id": 8,
@@ -1548,7 +1710,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": null
             }
           ],
           "pvpTrinket": null
@@ -1577,7 +1740,8 @@
                   "periodMs": 1200,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Regeneras un 50% de tu salud máxima durante 6 s. Cualquier movimiento, acción o daño recibido cancelará el efecto."
             }
           ],
           "pvpTrinket": null
@@ -1606,7 +1770,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Daño causado contra bestias aumentado en un 5%."
             }
           ],
           "pvpTrinket": null
@@ -1643,10 +1808,35 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 20% la velocidad de regeneración de salud. Además, un 20% de la regeneración de salud total seguirá activa mientras estás en combate."
             }
           ],
           "pvpTrinket": null
+        }
+      ],
+      "classRacials": [
+        {
+          "classId": 5,
+          "name": "Maleficio de debilidad",
+          "iconFileDataId": 136157,
+          "spellId": 19285,
+          "level": 10,
+          "durationMs": 120000,
+          "cooldownMs": null,
+          "description": "Debilita al enemigo objetivo, lo que reduce 204 p. el poder de ataque cuerpo a cuerpo y un 20% la eficacia de cualquier sanación. Dura 2 min.",
+          "textOrigin": "client"
+        },
+        {
+          "classId": 5,
+          "name": "Guardia de las Sombras",
+          "iconFileDataId": 136051,
+          "spellId": 19312,
+          "level": 20,
+          "durationMs": 600000,
+          "cooldownMs": null,
+          "description": "El taumaturgo está rodeado de sombras. Si el taumaturgo recibe un golpe de hechizo o ataque cuerpo a cuerpo o a distancia, el atacante recibirá 96 p. de daño de las Sombras. Los atacantes solo recibirán daño cada pocos segundos. Este daño no causa amenaza. 3 cargas. Dura 10 min.",
+          "textOrigin": "client"
         }
       ]
     },
@@ -1721,7 +1911,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Planeas hacia abajo en el aire durante 10 s. Mantienes el control de la dirección mientras te desplazas."
             }
           ],
           "pvpTrinket": null
@@ -1758,7 +1949,8 @@
                   "periodMs": null,
                   "fromSpellId": 1259688
                 }
-              ]
+              ],
+              "description": "Intentas obtener poder de una convergencia de elementos para recibir su bendición, lo que aumenta un 10% tu velocidad de movimiento y tu velocidad de movimiento sobre una montura. Dura 30 s si no hay una convergencia elemental cerca y 15 min cuando sí la haya."
             }
           ],
           "pvpTrinket": null
@@ -1795,7 +1987,8 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Aumenta un 3% la celeridad con hechizos, cuerpo a cuerpo y a distancia."
             }
           ],
           "pvpTrinket": null
@@ -1824,12 +2017,14 @@
                   "periodMs": null,
                   "fromSpellId": null
                 }
-              ]
+              ],
+              "description": "Daño infligido contra elementales aumentado un 5%."
             }
           ],
           "pvpTrinket": null
         }
-      ]
+      ],
+      "classRacials": []
     }
   ],
   "warnings": []

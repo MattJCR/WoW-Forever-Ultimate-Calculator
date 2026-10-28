@@ -1,5 +1,6 @@
 import { int, type RawTables } from "./csv.js";
 import type { RacialEffect, RacialSpell, RacialTrinketShare } from "./model.js";
+import { renderSpellText } from "./spell-text.js";
 import type { SpellTables } from "./spell-tables.js";
 
 /**
@@ -151,8 +152,18 @@ export function racialSpells(raw: RawTables, spells: SpellTables, raceId: number
       procChance: DUMMY_KINDS[spellId] ? spells.aura(spellId)?.procChance || null : null,
       procCooldownMs: DUMMY_KINDS[spellId] ? spells.aura(spellId)?.procCooldownMs || null : null,
       effects: [...effectsOf(spells, spellId), ...referencedEffects(spells, spellId)],
+      description: fullText(spells, spellId),
     };
   });
+}
+
+/** Texto completo del hechizo con sus cifras (null si el cliente no lo trae o hay cifras que no se pueden calcular). */
+function fullText(spells: SpellTables, spellId: number): string | null {
+  const template = spells.clientDescription(spellId);
+  if (!template) return null;
+  const r = renderSpellText(spells, template, { spellId, rank: 1, curves: new Map() });
+  const text = r.complete ? r.text.trim() : "";
+  return text || null;
 }
 
 /** Categoria de enfriamiento del cliente de las insignias/abalorios de PvP ("PvP CC Removal Trinket", SpellCategory 2269). */

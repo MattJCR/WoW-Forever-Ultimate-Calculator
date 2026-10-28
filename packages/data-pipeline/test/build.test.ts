@@ -10,7 +10,7 @@ import { buildBaseStats, type ClassicEra } from "../src/stats.js";
 import { auditLevelStats } from "../src/stats-audit.js";
 import { buildAbilities, racesOfMasks } from "../src/abilities.js";
 import { looksEnglish } from "../src/language.js";
-import { CLIENT_TYPOS, buildRaces, parseRacialName } from "../src/races.js";
+import { CLIENT_TYPOS, attachClassRacials, buildRaces, parseRacialName } from "../src/races.js";
 import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
@@ -1486,5 +1486,42 @@ describe("razas de una fila de SkillLineAbility", () => {
     expect(racesOfMasks(-1, -1)).toBeNull();
     // Mascara de faccion (portales del Mago): Alianza = Humano, Enano, Elfo de la noche, Gnomo + Cielonato de la Orden Eminente
     expect(racesOfMasks(-1321907123, 1427461461)).toEqual([1, 3, 4, 7, 95]);
+  });
+});
+
+describe("texto completo de las raciales y raciales de clase (pantalla de razas)", () => {
+  const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
+  const racesData = buildRaces(raw, BUILD, "esES", live.spells);
+  const classes = [1, 2, 3, 4, 5, 7, 8, 9, 11].map((id) => buildAbilities(raw, live.spells, id, BUILD, "esES", live.classes.find((c) => c.classId === id))!);
+  attachClassRacials(racesData, classes);
+  const byId = (id: number) => racesData.races.find((r) => r.id === id)!;
+  const full = (raceId: number, name: string, spellId?: number) => byId(raceId).racials.find((a) => a.name === name)!.spells.find((s) => spellId === undefined || s.spellId === spellId)!.description;
+
+  it("cada hechizo trae el texto completo del cliente con sus cifras (el resumen de la tabla es más corto)", () => {
+    // Prontitud: la segunda frase (sigilo de pícaros y druidas) no está en el resumen
+    expect(byId(4).racials.find((a) => a.name === "Prontitud")!.description).not.toContain("sigilo");
+    expect(full(4, "Prontitud")).toBe("Probabilidad de esquivar aumentada un 1% y velocidad de movimiento aumentada un 2%. Los pícaros y druidas elfos de la noche aumentan el sigilo como si tuvieran 1 nivel más.");
+    expect(full(4, "Fusión de las Sombras")).toContain("el tiempo de reutilización aumenta a 2 min");
+    expect(full(7, "¡Eureka!", 1259823)).toContain("daño o de sanación");
+  });
+
+  it("los textos sin cifras sin calcular quedan en null (la web usa entonces el resumen); lista exacta", () => {
+    const missing = racesData.races.flatMap((r) => r.racials.flatMap((a) => a.spells.filter((s) => s.description === null).map((s) => `${r.name}: ${a.name} (${s.spellId})`)));
+    expect(missing.sort()).toEqual(["Enano: Buscar tesoro (2481)", "Trol: Iracundia (20554)"]);
+  });
+
+  it("ningún texto completo conserva marcadores del cliente ($s1, $d…)", () => {
+    for (const r of racesData.races) for (const a of r.racials) for (const s of a.spells) expect(s.description ?? "", `${r.name}: ${a.name}`).not.toMatch(/\$/);
+  });
+
+  it("las raciales de clase son las habilidades ligadas a una sola raza: 12 del Sacerdote; los portales del Mago (de toda la facción) no cuentan", () => {
+    const list = racesData.races.flatMap((r) => r.classRacials.map((c) => `${r.id}:${c.classId}:${c.name}`));
+    expect(list).toHaveLength(12);
+    expect(list.every((l) => l.split(":")[1] === "5")).toBe(true);
+    expect(byId(1).classRacials.map((c) => c.name).sort()).toEqual(["Gracia divina", "Rebote"]);
+    expect(byId(5).classRacials.map((c) => c.name).sort()).toEqual(["Sacrificio oscuro", "Toque de debilidad"]);
+    // Solo las razas que pueden ser Sacerdote
+    for (const r of racesData.races) if (r.classRacials.length > 0) expect(r.classIds).toContain(5);
+    expect(() => Races.parse(racesData)).not.toThrow();
   });
 });

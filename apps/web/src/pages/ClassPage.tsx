@@ -47,7 +47,8 @@ import { LevelPicker } from "../components/LevelPicker";
 import { ActiveStates, ConditionalEffects, useStatEffects } from "../components/StatEffects";
 import { Icon } from "../components/Icon";
 import { LinkNotice } from "../components/LinkNotice";
-import { RacialList, RacialTip, racialLine } from "../components/RaceBonuses";
+import { RaceGrid } from "../components/RaceGrid";
+import { racialLine } from "../components/RaceBonuses";
 import { StatsTable } from "../components/StatsTable";
 import { TreePanel, type Focus } from "../components/TreePanel";
 import { BuffsStep } from "../components/Buffs";
@@ -147,18 +148,16 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
 
   // La raza se elige entre las que el cliente permite para esta clase (CharBaseInfo); `r` en el enlace es su ChrRaces.ID.
   const racesState = useAsync(manifest.races.file, () => loadRaces(manifest.races.file));
-  const races = useMemo(
-    () => (racesState.status === "ready" ? racesState.value.races.filter((r) => r.classIds.includes(data.classId)) : []),
-    [racesState, data.classId],
-  );
+  const everyRace = useMemo(() => (racesState.status === "ready" ? racesState.value.races : []), [racesState]);
+  const races = useMemo(() => everyRace.filter((r) => r.classIds.includes(data.classId)), [everyRace, data.classId]);
   const [raceId, setRaceId] = useState<number | null>(() => Number(query.get("r")) || null);
   // Igual que el paso: un enlace nuevo manda sobre la raza actual (los cambios internos usan replaceState, sin hashchange).
   useEffect(() => {
     const r = Number(query.get("r"));
     if (r) setRaceId(r);
   }, [query]);
-  registerRaces(races);
-  const allRaces = useMemo(() => (racesState.status === "ready" ? racesState.value.races.map((r) => ({ id: r.id, name: r.name, faction: r.faction })) : []), [racesState]);
+  registerRaces(everyRace);
+  const allRaces = useMemo(() => everyRace.map((r) => ({ id: r.id, name: r.name, faction: r.faction })), [everyRace]);
   const race = races.find((r) => r.id === raceId) ?? null;
   const raceQuery: Record<string, string> = race ? { r: String(race.id) } : {};
 
@@ -322,7 +321,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
 
       {view === "race" && (
         <RaceStep
-          races={races}
+          races={everyRace}
           race={race}
           onRace={setRaceId}
           className={classLabel(token, data.className ?? token)}
@@ -415,56 +414,24 @@ function ShareCard({ url, onCopy, rawHref }: { url: string; onCopy: () => void; 
   );
 }
 
-/** Paso 1: la raza, entre las que el cliente permite para la clase (CharBaseInfo). Lista a la izquierda y raciales de la elegida a la derecha. */
+/** Paso 1: la raza. Las diez razas con sus raciales (y las raciales de clase) en una rejilla; solo se pueden elegir las que el cliente permite para la clase (CharBaseInfo). */
 function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { races: Race[]; race: Race | null; onRace: (id: number | null) => void; className: string; classId: number; loading: boolean; onGo: (v: View) => void }) {
+  const allowed = races.filter((r) => r.classIds.includes(classId)).length;
   return (
     <div className="step-layout race-step">
       <section className="step-main" aria-label={tr("Razas disponibles")}>
         <header className="step-head">
           <h2>{tr("Elige tu raza")}</h2>
-          <p>{tr("Estas son las {n} razas que el cliente permite para {className}. La raza decide tus estadísticas base y tus habilidades raciales.", { n: races.length, className })}</p>
+          <p>{tr("Estas son las {n} razas que el cliente permite para {className}. La raza decide tus estadísticas base y tus habilidades raciales; pasa el cursor por una habilidad para leer su texto completo.", { n: allowed, className })}</p>
         </header>
-        {loading ? (
-          <p className="status">{tr("Cargando razas…")}</p>
-        ) : (
-          (["alliance", "horde"] as const).map((f) => (
-            <div key={f} className={`race-faction ${f}`}>
-              <h3>
-                <span className="faction-mark" aria-hidden="true" />
-                {factionLabel(f)}
-              </h3>
-              <ul className="race-cards">
-                {races
-                  .filter((r) => r.faction === f)
-                  .map((r) => (
-                    <li key={r.id}>
-                      <button type="button" className={`race-card${race?.id === r.id ? " on" : ""}`} aria-pressed={race?.id === r.id} onClick={() => onRace(r.id)}>
-                        <span className="race-card-top">
-                          <span className="race-name">{raceLabel(r.id, r.name)}</span>
-                          {race?.id === r.id && (
-                            <span className="race-check" aria-hidden="true">
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M5 12l5 5 9-10" />
-                              </svg>
-                            </span>
-                          )}
-                        </span>
-                        <span className="race-icons">
-                          {r.racials.map((a) => (
-                            <RacialTip key={a.order} a={a} classId={classId} raceId={r.id}>
-                              <Icon id={a.iconFileDataId} name={a.name} />
-                            </RacialTip>
-                          ))}
-                        </span>
-                        <span className="race-count">{tr("{n} habilidades raciales", { n: r.racials.length })}</span>
-                      </button>
-                    </li>
-                  ))}
-                {races.every((r) => r.faction !== f) && <li className="muted small">{tr("Ninguna raza de esta facción puede ser {className}.", { className })}</li>}
-              </ul>
-            </div>
-          ))
-        )}
+        {loading ? <p className="status">{tr("Cargando razas…")}</p> : <RaceGrid races={races} classId={classId} race={race} onRace={onRace} />}
+        <p className="muted small">
+          {tr("Texto y cifras de las raciales tal como los da el cliente de la beta. Las estadísticas base de esta raza aparecen en el paso")}{" "}
+          <button type="button" className="link-btn" onClick={() => onGo("summary")}>
+            {tr("Resumen")}
+          </button>
+          .
+        </p>
         <StepNav
           view="race"
           onGo={onGo}
@@ -475,39 +442,6 @@ function RaceStep({ races, race, onRace, className, classId, loading, onGo }: { 
           }
         />
       </section>
-
-      <aside className="card race-detail" aria-label={tr("Habilidades raciales")} aria-live="polite">
-        {race ? (
-          <>
-            <div className="race-detail-head">
-              <h3>{raceLabel(race.id, race.name)}</h3>
-              <span className="chip">{factionLabel(race.faction)}</span>
-            </div>
-            <h5>{tr("Habilidades raciales")}</h5>
-            <RacialList race={race} classId={classId} />
-            <div className="race-detail-foot">
-              <span className="chip">
-                <span className="dot dot-client" />
-                {tr("Texto del cliente")}
-              </span>
-              <p className="muted small">
-                {tr("Texto y cifras de las raciales tal como los da el cliente de la beta. Las estadísticas base de esta raza aparecen en el paso")}{" "}
-                <button type="button" className="link-btn" onClick={() => onGo("summary")}>
-                  {tr("Resumen")}
-                </button>
-                .
-              </p>
-            </div>
-          </>
-        ) : (
-          !loading && (
-            <>
-              <h3 className="race-detail-empty">{tr("Habilidades raciales")}</h3>
-              <p className="muted">{tr("Elige una raza para ver sus habilidades raciales y las estadísticas base del Resumen.")}</p>
-            </>
-          )
-        )}
-      </aside>
     </div>
   );
 }

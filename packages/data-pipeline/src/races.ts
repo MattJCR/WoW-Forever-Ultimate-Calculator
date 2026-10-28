@@ -1,5 +1,5 @@
 import { int, type RawTables } from "./csv.js";
-import type { RacialAbility, Races } from "./model.js";
+import type { Abilities, RacialAbility, Races } from "./model.js";
 import { loadOverrides, looksEnglish } from "./language.js";
 import { RACIAL_SKILL_LINES, RACIAL_TEXT_FROM_SPELL, pvpTrinketShare, racialSpells } from "./racial-spells.js";
 import { renderSpellText } from "./spell-text.js";
@@ -59,6 +59,12 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
         else warnings.push(`Racial ${a.name}: el texto de su hechizo no se pudo calcular; se queda el de la tabla`);
       }
       for (const [typo, fix] of CLIENT_TYPOS) a.description = a.description.replaceAll(typo, fix);
+      for (const s of a.spells) {
+        if (s.description === null) continue;
+        for (const [typo, fix] of CLIENT_TYPOS) s.description = s.description.replaceAll(typo, fix);
+        // El texto del hechizo que el cliente deja en inglés (Cielonato) no se enseña en español: se queda el resumen de la tabla
+        if (looksEnglish(s.description)) s.description = null;
+      }
       const own = overrides.racials[a.name];
       if (own?.name) a.name = own.name;
       if (looksEnglish(a.description)) {
@@ -79,6 +85,7 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
       classIds: [...new Set(classIds)].sort((a, b) => a - b),
       racialSkillLineId: RACIAL_SKILL_LINES[id] ?? null,
       racials,
+      classRacials: [],
     });
   }
   for (const id of matrix.keys()) {
@@ -93,6 +100,40 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
   );
 
   return { schemaVersion: 1, build, locale, playableProvenance: "client-db2", races, warnings };
+}
+
+/**
+ * Rellena `classRacials` de cada raza con las habilidades de clase ligadas a ella. Una habilidad es racial si el cliente la limita a
+ * algunas razas de la clase en esa facción (Rebote: solo Humano); si abarca a todas las de la facción es de la facción (portales del Mago).
+ */
+export function attachClassRacials(races: Races, abilities: Abilities[]): void {
+  for (const race of races.races) race.classRacials = [];
+  for (const data of abilities) {
+    const allowed = (faction: string): number[] => races.races.filter((r) => r.faction === faction && r.classIds.includes(data.classId)).map((r) => r.id);
+    for (const ab of data.abilities) {
+      const last = ab.ranks[ab.ranks.length - 1];
+      const first = ab.ranks[0];
+      if (!last || !first) continue;
+      const ids = [...new Set(ab.ranks.flatMap((r) => r.races ?? []))];
+      for (const id of ids) {
+        const race = races.races.find((r) => r.id === id);
+        if (!race) continue;
+        const ofFaction = allowed(race.faction);
+        if (ids.filter((i) => ofFaction.includes(i)).length >= ofFaction.length) continue;
+        race.classRacials.push({
+          classId: data.classId,
+          name: ab.name,
+          iconFileDataId: ab.iconFileDataId,
+          spellId: last.spellId,
+          level: first.level,
+          durationMs: last.durationMs,
+          cooldownMs: last.cooldownMs,
+          description: last.description,
+          textOrigin: last.textOrigin,
+        });
+      }
+    }
+  }
 }
 
 /**

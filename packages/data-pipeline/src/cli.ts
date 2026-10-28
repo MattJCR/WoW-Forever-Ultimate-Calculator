@@ -17,7 +17,7 @@ import { applyOfficialEnglish, loadEnglishOverrides } from "./english-apply.js";
 import { applyOfficialRacials, loadOfficialEnglish } from "./english-official.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
-import { buildRaces } from "./races.js";
+import { attachClassRacials, buildRaces } from "./races.js";
 import { buildBaseStats, type ClassicEra } from "./stats.js";
 import { buildClientStats } from "./client-stats.js";
 import { buildUnassigned } from "./unassigned.js";
@@ -84,7 +84,7 @@ function build(): void {
   writeFileSync(join(outDir, "unassigned.json"), unassignedText);
 
   const races = Races.parse(buildRaces(raw, buildId, locale, spells));
-  const racesText = stableJson(races);
+  let racesText = stableJson(races);
   writeFileSync(join(outDir, "races.json"), racesText);
 
   // Objetos equipables (armas y armadura): solo si el volcado trae las tablas de objetos (ITEMS=1 export-tables.sh, con hotfixes)
@@ -198,6 +198,12 @@ function build(): void {
     abilityEntries.push({ classId: cls.classId, file, sha256: sha256(text), abilityCount: parsed.abilities.length, rankCount: parsed.abilities.reduce((n, a) => n + a.ranks.length, 0) });
     for (const w of parsed.warnings) console.log(`   aviso (habilidades ${cls.className}): ${w}`);
   }
+
+  // Habilidades de clase ligadas a una raza (Sacerdote…): se cuelgan de la raza para la pantalla de razas
+  attachClassRacials(races, abilityData);
+  racesText = stableJson(Races.parse(races));
+  writeFileSync(join(outDir, "races.json"), racesText);
+  console.log(`Raciales de clase: ${races.races.map((r) => `${r.name} ${r.classRacials.length}`).filter((s) => !s.endsWith(" 0")).join(", ")}`);
 
   // Beneficios («buffs»): habilidades de clase, tótems, mascota y consumibles (client-db2)
   const buffRulesFile = resolve(repoRoot, "data", "rules", "buffs.json");

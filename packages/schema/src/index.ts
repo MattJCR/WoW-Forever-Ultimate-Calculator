@@ -312,6 +312,8 @@ export const RacialSpell = z.object({
   procChance: z.number().int().nullable(),
   procCooldownMs: z.number().int().nullable(),
   effects: z.array(RacialEffect),
+  /** Texto completo del propio hechizo (`Spell.Description`) con sus cifras; el de `RacialAbility.description` es un resumen del cliente. null si no se pudo calcular. */
+  description: z.string().nullable().default(null),
 });
 export type RacialSpell = z.infer<typeof RacialSpell>;
 
@@ -348,6 +350,26 @@ export const RacialAbility = z.object({
 });
 export type RacialAbility = z.infer<typeof RacialAbility>;
 
+/**
+ * Habilidad de clase exclusiva de una raza (Sacerdote: Rezo desesperado del Enano, Toque de debilidad del No-muerto…). Sale de las
+ * habilidades de la clase cuyas razas son solo una parte de las que la clase tiene en esa facción (los portales del Mago, que son de
+ * toda la facción, no cuentan). Valores del rango más alto; `client-db2`.
+ */
+export const ClassRacial = z.object({
+  classId: z.number().int(),
+  name: z.string(),
+  iconFileDataId: z.number().int().nullable(),
+  /** Hechizo del rango más alto (con él la web busca el nombre y el texto en inglés). */
+  spellId: z.number().int(),
+  /** Nivel al que se aprende el primer rango. */
+  level: z.number().int(),
+  durationMs: z.number().int().nullable(),
+  cooldownMs: z.number().int().nullable(),
+  description: z.string(),
+  textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
+});
+export type ClassRacial = z.infer<typeof ClassRacial>;
+
 export const Race = z.object({
   /** ChrRaces.ID del cliente (Cielonato = 95 Alianza, 96 Horda). */
   id: z.number().int(),
@@ -361,6 +383,8 @@ export const Race = z.object({
   /** SkillLine del cliente que da las raciales de la raza (SkillLineAbility): demuestra que los hechizos son suyos. */
   racialSkillLineId: z.number().int().nullable(),
   racials: z.array(RacialAbility),
+  /** Habilidades de clase que solo tiene esta raza (se rellenan al construir las habilidades de cada clase). */
+  classRacials: z.array(ClassRacial).default([]),
 });
 export type Race = z.infer<typeof Race>;
 
@@ -1051,7 +1075,20 @@ export const EnglishText = z.object({
   /** Textos que son traduccion propia (data/i18n/enUS-overrides.json): `spell:<id>`, `talent:<nodeId>`, `entry:<entryId>`, `item:<id>`, `set:<id>`. La web los marca. */
   ownTranslation: z.array(z.string()).default([]),
   /** Razas por `ChrRaces.ID`: nombre y raciales por `order`. */
-  races: z.record(z.string(), z.object({ name: z.string(), racials: z.array(z.object({ name: z.string(), description: z.string() })) })),
+  races: z.record(
+    z.string(),
+    z.object({
+      name: z.string(),
+      racials: z.array(
+        z.object({
+          name: z.string(),
+          description: z.string(),
+          /** Texto completo en inglés de cada hechizo de la racial (por `spellId`), solo si sus cifras son las del texto español. */
+          spellTexts: z.record(z.string(), z.string()).optional(),
+        }),
+      ),
+    }),
+  ),
 });
 export type EnglishText = z.infer<typeof EnglishText>;
 
