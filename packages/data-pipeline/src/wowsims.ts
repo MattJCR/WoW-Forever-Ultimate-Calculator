@@ -222,7 +222,7 @@ function weaponSubclassOf(i: WowsimsItem): number | null {
  * Objetos de la comunidad que no estan en `Item` del cliente (contenido mas nuevo que nuestra cache de hotfixes). Solo los equipables con
  * ranura; los que no (sellos, simbolos, tabardos) se cuentan en `skipped`.
  */
-export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[]; skipped: number } {
+export function extraItems(db: WowsimsDb, knownIds: Set<number>, names: Record<string, string> = {}): { items: Item[]; skipped: number } {
   const items: Item[] = [];
   let skipped = 0;
   for (const w of db.items) {
@@ -241,7 +241,7 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
     const table = ({ 15: "ranged", 26: "wand", 25: "thrown" } as Record<number, "ranged" | "wand" | "thrown">)[inventoryType] ?? (inventoryType === 17 ? "two-hand" : "one-hand");
     items.push({
       id: w.id,
-      name: w.name,
+      name: names[w.name] ?? w.name,
       quality: w.quality,
       itemLevel: so.ilvl ?? 0,
       requiredLevel: 0,
@@ -268,7 +268,8 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
       statBudget: 0,
       effects: [],
       provenance: "community",
-      textOrigin: "untranslated",
+      // Nombre en inglés de la comunidad: traducción propia (data/i18n) hasta que el cliente traiga el objeto en español
+      textOrigin: names[w.name] ? "translated-by-us" : "untranslated",
       randomSuffixSet: null,
     });
   }
@@ -276,10 +277,10 @@ export function extraItems(db: WowsimsDb, knownIds: Set<number>): { items: Item[
 }
 
 /** Completa `items.json` con lo de la comunidad: objetos que el volcado no trae y las listas de sufijos aleatorios de cada objeto. */
-export function applyWowsims(base: Items, db: WowsimsDb): { items: Items; extra: number; skipped: number } {
+export function applyWowsims(base: Items, db: WowsimsDb, names: Record<string, string> = {}): { items: Items; extra: number; skipped: number } {
   // Los que el cliente lista pero sin datos (`unavailable`) y la comunidad si trae pasan a ser objetos `community`
   const known = new Set(base.items.map((i) => i.id));
-  const { items: extra, skipped } = extraItems(db, known);
+  const { items: extra, skipped } = extraItems(db, known, names);
   const recovered = new Set(extra.map((i) => i.id));
   const unavailable = base.unavailable.filter((u) => !recovered.has(u.id));
   // Valor de bloqueo de los escudos: el cliente no lo trae (la comunidad lo saca de una tabla de objetos), asi que se anade marcado community

@@ -15,6 +15,7 @@ import { buildAbilities } from "./abilities.js";
 import { buildEnglish } from "./english.js";
 import { applyOfficialEnglish, loadEnglishOverrides } from "./english-apply.js";
 import { applyOfficialRacials, loadOfficialEnglish } from "./english-official.js";
+import { loadOverrides } from "./language.js";
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
 import { attachClassRacials, buildRaces } from "./races.js";
@@ -108,7 +109,7 @@ function build(): void {
     if (existsSync(join(wsDir, "db.json")) && existsSync(join(wsDir, "CombatRatings.txt"))) {
       const db = JSON.parse(readFileSync(join(wsDir, "db.json"), "utf8")) as WowsimsDb;
       wsDb = db;
-      const merged = applyWowsims(built, db);
+      const merged = applyWowsims(built, db, loadOverrides(locale).names);
       built = merged.items;
       const ws: string[] = [];
       const ratings = CombatRatings.parse(buildCombatRatings(readFileSync(join(wsDir, "CombatRatings.txt"), "utf8"), buildId));

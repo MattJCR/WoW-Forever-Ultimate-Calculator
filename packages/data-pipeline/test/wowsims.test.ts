@@ -32,6 +32,13 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
     expect(suffixes.suffixes.every((s) => !/^of/i.test(s.name))).toBe(true);
   });
 
+  it("los objetos de la comunidad con nombre en inglés llevan traducción propia (se quita cuando el cliente los traiga)", () => {
+    const names = (JSON.parse(readFileSync(join(WS, "../../i18n/esES-overrides.json"), "utf8")) as { names: Record<string, string> }).names;
+    const translated = Items.parse(applyWowsims(client, db, names).items).items.filter((i) => i.provenance === "community");
+    expect(translated.filter((i) => i.textOrigin === "untranslated").map((i) => i.name)).toEqual([]);
+    expect(translated.find((i) => i.id === 285353)).toMatchObject({ name: "Mochila de explorador eterno", textOrigin: "translated-by-us" });
+  });
+
   it("puntuaciones por 1 %: constantes en los 123 niveles (impacto 10, critico 14, celeridad 10, esquivar 12, parada 15, bloqueo 5, defensa 1)", () => {
     expect(ratings.constantAcrossLevels).toBe(true);
     expect(ratings.levels).toEqual({ min: 1, max: 123 });

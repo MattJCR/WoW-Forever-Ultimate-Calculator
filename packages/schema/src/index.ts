@@ -881,8 +881,8 @@ export const Item = z.object({
   effects: z.array(ItemEffectRef),
   /** client-db2 = tablas del cliente; community = la comunidad (objetos que nuestro volcado no trae). */
   provenance: Provenance,
-  /** client = nombre del cliente (esES); untranslated = ingles de la comunidad, pendiente de traducir. */
-  textOrigin: z.enum(["client", "untranslated"]),
+  /** client = nombre del cliente (esES); translated-by-us = traduccion propia (data/i18n) de un nombre en ingles de la comunidad; untranslated = ingles pendiente de traducir. */
+  textOrigin: z.enum(["client", "translated-by-us", "untranslated"]),
   /** Indice en `Items.suffixSets`: lista de sufijos aleatorios que puede llevar («del Mono»…); null = sin sufijo. */
   randomSuffixSet: z.number().int().nullable(),
 });
