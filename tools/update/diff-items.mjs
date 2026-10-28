@@ -73,6 +73,21 @@ list("Nuevos", bbList.filter((b) => !ba.has(b.id)).map((b) => `${b.id} ${b.name}
 list("Cambiados", bbList.filter((b) => ba.has(b.id) && fields(ba.get(b.id), b).length).map((b) => `${b.id} ${b.name}: ${fields(ba.get(b.id), b).join(", ")}`));
 list("Quitados", [...ba.values()].filter((b) => !bbList.some((x) => x.id === b.id)).map((b) => `${b.id} ${b.name}`));
 
+// Campos de items.json y buffs.json que no son las listas de arriba (avisos, sufijos aleatorios, categorías de límite, procedencia…)
+const rest = (file, skip) => Object.fromEntries(Object.entries(load(oldDir, file)).map(([k, v]) => [k, [v, load(newDir, file)[k]]]).filter(([k, [a, b]]) => !skip.includes(k) && k !== "build" && JSON.stringify(a) !== JSON.stringify(b)));
+const otherLines = (file, skip) =>
+  Object.entries(rest(file, skip)).map(([k, [a, b]]) => {
+    if (Array.isArray(a) && Array.isArray(b)) {
+      const sa = new Set(a.map((x) => JSON.stringify(x))), sb = new Set(b.map((x) => JSON.stringify(x)));
+      return `${k}: +${[...sb].filter((x) => !sa.has(x)).length} −${[...sa].filter((x) => !sb.has(x)).length} elementos (${a.length} → ${b.length})`;
+    }
+    return `${k}: ${short(a)} → ${short(b)}`;
+  });
+out(`## Otros campos`);
+out();
+list("Otros campos de items.json", otherLines("items.json", ["items", "unavailable", "sets"]));
+list("Otros campos de buffs.json", otherLines("buffs.json", ["buffs"]));
+
 const text = lines.join("\n");
 const file = opt("out", null);
 if (file) {
