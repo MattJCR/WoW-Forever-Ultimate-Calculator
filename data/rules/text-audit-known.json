@@ -1,0 +1,31 @@
+{
+  "_comment": "Hallazgos de la auditoría de textos (tools/update/lib/texts.mjs › auditTexts) ya revisados, cada uno con su motivo. `npm run patch-check` y `npm run audit-texts` los cuentan como conocidos y solo avisan de lo que no está aquí. Un hallazgo se identifica por `problem` (el texto del problema sin la parte entre paréntesis) y `where` (exacto) o `wherePrefix`. Si el cliente corrige uno, el informe lo marca como «ya no ocurre» y hay que quitarlo de aquí.",
+  "entries": [
+    { "problem": "marcador del cliente sin resolver", "where": "Pícaro: talento Estocada r1", "reason": "El texto cita el hechizo 19718 (duración del desarme), que el cliente no trae: queda `$19718d`." },
+    { "problem": "cifras distintas ES/EN", "where": "Pícaro: talento Estocada r1", "reason": "Mismo hueco: el `$19718d` sin resolver cuenta como cifra en el español." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 4: habilidad Estocada r1", "reason": "Igual que el talento: cita el hechizo 19718, que el cliente no trae." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 8: habilidad Bomba viva r2", "reason": "Duración propia (`$d`) sin dato en el cliente." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 2: habilidad Furia recta r1", "reason": "Duración propia sin dato en el cliente." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 5: habilidad Rezo de alivio (runa) r1", "reason": "Cita hechizos (41635, 48113, 48111) que el cliente no trae." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 7: habilidad Explosión de arrabio r1", "reason": "El poder de ataque del personaje entra en la fórmula (`$AP`); el motor lo suma, el texto enseña la base." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 1: habilidad Ola de choque r1", "reason": "El poder de ataque del personaje entra en la fórmula (`$AP`)." },
+    { "problem": "marcador del cliente sin resolver", "wherePrefix": "clase 1: habilidad Revancha r", "reason": "Desde el 70658 el daño suma poder de ataque (`$<APRatio>*$apm`); sin cuantificar en el texto." },
+    { "problem": "marcador del cliente sin resolver", "where": "objeto 206388 Icono sulfuroso: efecto 425344", "reason": "Copia el texto de Explosión de arrabio (poder de ataque en la fórmula)." },
+    { "problem": "marcador del cliente sin resolver", "where": "clase 7: habilidad Viaje astral r1", "reason": "`$z` es el lugar de la piedra de hogar del jugador: depende del personaje." },
+    { "problem": "cifras distintas ES/EN", "where": "clase 9: habilidad Portal de invocación r1", "reason": "El español escribe «Dos miembros» en letra y el inglés «2 party or raid members»: misma cifra, distinta grafía." },
+    { "problem": "sin texto completo", "where": "Enano: racial Buscar tesoro hechizo 2481", "reason": "El hechizo no trae descripción completa en el cliente; se enseña el resumen de la tabla de raciales." },
+    { "problem": "sin texto completo", "where": "Trol: racial Iracundia hechizo 20554", "reason": "El hechizo no trae descripción completa en el cliente; se enseña el resumen de la tabla de raciales." },
+    { "problem": "marcador del cliente sin resolver", "where": "objeto 4696 Pichel de la lápida de Tidesippe: efecto 1135", "reason": "Variable de efecto periódico (`$o1`) sin resolver en el texto de un objeto." },
+    { "problem": "marcador del cliente sin resolver", "where": "beneficio 430948 Pergamino de recuperación Arcana I", "reason": "Variable de intervalo (`$t1`) sin resolver en el texto de un beneficio." },
+    { "problem": "marcador del cliente sin resolver", "where": "encantamiento 2565/23795 4 de regeneración de maná cada 5 seg.: efecto", "reason": "Variable de intervalo (`$t1`) sin resolver en el texto de un encantamiento." },
+    { "problem": "marcador del cliente sin resolver", "where": "encantamiento 7603/463873 Ley de la naturaleza: efecto", "reason": "Variable de segundo efecto (`$2`) sin resolver en el texto de un encantamiento." },
+    { "problem": "texto vacío", "where": "conjunto 1593 Corazón vil de los malditos: bono de 8", "reason": "El cliente no trae texto de este bono de conjunto." },
+    { "problem": "texto vacío", "wherePrefix": "conjunto 1662 Radiancia de Justiciero: bono de ", "reason": "El cliente no trae texto de estos bonos de conjunto." },
+    { "problem": "texto vacío", "wherePrefix": "conjunto 1663 Armadura de batalla de Destripador Nocturno: bono de ", "reason": "El cliente no trae texto de estos bonos de conjunto." },
+    { "problem": "texto vacío", "wherePrefix": "conjunto 1664 Eclipse Cenarion: bono de ", "reason": "El cliente no trae texto de estos bonos de conjunto." },
+    { "problem": "marcador del cliente sin resolver", "where": "conjunto 1716 Determinación de furia terrenal: bono de 2", "reason": "Cita el hechizo 16280, que el cliente no trae." },
+    { "problem": "marcador del cliente sin resolver", "where": "conjunto 1822 Cólera inamovible: bono de 4", "reason": "Cita el hechizo 12970 (Aluvión), que el cliente no trae." },
+    { "problem": "marcador del cliente sin resolver", "where": "conjunto 1897 Vestimentas de Pirofrío: bono de 2", "reason": "La sanación depende del poder con hechizos del personaje (`$SPA`)." },
+    { "problem": "marcador del cliente sin resolver", "where": "conjunto 1955 Gloria deshonrosa: bono de 2", "reason": "Cita hechizos (1231491, 1231492) que el cliente no trae y condicionales `?s` sin resolver." }
+  ]
+}

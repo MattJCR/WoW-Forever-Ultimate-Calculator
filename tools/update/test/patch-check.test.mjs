@@ -12,7 +12,7 @@ import { diffDatasets } from "../lib/diff-builds.mjs";
 import { gearChecks } from "../lib/gear.mjs";
 import { classifyAgainstReference } from "../lib/reference.mjs";
 import { ROOT, run } from "../lib/run.mjs";
-import { auditTexts, newFindings, staleFixes, textTransitions } from "../lib/texts.mjs";
+import { auditTexts, classifyFindings, loadKnownFindings, newFindings, staleFixes, textTransitions } from "../lib/texts.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const UPDATE = join(HERE, "..");
@@ -153,6 +153,31 @@ describe("textos", () => {
     const d = newFindings(auditTexts(dataset("t2", "Texto bien")), auditTexts(dataset("t3", "Daño de $s1 p.")));
     assert.equal(d.appeared.length, 1);
     assert.equal(newFindings(auditTexts(dataset("t3", "Daño de $s1 p.")), auditTexts(dataset("t2", "Texto bien"))).resolved.length, 1);
+  });
+
+  it("reparte los hallazgos en conocidos (con motivo) y sin clasificar, y avisa de los conocidos que ya no ocurren", () => {
+    const r = auditTexts(dataset("t7", "Daño de $s1 p.", { sets: [{ id: 1, name: "Conjunto", bonuses: [{ threshold: 2, text: "" }, { threshold: 4, text: "" }] }] }));
+    const known = [
+      { problem: "marcador del cliente sin resolver", where: "clase 8: habilidad Hechizo r1", reason: "a" },
+      { problem: "texto vacío", wherePrefix: "conjunto 1 Conjunto: bono de ", reason: "b" },
+      { problem: "texto vacío", where: "conjunto 9 Otro: bono de 2", reason: "c" },
+    ];
+    const c = classifyFindings(r.findings, known);
+    assert.equal(c.known.length, 3);
+    assert.equal(c.unknown.length, 0);
+    assert.deepEqual(c.gone.map((k) => k.reason), ["c"], "la entrada que no coincide con nada sobra");
+    assert.equal(classifyFindings(r.findings, known.slice(1)).unknown.length, 1, "sin su entrada, el marcador queda sin clasificar");
+  });
+
+  it("la lista de hallazgos conocidos del repositorio es válida: todo con motivo y sin duplicados", () => {
+    const known = loadKnownFindings(join(import.meta.dirname, "..", "..", ".."));
+    assert.ok(known.length > 0);
+    for (const k of known) {
+      assert.ok(k.problem && k.reason, JSON.stringify(k));
+      assert.ok((k.where === undefined) !== (k.wherePrefix === undefined), "exactamente uno de where / wherePrefix: " + JSON.stringify(k));
+    }
+    const ids = known.map((k) => k.problem + "|" + (k.where ?? k.wherePrefix));
+    assert.equal(new Set(ids).size, ids.length);
   });
 
   it("avisa de un texto que pasa de traducción propia a español del cliente y de otro que vuelve al inglés", () => {

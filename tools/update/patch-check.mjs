@@ -29,7 +29,7 @@ import { diffDatasets } from "./lib/diff-builds.mjs";
 import { gearChecks } from "./lib/gear.mjs";
 import { classifyAgainstReference, loadReference, referenceInfo } from "./lib/reference.mjs";
 import { REFERENCE_DIR, ROOT, run, tail } from "./lib/run.mjs";
-import { auditTexts, newFindings, staleFixes, staleOverrides, statFormulas, textTransitions } from "./lib/texts.mjs";
+import { auditTexts, classifyFindings, loadKnownFindings, newFindings, staleFixes, staleOverrides, statFormulas, textTransitions } from "./lib/texts.mjs";
 
 const argv = process.argv.slice(2);
 const flag = (n) => argv.includes(`--${n}`);
@@ -272,11 +272,13 @@ step("texts", "Textos: marcadores, erratas, traducciones y paridad ES/EN", () =>
   const fixes = staleFixes(rawNew);
   const own = staleOverrides(newDir, ROOT);
   const dec = [];
-  const body = [`Textos revisados: ${now.counted}; hallazgos ${now.findings.length} (antes ${before.findings.length}).`, ""];
-  const group = {};
-  for (const f of now.findings) group[f.problem.replace(/\(.*\)/, "").trim()] = (group[f.problem.replace(/\(.*\)/, "").trim()] ?? 0) + 1;
-  body.push(...Object.entries(group).map(([k, v]) => `- ${k}: ${v}`), "");
-  if (diff.appeared.length) { body.push(`**Hallazgos NUEVOS (${diff.appeared.length}):**`, ...list(diff.appeared.map((f) => `[${f.problem}] ${f.where} — ${f.text}`)), ""); dec.push(`textos: ${diff.appeared.length} hallazgos nuevos (marcadores, erratas o cifras ES≠EN)`); }
+  const cls = classifyFindings(now.findings, loadKnownFindings(ROOT));
+  const body = [`Textos revisados: ${now.counted}; hallazgos ${now.findings.length}: ${cls.known.length} conocidos con motivo (\`data/rules/text-audit-known.json\`), ${cls.unknown.length} sin clasificar.`, ""];
+  if (cls.unknown.length) {
+    body.push(`**Hallazgos SIN CLASIFICAR (${cls.unknown.length}):**`, ...list(cls.unknown.map((f) => `[${f.problem}] ${f.where} — ${f.text}`)), "", "Cada uno se revisa contra el texto en bruto: si es un hueco del cliente, se añade a `text-audit-known.json` con su motivo; si es un fallo nuestro, se arregla.", "");
+    dec.push(`textos: ${cls.unknown.length} hallazgos sin clasificar (marcadores, erratas o cifras ES≠EN)`);
+  }
+  if (cls.gone.length) body.push(`Conocidos que ya no ocurren (quitarlos de \`text-audit-known.json\`): ${cls.gone.length}`, ...list(cls.gone.map((k) => `${k.problem} · ${k.where ?? k.wherePrefix}`)), "");
   if (diff.resolved.length) body.push(`Resueltos por el parche (${diff.resolved.length}):`, ...list(diff.resolved.map((f) => `[${f.problem}] ${f.where}`), 10), "");
   if (tr.nowSpanish.length) { body.push(`**El cliente ya trae en español (la traducción propia sobra): ${tr.nowSpanish.length}**`, ...list(tr.nowSpanish, 15), ""); dec.push(`textos: ${tr.nowSpanish.length} traducciones propias que sobran (quitarlas de data/i18n)`); }
   if (tr.backToEnglish.length) { body.push(`**Textos que VUELVEN al inglés: ${tr.backToEnglish.length}**`, ...list(tr.backToEnglish, 15), ""); dec.push(`textos: ${tr.backToEnglish.length} textos vuelven al inglés (¿traducción propia nueva? necesita tu aprobación)`); }
@@ -296,8 +298,8 @@ step("texts", "Textos: marcadores, erratas, traducciones y paridad ES/EN", () =>
   if (fixes.stale.length) { body.push(...list(fixes.stale.map((s) => `SOBRA (el cliente ya la corrigió): ${s}`)), ""); dec.push(`textos: ${fixes.stale.length} erratas de CLIENT_TEXT_FIXES que el cliente ya corrigió (quitarlas)`); }
   body.push(`Traducciones propias que ya sobran (\`esES-overrides.json\`): ${own.spells.length}${own.spells.length ? ` → ${own.spells.join(", ")}` : ""}.`);
   if (own.spells.length) dec.push(`textos: ${own.spells.length} traducciones propias de hechizos que el cliente ya trae en español`);
-  const status = dec.length ? "warn" : diff.resolved.length || tr.untranslatedNow.length ? "delta" : "ok";
-  return { status, summary: `${now.findings.length} hallazgos (${diff.appeared.length} nuevos, ${diff.resolved.length} resueltos); ${tr.nowSpanish.length} traducciones sobran, ${tr.backToEnglish.length} vuelven al inglés`, body, decisions: dec };
+  const status = dec.length ? "warn" : diff.resolved.length || cls.gone.length || tr.untranslatedNow.length ? "delta" : "ok";
+  return { status, summary: `${now.findings.length} hallazgos (${cls.known.length} conocidos, ${cls.unknown.length} sin clasificar, ${diff.resolved.length} resueltos); ${tr.nowSpanish.length} traducciones sobran, ${tr.backToEnglish.length} vuelven al inglés`, body, decisions: dec };
 });
 
 step("coverage", "Cobertura: nada cambia sin salir en el informe", () => {

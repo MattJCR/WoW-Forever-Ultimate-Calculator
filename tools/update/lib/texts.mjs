@@ -98,6 +98,29 @@ export function auditTexts(dir) {
 
 const idOf = (f) => `${f.problem.replace(/\(.*\)/, "").trim()}|${f.where}`;
 
+const problemKey = (f) => f.problem.replace(/\(.*\)/, "").trim();
+
+/** Hallazgos ya revisados, con su motivo (`data/rules/text-audit-known.json`). Sin fichero, ninguno. */
+export function loadKnownFindings(root) {
+  const file = join(root, "data", "rules", "text-audit-known.json");
+  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")).entries ?? [] : [];
+}
+
+/**
+ * Reparte los hallazgos de `auditTexts` en conocidos (con su motivo) y sin clasificar. `gone` son las entradas conocidas que ya no
+ * ocurren (el cliente lo corrigió o el texto cambió): sobran en el fichero.
+ */
+export function classifyFindings(findings, known) {
+  const matches = (k, f) => k.problem === problemKey(f) && (k.where !== undefined ? k.where === f.where : f.where.startsWith(k.wherePrefix));
+  const used = new Set();
+  const knownHits = [], unknown = [];
+  for (const f of findings) {
+    const k = known.find((e) => matches(e, f));
+    if (k) { used.add(k); knownHits.push({ ...f, reason: k.reason }); } else unknown.push(f);
+  }
+  return { known: knownHits, unknown, gone: known.filter((k) => !used.has(k)) };
+}
+
 /** Hallazgos que están en `now` y no estaban en `before`: lo que el parche ha estropeado (o arreglado, a la inversa). */
 export function newFindings(before, now) {
   const had = new Set(before.findings.map(idOf));
