@@ -64,7 +64,7 @@ export function SiteHeader({ manifest, page, section, q, query }: ChromeProps) {
   const { version, number } = splitBuild(manifest.build);
   const deployedAt = formatDeployedAt();
   const onHome = page.kind === "home";
-  const inClass = page.kind === "class" || page.kind === "class-talents" || page.kind === "class-abilities" || page.kind === "talent" || page.kind === "ability";
+  const inClass = page.kind === "class" || page.kind === "calc" || page.kind === "class-talents" || page.kind === "class-abilities" || page.kind === "talent" || page.kind === "ability";
   return (
     <header className="topbar">
       <div className="topbar-in">
@@ -115,7 +115,7 @@ export function SiteFooter({ manifest, q }: { manifest: Manifest; q: Record<stri
           {manifest.classes.map((c) => {
             const token = classToken(c.file);
             return (
-              <a key={c.classId} href={href({ kind: "class", cls: token }, q)}>
+              <a key={c.classId} href={href({ kind: "class", cls: token })}>
                 {classLabel(token, c.className ?? "")}
               </a>
             );

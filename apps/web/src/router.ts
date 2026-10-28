@@ -37,7 +37,15 @@ export function readRoute(): Route {
  */
 export function useRoute(): Route {
   const [route, setRoute] = useState(readRoute);
-  useEffect(() => onNavigate(() => setRoute(readRoute())), []);
+  useEffect(() => {
+    const off = onNavigate(() => setRoute(readRoute()));
+    // Un hijo puede haber cambiado la dirección en su efecto antes de que este se suscribiera (los efectos de los hijos van primero)
+    setRoute((prev) => {
+      const now = readRoute();
+      return prev.query.toString() === now.query.toString() && JSON.stringify(prev.page) === JSON.stringify(now.page) && prev.lang === now.lang ? prev : now;
+    });
+    return off;
+  }, []);
   return route;
 }
 

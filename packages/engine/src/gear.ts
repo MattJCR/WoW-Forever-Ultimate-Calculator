@@ -120,6 +120,26 @@ export function proficiency(list: Proficiency[] | undefined, classId: number, le
   return { ok: mine.some((p) => p.minLevel <= level), minLevel };
 }
 
+export interface ClassProficiency {
+  subclassId: number;
+  /** Tipo en plural y en español («tela», «espadas de una mano»). */
+  name: string;
+  /** Nivel desde el que la clase lo puede usar (0 = desde el principio). */
+  minLevel: number;
+}
+
+/** Armaduras y armas que usa una clase según el cliente, con el nivel desde el que las usa, y el nivel de la doble empuñadura (null = nunca). */
+export function classProficiencies(rules: Pick<EquipRules, "armor" | "weapons" | "dualWield">, classId: number): { armor: ClassProficiency[]; weapons: ClassProficiency[]; dualWieldLevel: number | null } {
+  const collect = (table: Record<string, Proficiency[]>, itemClass: number): ClassProficiency[] =>
+    Object.entries(table)
+      .map(([sub, list]) => ({ subclassId: Number(sub), minLevel: proficiency(list, classId, 60).minLevel }))
+      .filter((p): p is { subclassId: number; minLevel: number } => p.minLevel !== null)
+      .map((p) => ({ ...p, name: itemTypeName({ classId: itemClass, subclassId: p.subclassId }) ?? "" }))
+      .filter((p) => p.name !== "")
+      .sort((x, y) => x.minLevel - y.minLevel || x.subclassId - y.subclassId);
+  return { armor: collect(rules.armor, CLASS_ARMOR), weapons: collect(rules.weapons, CLASS_WEAPON), dualWieldLevel: proficiency(rules.dualWield, classId, 60).minLevel };
+}
+
 const needs = (what: string, p: { minLevel: number | null }): string => (p.minLevel === null ? `Tu clase no puede usar ${what}` : `Tu clase solo puede usar ${what} desde el nivel ${p.minLevel}`);
 
 export interface EquipCheck {

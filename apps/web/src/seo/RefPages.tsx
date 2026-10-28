@@ -1,12 +1,16 @@
 // Páginas de consulta (talentos, habilidades y razas): contenido de solo lectura que sale de los datos del cliente.
 // Son componentes puros: la web los pinta con los datos que descarga y el prerender los convierte en HTML con los mismos datos.
-import type { Abilities, Ability, AbilityRank, ClassTalents, Manifest, Race, Talent } from "@wfuc/schema";
+import { classProficiencies } from "@wfuc/engine";
+import { EquipRules, type Abilities, type Ability, type AbilityRank, type BaseStats, type ClassTalents, type Manifest, type Race, type Talent } from "@wfuc/schema";
+import { VIEWS } from "../components/ClassShell";
 import { Icon } from "../components/Icon";
-import { CLASS_COLORS, loadAbilities, loadClass, loadRaces, STATIC_RACE_ICONS } from "../data";
+import { CLASS_COLORS, getJson, loadAbilities, loadClass, loadLegacy, loadRaces, STATIC_RACE_ICONS } from "../data";
 import { abilityName, classLabel, currentLang, fmtNum, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr } from "../i18n";
 import { getSeoIndex, href } from "../router";
 import { breadcrumbs, clip, plain, type PageMeta } from "./meta";
-import { pagePath, type Page } from "./routes";
+import { BaseStats as BaseStatsSchema } from "@wfuc/schema";
+import { CALC_VIEWS, pagePath, type CalcView, type Page } from "./routes";
+import { calcMeta, classMeta } from "./siteMeta";
 
 /** Datos que necesita cada página de consulta (solo se rellena lo que su tipo pide). */
 export interface RefData {
@@ -14,6 +18,12 @@ export interface RefData {
   cls?: ClassTalents;
   abilities?: Abilities;
   races?: Race[];
+  /** Reglas de equipar (paso Equipo). */
+  rules?: EquipRules;
+  /** Estadísticas base por clase y nivel (paso Resumen). */
+  stats?: BaseStats;
+  /** Árboles de Puntos de Legado (paso Legado). */
+  legacy?: ClassTalents;
 }
 
 export const classTokenOf = (file: string): string => file.replace(/^classes\//, "").replace(/\.json$/, "");
@@ -21,14 +31,18 @@ export const classTokenOf = (file: string): string => file.replace(/^classes\//,
 /** Descarga lo que pide una página de consulta. */
 export async function loadRefData(page: Page, manifest: Manifest): Promise<RefData> {
   const data: RefData = { manifest };
-  if (page.kind === "races" || page.kind === "race") data.races = (await loadRaces(manifest.races.file)).races;
+  const view = page.kind === "calc" ? page.view : null;
+  if (page.kind === "races" || page.kind === "race" || view === "race") data.races = (await loadRaces(manifest.races.file)).races;
   const entry = "cls" in page ? manifest.classes.find((c) => classTokenOf(c.file) === page.cls) : undefined;
   if (!entry || !("cls" in page)) return data;
-  const [cls, abilities] = await Promise.all([
-    ["class", "class-talents", "talent", "ability"].includes(page.kind) ? loadClass(entry.file) : undefined,
-    ["class-abilities", "talent", "ability"].includes(page.kind) ? loadAbilities(page.cls) : undefined,
+  const [cls, abilities, rules, stats, legacy] = await Promise.all([
+    ["class", "class-talents", "talent", "ability"].includes(page.kind) || view === "talents" ? loadClass(entry.file) : undefined,
+    ["class-abilities", "talent", "ability"].includes(page.kind) || view === "summary" ? loadAbilities(page.cls) : undefined,
+    view === "gear" && manifest.equipRules ? getJson(manifest.equipRules.file, (v) => EquipRules.parse(v)) : undefined,
+    view === "summary" ? getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)) : undefined,
+    view === "legacy" ? loadLegacy(manifest.legacy.file) : undefined,
   ]);
-  return { ...data, cls, abilities };
+  return { ...data, cls, abilities, rules, stats, legacy };
 }
 
 // ---------- Textos y cifras ----------
@@ -90,6 +104,10 @@ export function refMeta(page: Page, data: RefData): PageMeta {
   const classCrumb = token ? [{ name: cname, path: path({ kind: "class", cls: token }) }] : [];
 
   switch (page.kind) {
+    case "class":
+      return classMeta(data.manifest, page.cls);
+    case "calc":
+      return calcMeta(data.manifest, page.cls, page.view);
     case "class-talents": {
       const n = data.cls?.specs.reduce((a, s) => a + s.talents.length, 0) ?? 0;
       const specs = data.cls?.specs.map((s) => specLabel(token, s.index, s.name ?? "")).join(", ") ?? "";
@@ -186,9 +204,9 @@ function RefHead({ icon, eyebrow, title, lead, color }: { icon?: number | null |
   );
 }
 
-function CalculatorLink({ token, label, query }: { token: string; label: string; query?: Record<string, string> }) {
+function CalculatorLink({ token, label, view = "race" }: { token: string; label: string; view?: CalcView }) {
   return (
-    <a className="btn btn-primary" href={href({ kind: "class", cls: token }, query)}>
+    <a className="btn btn-primary" href={href({ kind: "calc", cls: token, view })}>
       {label}
     </a>
   );
@@ -211,7 +229,7 @@ export function ClassTalentsView({ data, token }: { data: RefData; token: string
         color={CLASS_COLORS[token]}
       />
       <p className="ref-actions">
-        <CalculatorLink token={token} query={{ v: "talents" }} label={tr("Abrir la calculadora de talentos")} />
+        <CalculatorLink token={token} view="talents" label={tr("Abrir la calculadora de talentos")} />
         <a className="btn" href={href({ kind: "class-abilities", cls: token })}>
           {tr("Habilidades de {clase}", { clase: cname })}
         </a>
@@ -306,7 +324,7 @@ export function TalentView({ data, token, id }: { data: RefData; token: string; 
         </section>
       )}
       <p className="ref-actions">
-        <CalculatorLink token={token} query={{ v: "talents" }} label={tr("Probarlo en la calculadora")} />
+        <CalculatorLink token={token} view="talents" label={tr("Probarlo en la calculadora")} />
         <a className="btn" href={href({ kind: "class-talents", cls: token })}>
           {tr("Todos los talentos de {clase}", { clase: cname })}
         </a>
@@ -330,7 +348,7 @@ export function ClassAbilitiesView({ data, token }: { data: RefData; token: stri
         color={CLASS_COLORS[token]}
       />
       <p className="ref-actions">
-        <CalculatorLink token={token} query={{ v: "summary" }} label={tr("Ver el daño y la curación en la calculadora")} />
+        <CalculatorLink token={token} view="summary" label={tr("Ver el daño y la curación en la calculadora")} />
         <a className="btn" href={href({ kind: "class-talents", cls: token })}>
           {tr("Talentos de {clase}", { clase: cname })}
         </a>
@@ -439,7 +457,7 @@ export function AbilityView({ data, token, id }: { data: RefData; token: string;
         </section>
       )}
       <p className="ref-actions">
-        <CalculatorLink token={token} query={{ v: "summary" }} label={tr("Ver cuánto daño hace con tu build")} />
+        <CalculatorLink token={token} view="summary" label={tr("Ver cuánto daño hace con tu build")} />
         <a className="btn" href={href({ kind: "class-abilities", cls: token })}>
           {tr("Todas las habilidades de {clase}", { clase: cname })}
         </a>
@@ -514,7 +532,7 @@ export function RaceView({ data, id }: { data: RefData; id: number }) {
             const token = classTokenOf(c.file);
             return (
               <li key={c.classId}>
-                <a href={href({ kind: "class", cls: token }, { r: String(r.id) })}>{classNameOf(data.manifest, token)}</a>
+                <a href={href({ kind: "calc", cls: token, view: "race" }, { r: String(r.id) })}>{classNameOf(data.manifest, token)}</a>
               </li>
             );
           })}
@@ -524,7 +542,35 @@ export function RaceView({ data, id }: { data: RefData; id: number }) {
   );
 }
 
-/** Texto de presentación de la calculadora de una clase, para el prerender (en el navegador lo sustituye la calculadora). */
+// ---------- Calculadora de una clase: página de la clase y un paso por dirección ----------
+
+/** Frase que explica cada paso de la calculadora (clave en español, como el resto de textos). */
+const VIEW_BLURB: Record<CalcView, string> = {
+  race: "Elige la raza entre las que el cliente permite para tu clase y mira sus habilidades raciales.",
+  legacy: "Reparte los Puntos de Legado: ventajas de cuenta que se eligen antes que los talentos.",
+  talents: "Gasta los puntos de talento en los árboles de la clase con los requisitos del juego.",
+  gear: "Viste a tu personaje en el probador 3D, con encantamientos y sufijos aleatorios.",
+  buffs: "Marca los beneficios que tendrías: consumibles, bendiciones, objetos de campamento…",
+  summary: "Estadísticas, daño y sanación de cada habilidad con tu build.",
+};
+
+const stepLabel = (v: CalcView): string => tr(VIEWS.find((x) => x.id === v)!.label);
+
+/** Los seis pasos de la calculadora como enlaces (lista de la página de la clase y pie de cada paso). */
+function StepLinks({ token, current }: { token: string; current?: CalcView }) {
+  return (
+    <ol className="ref-links ref-steps">
+      {CALC_VIEWS.map((v) => (
+        <li key={v}>
+          {v === current ? <b aria-current="page">{stepLabel(v)}</b> : <a href={href({ kind: "calc", cls: token, view: v })}>{stepLabel(v)}</a>}
+          <span className="muted small"> · {tr(VIEW_BLURB[v])}</span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** Página de la clase: qué se puede hacer con ella y la entrada a cada paso de la calculadora. */
 export function ClassIntroView({ data, token }: { data: RefData; token: string }) {
   const cls = data.cls;
   if (!cls) return null;
@@ -536,17 +582,28 @@ export function ClassIntroView({ data, token }: { data: RefData; token: string }
       <RefHead
         icon={data.manifest.classes.find((c) => classTokenOf(c.file) === token)?.iconFileDataId}
         eyebrow={tr("Calculadora de clase")}
-        title={tr("Calculadora de talentos de {clase}", { clase: cname })}
+        title={tr("{clase} en WoW Forever", { clase: cname })}
         lead={tr("Planifica tu {clase} de WoW Forever: {n} talentos en {m} árboles, raza, Puntos de Legado, equipo y beneficios, con el daño y la curación de cada habilidad. Tu build se guarda en el enlace.", { clase: cname, n: total, m: cls.specs.length })}
         color={CLASS_COLORS[token]}
       />
-      <ul className="ref-links">
-        {cls.specs.map((s) => (
-          <li key={s.index}>
-            <b>{specLabel(token, s.index, s.name ?? "")}</b>: {tr("{n} talentos", { n: s.talents.filter((t) => t.name).length })}
-          </li>
-        ))}
-      </ul>
+      <p className="ref-actions">
+        <CalculatorLink token={token} view="race" label={tr("Empezar con la raza")} />
+        <CalculatorLink token={token} view="talents" label={tr("Ir a los talentos")} />
+      </p>
+      <section className="ref-section">
+        <h2>{tr("Los pasos de la calculadora")}</h2>
+        <StepLinks token={token} />
+      </section>
+      <section className="ref-section">
+        <h2>{tr("Árboles de talentos")}</h2>
+        <ul className="ref-links">
+          {cls.specs.map((s) => (
+            <li key={s.index}>
+              <b>{specLabel(token, s.index, s.name ?? "")}</b>: {tr("{n} talentos", { n: s.talents.filter((t) => t.name).length })}
+            </li>
+          ))}
+        </ul>
+      </section>
       <p className="ref-actions">
         <a className="btn" href={href({ kind: "class-talents", cls: token })}>
           {tr("Talentos de {clase}", { clase: cname })}
@@ -555,6 +612,171 @@ export function ClassIntroView({ data, token }: { data: RefData; token: string }
           {tr("Habilidades de {clase}", { clase: cname })}
         </a>
       </p>
+    </div>
+  );
+}
+
+const joinNames = (names: string[]): string => names.join(", ");
+const rowNames = (talents: Talent[], row: number): string[] => talents.filter((t) => t.row === row).map(talentLabel);
+
+/** Contenido de un paso de la calculadora para el HTML prerenderizado: texto propio de la clase y del paso (el navegador pinta la calculadora). */
+export function CalcStepView({ data, token, view }: { data: RefData; token: string; view: CalcView }) {
+  const cname = classNameOf(data.manifest, token);
+  const entry = data.manifest.classes.find((c) => classTokenOf(c.file) === token);
+  const head = (title: string, lead: string) => (
+    <>
+      <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: cname, to: { kind: "class", cls: token } }, { name: stepLabel(view) }]} />
+      <RefHead icon={entry?.iconFileDataId} eyebrow={tr("Calculadora de {clase}", { clase: cname })} title={title} lead={lead} color={CLASS_COLORS[token]} />
+    </>
+  );
+  const foot = (
+    <section className="ref-section">
+      <h2>{tr("Los pasos de la calculadora")}</h2>
+      <StepLinks token={token} current={view} />
+    </section>
+  );
+
+  if (view === "race") {
+    const races = (data.races ?? []).filter((r) => entry && r.classIds.includes(entry.classId));
+    return (
+      <div className="ref wrap">
+        {head(tr("Razas de {clase} en WoW Forever", { clase: cname }), tr("{n} razas pueden ser {clase} según el cliente de la beta. Cada una aporta habilidades raciales distintas, y en la calculadora ves cómo cambian tus estadísticas al elegirla.", { n: races.length, clase: cname }))}
+        <ul className="ref-list">
+          {races.map((r) => (
+            <li key={r.id} className="ref-item">
+              <RaceIcon race={r} name={raceLabel(r.id, r.name)} />
+              <div>
+                <h3>
+                  <a href={href({ kind: "race", id: r.id })}>{raceLabel(r.id, r.name)}</a>
+                  <span className="rank-chip">{tr(FACTION[r.faction] ?? "")}</span>
+                </h3>
+                <p>{r.racials.map((a, i) => racialEn(r.id, i)?.name ?? a.name).join(" · ")}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        {foot}
+      </div>
+    );
+  }
+
+  if (view === "talents") {
+    const cls = data.cls;
+    if (!cls) return null;
+    const specs = cls.specs.map((s) => specLabel(token, s.index, s.name ?? ""));
+    return (
+      <div className="ref wrap">
+        {head(
+          tr("Calculadora de talentos de {clase}", { clase: cname }),
+          tr("Reparte hasta {max} puntos entre los {m} árboles de {clase} ({specs}). Cada talento se desbloquea al gastar un número de puntos en su árbol, y el primer punto de talento llega en el nivel {nivel}.", { max: cls.rules.maxPoints, m: cls.specs.length, clase: cname, specs: joinNames(specs), nivel: cls.rules.firstPointLevel ?? 10 }),
+        )}
+        {cls.specs.map((s) => {
+          const named = s.talents.filter((t) => t.name);
+          if (named.length === 0) return null;
+          const last = Math.max(...named.map((t) => t.row));
+          return (
+            <section key={s.index} className="ref-section">
+              <h2>{specLabel(token, s.index, s.name ?? "")}</h2>
+              <p>{tr("{n} talentos. El árbol empieza por {primeros} y termina en {ultimos}.", { n: named.length, primeros: joinNames(rowNames(named, 0)), ultimos: joinNames(rowNames(named, last)) })}</p>
+            </section>
+          );
+        })}
+        <p className="ref-actions">
+          <a className="btn" href={href({ kind: "class-talents", cls: token })}>
+            {tr("Todos los talentos de {clase}", { clase: cname })}
+          </a>
+        </p>
+        {foot}
+      </div>
+    );
+  }
+
+  if (view === "gear") {
+    const prof = data.rules ? classProficiencies(data.rules, entry?.classId ?? 0) : null;
+    const line = (p: { name: string; minLevel: number }) => (p.minLevel > 0 ? tr("{tipo} (desde el nivel {n})", { tipo: tr(p.name), n: p.minLevel }) : tr(p.name));
+    return (
+      <div className="ref wrap">
+        {head(tr("Equipo de {clase} en WoW Forever", { clase: cname }), tr("Qué armaduras y armas puede llevar {clase} según el cliente de la beta, y cómo probar el equipo en el probador 3D con encantamientos y sufijos aleatorios.", { clase: cname }))}
+        {prof && (
+          <>
+            <section className="ref-section">
+              <h2>{tr("Armaduras")}</h2>
+              <p>{joinNames(prof.armor.map(line))}.</p>
+            </section>
+            <section className="ref-section">
+              <h2>{tr("Armas")}</h2>
+              <p>
+                {joinNames(prof.weapons.map(line))}.{" "}
+                {prof.dualWieldLevel === null ? tr("No puede llevar un arma en cada mano.") : tr("Puede llevar un arma en cada mano desde el nivel {n}.", { n: prof.dualWieldLevel })}
+              </p>
+            </section>
+          </>
+        )}
+        <section className="ref-section">
+          <h2>{tr("Probador 3D")}</h2>
+          <p>{tr("Las 19 ranuras del personaje se prueban sobre el modelo de tu raza, con las estadísticas del equipo, sus conjuntos y el daño que cambia cada pieza.")}</p>
+        </section>
+        {foot}
+      </div>
+    );
+  }
+
+  if (view === "summary") {
+    const base = data.stats?.classBase.find((c) => c.classId === entry?.classId);
+    const abilities = data.abilities ? sortedAbilities(data.abilities) : [];
+    return (
+      <div className="ref wrap">
+        {head(tr("Estadísticas y daño de {clase} en WoW Forever", { clase: cname }), tr("El resumen junta tu raza, talentos, Legado, equipo y beneficios: estadísticas con su desglose y el daño o la sanación de cada habilidad de {clase}.", { clase: cname }))}
+        {base && (
+          <section className="ref-section">
+            <h2>{tr("Vida y maná base")}</h2>
+            <p>
+              {tr("Al nivel 60, {clase} tiene {hp} de vida base (sin equipo ni talentos).", { clase: cname, hp: fmt(base.hp[59] ?? 0) })}{" "}
+              {(base.mana[59] ?? 0) > 0 ? tr("Su maná base es {mana}.", { mana: fmt(base.mana[59] ?? 0) }) : tr("No usa maná.")}
+            </p>
+          </section>
+        )}
+        <section className="ref-section">
+          <h2>{tr("Habilidades con resultado por lanzamiento")}</h2>
+          <p>{tr("{n} habilidades de {clase}, de las que la calculadora saca el daño o la sanación de cada lanzamiento:", { n: abilities.length, clase: cname })}</p>
+          <ul className="ref-links">
+            {abilities.slice(0, 10).map((a) => (
+              <li key={a.ranks[0]!.spellId}>
+                <a href={href({ kind: "ability", cls: token, id: a.ranks[0]!.spellId })}>{abilityLabel(a)}</a>
+              </li>
+            ))}
+          </ul>
+          <p className="ref-actions">
+            <a className="btn" href={href({ kind: "class-abilities", cls: token })}>
+              {tr("Todas las habilidades de {clase}", { clase: cname })}
+            </a>
+          </p>
+        </section>
+        {foot}
+      </div>
+    );
+  }
+
+  if (view === "legacy") {
+    const legacy = data.legacy;
+    return (
+      <div className="ref wrap">
+        {head(tr("Puntos de Legado para {clase}", { clase: cname }), tr("Los Puntos de Legado son ventajas de cuenta: {max} puntos repartidos en {m} árboles que se eligen antes que los talentos de {clase}. Una de ellas adelanta el primer punto de talento.", { max: legacy?.rules.maxPoints ?? 16, m: legacy?.specs.length ?? 3, clase: cname }))}
+        {legacy?.specs.map((s) => (
+          <section key={s.index} className="ref-section">
+            <h2>{s.name}</h2>
+            <p>{joinNames(s.talents.filter((t) => t.name).sort((a, b) => a.row - b.row || a.col - b.col).map(talentLabel))}.</p>
+          </section>
+        ))}
+        {foot}
+      </div>
+    );
+  }
+
+  return (
+    <div className="ref wrap">
+      {head(tr("Beneficios y consumibles para {clase}", { clase: cname }), tr("Marca los beneficios que tendría tu {clase}: objetos de campamento, bendiciones, gritos, auras, elixires, frascos y comida, con las cifras del cliente. Los que no se acumulan se desmarcan solos.", { clase: cname }))}
+      {foot}
     </div>
   );
 }
@@ -576,9 +798,11 @@ export function RefContent({ page, data }: { page: Page; data: RefData }) {
       return <RaceView data={data} id={page.id} />;
     case "class":
       return <ClassIntroView data={data} token={page.cls} />;
+    case "calc":
+      return <CalcStepView data={data} token={page.cls} view={page.view} />;
     default:
       return null;
   }
 }
 
-export const isRefPage = (p: Page): boolean => ["class-talents", "talent", "class-abilities", "ability", "races", "race"].includes(p.kind);
+export const isRefPage = (p: Page): boolean => ["class", "calc", "class-talents", "talent", "class-abilities", "ability", "races", "race"].includes(p.kind);

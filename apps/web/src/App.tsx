@@ -10,9 +10,9 @@ import { UnassignedPage } from "./pages/UnassignedPage";
 import { EmbedPage } from "./pages/EmbedPage";
 import { getSeoIndex, href, navigate, setSeoIndex, useRoute, withBase, type Route } from "./router";
 import { releasePrerender, usePrerenderHandoff } from "./seo/handoff";
-import { embedMeta, homeMeta, notFoundMeta, classMeta, unassignedMeta } from "./seo/siteMeta";
+import { calcMeta, embedMeta, homeMeta, notFoundMeta, unassignedMeta } from "./seo/siteMeta";
 import { isRefPage, loadRefData, refMeta, RefContent } from "./seo/RefPages";
-import { legacyHashToUrl } from "./seo/routes";
+import { hasCharacterState, legacyHashToUrl, legacyView } from "./seo/routes";
 import { useSeo } from "./seo/useSeo";
 
 // Pantallas de pruebas del probador 3D: solo existen en desarrollo
@@ -106,8 +106,8 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
   useSeo(
     page.kind === "home"
       ? homeMeta(manifest)
-      : page.kind === "class"
-        ? classMeta(manifest, page.cls)
+      : page.kind === "calc"
+        ? calcMeta(manifest, page.cls, page.view)
         : page.kind === "unassigned"
           ? unassignedMeta()
           : page.kind === "embed"
@@ -125,13 +125,25 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
     if (page.name === "bust-lab" && BustLab) return <Suspense fallback={null}><BustLab query={route.query} /></Suspense>;
     if (page.name === "scene-lab" && SceneLab) return <Suspense fallback={null}><SceneLab query={route.query} /></Suspense>;
   }
-  if (page.kind === "class") {
+  if (page.kind === "calc") {
     const entry = manifest.classes.find((c) => classToken(c.file) === page.cls);
-    if (entry) return <ClassPage key={page.cls} token={page.cls} entry={entry} query={route.query} />;
+    if (entry) return <ClassPage key={page.cls} token={page.cls} entry={entry} query={route.query} view={page.view} />;
   }
+  // Un enlace antiguo (`/clases/mago/?b=…&v=talents`) trae el personaje en la página de la clase: pasa al paso de la calculadora
+  if (page.kind === "class" && hasCharacterState(route.query)) return <ToCalculator cls={page.cls} query={route.query} />;
   if (isRefPage(page)) return <RefRoute key={JSON.stringify(page)} page={page} manifest={manifest} lang={route.lang} />;
   if (page.kind === "home") return <Home manifest={manifest} query={route.query} />;
   return <NotFound />;
+}
+
+/** Lleva un enlace antiguo de la clase a su paso de la calculadora, conservando el personaje. */
+function ToCalculator({ cls, query }: { cls: string; query: URLSearchParams }) {
+  useEffect(() => {
+    const q = Object.fromEntries(query);
+    delete q.v;
+    navigate(href({ kind: "calc", cls, view: legacyView(query) }, q), { replace: true });
+  }, [cls, query]);
+  return <p className="status">{tr("Cargando datos…")}</p>;
 }
 
 /** Página de consulta (talentos, habilidades, razas): descarga sus datos y los pinta. */

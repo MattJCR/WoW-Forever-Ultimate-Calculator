@@ -11,10 +11,10 @@ import { setSeoIndex } from "./router";
 import { headHtml, headTags, type PageMeta } from "./seo/meta";
 import { isRefPage, loadRefData, refMeta, RefContent } from "./seo/RefPages";
 import { pagePath, type Lang, type Page, type SeoIndex } from "./seo/routes";
-import { classMeta, embedMeta, homeMeta, notFoundMeta, unassignedMeta } from "./seo/siteMeta";
+import { embedMeta, homeMeta, notFoundMeta, unassignedMeta } from "./seo/siteMeta";
 import { tr } from "./i18n";
 
-export { allPages, LANGS, pagePath, alternates } from "./seo/routes";
+export { allPages, isIndexable, LANGS, pagePath, alternates } from "./seo/routes";
 
 export interface RenderEnv {
   manifest: Manifest;
@@ -42,13 +42,12 @@ async function build(env: RenderEnv, page: Page, lang: Lang): Promise<{ meta: Pa
   setSeoIndex(env.index);
   const { manifest } = env;
   const ready = async () => {
-    const data = isRefPage(page) || page.kind === "class" ? await loadRefData(page, manifest) : { manifest };
+    const data = isRefPage(page) ? await loadRefData(page, manifest) : { manifest };
     setRenderLang(lang, lang === "en" ? env.en : null);
     return data;
   };
   const data = await ready();
   if (page.kind === "home") return { meta: homeMeta(manifest), content: <Home manifest={manifest} query={new URLSearchParams()} /> };
-  if (page.kind === "class") return { meta: classMeta(manifest, page.cls), content: <RefContent page={page} data={data} /> };
   if (isRefPage(page)) return { meta: refMeta(page, data), content: <RefContent page={page} data={data} /> };
   if (page.kind === "unassigned") return { meta: unassignedMeta(), content: <Plain title={unassignedMeta().title} text={unassignedMeta().description} /> };
   if (page.kind === "embed") return { meta: embedMeta(), content: null };

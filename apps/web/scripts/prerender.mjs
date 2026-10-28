@@ -18,7 +18,7 @@ const siteUrl = (() => {
 
 const entryFile = ["entry-server.js", "entry-server.mjs"].map((f) => join(ssrDir, f)).find(existsSync);
 if (!entryFile) throw new Error("Falta dist-ssr/entry-server.js: ejecuta `vite build --ssr src/entry-server.tsx --outDir dist-ssr` antes.");
-const { renderPage, allPages, LANGS, alternates } = await import(pathToFileURL(entryFile).href);
+const { renderPage, allPages, isIndexable, LANGS, alternates } = await import(pathToFileURL(entryFile).href);
 
 const template = readFileSync(join(dist, "index.html"), "utf8");
 if (!template.includes("<!--seo-head-->") || !template.includes("<!--seo-body-->")) throw new Error("dist/index.html no conserva los marcadores <!--seo-head--> y <!--seo-body-->");
@@ -49,7 +49,7 @@ for (const page of allPages(index)) {
   for (const lang of LANGS) {
     const out = await renderPage(env, page, lang);
     write(out.path, html(out, lang));
-    indexable.push({ page, lang, path: out.path });
+    if (isIndexable(page)) indexable.push({ page, lang, path: out.path });
   }
 }
 // Páginas que existen pero no se indexan (la web interactiva las pinta sin contenido propio)

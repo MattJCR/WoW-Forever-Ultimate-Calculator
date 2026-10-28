@@ -40,7 +40,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { isEmptyCode, useCharacter } from "../character";
 import { TalentInspector } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
-import { CharacterBar, ClassSwitcher, isView, StepNav, Stepper, type StepStatus, type View } from "../components/ClassShell";
+import { CharacterBar, ClassSwitcher, StepNav, Stepper, type StepStatus, type View } from "../components/ClassShell";
 import { GearStep, useGearBundle } from "../components/Gear";
 import { gearLinesForAI } from "../components/gear-format";
 import { LevelPicker } from "../components/LevelPicker";
@@ -57,7 +57,7 @@ import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, t
 import { decodeAvatar, encodeAvatar, type Avatar } from "../viewer/avatar";
 import { useHistory } from "../viewer/history";
 import { usePrerenderHandoff } from "../seo/handoff";
-import { href, replaceUrl } from "../router";
+import { href, navigate, replaceUrl } from "../router";
 
 type Entry = Manifest["classes"][number];
 const GEAR_STORAGE_PREFIX = "wfuc.gear.";
@@ -79,11 +79,11 @@ const DEFAULT_GEAR_LEVEL = 60;
 const FACTION_LABEL = { alliance: "Alianza", horde: "Horda" } as const;
 const factionLabel = (f: keyof typeof FACTION_LABEL): string => tr(FACTION_LABEL[f]);
 
-export function ClassPage({ token, entry, query }: { token: string; entry: Entry; query: URLSearchParams }) {
+export function ClassPage({ token, entry, query, view }: { token: string; entry: Entry; query: URLSearchParams; view: View }) {
   const state = useAsync(entry.file, () => loadClass(entry.file));
   if (state.status === "loading") return <p className="status">{tr("Cargando {name}…", { name: classLabel(token, entry.className ?? token) })}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
-  return <ClassView key={token} token={token} data={state.value} query={query} />;
+  return <ClassView key={token} token={token} data={state.value} query={query} view={view} />;
 }
 
 /** Puntos y acciones de un build; sirve igual para el arbol de clase y para Legacy. */
@@ -120,7 +120,7 @@ function useBuildActions(idx: ClassIndex | null, setBuild: (u: (b: Build) => Bui
   return { add, remove, resetTree };
 }
 
-function ClassView({ token, data, query }: { token: string; data: ClassTalents; query: URLSearchParams }) {
+function ClassView({ token, data, query, view }: { token: string; data: ClassTalents; query: URLSearchParams; view: View }) {
   usePrerenderHandoff();
   const { legacy, legacyBuild, legacyCode, legacyReady, legacyReport, setLegacyBuild, manifest } = useCharacter();
   const idx = useMemo(() => indexClass(data), [data]);
@@ -132,18 +132,6 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     return code ? decodeBuildReport(idx, code) : null;
   });
   const [classBuild, setClassBuild] = useState<Build>(() => initial?.build ?? {});
-  const [view, setView] = useState<View>(() => {
-    const v = query.get("v");
-    if (isView(v)) return v;
-    // Sin paso en el enlace: un build de clase ya empezado abre los talentos; si no, el flujo empieza por la raza
-    return query.get("b") ? "talents" : "race";
-  });
-  // Un enlace nuevo (p. ej. el boton "Legacy" de la cabecera estando ya en esta clase) manda sobre el paso actual.
-  // `query` cambia solo con hashchange: los cambios internos usan replaceState y no pasan por aqui.
-  useEffect(() => {
-    const v = query.get("v");
-    if (isView(v)) setView(v);
-  }, [query]);
   const [toast, setToast] = useState<string | null>(null);
   const [url, setUrl] = useState(() => window.location.href);
   const color = CLASS_COLORS[token] ?? "#e8b64a";
@@ -243,8 +231,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (gearLevel !== DEFAULT_GEAR_LEVEL) q.gl = String(gearLevel);
     if (avatarCode) q.a = avatarCode;
     if (buffCode) q.u = buffCode;
-    q.v = view;
-    replaceUrl({ kind: "class", cls: token }, q);
+    replaceUrl({ kind: "calc", cls: token, view }, q);
     setUrl(window.location.href);
   }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel, avatarCode, buffCode]);
 
@@ -300,12 +287,10 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     setGearState({});
   };
 
-  const go = (v: View) => setView(v);
-  // Anterior / Siguiente del final de cada paso: al cambiar se vuelve arriba para empezar el paso nuevo desde su cabecera
-  const goTop = (v: View) => {
-    setView(v);
-    window.scrollTo({ top: 0 });
-  };
+  // Cada paso es una dirección propia (`/calculadora/talentos/`); el estado del personaje viaja en la consulta de la dirección actual.
+  // Al cambiar de paso se vuelve arriba para empezar el paso nuevo desde su cabecera.
+  const go = (v: View) => navigate(href({ kind: "calc", cls: token, view: v }, Object.fromEntries(new URLSearchParams(window.location.search))));
+  const goTop = go;
 
   const status: Record<View, StepStatus> = {
     race: { sub: race ? raceLabel(race.id, race.name) : tr("Sin elegir"), done: !!race },
@@ -321,7 +306,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
 
   return (
     <div className={`class-page${view === "talents" || view === "legacy" ? " has-sheet" : ""}${view === "gear" || view === "summary" ? " is-wide" : ""}`} style={{ ["--accent" as string]: color }}>
-      <ClassSwitcher current={token} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
+      <ClassSwitcher current={token} view={view} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
       <nav className="class-refs" aria-label={tr("Consulta")}>
         <a href={href({ kind: "class-talents", cls: token })}>{tr("Talentos de {clase}", { clase: classLabel(token, data.className ?? token) })}</a>
         <a href={href({ kind: "class-abilities", cls: token })}>{tr("Habilidades de {clase}", { clase: classLabel(token, data.className ?? token) })}</a>

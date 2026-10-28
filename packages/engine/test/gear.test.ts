@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   GEAR_SLOTS,
   canEquip,
+  classProficiencies,
   compareGear,
   decodeGear,
   encodeGear,
@@ -52,6 +53,19 @@ describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70658
   // Peto de alabastro (placas, nivel 52), Toga imperial roja (tela, 51), Hoja de Hanna (espada 2M, 59), Aterratigres (daga, 33),
   // Égida de Ventormenta (escudo, 49), Ojo de Adaegus (anillo único, 48), Varita agostadora (30), Tratado sobre Gracia (libro, 60)
   const PLATE_CHEST = 8312, CLOTH_ROBE = 8252, TWO_HAND_SWORD = 2801, DAGGER = 1465, SHIELD = 1203, UNIQUE_RING = 5266, WAND = 5213, LIBRAM = 22402;
+
+  it("competencias de una clase: el mago solo lleva tela y no usa dos armas; el pícaro sí", () => {
+    const rules = EquipRules.parse(json("equip-rules.json"));
+    const mage = classProficiencies(rules, MAGE);
+    expect(mage.armor.map((a) => a.name)).toEqual(["tela"]);
+    expect(mage.weapons.map((w) => w.name)).toContain("varitas");
+    expect(mage.dualWieldLevel).toBeNull();
+    const rogue = classProficiencies(rules, ROGUE);
+    expect(rogue.armor.map((a) => a.name)).toContain("cuero");
+    expect(rogue.dualWieldLevel).not.toBeNull();
+    // las armaduras que exigen nivel lo dicen (el guerrero lleva placas desde el 40)
+    expect(classProficiencies(rules, WARRIOR).armor.find((a) => a.name === "placas")?.minLevel).toBe(40);
+  });
 
   it("cada objeto con datos cabe en alguna ranura (nada queda sin sitio)", () => {
     const sinRanura = [...data.items.values()].filter((i) => slotsForItem(i).length === 0).map((i) => `${i.id}/${i.inventoryType}`);

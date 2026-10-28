@@ -69,7 +69,7 @@ function ExampleCard() {
         </div>
       </div>
       <div className="hero-example-link">
-        <span>{href({ kind: "class", cls: "mage" }, { r: "1", b: "Aq3x…", v: "talents" })}</span>
+        <span>{href({ kind: "calc", cls: "mage", view: "talents" }, { r: "1", b: "Aq3x…" })}</span>
         <span className="chip chip-solid">{tr("Copiar")}</span>
       </div>
     </div>
@@ -124,7 +124,7 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
             const name = classLabel(token, c.className ?? "");
             return (
               <li key={c.classId}>
-                <a className="class-card" href={href({ kind: "class", cls: token }, q)} style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
+                <a className="class-card" href={href({ kind: "calc", cls: token, view: "race" }, q)} style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
                   <span className="class-card-head">
                     <Icon id={c.iconFileDataId} name={name} />
                     <span className="class-name">{name}</span>

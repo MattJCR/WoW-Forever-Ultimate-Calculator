@@ -3,7 +3,7 @@ import type { Manifest } from "@wfuc/schema";
 import { classLabel, currentLang, specLabel, tr } from "../i18n";
 import { getSeoIndex } from "../router";
 import { breadcrumbs, clip, siteUrl, SITE_NAME, type PageMeta } from "./meta";
-import { pagePath, type Page } from "./routes";
+import { isIndexable, pagePath, type CalcView, type Page } from "./routes";
 
 const classEntry = (manifest: Manifest, token: string) => manifest.classes.find((c) => c.file === `classes/${token}.json`);
 
@@ -36,16 +36,46 @@ export function homeMeta(manifest: Manifest): PageMeta {
   };
 }
 
-/** Calculadora de una clase (la página interactiva). */
+/** Página de la clase: la entrada a los pasos de la calculadora. */
 export function classMeta(manifest: Manifest, token: string): PageMeta {
   const entry = classEntry(manifest, token);
   const name = classLabel(token, entry?.className ?? token);
   const specs = (entry?.specNames ?? []).map((s, i) => specLabel(token, i, s)).join(", ");
   return {
-    title: tr("Calculadora de talentos de {clase} – WoW Forever", { clase: name }),
-    description: clip(tr("Calculadora de {clase} de WoW Forever: árboles de talentos ({specs}), raza, Puntos de Legado, equipo y el daño de cada habilidad. Tu build se guarda en el enlace.", { clase: name, specs })),
+    title: tr("{clase} en WoW Forever: talentos, razas, equipo y habilidades", { clase: name }),
+    description: clip(tr("Todo para planificar tu {clase} de WoW Forever: árboles de talentos ({specs}), razas, Puntos de Legado, equipo con probador 3D y el daño de cada habilidad.", { clase: name, specs })),
     jsonLd: [breadcrumbs([{ name: "WoW Forever", path: path({ kind: "home" }) }, { name, path: path({ kind: "class", cls: token }) }])],
   };
+}
+
+/** Un paso de la calculadora de una clase (cada uno tiene su dirección). */
+export function calcMeta(manifest: Manifest, token: string, view: CalcView): PageMeta {
+  const entry = classEntry(manifest, token);
+  const name = classLabel(token, entry?.className ?? token);
+  const specs = (entry?.specNames ?? []).map((s, i) => specLabel(token, i, s)).join(", ");
+  const noindex = !isIndexable({ kind: "calc", cls: token, view });
+  const crumbs = [{ name: "WoW Forever", path: path({ kind: "home" }) }, { name, path: path({ kind: "class", cls: token }) }];
+  const here = path({ kind: "calc", cls: token, view });
+  const step = (title: string, description: string, label: string): PageMeta => ({
+    title,
+    description: clip(description),
+    noindex,
+    jsonLd: [breadcrumbs([...crumbs, { name: label, path: here }])],
+  });
+  switch (view) {
+    case "race":
+      return step(tr("Razas de {clase} en WoW Forever: raciales y estadísticas", { clase: name }), tr("Qué razas pueden ser {clase} en WoW Forever, con sus habilidades raciales, y cómo cambian tus estadísticas según la que elijas.", { clase: name }), tr("Raza"));
+    case "legacy":
+      return step(tr("Puntos de Legado para {clase} – WoW Forever", { clase: name }), tr("Reparte los 16 Puntos de Legado de tu cuenta antes de gastar los talentos de {clase}: ventajas de aventura, recursos y profesiones.", { clase: name }), tr("Puntos de Legado"));
+    case "talents":
+      return step(tr("Calculadora de talentos de {clase} – WoW Forever", { clase: name }), tr("Calculadora de {clase} de WoW Forever: árboles de talentos ({specs}), requisitos por filas y nivel necesario. Tu build se guarda en el enlace.", { clase: name, specs }), tr("Talentos"));
+    case "gear":
+      return step(tr("Equipo de {clase} en WoW Forever: armaduras, armas y probador 3D", { clase: name }), tr("Qué armaduras y armas lleva {clase} en WoW Forever y prueba tu equipo en el probador 3D, con encantamientos, sufijos aleatorios y conjuntos.", { clase: name }), tr("Equipo"));
+    case "buffs":
+      return step(tr("Beneficios y consumibles para {clase} – WoW Forever", { clase: name }), tr("Marca los beneficios de tu {clase}: bendiciones, gritos, elixires, frascos, comida y objetos de campamento, con las cifras del cliente.", { clase: name }), tr("Beneficios"));
+    case "summary":
+      return step(tr("Estadísticas y daño de {clase} en WoW Forever", { clase: name }), tr("Estadísticas con su desglose y el daño o la sanación de cada habilidad de {clase} en WoW Forever, según tu raza, talentos, equipo y beneficios.", { clase: name }), tr("Resumen"));
+  }
 }
 
 export const unassignedMeta = (): PageMeta => ({

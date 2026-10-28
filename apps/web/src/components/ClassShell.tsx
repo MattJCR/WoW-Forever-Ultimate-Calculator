@@ -4,9 +4,10 @@ import { isEmptyCode } from "../character";
 import { CLASS_COLORS } from "../data";
 import { classLabel, tr } from "../i18n";
 import { href } from "../router";
+import { isCalcView, type CalcView } from "../seo/routes";
 import { Icon } from "./Icon";
 
-export type View = "race" | "legacy" | "talents" | "gear" | "buffs" | "summary";
+export type View = CalcView;
 
 // La raza va primero (paso propio, con su caja como los talentos). Legacy va ANTES que los talentos de clase:
 // Talentoso (Legacy) adelanta el primer punto de talento y cambia el nivel que exigen.
@@ -20,19 +21,19 @@ export const VIEWS: { id: View; label: string }[] = [
 ];
 /** Nombre del paso en el idioma elegido (`VIEWS` guarda el texto en español, que es la clave del diccionario). */
 export const viewLabel = (v: { label: string }): string => tr(v.label);
-export const isView = (v: string | null): v is View => VIEWS.some((x) => x.id === v);
+export const isView = isCalcView;
 
 const svg = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true } as const;
 
 /** Selector de clase: conserva Legacy y la raza al cambiar (si la nueva clase no admite la raza, el paso Raza la ignora). */
-export function ClassSwitcher({ current, legacyCode, raceQuery, manifest }: { current: string; legacyCode: string; raceQuery: Record<string, string>; manifest: Manifest }) {
+export function ClassSwitcher({ current, view, legacyCode, raceQuery, manifest }: { current: string; view: View; legacyCode: string; raceQuery: Record<string, string>; manifest: Manifest }) {
   return (
     <nav className="class-switcher" aria-label={tr("Clases")}>
       {manifest.classes.map((c) => {
         const t = c.file.replace(/^classes\//, "").replace(/\.json$/, "");
         const q: Record<string, string> = { ...(isEmptyCode(legacyCode) ? {} : { l: legacyCode }), ...raceQuery };
         return (
-          <a key={c.classId} href={href({ kind: "class", cls: t }, q)} className="class-chip" style={{ ["--c" as string]: CLASS_COLORS[t] }} aria-current={t === current ? "page" : undefined}>
+          <a key={c.classId} href={href({ kind: "calc", cls: t, view }, q)} className="class-chip" style={{ ["--c" as string]: CLASS_COLORS[t] }} aria-current={t === current ? "page" : undefined}>
             <Icon id={c.iconFileDataId} name={classLabel(t, c.className ?? "")} />
             <span>{classLabel(t, c.className ?? "")}</span>
           </a>

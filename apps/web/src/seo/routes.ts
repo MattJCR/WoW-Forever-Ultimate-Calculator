@@ -24,9 +24,15 @@ export interface SeoIndex {
   talents: Record<string, SeoEntry[]>;
 }
 
+/** Pasos de la calculadora de una clase, en orden. Cada uno tiene su propia URL (`/es/clases/mago/calculadora/talentos/`). */
+export const CALC_VIEWS = ["race", "legacy", "talents", "gear", "buffs", "summary"] as const;
+export type CalcView = (typeof CALC_VIEWS)[number];
+export const isCalcView = (v: string | null | undefined): v is CalcView => (CALC_VIEWS as readonly string[]).includes(v ?? "");
+
 export type Page =
   | { kind: "home" }
   | { kind: "class"; cls: string }
+  | { kind: "calc"; cls: string; view: CalcView }
   | { kind: "class-talents"; cls: string }
   | { kind: "talent"; cls: string; id: number }
   | { kind: "class-abilities"; cls: string }
@@ -46,9 +52,20 @@ export interface ParsedPath {
 
 /** Palabras fijas de cada ruta. */
 const WORDS = {
-  es: { classes: "clases", talents: "talentos", abilities: "habilidades", races: "razas", unassigned: "sin-asignar" },
-  en: { classes: "classes", talents: "talents", abilities: "abilities", races: "races", unassigned: "unassigned" },
+  es: {
+    classes: "clases", talents: "talentos", abilities: "habilidades", races: "razas", unassigned: "sin-asignar", calc: "calculadora",
+    views: { race: "raza", legacy: "legado", talents: "talentos", gear: "equipo", buffs: "beneficios", summary: "resumen" },
+  },
+  en: {
+    classes: "classes", talents: "talents", abilities: "abilities", races: "races", unassigned: "unassigned", calc: "calculator",
+    views: { race: "race", legacy: "legacy", talents: "talents", gear: "gear", buffs: "buffs", summary: "summary" },
+  },
 } as const;
+
+/** Pasos que no se indexan: su contenido es el mismo para todas las clases (se indexan las páginas de Legado y beneficios generales). */
+export const NOINDEX_VIEWS: readonly CalcView[] = ["legacy", "buffs"];
+/** ¿La página debe ir al sitemap y llevar canonical? */
+export const isIndexable = (page: Page): boolean => !(page.kind === "calc" && NOINDEX_VIEWS.includes(page.view));
 
 /** Pantallas de pruebas del probador 3D: solo existen en desarrollo. */
 export const LAB_PAGES = ["viewer-lab", "bust-lab", "scene-lab"] as const;
@@ -93,6 +110,10 @@ export function parsePath(pathname: string, index: SeoIndex): ParsedPath {
     const cls = find(index.classes, lang, a);
     if (!cls) return notFound;
     if (!section) return at({ kind: "class", cls: cls.token });
+    if (section === w.calc) {
+      const view = (Object.keys(w.views) as CalcView[]).find((v) => w.views[v] === b);
+      return view && segs.length === 5 ? at({ kind: "calc", cls: cls.token, view }) : notFound;
+    }
     if (section === w.talents) {
       if (!b) return at({ kind: "class-talents", cls: cls.token });
       const t = find(index.talents[cls.token], lang, b);
@@ -136,6 +157,10 @@ function pagePathBare(page: Page, lang: Lang, index: SeoIndex): string | null {
       const c = cls(page.cls);
       return c ? `${root}/${w.classes}/${c[lang]}` : null;
     }
+    case "calc": {
+      const c = cls(page.cls);
+      return c ? `${root}/${w.classes}/${c[lang]}/${w.calc}/${w.views[page.view]}` : null;
+    }
     case "class-talents":
     case "class-abilities": {
       const c = cls(page.cls);
@@ -172,6 +197,7 @@ export function allPages(index: SeoIndex): Page[] {
   for (const r of index.races) pages.push({ kind: "race", id: r.id });
   for (const c of index.classes) {
     pages.push({ kind: "class", cls: c.token }, { kind: "class-talents", cls: c.token }, { kind: "class-abilities", cls: c.token });
+    for (const view of CALC_VIEWS) pages.push({ kind: "calc", cls: c.token, view });
     for (const t of index.talents[c.token] ?? []) pages.push({ kind: "talent", cls: c.token, id: t.id });
     for (const a of index.abilities[c.token] ?? []) pages.push({ kind: "ability", cls: c.token, id: a.id });
   }
@@ -181,6 +207,16 @@ export function allPages(index: SeoIndex): Page[] {
 /** Cadena de consulta con los parámetros no vacíos («?b=…&v=talents»). */
 export function queryString(query?: Record<string, string>): string {
   return query && Object.keys(query).length ? `?${new URLSearchParams(query)}` : "";
+}
+
+/** Parámetros del estado del personaje que el enlace de una clase puede traer (`?b=…&r=…`). */
+const STATE_KEYS = ["b", "l", "r", "g", "gl", "a", "u", "v"] as const;
+export const hasCharacterState = (query: URLSearchParams): boolean => STATE_KEYS.some((k) => query.has(k));
+
+/** Paso de la calculadora al que lleva un enlace antiguo (`?v=` manda; sin él, un build de clase abre los talentos y si no la raza). */
+export function legacyView(query: URLSearchParams): CalcView {
+  const v = query.get("v");
+  return isCalcView(v) ? v : query.get("b") ? "talents" : "race";
 }
 
 /**
@@ -201,7 +237,11 @@ export function legacyHashToUrl(hash: string, lang: Lang, index: SeoIndex): stri
   if (!area) page = { kind: "home" };
   else if (area === "class" && arg) {
     const c = index.classes.find((x) => x.token === arg);
-    page = c ? { kind: "class", cls: c.token } : null;
+    if (c) {
+      const view = legacyView(query);
+      query.delete("v");
+      page = { kind: "calc", cls: c.token, view };
+    }
   } else if (area === "unassigned") page = { kind: "unassigned" };
   else if (area === "embed") page = { kind: "embed" };
   else if ((LAB_PAGES as readonly string[]).includes(area)) page = { kind: "lab", name: area };

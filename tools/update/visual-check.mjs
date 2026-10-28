@@ -50,6 +50,8 @@ if (!(await waitUp())) { console.log("El servidor de desarrollo no arrancó en 2
 const manifest = JSON.parse(readFileSync(join(ROOT, "data", "forever", build, "manifest.json"), "utf8"));
 // URL real de cada clase en español (el índice de slugs lo genera sync-data al arrancar el servidor)
 const seoIndex = JSON.parse(readFileSync(join(ROOT, "apps", "web", "public", "data", "seo-index.json"), "utf8"));
+const VIEW_SLUG = { race: "raza", legacy: "legado", talents: "talentos", gear: "equipo", buffs: "beneficios", summary: "resumen" };
+const stepPath = (token, view) => `${classPath(token)}/calculadora/${VIEW_SLUG[view]}/`;
 const classPath = (token) => `es/clases/${seoIndex.classes.find((c) => c.token === token).es}`;
 const tokens = manifest.classes.map((c) => c.file.replace(/^classes\//, "").replace(/\.json$/, "")).filter((t) => !only || t === only);
 
@@ -66,7 +68,7 @@ try {
       page.on("pageerror", (e) => errors.push(`excepción: ${e.message}`));
       page.on("console", (m) => { if (m.type() === "error") errors.push(`consola: ${m.text().slice(0, 160)}`); });
       page.on("requestfailed", (r) => errors.push(`petición fallida: ${r.url().slice(0, 120)}`));
-      await page.goto(`${base}${classPath(token)}?v=${view}`, { waitUntil: "load" });
+      await page.goto(`${base}${stepPath(token, view)}`, { waitUntil: "load" });
       await page.waitForSelector("nav[aria-label]", { timeout: 20_000 }).catch(() => errors.push("no aparece la barra de pasos"));
       await page.waitForTimeout(view === "gear" ? 2500 : 800);
       const text = await page.evaluate(() => document.body.innerText);
@@ -86,7 +88,7 @@ try {
   const probe = buffs.filter((b) => b.category !== "class" && b.classId === null && (!b.durationMs || b.durationMs >= 60_000)).at(-1);
   if (probe) {
     const page = await ctx.newPage();
-    await page.goto(`${base}${classPath(tokens[0])}?v=buffs`, { waitUntil: "load" });
+    await page.goto(`${base}${stepPath(tokens[0], "buffs")}`, { waitUntil: "load" });
     const search = page.locator('input[type="search"]').first();
     await search.waitFor({ timeout: 20_000 }).catch(() => problems.push("buffs: no hay buscador de beneficios"));
     if (await search.count()) {
