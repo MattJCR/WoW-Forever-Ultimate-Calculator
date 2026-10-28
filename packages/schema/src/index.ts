@@ -597,7 +597,7 @@ export const RuleEffect = z.object({
   /** Multiplicador del valor del cliente (0,5 = la mitad; -1 = cambio de signo; 0,001 = ms a s). */
   factor: z.number().default(1),
   /** Otras cifras de la plantilla: {w}, {x}... -> indice de efecto. */
-  extras: z.record(z.object({ index: z.number().int(), factor: z.number().default(1) })).default({}),
+  extras: z.record(z.string(), z.object({ index: z.number().int(), factor: z.number().default(1) })).default({}),
   /** Texto en espanol con {v} (y los extras). */
   label: z.string(),
   scope: RuleScope,
@@ -1026,13 +1026,14 @@ export const EnglishText = z.object({
   provenance: Provenance,
   source: z.string(),
   /** Por token de clase (`MAGE`…): nombre y nombres de sus arboles (en orden). */
-  classes: z.record(z.object({ name: z.string(), specs: z.array(z.string()) })),
+  classes: z.record(z.string(), z.object({ name: z.string(), specs: z.array(z.string()) })),
   /** Arboles de Legacy, en orden. */
   legacyTrees: z.array(z.string()),
   /** Talentos y ventajas de Legacy por `nodeId`: nombre y descripcion por rango (nivel 60). */
-  talents: z.record(z.object({ name: z.string(), descriptions: z.array(z.string()) })),
+  talents: z.record(z.string(), z.object({ name: z.string(), descriptions: z.array(z.string()) })),
   /** Hechizos (rangos de habilidades) por `spellId`: nombre y texto fijo a nivel 60 sin talentos ni equipo (no se recalcula). */
   spells: z.record(
+    z.string(),
     z.object({
       name: z.string(),
       description: z.string().nullable(),
@@ -1042,15 +1043,15 @@ export const EnglishText = z.object({
     }),
   ),
   /** Talentos sin nodo (`UnassignedEntry`) por `entryId`: nombre y descripcion por rango. */
-  entries: z.record(z.object({ name: z.string(), descriptions: z.array(z.string()) })).default({}),
+  entries: z.record(z.string(), z.object({ name: z.string(), descriptions: z.array(z.string()) })).default({}),
   /** Objetos por `id`. */
-  items: z.record(z.string()),
+  items: z.record(z.string(), z.string()),
   /** Conjuntos de objetos por `id`. */
-  itemSets: z.record(z.string()).default({}),
+  itemSets: z.record(z.string(), z.string()).default({}),
   /** Textos que son traduccion propia (data/i18n/enUS-overrides.json): `spell:<id>`, `talent:<nodeId>`, `entry:<entryId>`, `item:<id>`, `set:<id>`. La web los marca. */
   ownTranslation: z.array(z.string()).default([]),
   /** Razas por `ChrRaces.ID`: nombre y raciales por `order`. */
-  races: z.record(z.object({ name: z.string(), racials: z.array(z.object({ name: z.string(), description: z.string() })) })),
+  races: z.record(z.string(), z.object({ name: z.string(), racials: z.array(z.object({ name: z.string(), description: z.string() })) })),
 });
 export type EnglishText = z.infer<typeof EnglishText>;
 
