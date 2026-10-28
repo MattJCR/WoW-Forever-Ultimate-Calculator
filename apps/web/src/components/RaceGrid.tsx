@@ -140,14 +140,19 @@ function ReferenceOnlyGroup({ race, open, onToggle }: { race: Race; open: boolea
   );
 }
 
+/** Iconos de raza que el cliente no trae (ClientFileString → ruta en `public/`). */
+const STATIC_RACE_ICONS: Record<string, string> = { Skyborne: "race/skyborne.png" };
+
 /**
  * Retrato de la raza: el icono del juego (`Achievement_Character_<raza>_<sexo>`, varón). Los Cielonatos no tienen icono en el cliente: llevan
- * la cara del personaje (tools/model/render-races.mjs) y, sin modelos, la inicial.
+ * el suyo (`public/race/skyborne.png`); la cara del modelo (tools/model/render-races.mjs) y la inicial quedan de respaldo.
  */
 function RacePortrait({ race, name }: { race: Race; name: string }) {
   const [model, setModel] = useState<number | null>(null);
   const [broken, setBroken] = useState(false);
-  const own = race.iconFileDataId !== null;
+  // Los Cielonatos no tienen icono en el cliente: llevan el suyo como recurso de la web
+  const fixed = STATIC_RACE_ICONS[race.token];
+  const own = race.iconFileDataId !== null || !!fixed;
   useEffect(() => {
     if (own) return;
     let dead = false;
@@ -156,7 +161,7 @@ function RacePortrait({ race, name }: { race: Race; name: string }) {
     });
     return () => { dead = true; };
   }, [race.id, own]);
-  const src = own ? `${import.meta.env.BASE_URL}data/icons/${race.iconFileDataId}.png` : model !== null ? `${MODELS_BASE}/race/${model}.webp` : null;
+  const src = fixed ? `${import.meta.env.BASE_URL}${fixed}` : own ? `${import.meta.env.BASE_URL}data/icons/${race.iconFileDataId}.png` : model !== null ? `${MODELS_BASE}/race/${model}.webp` : null;
   return (
     <span className={`rg-mono ${race.faction}`} aria-hidden="true">
       {src && !broken ? <img src={src} alt="" width={50} height={50} onError={() => setBroken(true)} /> : name.charAt(0)}
