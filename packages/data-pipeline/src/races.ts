@@ -1,5 +1,5 @@
 import { int, type RawTables } from "./csv.js";
-import type { Abilities, RacialAbility, Races } from "./model.js";
+import type { Abilities, ClassRacial, RacialAbility, Races } from "./model.js";
 import { loadOverrides, looksEnglish } from "./language.js";
 import { RACIAL_SKILL_LINES, RACIAL_TEXT_FROM_SPELL, pvpTrinketShare, racialSpells } from "./racial-spells.js";
 import { renderSpellText } from "./spell-text.js";
@@ -102,11 +102,19 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
   return { schemaVersion: 1, build, locale, playableProvenance: "client-db2", races, warnings };
 }
 
+/** Atributos del personaje que suman a una cifra del texto (`${$o2+$SPI}`): el texto calculado solo trae la base. */
+const STAT_VARIABLES: Record<string, ClassRacial["scalesWith"][number]> = { SPI: "spirit", STR: "strength", AGI: "agility", STA: "stamina", INT: "intellect" };
+function statsOf(template: string): ClassRacial["scalesWith"] {
+  const found = new Set<ClassRacial["scalesWith"][number]>();
+  for (const m of template.matchAll(/\$(SPI|STR|AGI|STA|INT)(?![A-Za-z])/g)) found.add(STAT_VARIABLES[m[1]!]!);
+  return [...found];
+}
+
 /**
  * Rellena `classRacials` de cada raza con las habilidades de clase ligadas a ella. Una habilidad es racial si el cliente la limita a
  * algunas razas de la clase en esa facción (Rebote: solo Humano); si abarca a todas las de la facción es de la facción (portales del Mago).
  */
-export function attachClassRacials(races: Races, abilities: Abilities[]): void {
+export function attachClassRacials(races: Races, abilities: Abilities[], spells: SpellTables): void {
   for (const race of races.races) race.classRacials = [];
   for (const data of abilities) {
     const allowed = (faction: string): number[] => races.races.filter((r) => r.faction === faction && r.classIds.includes(data.classId)).map((r) => r.id);
@@ -130,6 +138,7 @@ export function attachClassRacials(races: Races, abilities: Abilities[]): void {
           cooldownMs: last.cooldownMs,
           description: last.description,
           textOrigin: last.textOrigin,
+          scalesWith: statsOf(spells.clientDescription(last.spellId)),
         });
       }
     }

@@ -9,6 +9,7 @@ import { Abilities, BaseStats, ClassTalents, ClientStats, CombatFormulas, Races 
 import { buildBaseStats, type ClassicEra } from "../src/stats.js";
 import { auditLevelStats } from "../src/stats-audit.js";
 import { buildAbilities, racesOfMasks } from "../src/abilities.js";
+import { CLIENT_TEXT_FIXES } from "../src/spell-tables.js";
 import { looksEnglish } from "../src/language.js";
 import { CLIENT_TYPOS, attachClassRacials, buildRaces, parseRacialName } from "../src/races.js";
 import { buildLegacy } from "../src/legacy.js";
@@ -1493,7 +1494,7 @@ describe("texto completo de las raciales y raciales de clase (pantalla de razas)
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
   const racesData = buildRaces(raw, BUILD, "esES", live.spells);
   const classes = [1, 2, 3, 4, 5, 7, 8, 9, 11].map((id) => buildAbilities(raw, live.spells, id, BUILD, "esES", live.classes.find((c) => c.classId === id))!);
-  attachClassRacials(racesData, classes);
+  attachClassRacials(racesData, classes, live.spells);
   const byId = (id: number) => racesData.races.find((r) => r.id === id)!;
   const full = (raceId: number, name: string, spellId?: number) => byId(raceId).racials.find((a) => a.name === name)!.spells.find((s) => spellId === undefined || s.spellId === spellId)!.description;
 
@@ -1523,5 +1524,26 @@ describe("texto completo de las raciales y raciales de clase (pantalla de razas)
     // Solo las razas que pueden ser Sacerdote
     for (const r of racesData.races) if (r.classRacials.length > 0) expect(r.classIds).toContain(5);
     expect(() => Races.parse(racesData)).not.toThrow();
+  });
+
+  it("los 12 textos de las raciales de clase salen del cliente con sus cifras, y sin marcadores (la paridad de cifras con el inglés oficial la audita tools/update/audit-texts.mjs)", () => {
+    const text = (raceId: number, name: string) => byId(raceId).classRacials.find((c) => c.name === name)!.description;
+    // Gracia divina: el cliente trae «…de salud durante 1383» (errata de redacción; el inglés dice «for 1383»): se corrige conservando la cifra
+    expect(text(1, "Gracia divina")).toBe("Sana instantáneamente 1383 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.");
+    expect(text(3, "Rezo desesperado")).toBe("Cura instantáneamente 1383 p.");
+    expect(text(5, "Toque de debilidad")).toContain("infligirá 56 p. de daño de las Sombras y reducirá 204 p.");
+    for (const r of racesData.races) for (const c of r.classRacials) expect(c.description, `${r.name}: ${c.name}`).not.toMatch(/[$]|durante \d+ y /);
+  });
+
+  it("las cifras que suman un atributo del personaje se avisan: Sacrificio oscuro suma el espíritu (el texto trae solo la base)", () => {
+    const scaled = racesData.races.flatMap((r) => r.classRacials.filter((c) => c.scalesWith.length > 0).map((c) => `${r.name}: ${c.name} (${c.scalesWith.join(", ")})`));
+    expect(scaled).toEqual(["No-muerto: Sacrificio oscuro (spirit)"]);
+  });
+
+  it("erratas de redacción del cliente corregidas a mano: lista exacta", () => {
+    expect(CLIENT_TEXT_FIXES.map(([wrong]) => wrong)).toEqual(["Sana instantáneamente a un objetivo amistoso por debajo del $s2% de salud durante $s1 y elimina"]);
+    // Gracia divina también en el libro de hechizos del Sacerdote, con las cifras de cada rango
+    const priest = classes.find((c) => c.classId === 5)!.abilities.find((a) => a.name === "Gracia divina")!;
+    expect(priest.ranks.map((r) => r.description)).toSatisfy((d: string[]) => d.every((x) => /^Sana instantáneamente \d+ p\. a un objetivo amistoso/.test(x)));
   });
 });

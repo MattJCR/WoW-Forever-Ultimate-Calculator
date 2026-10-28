@@ -13,12 +13,17 @@ const FACTIONS = [
 /** Clases en plural para «Solo sacerdotes» (la etiqueta de las raciales de clase). */
 const CLASS_PLURAL: Record<number, string> = { 1: "guerreros", 2: "paladines", 3: "cazadores", 4: "pícaros", 5: "sacerdotes", 7: "chamanes", 8: "magos", 9: "brujos", 11: "druidas" };
 
+/** Atributo que suma a una cifra del texto (Sacrificio oscuro: espíritu). */
+const STAT_PLUS = { spirit: "más tu espíritu", strength: "más tu fuerza", agility: "más tu agilidad", stamina: "más tu aguante", intellect: "más tu intelecto" } as const;
+
 /** Tarjeta flotante de una racial de clase: icono, nombre, texto del cliente y cifras (nivel, duración y enfriamiento). */
 function ClassRacialCard({ c, race }: { c: ClassRacial; race: Race }) {
   const en = isEnglish() ? spellEn(c.spellId) : null;
   const name = en?.name || c.name;
   const description = en?.description || c.description;
   const facts = [tr("desde el nivel {n}", { n: c.level })];
+  // La cifra del texto es la base: el cliente suma además un atributo del personaje
+  for (const stat of c.scalesWith) facts.push(tr(STAT_PLUS[stat]));
   if (c.durationMs) facts.push(tr("dura {t}", { t: formatMs(c.durationMs) }));
   if (c.cooldownMs) facts.push(tr("enfriamiento {t}", { t: formatMs(c.cooldownMs) }));
   const translated = originNote(c.textOrigin);

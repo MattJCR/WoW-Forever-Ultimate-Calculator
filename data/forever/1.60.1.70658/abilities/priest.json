@@ -5782,14 +5782,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 149 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 149 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277370:2|50}}% de salud durante {{s:1277370:1|149}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277370:1|149}} p. a un objetivo amistoso por debajo del {{s:1277370:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -5853,14 +5853,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 276 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 276 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277371:2|50}}% de salud durante {{s:1277371:1|276}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277371:1|276}} p. a un objetivo amistoso por debajo del {{s:1277371:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -5924,14 +5924,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 458 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 458 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277372:2|50}}% de salud durante {{s:1277372:1|458}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277372:1|458}} p. a un objetivo amistoso por debajo del {{s:1277372:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -5995,14 +5995,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 595 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 595 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277374:2|50}}% de salud durante {{s:1277374:1|595}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277374:1|595}} p. a un objetivo amistoso por debajo del {{s:1277374:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -6066,14 +6066,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 856 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 856 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277376:2|50}}% de salud durante {{s:1277376:1|856}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277376:1|856}} p. a un objetivo amistoso por debajo del {{s:1277376:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -6137,14 +6137,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 1143 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 1143 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277377:2|50}}% de salud durante {{s:1277377:1|1143}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277377:1|1143}} p. a un objetivo amistoso por debajo del {{s:1277377:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         },
@@ -6208,14 +6208,14 @@
           "radiusYd": null,
           "charges": [],
           "procs": [],
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 1383 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "description": "Sana instantáneamente 1383 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "textOrigin": "client",
           "acquireMethod": 0,
           "races": [
             1
           ],
           "descriptionComplete": true,
-          "descriptionTemplate": "Sana instantáneamente a un objetivo amistoso por debajo del {{s:1277378:2|50}}% de salud durante {{s:1277378:1|1383}} y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "descriptionTemplate": "Sana instantáneamente {{s:1277378:1|1383}} p. a un objetivo amistoso por debajo del {{s:1277378:2|50}}% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
           "equipped": [],
           "weaponHand": "main"
         }

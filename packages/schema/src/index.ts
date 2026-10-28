@@ -367,6 +367,8 @@ export const ClassRacial = z.object({
   cooldownMs: z.number().int().nullable(),
   description: z.string(),
   textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
+  /** Atributos del personaje que se suman a una cifra del texto (Sacrificio oscuro: espíritu); el texto trae solo la base. */
+  scalesWith: z.array(z.enum(["spirit", "strength", "agility", "stamina", "intellect"])).default([]),
 });
 export type ClassRacial = z.infer<typeof ClassRacial>;
 

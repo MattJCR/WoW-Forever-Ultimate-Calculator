@@ -200,7 +200,7 @@ function build(): void {
   }
 
   // Habilidades de clase ligadas a una raza (Sacerdote…): se cuelgan de la raza para la pantalla de razas
-  attachClassRacials(races, abilityData);
+  attachClassRacials(races, abilityData, spells);
   racesText = stableJson(Races.parse(races));
   writeFileSync(join(outDir, "races.json"), racesText);
   console.log(`Raciales de clase: ${races.races.map((r) => `${r.name} ${r.classRacials.length}`).filter((s) => !s.endsWith(" 0")).join(", ")}`);

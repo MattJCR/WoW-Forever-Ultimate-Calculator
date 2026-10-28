@@ -149,8 +149,9 @@
           "level": 10,
           "durationMs": null,
           "cooldownMs": 600000,
-          "description": "Sana instantáneamente a un objetivo amistoso por debajo del 50% de salud durante 1383 y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
-          "textOrigin": "client"
+          "description": "Sana instantáneamente 1383 p. a un objetivo amistoso por debajo del 50% de salud y elimina Alma debilitada de dicho objetivo. No se puede lanzar sobre sí mismo.",
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -161,7 +162,8 @@
           "durationMs": 15000,
           "cooldownMs": 180000,
           "description": "El sacerdote se rodea de energía antimagia. Los hechizos contra él quemarán 105 p. de maná del atacante causando 1 p. de daño de las Sombras por cada punto de maná quemado. Dura 15 s.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         }
       ]
     },
@@ -344,7 +346,8 @@
           "durationMs": null,
           "cooldownMs": 600000,
           "description": "Cura instantáneamente 1383 p.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -355,7 +358,8 @@
           "durationMs": 2000,
           "cooldownMs": 120000,
           "description": "Castiga al objetivo, le inflige 289 p. de daño Sagrado y lo inmoviliza hasta 2 s. Solo funciona frente a humanoides. Este hechizo genera muy poca amenaza.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         }
       ]
     },
@@ -521,7 +525,8 @@
           "durationMs": 6000,
           "cooldownMs": 30000,
           "description": "Lanza una lluvia de Fragmentos estelares sobre la cabeza del enemigo objetivo causando 1800 p. de daño Arcano durante 6 s.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -532,7 +537,8 @@
           "durationMs": 15000,
           "cooldownMs": 300000,
           "description": "Reduce un 50% la probabilidad de que recibas un golpe por ataques cuerpo a cuerpo y a distancia durante 15 s o hasta que fallen 3 veces.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         }
       ]
     },
@@ -932,7 +938,8 @@
           "durationMs": 3000,
           "cooldownMs": 120000,
           "description": "Confunde a un máximo de 5 enemigos en un radio de 8 m durante 3 s. Cualquier daño recibido anulará el efecto.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -943,7 +950,8 @@
           "durationMs": 30000,
           "cooldownMs": 600000,
           "description": "Coloca un resguardo Sagrado sobre un aliado durante 30 s. La próxima vez que reciba una cantidad de daño que reduzca su salud por debajo del 35%, obtendrá un escudo que absorberá 926 p. de daño y le sanará 670 p. de salud durante 15 s. Cada objetivo solo puede verse afectado por un Plan de contingencia.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         }
       ]
     },
@@ -1486,7 +1494,8 @@
           "durationMs": 600000,
           "cooldownMs": null,
           "description": "El siguiente ataque cuerpo a cuerpo contra el taumaturgo infligirá 56 p. de daño de las Sombras y reducirá 204 p. el poder de ataque cuerpo a cuerpo del atacante durante 2 min.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -1497,7 +1506,10 @@
           "durationMs": 15000,
           "cooldownMs": 600000,
           "description": "Canibalizas 1600 p. de tu propia salud durante 15 s para obtener 1600 p. de maná.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": [
+            "spirit"
+          ]
         }
       ]
     },
@@ -1825,7 +1837,8 @@
           "durationMs": 120000,
           "cooldownMs": null,
           "description": "Debilita al enemigo objetivo, lo que reduce 204 p. el poder de ataque cuerpo a cuerpo y un 20% la eficacia de cualquier sanación. Dura 2 min.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         },
         {
           "classId": 5,
@@ -1836,7 +1849,8 @@
           "durationMs": 600000,
           "cooldownMs": null,
           "description": "El taumaturgo está rodeado de sombras. Si el taumaturgo recibe un golpe de hechizo o ataque cuerpo a cuerpo o a distancia, el atacante recibirá 96 p. de daño de las Sombras. Los atacantes solo recibirán daño cada pocos segundos. Este daño no causa amenaza. 3 cargas. Dura 10 min.",
-          "textOrigin": "client"
+          "textOrigin": "client",
+          "scalesWith": []
         }
       ]
     },

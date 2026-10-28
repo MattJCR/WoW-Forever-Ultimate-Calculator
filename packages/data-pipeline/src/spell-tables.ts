@@ -11,6 +11,15 @@ export interface AuraOptions {
 }
 
 /** Consulta de los datos de hechizos del cliente que necesita el texto de las descripciones. */
+/**
+ * Erratas de redaccion del texto español del cliente, corregidas a mano: [texto del cliente, corrección]. Se aplican a la plantilla (los
+ * marcadores $s1… se conservan, así que las cifras siguen saliendo del cliente). Lista exacta fijada en las pruebas.
+ */
+export const CLIENT_TEXT_FIXES: [string, string][] = [
+  // Gracia divina (racial del Sacerdote humano): «…de salud durante 1383 y elimina…» (el inglés dice «for 1383»)
+  ["Sana instantáneamente a un objetivo amistoso por debajo del $s2% de salud durante $s1 y elimina", "Sana instantáneamente $s1 p. a un objetivo amistoso por debajo del $s2% de salud y elimina"],
+];
+
 export class SpellTables {
   private readonly descriptions = new Map<string, string>();
   private readonly auraDescriptions = new Map<string, string>();
@@ -140,9 +149,10 @@ export class SpellTables {
     return name === undefined ? null : (this.overrides.names[name] ?? name);
   }
 
-  /** Texto del cliente tal cual (descripcion; si esta vacia, la de aura). */
+  /** Texto del cliente (descripcion; si esta vacia, la de aura) con las erratas de CLIENT_TEXT_FIXES corregidas. */
   clientDescription(spellId: number): string {
-    return this.descriptions.get(String(spellId)) || this.auraDescriptions.get(String(spellId)) || "";
+    const text = this.descriptions.get(String(spellId)) || this.auraDescriptions.get(String(spellId)) || "";
+    return CLIENT_TEXT_FIXES.reduce((t, [wrong, right]) => t.replaceAll(wrong, right), text);
   }
 
   /**
