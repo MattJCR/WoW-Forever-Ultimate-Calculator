@@ -9,6 +9,8 @@
       "token": "Human",
       "name": "Humano",
       "nameFemale": "Humana",
+      "iconFileDataId": 236448,
+      "iconFileDataIdFemale": 236447,
       "faction": "alliance",
       "classIds": [
         1,
@@ -197,6 +199,8 @@
       "token": "Dwarf",
       "name": "Enano",
       "nameFemale": "Enana",
+      "iconFileDataId": 236444,
+      "iconFileDataIdFemale": 236443,
       "faction": "alliance",
       "classIds": [
         1,
@@ -424,6 +428,8 @@
       "token": "NightElf",
       "name": "Elfo de la noche",
       "nameFemale": "Elfa de la noche",
+      "iconFileDataId": 236450,
+      "iconFileDataIdFemale": 236449,
       "faction": "alliance",
       "classIds": [
         1,
@@ -628,6 +634,8 @@
       "token": "Gnome",
       "name": "Gnomo",
       "nameFemale": "Gnoma",
+      "iconFileDataId": 236446,
+      "iconFileDataIdFemale": 236445,
       "faction": "alliance",
       "classIds": [
         1,
@@ -1066,6 +1074,8 @@
       "token": "Skyborne",
       "name": "Cielonato de la Orden Eminente",
       "nameFemale": "Cielonata de la Orden Eminente",
+      "iconFileDataId": null,
+      "iconFileDataIdFemale": null,
       "faction": "alliance",
       "classIds": [
         1,
@@ -1277,6 +1287,8 @@
       "token": "Orc",
       "name": "Orco",
       "nameFemale": "Orca",
+      "iconFileDataId": 236452,
+      "iconFileDataIdFemale": 236451,
       "faction": "horde",
       "classIds": [
         1,
@@ -1463,6 +1475,8 @@
       "token": "Scourge",
       "name": "No-muerto",
       "nameFemale": "No-muerta",
+      "iconFileDataId": 236458,
+      "iconFileDataIdFemale": 236457,
       "faction": "horde",
       "classIds": [
         1,
@@ -1705,6 +1719,8 @@
       "token": "Tauren",
       "name": "Tauren",
       "nameFemale": "Tauren",
+      "iconFileDataId": 236454,
+      "iconFileDataIdFemale": 236453,
       "faction": "horde",
       "classIds": [
         1,
@@ -1882,6 +1898,8 @@
       "token": "Troll",
       "name": "Trol",
       "nameFemale": "Trol",
+      "iconFileDataId": 236456,
+      "iconFileDataIdFemale": 236455,
       "faction": "horde",
       "classIds": [
         1,
@@ -2096,6 +2114,8 @@
       "token": "Skyborne",
       "name": "Cielonato Formavientos",
       "nameFemale": "Cielonata Formavientos",
+      "iconFileDataId": null,
+      "iconFileDataIdFemale": null,
       "faction": "horde",
       "classIds": [
         1,

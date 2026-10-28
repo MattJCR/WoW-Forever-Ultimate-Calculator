@@ -19,6 +19,8 @@ export interface PowerWeapon {
   normalizedSpeed: number;
   /** false en las varitas: su daño no usa el poder de ataque. */
   usesAttackPower: boolean;
+  /** «+N de daño» del encantamiento y de la mejora temporal de esta arma: se suma a cada golpe suyo. */
+  bonus?: number;
   /** Nombre en la fórmula en lugar de «arma» (formas del druida: «Forma felina (sin arma)»). */
   name?: string;
 }
@@ -57,13 +59,13 @@ const SCHOOL_KEYS: Record<number, string> = { 2: "holy-power", 4: "fire-power", 
 const rowFinal = (d: DerivedStats, key: string): number => d.rows.find((r) => r.key === key)?.final ?? 0;
 
 /** Contexto de poder a partir de las estadísticas finales (`deriveStats`), las del equipo (`summarizeGear().stats`) y las armas llevadas. */
-export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number; subclassId?: number }[], options: { offHandFactor?: number; creatureType?: string | null } = {}): PowerContext {
+export function powerContext(derived: DerivedStats, gearStats: Record<string, number> | null, weapons: { slot: string; min: number; max: number; speed: number; normalizedSpeed: number; subclassId?: number; bonusDamage?: number }[], options: { offHandFactor?: number; creatureType?: string | null } = {}): PowerContext {
   // «+N de poder de ataque / daño con hechizos contra bestias…»: solo cuenta si el objetivo es de ese tipo de criatura (`creatureType`)
   const vsAttack = options.creatureType ? (gearStats?.[attackPowerVsKey(options.creatureType)] ?? 0) : 0;
   const vsSpell = options.creatureType ? (gearStats?.[spellDamageVsKey(options.creatureType)] ?? 0) : 0;
   const weapon = (slot: string): PowerWeapon | null => {
     const w = weapons.find((x) => x.slot === slot);
-    return w ? { min: w.min, max: w.max, speed: w.speed, normalizedSpeed: w.normalizedSpeed, usesAttackPower: w.subclassId !== WAND_SUBCLASS } : null;
+    return w ? { min: w.min, max: w.max, speed: w.speed, normalizedSpeed: w.normalizedSpeed, usesAttackPower: w.subclassId !== WAND_SUBCLASS, bonus: w.bonusDamage ?? 0 } : null;
   };
   return {
     spellDamage: rowFinal(derived, "spell-damage") + vsSpell,
@@ -150,7 +152,8 @@ function spellBonus(m: ModifiedAbility, me: ModifiedEffect, ctx: PowerContext): 
 /** Lo que hace una mano en un golpe de arma: `plano + arma + «+N de daño» + PA ÷ 14 × velocidad`. */
 function handDamage(flat: { min: number; max: number }, weapon: PowerWeapon, speed: number, ap: number, bonus: number): { min: number; max: number } {
   const apPart = (ap / 14) * speed;
-  return { min: flat.min + weapon.min + bonus + apPart, max: flat.max + weapon.max + bonus + apPart };
+  const own = weapon.bonus ?? 0;
+  return { min: flat.min + weapon.min + own + bonus + apPart, max: flat.max + weapon.max + own + bonus + apPart };
 }
 
 /**
@@ -200,7 +203,7 @@ function weaponEstimate(m: ModifiedAbility, ctx: PowerContext): WeaponPowerEstim
     max += hMax * h.factor;
     const speed = parts[0]!.speed;
     texts.push(
-      `${h.weapon.name ?? `${h.label}arma ${fmt(h.weapon.min)}–${fmt(h.weapon.max)}`}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(apOf(h.weapon))} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => flatOf(x).average !== 0) ? " + daño plano" : ""}${h.factor !== 1 ? ` × ${fmt(h.factor * 100)} % (mano izquierda)` : ""}`,
+      `${h.weapon.name ?? `${h.label}arma ${fmt(h.weapon.min)}–${fmt(h.weapon.max)}`}${(h.weapon.bonus ?? 0) > 0 ? ` + ${fmt(h.weapon.bonus!)} de daño añadido al arma` : ""}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(apOf(h.weapon))} de poder de ataque ÷ 14 × ${fmt(speed)} s${flats.length > 0 && flats.some((x) => flatOf(x).average !== 0) ? " + daño plano" : ""}${h.factor !== 1 ? ` × ${fmt(h.factor * 100)} % (mano izquierda)` : ""}`,
     );
   }
   min *= pct * factor;
@@ -240,8 +243,9 @@ export function autoAttacks(ctx: PowerContext, haste: { melee: number; ranged: n
   const swing = (hand: SwingEstimate["hand"], weapon: PowerWeapon, apRaw: number, hastePct: number, factor: number): SwingEstimate => {
     const ap = weapon.usesAttackPower ? apRaw : 0;
     const apPart = (ap / 14) * weapon.speed;
-    const min = (weapon.min + ctx.physicalDamage + apPart) * factor;
-    const max = (weapon.max + ctx.physicalDamage + apPart) * factor;
+    const own = weapon.bonus ?? 0;
+    const min = (weapon.min + own + ctx.physicalDamage + apPart) * factor;
+    const max = (weapon.max + own + ctx.physicalDamage + apPart) * factor;
     const hastedSpeed = weapon.speed / (1 + hastePct / 100);
     const average = (min + max) / 2;
     return {
@@ -252,7 +256,7 @@ export function autoAttacks(ctx: PowerContext, haste: { melee: number; ranged: n
       speed: weapon.speed,
       hastedSpeed,
       dps: average / hastedSpeed,
-      formula: `arma ${fmt(weapon.min)}–${fmt(weapon.max)}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(ap)} de poder de ataque ÷ 14 × ${fmt(weapon.speed)} s${factor !== 1 ? ` × ${fmt(factor * 100)} %` : ""}`,
+      formula: `arma ${fmt(weapon.min)}–${fmt(weapon.max)}${own > 0 ? ` + ${fmt(own)} de daño añadido al arma` : ""}${ctx.physicalDamage > 0 ? ` + ${fmt(ctx.physicalDamage)} de daño del equipo` : ""} + ${Math.round(ap)} de poder de ataque ÷ 14 × ${fmt(weapon.speed)} s${factor !== 1 ? ` × ${fmt(factor * 100)} %` : ""}`,
     };
   };
   const out: SwingEstimate[] = [];

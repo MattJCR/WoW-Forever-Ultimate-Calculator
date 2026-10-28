@@ -5,6 +5,7 @@ import {
   compareGear,
   enchantOptions,
   enchantNotes,
+  enhancementOptions,
   itemTypeName,
   equipItem,
   ratingPercents,
@@ -18,7 +19,7 @@ import {
   type GearSlot,
   type GearSummary,
 } from "@wfuc/engine";
-import type { CombatRatings, Enchant, Item } from "@wfuc/schema";
+import type { CombatRatings, Enchant, Item, WeaponEnhancement } from "@wfuc/schema";
 import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { useGearBundle, type Async, type GearBundle } from "../data";
 import { fmtNum, isEnglish, tr, trn } from "../i18n";
@@ -57,6 +58,7 @@ interface Tip {
   item: Item;
   slot: GearSlot | null;
   enchantId?: number | null;
+  tempId?: number | null;
   suffixId?: number | null;
   x: number;
   y: number;
@@ -79,7 +81,7 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
     const top = Math.max(8, Math.min(tip.y + 18, window.innerHeight - h - 8));
     setPos((p) => (Math.abs(p.left - left) < 1 && Math.abs(p.top - top) < 1 ? p : { left: Math.round(left), top: Math.round(top) }));
   };
-  useLayoutEffect(place, [tip.x, tip.y, tip.item.id, tip.enchantId, tip.suffixId]); // eslint-disable-line react-hooks/exhaustive-deps
+  useLayoutEffect(place, [tip.x, tip.y, tip.item.id, tip.enchantId, tip.tempId, tip.suffixId]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const el = ref.current;
     window.addEventListener("resize", place);
@@ -94,6 +96,7 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
 
   const suffix = tip.suffixId ? data.suffixes.get(tip.suffixId) : undefined;
   const enchant = tip.enchantId ? data.enchants.get(tip.enchantId) : undefined;
+  const temp = tip.tempId ? data.enhancements.get(tip.tempId) : undefined;
   const set = item.itemSetId !== null ? data.sets.find((s) => s.id === item.itemSetId) : undefined;
   const wornInSet = set ? new Set(GEAR_SLOTS.map((s) => gear[s]?.itemId).filter((id): id is number => !!id && set.itemIds.includes(id))) : new Set<number>();
   if (set && tip.slot && gear[tip.slot]?.itemId !== item.id) wornInSet.add(item.id); // en la lista: cuenta como si se pusiera
@@ -157,6 +160,11 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
       )}
       {enchant && <p className="item-line good">{nameOf(enchant)}</p>}
       {enchant && <EnchantNotes enchant={enchant} />}
+      {temp && (
+        <p className="item-line good">
+          {nameOf(temp)} ({enhancementDuration(temp.durationMs)})
+        </p>
+      )}
       {item.effects.map((e, i) => (
         <p key={i} className="item-line good">
           {effectPrefix(e.trigger)}: {effectLabel(e)}
@@ -227,6 +235,58 @@ function ItemCard({ tip, data, ctx, gear }: { tip: Tip; data: GearData; ctx: Gea
 }
 
 /** Avisos de un encantamiento: el nombre del cliente no trae la cifra de su efecto, o la cifra es de la comunidad porque el cliente no la detalla. */
+/** Duración corta de una mejora temporal: «30 min», «1 h». */
+const enhancementDuration = (ms: number): string => (ms >= 3600_000 ? `${fmtNum(ms / 3600_000, 1)} h` : `${fmtNum(ms / 60_000, 0)} min`);
+
+const ENHANCEMENT_GROUPS: { kind: WeaponEnhancement["kind"]; label: string }[] = [
+  { kind: "damage", label: "Daño de arma (piedras de afilar y contrapesos)" },
+  { kind: "proc", label: "Con probabilidad al golpear (venenos y aceites)" },
+  { kind: "stats", label: "Estadísticas y efectos (aceites, piedras e imbuidos)" },
+];
+
+/**
+ * Mejora temporal del arma: una por arma, de los objetos de uso del cliente (piedras de afilar, contrapesos, aceites, venenos, piedras de brujo
+ * y pergaminos de imbuir). Muestra lo que da, su duración y cargas, y el texto del cliente. El «+N de daño» se suma a cada golpe de esa arma.
+ */
+function EnhancementPicker({ options, value, level, onChange }: { options: WeaponEnhancement[]; value: number | null; level: number; onChange: (id: number | null) => void }) {
+  const chosen = options.find((e) => e.itemId === value);
+  const facts = chosen
+    ? [
+        ...chosen.stats.map(statLine),
+        ...chosen.effects.flatMap((e) => (e.proc?.chancePct ? [tr("{p} % de probabilidad al golpear", { p: e.proc.chancePct })] : [])),
+        tr("dura {t}", { t: enhancementDuration(chosen.durationMs) }),
+        ...(chosen.charges ? [tr("{n} cargas", { n: chosen.charges })] : []),
+        ...(chosen.requiredLevel && chosen.requiredLevel > level ? [tr("exige nivel {n}", { n: chosen.requiredLevel })] : []),
+      ]
+    : [];
+  const flat = (t: string): string => t.split(/\s+/).join(" ").trim();
+  const useText = chosen && !isEnglish() ? flat(chosen.text) : "";
+  const text = chosen && !isEnglish() ? [useText, ...chosen.effects.map((e) => flat(e.text)).filter((t) => t && !useText.includes(t))].filter((t) => t && !t.includes("$")) : [];
+  return (
+    <label>
+      {tr("Mejora temporal")}
+      <select value={value ?? ""} onChange={(e) => onChange(e.target.value ? Number(e.target.value) : null)}>
+        <option value="">{tr("sin mejora")}</option>
+        {ENHANCEMENT_GROUPS.map((g) => {
+          const list = options.filter((e) => e.kind === g.kind);
+          return list.length === 0 ? null : (
+            <optgroup key={g.kind} label={tr(g.label)}>
+              {list.map((e) => (
+                <option key={e.itemId} value={e.itemId}>
+                  {nameOf(e)}
+                  {e.requiredLevel ? ` (${tr("nivel {n}", { n: e.requiredLevel })})` : ""}
+                </option>
+              ))}
+            </optgroup>
+          );
+        })}
+      </select>
+      {chosen && <small className="muted">{facts.join(" · ")}</small>}
+      {text.length > 0 && <small className="muted">{text.join(" ")}</small>}
+    </label>
+  );
+}
+
 function EnchantNotes({ enchant }: { enchant: Enchant }) {
   const notes = enchantNotes(enchant);
   return (
@@ -289,8 +349,8 @@ function SlotButton({ slot, gear, data, problem, selected, onSelect, onTip }: { 
       // Sin objeto no sale la tarjeta: el nombre de la ranura va como globo propio
       data-tip={item ? undefined : `${slotLabel(slot)} · ${state}`}
       onClick={onSelect}
-      onMouseEnter={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
-      onMouseMove={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
+      onMouseEnter={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, tempId: worn?.tempId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
+      onMouseMove={(e) => item && onTip({ item, slot, enchantId: worn?.enchantId, tempId: worn?.tempId, suffixId: worn?.suffixId, x: e.clientX, y: e.clientY })}
       onMouseLeave={() => onTip(null)}
     >
       <span className={`gear-icon${item ? "" : " empty"}`} style={item ? { borderColor: qualityColor(item.quality) } : undefined}>
@@ -358,7 +418,7 @@ function SlotPanel({
   ctx: GearContext;
   onEquip: (item: Item) => void;
   onClear: () => void;
-  onExtra: (extra: { enchantId?: number | null; suffixId?: number | null }) => void;
+  onExtra: (extra: { enchantId?: number | null; suffixId?: number | null; tempId?: number | null }) => void;
   onTip: (t: Tip | null) => void;
 }) {
   const [query, setQuery] = useState("");
@@ -392,6 +452,7 @@ function SlotPanel({
 
   const enchants = useMemo(() => (wornItem ? enchantOptions(data, slot, wornItem) : []), [data, slot, wornItem]);
   const suffixes = wornItem ? suffixOptions(wornItem, data) : [];
+  const enhancements = useMemo(() => (wornItem ? enhancementOptions(data, slot, wornItem, ctx.classId) : []), [data, slot, wornItem, ctx.classId]);
 
   const wornSuffix = worn?.suffixId ? data.suffixes.get(worn.suffixId) : undefined;
   const wornSet = wornItem && wornItem.itemSetId !== null ? data.sets.find((x) => x.id === wornItem.itemSetId) : undefined;
@@ -446,6 +507,7 @@ function SlotPanel({
               ))}
             </select>
           </label>
+          {enhancements.length > 0 && <EnhancementPicker options={enhancements} value={worn!.tempId ?? null} level={ctx.level} onChange={(id) => onExtra({ tempId: id })} />}
           {suffixes.length > 0 && (
             <label>
               {tr("Sufijo aleatorio")}
@@ -700,7 +762,7 @@ export function GearTotals({ summary, ratings, tips, compact }: { summary: GearS
     const worn = slot ? tips?.gear[slot] : undefined;
     const item = worn ? tips?.data.items.get(worn.itemId) : undefined;
     if (!tips || !worn || !item) return {};
-    const show = (e: { clientX: number; clientY: number }) => tips.onTip({ item, slot, enchantId: worn.enchantId, suffixId: worn.suffixId, x: e.clientX, y: e.clientY });
+    const show = (e: { clientX: number; clientY: number }) => tips.onTip({ item, slot, enchantId: worn.enchantId, tempId: worn.tempId, suffixId: worn.suffixId, x: e.clientX, y: e.clientY });
     return { onMouseEnter: show, onMouseMove: show, onMouseLeave: () => tips.onTip(null) };
   };
   const sortedLines = [...summary.lines].filter((l) => l.key !== "extra-armor").sort((a, b) => statRank(a.key) - statRank(b.key) || statName(a.key).localeCompare(statName(b.key), isEnglish() ? "en" : "es"));

@@ -1,4 +1,5 @@
 // Estado de apariencia del avatar (cuerpo y personalización) y su forma compacta para el enlace.
+import { MODELS_BASE } from "./config";
 import type { Selection } from "./recipe";
 
 export interface Avatar {
@@ -42,6 +43,10 @@ export interface ModelIndexEntry {
   sex: number;
   chrModel: number;
 }
+
+let indexPromise: Promise<ModelIndexEntry[] | null> | null = null;
+/** `index.json` de los modelos (raza y cuerpo → ChrModel.ID); se descarga una vez y es null si no hay modelos. */
+export const loadModelIndex = () => (indexPromise ??= fetch(`${MODELS_BASE}/index.json`).then((r) => (r.ok ? (r.json() as Promise<ModelIndexEntry[]>) : null), () => null));
 
 /** WebGL 2 disponible (el visor lo necesita); sin él se enseña solo la hoja de ranuras. */
 export function webglAvailable(): boolean {

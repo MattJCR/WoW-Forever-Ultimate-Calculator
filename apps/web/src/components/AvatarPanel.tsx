@@ -2,8 +2,7 @@ import { canEquip, equipItem, slotsForItem, type GearContext, type GearData, typ
 import type { Item } from "@wfuc/schema";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { raceLabel, tr } from "../i18n";
-import { MODELS_BASE } from "../viewer/config";
-import { DEFAULT_AVATAR, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
+import { DEFAULT_AVATAR, loadModelIndex, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
 import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
@@ -13,9 +12,6 @@ import { ToolGlyph } from "./glyphs";
 import { Icon } from "./Icon";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
-
-let indexPromise: Promise<ModelIndexEntry[] | null> | null = null;
-const loadIndex = () => (indexPromise ??= fetch(`${MODELS_BASE}/index.json`).then((r) => (r.ok ? (r.json() as Promise<ModelIndexEntry[]>) : null), () => null));
 
 /** Lo que lleva puesto el personaje, en la forma que entiende el visor. */
 function equippedOf(gear: GearSelection, items: Map<number, Item>): Equipped[] {
@@ -208,7 +204,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const [pose, setPose] = useState("");
   const stage = useRef<HTMLDivElement>(null);
   const gl = useMemo(webglAvailable, []);
-  useEffect(() => { void loadIndex().then(setIndex); }, []);
+  useEffect(() => { void loadModelIndex().then(setIndex); }, []);
 
   const shownRace = avatar.race && index?.some((e) => e.race === avatar.race) ? avatar.race : raceId;
   const entry = index?.find((e) => e.race === shownRace && e.sex === avatar.sex);

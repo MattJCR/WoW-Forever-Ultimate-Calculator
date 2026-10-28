@@ -491,12 +491,14 @@ export class CharacterView {
     return url;
   }
 
-  /** Primer plano de la cara (solo pruebas): mira al punto de anclaje del casco, de frente o girado `yaw`. */
-  face(size = 400, yaw = 0, zoom = 1): string {
+  /** Primer plano de la cara: mira al punto de anclaje del casco (bajado `lift`, en alturas del modelo), de frente o girado `yaw`. */
+  face(size = 400, yaw = 0, zoom = 1, lift = 0): string {
     const h = this.modelHeight;
     const head = new Vector3(0, h * 0.9, 0);
     this.root?.updateMatrixWorld(true);
     this.root?.getObjectByName("att_11")?.getWorldPosition(head);
+    const headTop = head.y;
+    head.y -= lift * h;
     const prevSize = this.renderer.getSize(new Vector2());
     const prevAspect = this.camera.aspect;
     this.renderer.setPixelRatio(1);
@@ -504,7 +506,7 @@ export class CharacterView {
     this.camera.aspect = 1;
     this.camera.updateProjectionMatrix();
     this.fxGroup.visible = false;
-    const d = Math.max(h * 0.3, (h - head.y) * 3) / zoom;
+    const d = Math.max(h * 0.3, (h - headTop) * 3) / zoom;
     this.camera.position.set(head.x + Math.sin(yaw) * d, head.y, head.z + Math.cos(yaw) * d);
     this.camera.lookAt(head);
     this.renderer.render(this.scene, this.camera);

@@ -1,6 +1,8 @@
 import type { ClassRacial, Race, ReferenceOnlyRacial } from "@wfuc/schema";
 import { useEffect, useState } from "react";
 import { isEnglish, raceLabel, spellEn, tr } from "../i18n";
+import { loadModelIndex } from "../viewer/avatar";
+import { MODELS_BASE } from "../viewer/config";
 import { originNote } from "./Detail";
 import { Icon } from "./Icon";
 import { HoverTip, RacialTip, formatMs, racialCooldown, racialName, raceTotalRows, referenceStatus } from "./RaceBonuses";
@@ -138,16 +140,38 @@ function ReferenceOnlyGroup({ race, open, onToggle }: { race: Race; open: boolea
   );
 }
 
+/**
+ * Retrato de la raza: el icono del juego (`Achievement_Character_<raza>_<sexo>`, varón). Los Cielonatos no tienen icono en el cliente: llevan
+ * la cara del personaje (tools/model/render-races.mjs) y, sin modelos, la inicial.
+ */
+function RacePortrait({ race, name }: { race: Race; name: string }) {
+  const [model, setModel] = useState<number | null>(null);
+  const [broken, setBroken] = useState(false);
+  const own = race.iconFileDataId !== null;
+  useEffect(() => {
+    if (own) return;
+    let dead = false;
+    void loadModelIndex().then((index) => {
+      if (!dead) setModel(index?.find((e) => e.race === race.id && e.sex === 0)?.chrModel ?? null);
+    });
+    return () => { dead = true; };
+  }, [race.id, own]);
+  const src = own ? `${import.meta.env.BASE_URL}data/icons/${race.iconFileDataId}.png` : model !== null ? `${MODELS_BASE}/race/${model}.webp` : null;
+  return (
+    <span className={`rg-mono ${race.faction}`} aria-hidden="true">
+      {src && !broken ? <img src={src} alt="" width={50} height={50} onError={() => setBroken(true)} /> : name.charAt(0)}
+    </span>
+  );
+}
+
 function RaceCard({ race, classId, allowed, selected, onPick, open, onToggle, refOpen, onToggleRef }: { race: Race; classId: number; allowed: boolean; selected: boolean; onPick: () => void; open: (classOfRacial: number) => boolean; onToggle: (classOfRacial: number) => void; refOpen: boolean; onToggleRef: () => void }) {
   const name = raceLabel(race.id, race.name);
   const groups = [...new Set(race.classRacials.map((c) => c.classId))];
   return (
     <article className={`rg-card${selected ? " on" : ""}${allowed ? "" : " locked"}`}>
       <button type="button" className="rg-head" aria-pressed={selected} disabled={!allowed} onClick={onPick}>
-        <span className={`rg-mono ${race.faction}`} aria-hidden="true">
-          {name.charAt(0)}
-        </span>
-        <span className="rg-name">{name}</span>
+        <RacePortrait race={race} name={name} />
+        <span className={`rg-name${name.split(" ").some((w) => w.length > 10) ? " long" : ""}`}>{name}</span>
         {selected && (
           <span className="race-check" aria-hidden="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">

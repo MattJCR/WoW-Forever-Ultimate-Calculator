@@ -9,7 +9,7 @@ import { join, relative } from "node:path";
 export const GENERIC_FILES = [
   ["stats.json", "Estadísticas base"], ["client-stats.json", "Estadísticas del cliente"], ["combat-formulas.json", "Fórmulas de combate"],
   ["combat-ratings.json", "Puntuaciones de combate"], ["enchants.json", "Encantamientos"], ["equip-rules.json", "Reglas de equipo"],
-  ["random-suffixes.json", "Sufijos aleatorios"], ["sources.json", "Fuentes de objetos"], ["unassigned.json", "Datos sin asignar"], ["icons.json", "Iconos"],
+  ["random-suffixes.json", "Sufijos aleatorios"], ["weapon-enhancements.json", "Mejoras temporales de arma"], ["sources.json", "Fuentes de objetos"], ["unassigned.json", "Datos sin asignar"], ["icons.json", "Iconos"],
 ];
 
 /** Carpetas de imágenes: no son datos, las cubre la comprobación de iconos y fondos (paso «Equipo y modelos»). */

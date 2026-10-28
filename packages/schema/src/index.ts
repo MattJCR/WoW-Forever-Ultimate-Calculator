@@ -405,6 +405,9 @@ export const Race = z.object({
   token: z.string(),
   name: z.string(),
   nameFemale: z.string().nullable(),
+  /** Iconos de la raza del cliente (`Interface/Icons/Achievement_Character_<raza>_<sexo>`, FileDataID de varón y de mujer); null si el cliente no trae (Cielonato). */
+  iconFileDataId: z.number().int().nullable().default(null),
+  iconFileDataIdFemale: z.number().int().nullable().default(null),
   faction: z.enum(["alliance", "horde"]),
   /** ChrClasses.ID de las clases que la raza puede ser (`CharBaseInfo`, el cliente). */
   classIds: z.array(z.number().int()),
@@ -1025,6 +1028,56 @@ export const Enchants = z.object({
 export type Enchant = z.infer<typeof Enchant>;
 export type Enchants = z.infer<typeof Enchants>;
 
+/**
+ * Mejora temporal de arma (piedra de afilar, contrapeso, aceite, veneno, piedra de brujo, pergamino de imbuir): objeto de uso cuyo hechizo
+ * aplica un encantamiento temporal a un arma (efecto 54 o 360). Todo sale del cliente (`client-db2`): el encantamiento (SpellItemEnchantment
+ * con duración), los hechizos que lleva y la restricción de arma del hechizo de uso (SpellEquippedItems).
+ */
+export const WeaponEnhancement = z.object({
+  /** Objeto que la aplica (clave única). */
+  itemId: z.number().int(),
+  name: z.string(),
+  /** Nombre en inglés (el oficial si lo hay); null si no se conoce. */
+  nameEn: z.string().nullable().default(null),
+  /** El cliente no trae el nombre del objeto (llega por hotfix al verlo en el juego): se usa el del encantamiento. */
+  nameFromEnchant: z.boolean(),
+  iconFileDataId: z.number().int().nullable(),
+  /** Hechizo de uso del objeto. */
+  spellId: z.number().int(),
+  /** SpellItemEnchantment.ID que se aplica. */
+  enchantId: z.number().int(),
+  /** damage = «+N de daño» por golpe (piedras y contrapesos); proc = efecto con probabilidad al golpear (venenos, aceites); stats = estadísticas o efectos al equipar (aceites, piedras, imbuidos). */
+  kind: z.enum(["damage", "proc", "stats"]),
+  durationMs: z.number().int(),
+  /** Cargas del encantamiento (venenos antiguos); null = sin límite de cargas. */
+  charges: z.number().int().nullable(),
+  /** Nivel mínimo para usar el objeto (null si el cliente no trae el objeto). */
+  requiredLevel: z.number().int().nullable(),
+  /** Máscara de clases que lo pueden usar (ChrClasses.ID − 1 como bit); 0 = todas. */
+  classMask: z.number().int(),
+  /** Armas sobre las que se aplica: bit n = ItemSubclass n de armas (0 = cualquiera) y bit n = InventoryType n (0 = cualquiera). */
+  weaponSubclassMask: z.number().int(),
+  invTypeMask: z.number().int(),
+  /** Estadísticas directas del encantamiento: «+N de daño» (tipo 83), atributos, puntuaciones… */
+  stats: z.array(ItemStat),
+  /** Hechizos del encantamiento (al equipar o con probabilidad al golpear), con auras, proc y texto del cliente. */
+  effects: z.array(ItemEffectRef).default([]),
+  /** Texto del hechizo de uso del cliente (esES). */
+  text: z.string(),
+  textComplete: z.boolean(),
+  textOrigin: z.enum(["client", "translated-by-us", "untranslated"]).default("client"),
+});
+export const WeaponEnhancements = z.object({
+  schemaVersion: z.literal(1),
+  build: z.string(),
+  provenance: Provenance,
+  enhancements: z.array(WeaponEnhancement),
+  /** Objetos con encantamiento temporal que no se ofrecen (cebos de pesca, de prueba…), con el motivo: nunca se descartan en silencio. */
+  skipped: z.array(z.object({ itemId: z.number().int(), name: z.string(), reason: z.string() })),
+});
+export type WeaponEnhancement = z.infer<typeof WeaponEnhancement>;
+export type WeaponEnhancements = z.infer<typeof WeaponEnhancements>;
+
 /** Sufijo aleatorio de objeto («del Mono»): reparto de estadisticas en diezmilesimas del presupuesto del objeto. No estan en el cliente (sin tabla), solo en la comunidad. */
 export const RandomSuffix = z.object({
   id: z.number().int(),
@@ -1159,6 +1212,8 @@ export const Manifest = z.object({
   /** Puntuacion por 1 % de combate, encantamientos y sufijos aleatorios (la comunidad, MIT; `community`). */
   combatRatings: z.object({ file: z.string(), sha256: z.string() }).optional(),
   enchants: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
+  /** Mejoras temporales de arma: piedras de afilar, aceites, venenos… (client-db2). */
+  weaponEnhancements: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   /** Fuente de cada objeto (hoy «Fabricado», del cliente). */
   itemSources: z.object({ file: z.string(), sha256: z.string(), count: z.number().int() }).optional(),
   /** Beneficios («buffs») de clase, tótems y consumibles (client-db2). */

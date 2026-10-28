@@ -5,11 +5,12 @@ import { fileURLToPath } from "node:url";
 import { buildClassTalents } from "./build.js";
 import { contrastAbilities, contrastClass, contrastLegacy, contrastOrphans, contrastRaces } from "./contrast.js";
 import { openRawTables } from "./csv.js";
-import { ClientStats, CombatFormulas, EnglishText, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Buffs, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
+import { ClientStats, CombatFormulas, EnglishText, TalentRules, Abilities, BaseStats, ClassTalents, CombatRatings, Buffs, Enchants, WeaponEnhancements, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned } from "./model.js";
 import { buildEquipRules } from "./equip-rules.js";
 import { buildItems } from "./items.js";
 import { buildItemSources } from "./item-sources.js";
 import { buildBuffs, type BuffRules } from "./buffs.js";
+import { buildWeaponEnhancements } from "./weapon-enhancements.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
 import { buildEnglish } from "./english.js";
@@ -99,6 +100,8 @@ function build(): void {
   let sourcesEntry: Manifest["itemSources"];
   let buffsEntry: Manifest["buffs"];
   let buffsData: Buffs | undefined;
+  let weaponEnhancementsEntry: Manifest["weaponEnhancements"];
+  let weaponEnhancementsData: WeaponEnhancements | undefined;
   let suffixesEntry: Manifest["randomSuffixes"];
   let wsDb: WowsimsDb | null = null;
   let enchantsData: Enchants | undefined;
@@ -225,6 +228,15 @@ function build(): void {
     for (const w of warnings) console.log(`   aviso (buffs): ${w}`);
   }
 
+  // Mejoras temporales de arma (piedras de afilar, aceites, venenos…): objetos de uso con encantamiento temporal (client-db2)
+  if (["Item", "ItemSparse", "ItemEffect", "ItemXItemEffect", "SpellItemEnchantment", "SpellEquippedItems"].every((t) => existsSync(join(rawDir, `${t}.csv`)))) {
+    const warnings: string[] = [];
+    weaponEnhancementsData = WeaponEnhancements.parse(buildWeaponEnhancements(raw, buildId, spells, warnings));
+    const by = (k: string) => weaponEnhancementsData!.enhancements.filter((e) => e.kind === k).length;
+    console.log(`Mejoras de arma (weapon-enhancements.json): ${weaponEnhancementsData.enhancements.length} (daño ${by("damage")}, con probabilidad ${by("proc")}, estadísticas ${by("stats")}; ${weaponEnhancementsData.skipped.length} omitidas con motivo)`);
+    for (const w of warnings) console.log(`   aviso (mejoras de arma): ${w}`);
+  }
+
   // Formulas de combate de Classic (estimacion): se validan y se publican tal cual
   const formulasSource = resolve(repoRoot, "data", "rules", "combat-formulas.json");
   let formulasEntry: Manifest["combatFormulas"];
@@ -259,6 +271,7 @@ function build(): void {
       const racials = applyOfficialRacials(english, races, official);
       console.log(`   raciales con el inglés del cliente: ${racials.official}/${racials.official + racials.fallback.length}${racials.fallback.length ? `; con el inglés de la comunidad: ${racials.fallback.join(", ")}` : ""}`);
       // Nombre en inglés de cada beneficio (hechizo o objeto): de las tablas oficiales
+      for (const e of weaponEnhancementsData?.enhancements ?? []) e.nameEn = official.itemNames.get(e.itemId) ?? e.nameEn;
       for (const b of buffsData?.buffs ?? []) b.nameEn = (b.itemId !== null ? official.itemNames.get(b.itemId) : official.spells.name(b.id)) ?? b.nameEn;
       console.log(`Inglés oficial (tablas ${official.tablesBuild}): habilidades ${o.ranks.named}/${o.ranks.total} rangos (${o.ranks.templated} con plantilla, ${o.ranks.own} traducción propia); talentos ${o.talents.checked} (referencia ${o.talents.reference}, oficial ${o.talents.official}, propia ${o.talents.own}); sin asignar ${o.unassigned.entriesNamed}/${o.unassigned.entries} talentos y ${o.unassigned.nodesNamed}/${o.unassigned.nodes} nodos; objetos +${o.items.filled} (propios ${o.items.own}, faltan ${o.items.stillMissing.length}); efectos ${o.effectSpells.filled}/${o.effectSpells.total}`);
       console.log(`   pendientes de traducción propia (cifras distintas o sin inglés): ${o.pending.length}; traducciones propias con otras cifras: ${o.ownMismatches.length}`);
@@ -285,6 +298,13 @@ function build(): void {
     buffsEntry = { file: "buffs.json", sha256: sha256(buffsText), count: buffsData.buffs.length };
   }
 
+  if (weaponEnhancementsData) {
+    const text = `${JSON.stringify(weaponEnhancementsData)}
+`;
+    writeFileSync(join(outDir, "weapon-enhancements.json"), text);
+    weaponEnhancementsEntry = { file: "weapon-enhancements.json", sha256: sha256(text), count: weaponEnhancementsData.enhancements.length };
+  }
+
   // Iconos que necesita la web; tools/extract/fetch-icons.mjs los descarga del cliente (solo lectura).
   const iconIds = new Set<number>(abilityIcons);
   for (const c of classes) {
@@ -294,12 +314,16 @@ function build(): void {
     for (const t of c.inactiveTalents) if (t.iconFileDataId) iconIds.add(t.iconFileDataId);
   }
   for (const t of legacy.specs.flatMap((s) => s.talents)) if (t.iconFileDataId) iconIds.add(t.iconFileDataId);
-  for (const r of races.races) for (const a of r.racials) if (a.iconFileDataId) iconIds.add(a.iconFileDataId);
+  for (const r of races.races) {
+    for (const a of r.racials) if (a.iconFileDataId) iconIds.add(a.iconFileDataId);
+    for (const id of [r.iconFileDataId, r.iconFileDataIdFemale]) if (id) iconIds.add(id);
+  }
   for (const e of unassigned.orphanEntries) if (e.iconFileDataId) iconIds.add(e.iconFileDataId);
   for (const t of unassigned.alternativeTrees) for (const n of t.nodes) if (n.iconFileDataId) iconIds.add(n.iconFileDataId);
   // Objetos: los iconos de todos los equipables que la web puede ofrecer (los de prueba no se ofrecen)
   if (itemsData) for (const i of itemsData.items) if (!i.placeholder && i.iconFileDataId) iconIds.add(i.iconFileDataId);
   for (const b of buffsData?.buffs ?? []) if (b.iconFileDataId) iconIds.add(b.iconFileDataId);
+  for (const e of weaponEnhancementsData?.enhancements ?? []) if (e.iconFileDataId) iconIds.add(e.iconFileDataId);
   const iconsText = stableJson({ build: buildId, ids: [...iconIds].sort((a, b) => a - b) });
   writeFileSync(join(outDir, "icons.json"), iconsText);
 
@@ -324,6 +348,7 @@ function build(): void {
     equipRules: equipEntry,
     combatRatings: ratingsEntry,
     enchants: enchantsEntry,
+    weaponEnhancements: weaponEnhancementsEntry,
     itemSources: sourcesEntry,
     buffs: buffsEntry,
     randomSuffixes: suffixesEntry,

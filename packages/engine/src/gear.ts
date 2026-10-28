@@ -1,5 +1,5 @@
 import { activeGearEffects, classifyGearAuras, enchantStatLines } from "./gear-effects.js";
-import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, ItemSourceEntry, ItemSources, Items, Proficiency, RandomSuffix, RandomSuffixes } from "@wfuc/schema";
+import type { CombatRatings, Enchant, Enchants, EquipRules, Item, ItemEffectRef, ItemLimitCategoryDef, ItemSourceEntry, ItemSources, Items, Proficiency, RandomSuffix, RandomSuffixes, WeaponEnhancement, WeaponEnhancements } from "@wfuc/schema";
 
 /**
  * Equipo: ranuras, reglas para equipar y suma de estadisticas. TS puro, sin UI.
@@ -44,6 +44,8 @@ export interface EquippedItem {
   itemId: number;
   enchantId?: number | null;
   suffixId?: number | null;
+  /** Mejora temporal de arma (piedra de afilar, aceite, veneno…): `WeaponEnhancement.itemId`. Una por arma. */
+  tempId?: number | null;
 }
 export type GearSelection = Partial<Record<GearSlot, EquippedItem>>;
 
@@ -61,6 +63,9 @@ export interface GearData {
   enchants: Map<number, Enchant>;
   /** Todas las entradas, también las que comparten `effectId` con otra en otra ranura (el mismo efecto se aplica a varias ranuras). */
   enchantEntries: Enchant[];
+  /** Mejoras temporales de arma por objeto que las aplica. */
+  enhancements: Map<number, WeaponEnhancement>;
+  enhancementList: WeaponEnhancement[];
   suffixes: Map<number, RandomSuffix>;
   suffixSets: number[][];
   /** Categorias de limite por id (`Item.limitCategory`). */
@@ -73,11 +78,13 @@ export interface GearData {
   rules: EquipRules;
 }
 
-export function indexGearData(input: { items: Items; rules: EquipRules; enchants?: Enchants | null; suffixes?: RandomSuffixes | null; sources?: ItemSources | null }): GearData {
+export function indexGearData(input: { items: Items; rules: EquipRules; enchants?: Enchants | null; suffixes?: RandomSuffixes | null; sources?: ItemSources | null; weaponEnhancements?: WeaponEnhancements | null }): GearData {
   return {
     items: new Map(input.items.items.map((i) => [i.id, i])),
     enchants: new Map((input.enchants?.enchants ?? []).map((e) => [e.effectId, e])),
     enchantEntries: input.enchants?.enchants ?? [],
+    enhancements: new Map((input.weaponEnhancements?.enhancements ?? []).map((e) => [e.itemId, e])),
+    enhancementList: input.weaponEnhancements?.enhancements ?? [],
     suffixes: new Map((input.suffixes?.suffixes ?? []).map((s) => [s.id, s])),
     suffixSets: input.items.suffixSets,
     limitCategories: new Map(input.items.limitCategories.map((c) => [c.id, c])),
@@ -228,6 +235,30 @@ export function enchantOptions(data: Pick<GearData, "enchantEntries">, slot: Gea
   return out.sort((a, b) => (a.level ?? 0) - (b.level ?? 0) || a.name.localeCompare(b.name, "es"));
 }
 
+/**
+ * ¿Se puede aplicar esta mejora temporal al objeto de esa ranura, siendo de esa clase? Lo dice el hechizo de uso del cliente: tipos de
+ * ranura (`invTypeMask`: escudos, armas de una o dos manos) y subtipos de arma (`weaponSubclassMask`: piedras de afilar solo a armas
+ * cortantes, contrapesos a armas contundentes). Solo las manos: las armas a distancia y las reliquias no llevan mejoras temporales.
+ */
+export function enhancementFits(e: Pick<WeaponEnhancement, "classMask" | "weaponSubclassMask" | "invTypeMask">, slot: GearSlot, item: Item | undefined, classId: number | null): boolean {
+  if (slot !== "mainHand" && slot !== "offHand") return false;
+  if (classId !== null && e.classMask !== 0 && (e.classMask & classBit(classId)) === 0) return false;
+  if (!item) return true;
+  if (e.invTypeMask !== 0) {
+    if ((e.invTypeMask & (1 << item.inventoryType)) === 0) return false;
+    return e.weaponSubclassMask === 0 || item.classId !== CLASS_WEAPON || (e.weaponSubclassMask & (1 << item.subclassId)) !== 0;
+  }
+  return item.classId === CLASS_WEAPON && item.weapon !== null && item.weapon !== undefined && (e.weaponSubclassMask === 0 || (e.weaponSubclassMask & (1 << item.subclassId)) !== 0);
+}
+
+/** Mejoras temporales que ofrece una ranura con su objeto para esa clase: por tipo (daño, probabilidad, estadísticas), nivel y nombre. */
+export function enhancementOptions(data: Pick<GearData, "enhancementList">, slot: GearSlot, item: Item | undefined, classId: number | null): WeaponEnhancement[] {
+  const kinds = { damage: 0, proc: 1, stats: 2 } as const;
+  return data.enhancementList
+    .filter((e) => enhancementFits(e, slot, item, classId))
+    .sort((a, b) => kinds[a.kind] - kinds[b.kind] || (a.requiredLevel ?? 0) - (b.requiredLevel ?? 0) || a.name.localeCompare(b.name, "es") || a.itemId - b.itemId);
+}
+
 /** Sufijos que puede llevar el objeto (ids de `RandomSuffixes`). */
 export const suffixOptions = (item: Item, data: Pick<GearData, "suffixSets">): number[] => (item.randomSuffixSet === null ? [] : (data.suffixSets[item.randomSuffixSet] ?? []));
 
@@ -273,6 +304,8 @@ export interface GearWeapon {
   /** Subtipo (ItemSubClass: 15 daga, 19 varita...) y tipo de ranura (13 una mano, 17 dos manos...) del arma: para los requisitos de objeto equipado. */
   subclassId: number;
   inventoryType: number;
+  /** «+N de daño» que el arma lleva de su encantamiento y de su mejora temporal (se suma a cada golpe de esa arma). */
+  bonusDamage: number;
 }
 
 /** Objeto que se lleva y que no se cuenta a este nivel (exige un nivel mayor). */
@@ -400,15 +433,27 @@ export function summarizeGear(gear: GearSelection, ctx: GearContext, data: GearD
       for (const s of suffixStats(item, suffix)) add(statKey(s), s.value, source("suffix", s.value));
     }
     const enchant = worn.enchantId ? data.enchants.get(worn.enchantId) : undefined;
+    // «+N de daño» de un encantamiento o de una mejora temporal de un arma: va a ESE arma (no a las dos manos); el del resto del equipo, a todos los golpes
+    let weaponBonus = 0;
+    const addEnchantLine = (key: string, value: number, from: GearStatSource) => {
+      if (key === "physical-damage" && item.weapon) weaponBonus += value;
+      else add(key, value, from);
+    };
+    const temp = worn.tempId ? data.enhancements.get(worn.tempId) : undefined;
+    if (temp) {
+      if (!enhancementFits(temp, slot, item, ctx.classId)) problems.push({ slot, itemId: item.id, reasons: [`La mejora «${temp.name}» no se puede aplicar a este objeto`] });
+      for (const s of enchantStatLines({ name: temp.name, stats: temp.stats, effects: temp.effects, communityStats: [] })) addEnchantLine(s.key, s.value, source("enchant", s.value));
+      for (const effect of temp.effects) effects.push({ slot, itemName: `${item.name} (${temp.name})`, effect });
+    }
     if (enchant) {
-      for (const s of enchantStatLines(enchant)) add(s.key, s.value, source("enchant", s.value));
+      for (const s of enchantStatLines(enchant)) addEnchantLine(s.key, s.value, source("enchant", s.value));
       // Hechizos del encantamiento: sus porcentajes entran en los efectos sumados (`activeGearEffects`); aqui van como texto, igual que los de los objetos
       for (const effect of enchant.effects) effects.push({ slot, itemName: `${item.name} (${enchant.name})`, effect });
     }
 
     if (item.armor) armor += item.armor;
     bonusArmor += item.bonusArmor ?? 0;
-    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item), subclassId: item.subclassId, inventoryType: item.inventoryType });
+    if (item.weapon) weapons.push({ slot, itemName: item.name, min: item.weapon.min, max: item.weapon.max, speed: item.weapon.speed, dps: item.weapon.dps, confidence: item.weapon.confidence, normalizedSpeed: normalizedWeaponSpeed(item), subclassId: item.subclassId, inventoryType: item.inventoryType, bonusDamage: weaponBonus });
     for (const effect of item.effects) effects.push({ slot, itemName: item.name, effect });
     if (item.provenance === "community" && item.stats.length === 0) incomplete = true;
     if (item.itemSetId !== null) {
@@ -517,14 +562,14 @@ const SLOT_LETTERS = "abcdefghijklmnopqrs";
 
 /**
  * Codigo del equipo para el enlace: una entrada por ranura, separadas por «.»; cada una es la letra de la ranura (a = cabeza ...
- * s = distancia, el orden de `GEAR_SLOTS`), el id del objeto y, si los hay, `e` + encantamiento y `x` + sufijo. Ejemplo: `a1234e99.q500x12700`.
+ * s = distancia, el orden de `GEAR_SLOTS`), el id del objeto y, si los hay, `e` + encantamiento, `x` + sufijo y `t` + mejora temporal de arma. Ejemplo: `a1234e99.q500x12700t2862`.
  * Va por ids de objeto, no por posiciones, asi que un hotfix no rompe los enlaces: lo que ya no exista se informa al leerlo.
  */
 export function encodeGear(gear: GearSelection): string {
   return GEAR_SLOTS.flatMap((slot, i) => {
     const w = gear[slot];
     if (!w) return [];
-    return [`${SLOT_LETTERS[i]}${w.itemId}${w.enchantId ? `e${w.enchantId}` : ""}${w.suffixId ? `x${w.suffixId}` : ""}`];
+    return [`${SLOT_LETTERS[i]}${w.itemId}${w.enchantId ? `e${w.enchantId}` : ""}${w.suffixId ? `x${w.suffixId}` : ""}${w.tempId ? `t${w.tempId}` : ""}`];
   }).join(".");
 }
 
@@ -533,13 +578,13 @@ export function decodeGear(code: string | null | undefined): { gear: GearSelecti
   const gear: GearSelection = {};
   let malformed = 0;
   for (const part of (code ?? "").split(".").filter(Boolean)) {
-    const m = /^([a-s])(\d+)(?:e(\d+))?(?:x(\d+))?$/.exec(part);
+    const m = /^([a-s])(\d+)(?:e(\d+))?(?:x(\d+))?(?:t(\d+))?$/.exec(part);
     if (!m) {
       malformed++;
       continue;
     }
     const slot = GEAR_SLOTS[SLOT_LETTERS.indexOf(m[1]!)]!;
-    gear[slot] = { itemId: Number(m[2]), enchantId: m[3] ? Number(m[3]) : null, suffixId: m[4] ? Number(m[4]) : null };
+    gear[slot] = { itemId: Number(m[2]), enchantId: m[3] ? Number(m[3]) : null, suffixId: m[4] ? Number(m[4]) : null, ...(m[5] ? { tempId: Number(m[5]) } : {}) };
   }
   return { gear, malformed };
 }

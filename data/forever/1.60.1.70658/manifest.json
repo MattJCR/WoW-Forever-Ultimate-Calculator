@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "build": "1.60.1.70658",
   "locale": "esES",
-  "generatedAt": "2026-10-28T11:14:21.890Z",
+  "generatedAt": "2026-10-28T12:49:52.256Z",
   "hotfixesApplied": true,
   "source": "Cliente WoW Forever beta (solo lectura) via wow.tools.local; ver docs/EXTRACTION.md",
   "classes": [
@@ -295,6 +295,11 @@
     "sha256": "f1aab582cd6cf977947970f851b88d8bce390f360792041fbe15955bbe1b192c",
     "count": 246
   },
+  "weaponEnhancements": {
+    "file": "weapon-enhancements.json",
+    "sha256": "364f0a045b13a77c102504d01ba5d3c0824d049b204e8b78fb10f268a3fe09b9",
+    "count": 85
+  },
   "itemSources": {
     "file": "sources.json",
     "sha256": "44742176d43d38b6922313f0632514c1867ef1124a8a92d67dd129eb727139e9",
@@ -328,13 +333,13 @@
   },
   "races": {
     "file": "races.json",
-    "sha256": "9b0687a5823e3e100f8e28546b37f1e2a045cb0d20d5a9999cb13e6f22e1942d",
+    "sha256": "fbf8996f13f2af5f743394f8b1d5d020bcb76d1a14facdcd9a6a913679ccbd61",
     "raceCount": 10
   },
   "icons": {
     "file": "icons.json",
-    "count": 1930,
-    "sha256": "d7a16948c15788462539e04ae67e926dab4cd2b8e9c626ccaef7d9f53c173c14"
+    "count": 1974,
+    "sha256": "596e0775b38d2131f0b0f8fa1046559a3ea82ca4e8c1e38cf910bd55312c8798"
   },
   "english": {
     "file": "i18n/en.json",

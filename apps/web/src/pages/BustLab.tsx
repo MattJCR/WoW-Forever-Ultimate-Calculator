@@ -17,7 +17,7 @@ export interface BustApi {
   /** Personaje desnudo, para comprobar el modelo base. */
   base(kind: BustKind, size?: number): Promise<string>;
   /** Primer plano de la cara de frente (yaw 0) o girada. */
-  face(size?: number, yaw?: number, zoom?: number): Promise<string>;
+  face(size?: number, yaw?: number, zoom?: number, lift?: number): Promise<string>;
   /** Primer plano de la cara con un casco puesto. */
   faceWithHelm(itemId: number, size?: number, yaw?: number, zoom?: number): Promise<string>;
 }
@@ -62,9 +62,9 @@ export function BustLab({ query }: { query: URLSearchParams }) {
           await v.apply({ selection, extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides, models: e.models, objectTextures: e.objectTextures, pose: "Stand" });
           return v.face(size, yaw, zoom);
         },
-        async face(size, yaw, zoom) {
+        async face(size, yaw, zoom, lift) {
           await v.apply({ selection, pose: "Stand" });
-          return v.face(size, yaw, zoom);
+          return v.face(size, yaw, zoom, lift);
         },
       };
       (window as unknown as { __bust: BustApi }).__bust = api;

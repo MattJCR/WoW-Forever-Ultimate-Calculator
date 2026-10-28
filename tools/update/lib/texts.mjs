@@ -89,6 +89,10 @@ export function auditTexts(dir) {
     for (const b of s.bonuses) check(`conjunto ${s.id} ${s.name}: bono de ${b.threshold}`, b.text);
   }
   for (const b of readJson(dir, "buffs.json")?.buffs ?? []) check(`beneficio ${b.id} ${b.name}`, b.text);
+  for (const w of readJson(dir, "weapon-enhancements.json")?.enhancements ?? []) {
+    check(`mejora de arma ${w.itemId} ${w.name}`, w.text);
+    for (const x of w.effects ?? []) if (x.text) check(`mejora de arma ${w.itemId} ${w.name}: efecto ${x.spellId}`, x.text);
+  }
   for (const e of readJson(dir, "enchants.json")?.enchants ?? []) {
     check(`encantamiento ${e.effectId}/${e.spellId} ${e.name}: nombre`, e.name);
     for (const x of e.effects ?? []) if (x.text) check(`encantamiento ${e.effectId}/${e.spellId} ${e.name}: efecto`, x.text);
@@ -145,6 +149,7 @@ function originMap(dir) {
   }
   for (const i of readJson(dir, "items.json")?.items ?? []) m.set(`objeto ${i.id} ${i.name}`, i.textOrigin);
   for (const b of readJson(dir, "buffs.json")?.buffs ?? []) m.set(`beneficio ${b.id} ${b.name}`, b.textOrigin);
+  for (const w of readJson(dir, "weapon-enhancements.json")?.enhancements ?? []) m.set(`mejora de arma ${w.itemId} ${w.name}`, w.textOrigin);
   return m;
 }
 

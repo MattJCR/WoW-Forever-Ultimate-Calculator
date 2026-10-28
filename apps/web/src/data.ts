@@ -1,5 +1,5 @@
 import { indexBuffs, indexGearData, type BuffIndex, type GearData } from "@wfuc/engine";
-import { Buffs, ClassTalents, CombatRatings, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned } from "@wfuc/schema";
+import { Buffs, ClassTalents, CombatRatings, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned, WeaponEnhancements } from "@wfuc/schema";
 import { useEffect, useState } from "react";
 import { tr } from "./i18n";
 
@@ -85,15 +85,16 @@ export function loadGear(manifest: Manifest): Promise<GearBundle> {
   if (!hit) {
     hit = (async () => {
       if (!manifest.items || !manifest.equipRules) throw new Error("Estos datos no incluyen objetos: ejecuta `ITEMS=1 HOTFIXES=1 tools/extract/export-tables.sh` y `npm run pipeline`");
-      const [items, rules, enchants, suffixes, ratings, sources] = await Promise.all([
+      const [items, rules, enchants, suffixes, ratings, sources, weaponEnhancements] = await Promise.all([
         getJson(manifest.items.file, (v) => Items.parse(v)),
         getJson(manifest.equipRules.file, (v) => EquipRules.parse(v)),
         manifest.enchants ? getJson(manifest.enchants.file, (v) => Enchants.parse(v)) : Promise.resolve(null),
         manifest.randomSuffixes ? getJson(manifest.randomSuffixes.file, (v) => RandomSuffixes.parse(v)) : Promise.resolve(null),
         manifest.combatRatings ? getJson(manifest.combatRatings.file, (v) => CombatRatings.parse(v)) : Promise.resolve(null),
         manifest.itemSources ? getJson(manifest.itemSources.file, (v) => ItemSources.parse(v)) : Promise.resolve(null),
+        manifest.weaponEnhancements ? getJson(manifest.weaponEnhancements.file, (v) => WeaponEnhancements.parse(v)) : Promise.resolve(null),
       ]);
-      return { data: indexGearData({ items, rules, enchants, suffixes, sources }), ratings, partial: !enchants || !suffixes || !ratings };
+      return { data: indexGearData({ items, rules, enchants, suffixes, sources, weaponEnhancements }), ratings, partial: !enchants || !suffixes || !ratings };
     })();
     gearCache.set(key, hit);
     hit.catch(() => gearCache.delete(key)); // un fallo de red no se queda en la cache

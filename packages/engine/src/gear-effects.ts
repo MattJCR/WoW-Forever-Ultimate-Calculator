@@ -219,6 +219,11 @@ export function activeGearEffects(gear: GearSelection, data: GearData): GearEffe
       if (e.trigger !== 1 || e.auras.length === 0) continue;
       out.push({ kind: "enchant", name: e.name || enchant!.name, origin: enchant!.name, spellId: e.spellId, text: enchantEffectText(e, enchant!), auras: e.auras, slot, itemId: item.id });
     }
+    const temp = worn?.tempId ? data.enhancements.get(worn.tempId) : undefined;
+    for (const e of temp?.effects ?? []) {
+      if (e.trigger !== 1 || e.auras.length === 0) continue;
+      out.push({ kind: "enchant", name: e.name || temp!.name, origin: temp!.name, spellId: e.spellId, text: enchantEffectText(e, temp!), auras: e.auras, slot, itemId: item.id });
+    }
     if (item.itemSetId !== null) {
       const set = piecesBySet.get(item.itemSetId) ?? new Set<number>();
       set.add(item.id);

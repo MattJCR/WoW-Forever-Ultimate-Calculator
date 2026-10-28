@@ -12,6 +12,18 @@ export const CLIENT_TYPOS: [string, string][] = [["amentados", "aumentados"]];
  * El cliente de Forever es "unificado" y trae las 58 razas de retail en `ChrRaces`. Las jugables son las que
  * tienen filas en `CharBaseInfo` (matriz raza/clase): las 8 clasicas mas Cielonato (95 Alianza, 96 Horda).
  */
+/** Iconos de raza del cliente (`Interface/Icons/Achievement_Character_<raza>_<sexo>.blp`): ClientFileString → [varón, mujer]. El cliente no trae el de Cielonato. */
+const RACE_ICONS: Record<string, [number, number]> = {
+  Human: [236448, 236447],
+  Dwarf: [236444, 236443],
+  NightElf: [236450, 236449],
+  Gnome: [236446, 236445],
+  Orc: [236452, 236451],
+  Scourge: [236458, 236457],
+  Tauren: [236454, 236453],
+  Troll: [236456, 236455],
+};
+
 export function buildRaces(raw: RawTables, build: string, locale: string, spells: SpellTables): Races {
   const warnings: string[] = [];
   const overrides = loadOverrides(locale);
@@ -81,6 +93,8 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
       token: row.ClientFileString ?? "",
       name: row.Name_lang ?? "",
       nameFemale: row.Name_female_lang || null,
+      iconFileDataId: RACE_ICONS[row.ClientFileString ?? ""]?.[0] ?? null,
+      iconFileDataIdFemale: RACE_ICONS[row.ClientFileString ?? ""]?.[1] ?? null,
       // ChrRaces.Alliance: 0 = Alianza, 1 = Horda.
       faction: int(row.Alliance) === 1 ? "horde" : "alliance",
       classIds: [...new Set(classIds)].sort((a, b) => a - b),
