@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { parse } from "csv-parse/sync";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-export const BUILD = process.env.BUILD ?? "1.60.1.70532";
+export const BUILD = process.env.BUILD ?? "1.60.1.70658";
 const DIR = path.join(ROOT, "data", "raw", `${BUILD}-hotfix`);
 const cache = new Map();
 
