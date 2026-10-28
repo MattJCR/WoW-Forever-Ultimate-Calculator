@@ -106,9 +106,11 @@ function Layout({ manifest }: { manifest: Manifest }) {
           </nav>
           <LanguageSwitch />
           <span className="build-tag" title={tr("Datos extraídos el {date}", { date: manifest.generatedAt.slice(0, 10) })}>
-            Beta {version}
-            {number && ` · build ${number}`}
-            {deployedAt && ` · ${tr("web actualizada el {date}", { date: deployedAt })}`}
+            <span>
+              Beta {version}
+              {number && ` · build ${number}`}
+            </span>
+            {deployedAt && <span className="build-tag-date">{tr("web actualizada el {date}", { date: deployedAt })}</span>}
           </span>
         </div>
       </header>
