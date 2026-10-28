@@ -62,6 +62,13 @@ export function racialLine(a: RacialAbility, classId: number): string {
   return a.pvpTrinket ? `${base} [PvP trinket shared cooldown: unconfirmed; the client does not link this racial to the trinket's cooldown category]` : base;
 }
 
+/** La referencia externa trae otras cifras (cambio futuro) o no lista la racial; null si coincide o la diferencia está revisada a mano. */
+export function referenceStatus(a: RacialAbility): "differs" | "not-listed" | null {
+  const r = a.reference;
+  if (!r || r.status === "same" || r.reviewed) return null;
+  return r.status;
+}
+
 /** Aviso corto de la insignia de PvP para la tarjeta (la explicación completa va en la lista de raciales). */
 function trinketShort(a: RacialAbility): string | null {
   const t = a.pvpTrinket;
@@ -93,6 +100,18 @@ function RacialCard({ a, classId, raceId }: { a: RacialAbility; classId: number;
       {a.pvpTrinket && (
         <p className="tip-warn">
           <b>{tr("Comparte enfriamiento con la insignia de PvP: sin confirmar")}</b> {trinketShort(a)}
+        </p>
+      )}
+      {referenceStatus(a) === "differs" && (
+        <p className="tip-warn tip-ref">
+          <b>{tr("La referencia externa indica otros valores (cambio futuro: el cliente aún no lo trae)")}</b> {tr("Las cifras de arriba son las del cliente.")}
+          <span className="tip-ref-text">{a.reference?.text}</span>
+          <small>{tr("Texto de la referencia, en inglés.")}</small>
+        </p>
+      )}
+      {referenceStatus(a) === "not-listed" && (
+        <p className="tip-warn tip-ref">
+          <b>{tr("La referencia externa no la lista")}</b> {tr("Puede estar retirada o reemplazada; el cliente aún la trae y manda.")}
         </p>
       )}
       {translated && <p className="tip-warn tip-warn-soft">{tr("Traducción propia: el cliente aún trae este texto en inglés.")}</p>}

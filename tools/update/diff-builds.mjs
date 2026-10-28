@@ -111,11 +111,11 @@ function diffRacialsEnglish(a, b) {
 
 function diffRaces(a, b) {
   const flat = (r) => r.races.flatMap((x) => x.racials.map((c) => ({ race: x.name, ...c, spells: undefined })));
-  const r = diffKeyed(flat(a), flat(b), (x) => `${x.race}/${x.name}`, ["kind", "description", "iconFileDataId", "textOrigin", "pvpTrinket"], (x) => `${x.race}: ${x.name}`);
+  const r = diffKeyed(flat(a), flat(b), (x) => `${x.race}/${x.name}`, ["kind", "description", "iconFileDataId", "textOrigin", "pvpTrinket", "reference"], (x) => `${x.race}: ${x.name}`);
   section("Razas y raciales (resumen de la tabla del cliente)", r.added, r.removed, r.changed);
   diffRacialSpells(a, b);
   diffClassRacials(a, b);
-  const raceRes = diffKeyed(a.races, b.races, (x) => x.id, ["classIds", "faction", "racialSkillLineId", "name", "nameFemale", "token"], (x) => x.name);
+  const raceRes = diffKeyed(a.races, b.races, (x) => x.id, ["classIds", "faction", "racialSkillLineId", "name", "nameFemale", "token", "referenceOnly"], (x) => x.name);
   section("Razas (matriz raza/clase)", raceRes.added, raceRes.removed, raceRes.changed);
 }
 

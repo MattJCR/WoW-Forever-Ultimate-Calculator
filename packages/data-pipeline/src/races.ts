@@ -36,6 +36,7 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
       textOrigin: "client" as const,
       spells: [],
       pvpTrinket: null,
+      reference: null,
     });
     racialsByRace.set(int(r.ChrRacesID), list);
   }
@@ -86,6 +87,7 @@ export function buildRaces(raw: RawTables, build: string, locale: string, spells
       racialSkillLineId: RACIAL_SKILL_LINES[id] ?? null,
       racials,
       classRacials: [],
+      referenceOnly: [],
     });
   }
   for (const id of matrix.keys()) {

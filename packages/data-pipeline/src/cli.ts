@@ -18,6 +18,7 @@ import { applyOfficialRacials, loadOfficialEnglish } from "./english-official.js
 import { buildRules } from "./rules.js";
 import { buildLegacy } from "./legacy.js";
 import { attachClassRacials, buildRaces } from "./races.js";
+import { contrastRacials } from "./racial-contrast.js";
 import { buildBaseStats, type ClassicEra } from "./stats.js";
 import { buildClientStats } from "./client-stats.js";
 import { buildUnassigned } from "./unassigned.js";
@@ -201,6 +202,14 @@ function build(): void {
 
   // Habilidades de clase ligadas a una raza (Sacerdote…): se cuelgan de la raza para la pantalla de razas
   attachClassRacials(races, abilityData, spells);
+  // Contraste de cada racial con la referencia externa (cambios futuros que el cliente aún no trae): el cliente manda, solo se avisa
+  const racialNames = (JSON.parse(readFileSync(resolve(repoRoot, "data", "i18n", "racials-en.json"), "utf8")) as { names: Record<string, string> }).names;
+  const refNotesFile = resolve(repoRoot, "data", "rules", "reference-notes.json");
+  const refNotes = existsSync(refNotesFile) ? (JSON.parse(readFileSync(refNotesFile, "utf8")) as { racials?: Record<string, string> }).racials ?? {} : {};
+  const racialContrast = contrastRacials(races, tfDir, racialNames, refNotes);
+  if (racialContrast) {
+    console.log(`Raciales frente a la referencia: ${racialContrast.same} iguales; con otras cifras (cambio futuro): ${racialContrast.differs.length ? racialContrast.differs.join(", ") : "ninguna"}; que la referencia no lista: ${racialContrast.notListed.length ? racialContrast.notListed.join(", ") : "ninguna"}; que solo lista la referencia: ${racialContrast.referenceOnly.length ? racialContrast.referenceOnly.join(", ") : "ninguna"}; revisadas a mano: ${racialContrast.reviewed.length}`);
+  }
   racesText = stableJson(Races.parse(races));
   writeFileSync(join(outDir, "races.json"), racesText);
   console.log(`Raciales de clase: ${races.races.map((r) => `${r.name} ${r.classRacials.length}`).filter((s) => !s.endsWith(" 0")).join(", ")}`);

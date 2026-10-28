@@ -1,0 +1,6 @@
+{
+  "_readme": "Diferencias de raciales con la referencia externa que se revisaron a mano y NO son de cifras (la referencia solo explica mejor lo mismo). Clave: «ChrRaces.ID/orden de la racial» -> motivo. Se aplican en el pipeline (racial-contrast.ts); si el cliente o la referencia cambian las cifras, borrar la entrada.",
+  "racials": {
+    "7/1": "¡Eureka!: la referencia detalla qué hechizos cuentan (periódicos, canalizados); las cifras son las del cliente (10 % de coste y de daño o sanación, 8 s)"
+  }
+}

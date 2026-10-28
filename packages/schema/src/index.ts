@@ -333,6 +333,30 @@ export const RacialTrinketShare = z.object({
 });
 export type RacialTrinketShare = z.infer<typeof RacialTrinketShare>;
 
+/**
+ * Contraste de una racial con la referencia externa. El cliente manda: `differs` = la referencia trae otras cifras (normalmente un cambio
+ * futuro que el cliente aún no tiene); `not-listed` = la referencia no la lista (retirada o reemplazada). Se recalcula en cada parche.
+ */
+export const RacialReference = z.object({
+  status: z.enum(["same", "differs", "not-listed"]),
+  /** Texto de la referencia (inglés), sin el prefijo de lanzamiento/enfriamiento; null si no la lista. */
+  text: z.string().nullable(),
+  /** Enfriamiento que da la referencia (ms), si lo dice. */
+  cooldownMs: z.number().int().nullable(),
+  /** Revisada a mano (data/rules/reference-notes.json): la diferencia es de redacción, no de cifras. */
+  reviewed: z.string().nullable().default(null),
+});
+export type RacialReference = z.infer<typeof RacialReference>;
+
+/** Racial que la referencia lista y el cliente no trae (reemplazo o novedad futura). */
+export const ReferenceOnlyRacial = z.object({
+  name: z.string(),
+  text: z.string(),
+  /** Nombre de icono de la referencia (no un FileDataID). */
+  icon: z.string().nullable(),
+});
+export type ReferenceOnlyRacial = z.infer<typeof ReferenceOnlyRacial>;
+
 /** Habilidad racial tal como la lista el cliente (`ChrRaceRacialAbility`) y sus hechizos con los numeros. */
 export const RacialAbility = z.object({
   name: z.string(),
@@ -347,6 +371,8 @@ export const RacialAbility = z.object({
   spells: z.array(RacialSpell),
   /** Solo en raciales activas que quitan el mismo control que la insignia de PvP; null en el resto. */
   pvpTrinket: RacialTrinketShare.nullable().default(null),
+  /** Contraste con la referencia externa (se rellena en el pipeline); null si no hay export. */
+  reference: RacialReference.nullable().default(null),
 });
 export type RacialAbility = z.infer<typeof RacialAbility>;
 
@@ -387,6 +413,8 @@ export const Race = z.object({
   racials: z.array(RacialAbility),
   /** Habilidades de clase que solo tiene esta raza (se rellenan al construir las habilidades de cada clase). */
   classRacials: z.array(ClassRacial).default([]),
+  /** Raciales que la referencia lista para esta raza y el cliente no trae. */
+  referenceOnly: z.array(ReferenceOnlyRacial).default([]),
 });
 export type Race = z.infer<typeof Race>;
 

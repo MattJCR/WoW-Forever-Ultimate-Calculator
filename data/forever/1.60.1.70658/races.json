@@ -47,6 +47,12 @@
               "aturdimiento"
             ],
             "trinketCooldownMs": 300000
+          },
+          "reference": {
+            "status": "same",
+            "text": "Instantly removes all Stun effects.",
+            "cooldownMs": 180000,
+            "reviewed": null
           }
         },
         {
@@ -77,7 +83,13 @@
               "description": "Aumenta drásticamente la detección de sigilo durante 20 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Dramatically increases stealth detection for 20 sec.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Crueldad",
@@ -107,7 +119,13 @@
               "description": "Aumenta un 2% la probabilidad de conseguir un golpe crítico con todos los hechizos y ataques."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your critical strike chance with all spells and attacks by 1%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "El espíritu humano",
@@ -137,7 +155,13 @@
               "description": "Espíritu aumentado en un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Spirit increased by 10%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -165,7 +189,8 @@
           "textOrigin": "client",
           "scalesWith": []
         }
-      ]
+      ],
+      "referenceOnly": []
     },
     {
       "id": 3,
@@ -235,7 +260,13 @@
               "description": "Elimina al instante todos los efectos de sangrado, veneno y enfermedad y otorga inmunidad a ellos. Además, reduce un 10% todo el daño físico recibido durante 8 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Instantly removes and grants immunity to all Bleed, Poison, and Disease effects, and reduces all Physical damage taken by 10% for 8 sec.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Buscar tesoro",
@@ -265,7 +296,13 @@
               "description": null
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Allows the dwarf to sense nearby treasure, making it appear on the minimap.  Lasts until canceled.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Furia de la tierra",
@@ -303,7 +340,13 @@
               "description": "Aumenta el bonus de golpe crítico del daño y la sanación un 2%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "not-listed",
+            "text": null,
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Caza mayor",
@@ -333,7 +376,13 @@
               "description": "Daño infligido contra bestias aumentado un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Damage dealt versus Beasts increased by 5%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -360,6 +409,13 @@
           "description": "Castiga al objetivo, le inflige 289 p. de daño Sagrado y lo inmoviliza hasta 2 s. Solo funciona frente a humanoides. Este hechizo genera muy poca amenaza.",
           "textOrigin": "client",
           "scalesWith": []
+        }
+      ],
+      "referenceOnly": [
+        {
+          "name": "Artisan's Precision",
+          "text": "Increases hit chance with spells and attacks by 1%.",
+          "icon": "ability_marksmanship"
         }
       ]
     },
@@ -406,7 +462,13 @@
               "description": "Aumenta un 10% tu probabilidad de golpe crítico con todos los hechizos y ataques durante 15 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Increases your critical strike chance with all spells and attacks by 10% for 15 sec.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Fusión de las Sombras",
@@ -444,7 +506,13 @@
               "description": "Actívalo para escurrirte entre las sombras, lo que reduce la probabilidad de que los enemigos detecten tu presencia. Dura hasta que se cancela o te mueves. Si se activa en combate, disuade a los enemigos de atacarte, pero el tiempo de reutilización aumenta a 2 min."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Activate to slip into the shadows, reducing the chance for enemies to detect your presence. Lasts until cancelled or upon moving. Using this ability in combat discourages enemies from attacking you, but increases the cooldown to 2 min.",
+            "cooldownMs": 10000,
+            "reviewed": null
+          }
         },
         {
           "name": "Prontitud",
@@ -482,7 +550,13 @@
               "description": "Probabilidad de esquivar aumentada un 1% y velocidad de movimiento aumentada un 2%. Los pícaros y druidas elfos de la noche aumentan el sigilo como si tuvieran 1 nivel más."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Dodge chance increased by 1% and movement speed increased by 2%. Night Elf Rogues and Druids are harder to detect in Stealth as if they were 1 level higher.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Espíritu de fuego fatuo",
@@ -512,7 +586,13 @@
               "description": "Al morir se transforma en un fuego fatuo, lo que aumenta la velocidad de movimiento un 75%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Transform into a wisp upon death, increasing movement speed by 75%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -540,7 +620,8 @@
           "textOrigin": "client",
           "scalesWith": []
         }
-      ]
+      ],
+      "referenceOnly": []
     },
     {
       "id": 7,
@@ -601,6 +682,12 @@
               "ralentización"
             ],
             "trinketCooldownMs": 300000
+          },
+          "reference": {
+            "status": "same",
+            "text": "Instantly escape the effects of any movement impairing effect and gain immunity to those effects for 3 sec.",
+            "cooldownMs": 120000,
+            "reviewed": null
           }
         },
         {
@@ -827,7 +914,13 @@
               "description": "Las facultades dañinas o sanadoras no periódicas cuestan un 10% menos de maná e infligen un 10% más de daño o de sanación durante 8 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "For 8 sec, your non-periodic damaging abilities cost 10% less (Mana, Rage or Energy) and deal 10% more damage. For Priests, your non-periodic damaging or healing abilities cost 10% less Mana and do 10% more damage or healing. Periodic effects get nothing from it; a channeled spell is not periodic. The Mage's own tooltip is the one that leaves out non-periodic.",
+            "cooldownMs": 120000,
+            "reviewed": "¡Eureka!: la referencia detalla qué hechizos cuentan (periódicos, canalizados); las cifras son las del cliente (10 % de coste y de daño o sanación, 8 s)"
+          }
         },
         {
           "name": "Mente expansiva",
@@ -895,7 +988,13 @@
               "description": "Energía máxima aumentada un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Maximum Mana, Rage or Energy increased by 5%, whichever your class uses.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Especialización de ingeniería",
@@ -925,7 +1024,13 @@
               "description": "Tu ingenio gnómico reduce un 20% el índice de fallo o defecto de los dispositivos de ingeniería al usarlos."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Your gnomish ingenuity reduces the rate of engineering devices failing or backfiring when you use them by 20%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -953,7 +1058,8 @@
           "textOrigin": "client",
           "scalesWith": []
         }
-      ]
+      ],
+      "referenceOnly": []
     },
     {
       "id": 95,
@@ -1030,7 +1136,13 @@
               "description": "Planeas hacia abajo en el aire durante 10 s. Mantienes el control de la dirección mientras te desplazas."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Glide downward through the air for 10 sec while controlling your direction of travel.",
+            "cooldownMs": 90000,
+            "reviewed": null
+          }
         },
         {
           "name": "Leer línea Ley",
@@ -1068,7 +1180,13 @@
               "description": "Intentas aprovechar el poder de una línea Ley cercana para aumentar un 100% tu regeneración de salud y maná. Dura 30 s si no hay una línea Ley cerca y 15 min cuando sí la haya."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your Health and Mana regeneration by 50% for 15 sec. Used at a Ley Line it also grants Attuned for 1 hour, which raises the bonus to 100%. Attuned persists through death and ends when you enter a raid. Cannot be used while Innervate is active.",
+            "cooldownMs": 120000,
+            "reviewed": null
+          }
         },
         {
           "name": "Bendición del viento",
@@ -1106,7 +1224,13 @@
               "description": "Aumenta un 3% la celeridad con hechizos, cuerpo a cuerpo y a distancia."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your spellcasting, melee, and ranged Haste by 2%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Perspicacia elemental",
@@ -1136,10 +1260,17 @@
               "description": "Daño infligido contra elementales aumentado un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Damage dealt versus Elementals increased by 5%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
-      "classRacials": []
+      "classRacials": [],
+      "referenceOnly": []
     },
     {
       "id": 2,
@@ -1201,7 +1332,13 @@
               "description": "Aumenta un 10% el poder de ataque y el poder con hechizos durante 15 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Increases Attack Power and Spell Power by 10% for 15 sec.",
+            "cooldownMs": 120000,
+            "reviewed": null
+          }
         },
         {
           "name": "Trizar maldición",
@@ -1231,7 +1368,13 @@
               "description": "Elimina instantáneamente todos los terrores y las maldiciones, y reduce el daño mágico recibido un 5% durante 8 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Instantly removes all Curses and Banes, and reduces all Magical damage taken by 5% for 8 sec.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Salvajismo",
@@ -1261,7 +1404,13 @@
               "description": "Aumenta un 1% la probabilidad de conseguir un golpe crítico con todos los hechizos y habilidades."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "not-listed",
+            "text": null,
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Firmeza",
@@ -1291,10 +1440,23 @@
               "description": "Duración de los efectos de aturdimiento sobre ti reducida un 20%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Duration of Stun effects on you reduced by 20%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
-      "classRacials": []
+      "classRacials": [],
+      "referenceOnly": [
+        {
+          "name": "Command",
+          "text": "Damage dealt by Hunter and Warlock pets increased by 5%.",
+          "icon": "ability_warrior_warcry"
+        }
+      ]
     },
     {
       "id": 5,
@@ -1364,6 +1526,12 @@
               "miedo"
             ],
             "trinketCooldownMs": 300000
+          },
+          "reference": {
+            "status": "same",
+            "text": "Instantly removes all Charm, Fear and Sleep effects.",
+            "cooldownMs": 120000,
+            "reviewed": null
           }
         },
         {
@@ -1402,7 +1570,13 @@
               "description": "Cuando se activa, regenera un 7% de la salud total y un 7% del maná total cada 2 s durante 10 s. Solo funciona en cadáveres de humanoides o no-muertos en un radio de 5 m. Cualquier movimiento, acción o daño durante Canibalismo cancelará el efecto."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "When activated, regenerates 7% of total Health and 7% of total Mana every 2 sec for 10 sec. Only works on Humanoid or Undead corpses within 5 yds. Any movement, action, or damage taken while Cannibalizing will cancel the effect.",
+            "cooldownMs": 120000,
+            "reviewed": null
+          }
         },
         {
           "name": "Respiración subacuática",
@@ -1432,7 +1606,13 @@
               "description": "La respiración subacuática dura un 300% más de lo normal."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Underwater breath lasts 300% longer than normal.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Toque de la tumba",
@@ -1481,7 +1661,13 @@
               "description": "Tus hechizos y ataques tienen un 30% de probabilidades de drenar salud del objetivo, hasta un máximo de un 5% de tu salud máxima."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Your spells and attacks with a damage part have a chance (30% for casters, 20% for Paladins, Rogues and Warriors) to drain Health from the target, up to 5% of your maximum Health. 15 sec internal cooldown. Does not break crowd control.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -1511,7 +1697,8 @@
             "spirit"
           ]
         }
-      ]
+      ],
+      "referenceOnly": []
     },
     {
       "id": 6,
@@ -1555,7 +1742,13 @@
               "description": "Aturde a un máximo de 5 enemigos en un radio de 8 metros durante 2 s."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Stuns up to 5 enemies within 8 yds for 2 sec.",
+            "cooldownMs": 90000,
+            "reviewed": null
+          }
         },
         {
           "name": "Cultivo",
@@ -1576,7 +1769,13 @@
               "description": "Cultiva una hierba cercana para hacer brotar una copia que puedes cosechar sin necesidad de conocer la habilidad herboristería. Cada hierba solo se puede cultivar una vez."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Cultivate a nearby herb, growing a duplicate you can harvest without requiring Herbalism skill. Each herb may only be cultivated once. In play it goes on a 15 min cooldown, though its tooltip shows none.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Correr planicies",
@@ -1614,7 +1813,13 @@
               "description": "Obtienes un aumento del 1% de velocidad de movimiento por cada 5 s que pases moviéndote, hasta un máximo del 30%. Recibir daño o quedarte quieto reducirá este efecto. Además, te mueves un 3% más rápido al montar."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Gain 2% increased movement speed every 5 sec spent moving, up to a maximum of 60% increase. Taking damage or standing still will reduce this effect. Does not increase mounted movement speed.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Aguante",
@@ -1660,10 +1865,17 @@
               "description": "La salud total aumenta un 5% y el bonus de golpe crítico y la sanación aumentan un 2%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Total Health increased by 5%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
-      "classRacials": []
+      "classRacials": [],
+      "referenceOnly": []
     },
     {
       "id": 8,
@@ -1726,7 +1938,13 @@
               "description": null
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your spellcasting and attack speed by 10% for 15 sec.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Regeneración rápida",
@@ -1756,7 +1974,13 @@
               "description": "Regeneras un 50% de tu salud máxima durante 6 s. Cualquier movimiento, acción o daño recibido cancelará el efecto."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Regenerate 50% of your maximum Health over 6 sec. Any movement, action, or damage taken will cancel the effect.",
+            "cooldownMs": 180000,
+            "reviewed": null
+          }
         },
         {
           "name": "Matanza de bestias",
@@ -1786,7 +2010,13 @@
               "description": "Daño causado contra bestias aumentado en un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Damage dealt versus Beasts increased by 5%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Regeneración",
@@ -1824,7 +2054,13 @@
               "description": "Aumenta un 20% la velocidad de regeneración de salud. Además, un 20% de la regeneración de salud total seguirá activa mientras estás en combate."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Health regeneration rate increased by 20%. In addition, 20% of total Health regeneration will continue during combat.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
       "classRacials": [
@@ -1852,7 +2088,8 @@
           "textOrigin": "client",
           "scalesWith": []
         }
-      ]
+      ],
+      "referenceOnly": []
     },
     {
       "id": 96,
@@ -1929,7 +2166,13 @@
               "description": "Planeas hacia abajo en el aire durante 10 s. Mantienes el control de la dirección mientras te desplazas."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Glide downward through the air for 10 sec while controlling your direction of travel.",
+            "cooldownMs": 90000,
+            "reviewed": null
+          }
         },
         {
           "name": "Visión cielonata",
@@ -1967,7 +2210,13 @@
               "description": "Intentas obtener poder de una convergencia de elementos para recibir su bendición, lo que aumenta un 10% tu velocidad de movimiento y tu velocidad de movimiento sobre una montura. Dura 30 s si no hay una convergencia elemental cerca y 15 min cuando sí la haya."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your movement speed by 15% for 15 sec. Used at an elemental convergence it also grants Charged for 1 hour, which raises the bonus to 30%. Charged persists through death and ends when you enter a raid.",
+            "cooldownMs": 120000,
+            "reviewed": null
+          }
         },
         {
           "name": "Bendición del viento",
@@ -2005,7 +2254,13 @@
               "description": "Aumenta un 3% la celeridad con hechizos, cuerpo a cuerpo y a distancia."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "differs",
+            "text": "Increases your spellcasting, melee, and ranged Haste by 2%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         },
         {
           "name": "Perspicacia elemental",
@@ -2035,10 +2290,17 @@
               "description": "Daño infligido contra elementales aumentado un 5%."
             }
           ],
-          "pvpTrinket": null
+          "pvpTrinket": null,
+          "reference": {
+            "status": "same",
+            "text": "Damage dealt versus Elementals increased by 5%.",
+            "cooldownMs": null,
+            "reviewed": null
+          }
         }
       ],
-      "classRacials": []
+      "classRacials": [],
+      "referenceOnly": []
     }
   ],
   "warnings": []

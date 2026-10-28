@@ -1267,3 +1267,35 @@ body:has(.class-page.is-wide) .wrap {
     width: auto;
   }
 }
+
+/* Raciales que la referencia externa ve distinto (cambio futuro): marca ≠ en la fila y barra de las que solo ella lista */
+.rg-diff {
+  flex: none;
+  min-width: 20px;
+  padding: 0 5px;
+  border: 1px solid color-mix(in srgb, var(--warn) 55%, transparent);
+  border-radius: 9px;
+  color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+.rg-bar-ref,
+.rg-bar-ref[aria-expanded="true"] {
+  color: var(--info);
+}
+.rg-bar-ref[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--info) 8%, transparent);
+}
+.tip-ref-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--text);
+}
+.tip-ref small {
+  display: block;
+  margin-top: 4px;
+  color: var(--faint);
+}

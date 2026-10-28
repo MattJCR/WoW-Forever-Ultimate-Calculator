@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -10,6 +10,7 @@ import { buildBaseStats, type ClassicEra } from "../src/stats.js";
 import { auditLevelStats } from "../src/stats-audit.js";
 import { buildAbilities, racesOfMasks } from "../src/abilities.js";
 import { CLIENT_TEXT_FIXES } from "../src/spell-tables.js";
+import { contrastRacials, figuresOf, splitReferenceText } from "../src/racial-contrast.js";
 import { looksEnglish } from "../src/language.js";
 import { CLIENT_TYPOS, attachClassRacials, buildRaces, parseRacialName } from "../src/races.js";
 import { buildLegacy } from "../src/legacy.js";
@@ -1545,5 +1546,45 @@ describe("texto completo de las raciales y raciales de clase (pantalla de razas)
     // Gracia divina también en el libro de hechizos del Sacerdote, con las cifras de cada rango
     const priest = classes.find((c) => c.classId === 5)!.abilities.find((a) => a.name === "Gracia divina")!;
     expect(priest.ranks.map((r) => r.description)).toSatisfy((d: string[]) => d.every((x) => /^Sana instantáneamente \d+ p\. a un objetivo amistoso/.test(x)));
+  });
+});
+
+describe("raciales frente a la referencia externa (cambios futuros que el cliente aún no trae)", () => {
+  const tfDir = join(root, "data", "external", "talentsforever");
+  const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
+  const races = buildRaces(raw, BUILD, "esES", live.spells);
+  const names = (JSON.parse(readFileSync(join(root, "data", "i18n", "racials-en.json"), "utf8")) as { names: Record<string, string> }).names;
+  const notes = (JSON.parse(readFileSync(join(root, "data", "rules", "reference-notes.json"), "utf8")) as { racials: Record<string, string> }).racials;
+  const report = existsSync(tfDir) ? contrastRacials(races, tfDir, names, notes) : null;
+
+  it("separa el prefijo de lanzamiento del texto y lee el enfriamiento", () => {
+    expect(splitReferenceText("5 yd range, Instant, 2 min cooldown. When activated, regenerates 7%.")).toEqual({ body: "When activated, regenerates 7%.", cooldownMs: 120000 });
+    expect(splitReferenceText("0.5 sec cast, 1.5 min cooldown. Stuns up to 5 enemies within 8 yds for 2 sec.")).toEqual({ body: "Stuns up to 5 enemies within 8 yds for 2 sec.", cooldownMs: 90000 });
+    expect(splitReferenceText("Spirit increased by 10%.")).toEqual({ body: "Spirit increased by 10%.", cooldownMs: null });
+    expect(figuresOf("heals for 1,285 to 1,513 and 0.5 sec")).toEqual(["1285", "1513", "0.5"]);
+  });
+
+  it.skipIf(!existsSync(tfDir))("lista exacta de lo que la referencia ve distinto (Espíritu humano 5 → 10 %, etc.); el cliente no se toca", () => {
+    expect(report!.differs.sort()).toEqual(
+      [
+        "Cielonato Formavientos: Bendición del viento",
+        "Cielonato Formavientos: Visión cielonata",
+        "Cielonato de la Orden Eminente: Bendición del viento",
+        "Cielonato de la Orden Eminente: Leer línea Ley",
+        "Humano: Crueldad",
+        "Humano: El espíritu humano",
+        "No-muerto: Toque de la tumba",
+        "Tauren: Aguante",
+        "Tauren: Correr planicies",
+        "Tauren: Cultivo",
+        "Trol: Iracundia",
+      ].sort(),
+    );
+    expect(report!.notListed.sort()).toEqual(["Enano: Furia de la tierra", "Orco: Salvajismo"]);
+    expect(report!.referenceOnly.sort()).toEqual(["Enano: Artisan's Precision", "Orco: Command"]);
+    // El valor del cliente sigue siendo el del cliente
+    const human = races.races.find((r) => r.id === 1)!;
+    expect(human.racials.find((a) => a.name === "El espíritu humano")!.spells[0]!.effects.find((e) => e.kind === "spirit-pct")!.value).toBe(5);
+    expect(human.racials.find((a) => a.name === "El espíritu humano")!.reference).toMatchObject({ status: "differs", text: "Spirit increased by 10%." });
   });
 });

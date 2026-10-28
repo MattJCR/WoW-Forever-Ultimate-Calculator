@@ -1,9 +1,9 @@
-import type { ClassRacial, Race } from "@wfuc/schema";
+import type { ClassRacial, Race, ReferenceOnlyRacial } from "@wfuc/schema";
 import { useEffect, useState } from "react";
 import { isEnglish, raceLabel, spellEn, tr } from "../i18n";
 import { originNote } from "./Detail";
 import { Icon } from "./Icon";
-import { HoverTip, RacialTip, formatMs, racialCooldown, racialName, raceTotalRows } from "./RaceBonuses";
+import { HoverTip, RacialTip, formatMs, racialCooldown, racialName, raceTotalRows, referenceStatus } from "./RaceBonuses";
 
 const FACTIONS = [
   { id: "alliance", label: "Alianza" },
@@ -85,7 +85,60 @@ function ClassRacialGroup({ race, classId, items, open, onToggle }: { race: Race
   );
 }
 
-function RaceCard({ race, classId, allowed, selected, onPick, open, onToggle }: { race: Race; classId: number; allowed: boolean; selected: boolean; onPick: () => void; open: (classOfRacial: number) => boolean; onToggle: (classOfRacial: number) => void }) {
+/** Tarjeta de una racial que solo lista la referencia externa (reemplazo o novedad futura): no cuenta en los cálculos. */
+function ReferenceOnlyCard({ r, race }: { r: ReferenceOnlyRacial; race: Race }) {
+  return (
+    <div className="racial-tip">
+      <div className="detail-head">
+        <Icon id={null} name={r.name} />
+        <div>
+          <h4>{r.name}</h4>
+          <p className="rank-line">
+            {tr("Solo en la referencia externa")} · {raceLabel(race.id, race.name)}
+          </p>
+        </div>
+      </div>
+      <p className="desc-text">{r.text}</p>
+      <p className="tip-warn tip-ref">
+        <b>{tr("El cliente aún no la trae")}</b> {tr("Puede ser un cambio futuro o un reemplazo. No cuenta en los cálculos. Texto de la referencia, en inglés.")}
+      </p>
+    </div>
+  );
+}
+
+/** Barra plegable con las raciales que la referencia lista y el cliente no trae. */
+function ReferenceOnlyGroup({ race, open, onToggle }: { race: Race; open: boolean; onToggle: () => void }) {
+  const id = `rg-ref-${race.id}`;
+  return (
+    <>
+      <button type="button" className="rg-bar rg-bar-ref" aria-expanded={open} aria-controls={id} onClick={onToggle}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 8v5M12 16h.01" />
+        </svg>
+        <span className="rg-bar-label">{tr("Solo referencia")}</span>
+        <span className="rg-count">{race.referenceOnly.length}</span>
+        <svg className="rg-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+      {open && (
+        <ul className="rg-rows rg-class-rows" id={id}>
+          {race.referenceOnly.map((r) => (
+            <li key={r.name}>
+              <HoverTip as="button" className="rg-row" card={<ReferenceOnlyCard r={r} race={race} />}>
+                <Icon id={null} name={r.name} />
+                <span className="rg-rn">{r.name}</span>
+              </HoverTip>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+
+function RaceCard({ race, classId, allowed, selected, onPick, open, onToggle, refOpen, onToggleRef }: { race: Race; classId: number; allowed: boolean; selected: boolean; onPick: () => void; open: (classOfRacial: number) => boolean; onToggle: (classOfRacial: number) => void; refOpen: boolean; onToggleRef: () => void }) {
   const name = raceLabel(race.id, race.name);
   const groups = [...new Set(race.classRacials.map((c) => c.classId))];
   return (
@@ -111,12 +164,18 @@ function RaceCard({ race, classId, allowed, selected, onPick, open, onToggle }: 
               <RacialTip as="button" className="rg-row" a={a} classId={classId} raceId={race.id}>
                 <Icon id={a.iconFileDataId} name={racialName(a, race.id)} />
                 <span className="rg-rn">{racialName(a, race.id)}</span>
+                {referenceStatus(a) && (
+                  <span className="rg-diff" role="img" aria-label={tr("La referencia externa trae otros valores")}>
+                    ≠
+                  </span>
+                )}
                 {cooldown && <span className="rank-chip">{cooldown}</span>}
               </RacialTip>
             </li>
           );
         })}
       </ul>
+      {race.referenceOnly.length > 0 && <ReferenceOnlyGroup race={race} open={refOpen} onToggle={onToggleRef} />}
       {allowed &&
         groups.map((g) => (
           <ClassRacialGroup key={g} race={race} classId={g} items={race.classRacials.filter((c) => c.classId === g)} open={open(g)} onToggle={() => onToggle(g)} />
@@ -128,6 +187,7 @@ function RaceCard({ race, classId, allowed, selected, onPick, open, onToggle }: 
 /** Raza elegida y sus bonificaciones pasivas con cifras para la clase. */
 function RaceSummary({ race, classId }: { race: Race | null; classId: number }) {
   const rows = race ? raceTotalRows(race, classId) : [];
+  const differing = race ? race.racials.filter((a) => referenceStatus(a)).length + race.referenceOnly.length : 0;
   return (
     <section className="rg-summary" aria-live="polite" aria-label={tr("Raza elegida")}>
       <h5>{tr("Raza elegida")}</h5>
@@ -143,6 +203,11 @@ function RaceSummary({ race, classId }: { race: Race | null; classId: number }) 
             ))
           ) : (
             <span className="muted small">{tr("Esta raza no da bonificaciones pasivas con cifras para esta clase.")}</span>
+          )}
+          {differing > 0 && (
+            <span className="chip chip-unconfirmed" title={tr("La referencia externa trae otros valores que el cliente aún no tiene: míralas marcadas con ≠")}>
+              {tr("{n} con otros valores en la referencia", { n: differing })}
+            </span>
           )}
           <span className="rg-summary-origin">
             <span className="dot dot-client" />
@@ -187,6 +252,8 @@ export function RaceGrid({ races, classId, race, onRace }: { races: Race[]; clas
                   onPick={() => onRace(race?.id === r.id ? null : r.id)}
                   open={(g) => manual[`${r.id}:${g}`] ?? g === classId}
                   onToggle={(g) => setManual((m) => ({ ...m, [`${r.id}:${g}`]: !(m[`${r.id}:${g}`] ?? g === classId) }))}
+                  refOpen={manual[`${r.id}:ref`] ?? false}
+                  onToggleRef={() => setManual((m) => ({ ...m, [`${r.id}:ref`]: !(m[`${r.id}:ref`] ?? false) }))}
                 />
               ))}
           </div>
