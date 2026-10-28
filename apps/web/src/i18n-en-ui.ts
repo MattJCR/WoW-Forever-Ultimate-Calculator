@@ -16,6 +16,7 @@ export const UI: Record<string, string> = {
   "De dónde salen los datos": "Where the data comes from",
   "Datos sin asignar": "Unassigned data",
   "Datos extraídos el {date}": "Data extracted on {date}",
+  "web actualizada el {date}": "site updated {date}",
   "Datos del cliente de la beta de WoW Forever, build {build}": "Data from the WoW Forever beta client, build {build}",
   "(con hotfixes del servidor)": "(with server hotfixes)",
   "extraídos el {date}. Pueden cambiar durante la beta.": "extracted on {date}. They may change during the beta.",

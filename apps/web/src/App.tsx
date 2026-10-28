@@ -60,12 +60,19 @@ function splitBuild(build: string): { version: string; number: string } {
   return parts.length > 3 ? { version: parts.slice(0, 3).join("."), number: parts.slice(3).join(".") } : { version: build, number: "" };
 }
 
+/** Fecha y hora del despliegue con el idioma y el formato del navegador. */
+function formatDeployedAt(): string {
+  const d = new Date(__DEPLOYED_AT__);
+  return Number.isNaN(d.getTime()) ? "" : d.toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" });
+}
+
 function Layout({ manifest }: { manifest: Manifest }) {
   const route = useRoute();
   const { lang } = useLang();
   const { legacyCode } = useCharacter();
   const q = legacyQuery(legacyCode);
   const { version, number } = splitBuild(manifest.build);
+  const deployedAt = formatDeployedAt();
   const page = route.path[0];
   const section = route.query.get("s");
   const onHome = page === undefined;
@@ -101,6 +108,7 @@ function Layout({ manifest }: { manifest: Manifest }) {
           <span className="build-tag" title={tr("Datos extraídos el {date}", { date: manifest.generatedAt.slice(0, 10) })}>
             Beta {version}
             {number && ` · build ${number}`}
+            {deployedAt && ` · ${tr("web actualizada el {date}", { date: deployedAt })}`}
           </span>
         </div>
       </header>

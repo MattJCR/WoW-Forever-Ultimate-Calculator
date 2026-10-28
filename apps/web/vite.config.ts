@@ -6,5 +6,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   base: process.env.VITE_BASE ?? "./",
   plugins: [react()],
+  // Momento del build (en Vercel, cada despliegue hace un build): la web lo muestra en la cabecera
+  define: { __DEPLOYED_AT__: JSON.stringify(new Date().toISOString()) },
   server: { port: 5173, host: true },
 });
