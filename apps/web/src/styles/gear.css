@@ -949,19 +949,21 @@ p.gear-warn {
   padding: 0 14px;
 }
 
-/* Hueco sin pieza: como en el inventario del juego, hundido y oscuro con la silueta grabada de la ranura */
+/* Hueco sin pieza: como en el inventario del juego, hundido y oscuro con la silueta de la ranura (textura del juego) */
 .gear-icon.empty {
-  color: #6f6044;
   background: linear-gradient(160deg, #17130d, #0a0806);
   border-color: #3a3122;
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 .slot-glyph {
-  width: 58%;
-  height: 58%;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
 }
-.gear-slot:hover .gear-icon.empty {
-  color: var(--line-3);
+.gear-slot:hover .slot-glyph {
+  opacity: 1;
 }
 
 /* Ranura elegida */

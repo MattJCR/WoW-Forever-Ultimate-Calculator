@@ -38,7 +38,7 @@ export function EmbedPage({ manifest, query }: { manifest: Manifest; query: URLS
       <div className="avatar-stage" data-scene={sceneId || undefined}>
         <BackdropArt id={sceneId} />
         <Suspense fallback={null}>
-          <Viewer3D chrModelId={entry.chrModel} race={raceId} selection={selection} equipped={equipped} onRecipe={setRecipe} sheathed={!!avatar.sheathed} />
+          <Viewer3D chrModelId={entry.chrModel} race={raceId} selection={selection} equipped={equipped} onRecipe={setRecipe} sheathed={!!avatar.sheathed} sheathedRanged={!!avatar.sheathedRanged} />
         </Suspense>
       </div>
     </div>

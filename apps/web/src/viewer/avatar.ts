@@ -7,8 +7,10 @@ export interface Avatar {
   sex: 0 | 1;
   /** Personalización elegida: opción -> elección. Vacío = las de por defecto. */
   choices: Selection;
-  /** Armas envainadas (no en la mano). */
+  /** Armas cuerpo a cuerpo y escudo envainados (no en la mano). */
   sheathed?: boolean;
+  /** Arma de distancia (arco, ballesta, arma de fuego, arrojadiza, varita) envainada. */
+  sheathedRanged?: boolean;
   /** Raza con la que se dibuja el avatar (ChrRaces.ID); sin ella, la del paso Raza. Solo cambia el aspecto. */
   race?: number;
   /** Escena de fondo del probador (id de `BACKDROPS`; 0 = liso); sin ella, la de la raza que se ve. */
@@ -17,11 +19,14 @@ export interface Avatar {
 
 export const DEFAULT_AVATAR: Avatar = { sex: 0, choices: {} };
 
-/** `0` o `1.<opcion>-<eleccion>~<opcion>-<eleccion>`; tras el cuerpo, `s` = armas envainadas y `r<id>` = raza del avatar y `b<id>` = fondo (`0sr6b2`). Cadena vacía = valores por defecto. */
+/** Letra del envaine: `s` = todas las armas envainadas, `m` = solo las de cuerpo a cuerpo, `d` = solo la de distancia. */
+const sheatheLetter = (a: Avatar): string => (a.sheathed && a.sheathedRanged ? "s" : a.sheathed ? "m" : a.sheathedRanged ? "d" : "");
+
+/** `0` o `1.<opcion>-<eleccion>~<opcion>-<eleccion>`; tras el cuerpo, `s`/`m`/`d` = armas envainadas (todas, cuerpo a cuerpo, distancia) y `r<id>` = raza del avatar y `b<id>` = fondo (`0sr6b2`). Cadena vacía = valores por defecto. */
 export function encodeAvatar(a: Avatar): string {
   const parts = Object.entries(a.choices).map(([o, c]) => `${o}-${c}`);
-  if (a.sex === 0 && !parts.length && !a.sheathed && !a.race && a.bg === undefined) return "";
-  const head = `${a.sex}${a.sheathed ? "s" : ""}${a.race ? `r${a.race}` : ""}${a.bg !== undefined ? `b${a.bg}` : ""}`;
+  if (a.sex === 0 && !parts.length && !a.sheathed && !a.sheathedRanged && !a.race && a.bg === undefined) return "";
+  const head = `${a.sex}${sheatheLetter(a)}${a.race ? `r${a.race}` : ""}${a.bg !== undefined ? `b${a.bg}` : ""}`;
   return parts.length ? `${head}.${parts.join("~")}` : head;
 }
 
@@ -35,7 +40,8 @@ export function decodeAvatar(code: string | null): Avatar {
   }
   const race = Number(/r(\d+)/.exec(s)?.[1]) || 0;
   const bg = /b(\d+)/.exec(s)?.[1];
-  return { sex: s.startsWith("1") ? 1 : 0, choices, ...(/^\ds/.test(s) ? { sheathed: true } : {}), ...(race ? { race } : {}), ...(bg !== undefined ? { bg: Number(bg) } : {}) };
+  const sheathe = /^\d([smd])/.exec(s)?.[1];
+  return { sex: s.startsWith("1") ? 1 : 0, choices, ...(sheathe === "s" || sheathe === "m" ? { sheathed: true } : {}), ...(sheathe === "s" || sheathe === "d" ? { sheathedRanged: true } : {}), ...(race ? { race } : {}), ...(bg !== undefined ? { bg: Number(bg) } : {}) };
 }
 
 export interface ModelIndexEntry {

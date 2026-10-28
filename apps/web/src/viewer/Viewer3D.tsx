@@ -20,6 +20,7 @@ interface Props {
   pose?: string;
   /** Armas envainadas. */
   sheathed?: boolean;
+  sheathedRanged?: boolean;
   /** Partículas de los efectos de objetos (brillos de arma, encantamientos, llamas). */
   effects?: boolean;
   onClips?: (names: string[]) => void;
@@ -30,7 +31,7 @@ interface Props {
 }
 
 /** Lienzo 3D del personaje. Carga three.js y el modelo solo cuando se monta. */
-export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, effects = true, onClips, onRecipe, onMissing, className }: Props) {
+export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, sheathed, sheathedRanged, effects = true, onClips, onRecipe, onMissing, className }: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const holder = useRef<HTMLDivElement>(null);
   const view = useRef<CharacterView | null>(null);
@@ -83,7 +84,7 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
       if (list.length) {
         const [ap, fx] = await Promise.all([loadAppearance(MODELS_BASE), loadFxIndex(MODELS_BASE)]);
         if (ap) {
-          const e = resolveEquipment(ap, race, recipe.sex, list, v.textureUrl, { sheathed, fx });
+          const e = resolveEquipment(ap, race, recipe.sex, list, v.textureUrl, { sheathed, sheathedRanged, fx });
           Object.assign(state, {
             extraGeosets: e.geosets, hiddenGroups: e.hiddenGroups, overlays: e.overlays, helmetHides: e.helmetHides,
             models: e.models, objectTextures: e.objectTextures, pose: e.pose,
@@ -97,7 +98,7 @@ export function Viewer3D({ chrModelId, race, selection, equipped, paused, pose, 
     })();
     return () => { dead = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe, loading, selKey, equippedKey, race, chrModelId, pose, sheathed]);
+  }, [recipe, loading, selKey, equippedKey, race, chrModelId, pose, sheathed, sheathedRanged]);
 
   useEffect(() => { view.current?.setPaused(!!paused); }, [paused, loading]);
   useEffect(() => { view.current?.setEffects(effects); }, [effects, loading]);

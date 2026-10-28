@@ -36,7 +36,7 @@ import {
   type GearSelection,
 } from "@wfuc/engine";
 import type { ClassTalents, CombatRatings, Manifest, Race } from "@wfuc/schema";
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { isEmptyCode, useCharacter } from "../character";
 import { TalentInspector } from "../components/Detail";
 import { AbilitiesTable } from "../components/Abilities";
@@ -209,6 +209,23 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   const gearSummary = useMemo(() => (gearBundle?.status === "ready" ? summarizeGear(gear, gearCtx, gearBundle.value.data) : null), [gearBundle, gear, gearCtx]);
 
   const classCode = useMemo(() => encodeBuild(idx, classBuild), [idx, classBuild]);
+  // Un enlace nuevo (pegado en la misma pestaña) manda también sobre talentos, equipo, apariencia y beneficios, como el paso y la raza.
+  // Un parámetro ausente conserva lo actual (los enlaces internos, como el botón Legacy, omiten lo que no cambian).
+  const seenQuery = useRef(query);
+  useEffect(() => {
+    if (seenQuery.current === query) return;
+    seenQuery.current = query;
+    const b = query.get("b");
+    if (b !== null && b !== classCode) setClassBuild(decodeBuildReport(idx, b).build);
+    const g = query.get("g");
+    if (g !== null && g !== gearCode) setGearState(decodeGear(g).gear);
+    const gl = Number(query.get("gl"));
+    if (gl) setGearLevel(Math.max(1, Math.min(60, gl)));
+    const a = query.get("a");
+    if (a !== null && a !== avatarCode) setAvatar(decodeAvatar(a));
+    const u = query.get("u");
+    if (u !== null && u !== buffCode) setBuffCode(u);
+  }, [query]);
   useEffect(() => {
     const q: Record<string, string> = {};
     if (!isEmptyCode(classCode)) q.b = classCode;

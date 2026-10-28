@@ -114,8 +114,10 @@ const SHEATH = { shield: 28, backDown: 26, backUp: 31, hipLeft: 32, hipRight: 33
 const staffLike = (sheathe: number, subclassId: number): boolean => sheathe === 2 || (sheathe !== 1 && (subclassId === 10 || subclassId === 6));
 
 export interface EquipOptions {
-  /** Armas envainadas en vez de en la mano (el personaje queda en reposo). */
+  /** Armas cuerpo a cuerpo y escudo envainados en vez de en la mano. */
   sheathed?: boolean;
+  /** Arma de distancia envainada en vez de en la mano. Sin armas en la mano el personaje queda en reposo. */
+  sheathedRanged?: boolean;
   /** Efectos visuales (fx/index.json); sin él no se añade ninguno. */
   fx?: FxIndex | null;
 }
@@ -232,14 +234,16 @@ export function resolveEquipment(
     const d = ap.display[String(ap.items[String(e.itemId)] ?? 0)];
     if (!d) continue;
     let att: number | null = null;
-    if (e.slot === "mainHand") { att = 1; if (e.inventoryType === 17) twoHanded = true; else oneHanded = true; }
-    else if (e.slot === "offHand") { att = e.inventoryType === 14 ? 0 : 2; oneHanded = true; }
+    // La de distancia se envaina aparte de las de cuerpo a cuerpo; solo lo que sigue en la mano decide la postura
+    const away = e.slot === "ranged" ? !!opts.sheathedRanged : !!opts.sheathed;
+    if (e.slot === "mainHand") { att = 1; if (!away) { if (e.inventoryType === 17) twoHanded = true; else oneHanded = true; } }
+    else if (e.slot === "offHand") { att = e.inventoryType === 14 ? 0 : 2; if (!away) oneHanded = true; }
     else if (e.slot === "ranged") {
-      if (e.inventoryType === 15) { att = 2; bow = true; }
-      else { att = 1; if (e.classId === 2 && e.subclassId === 3) gun = true; }
+      if (e.inventoryType === 15) { att = 2; if (!away) bow = true; }
+      else { att = 1; if (!away && e.classId === 2 && e.subclassId === 3) gun = true; }
     }
     // Solo las armas (att ya decidido arriba) van a su funda; el casco, las hombreras y el resto ya se pintaron en su sitio
-    if (opts.sheathed && att !== null) {
+    if (away && att !== null) {
       const sh = ap.sheathe?.[String(e.itemId)] ?? 0;
       if (e.inventoryType === 14) att = SHEATH.shield;
       else if (e.slot === "offHand") att = SHEATH.hipLeft;
@@ -253,14 +257,14 @@ export function resolveEquipment(
       const fx = effectsOf(opts.fx, ap.items[String(e.itemId)], e.classId === 2 ? e.enchantId : null);
       if (fx.length) for (let k = before; k < res.models.length; k++) res.models[k]!.fx = fx.map((x) => ({ ...x }));
       // En la funda, cada apariencia puede traer su propio ajuste de posición y giro
-      const tr = opts.sheathed && d.x ? ap.sheatheTransform?.[String(d.x)] : undefined;
+      const tr = away && d.x ? ap.sheatheTransform?.[String(d.x)] : undefined;
       if (tr) for (let k = before; k < res.models.length; k++) res.models[k]!.transform = tr;
     }
   }
   const own = new Set(opts.fx?.own ?? []);
   if (own.size) for (const m of res.models) if (own.has(m.file)) m.own = true;
-  if (opts.sheathed) { /* en reposo */ }
-  else if (twoHanded) res.pose = "Ready2H";
+  // Las banderas solo se levantan con las armas que siguen en la mano: todo envainado = reposo
+  if (twoHanded) res.pose = "Ready2H";
   else if (bow) res.pose = "ReadyBow";
   else if (gun && !oneHanded) res.pose = "ReadyRifle";
   else if (oneHanded) res.pose = "Ready1H";

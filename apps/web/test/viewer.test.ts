@@ -6,8 +6,8 @@ import { defaultChoice, defaultSelection, groupOfOption, isColorOption, resolveS
 describe("estado del avatar en el enlace", () => {
   it("lo de por defecto no viaja", () => {
     expect(encodeAvatar({ sex: 0, choices: {} })).toBe("");
-    expect(encodeAvatar({ sex: 0, choices: {}, sheathed: true })).toBe("0s");
-    expect(decodeAvatar("1s.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true });
+    expect(encodeAvatar({ sex: 0, choices: {}, sheathed: true, sheathedRanged: true })).toBe("0s");
+    expect(decodeAvatar("1s.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, sheathedRanged: true });
     expect(decodeAvatar(null)).toEqual({ sex: 0, choices: {} });
   });
   it("ida y vuelta con cuerpo y elecciones", () => {
@@ -18,18 +18,28 @@ describe("estado del avatar en el enlace", () => {
   });
   it("la raza del avatar viaja con el cuerpo y las armas envainadas", () => {
     expect(encodeAvatar({ sex: 0, choices: {}, race: 6 })).toBe("0r6");
-    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96 })).toBe("1sr96.9-5");
-    expect(decodeAvatar("1sr96.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96 });
+    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, sheathedRanged: true, race: 96 })).toBe("1sr96.9-5");
+    expect(decodeAvatar("1sr96.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, sheathedRanged: true, race: 96 });
     expect(decodeAvatar("0r6")).toEqual({ sex: 0, choices: {}, race: 6 });
-    expect(decodeAvatar("0s")).toEqual({ sex: 0, choices: {}, sheathed: true });
+    expect(decodeAvatar("0s")).toEqual({ sex: 0, choices: {}, sheathed: true, sheathedRanged: true });
   });
   it("el fondo del probador viaja con b<id> (b0 = liso) y sin él sigue a la raza", () => {
     expect(encodeAvatar({ sex: 0, choices: {}, bg: 2 })).toBe("0b2");
     expect(encodeAvatar({ sex: 0, choices: {}, bg: 0 })).toBe("0b0");
-    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96, bg: 6 })).toBe("1sr96b6.9-5");
-    expect(decodeAvatar("1sr96b6.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, race: 96, bg: 6 });
+    expect(encodeAvatar({ sex: 1, choices: { 9: 5 }, sheathed: true, sheathedRanged: true, race: 96, bg: 6 })).toBe("1sr96b6.9-5");
+    expect(decodeAvatar("1sr96b6.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathed: true, sheathedRanged: true, race: 96, bg: 6 });
     expect(decodeAvatar("0b0")).toEqual({ sex: 0, choices: {}, bg: 0 });
     expect(decodeAvatar("0r6")).toEqual({ sex: 0, choices: {}, race: 6 });
+  });
+  it("el envaine distingue cuerpo a cuerpo (m) y distancia (d); s = todas, como en los enlaces antiguos", () => {
+    expect(encodeAvatar({ sex: 0, choices: {}, sheathed: true })).toBe("0m");
+    expect(encodeAvatar({ sex: 0, choices: {}, sheathedRanged: true })).toBe("0d");
+    expect(decodeAvatar("0m")).toEqual({ sex: 0, choices: {}, sheathed: true });
+    expect(decodeAvatar("1dr6.9-5")).toEqual({ sex: 1, choices: { 9: 5 }, sheathedRanged: true, race: 6 });
+    for (const a of [{ sheathed: true }, { sheathedRanged: true }, { sheathed: true, sheathedRanged: true }]) {
+      const avatar = { sex: 1 as const, choices: { 9: 5 }, ...a, race: 96, bg: 2 };
+      expect(decodeAvatar(encodeAvatar(avatar))).toEqual(avatar);
+    }
   });
   it("ignora basura", () => {
     expect(decodeAvatar("0.x-y~3")).toEqual({ sex: 0, choices: {} });
@@ -111,7 +121,7 @@ describe("personalización", () => {
 
 const ap: AppearanceData = {
   build: "t",
-  items: { "1": 100, "2": 200, "3": 300, "4": 400, "5": 500, "6": 600, "7": 700, "8": 800 },
+  items: { "1": 100, "2": 200, "3": 300, "4": 400, "5": 500, "6": 600, "7": 700, "8": 800, "10": 1000 },
   display: {
     // pecho: mangas 1 -> 802, pecho 1 -> 1002, faldón 0 -> 1301 (sin faldón largo)
     "100": { g: [1, 1, 0], s: [[3, 1001]] },
@@ -129,6 +139,8 @@ const ap: AppearanceData = {
     "700": { m: [[70, 77, 0]] },
     // escudo
     "800": { m: [[80, 0, 0]] },
+    // arco
+    "1000": { m: [[95, 0, 0]] },
   },
   tex: { "1001": { "3": 9001 }, "1002": { "3": 9002 }, "1003": { "0": 9030, "1": 9031 }, "1004": { "3": 9004 }, "1005": { "3": 9005 }, "55": { "3": 9055 }, "77": { "3": 9077 } },
   model: {
@@ -136,6 +148,7 @@ const ap: AppearanceData = {
     "60": [{ f: 6001, g: 3, r: 0, p: 0 }, { f: 6002, g: 3, r: 0, p: 1 }],
     "70": [{ f: 7001, g: 3, r: 0, p: -1 }],
     "80": [{ f: 8001, g: 3, r: 0, p: -1 }],
+    "95": [{ f: 9501, g: 3, r: 0, p: -1 }],
   },
   helm: { "246": { "1": [0] }, "247": { "1": [0] } },
 };
@@ -217,6 +230,21 @@ describe("equipo → lo que se ve", () => {
     expect(sheathe({}, { subclassId: 8 })).toEqual([26]);
     // el dato del objeto manda sobre la clase (un asta marcada «dos manos» va hacia abajo)
     expect(sheathe({ "7": 1 }, { subclassId: 6 })).toEqual([26]);
+  });
+  it("envainado por separado: el arma de distancia y las de cuerpo a cuerpo van cada una a su funda, y solo lo que sigue en la mano da la postura", () => {
+    const gear = [eq(7, 17, "mainHand", { classId: 2 }), eq(10, 15, "ranged", { classId: 2, subclassId: 2 })];
+    const where = (opts: { sheathed?: boolean; sheathedRanged?: boolean }) => {
+      const r = resolveEquipment(ap, 1, 0, gear, url, opts);
+      return { sword: r.models.find((m) => m.slot === 17)?.attachment, bow: r.models.find((m) => m.slot === 15)?.attachment, pose: r.pose };
+    };
+    // todo en la mano: el arma a dos manos manda en la postura
+    expect(where({})).toEqual({ sword: 1, bow: 2, pose: "Ready2H" });
+    // solo el cuerpo a cuerpo envainado: el arco sigue en la mano y pide su postura
+    expect(where({ sheathed: true })).toEqual({ sword: 26, bow: 2, pose: "ReadyBow" });
+    // solo el arco envainado (a la espalda, 31): la espada sigue en la mano
+    expect(where({ sheathedRanged: true })).toEqual({ sword: 1, bow: 31, pose: "Ready2H" });
+    // todo envainado: en reposo
+    expect(where({ sheathed: true, sheathedRanged: true })).toEqual({ sword: 26, bow: 31, pose: "Stand" });
   });
   it("efectos: el brillo del arma y el del encantamiento cuelgan de los anclajes 0-4; el encantamiento solo cuenta en armas", () => {
     const fx = { build: "t", visuals: { "5": [0, 0, 0, 900, 901], "6": [902, 0, 0, 0, 0] }, enchant: { "77": 5 }, display: { "700": 6 }, effects: { "900": "p", "901": "pm", "902": "m" }, own: [7001] };

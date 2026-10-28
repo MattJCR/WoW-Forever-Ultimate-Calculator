@@ -276,7 +276,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const shownRace = avatar.race && index?.some((e) => e.race === avatar.race) ? avatar.race : raceId;
   const entry = index?.find((e) => e.race === shownRace && e.sex === avatar.sex);
   const withModel = races.filter((r) => index?.some((e) => e.race === r.id));
-  const pickRace = (id: number) => setAvatar({ sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, bg: avatar.bg, ...(id === raceId ? {} : { race: id }) });
+  const pickRace = (id: number) => setAvatar({ sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, sheathedRanged: avatar.sheathedRanged, bg: avatar.bg, ...(id === raceId ? {} : { race: id }) });
   // Escena de fondo: la elegida (0 = liso) o, por defecto, la de la raza que se ve
   const sceneId = avatar.bg ?? backdropOfRace(shownRace);
   const pickScene = (value: string) => setAvatar({ ...avatar, bg: value === "auto" ? undefined : Number(value) });
@@ -322,7 +322,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
     else void el.requestFullscreen?.();
   };
 
-  const resetLook = () => setAvatar({ ...DEFAULT_AVATAR, sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg });
+  const resetLook = () => setAvatar({ ...DEFAULT_AVATAR, sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, sheathedRanged: avatar.sheathedRanged, race: avatar.race, bg: avatar.bg });
   const tip = (label: string) => ({ "aria-label": label, "data-tip": label });
 
   return (
@@ -361,7 +361,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
         <div className="avatar">
           <div className="avatar-bar" role="group" aria-label={tr("Cuerpo del personaje")}>
             {([0, 1] as const).map((s) => (
-              <button key={s} type="button" className={avatar.sex === s ? "on" : ""} aria-pressed={avatar.sex === s} onClick={() => setAvatar({ sex: s, choices: {}, sheathed: avatar.sheathed, race: avatar.race, bg: avatar.bg })}>
+              <button key={s} type="button" className={avatar.sex === s ? "on" : ""} aria-pressed={avatar.sex === s} onClick={() => setAvatar({ sex: s, choices: {}, sheathed: avatar.sheathed, sheathedRanged: avatar.sheathedRanged, race: avatar.race, bg: avatar.bg })}>
                 {tr("Cuerpo {n}", { n: s + 1 })}
               </button>
             ))}
@@ -374,7 +374,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
               </button>
             )}
             <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
-              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} effects={effects} />
+              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} sheathedRanged={!!avatar.sheathedRanged} effects={effects} />
             </Suspense>
           </div>
           {missing.length > 0 && (
@@ -430,8 +430,11 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
             <button type="button" {...tip(tr("Rehacer"))} onClick={history.redo} disabled={!history.canRedo}><ToolGlyph name="redo" /></button>
           </span>
           <span className="tool-sep" aria-hidden="true" />
-          <button type="button" {...tip(avatar.sheathed ? tr("Desenvainar") : tr("Envainar"))} className={avatar.sheathed ? "active" : ""} aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>
+          <button type="button" {...tip(avatar.sheathed ? tr("Desenvainar armas cuerpo a cuerpo") : tr("Envainar armas cuerpo a cuerpo"))} className={avatar.sheathed ? "active" : ""} aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>
             <ToolGlyph name="sheathe" />
+          </button>
+          <button type="button" {...tip(avatar.sheathedRanged ? tr("Desenvainar arma de distancia") : tr("Envainar arma de distancia"))} className={avatar.sheathedRanged ? "active" : ""} aria-pressed={!!avatar.sheathedRanged} onClick={() => setAvatar({ ...avatar, sheathedRanged: !avatar.sheathedRanged })}>
+            <ToolGlyph name="sheatheRanged" />
           </button>
           <button type="button" {...tip(paused ? tr("Reanudar") : tr("Pausar"))} className={paused ? "active" : ""} aria-pressed={paused} onClick={() => setPaused((p) => !p)}>
             <ToolGlyph name={paused ? "play" : "pause"} />
