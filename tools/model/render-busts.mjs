@@ -45,7 +45,7 @@ const t0 = Date.now();
 async function worker(n) {
   const page = await browser.newPage({ viewport: { width: 500, height: 500 } });
   const open = async () => {
-    await page.goto(`${URL_BASE}/#/bust-lab?m=1&r=1`);
+    await page.goto(`${URL_BASE}/bust-lab?m=1&r=1`);
     await page.reload();
     await page.waitForFunction(() => window.__bust, null, { timeout: 120000 });
   };

@@ -33,7 +33,7 @@ const browser = await chromium.launch({ channel: "chrome", headless: true, args:
 const page = await browser.newPage({ viewport: { width: 500, height: 700 } });
 for (const name of Object.keys(SCENES)) {
   if (only && !only.includes(name)) continue;
-  await page.goto(`${URL_BASE}/#/scene-lab?s=${name}`);
+  await page.goto(`${URL_BASE}/scene-lab?s=${name}`);
   await page.reload();
   await page.waitForFunction(() => window.__scene || document.getElementById("scene-status")?.textContent?.startsWith("error"), null, { timeout: 120000 });
   const status = await page.evaluate(() => document.getElementById("scene-status").textContent);

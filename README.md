@@ -10,8 +10,8 @@ Web estática (React + TypeScript + Vite), sin servidor: se despliega en GitHub 
 - Árboles de las 9 clases (466 talentos) con las reglas del propio cliente: 51 puntos, 5 puntos por fila, prerrequisitos. Legacy: 3 árboles, 16 puntos de cuenta que se suman a los de clase.
 - «Copiar build para IA» (Theorycraft) con el texto completo de cada talento.
 - Iconos y descripciones de cada talento por rango, con los valores calculados a partir de los datos del cliente.
-- Enlace compartible con el build (`#/class/mage?b=…`).
-- Nodos que el cliente trae pero no están activos: visibles, marcados "nodo no activo" y no seleccionables. Datos sin asignar (árboles descartados en cuadrícula y talentos sin nodo) en una sección aparte (`#/unassigned`) con prueba libre de rangos.
+- Enlace compartible con el build (`/es/clases/mago/?b=…`).
+- Nodos que el cliente trae pero no están activos: visibles, marcados "nodo no activo" y no seleccionables. Datos sin asignar (árboles descartados en cuadrícula y talentos sin nodo) en una sección aparte (`/es/sin-asignar/`) con prueba libre de rangos.
 - Pendiente: valores exactos según el nivel, estadísticas por raza y clase, daño/curación/costes, builds de equipo. Las novedades y el siguiente paso se comentan en los issues.
 
 ## Ejecutar

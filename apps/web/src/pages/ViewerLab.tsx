@@ -1,4 +1,4 @@
-// Pantalla de pruebas del probador 3D (solo desarrollo): #/viewer-lab?m=1&r=1&e=5:12422,7:39
+// Pantalla de pruebas del probador 3D (solo desarrollo): /viewer-lab?m=1&r=1&e=5:12422,7:39
 import { useMemo, useState } from "react";
 import { Viewer3D } from "../viewer/Viewer3D";
 import { defaultSelection, type Recipe, type Selection } from "../viewer/recipe";

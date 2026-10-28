@@ -29,7 +29,7 @@ const cells = [];
 for (const { m, race } of models) {
   const f = { ...DEFAULT, ...FRAMING[m] };
   const page = await browser.newPage({ viewport: { width: 500, height: 500 } });
-  await page.goto(`${URL_BASE}/#/bust-lab?m=${m}&r=${race}`);
+  await page.goto(`${URL_BASE}/bust-lab?m=${m}&r=${race}`);
   await page.waitForFunction(() => window.__bust, null, { timeout: 120000 });
   const url = await page.evaluate(([y, z, l]) => window.__bust.face(384, y, z, l), [f.yaw, f.zoom, f.lift]);
   await page.close();

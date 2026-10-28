@@ -13,7 +13,7 @@ const browser = await chromium.launch({ channel: "chrome", headless: true, args:
 const cells = [];
 for (const { m, race } of models) {
   const page = await browser.newPage({ viewport: { width: 500, height: 500 } });
-  await page.goto(`http://localhost:5173/#/bust-lab?m=${m}&r=${race}`);
+  await page.goto(`http://localhost:5173/bust-lab?m=${m}&r=${race}`);
   await page.waitForFunction(() => window.__bust, null, { timeout: 120000 });
   const url = await page.evaluate((k) => window.__bust.base(k), kind);
   cells.push(await sharp(Buffer.from(url.split(",")[1], "base64")).resize(200, 200).flatten({ background: "#2a2218" }).png().toBuffer());

@@ -56,7 +56,8 @@ import { CLASS_COLORS, loadClass, loadRaces, useAsync, useBuffs } from "../data"
 import { classLabel, localizeClass, raceLabel, registerRaces, registerTalents, talentName, tr, treeLabel } from "../i18n";
 import { decodeAvatar, encodeAvatar, type Avatar } from "../viewer/avatar";
 import { useHistory } from "../viewer/history";
-import { parseHash, replaceHash } from "../router";
+import { usePrerenderHandoff } from "../seo/handoff";
+import { href, replaceUrl } from "../router";
 
 type Entry = Manifest["classes"][number];
 const GEAR_STORAGE_PREFIX = "wfuc.gear.";
@@ -120,6 +121,7 @@ function useBuildActions(idx: ClassIndex | null, setBuild: (u: (b: Build) => Bui
 }
 
 function ClassView({ token, data, query }: { token: string; data: ClassTalents; query: URLSearchParams }) {
+  usePrerenderHandoff();
   const { legacy, legacyBuild, legacyCode, legacyReady, legacyReport, setLegacyBuild, manifest } = useCharacter();
   const idx = useMemo(() => indexClass(data), [data]);
   registerTalents(data);
@@ -233,7 +235,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (legacyReady) {
       if (!isEmptyCode(legacyCode)) q.l = legacyCode;
     } else {
-      const keep = parseHash(window.location.hash).query.get("l");
+      const keep = new URLSearchParams(window.location.search).get("l");
       if (keep) q.l = keep;
     }
     if (race) q.r = String(race.id);
@@ -242,7 +244,7 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
     if (avatarCode) q.a = avatarCode;
     if (buffCode) q.u = buffCode;
     q.v = view;
-    replaceHash(`class/${token}`, q);
+    replaceUrl({ kind: "class", cls: token }, q);
     setUrl(window.location.href);
   }, [token, classCode, legacyCode, legacyReady, view, race, hasGear, gearCode, gearLevel, avatarCode, buffCode]);
 
@@ -320,6 +322,10 @@ function ClassView({ token, data, query }: { token: string; data: ClassTalents; 
   return (
     <div className={`class-page${view === "talents" || view === "legacy" ? " has-sheet" : ""}${view === "gear" || view === "summary" ? " is-wide" : ""}`} style={{ ["--accent" as string]: color }}>
       <ClassSwitcher current={token} legacyCode={legacyCode} raceQuery={raceQuery} manifest={manifest} />
+      <nav className="class-refs" aria-label={tr("Consulta")}>
+        <a href={href({ kind: "class-talents", cls: token })}>{tr("Talentos de {clase}", { clase: classLabel(token, data.className ?? token) })}</a>
+        <a href={href({ kind: "class-abilities", cls: token })}>{tr("Habilidades de {clase}", { clase: classLabel(token, data.className ?? token) })}</a>
+      </nav>
       <CharacterBar
         className={classLabel(token, data.className ?? token)}
         iconId={data.iconFileDataId ?? null}

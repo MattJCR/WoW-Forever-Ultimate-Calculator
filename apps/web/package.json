@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "sync-data": "node scripts/sync-data.mjs",
+    "sync-data": "node --import tsx scripts/sync-data.mjs",
     "predev": "npm run sync-data",
     "dev": "vite",
     "prebuild": "npm run sync-data",
-    "build": "tsc -p tsconfig.json && vite build",
-    "preview": "vite preview",
+    "build": "tsc -p tsconfig.json && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.mjs",
+    "preview": "node scripts/serve-dist.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "check-i18n": "node ../../tools/update/i18n-keys.mjs --check",
     "test": "vitest run"

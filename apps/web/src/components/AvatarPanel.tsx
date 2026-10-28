@@ -12,6 +12,7 @@ import { CaptureMenu, EquippedDialog, LinksDialog, type ProbeLinks } from "./Ava
 import { effectLabel, iName, inventoryLabel, qualityColor, setLabel } from "./gear-format";
 import { ToolGlyph } from "./glyphs";
 import { Icon } from "./Icon";
+import { href } from "../router";
 import { useAppearance } from "./ItemGallery";
 
 const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default: m.Viewer3D })));
@@ -306,13 +307,12 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
     setAvatar({ ...avatar, choices });
   };
   const openLinks = () => {
-    const base = `${window.location.origin}${window.location.pathname}${window.location.search}`;
     const params = new URLSearchParams({ r: String(shownRace) });
     const g = encodeGear(gear);
     const a = encodeAvatar(avatar);
     if (g) params.set("g", g);
     if (a) params.set("a", a);
-    setLinks({ page: window.location.href, embed: `${base}#/embed?${params}` });
+    setLinks({ page: window.location.href, embed: `${window.location.origin}${href({ kind: "embed" }, Object.fromEntries(params))}` });
   };
   const randomLook = () => setGear(() => randomGear(data, ctx));
   const fullscreen = () => {

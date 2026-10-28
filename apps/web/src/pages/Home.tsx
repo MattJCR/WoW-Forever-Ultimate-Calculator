@@ -4,6 +4,7 @@ import { legacyQuery, useCharacter } from "../character";
 import { Icon } from "../components/Icon";
 import { CLASS_COLORS } from "../data";
 import { classLabel, specLabel, tr } from "../i18n";
+import { usePrerenderHandoff } from "../seo/handoff";
 import { href, scrollToSection, type Route } from "../router";
 
 export const classToken = (file: string): string => file.replace(/^classes\//, "").replace(/\.json$/, "");
@@ -68,7 +69,7 @@ function ExampleCard() {
         </div>
       </div>
       <div className="hero-example-link">
-        <span>…/#/class/mage?r=1&amp;b=Aq3x…&amp;v=talents</span>
+        <span>{href({ kind: "class", cls: "mage" }, { r: "1", b: "Aq3x…", v: "talents" })}</span>
         <span className="chip chip-solid">{tr("Copiar")}</span>
       </div>
     </div>
@@ -76,6 +77,7 @@ function ExampleCard() {
 }
 
 export function Home({ manifest, query }: { manifest: Manifest; query: Route["query"] }) {
+  usePrerenderHandoff();
   const { legacyCode } = useCharacter();
   const q = legacyQuery(legacyCode);
   const section = query.get("s");
@@ -93,11 +95,11 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
           <h1>{tr("Planifica tu personaje de WoW Forever")}</h1>
           <p className="hero-lead">{tr("Talentos, raza, Puntos de Legado y equipo con los datos reales del cliente de la beta. Tu build se guarda en el enlace: cópialo y compártelo con tu hermandad.")}</p>
           <div className="hero-actions">
-            <a className="btn btn-primary" href={href("", { ...q, s: "clases" })} onClick={() => scrollToSection("clases")}>
+            <a className="btn btn-primary" href={href({ kind: "home" }, { ...q, s: "clases" })} onClick={() => scrollToSection("clases")}>
               {tr("Elige tu clase")}
               {ARROW}
             </a>
-            <a className="btn" href={href("", { ...q, s: "pasos" })} onClick={() => scrollToSection("pasos")}>
+            <a className="btn" href={href({ kind: "home" }, { ...q, s: "pasos" })} onClick={() => scrollToSection("pasos")}>
               {tr("Cómo funciona")}
             </a>
           </div>
@@ -122,7 +124,7 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
             const name = classLabel(token, c.className ?? "");
             return (
               <li key={c.classId}>
-                <a className="class-card" href={href(`class/${token}`, q)} style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
+                <a className="class-card" href={href({ kind: "class", cls: token }, q)} style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
                   <span className="class-card-head">
                     <Icon id={c.iconFileDataId} name={name} />
                     <span className="class-name">{name}</span>
@@ -228,7 +230,7 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
             </div>
           </div>
           <p className="roadmap-foot">
-            <a href={href("unassigned", q)}>{tr("Ver datos del cliente sin asignar")}</a> ({tr("{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos", { a: manifest.unassigned.orphanEntries, b: manifest.unassigned.alternativeTrees })}).
+            <a href={href({ kind: "unassigned" }, q)}>{tr("Ver datos del cliente sin asignar")}</a> ({tr("{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos", { a: manifest.unassigned.orphanEntries, b: manifest.unassigned.alternativeTrees })}).
           </p>
         </div>
       </section>

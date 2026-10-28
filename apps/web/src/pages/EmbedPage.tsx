@@ -1,4 +1,4 @@
-// Probador 3D a pantalla completa, sin cabecera ni pie, para insertarlo en otra web (iframe): #/embed?r=<raza>&g=<equipo>&a=<aspecto>
+// Probador 3D a pantalla completa, sin cabecera ni pie, para insertarlo en otra web (iframe): /embed?r=<raza>&g=<equipo>&a=<aspecto>
 import { decodeGear } from "@wfuc/engine";
 import type { Manifest } from "@wfuc/schema";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";

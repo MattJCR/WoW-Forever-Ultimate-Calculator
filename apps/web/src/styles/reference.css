@@ -1,0 +1,160 @@
+/* Páginas de consulta (talentos, habilidades, razas) y el HTML prerenderizado que las acompaña. */
+.ref {
+  padding-top: 20px;
+  padding-bottom: 48px;
+}
+.crumbs {
+  font-size: 13px;
+  color: var(--faint);
+  margin: 0 0 14px;
+}
+.crumbs a {
+  color: var(--muted);
+}
+.crumbs a:hover {
+  color: var(--gold-2);
+}
+.crumb-sep {
+  margin: 0 2px;
+}
+.ref-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+.ref-head > .icon,
+.ref-head > .initials {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--c, var(--line-2));
+}
+.ref-head h1 {
+  margin: 2px 0 6px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.15;
+}
+.ref-lead {
+  margin: 0;
+  max-width: 78ch;
+  color: var(--muted);
+}
+.ref-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 26px;
+}
+.ref-section {
+  margin: 0 0 28px;
+}
+.ref-section h2 {
+  font-family: var(--serif);
+  font-size: 20px;
+  margin: 0 0 12px;
+  color: var(--gold-2);
+}
+.ref-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 10px;
+}
+.ref-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.ref-item > .icon,
+.ref-item > .initials {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+}
+.ref-item h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+.ref-item p {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.ref-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ref-ranks {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+.ref-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.ref-table th,
+.ref-table td {
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.ref-table th {
+  color: var(--faint);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ref-table td:not(:last-child) {
+  white-space: nowrap;
+}
+.ref-table td:last-child {
+  min-width: 280px;
+  color: var(--muted);
+}
+.class-refs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+.class-refs a {
+  color: var(--muted);
+}
+.class-refs a:hover {
+  color: var(--gold-2);
+}
+
+/* HTML prerenderizado: cubre la web mientras carga y se retira cuando la página interactiva ya tiene contenido. */
+#prerender {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: auto;
+  background: var(--bg);
+}

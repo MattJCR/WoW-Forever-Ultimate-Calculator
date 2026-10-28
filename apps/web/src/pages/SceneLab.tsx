@@ -1,5 +1,5 @@
 // Fondos del probador a partir de los escenarios de la pantalla de selección de personaje (solo desarrollo):
-// #/scene-lab?s=human[&cam=0&fov=40&dx=0&dy=0&dz=0]. Lo maneja tools/model/render-scenes.mjs a través de window.__scene.
+// /scene-lab?s=human[&cam=0&fov=40&dx=0&dy=0&dz=0]. Lo maneja tools/model/render-scenes.mjs a través de window.__scene.
 import { useEffect, useRef, useState } from "react";
 import {
   AdditiveBlending, Color, DoubleSide, Mesh, MeshBasicMaterial, NormalBlending, Object3D, PerspectiveCamera, SRGBColorSpace, Scene,

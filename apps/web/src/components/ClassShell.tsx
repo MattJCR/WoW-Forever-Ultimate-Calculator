@@ -32,7 +32,7 @@ export function ClassSwitcher({ current, legacyCode, raceQuery, manifest }: { cu
         const t = c.file.replace(/^classes\//, "").replace(/\.json$/, "");
         const q: Record<string, string> = { ...(isEmptyCode(legacyCode) ? {} : { l: legacyCode }), ...raceQuery };
         return (
-          <a key={c.classId} href={href(`class/${t}`, q)} className="class-chip" style={{ ["--c" as string]: CLASS_COLORS[t] }} aria-current={t === current ? "page" : undefined}>
+          <a key={c.classId} href={href({ kind: "class", cls: t }, q)} className="class-chip" style={{ ["--c" as string]: CLASS_COLORS[t] }} aria-current={t === current ? "page" : undefined}>
             <Icon id={c.iconFileDataId} name={classLabel(t, c.className ?? "")} />
             <span>{classLabel(t, c.className ?? "")}</span>
           </a>

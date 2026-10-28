@@ -30,3 +30,4 @@ data/external/enus/
 
 # Los modelos 3D generados (data/models/) SI se versionan; la copia para la web se regenera con sync-data
 apps/web/public/models/
+dist-ssr/

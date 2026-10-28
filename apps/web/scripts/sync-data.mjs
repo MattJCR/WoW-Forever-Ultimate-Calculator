@@ -3,6 +3,7 @@
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeSeoIndex } from "./build-seo-index.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const forever = join(root, "data", "forever");
@@ -16,6 +17,7 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 cpSync(join(forever, build), out, { recursive: true });
 console.log(`Datos ${build} -> ${out}`);
+writeSeoIndex(out);
 
 // Modelos 3D del probador (data/models/<build>/, los genera tools/model; aun no se versionan): solo si existen.
 const models = join(root, "data", "models");

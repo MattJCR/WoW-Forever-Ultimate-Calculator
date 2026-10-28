@@ -1,11 +1,24 @@
 import { indexBuffs, indexGearData, type BuffIndex, type GearData } from "@wfuc/engine";
-import { Buffs, ClassTalents, CombatRatings, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned, WeaponEnhancements } from "@wfuc/schema";
+import { Abilities, Buffs, ClassTalents, CombatRatings, Enchants, EquipRules, ItemSources, Items, Manifest, RandomSuffixes, Races, Unassigned, WeaponEnhancements } from "@wfuc/schema";
 import { useEffect, useState } from "react";
 import { tr } from "./i18n";
+import type { SeoIndex } from "./seo/routes";
 
 const base = import.meta.env.BASE_URL;
 
+/** Lector alternativo de los JSON de datos (el prerender los lee del disco en lugar de pedirlos por red). */
+const parsedCache = new Map<string, unknown>();
+let jsonLoader: ((path: string) => Promise<unknown>) | null = null;
+export const setJsonLoader = (load: ((path: string) => Promise<unknown>) | null): void => {
+  jsonLoader = load;
+};
+
 export async function getJson<T>(path: string, parse: (v: unknown) => T): Promise<T> {
+  if (jsonLoader) {
+    // Prerender: cada fichero se lee y se valida una vez aunque lo pidan cientos de páginas
+    if (!parsedCache.has(path)) parsedCache.set(path, parse(await jsonLoader(path)));
+    return parsedCache.get(path) as T;
+  }
   const res = await fetch(`${base}data/${path}`);
   if (!res.ok) throw new Error(tr("No se pudo cargar {path} ({status})", { path, status: res.status }));
   return parse(await res.json());
@@ -13,6 +26,8 @@ export async function getJson<T>(path: string, parse: (v: unknown) => T): Promis
 
 export const loadManifest = () => getJson("manifest.json", (v) => Manifest.parse(v));
 export const loadClass = (file: string) => getJson(file, (v) => ClassTalents.parse(v));
+export const loadSeoIndex = () => getJson("seo-index.json", (v) => v as SeoIndex);
+export const loadAbilities = (token: string) => getJson(`abilities/${token}.json`, (v) => Abilities.parse(v));
 export const loadUnassigned = () => getJson("unassigned.json", (v) => Unassigned.parse(v));
 export const loadRaces = (file: string) => getJson(file, (v) => Races.parse(v));
 export const loadLegacy = (file: string) => getJson(file, (v) => ClassTalents.parse(v));

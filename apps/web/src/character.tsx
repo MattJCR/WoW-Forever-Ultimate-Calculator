@@ -2,7 +2,7 @@ import { decodeBuildReport, encodeBuild, indexClass, type Build, type ClassIndex
 import type { Manifest } from "@wfuc/schema";
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { loadLegacy, useAsync } from "./data";
-import { parseHash } from "./router";
+import { onNavigate } from "./router";
 
 const STORAGE_KEY = "wfuc.legacy";
 
@@ -53,7 +53,7 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
   }, []);
   const hydrated = useRef(false);
   // El `l` del enlace se lee al montar, ANTES de que la pagina de clase (aun sin Legacy cargado) reescriba el enlace sin el
-  const initialL = useRef(parseHash(window.location.hash).query.get("l"));
+  const initialL = useRef(new URLSearchParams(window.location.search).get("l"));
 
   // Al tener los datos: el enlace manda sobre lo guardado
   useEffect(() => {
@@ -64,16 +64,14 @@ export function CharacterProvider({ manifest, children }: { manifest: Manifest; 
     setReady(true);
   }, [legacy, applyCode]);
 
-  // Un enlace nuevo con otro `l` (p. ej. pegado en la misma pestana) manda sobre el estado actual. Los cambios internos usan
-  // replaceState y no disparan hashchange.
+  // Un enlace nuevo con otro `l` (un enlace de la web o atrás/adelante) manda sobre el estado actual. Los cambios internos usan
+  // replaceState y no avisan.
   useEffect(() => {
     if (!legacy) return;
-    const on = () => {
-      const code = parseHash(window.location.hash).query.get("l");
+    return onNavigate(() => {
+      const code = new URLSearchParams(window.location.search).get("l");
       if (code !== null) applyCode(legacy, code);
-    };
-    window.addEventListener("hashchange", on);
-    return () => window.removeEventListener("hashchange", on);
+    });
   }, [legacy, applyCode]);
 
   const legacyCode = useMemo(() => (legacy ? encodeBuild(legacy, build) : ""), [legacy, build]);
@@ -96,3 +94,9 @@ export const isEmptyCode = (code: string): boolean => /^-*$/.test(code);
 
 /** Parametro `l` del enlace para conservar Legacy al navegar (vacio si no hay puntos de Legacy). */
 export const legacyQuery = (code: string): Record<string, string> => (isEmptyCode(code) ? {} : { l: code });
+
+/** Personaje vacío para generar las páginas estáticas (prerender): sin Legacy ni lectura del navegador. */
+export function StaticCharacterProvider({ manifest, children }: { manifest: Manifest; children: ReactNode }) {
+  const value: CharacterState = { manifest, legacy: null, legacyBuild: {}, legacyCode: "", legacyReady: true, legacyReport: null, setLegacyBuild: () => {} };
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+}

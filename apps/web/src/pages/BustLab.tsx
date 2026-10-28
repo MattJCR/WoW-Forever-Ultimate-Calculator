@@ -1,4 +1,4 @@
-// Generador de miniaturas 3D (solo desarrollo): #/bust-lab?m=1&r=1
+// Generador de miniaturas 3D (solo desarrollo): /bust-lab?m=1&r=1
 // Lo maneja tools/model/render-busts.mjs a través de window.__bust.
 import { useEffect, useRef, useState } from "react";
 import { MODELS_BASE } from "../viewer/config";

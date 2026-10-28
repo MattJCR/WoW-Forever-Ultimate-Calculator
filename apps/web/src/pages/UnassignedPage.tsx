@@ -5,6 +5,7 @@ import { Icon } from "../components/Icon";
 import { loadUnassigned, useAsync } from "../data";
 import { entryName, entryText, isEnglish, talentName, talentText, tr, trn, type Localized } from "../i18n";
 import { plural } from "../messages";
+import { usePrerenderHandoff } from "../seo/handoff";
 
 const CELL = 46;
 const GAP = 22;
@@ -183,6 +184,7 @@ function groupBySpell(list: UnassignedEntry[]): { first: UnassignedEntry; versio
 }
 
 export function UnassignedPage() {
+  usePrerenderHandoff();
   const state = useAsync("unassigned", loadUnassigned);
   const [filter, setFilter] = useState("todas");
 

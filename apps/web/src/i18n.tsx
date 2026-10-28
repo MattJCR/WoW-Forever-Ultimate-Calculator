@@ -1,6 +1,7 @@
 import type { ClassTalents, EnglishText, Race } from "@wfuc/schema";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { EN } from "./i18n-en";
+import type { Lang } from "./seo/routes";
 
 /**
  * Idioma de la web. El cliente instalado solo trae español, así que:
@@ -8,7 +9,7 @@ import { EN } from "./i18n-en";
  *  - los nombres y descripciones del juego en inglés salen de `i18n/en.json` (tablas del juego en inglés, contrastadas con las cifras del cliente),
  *    que solo se descarga al elegir English. Lo que no tenga inglés se muestra en español.
  */
-export type Lang = "es" | "en";
+export type { Lang };
 
 const STORAGE_KEY = "wfuc.lang";
 
@@ -21,10 +22,10 @@ function browserLang(): Lang {
   return first.startsWith("es") ? "es" : "en";
 }
 
-/** Idioma elegido: `?lang=` del enlace (se conserva), luego el guardado en el navegador; si no hay ninguno, el del navegador. */
-function initialLang(): Lang {
+/** Idioma de las páginas sin idioma en la URL (la raíz, el probador insertable): `?lang=`, luego el guardado en el navegador y, si no hay ninguno, el del navegador. */
+export function initialLang(): Lang {
   try {
-    const fromUrl = new URLSearchParams(window.location.search).get("lang") ?? new URLSearchParams(window.location.hash.split("?")[1] ?? "").get("lang");
+    const fromUrl = new URLSearchParams(window.location.search).get("lang");
     if (fromUrl === "en" || fromUrl === "es") return fromUrl;
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "en" || stored === "es") return stored;
@@ -39,6 +40,11 @@ function initialLang(): Lang {
 }
 
 export const currentLang = (): Lang => current.lang;
+
+/** Fija el idioma y los textos en inglés para generar una página fuera del navegador (prerender). */
+export function setRenderLang(lang: Lang, en: EnglishText | null): void {
+  current = { lang, en };
+}
 export const isEnglish = (): boolean => current.lang === "en";
 
 /** Sustituye {nombre} por su valor. */
@@ -199,9 +205,12 @@ export const useLang = (): LangValue => useContext(LangContext);
 /**
  * Estado del idioma. Lo usa `App` (la raíz): al cambiar, App se vuelve a pintar y con ella todo el árbol, así que los
  * componentes no necesitan un hook para traducirse. `current` se fija en el render, antes que los hijos.
+ * `setLang` solo recuerda la elección: cambiar de idioma también cambia de URL, y eso lo hace `App`.
  */
-export function useLangRoot(englishFile: string | null): LangValue {
-  const [lang, setLangState] = useState<Lang>(initialLang);
+export function useLangRoot(englishFile: string | null, routeLang: Lang | null = null): LangValue {
+  const [chosen, setLangState] = useState<Lang>(initialLang);
+  // Con idioma en la URL (/es/…, /en/…) manda la URL; sin él, lo elegido
+  const lang = routeLang ?? chosen;
   const [en, setEn] = useState<EnglishText | null>(null);
   const [failed, setFailed] = useState(false);
 

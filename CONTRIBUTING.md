@@ -6,7 +6,7 @@
 
 ## Formas de ayudar (sin escribir código)
 
-- **Reportar errores**: abre un *issue* con la clase, el talento o la habilidad, lo que ves y lo que esperabas. Una captura o el enlace del build (`#/class/mage?b=…`) ayuda mucho.
+- **Reportar errores**: abre un *issue* con la clase, el talento o la habilidad, lo que ves y lo que esperabas. Una captura o el enlace del build (`/es/clases/mago/?b=…`) ayuda mucho.
 - **Contrastar datos con la beta**: si en el juego un número, un coste o un efecto no coincide con la web, dilo con la prueba (captura, texto del tooltip, build del cliente). Es lo más valioso: **el cliente manda**.
 - **Revisar textos** en español y proponer traducciones de lo que el cliente aún trae en inglés (`data/i18n/`).
 - **Sugerir funciones** (estadísticas, daño, curación, builds de equipo…): primero un issue para comentarlo.
@@ -25,8 +25,8 @@
 ## Preparar un entorno
 
 ```
-git clone https://github.com/MattJCR/WoW-Forever-Ultimate-Calculator.git
-cd WoW-Forever-Ultimate-Calculator
+git clone https://github.com/MattJCR/wowforeverultimatecalculator.git
+cd wowforeverultimatecalculator
 npm install
 npm run dev -w @wfuc/web     # http://localhost:5173
 npm test -w @wfuc/engine     # pruebas del motor (necesitan datos de contraste locales del mantenedor)

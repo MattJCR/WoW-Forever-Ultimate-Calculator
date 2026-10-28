@@ -1,0 +1,72 @@
+import { existsSync, readFileSync } from "node:fs";
+import { describe, expect, it } from "vitest";
+import { alternates, allPages, legacyHashToUrl, pagePath, parsePath, slugify, type SeoIndex } from "../src/seo/routes";
+
+const index: SeoIndex = {
+  build: "test",
+  classes: [{ token: "mage", id: 8, es: "mago", en: "mage" }, { token: "rogue", id: 4, es: "picaro", en: "rogue" }],
+  races: [{ id: 2, es: "orco", en: "orc" }],
+  abilities: { mage: [{ id: 133, es: "bola-de-fuego", en: "fireball" }] },
+  talents: { mage: [{ id: 105815, es: "especializacion-en-varitas", en: "wand-specialization" }] },
+};
+
+describe("slugify", () => {
+  it("quita tildes, signos y mayúsculas", () => {
+    expect(slugify("Pícaro")).toBe("picaro");
+    expect(slugify("Bola de Fuego")).toBe("bola-de-fuego");
+    expect(slugify("Ner'zhul's Gaze!")).toBe("nerzhuls-gaze");
+  });
+});
+
+describe("rutas", () => {
+  it("construye y lee las URLs de cada idioma", () => {
+    expect(pagePath({ kind: "class", cls: "mage" }, "es", index)).toBe("/es/clases/mago/");
+    expect(pagePath({ kind: "class", cls: "mage" }, "en", index)).toBe("/en/classes/mage/");
+    expect(pagePath({ kind: "ability", cls: "mage", id: 133 }, "en", index)).toBe("/en/classes/mage/abilities/fireball/");
+    expect(pagePath({ kind: "talent", cls: "mage", id: 105815 }, "es", index)).toBe("/es/clases/mago/talentos/especializacion-en-varitas/");
+    expect(pagePath({ kind: "race", id: 2 }, "es", index)).toBe("/es/razas/orco/");
+    expect(parsePath("/en/classes/mage/abilities/fireball", index)).toEqual({ lang: "en", page: { kind: "ability", cls: "mage", id: 133 } });
+    expect(parsePath("/es/clases/mago/", index)).toEqual({ lang: "es", page: { kind: "class", cls: "mage" } });
+  });
+
+  it("la raíz y el probador insertable no llevan idioma", () => {
+    expect(parsePath("/", index)).toEqual({ lang: null, page: { kind: "home" } });
+    expect(parsePath("/embed", index)).toEqual({ lang: null, page: { kind: "embed" } });
+  });
+
+  it("lo que no existe es not-found (también un slug de otro idioma)", () => {
+    for (const p of ["/es/clases/nada", "/es/classes/mage", "/en/clases/mago", "/fr", "/es/clases/mago/habilidades/fireball", "/es/clases/mago/talentos/x/y", "/es/razas/orco/extra"]) {
+      expect(parsePath(p, index).page.kind, p).toBe("not-found");
+    }
+  });
+
+  it("la misma página en el otro idioma", () => {
+    expect(alternates({ kind: "ability", cls: "mage", id: 133 }, index)).toEqual({ es: "/es/clases/mago/habilidades/bola-de-fuego/", en: "/en/classes/mage/abilities/fireball/" });
+  });
+
+  it("los enlaces antiguos con '#' pasan a la URL nueva", () => {
+    expect(legacyHashToUrl("#/class/mage?b=1-2&v=talents", "es", index)).toBe("/es/clases/mago/?b=1-2&v=talents");
+    expect(legacyHashToUrl("#/class/mage?lang=en&r=2", "es", index)).toBe("/en/classes/mage/?r=2");
+    expect(legacyHashToUrl("#/unassigned", "en", index)).toBe("/en/unassigned/");
+    expect(legacyHashToUrl("#/embed?r=1&g=abc", "es", index)).toBe("/embed/?r=1&g=abc");
+    expect(legacyHashToUrl("#/class/zzz", "es", index)).toBe("/es/");
+    expect(legacyHashToUrl("", "es", index)).toBeNull();
+  });
+});
+
+const realFile = new URL("../public/data/seo-index.json", import.meta.url);
+describe.skipIf(!existsSync(realFile))("índice real", () => {
+  const real = JSON.parse(readFileSync(realFile, "utf8")) as SeoIndex;
+  it("cada página indexable tiene URL única en cada idioma y se lee de vuelta", () => {
+    for (const lang of ["es", "en"] as const) {
+      const seen = new Map<string, string>();
+      for (const page of allPages(real)) {
+        const path = pagePath(page, lang, real);
+        expect(path, JSON.stringify(page)).not.toBeNull();
+        expect(seen.has(path!), `URL repetida ${path}`).toBe(false);
+        seen.set(path!, JSON.stringify(page));
+        expect(parsePath(path!, real)).toEqual({ lang, page });
+      }
+    }
+  });
+});

@@ -10,6 +10,10 @@ import "./styles/summary.css";
 import "./styles/floating.css";
 import "./styles/gear.css";
 import "./styles/unassigned.css";
+import "./styles/reference.css";
+import { installLinkInterception } from "./router";
+
+installLinkInterception();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -1,0 +1,16 @@
+{
+  "name": "WoW Forever Ultimate Calculator",
+  "short_name": "WoW Forever Calc",
+  "description": "Calculadora de talentos, raza, equipo y habilidades de WoW Forever",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0e0c0a",
+  "theme_color": "#0e0c0a",
+  "icons": [
+    {
+      "src": "logo-forever-transparent.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
