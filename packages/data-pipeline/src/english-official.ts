@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { int, openRawTables, type RawTables } from "./csv.js";
+import { carriedFrom, int, openRawTables, type RawTables } from "./csv.js";
 import type { SpellTables } from "./spell-tables.js";
 import type { EnglishText, Races } from "./model.js";
 import { RACIAL_TEXT_FROM_SPELL } from "./racial-spells.js";
@@ -53,6 +53,11 @@ export function loadOfficialEnglish(dir: string, clientRaw: RawTables, clientSpe
 
   const tablesBuild = existsSync(join(dir, "BUILD.txt")) ? readFileSync(join(dir, "BUILD.txt"), "utf8").trim() : "";
   const itemNames = new Map(read(raw, "ItemSparse").filter((r) => r.Display_lang).map((r) => [int(r.ID), r.Display_lang!] as const));
+  // Objetos arrastrados del volcado anterior (carried-from.json): su nombre inglés sale del volcado inglés de esa carpeta
+  const carried = carriedFrom(clientRaw.dir);
+  if (carried && existsSync(join(`${carried}-enUS`, "ItemSparse.csv"))) {
+    for (const r of openRawTables(`${carried}-enUS`).table("ItemSparse")) if (r.Display_lang && !itemNames.has(int(r.ID))) itemNames.set(int(r.ID), r.Display_lang);
+  }
   // Nombres consultados aparte (tools/extract/fetch-enus-items.mjs) para los objetos que las tablas no traen
   const itemQuality = new Map<number, number>();
   if (existsSync(join(dir, "ItemNamesExtra.csv"))) {

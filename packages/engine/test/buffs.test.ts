@@ -6,12 +6,12 @@ import { describe, expect, it } from "vitest";
 import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, improveBuff, indexBuffs, indexClass, isLastingBuff, spellModifiersOf, toggleBuff } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const has = existsSync(join(D, "buffs.json")) && existsSync(join(D, "classes", "warrior.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 /** Beneficios (sesión 12): habilidades de clase propias y de otras clases, tótems, mascota y consumibles, todo del cliente. */
-describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
+describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70658", () => {
   const data = Buffs.parse(json("buffs.json"));
   const index = indexBuffs(data);
   const byName = (name: string, category?: string) => data.buffs.find((b) => b.name === name && (!category || b.category === category))!;
@@ -96,7 +96,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     expect(data.buffs.filter((b) => b.textOrigin !== "client" && !/interminable$/.test(b.name) && b.category !== "profession")).toEqual([]);
   });
 
-  it("AUDITORÍA: 294 de los 312 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 7 más (sin estadística que sumar o con daño según el tipo de criatura)", () => {
+  it("AUDITORÍA: 294 de los 311 beneficios se cuantifican por completo; quedan como texto las 11 pociones de protección (absorben daño, no suman estadísticas) y 7 más (sin estadística que sumar o con daño según el tipo de criatura)", () => {
     const text: string[] = [];
     for (const b of data.buffs) {
       const e = buffAsEffect(b);
@@ -107,7 +107,7 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70532", () => {
     expect(absorb).toHaveLength(11);
     for (const n of absorb) expect(byName(n).text).toMatch(/^Amortigua \d+ p\. de daño/);
     expect(text.filter((n) => !absorb.includes(n)).sort()).toEqual(["Bestias salvajes", "Elixir de crecimiento interminable", "Elixir de experiencia interminable", "Pergamino de Comprensión", "Pozo de maná", "Talento natural", "Té de espina de oro"]); // los dos «Endless»: experiencia y tamaño, sin estadísticas; Bestias salvajes (daño según el tipo de criatura), Talento natural (sin cifra) y Pozo de maná (restaura maná)
-    expect(data.buffs.length).toBe(312); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 + 9 objetos de campamento + 3 pasivos de profesión
+    expect(data.buffs.length).toBe(311); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 + 9 objetos de campamento + 3 pasivos de profesión − 1 (70658: Ferocidad de Fengus deja de dar estadísticas)
   });
 
   it("los aumentos permanentes al consumir (sin duración) suman su cifra y cuentan como duraderos", () => {

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, decodeBuild, findAbility, indexClass, rankAtLevel, renderAbilityText, ruleAbilityDetail, ruleAppliesTo, ruleLines, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));

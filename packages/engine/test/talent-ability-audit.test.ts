@@ -15,7 +15,7 @@ import { activatableTalents, allModifiersFor, applyModifiers, canCrit, collectSt
  * Cada lista de abajo es EXACTA: si cambia (para bien o para mal) la prueba falla y obliga a revisarla.
  */
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const classes = readdirSync(join(D, "classes")).map((f) => {
   const token = f.replace(".json", "");
@@ -45,6 +45,7 @@ describe("la mejora de un talento se ve en la descripción de la habilidad (las 
     "mage: Escarcha permanente → Orbe congelado": "la ralentización del texto es una cifra escrita en el texto del cliente (30 %), no un hueco",
     "priest: Disciplinas gemelas → Rezo de alivio (runa)": "valores del texto del cliente sin resolver (…)",
     "priest: Curación espiritual → Plan de contingencia": "la sanación de 670 es de otro hechizo (1277460) cuya máscara no cruza la del talento; el escudo es una absorción. Disciplinas gemelas sí llega (+5 %)",
+    "warrior: Revancha mejorada → Revancha": "desde el 70658 el daño de Revancha es una fórmula con el poder de ataque del personaje (${$m1+($<APRatio>*$apm)}): el texto no lleva cifra fija y el +% no se ve en él (mismo hueco que Explosión de arrabio)",
     "shaman: Armas elementales → Arma lengua de Fuego": "el daño es una fórmula con la velocidad del arma (efecto dummy): el +15 % no se aplica al texto",
   };
 

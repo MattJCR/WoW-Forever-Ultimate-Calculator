@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { CREATURE_TYPES, deriveCombatStats, deriveStats, indexGearData, powerContext, summarizeGear } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const has = existsSync(join(D, "items.json")) && existsSync(join(D, "equip-rules.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 

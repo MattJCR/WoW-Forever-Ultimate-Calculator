@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70658",
+  "provenance": "community",
+  "source": "Datos de la comunidad (MIT), 2026-10-21",
+  "constantAcrossLevels": true,
+  "levels": {
+    "min": 1,
+    "max": 123
+  },
+  "ratings": {
+    "defense-skill": 1,
+    "dodge": 12,
+    "parry": 15,
+    "block": 5,
+    "hit-melee": 10,
+    "hit-ranged": 10,
+    "hit-spell": 10,
+    "crit-melee": 14,
+    "crit-ranged": 14,
+    "crit-spell": 14,
+    "corruption": 10,
+    "corruption-resistance": 10,
+    "speed": 10,
+    "resilience-crit-taken": 10,
+    "resilience-player-damage": 10,
+    "lifesteal": 10,
+    "haste-melee": 10,
+    "haste-ranged": 10,
+    "haste-spell": 10,
+    "avoidance": 10,
+    "sturdiness": 10,
+    "expertise": 10,
+    "armor-penetration": 10,
+    "mastery": 10,
+    "pvp-power": 10,
+    "versatility-damage-done": 10,
+    "versatility-healing-done": 10,
+    "versatility-damage-taken": 10
+  }
+}

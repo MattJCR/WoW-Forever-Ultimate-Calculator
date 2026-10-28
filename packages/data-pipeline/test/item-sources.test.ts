@@ -9,11 +9,11 @@ import { ItemSources } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70532";
+const BUILD = "1.60.1.70658";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 
 /** «Fabricado» sale del cliente: hechizo de profesión (SkillLineAbility) que crea el objeto (SpellEffect 24). */
-describe.skipIf(!existsSync(join(RAW, "SkillLine.csv")) || !existsSync(join(RAW, "ItemSparse.csv")))("fuente «Fabricado» de los objetos (cliente 1.60.1.70532)", () => {
+describe.skipIf(!existsSync(join(RAW, "SkillLine.csv")) || !existsSync(join(RAW, "ItemSparse.csv")))("fuente «Fabricado» de los objetos (cliente 1.60.1.70658)", () => {
   const raw = openRawTables(RAW);
   const items = buildItems(raw, BUILD, new SpellTables(raw));
   const sources = ItemSources.parse(buildItemSources(raw, BUILD, new Set(items.items.map((i) => i.id))));

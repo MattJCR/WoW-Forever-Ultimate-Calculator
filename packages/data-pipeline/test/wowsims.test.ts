@@ -9,7 +9,7 @@ import { SpellTables } from "../src/spell-tables.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "../src/wowsims.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70532";
+const BUILD = "1.60.1.70658";
 const WS = join(root, "data", "external", "wowsims");
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const ready = existsSync(join(WS, "db.json")) && existsSync(join(WS, "CombatRatings.txt")) && existsSync(join(RAW, "RandPropPoints.csv"));
@@ -95,7 +95,10 @@ describe.skipIf(!ready)("datos de la comunidad (MIT, `community`)", () => {
   });
 
   describe("contraste exacto con sus objetos (8 589 comunes)", () => {
-    const common = db.items.filter((w) => client.items.some((i) => i.id === w.id));
+    // El parche 70658 reequilibró 6 objetos (nivel de objeto 19-20 → 18, calidad azul → verde, menos estadísticas y daño): la copia
+    // de la comunidad es anterior y trae las cifras viejas. Manda el cliente; cuando la comunidad se actualice, vaciar esta lista.
+    const REBALANCED_IN_70658 = new Set([269716, 269717, 269742, 277286, 277288, 277289]);
+    const common = db.items.filter((w) => !REBALANCED_IN_70658.has(w.id) && client.items.some((i) => i.id === w.id));
     const byId = new Map(client.items.map((i) => [i.id, i]));
     const so = (w: (typeof db.items)[number]) => Object.values(w.scalingOptions ?? {})[0];
 

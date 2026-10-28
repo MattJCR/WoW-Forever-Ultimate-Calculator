@@ -1,6 +1,6 @@
 {
-  "build": "1.60.1.70532",
-  "tablesBuild": "1.60.1.70532",
+  "build": "1.60.1.70658",
+  "tablesBuild": "1.60.1.70658",
   "ranks": {
     "total": 1730,
     "templated": 1719,
@@ -13,8 +13,8 @@
   "ownMismatches": [],
   "talents": {
     "checked": 492,
-    "official": 34,
-    "reference": 1341,
+    "official": 31,
+    "reference": 1344,
     "own": 8
   },
   "unassigned": {
@@ -24,8 +24,8 @@
     "nodesNamed": 58
   },
   "items": {
-    "total": 12632,
-    "filled": 4030,
+    "total": 12633,
+    "filled": 4031,
     "own": 12,
     "stillMissing": [],
     "qualityMismatch": []

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, deriveStats, healthFromStamina, indexClass, manaFromIntellect, type StatTotal } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 const src = { from: "class" as const, name: "Talento", rank: 1, maxRank: 1 };
@@ -83,7 +83,7 @@ describe("estadísticas con talentos", () => {
 });
 
 describe("poder de ataque y poder con hechizos de talentos (cliente + notas de Blizzard)", () => {
-  const D2 = join(root, "data", "forever", "1.60.1.70532");
+  const D2 = join(root, "data", "forever", "1.60.1.70658");
   const j = (f: string) => JSON.parse(readFileSync(join(D2, f), "utf8"));
   const client = ClientStats.parse(j("client-stats.json"));
   const cls = (token: string) => ({

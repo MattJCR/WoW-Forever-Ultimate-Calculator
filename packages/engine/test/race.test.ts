@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { describeEffect, raceBonuses } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70532", "races.json"), "utf8"))).races;
+const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70658", "races.json"), "utf8"))).races;
 const race = (id: number) => races.find((r) => r.id === id)!;
 const WARRIOR = 1;
 const ROGUE = 4;
@@ -45,7 +45,7 @@ describe("bonificaciones de raza (solo pasivas; datos del cliente)", () => {
     expect(b.critChancePct).toBe(1); // solo Salvajismo
     expect(b.stunDurationPct).toBe(-20);
     const bf = b.actives.find((a) => a.name === "Furia sangrienta")!;
-    expect(bf).toMatchObject({ durationMs: 15000, cooldownMs: 180000 });
+    expect(bf).toMatchObject({ durationMs: 15000, cooldownMs: 120000 });
     expect(bf.effects).toHaveLength(3);
   });
 

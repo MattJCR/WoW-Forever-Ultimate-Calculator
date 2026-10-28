@@ -5,7 +5,7 @@ import { ClassTalents } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import { addPoint, canAdd, characterRequiredLevel, decodeBuild, firstPointLevel, encodeBuild, formatBuildForAI, indexClass, summarizeCharacter, totalPoints, validateBuild, type Build, type ClassIndex } from "../src/index.js";
 
-const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70532");
+const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70658");
 const load = (file: string): ClassIndex => indexClass(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, file), "utf8"))));
 const mage = load("classes/mage.json");
 const legacy = load("legacy.json");

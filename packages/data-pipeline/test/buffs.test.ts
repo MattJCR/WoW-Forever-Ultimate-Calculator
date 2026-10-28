@@ -8,7 +8,7 @@ import { Abilities, Buffs } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70532";
+const BUILD = "1.60.1.70658";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const OUT = join(root, "data", "forever", BUILD);
 
@@ -25,7 +25,7 @@ describe.skipIf(!existsSync(join(RAW, "ItemSparse.csv")) || !existsSync(join(OUT
 
   it("cumple el esquema, sin avisos, con las 9 clases, tótems, mascota y los seis tipos de consumible", () => {
     expect(warnings.map((w) => /«(.+?)»/.exec(w)![1])).toEqual(["Danza de hojas"]); // su poder de ataque depende de la habilidad de defensa; Valor de Azeroth y Cuerno de Lordaeron se resuelven con la fórmula a nivel 60
-    expect(data.buffs.length).toBe(312); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 (el elixir de tamaño y el de experiencia solo traen texto) + 9 objetos de campamento + 3 pasivos de profesión
+    expect(data.buffs.length).toBe(311); // 290 + los 10 consumibles «Endless» del hotfix del 22/10 (el elixir de tamaño y el de experiencia solo traen texto) + 9 objetos de campamento + 3 pasivos de profesión − 1 (70658: Ferocidad de Fengus, pergamino de Aggrend, pasa todos sus efectos a aura 4 sin efecto y deja de ser un beneficio)
     const cats = new Set(data.buffs.map((b) => b.category));
     expect([...cats].sort()).toEqual(["camp", "class", "elixir", "flask", "food", "other", "pet", "potion", "profession", "scroll", "totem"]);
   });

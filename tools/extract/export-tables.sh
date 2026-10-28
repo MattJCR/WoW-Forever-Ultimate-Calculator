@@ -9,7 +9,7 @@
 #  iniciar sesion; wow.tools.local los lee al arrancar. Hay que volver a arrancarlo tras entrar al juego.)
 set -euo pipefail
 
-BUILD="${1:-1.60.1.70532}"
+BUILD="${1:-1.60.1.70658}"
 shift || true
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 if [ "${HOTFIXES:-0}" = "1" ]; then

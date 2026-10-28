@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, effectAt, findAbility, indexClass, ruleAppliesTo, ruleLines, type Build } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const priest = indexClass(ClassTalents.parse(json("classes/priest.json")));
 const abilities = Abilities.parse(json("abilities/priest.json"));
@@ -77,6 +77,6 @@ describe("Sacerdote: cifras directas frente a la referencia (a nivel min(60, niv
       }
     }
     expect(pairs).toBe(95);
-    expect([ok, hotfixed]).toEqual([94, 1]);
+    expect([ok, hotfixed]).toEqual([95, 0]); // la referencia (export del 27/10) ya trae el hotfix de Fuego Sagrado rango 1 (antes 94 + 1)
   });
 });

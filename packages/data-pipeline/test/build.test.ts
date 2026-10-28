@@ -15,7 +15,7 @@ import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70532";
+const BUILD = "1.60.1.70658";
 const load = (dir: string) => buildClassTalents(openRawTables(join(root, "data", "raw", dir)), BUILD, "esES");
 
 /** Con los hotfixes de la cache del juego aplicados: la verdad "en vivo". */
@@ -26,7 +26,7 @@ const legacyData = buildLegacy(openRawTables(join(root, "data", "raw", `${BUILD}
 const byToken = (r: typeof live, t: string) => r.classes.find((c) => c.classToken === t)!;
 const TOKENS = ["DRUID", "HUNTER", "MAGE", "PALADIN", "PRIEST", "ROGUE", "SHAMAN", "WARLOCK", "WARRIOR"];
 
-describe("arboles de talentos de Forever (cliente 1.60.1.70532, con hotfixes)", () => {
+describe("arboles de talentos de Forever (cliente 1.60.1.70658, con hotfixes)", () => {
   it("cumple el esquema en todas las clases", () => {
     for (const c of live.classes) expect(() => ClassTalents.parse(c)).not.toThrow();
   });
@@ -318,14 +318,14 @@ describe("seccion aparte: datos sin asignar", () => {
 });
 
 describe("hotfixes del servidor frente a los ficheros estaticos", () => {
-  it("corrigen el Mago: Colera Arcana pasa de 0 a 15 puntos y dos nodos de Escarcha cambian de columna", () => {
+  it("el Mago corregido por hotfix (Colera Arcana a 15 puntos, dos nodos de Escarcha cambian de columna) ya viene en los ficheros estaticos desde el 70658", () => {
     const flat = (r: typeof live) => new Map(byToken(r, "MAGE").specs.flatMap((s) => s.talents).map((t) => [t.nodeId, t]));
-    const a = flat(stat);
-    const b = flat(live);
-    expect(a.get(113627)!.requiredPoints).toBe(0);
-    expect(b.get(113627)!.requiredPoints).toBe(15);
-    expect([a.get(105774)!.col, a.get(105776)!.col]).toEqual([3, 1]);
-    expect([b.get(105774)!.col, b.get(105776)!.col]).toEqual([1, 3]);
+    // Hasta el 70532 solo lo traian los hotfixes (estatico: 0 puntos, columnas 3 y 1); el 70658 lo incorpora al estatico
+    for (const r of [stat, live]) {
+      const m = flat(r);
+      expect(m.get(113627)!.requiredPoints).toBe(15);
+      expect([m.get(105774)!.col, m.get(105776)!.col]).toEqual([1, 3]);
+    }
   });
 
   it("no cambian la estructura del resto de clases", () => {
@@ -644,10 +644,10 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     expect(effect(6, "Aguante", "crit-damage-bonus")?.value).toBe(2);
   });
 
-  it("activas: Furia sangrienta +10 % poder de ataque y con hechizos, 15 s, 3 min; Iracundia +10 % celeridad", () => {
+  it("activas: Furia sangrienta +10 % poder de ataque y con hechizos, 15 s, 2 min (3 min hasta el 70532); Iracundia +10 % celeridad", () => {
     const bf = spell(2, "Furia sangrienta");
     expect(bf.durationMs).toBe(15000);
-    expect(bf.cooldownMs).toBe(180000);
+    expect(bf.cooldownMs).toBe(120000);
     expect(bf.effects.map((e) => e.kind).sort()).toEqual(["attack-power-pct", "ranged-attack-power-pct", "spell-power-pct"]);
     expect(effect(8, "Iracundia", "haste-spell-pct")?.value).toBe(10);
     expect(spell(8, "Iracundia").durationMs).toBe(10000);
@@ -1100,7 +1100,8 @@ describe("textos de los talentos del Paladin frente a la referencia", () => {
     });
     expect(total).toBe(138);
     // Choque Sagrado, Vigilia de la Luz, Sello de orden (nivel), Sello de furia mejorado (1 p. por nivel), Reivindicacion x3 (poder de ataque por nivel)
-    expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1", "Campeón de la Luz r1", "Campeón de la Luz r2", "Campeón de la Luz r3"]);
+    expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1"]);
+    // Campeón de la Luz (10/20/30 % del intelecto) ya coincide con la referencia desde su export del 27/10 (build 70630)
   });
 
   it("$proccooldown sale del cliente: Especializacion en escudos 3 s y La hora de la verdad 1,5 s (como la referencia)", () => {
@@ -1191,9 +1192,10 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a la 
   // Diferencias esperadas: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia) o formulas del texto sin resolver
   const CASES = [
     { token: "SHAMAN", file: "shaman", total: 148, diff: ["Ráfaga de lava r1", "Mareas vivas r1"], notApprox: [] as string[] },
-    { token: "HUNTER", file: "hunter", total: 148, diff: ["Contraataque r1"], notApprox: ["Contraataque r1"] },
-    // Amplificar maldición r1: hotfix del servidor del 16/10 (Maldición de agotamiento 50 % → 20 %); la referencia aún trae el 50 %.
-    { token: "WARLOCK", file: "warlock", total: 146, diff: ["Amplificar maldición r1", "Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Amplificar maldición r1", "Terror de caos r1"] },
+    // Aura de disparo certero r1: el 70658 baja el poder de ataque a distancia de 30 a 15 (y Aspecto del halcón, Pies de plomo); la referencia (70630) aún trae 30
+    { token: "HUNTER", file: "hunter", total: 148, diff: ["Aura de disparo certero r1", "Contraataque r1"], notApprox: ["Aura de disparo certero r1", "Contraataque r1"] },
+    // Amplificar maldición r1 (hotfix del 16/10, Maldición de agotamiento 50 % → 20 %): la referencia ya lo trae desde su export del 27/10.
+    { token: "WARLOCK", file: "warlock", total: 146, diff: ["Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Terror de caos r1"] },
     { token: "DRUID", file: "druid", total: 148, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
   ];
   for (const c of CASES) {
@@ -1418,7 +1420,7 @@ describe("estadisticas por clase y nivel del cliente (PlayerExpectedStat y ChrCl
 });
 
 
-describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70532)", () => {
+describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70658)", () => {
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
   const abilitiesOf = (classId: number) => buildAbilities(raw, live.spells, classId, BUILD, "esES", live.classes.find((c) => c.classId === classId))!;
   const COND = /\uE000([sa]\d+(?:\|[sa]\d+)*)\uE001([^\uE001]*)\uE001([^\uE002]*)\uE002/;

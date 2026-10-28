@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { deriveCombatStats, deriveStats, estimateProcs, hasKnownRate, isEstimable, procSourcesOf, type GearEffect, type SwingEstimate } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const has = existsSync(join(D, "items.json"));
 const swing = (hand: SwingEstimate["hand"], speed: number): SwingEstimate => ({ hand, min: 100, max: 100, average: 100, speed, hastedSpeed: speed, dps: 100 / speed, formula: "" });
 

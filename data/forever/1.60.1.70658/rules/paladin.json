@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70658",
+  "classId": 2,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 20210,
+      "name": "Iluminación",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Iluminación: tras un golpe crítico, {v} % de probabilidad de recuperar maná igual a un 50 % del coste base del hechizo",
+          "scope": {
+            "spells": [
+              "Destello de Luz",
+              "Luz Sagrada",
+              "Vigilia de la Luz",
+              "Choque Sagrado"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 426065,
+      "name": "Infusión de Luz",
+      "effects": [
+        {
+          "index": 0,
+          "factor": -0.001,
+          "extras": {},
+          "label": "Infusión de Luz: los golpes críticos de Choque Sagrado y Destello de Luz reducen {v} s el lanzamiento de tu siguiente Luz Sagrada (15 s)",
+          "scope": {
+            "spells": [
+              "Luz Sagrada"
+            ]
+          },
+          "action": "none",
+          "unit": "s"
+        }
+      ]
+    },
+    {
+      "spellId": 1310905,
+      "name": "Suelo consagrado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Suelo consagrado: +{v} % de daño de tus hechizos Sagrados contra los 4 primeros enemigos que pisan tu Consagración",
+          "scope": {
+            "schools": [
+              2
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1311074,
+      "name": "Sentencia santificada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Sentencia santificada: {v} % de probabilidad de que Sentencia devuelva un {w} % del coste de maná del sello sentenciado",
+          "scope": {
+            "spells": [
+              "Sentencia"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1314103,
+      "name": "Sello de furia mejorado",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Sello de furia mejorado: al absorberse por completo el escudo de Sello de furia, restaura maná (1 p. por nivel tuyo: 60 p. a nivel 60), aumentado un {v} % por cada nivel que te saque el atacante, hasta un máximo del 45 %",
+          "scope": {
+            "spells": [
+              "Sello de furia"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 9452,
+      "name": "Reivindicación",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Reivindicación: tus ataques cuerpo a cuerpo que infligen daño pueden reducir el poder de ataque del objetivo y aumentar un {v} % el tuyo durante 30 s",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 20049,
+      "name": "Venganza",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Venganza: +{v} % de daño físico y Sagrado durante 30 s tras un golpe crítico no periódico (se acumula hasta 3 veces)",
+          "scope": {
+            "schools": [
+              1,
+              2
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

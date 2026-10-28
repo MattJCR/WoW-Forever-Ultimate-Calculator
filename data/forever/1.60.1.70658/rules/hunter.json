@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70658",
+  "classId": 3,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 1223755,
+      "name": "Fuego enfocado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Fuego enfocado: +{v} % de todo el daño tuyo y de tu mascota mientras tu mascota está activa",
+          "scope": {
+            "all": true,
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 19407,
+      "name": "Disparo de concusión mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Disparo de concusión mejorado: {v} % de probabilidad de aturdir al objetivo 3 s",
+          "scope": {
+            "spells": [
+              "Disparo de concusión"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 19228,
+      "name": "Cortar alas mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Cortar alas mejorado: {v} % de probabilidad de inmovilizar al objetivo 5 s",
+          "scope": {
+            "spells": [
+              "Cortar alas"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 19184,
+      "name": "Atrapamiento",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 0.001,
+          "extras": {},
+          "label": "Atrapamiento: al activarse tus trampas, los objetivos afectados quedan retenidos {v} s sin poder moverse",
+          "scope": {
+            "spells": [
+              "Trampa de inmolación",
+              "Trampa explosiva",
+              "Trampa congelante",
+              "Trampa de Escarcha"
+            ]
+          },
+          "action": "none",
+          "unit": "s"
+        }
+      ]
+    },
+    {
+      "spellId": 1310532,
+      "name": "Exponer presa",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Exponer presa: tus ataques contra enemigos con tu Marca del cazador tienen un {v} % de probabilidad de permitir Mordedura de mangosta (10 s)",
+          "scope": {
+            "spells": [
+              "Mordedura de mangosta"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1310533,
+      "name": "Golpes lacerantes",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Golpes lacerantes: tu Mordedura de mangosta provoca además una hemorragia del {v} % del daño que inflige, durante 21 s",
+          "scope": {
+            "spells": [
+              "Mordedura de mangosta"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1223987,
+      "name": "Recuperación rápida",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 1,
+              "factor": 1
+            }
+          },
+          "label": "Recuperación rápida: al aplicar Aguijón de serpiente, {v} % de tu regeneración de maná continúa mientras lanzas 15 s, o {w} % cuando se consume Matanza rápida",
+          "scope": {
+            "spells": [
+              "Aguijón de serpiente"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

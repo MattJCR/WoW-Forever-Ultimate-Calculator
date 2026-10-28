@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, damageDonePct, dealsDamage, healsTarget, indexClass, rankAtLevel, spellModifiersOf, type Build } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70532");
+const D = join(root, "data", "forever", "1.60.1.70658");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const load = (token: string) => ({ cls: indexClass(ClassTalents.parse(json(`classes/${token}.json`))), abilities: Abilities.parse(json(`abilities/${token}.json`)), rules: TalentRules.parse(json(`rules/${token}.json`)) });
 const only = (cls: ReturnType<typeof indexClass>, name: string): Build => {
