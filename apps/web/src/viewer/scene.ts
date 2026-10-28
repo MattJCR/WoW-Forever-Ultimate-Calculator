@@ -2,7 +2,7 @@
 // texturas compuestas) y deja girar el modelo con el ratón. Se carga solo en el paso Equipo.
 import {
   AmbientLight, AnimationClip, AnimationMixer, Box3, CanvasTexture, Color, DirectionalLight, DoubleSide, LinearFilter, Mesh, MeshBasicMaterial, MeshStandardMaterial,
-  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Clock, Object3D, HemisphereLight, Group, NoColorSpace, Euler, Matrix4, Quaternion, CustomBlending, OneFactor, SrcAlphaFactor, ZeroFactor,
+  PerspectiveCamera, SRGBColorSpace, Scene, Texture, TextureLoader, Vector2, Vector3, WebGLRenderer, Timer, Object3D, HemisphereLight, Group, NoColorSpace, Euler, Matrix4, Quaternion, CustomBlending, OneFactor, SrcAlphaFactor, ZeroFactor,
 } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
@@ -67,7 +67,7 @@ export class CharacterView {
   private scene = new Scene();
   private camera: PerspectiveCamera;
   private controls: OrbitControls;
-  private clock = new Clock();
+  private timer = new Timer();
   private mixer: AnimationMixer | null = null;
   private root: Object3D | null = null;
   private meshes = new Map<number, Mesh[]>();
@@ -107,7 +107,8 @@ export class CharacterView {
     const loop = () => {
       if (this.disposed) return;
       this.raf = requestAnimationFrame(loop);
-      const dt = this.clock.getDelta();
+      this.timer.update();
+      const dt = this.timer.getDelta();
       if (!this.paused) this.mixer?.update(dt);
       this.controls.update();
       if (!this.touched && this.attached.length && ++this.reachTick % 15 === 0) this.measureReach(true);

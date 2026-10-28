@@ -1,19 +1,21 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { Enchants, EquipRules, Items, WeaponEnhancements } from "@wfuc/schema";
+import { Enchants, EquipRules, Items, RandomSuffixes, WeaponEnhancements } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import {
   GEAR_SLOTS,
   autoAttacks,
   canEquip,
   decodeGear,
+  enchantOptions,
   encodeGear,
   enhancementFits,
   enhancementOptions,
   indexGearData,
   powerContext,
   randomGear,
+  suffixOptions,
   summarizeGear,
   type GearContext,
   type GearSelection,
@@ -174,5 +176,50 @@ describe.skipIf(!has)("equipo aleatorio", () => {
   it("con la misma semilla sale el mismo equipo y con otra, otro", () => {
     expect(randomGear(data, ctx(WARRIOR), seeded(1))).toEqual(randomGear(data, ctx(WARRIOR), seeded(1)));
     expect(randomGear(data, ctx(WARRIOR), seeded(1))).not.toEqual(randomGear(data, ctx(WARRIOR), seeded(2)));
+  });
+});
+
+describe.skipIf(!has || !existsSync(join(D, "enchants.json")) || !existsSync(join(D, "random-suffixes.json")))("equipo aleatorio con encantamientos y sufijos", () => {
+  const data = indexGearData({
+    items: Items.parse(json("items.json")),
+    rules: EquipRules.parse(json("equip-rules.json")),
+    enchants: Enchants.parse(json("enchants.json")),
+    suffixes: RandomSuffixes.parse(json("random-suffixes.json")),
+  });
+  const seeded = (seed: number) => () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+  const classes = [1, 2, 3, 4, 5, 7, 8, 9, 11];
+
+  it("cada encantamiento cabe en la ranura de su pieza y cada sufijo es de los que admite su objeto", () => {
+    let enchanted = 0, suffixed = 0;
+    for (const classId of classes) {
+      const gear = randomGear(data, ctx(classId), seeded(classId * 104729));
+      for (const [slot, w] of Object.entries(gear)) {
+        const item = data.items.get(w!.itemId)!;
+        if (w!.enchantId) {
+          enchanted++;
+          expect(enchantOptions(data, slot as (typeof GEAR_SLOTS)[number], item).map((e) => e.effectId), `${item.name} en ${slot}`).toContain(w!.enchantId);
+        }
+        if (w!.suffixId) {
+          suffixed++;
+          expect(suffixOptions(item, data), `${item.name}`).toContain(w!.suffixId);
+        } else {
+          // Un objeto que admite sufijo siempre lo lleva
+          expect(suffixOptions(item, data), `${item.name} sin sufijo`).toEqual([]);
+        }
+      }
+    }
+    // Entre las 9 clases sale de las dos cosas (si no, el reparto no hace nada)
+    expect(enchanted).toBeGreaterThan(0);
+    expect(suffixed).toBeGreaterThan(0);
+  });
+
+  it("sigue siendo reproducible con la misma semilla y respeta lo que el personaje puede llevar", () => {
+    expect(randomGear(data, ctx(MAGE), seeded(5))).toEqual(randomGear(data, ctx(MAGE), seeded(5)));
+    const gear = randomGear(data, ctx(MAGE), seeded(5));
+    for (const [slot, w] of Object.entries(gear)) {
+      const item = data.items.get(w!.itemId)!;
+      const others = Object.fromEntries(Object.entries(gear).filter(([s]) => s !== slot)) as GearSelection;
+      expect(canEquip(item, slot as (typeof GEAR_SLOTS)[number], ctx(MAGE), data, others).ok, item.name).toBe(true);
+    }
   });
 });

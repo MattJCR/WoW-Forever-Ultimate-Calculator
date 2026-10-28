@@ -1,4 +1,4 @@
-import { canEquip, equipItem, slotsForItem, type GearContext, type GearData, type GearSelection, type GearSlot } from "./gear.js";
+import { canEquip, enchantOptions, equipItem, slotsForItem, suffixOptions, type GearContext, type GearData, type GearSelection, type GearSlot } from "./gear.js";
 import type { Item } from "@wfuc/schema";
 
 /** Ranuras que se rellenan, las armas primero (una de dos manos deja libre la mano izquierda). Camisa y tabardo son cosméticos y se dejan vacíos. */
@@ -6,6 +6,9 @@ const SLOTS: GearSlot[] = ["mainHand", "head", "shoulder", "back", "chest", "wri
 
 /** Objetos de prueba o internos del cliente que no tienen sentido en un equipo aleatorio. */
 const JUNK = /\[DNT\]|DNT\)|Placeholder|^Deprecated|^\d+ (Epic|Green|Blue|Rare|Common)\b/i;
+
+/** Probabilidad de que una pieza con encantamientos posibles lleve uno. */
+const ENCHANT_CHANCE = 0.6;
 
 const pools = new WeakMap<GearData, Map<GearSlot, Item[]>>();
 
@@ -23,7 +26,8 @@ function poolOf(data: GearData, slot: GearSlot): Item[] {
 
 /**
  * Equipo aleatorio que el personaje puede llevar: para cada ranura prueba objetos al azar hasta dar con uno que `canEquip` acepta (clase, nivel,
- * competencias, manos, objetos únicos). Una ranura sin ningún objeto posible se queda vacía. Sin encantamientos, sufijos ni mejoras.
+ * competencias, manos, objetos únicos). Una ranura sin ningún objeto posible se queda vacía. Un objeto que admite sufijo aleatorio lleva
+ * uno y, a veces, la pieza lleva un encantamiento de los que caben en su ranura. Sin mejoras temporales de arma.
  */
 export function randomGear(data: GearData, ctx: GearContext, rng: () => number = Math.random, tries = 80): GearSelection {
   let gear: GearSelection = {};
@@ -33,7 +37,11 @@ export function randomGear(data: GearData, ctx: GearContext, rng: () => number =
     for (let n = 0; n < tries; n++) {
       const item = pool[Math.floor(rng() * pool.length)]!;
       if (item.requiredLevel > ctx.level || !canEquip(item, slot, ctx, data, gear).ok) continue;
-      gear = equipItem(gear, slot, item, data.items);
+      const suffixes = suffixOptions(item, data);
+      const enchants = enchantOptions(data, slot, item);
+      const suffixId = suffixes.length ? suffixes[Math.floor(rng() * suffixes.length)]! : null;
+      const enchantId = enchants.length && rng() < ENCHANT_CHANCE ? enchants[Math.floor(rng() * enchants.length)]!.effectId : null;
+      gear = equipItem(gear, slot, item, data.items, { enchantId, suffixId });
       break;
     }
   }
