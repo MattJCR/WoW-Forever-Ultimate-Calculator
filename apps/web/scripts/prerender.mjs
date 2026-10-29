@@ -2,6 +2,7 @@
 // Va después de `vite build` y de `vite build --ssr src/entry-server.tsx --outDir dist-ssr`.
 // Cada página lleva su título, descripción, canonical, hreflang, Open Graph, datos estructurados y el contenido en HTML;
 // la web interactiva lo cubre al cargar y lo sustituye (ver src/seo/handoff.ts).
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -18,7 +19,7 @@ const siteUrl = (() => {
 
 const entryFile = ["entry-server.js", "entry-server.mjs"].map((f) => join(ssrDir, f)).find(existsSync);
 if (!entryFile) throw new Error("Falta dist-ssr/entry-server.js: ejecuta `vite build --ssr src/entry-server.tsx --outDir dist-ssr` antes.");
-const { renderPage, allPages, isIndexable, LANGS, alternates } = await import(pathToFileURL(entryFile).href);
+const { renderPage, allPages, isIndexable, LANGS, alternates, pagePath } = await import(pathToFileURL(entryFile).href);
 
 const template = readFileSync(join(dist, "index.html"), "utf8");
 if (!template.includes("<!--seo-head-->") || !template.includes("<!--seo-body-->")) throw new Error("dist/index.html no conserva los marcadores <!--seo-head--> y <!--seo-body-->");
@@ -44,12 +45,18 @@ const write = (path, content) => {
   count++;
 };
 
+// Huella del contenido de una página (título, etiquetas del <head> y cuerpo, sin la dirección ni la ruta base del sitio): sirve
+// para saber cuándo cambió de verdad. No incluye la plantilla (los ficheros de Vite cambian de nombre en cada build).
+const basePath = siteUrl ? new URL(siteUrl).pathname.replace(/\/+$/, "") : "";
+const neutral = (text) => (siteUrl ? text.split(siteUrl).join("").split(`"${basePath}/`).join('"/') : text);
+const contentHash = (out) => createHash("sha256").update([out.title, neutral(out.head), neutral(out.body)].join("\n")).digest("hex").slice(0, 12);
+
 const indexable = [];
 for (const page of allPages(index)) {
   for (const lang of LANGS) {
     const out = await renderPage(env, page, lang);
     write(out.path, html(out, lang));
-    if (isIndexable(page)) indexable.push({ page, lang, path: out.path });
+    if (isIndexable(page)) indexable.push({ page, lang, path: out.path, hash: contentHash(out) });
   }
 }
 // Páginas que existen pero no se indexan (la web interactiva las pinta sin contenido propio)
@@ -59,8 +66,8 @@ for (const lang of LANGS) {
 }
 write("/embed", html(await renderPage(env, { kind: "embed" }, "en"), "en"));
 
-// La raíz (`/`): entrada sin idioma. Los buscadores la ven como la portada inglesa (canonical a /en); la web redirige a /es o /en según el navegador.
-const root = await renderPage(env, { kind: "home" }, "en", { canonicalPath: "/en" });
+// La raíz (`/`): entrada sin idioma. Los buscadores la ven como la portada inglesa (canonical a /en/); la web redirige a /es o /en según el navegador.
+const root = await renderPage(env, { kind: "home" }, "en", { canonicalPath: pagePath({ kind: "home" }, "en", index) });
 rmSync(join(dist, "index.html"), { force: true });
 write("/", html(root, "en"));
 
@@ -68,15 +75,30 @@ write("/", html(root, "en"));
 const notFound = await renderPage(env, { kind: "not-found" }, "en");
 writeFileSync(join(dist, "404.html"), html(notFound, "en"));
 
+// Fecha de última modificación de cada página: la del día en que cambió su contenido. `seo-lastmod.json` (en git) guarda la
+// huella y la fecha de cada una; al construir en local se actualiza (hay que subirlo con el resto), en el servidor solo se lee
+// y la fecha de una página que difiera de lo guardado es la de hoy. Sin `SITE_URL` no se guarda (las huellas no valdrían).
+const lastmodFile = join(web, "seo-lastmod.json");
+const today = process.env.SEO_TODAY || new Date().toISOString().slice(0, 10);
+const saved = existsSync(lastmodFile) ? JSON.parse(readFileSync(lastmodFile, "utf8")) : {};
+const lastmods = {};
+for (const { path, hash } of indexable) {
+  const [oldHash, oldDate] = (saved[path] ?? "").split(" ");
+  lastmods[path] = `${hash} ${oldHash === hash ? oldDate : today}`;
+}
+if (siteUrl && !process.env.CI) {
+  const lines = Object.entries(lastmods).sort(([x], [y]) => (x < y ? -1 : 1)).map(([k, v]) => `${JSON.stringify(k)}:${JSON.stringify(v)}`);
+  writeFileSync(lastmodFile, `{\n${lines.join(",\n")}\n}\n`);
+}
+
 // Sitemap con las dos versiones de cada página y sus alternativas de idioma
 if (siteUrl) {
-  const lastmod = (manifest.generatedAt ?? "").slice(0, 10);
   const urls = indexable
-    .map(({ page, lang, path }) => {
+    .map(({ page, path }) => {
       const alts = alternates(page, index);
       const links = LANGS.filter((l) => alts[l]).map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${siteUrl}${alts[l]}"/>`);
       if (alts.en) links.push(`<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${alts.en}"/>`);
-      return `  <url><loc>${siteUrl}${path}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}${links.join("")}</url>`;
+      return `  <url><loc>${siteUrl}${path}</loc><lastmod>${lastmods[path].split(" ")[1]}</lastmod>${links.join("")}</url>`;
     })
     .join("\n");
   writeFileSync(join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`);

@@ -8,7 +8,7 @@ import { Icon } from "../components/Icon";
 import { CLASS_COLORS, getJson, loadAbilities, loadClass, loadLegacy, loadRaces, STATIC_RACE_ICONS } from "../data";
 import { abilityName, classLabel, currentLang, fmtNum, legacyTreeName, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr, trn } from "../i18n";
 import { getSeoIndex, href } from "../router";
-import { breadcrumbs, clip, plain, type PageMeta } from "./meta";
+import { breadcrumbs, clip, plain, sentences, type PageMeta } from "./meta";
 import { BaseStats as BaseStatsSchema } from "@wfuc/schema";
 import { CALC_VIEWS, pagePath, type CalcView, type GuideTopic, type Page } from "./routes";
 import { calcMeta, classMeta } from "./siteMeta";
@@ -67,9 +67,9 @@ const tokenOf = (data: RefData): string => classTokenOf(data.manifest.classes.fi
 const classNameOf = (manifest: Manifest, token: string): string => classLabel(token, manifest.classes.find((c) => classTokenOf(c.file) === token)?.className ?? token);
 
 /** Descripción de un rango: el inglés del juego con English elegido (si lo hay) y, si no, el texto del cliente. */
-function rankText(r: AbilityRank): string {
+function rankText(r: AbilityRank, asSentences = false): string {
   const en = currentLang() === "en" ? spellEn(r.spellId)?.description : undefined;
-  return plain(en || r.description || "");
+  return (asSentences ? sentences : plain)(en || r.description || "");
 }
 
 const costText = (r: AbilityRank): string => {
@@ -80,7 +80,7 @@ const castText = (r: AbilityRank): string => (r.channeled ? tr("Canalizado") : r
 const rangeText = (r: AbilityRank): string => (r.rangeYd === null ? "—" : r.rangeYd >= 1000 ? tr("Sin límite") : `${fmt(r.rangeYd)} m`);
 
 const talentLabel = (t: Talent): string => talentName(t.nodeId, t.name ?? "");
-const talentRankText = (t: Talent, i: number): string => plain(talentText(t.nodeId, i, t.descriptions[i] ?? "").text);
+const talentRankText = (t: Talent, i: number, asSentences = false): string => (asSentences ? sentences : plain)(talentText(t.nodeId, i, t.descriptions[i] ?? "").text);
 
 /** Talentos de la clase cuyo texto nombra una habilidad (para enlazar una con otras). */
 function talentsMentioning(cls: ClassTalents, name: string, esName: string): Talent[] {
@@ -135,7 +135,7 @@ export function refMeta(page: Page, data: RefData): PageMeta {
       const specName = spec ? specLabel(token, spec.index, spec.name ?? "") : "";
       return {
         title: tr("{talento}: talento de {clase} ({arbol}) | WoW Forever", { talento: name, clase: cname, arbol: specName }),
-        description: clip(`${tr("{talento}, talento de {clase} ({arbol}, hasta rango {n}):", { talento: name, clase: cname, arbol: specName, n: t?.maxRank ?? 1 })} ${t ? talentRankText(t, t.maxRank - 1) : ""}`),
+        description: clip(`${tr("{talento}, talento de {clase} ({arbol}, hasta rango {n}):", { talento: name, clase: cname, arbol: specName, n: t?.maxRank ?? 1 })} ${t ? talentRankText(t, t.maxRank - 1, true) : ""}`),
         type: "article",
         jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Talentos"), path: path({ kind: "class-talents", cls: token }) }, { name, path: path(page) }])],
       };
@@ -152,9 +152,12 @@ export function refMeta(page: Page, data: RefData): PageMeta {
       const a = data.abilities?.abilities.find((x) => x.ranks[0]?.spellId === page.id);
       const name = a ? abilityLabel(a) : "";
       const last = a?.ranks[a.ranks.length - 1];
+      const ranks = a?.ranks.length ?? 0;
+      const vars = { habilidad: name, clase: cname, n: ranks, nivel: a?.ranks[0]?.level ?? 1 };
+      const lead = ranks > 1 ? tr("{habilidad}, habilidad de {clase} (nivel {nivel}, {n} rangos):", vars) : tr("{habilidad}, habilidad de {clase} (nivel {nivel}):", vars);
       return {
         title: tr("{habilidad}: habilidad de {clase} | WoW Forever", { habilidad: name, clase: cname }),
-        description: clip(`${tr("{habilidad}, habilidad de {clase} (nivel {nivel}, {n} rangos):", { habilidad: name, clase: cname, n: a?.ranks.length ?? 0, nivel: a?.ranks[0]?.level ?? 1 })} ${last ? rankText(last) : ""}`),
+        description: clip(`${lead} ${last ? rankText(last, true) : ""}`),
         type: "article",
         jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Habilidades"), path: path({ kind: "class-abilities", cls: token }) }, { name, path: path(page) }])],
       };

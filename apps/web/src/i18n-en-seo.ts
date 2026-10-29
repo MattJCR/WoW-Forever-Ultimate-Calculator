@@ -16,6 +16,7 @@ export const SEO: Record<string, string> = {
   "Las {n} habilidades de {clase} con todos sus rangos: nivel, coste, tiempo de lanzamiento, alcance y descripción. Datos del cliente de la beta de WoW Forever.": "All {n} {clase} abilities with every rank: level, cost, cast time, range and description. Data from the WoW Forever beta client.",
   "{habilidad}: habilidad de {clase} | WoW Forever": "{habilidad}: {clase} Ability | WoW Forever",
   "{habilidad}, habilidad de {clase} (nivel {nivel}, {n} rangos):": "{habilidad}, {clase} ability (level {nivel}, {n} ranks):",
+  "{habilidad}, habilidad de {clase} (nivel {nivel}):": "{habilidad}, {clase} ability (level {nivel}):",
   "Razas de WoW Forever: raciales y clases disponibles": "WoW Forever Races: Racial Abilities and Available Classes",
   "Las {n} razas jugables de WoW Forever con sus habilidades raciales y las clases que puede elegir cada una. Datos del cliente de la beta.": "The {n} playable races of WoW Forever with their racial abilities and the classes each one can be. Data from the beta client.",
   "{raza} en WoW Forever: raciales y clases | WoW Forever": "{raza} in WoW Forever: Racials and Classes | WoW Forever",

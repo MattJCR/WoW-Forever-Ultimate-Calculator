@@ -11,6 +11,8 @@ export interface PageMeta {
   noindex?: boolean;
   /** Tipo Open Graph. */
   type?: "website" | "article";
+  /** Imagen para compartir (ruta de `public/`); por defecto la de las páginas de una clase o la general. */
+  image?: string;
   /** Datos estructurados (JSON-LD). */
   jsonLd?: object[];
 }
@@ -31,12 +33,33 @@ export const SITE_NAME = "WoW Forever Ultimate Calculator";
 const OG_IMAGE = "/og-image.png";
 const LOCALE: Record<Lang, string> = { es: "es_ES", en: "en_US" };
 
-/** Recorta un texto a `max` caracteres sin partir palabras. */
+/**
+ * Recorta un texto a `max` caracteres sin partir frases: entran las frases completas que caben. Si ni la primera cabe, se
+ * corta en la última coma o punto y coma (o, en su defecto, en una palabra) y se añade «…».
+ */
 export function clip(text: string, max = 155): string {
   const flat = text.replace(/\s+/g, " ").trim();
   if (flat.length <= max) return flat;
+  const sentences = flat.split(/(?<=[.!?])\s+(?=[\p{Lu}\d"'«¿¡(])/u);
+  let out = "";
+  for (const s of sentences) {
+    const next = out ? `${out} ${s}` : s;
+    if (next.length > max) break;
+    out = next;
+  }
+  if (out.length >= MIN_CLIP) return out;
   const cut = flat.slice(0, max - 1);
-  return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), max - 30)).replace(/[\s,;:.–-]+$/, "")}…`;
+  const clause = Math.max(cut.lastIndexOf(", "), cut.lastIndexOf("; "));
+  const at = clause >= MIN_CLIP ? clause : Math.max(cut.lastIndexOf(" "), max - 30);
+  return `${cut.slice(0, at).replace(/[\s,;:.–-]+$/, "")}…`;
+}
+
+/** Una descripción más corta que esto se completa con otra frase o se corta en una coma en vez de quedarse corta. */
+const MIN_CLIP = 70;
+
+/** Texto del juego como frases sueltas: cada línea acaba en punto (el cliente separa «Requiere…» del efecto con un salto de línea). */
+export function sentences(text: string): string {
+  return plain(text.replace(/([^.!?:;,\s])[ \t]*\r?\n+/g, "$1. "));
 }
 
 /** Quita las marcas de color y de formato del texto del juego ($, |c…|r, saltos de línea). */
@@ -45,6 +68,9 @@ export function plain(text: string): string {
 }
 
 const abs = (path: string): string => `${siteUrl()}${path}`;
+
+/** Imagen al compartir: las páginas de una clase llevan la de su clase (`scripts/make-og-image.mjs`), el resto la general. */
+const shareImage = (page: Page, lang: Lang | null): string => ("cls" in page && lang ? `/og/${lang}/${page.cls}.png` : OG_IMAGE);
 
 /** Etiquetas del <head> de una página. `canonicalPath` es la ruta de esta página; `page` sirve para enlazar la misma en el otro idioma. */
 export function headTags(meta: PageMeta, page: Page, lang: Lang | null, index: SeoIndex, canonicalPath: string | null): HeadTag[] {
@@ -67,13 +93,14 @@ export function headTags(meta: PageMeta, page: Page, lang: Lang | null, index: S
     meta_("property", "og:locale", LOCALE[lang]);
     meta_("property", "og:locale:alternate", LOCALE[lang === "es" ? "en" : "es"]);
   }
-  meta_("property", "og:image", abs(OG_IMAGE));
+  const image = abs(meta.image ?? shareImage(page, lang));
+  meta_("property", "og:image", image);
   meta_("property", "og:image:width", "1200");
   meta_("property", "og:image:height", "630");
   meta_("name", "twitter:card", "summary_large_image");
   meta_("name", "twitter:title", meta.title);
   meta_("name", "twitter:description", meta.description);
-  meta_("name", "twitter:image", abs(OG_IMAGE));
+  meta_("name", "twitter:image", image);
   for (const ld of meta.jsonLd ?? []) tags.push({ tag: "script", attrs: { type: "application/ld+json" }, text: JSON.stringify(ld) });
   return tags;
 }
