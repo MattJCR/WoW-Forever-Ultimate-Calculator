@@ -156,11 +156,15 @@
   color: var(--gold-2);
 }
 
-/* HTML prerenderizado: cubre la web mientras carga y se retira cuando la página interactiva ya tiene contenido. */
+/* HTML prerenderizado: cubre la web mientras carga y se retira cuando la página interactiva ya tiene contenido. Sin fondo propio: se ve el del cuerpo y el emblema. */
 #prerender {
   position: fixed;
   inset: 0;
   z-index: 50;
   overflow: auto;
-  background: var(--bg);
+}
+/* Mientras el HTML prerenderizado la cubre, la web interactiva no se ve: se va pintando por debajo (datos que llegan, pie que baja) y,
+   si fuera visible aunque tapada, esos saltos contarían como desplazamientos de diseño (CLS). */
+#prerender ~ #root {
+  visibility: hidden;
 }

@@ -148,6 +148,31 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
         </ul>
       </section>
 
+      <section id="consulta" className="home-section wrap">
+        <header className="section-head">
+          <p className="eyebrow">{tr("Consulta")}</p>
+          <h2>{tr("Talentos, habilidades y guías")}</h2>
+          <p>{tr("Todo lo que el cliente de la beta trae de cada clase, página a página y sin calculadora, para leerlo y compartirlo.")}</p>
+        </header>
+        <ul className="ref-links ref-rows">
+          {manifest.classes.map((c) => {
+            const token = classToken(c.file);
+            return (
+              <li key={c.classId}>
+                <b>
+                  <a href={href({ kind: "class", cls: token })}>{classLabel(token, c.className ?? "")}</a>
+                </b>
+                : <a href={href({ kind: "class-talents", cls: token })}>{tr("Talentos")}</a> · <a href={href({ kind: "class-abilities", cls: token })}>{tr("Habilidades")}</a>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="ref-links home-guides">
+          <a href={href({ kind: "races" })}>{tr("Razas de WoW Forever")}</a> · <a href={href({ kind: "guide", topic: "legacy" })}>{tr("Puntos de Legado")}</a> ·{" "}
+          <a href={href({ kind: "guide", topic: "fitting-room" })}>{tr("Probador 3D")}</a> · <a href={href({ kind: "guide", topic: "buffs" })}>{tr("Beneficios y consumibles")}</a>
+        </p>
+      </section>
+
       <section id="pasos" className="band">
         <div className="wrap home-section">
           <header className="section-head">

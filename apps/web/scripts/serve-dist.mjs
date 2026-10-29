@@ -2,6 +2,7 @@
 // redirige a la de barra y lo desconocido responde 404 con 404.html.
 // Uso: node scripts/serve-dist.mjs [puerto] [ruta base]   (la ruta base, p. ej. /repositorio, debe ser la de SITE_URL al compilar)
 import { createServer } from "node:http";
+import { gzipSync } from "node:zlib";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,9 +20,17 @@ createServer((req, res) => {
   if (base && !(path === base || path.startsWith(`${base}/`))) path = `/__fuera__${path}`;
   else path = path.slice(base.length) || "/";
   const target = join(dist, normalize(path));
+  // Como GitHub Pages: el texto (html, js, css, json, xml) viaja comprimido con gzip
   const send = (f, status) => {
-    res.writeHead(status, { "Content-Type": TYPES[extname(f)] ?? "application/octet-stream" });
-    res.end(readFileSync(f));
+    const type = TYPES[extname(f)] ?? "application/octet-stream";
+    let body = readFileSync(f);
+    const headers = { "Content-Type": type };
+    if (/^(text\/|application\/(json|xml))/.test(type) && /gzip/.test(req.headers["accept-encoding"] ?? "")) {
+      body = gzipSync(body);
+      headers["Content-Encoding"] = "gzip";
+    }
+    res.writeHead(status, headers);
+    res.end(body);
   };
   if (target.startsWith(dist) && isFile(target)) return send(target, 200);
   const dir = join(target, "index.html");

@@ -2,8 +2,9 @@
 import type { Manifest } from "@wfuc/schema";
 import { classLabel, currentLang, specLabel, tr } from "../i18n";
 import { getSeoIndex } from "../router";
-import { breadcrumbs, clip, siteUrl, SITE_NAME, type PageMeta } from "./meta";
-import { isIndexable, pagePath, type CalcView, type Page } from "./routes";
+import { VIEWS } from "../components/ClassShell";
+import { clip, SITE_NAME, withLd, type PageMeta } from "./meta";
+import { CALC_VIEWS, isIndexable, pagePath, type CalcView, type Page } from "./routes";
 
 const classEntry = (manifest: Manifest, token: string) => manifest.classes.find((c) => c.file === `classes/${token}.json`);
 
@@ -14,38 +15,32 @@ const path = (page: Page): string => {
 
 export function homeMeta(manifest: Manifest): PageMeta {
   const lang = currentLang();
-  const title = tr("Calculadora de talentos de WoW Forever: clases, razas y equipo");
-  const description = clip(tr("Planifica tu personaje de WoW Forever: talentos de las {n} clases, razas, Puntos de Legado, equipo con probador 3D y el daño de cada habilidad. Datos reales del cliente de la beta.", { n: manifest.classes.length }));
-  return {
-    title,
-    description,
-    jsonLd: [
-      { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: `${siteUrl()}${path({ kind: "home" })}`, inLanguage: lang },
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        name: SITE_NAME,
-        url: `${siteUrl()}${path({ kind: "home" })}`,
-        applicationCategory: "GameApplication",
-        operatingSystem: "Any",
-        inLanguage: lang,
-        description,
-        offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
-      },
-    ],
+  const here = path({ kind: "home" });
+  const meta: PageMeta = {
+    title: tr("Calculadora de talentos de WoW Forever: clases, razas y equipo"),
+    description: clip(tr("Planifica tu personaje de WoW Forever: talentos de las {n} clases, razas, Puntos de Legado, equipo con probador 3D y el daño de cada habilidad. Datos reales del cliente de la beta.", { n: manifest.classes.length })),
   };
+  return withLd(meta, lang, here, { crumbs: [], app: { name: SITE_NAME, description: meta.description } });
 }
+
+const stepLabel = (view: CalcView): string => tr(VIEWS.find((v) => v.id === view)?.label ?? view);
 
 /** Página de la clase: la entrada a los pasos de la calculadora. */
 export function classMeta(manifest: Manifest, token: string): PageMeta {
   const entry = classEntry(manifest, token);
   const name = classLabel(token, entry?.className ?? token);
   const specs = (entry?.specNames ?? []).map((s, i) => specLabel(token, i, s)).join(", ");
-  return {
+  const here = path({ kind: "class", cls: token });
+  const meta: PageMeta = {
     title: tr("{clase} en WoW Forever: talentos, razas, equipo y habilidades", { clase: name }),
     description: clip(tr("Todo para planificar tu {clase} de WoW Forever: árboles de talentos ({specs}), razas, Puntos de Legado, equipo con probador 3D y el daño de cada habilidad.", { clase: name, specs })),
-    jsonLd: [breadcrumbs([{ name: "WoW Forever", path: path({ kind: "home" }) }, { name, path: path({ kind: "class", cls: token }) }])],
   };
+  return withLd(meta, currentLang(), here, {
+    kind: "CollectionPage",
+    crumbs: [{ name: "WoW Forever", path: path({ kind: "home" }) }, { name, path: here }],
+    about: { name: tr("{clase} en WoW Forever", { clase: name }), description: specs },
+    items: CALC_VIEWS.map((view) => ({ name: stepLabel(view), path: path({ kind: "calc", cls: token, view }) })),
+  });
 }
 
 /** Un paso de la calculadora de una clase (cada uno tiene su dirección). */
@@ -56,12 +51,11 @@ export function calcMeta(manifest: Manifest, token: string, view: CalcView): Pag
   const noindex = !isIndexable({ kind: "calc", cls: token, view });
   const crumbs = [{ name: "WoW Forever", path: path({ kind: "home" }) }, { name, path: path({ kind: "class", cls: token }) }];
   const here = path({ kind: "calc", cls: token, view });
-  const step = (title: string, description: string, label: string): PageMeta => ({
-    title,
-    description: clip(description),
-    noindex,
-    jsonLd: [breadcrumbs([...crumbs, { name: label, path: here }])],
-  });
+  const step = (title: string, description: string, label: string): PageMeta =>
+    withLd({ title, description: clip(description), noindex }, currentLang(), here, {
+      crumbs: [...crumbs, { name: label, path: here }],
+      app: { name: title, description: clip(description) },
+    });
   switch (view) {
     case "race":
       return step(tr("Razas de {clase} en WoW Forever: raciales y estadísticas", { clase: name }), tr("Qué razas pueden ser {clase} en WoW Forever, con sus habilidades raciales, y cómo cambian tus estadísticas según la que elijas.", { clase: name }), tr("Raza"));

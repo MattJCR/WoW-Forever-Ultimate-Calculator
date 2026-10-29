@@ -105,14 +105,86 @@ export function headTags(meta: PageMeta, page: Page, lang: Lang | null, index: S
   return tags;
 }
 
-/** Migas de pan (BreadcrumbList) a partir de pares nombre/ruta. */
-export function breadcrumbs(items: { name: string; path: string }[]): object {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: abs(it.path) })),
-  };
+export interface LdLink {
+  name: string;
+  path: string;
 }
+
+/** Qué datos estructurados lleva una página. */
+export interface LdSpec {
+  /** Tipo de página: `CollectionPage` para listas, `ItemPage` para la de una sola cosa (talento, habilidad, raza). */
+  kind?: "WebPage" | "CollectionPage" | "ItemPage";
+  /** Migas de pan de la portada a esta página (la última es la propia página). Vacío en la portada. */
+  crumbs: LdLink[];
+  /** De qué trata la página, cuando es una sola cosa (talento, habilidad, raza, clase). */
+  about?: { name: string; description?: string };
+  /** Lista que presenta la página (los talentos, las habilidades…). */
+  items?: LdLink[];
+  /** La página es la entrada a una herramienta: se declara como aplicación web gratuita. */
+  app?: { name: string; description: string };
+}
+
+const absId = (path: string, fragment: string): string => `${abs(path)}#${fragment}`;
+
+/**
+ * Datos estructurados de una página (JSON-LD, un solo `@graph`): el sitio, la página con su tipo, las migas de pan y, según la
+ * página, la lista que presenta y la aplicación web. Solo datos que la página muestra de verdad: sin valoraciones, preguntas
+ * frecuentes ni autores inventados.
+ */
+export function pageLd(meta: Pick<PageMeta, "title" | "description">, lang: Lang | null, here: string, spec: LdSpec): object {
+  const home = spec.crumbs[0]?.path ?? here;
+  const site = { "@id": absId(home, "website") };
+  const page = { "@id": absId(here, "webpage") };
+  const nodes: object[] = [{ "@type": "WebSite", ...site, name: SITE_NAME, url: abs(home), ...(lang ? { inLanguage: lang } : {}) }];
+  const main: Record<string, unknown> = {};
+  if (spec.app) {
+    const id = { "@id": absId(here, "app") };
+    nodes.push({
+      "@type": "WebApplication",
+      ...id,
+      name: spec.app.name,
+      description: spec.app.description,
+      url: abs(here),
+      applicationCategory: "GameApplication",
+      operatingSystem: "Any",
+      browserRequirements: "Requires JavaScript",
+      isAccessibleForFree: true,
+      offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+      ...(lang ? { inLanguage: lang } : {}),
+    });
+    main.mainEntity = id;
+  } else if (spec.items?.length) {
+    main.mainEntity = {
+      "@type": "ItemList",
+      numberOfItems: spec.items.length,
+      itemListElement: spec.items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, url: abs(it.path) })),
+    };
+  }
+  if (spec.about) main.about = { "@type": "Thing", name: spec.about.name, ...(spec.about.description ? { description: spec.about.description } : {}) };
+  const crumbs = spec.crumbs.length > 1;
+  nodes.push({
+    "@type": spec.kind ?? "WebPage",
+    ...page,
+    url: abs(here),
+    name: meta.title,
+    description: meta.description,
+    ...(lang ? { inLanguage: lang } : {}),
+    isPartOf: site,
+    ...(crumbs ? { breadcrumb: { "@id": absId(here, "breadcrumb") } } : {}),
+    ...main,
+  });
+  if (crumbs) {
+    nodes.push({
+      "@type": "BreadcrumbList",
+      "@id": absId(here, "breadcrumb"),
+      itemListElement: spec.crumbs.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: abs(it.path) })),
+    });
+  }
+  return { "@context": "https://schema.org", "@graph": nodes };
+}
+
+/** `meta` con sus datos estructurados (título y descripción salen del propio `meta`). */
+export const withLd = (meta: PageMeta, lang: Lang | null, here: string, spec: LdSpec): PageMeta => ({ ...meta, jsonLd: [pageLd(meta, lang, here, spec)] });
 
 const escapeText = (s: string): string => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 const escapeAttr = (s: string): string => escapeText(s).replace(/"/g, "&quot;");

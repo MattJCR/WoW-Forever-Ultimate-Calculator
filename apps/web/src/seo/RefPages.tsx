@@ -8,9 +8,9 @@ import { Icon } from "../components/Icon";
 import { CLASS_COLORS, getJson, loadAbilities, loadClass, loadLegacy, loadRaces, STATIC_RACE_ICONS } from "../data";
 import { abilityName, classLabel, currentLang, fmtNum, legacyTreeName, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr, trn } from "../i18n";
 import { getSeoIndex, href } from "../router";
-import { breadcrumbs, clip, plain, sentences, type PageMeta } from "./meta";
+import { clip, plain, sentences, withLd, type LdLink, type PageMeta } from "./meta";
 import { BaseStats as BaseStatsSchema } from "@wfuc/schema";
-import { CALC_VIEWS, pagePath, type CalcView, type GuideTopic, type Page } from "./routes";
+import { CALC_VIEWS, pagePath, type CalcView, type GuideTopic, type Lang, type Page } from "./routes";
 import { calcMeta, classMeta } from "./siteMeta";
 
 /** Datos que necesita cada página de consulta (solo se rellena lo que su tipo pide). */
@@ -109,10 +109,11 @@ export function refMeta(page: Page, data: RefData): PageMeta {
   const index = getSeoIndex();
   const lang = currentLang();
   const path = (p: Page) => (index ? (pagePath(p, lang, index) ?? "") : "");
-  const home = { name: "WoW Forever", path: path({ kind: "home" }) };
+  const home: LdLink = { name: "WoW Forever", path: path({ kind: "home" }) };
   const token = "cls" in page ? page.cls : tokenOf(data);
   const cname = token ? classNameOf(data.manifest, token) : "";
-  const classCrumb = token ? [{ name: cname, path: path({ kind: "class", cls: token }) }] : [];
+  const classCrumb: LdLink[] = token ? [{ name: cname, path: path({ kind: "class", cls: token }) }] : [];
+  const here = path(page);
 
   switch (page.kind) {
     case "class":
@@ -120,33 +121,59 @@ export function refMeta(page: Page, data: RefData): PageMeta {
     case "calc":
       return calcMeta(data.manifest, page.cls, page.view);
     case "class-talents": {
-      const n = data.cls?.specs.reduce((a, s) => a + s.talents.length, 0) ?? 0;
+      const talents = data.cls?.specs.flatMap((s) => s.talents).filter((t) => t.name) ?? [];
       const specs = data.cls?.specs.map((s) => specLabel(token, s.index, s.name ?? "")).join(", ") ?? "";
-      return {
-        title: tr("Talentos de {clase} en WoW Forever: lista completa", { clase: cname }),
-        description: clip(tr("Los {n} talentos de {clase} ({specs}) con la descripción de cada rango, los requisitos y el nivel necesario. Datos del cliente de la beta de WoW Forever.", { n, clase: cname, specs })),
-        jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Talentos"), path: path(page) }])],
-      };
+      const n = data.cls?.specs.reduce((a, s) => a + s.talents.length, 0) ?? 0;
+      return withLd(
+        {
+          title: tr("Talentos de {clase} en WoW Forever: lista completa", { clase: cname }),
+          description: clip(tr("Los {n} talentos de {clase} ({specs}) con la descripción de cada rango, los requisitos y el nivel necesario. Datos del cliente de la beta de WoW Forever.", { n, clase: cname, specs })),
+        },
+        lang,
+        here,
+        {
+          kind: "CollectionPage",
+          crumbs: [home, ...classCrumb, { name: tr("Talentos"), path: here }],
+          items: talents.map((t) => ({ name: talentLabel(t), path: path({ kind: "talent", cls: token, id: t.nodeId }) })),
+        },
+      );
     }
     case "talent": {
       const t = data.cls?.specs.flatMap((s) => s.talents).find((x) => x.nodeId === page.id);
       const spec = data.cls?.specs.find((s) => s.talents.some((x) => x.nodeId === page.id));
       const name = t ? talentLabel(t) : "";
       const specName = spec ? specLabel(token, spec.index, spec.name ?? "") : "";
-      return {
-        title: tr("{talento}: talento de {clase} ({arbol}) | WoW Forever", { talento: name, clase: cname, arbol: specName }),
-        description: clip(`${tr("{talento}, talento de {clase} ({arbol}, hasta rango {n}):", { talento: name, clase: cname, arbol: specName, n: t?.maxRank ?? 1 })} ${t ? talentRankText(t, t.maxRank - 1, true) : ""}`),
-        type: "article",
-        jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Talentos"), path: path({ kind: "class-talents", cls: token }) }, { name, path: path(page) }])],
-      };
+      const text = t ? talentRankText(t, t.maxRank - 1, true) : "";
+      return withLd(
+        {
+          title: tr("{talento}: talento de {clase} ({arbol}) | WoW Forever", { talento: name, clase: cname, arbol: specName }),
+          description: clip(`${tr("{talento}, talento de {clase} ({arbol}, hasta rango {n}):", { talento: name, clase: cname, arbol: specName, n: t?.maxRank ?? 1 })} ${text}`),
+          type: "article",
+        },
+        lang,
+        here,
+        {
+          kind: "ItemPage",
+          crumbs: [home, ...classCrumb, { name: tr("Talentos"), path: path({ kind: "class-talents", cls: token }) }, { name, path: here }],
+          about: { name, description: text },
+        },
+      );
     }
     case "class-abilities": {
-      const n = data.abilities?.abilities.length ?? 0;
-      return {
-        title: tr("Habilidades de {clase} en WoW Forever: rangos, coste y recarga", { clase: cname }),
-        description: clip(tr("Las {n} habilidades de {clase} con todos sus rangos: nivel, coste, tiempo de lanzamiento, alcance y descripción. Datos del cliente de la beta de WoW Forever.", { n, clase: cname })),
-        jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Habilidades"), path: path(page) }])],
-      };
+      const list = data.abilities ? sortedAbilities(data.abilities) : [];
+      return withLd(
+        {
+          title: tr("Habilidades de {clase} en WoW Forever: rangos, coste y recarga", { clase: cname }),
+          description: clip(tr("Las {n} habilidades de {clase} con todos sus rangos: nivel, coste, tiempo de lanzamiento, alcance y descripción. Datos del cliente de la beta de WoW Forever.", { n: list.length, clase: cname })),
+        },
+        lang,
+        here,
+        {
+          kind: "CollectionPage",
+          crumbs: [home, ...classCrumb, { name: tr("Habilidades"), path: here }],
+          items: list.map((a) => ({ name: abilityLabel(a), path: path({ kind: "ability", cls: token, id: a.ranks[0]!.spellId }) })),
+        },
+      );
     }
     case "ability": {
       const a = data.abilities?.abilities.find((x) => x.ranks[0]?.spellId === page.id);
@@ -155,60 +182,87 @@ export function refMeta(page: Page, data: RefData): PageMeta {
       const ranks = a?.ranks.length ?? 0;
       const vars = { habilidad: name, clase: cname, n: ranks, nivel: a?.ranks[0]?.level ?? 1 };
       const lead = ranks > 1 ? tr("{habilidad}, habilidad de {clase} (nivel {nivel}, {n} rangos):", vars) : tr("{habilidad}, habilidad de {clase} (nivel {nivel}):", vars);
-      return {
-        title: tr("{habilidad}: habilidad de {clase} | WoW Forever", { habilidad: name, clase: cname }),
-        description: clip(`${lead} ${last ? rankText(last, true) : ""}`),
-        type: "article",
-        jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Habilidades"), path: path({ kind: "class-abilities", cls: token }) }, { name, path: path(page) }])],
-      };
+      const text = last ? rankText(last, true) : "";
+      return withLd(
+        { title: tr("{habilidad}: habilidad de {clase} | WoW Forever", { habilidad: name, clase: cname }), description: clip(`${lead} ${text}`), type: "article" },
+        lang,
+        here,
+        {
+          kind: "ItemPage",
+          crumbs: [home, ...classCrumb, { name: tr("Habilidades"), path: path({ kind: "class-abilities", cls: token }) }, { name, path: here }],
+          about: { name, description: text },
+        },
+      );
     }
     case "guide":
-      return guideMeta(page.topic, data, home, path(page));
+      return guideMeta(page.topic, data, home, here, lang);
     case "races":
-      return {
-        title: tr("Razas de WoW Forever: raciales y clases disponibles"),
-        description: clip(tr("Las {n} razas jugables de WoW Forever con sus habilidades raciales y las clases que puede elegir cada una. Datos del cliente de la beta.", { n: data.races?.length ?? 0 })),
-        jsonLd: [breadcrumbs([home, { name: tr("Razas"), path: path(page) }])],
-      };
+      return withLd(
+        {
+          title: tr("Razas de WoW Forever: raciales y clases disponibles"),
+          description: clip(tr("Las {n} razas jugables de WoW Forever con sus habilidades raciales y las clases que puede elegir cada una. Datos del cliente de la beta.", { n: data.races?.length ?? 0 })),
+        },
+        lang,
+        here,
+        {
+          kind: "CollectionPage",
+          crumbs: [home, { name: tr("Razas"), path: here }],
+          items: (data.races ?? []).map((r) => ({ name: raceLabel(r.id, r.name), path: path({ kind: "race", id: r.id }) })),
+        },
+      );
     case "race": {
       const r = data.races?.find((x) => x.id === page.id);
       const name = r ? raceLabel(r.id, r.name) : "";
       const racials = r?.racials.map((a, i) => racialEn(r.id, i)?.name ?? a.name).join(", ") ?? "";
-      return {
-        title: tr("{raza} en WoW Forever: raciales y clases | WoW Forever", { raza: name }),
-        description: clip(tr("{raza} ({faccion}): raciales {racials} y clases disponibles. Datos del cliente de la beta de WoW Forever.", { raza: name, faccion: r?.faction === "horde" ? tr("Horda") : tr("Alianza"), racials })),
-        jsonLd: [breadcrumbs([home, { name: tr("Razas"), path: path({ kind: "races" }) }, { name, path: path(page) }])],
-      };
+      return withLd(
+        {
+          title: tr("{raza} en WoW Forever: raciales y clases | WoW Forever", { raza: name }),
+          description: clip(tr("{raza} ({faccion}): raciales {racials} y clases disponibles. Datos del cliente de la beta de WoW Forever.", { raza: name, faccion: r?.faction === "horde" ? tr("Horda") : tr("Alianza"), racials })),
+        },
+        lang,
+        here,
+        {
+          kind: "ItemPage",
+          crumbs: [home, { name: tr("Razas"), path: path({ kind: "races" }) }, { name, path: here }],
+          about: { name, description: racials },
+        },
+      );
     }
     default:
       return { title: "WoW Forever", description: "" };
   }
 }
 
-/** Título, descripción y migas de las guías generales (sin clase). */
-function guideMeta(topic: GuideTopic, data: RefData, home: { name: string; path: string }, here: string): PageMeta {
-  const crumbs = (name: string) => [breadcrumbs([home, { name, path: here }])];
+/** Título, descripción y datos estructurados de las guías generales (sin clase). */
+function guideMeta(topic: GuideTopic, data: RefData, home: LdLink, here: string, lang: Lang): PageMeta {
+  const guide = (meta: PageMeta, name: string): PageMeta => withLd(meta, lang, here, { crumbs: [home, { name, path: here }] });
   switch (topic) {
     case "legacy": {
       const trees = (data.legacy?.specs ?? []).map((s) => legacyTreeName(s.index, s.name ?? "")).join(", ");
-      return {
-        title: tr("Puntos de Legado de WoW Forever: ventajas de cuenta y árboles"),
-        description: clip(tr("Los {max} Puntos de Legado de WoW Forever en {m} árboles ({trees}): cada ventaja con sus rangos y requisitos.", { max: data.legacy?.rules.maxPoints ?? 16, m: data.legacy?.specs.length ?? 3, trees })),
-        jsonLd: crumbs(tr("Puntos de Legado")),
-      };
+      return guide(
+        {
+          title: tr("Puntos de Legado de WoW Forever: ventajas de cuenta y árboles"),
+          description: clip(tr("Los {max} Puntos de Legado de WoW Forever en {m} árboles ({trees}): cada ventaja con sus rangos y requisitos.", { max: data.legacy?.rules.maxPoints ?? 16, m: data.legacy?.specs.length ?? 3, trees })),
+        },
+        tr("Puntos de Legado"),
+      );
     }
     case "fitting-room":
-      return {
-        title: tr("Probador 3D de WoW Forever: prueba tu equipo antes de tenerlo"),
-        description: clip(tr("Prueba en 3D las {n} ranuras de tu personaje de WoW Forever sobre el modelo de tu raza, con encantamientos y bonos de conjunto. Gratis y sin cuenta.", { n: GEAR_SLOTS.length })),
-        jsonLd: crumbs(tr("Probador 3D")),
-      };
+      return guide(
+        {
+          title: tr("Probador 3D de WoW Forever: prueba tu equipo antes de tenerlo"),
+          description: clip(tr("Prueba en 3D las {n} ranuras de tu personaje de WoW Forever sobre el modelo de tu raza, con encantamientos y bonos de conjunto. Gratis y sin cuenta.", { n: GEAR_SLOTS.length })),
+        },
+        tr("Probador 3D"),
+      );
     case "buffs":
-      return {
-        title: tr("Beneficios y consumibles de WoW Forever: elixires, frascos y comida"),
-        description: clip(tr("Los {n} beneficios de WoW Forever con las cifras del cliente: bendiciones, tótems, elixires, frascos, comida, pociones y objetos de campamento.", { n: data.buffs?.length ?? 0 })),
-        jsonLd: crumbs(tr("Beneficios")),
-      };
+      return guide(
+        {
+          title: tr("Beneficios y consumibles de WoW Forever: elixires, frascos y comida"),
+          description: clip(tr("Los {n} beneficios de WoW Forever con las cifras del cliente: bendiciones, tótems, elixires, frascos, comida, pociones y objetos de campamento.", { n: data.buffs?.length ?? 0 })),
+        },
+        tr("Beneficios"),
+      );
   }
 }
 
@@ -253,6 +307,43 @@ function CalculatorLink({ token, label, view = "race" }: { token: string; label:
       {label}
     </a>
   );
+}
+
+/** Bloque «Ver también»: una lista de enlaces bajo un encabezado (`links` ya trae su texto). */
+function SeeAlso({ title, links }: { title: string; links: { key: string | number; to: Page; label: string }[] }) {
+  if (links.length === 0) return null;
+  return (
+    <section className="ref-section">
+      <h2>{title}</h2>
+      <ul className="ref-links">
+        {links.map((l) => (
+          <li key={l.key}>
+            <a href={href(l.to)}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** La misma página (la de la clase, su lista de talentos o la de habilidades) en las demás clases. */
+function OtherClasses({ manifest, token, kind, title, label }: { manifest: Manifest; token: string; kind: "class" | "class-talents" | "class-abilities"; title: string; label: string }) {
+  const links = manifest.classes
+    .map((c) => ({ token: classTokenOf(c.file), name: classLabel(classTokenOf(c.file), c.className ?? "") }))
+    .filter((c) => c.token !== token)
+    .map((c) => ({ key: c.token, to: { kind, cls: c.token } as Page, label: tr(label, { clase: c.name }) }));
+  return <SeeAlso title={title} links={links} />;
+}
+
+/** Enlaces a las guías generales (y a las razas) menos la que se está leyendo. */
+function GuideLinks({ except }: { except?: GuideTopic }) {
+  const guides: { topic: GuideTopic; label: string }[] = [
+    { topic: "legacy", label: "Puntos de Legado" },
+    { topic: "fitting-room", label: "Probador 3D" },
+    { topic: "buffs", label: "Beneficios y consumibles" },
+  ];
+  const links = guides.filter((g) => g.topic !== except).map((g) => ({ key: g.topic, to: { kind: "guide", topic: g.topic } as Page, label: tr(g.label) }));
+  return <SeeAlso title={tr("Guías")} links={[...links, { key: "races", to: { kind: "races" }, label: tr("Razas de WoW Forever") }]} />;
 }
 
 /** «Lista completa de talentos». Un bloque por árbol, ordenado de arriba abajo. */
@@ -300,6 +391,8 @@ export function ClassTalentsView({ data, token }: { data: RefData; token: string
           </section>
         );
       })}
+      <OtherClasses manifest={data.manifest} token={token} kind="class-talents" title={tr("Talentos de otras clases")} label="Talentos de {clase}" />
+      <GuideLinks />
     </div>
   );
 }
@@ -315,6 +408,11 @@ export function TalentView({ data, token, id }: { data: RefData; token: string; 
   const all = cls.specs.flatMap((s) => s.talents);
   const pre = t.prerequisites.map((p) => all.find((x) => x.nodeId === p.nodeId)).filter((x): x is Talent => !!x && !!x.name);
   const siblings = spec.talents.filter((x) => x.name && x.nodeId !== id && x.row === t.row);
+  const dependents = all.filter((x) => x.name && x.prerequisites.some((p) => p.nodeId === id));
+  // El anterior y el siguiente del árbol, en el orden de la rejilla (de arriba abajo, de izquierda a derecha)
+  const ordered = spec.talents.filter((x) => x.name).sort((a, b) => a.row - b.row || a.col - b.col);
+  const at = ordered.findIndex((x) => x.nodeId === id);
+  const neighbours = [ordered[at - 1], ordered[at + 1]].filter((x): x is Talent => !!x);
   const mentioned = data.abilities ? abilitiesMentionedBy(data.abilities, t) : [];
   return (
     <div className="ref wrap">
@@ -354,18 +452,12 @@ export function TalentView({ data, token, id }: { data: RefData; token: string; 
           </ul>
         </section>
       )}
-      {siblings.length > 0 && (
-        <section className="ref-section">
-          <h2>{tr("Otros talentos de la misma fila")}</h2>
-          <ul className="ref-links">
-            {siblings.map((s) => (
-              <li key={s.nodeId}>
-                <a href={href({ kind: "talent", cls: token, id: s.nodeId })}>{talentLabel(s)}</a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <SeeAlso title={tr("Lo necesitan")} links={dependents.map((d) => ({ key: d.nodeId, to: { kind: "talent", cls: token, id: d.nodeId }, label: talentLabel(d) }))} />
+      <SeeAlso title={tr("Otros talentos de la misma fila")} links={siblings.map((s) => ({ key: s.nodeId, to: { kind: "talent", cls: token, id: s.nodeId }, label: talentLabel(s) }))} />
+      <SeeAlso
+        title={tr("Más del árbol {arbol}", { arbol: specName })}
+        links={neighbours.filter((n) => !siblings.includes(n) && !dependents.includes(n) && !pre.includes(n)).map((n) => ({ key: n.nodeId, to: { kind: "talent", cls: token, id: n.nodeId }, label: talentLabel(n) }))}
+      />
       <p className="ref-actions">
         <CalculatorLink token={token} view="talents" label={tr("Probarlo en la calculadora")} />
         <a className="btn" href={href({ kind: "class-talents", cls: token })}>
@@ -418,6 +510,8 @@ export function ClassAbilitiesView({ data, token }: { data: RefData; token: stri
           );
         })}
       </ul>
+      <OtherClasses manifest={data.manifest} token={token} kind="class-abilities" title={tr("Habilidades de otras clases")} label="Habilidades de {clase}" />
+      <GuideLinks />
     </div>
   );
 }
@@ -532,6 +626,11 @@ export function RacesView({ data }: { data: RefData }) {
           </li>
         ))}
       </ul>
+      <SeeAlso
+        title={tr("Clases de WoW Forever")}
+        links={data.manifest.classes.map((c) => ({ key: c.classId, to: { kind: "class", cls: classTokenOf(c.file) }, label: classNameOf(data.manifest, classTokenOf(c.file)) }))}
+      />
+      <GuideLinks />
     </div>
   );
 }
@@ -575,12 +674,20 @@ export function RaceView({ data, id }: { data: RefData; id: number }) {
             const token = classTokenOf(c.file);
             return (
               <li key={c.classId}>
-                <a href={href({ kind: "calc", cls: token, view: "race" }, { r: String(r.id) })}>{classNameOf(data.manifest, token)}</a>
+                <a href={href({ kind: "class", cls: token })}>{classNameOf(data.manifest, token)}</a>
+                <span className="muted small">
+                  {" · "}
+                  <a href={href({ kind: "calc", cls: token, view: "race" }, { r: String(r.id) })}>{tr("Probar {raza} en la calculadora", { raza: name })}</a>
+                </span>
               </li>
             );
           })}
         </ul>
       </section>
+      <SeeAlso
+        title={tr("Otras razas de la {faccion}", { faccion: tr(FACTION[r.faction] ?? "") })}
+        links={(data.races ?? []).filter((x) => x.faction === r.faction && x.id !== r.id).map((x) => ({ key: x.id, to: { kind: "race", id: x.id }, label: raceLabel(x.id, x.name) }))}
+      />
     </div>
   );
 }
@@ -612,12 +719,13 @@ function ClassStepLinks({ manifest, view, label }: { manifest: Manifest; view: C
   );
 }
 
-function GuideShell({ title, eyebrow, lead, children }: { title: string; eyebrow: string; lead: string; children: React.ReactNode }) {
+function GuideShell({ topic, title, eyebrow, lead, children }: { topic: GuideTopic; title: string; eyebrow: string; lead: string; children: React.ReactNode }) {
   return (
     <div className="ref wrap">
       <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: title }]} />
       <RefHead eyebrow={eyebrow} title={title} lead={lead} />
       {children}
+      <GuideLinks except={topic} />
     </div>
   );
 }
@@ -639,6 +747,7 @@ export function LegacyGuideView({ data }: { data: RefData }) {
   const unknown = trees.reduce((n, s) => n + s.talents.filter(isPlaceholder).length, 0);
   return (
     <GuideShell
+      topic="legacy"
       title={tr("Puntos de Legado")}
       eyebrow={tr("Guía")}
       lead={tr("Los Puntos de Legado son ventajas que se eligen antes que los talentos de clase: {max} puntos para repartir en {m} árboles ({trees}). Estas son todas, con sus rangos y requisitos, tal como las trae el cliente de la beta.", { max, m: trees.length, trees: trees.map((s) => s.name).join(", ") })}
@@ -693,6 +802,7 @@ export function FittingRoomGuideView({ data }: { data: RefData }) {
   const slots = GEAR_SLOTS.map((s) => tr(SLOT_LABEL[s])).join(", ");
   return (
     <GuideShell
+      topic="fitting-room"
       title={tr("Probador 3D")}
       eyebrow={tr("Guía")}
       lead={tr("El probador 3D te deja vestir a tu personaje con todas las ranuras de equipo sobre el modelo de su raza y ver al momento las estadísticas del equipo, sus bonos de conjunto y lo que cambia cada pieza.")}
@@ -747,6 +857,7 @@ export function BuffsGuideView({ data }: { data: RefData }) {
     .filter((x) => x.list.length > 0);
   return (
     <GuideShell
+      topic="buffs"
       title={tr("Beneficios y consumibles")}
       eyebrow={tr("Guía")}
       lead={tr("{n} beneficios de clase, tótems y consumibles con las cifras del cliente. En la calculadora marcas los que tendrías y se suman a tus estadísticas; los del mismo grupo no se acumulan, así que al marcar uno se quita el otro.", { n: buffs.length })}
@@ -968,6 +1079,8 @@ export function ClassIntroView({ data, token }: { data: RefData; token: string }
           {tr("Habilidades de {clase}", { clase: cname })}
         </a>
       </p>
+      <OtherClasses manifest={data.manifest} token={token} kind="class" title={tr("Otras clases")} label="{clase} en WoW Forever" />
+      <GuideLinks />
     </div>
   );
 }
@@ -986,10 +1099,20 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
     </>
   );
   const foot = (
-    <section className="ref-section">
-      <h2>{tr("Los pasos de la calculadora")}</h2>
-      <StepLinks token={token} current={view} />
-    </section>
+    <>
+      <section className="ref-section">
+        <h2>{tr("Los pasos de la calculadora")}</h2>
+        <StepLinks token={token} current={view} />
+      </section>
+      <SeeAlso
+        title={tr("Consulta de {clase}", { clase: cname })}
+        links={[
+          { key: "talents", to: { kind: "class-talents", cls: token }, label: tr("Talentos de {clase}", { clase: cname }) },
+          { key: "abilities", to: { kind: "class-abilities", cls: token }, label: tr("Habilidades de {clase}", { clase: cname }) },
+          { key: "races", to: { kind: "races" }, label: tr("Razas de WoW Forever") },
+        ]}
+      />
+    </>
   );
 
   if (view === "race") {

@@ -5,7 +5,8 @@ import { renderToString } from "react-dom/server";
 import { StaticCharacterProvider } from "./character";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import { setJsonLoader } from "./data";
-import { LangContext, setRenderLang } from "./i18n";
+import { EN } from "./i18n-en";
+import { LangContext, setDictionary, setRenderLang } from "./i18n";
 import { Home } from "./pages/Home";
 import { setSeoIndex } from "./router";
 import { headHtml, headTags, type PageMeta } from "./seo/meta";
@@ -13,6 +14,8 @@ import { isRefPage, loadRefData, refMeta, RefContent } from "./seo/RefPages";
 import { pagePath, type Lang, type Page, type SeoIndex } from "./seo/routes";
 import { embedMeta, homeMeta, notFoundMeta, unassignedMeta } from "./seo/siteMeta";
 import { tr } from "./i18n";
+
+setDictionary(EN);
 
 export { allPages, isIndexable, LANGS, pagePath, alternates } from "./seo/routes";
 

@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#0e0c0a" />
-    <link rel="icon" type="image/png" href="/logo-forever-transparent.png" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/logo-forever-mark.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="google-site-verification" content="Xdu80D8tn5zNknx2hpwT9uSp39840WNYHL9HTYI3Aho" />
     <!--seo-head-->
   </head>
   <body>
+    <!-- Emblema de fondo: un solo elemento fuera del HTML prerenderizado y de la web interactiva, para que el relevo entre ambos no lo vuelva a pintar -->
+    <div class="page-emblem" aria-hidden="true"><img src="/logo-forever-emblem.webp" alt="" width="512" height="512" fetchpriority="high" draggable="false" /></div>
     <!--seo-body-->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

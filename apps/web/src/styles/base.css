@@ -90,9 +90,10 @@ body {
   position: relative;
   z-index: 1;
 }
+/* Vive en index.html, fuera de #root y de #prerender (z-index 1 y 50): queda por encima del fondo del cuerpo y por debajo de todo el contenido */
 .page-emblem {
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   right: -6vmin;
   bottom: -8vmin;
   width: min(78vmin, 760px);

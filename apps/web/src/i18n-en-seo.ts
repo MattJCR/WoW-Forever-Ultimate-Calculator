@@ -174,4 +174,16 @@ export const SEO: Record<string, string> = {
   "Niveles {a}–{b}": "Levels {a}–{b}",
   "Se aprenden con un talento:": "Learned through a talent:",
   "Razas de {clase}": "{clase} races",
+  // ---- Enlaces entre páginas
+  "Talentos de otras clases": "Talents of other classes",
+  "Habilidades de otras clases": "Abilities of other classes",
+  "Otras clases": "Other classes",
+  "Clases de WoW Forever": "WoW Forever classes",
+  "Lo necesitan": "Needed by",
+  "Más del árbol {arbol}": "More from the {arbol} tree",
+  "Probar {raza} en la calculadora": "Try {raza} in the calculator",
+  "Otras razas de la {faccion}": "Other {faccion} races",
+  "Consulta de {clase}": "{clase} reference",
+  "Talentos, habilidades y guías": "Talents, abilities and guides",
+  "Todo lo que el cliente de la beta trae de cada clase, página a página y sin calculadora, para leerlo y compartirlo.": "Everything the beta client has for each class, page by page and without the calculator, to read and share.",
 };

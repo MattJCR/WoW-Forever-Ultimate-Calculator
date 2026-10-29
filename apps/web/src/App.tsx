@@ -4,9 +4,7 @@ import { CharacterProvider, legacyQuery, useCharacter } from "./character";
 import { SiteFooter, SiteHeader } from "./components/SiteChrome";
 import { loadManifest, loadSeoIndex, useAsync } from "./data";
 import { LangContext, tr, useLangRoot } from "./i18n";
-import { ClassPage } from "./pages/ClassPage";
 import { classToken, Home } from "./pages/Home";
-import { UnassignedPage } from "./pages/UnassignedPage";
 import { EmbedPage } from "./pages/EmbedPage";
 import { getSeoIndex, href, navigate, setSeoIndex, useRoute, withBase, type Route } from "./router";
 import { releasePrerender, usePrerenderHandoff } from "./seo/handoff";
@@ -14,6 +12,11 @@ import { calcMeta, embedMeta, homeMeta, notFoundMeta, unassignedMeta } from "./s
 import { isRefPage, loadRefData, refMeta, RefContent } from "./seo/RefPages";
 import { hasCharacterState, legacyHashToUrl, legacyView } from "./seo/routes";
 import { useSeo } from "./seo/useSeo";
+
+// La calculadora y los datos sin asignar se descargan al abrirlos: las páginas de consulta (habilidades, talentos, razas) y la portada no los necesitan.
+// Mientras tanto sigue visible el HTML prerenderizado (`#prerender`), que cubre la espera.
+const ClassPage = lazy(() => import("./pages/ClassPage").then((m) => ({ default: m.ClassPage })));
+const UnassignedPage = lazy(() => import("./pages/UnassignedPage").then((m) => ({ default: m.UnassignedPage })));
 
 // Pantallas de pruebas del probador 3D: solo existen en desarrollo
 const ViewerLab = import.meta.env.DEV ? lazy(() => import("./pages/ViewerLab").then((m) => ({ default: m.ViewerLab }))) : null;
@@ -84,15 +87,17 @@ function Loaded({ manifest }: { manifest: Manifest }) {
 function Layout({ manifest, route }: { manifest: Manifest; route: Route }) {
   const { legacyCode } = useCharacter();
   const q = legacyQuery(legacyCode);
+  const embedded = route.page.kind === "embed";
+  // El emblema de fondo va en index.html (un solo elemento para el HTML prerenderizado y la web interactiva); el probador insertado no lo lleva
+  useEffect(() => {
+    if (embedded) document.querySelector(".page-emblem")?.remove();
+  }, [embedded]);
   // Probador insertado en otra web: solo el visor, sin cabecera ni pie
-  if (route.page.kind === "embed") return <Routes route={route} manifest={manifest} />;
+  if (embedded) return <Routes route={route} manifest={manifest} />;
 
   return (
     <>
       <SiteHeader manifest={manifest} page={route.page} section={route.query.get("s")} q={q} query={Object.fromEntries(route.query)} />
-      <div className="page-emblem" aria-hidden="true">
-        <img src={`${import.meta.env.BASE_URL}logo-forever-transparent.png`} alt="" draggable={false} />
-      </div>
       <main>
         <Routes route={route} manifest={manifest} />
       </main>
@@ -118,7 +123,7 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
     page,
     route.lang,
   );
-  if (page.kind === "unassigned") return <UnassignedPage />;
+  if (page.kind === "unassigned") return <Suspense fallback={null}><UnassignedPage /></Suspense>;
   if (page.kind === "embed") return <EmbedPage manifest={manifest} query={route.query} />;
   if (import.meta.env.DEV && page.kind === "lab") {
     if (page.name === "viewer-lab" && ViewerLab) return <Suspense fallback={null}><ViewerLab query={route.query} /></Suspense>;
@@ -127,7 +132,7 @@ function Routes({ route, manifest }: { route: Route; manifest: Manifest }) {
   }
   if (page.kind === "calc") {
     const entry = manifest.classes.find((c) => classToken(c.file) === page.cls);
-    if (entry) return <ClassPage key={page.cls} token={page.cls} entry={entry} query={route.query} view={page.view} />;
+    if (entry) return <Suspense fallback={null}><ClassPage key={page.cls} token={page.cls} entry={entry} query={route.query} view={page.view} /></Suspense>;
   }
   // Un enlace antiguo (`/clases/mago/?b=…&v=talents`) trae el personaje en la página de la clase: pasa al paso de la calculadora
   if (page.kind === "class" && hasCharacterState(route.query)) return <ToCalculator cls={page.cls} query={route.query} />;

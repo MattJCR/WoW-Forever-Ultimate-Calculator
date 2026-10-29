@@ -31,8 +31,9 @@ const index = await readJson("seo-index.json");
 const en = manifest.english?.file && existsSync(join(dataDir, manifest.english.file)) ? await readJson(manifest.english.file) : null;
 const env = { manifest, index, en, readJson };
 
-const html = (page, lang) =>
-  template
+// El probador insertable (/embed) no lleva el emblema de fondo
+const html = (page, lang, { emblem = true } = {}) =>
+  (emblem ? template : template.replace(/\s*<div class="page-emblem"[\s\S]*?<\/div>/, ""))
     .replace('<html lang="es">', `<html lang="${lang}">`)
     .replace("<!--seo-head-->", page.head)
     .replace("<!--seo-body-->", page.body ? `<div id="prerender">${page.body}</div>` : "");
@@ -64,7 +65,7 @@ for (const lang of LANGS) {
   const out = await renderPage(env, { kind: "unassigned" }, lang);
   write(out.path, html(out, lang));
 }
-write("/embed", html(await renderPage(env, { kind: "embed" }, "en"), "en"));
+write("/embed", html(await renderPage(env, { kind: "embed" }, "en"), "en", { emblem: false }));
 
 // La raíz (`/`): entrada sin idioma. Los buscadores la ven como la portada inglesa (canonical a /en/); la web redirige a /es o /en según el navegador.
 const root = await renderPage(env, { kind: "home" }, "en", { canonicalPath: pagePath({ kind: "home" }, "en", index) });

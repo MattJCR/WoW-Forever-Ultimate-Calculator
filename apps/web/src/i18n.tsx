@@ -1,17 +1,28 @@
 import type { ClassTalents, EnglishText, Race } from "@wfuc/schema";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { EN } from "./i18n-en";
 import type { Lang } from "./seo/routes";
 
 /**
  * Idioma de la web. El cliente instalado solo trae español, así que:
- *  - los textos de la interfaz salen de un diccionario propio (`i18n-en.ts`, clave = el texto en español);
+ *  - los textos de la interfaz salen de un diccionario propio (`i18n-en.ts`, clave = el texto en español), que solo se descarga al elegir English
+ *    (el prerender lo fija con `setDictionary`);
  *  - los nombres y descripciones del juego en inglés salen de `i18n/en.json` (tablas del juego en inglés, contrastadas con las cifras del cliente),
  *    que solo se descarga al elegir English. Lo que no tenga inglés se muestra en español.
  */
 export type { Lang };
 
 const STORAGE_KEY = "wfuc.lang";
+
+/** Diccionario español -> inglés de la interfaz. Vacío hasta que `setDictionary` lo rellena (en el navegador, al pasar a English). */
+let EN: Record<string, string> = {};
+let dictionaryLoaded = false;
+
+/** Fija el diccionario de la interfaz en inglés. */
+export function setDictionary(dict: Record<string, string>): void {
+  EN = dict;
+  patterns = null;
+  dictionaryLoaded = true;
+}
 
 /** Idioma y textos en inglés vigentes. Los fija `useLangRoot` al renderizar la raíz, antes que sus hijos. */
 let current: { lang: Lang; en: EnglishText | null } = { lang: "es", en: null };
@@ -213,7 +224,18 @@ export function useLangRoot(englishFile: string | null, routeLang: Lang | null =
   const lang = routeLang ?? chosen;
   const [en, setEn] = useState<EnglishText | null>(null);
   const [failed, setFailed] = useState(false);
+  const [dictReady, setDictReady] = useState(dictionaryLoaded);
 
+  // Al pasar a English se descarga el diccionario de la interfaz (un trozo aparte del código)...
+  useEffect(() => {
+    if (lang !== "en" || dictReady) return;
+    import("./i18n-en")
+      .then((m) => setDictionary(m.EN))
+      .catch(() => {})
+      .finally(() => setDictReady(true));
+  }, [lang, dictReady]);
+
+  // ... y los textos del juego
   useEffect(() => {
     if (lang !== "en" || en || failed || !englishFile) return;
     let live = true;
@@ -242,9 +264,9 @@ export function useLangRoot(englishFile: string | null, routeLang: Lang | null =
         }
         setLangState(l);
       },
-      dataStatus: lang === "es" ? "off" : en ? "ready" : failed || !englishFile ? "missing" : "loading",
+      dataStatus: lang === "es" ? "off" : !dictReady ? "loading" : en ? "ready" : failed || !englishFile ? "missing" : "loading",
     }),
-    [lang, en, failed, englishFile],
+    [lang, en, failed, englishFile, dictReady],
   );
 }
 
