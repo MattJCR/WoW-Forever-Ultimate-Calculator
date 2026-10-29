@@ -2,7 +2,9 @@
 
 El fichero [LICENSE](LICENSE) es el texto oficial e intacto de la **PolyForm Strict License 1.0.0**. Este fichero lo complementa; no lo sustituye.
 
-Required Notice: Copyright (c) 2026 MattJCR, autor y mantenedor de WoW Forever Ultimate Calculator (https://github.com/MattJCR/WoW-Forever-Ultimate-Calculator)
+Required Notice: Copyright (c) 2026 MattJCR, autor y mantenedor de WoW Forever Ultimate Calculator (https://github.com/MattJCR/wowforeverultimatecalculator)
+
+Sitio oficial: https://mattjcr.github.io/wowforeverultimatecalculator/ (la única web que publica este proyecto; cualquier otra copia no es oficial).
 
 ## En lenguaje llano (si hay duda, manda el texto en inglés de LICENSE)
 
