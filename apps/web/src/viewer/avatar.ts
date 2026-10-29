@@ -19,6 +19,21 @@ export interface Avatar {
 
 export const DEFAULT_AVATAR: Avatar = { sex: 0, choices: {} };
 
+/**
+ * Qué está envainado de verdad. Nunca hay dos clases de arma en la mano a la vez: si ninguna figura envainada (el valor por defecto y
+ * los enlaces antiguos) queda en la mano la de cuerpo a cuerpo y la de distancia va envainada.
+ */
+export const sheatheState = (a: Avatar): { melee: boolean; ranged: boolean } => ({ melee: !!a.sheathed, ranged: !!a.sheathedRanged || !a.sheathed });
+
+/** Envaina o desenvaina una clase de arma. Desenvainar una envaina la otra; envainar la que estaba en la mano deja las dos envainadas. */
+export function toggleSheathe(a: Avatar, kind: "melee" | "ranged"): Avatar {
+  const now = sheatheState(a);
+  const { sheathed: _melee, sheathedRanged: _ranged, ...rest } = a;
+  if (!(kind === "melee" ? now.melee : now.ranged)) return { ...rest, sheathed: true, sheathedRanged: true };
+  // Cuerpo a cuerpo en la mano es el valor por defecto (sin letra en el enlace); la de distancia en la mano deja envainada la de cuerpo a cuerpo
+  return kind === "melee" ? rest : { ...rest, sheathed: true };
+}
+
 /** Letra del envaine: `s` = todas las armas envainadas, `m` = solo las de cuerpo a cuerpo, `d` = solo la de distancia. */
 const sheatheLetter = (a: Avatar): string => (a.sheathed && a.sheathedRanged ? "s" : a.sheathed ? "m" : a.sheathedRanged ? "d" : "");
 

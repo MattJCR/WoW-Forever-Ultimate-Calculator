@@ -160,4 +160,17 @@ export const SEO: Record<string, string> = {
   "{n} beneficios de clase, tótems y consumibles con las cifras del cliente. En la calculadora marcas los que tendrías y se suman a tus estadísticas; los del mismo grupo no se acumulan, así que al marcar uno se quita el otro.": "{n} class buffs, totems and consumables with the figures from the client. In the calculator you tick the ones you would have and they add to your stats; those in the same group do not stack, so ticking one unticks the other.",
   "Son una estimación: el cliente aún no trae estos pasivos y la cifra viene de la comunidad.": "These are an estimate: the client does not have these passives yet and the figure comes from the community.",
   "Bendiciones, gritos, auras, tótems y demás beneficios que lanza cada clase:": "Blessings, shouts, auras, totems and other buffs each class casts:",
+  // ---- Página de la clase
+  "Datos de la clase": "Class facts",
+  "{max} puntos de talento, uno por nivel desde el nivel {first}, repartidos en {m} árboles ({specs}).": "{max} talent points, one per level from level {first}, spread across {m} trees ({specs}).",
+  "Armaduras: {armor}. Armas: {weapons}.": "Armor: {armor}. Weapons: {weapons}.",
+  "Puede ser de {n} razas: {razas}.": "It can be one of {n} races: {razas}.",
+  "{n} habilidades, {t} de ellas aprendidas con un talento; las demás se aprenden entre el nivel {a} y el {b}.": "{n} abilities, {t} of them learned through a talent; the rest are learned between level {a} and {b}.",
+  "Termina en": "It ends with",
+  "para llegar a la última fila hacen falta {req} puntos en el árbol.": "reaching the last row takes {req} points in the tree.",
+  "Habilidades por nivel": "Abilities by level",
+  "Cuándo aprende {clase} cada habilidad, con el nivel entre paréntesis (el de su primer rango):": "When {clase} learns each ability, with the level in brackets (that of its first rank):",
+  "Niveles {a}–{b}": "Levels {a}–{b}",
+  "Se aprenden con un talento:": "Learned through a talent:",
+  "Razas de {clase}": "{clase} races",
 };

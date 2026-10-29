@@ -4,7 +4,7 @@ import type { Manifest } from "@wfuc/schema";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { useGearBundle } from "../data";
 import { tr } from "../i18n";
-import { decodeAvatar, loadModelIndex, type ModelIndexEntry } from "../viewer/avatar";
+import { decodeAvatar, loadModelIndex, sheatheState, type ModelIndexEntry } from "../viewer/avatar";
 import { BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
 import { defaultSelection, type Recipe } from "../viewer/recipe";
@@ -13,6 +13,7 @@ const Viewer3D = lazy(() => import("../viewer/Viewer3D").then((m) => ({ default:
 
 export function EmbedPage({ manifest, query }: { manifest: Manifest; query: URLSearchParams }) {
   const avatar = useMemo(() => decodeAvatar(query.get("a")), [query]);
+  const away = sheatheState(avatar);
   const raceId = avatar.race ?? (Number(query.get("r")) || 1);
   const gear = useMemo(() => decodeGear(query.get("g")).gear, [query]);
   const bundle = useGearBundle(manifest, Object.keys(gear).length > 0);
@@ -38,7 +39,7 @@ export function EmbedPage({ manifest, query }: { manifest: Manifest; query: URLS
       <div className="avatar-stage" data-scene={sceneId || undefined}>
         <BackdropArt id={sceneId} />
         <Suspense fallback={null}>
-          <Viewer3D chrModelId={entry.chrModel} race={raceId} selection={selection} equipped={equipped} onRecipe={setRecipe} sheathed={!!avatar.sheathed} sheathedRanged={!!avatar.sheathedRanged} />
+          <Viewer3D chrModelId={entry.chrModel} race={raceId} selection={selection} equipped={equipped} onRecipe={setRecipe} sheathed={away.melee} sheathedRanged={away.ranged} />
         </Suspense>
       </div>
     </div>

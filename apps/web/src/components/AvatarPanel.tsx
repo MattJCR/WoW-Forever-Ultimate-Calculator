@@ -2,7 +2,7 @@ import { canEquip, encodeGear, equipItem, itemTypeName, randomGear, slotsForItem
 import type { Item } from "@wfuc/schema";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { raceLabel, tr } from "../i18n";
-import { DEFAULT_AVATAR, encodeAvatar, loadModelIndex, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
+import { DEFAULT_AVATAR, encodeAvatar, loadModelIndex, sheatheState, toggleSheathe, webglAvailable, type Avatar, type ModelIndexEntry } from "../viewer/avatar";
 import { MODELS_BASE } from "../viewer/config";
 import { BACKDROPS, BackdropArt, backdropOfRace } from "../viewer/backdrops";
 import type { Equipped } from "../viewer/equipment";
@@ -280,6 +280,8 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
   const pickRace = (id: number) => setAvatar({ sex: avatar.sex, choices: {}, sheathed: avatar.sheathed, sheathedRanged: avatar.sheathedRanged, bg: avatar.bg, ...(id === raceId ? {} : { race: id }) });
   // Escena de fondo: la elegida (0 = liso) o, por defecto, la de la raza que se ve
   const sceneId = avatar.bg ?? backdropOfRace(shownRace);
+  /** Una sola clase de arma en la mano a la vez. */
+  const away = sheatheState(avatar);
   const pickScene = (value: string) => setAvatar({ ...avatar, bg: value === "auto" ? undefined : Number(value) });
   const equipped = useMemo(() => equippedOf(gear, data.items), [gear, data.items]);
   const selection = useMemo(() => (recipe ? { ...defaultSelection(recipe), ...avatar.choices } : undefined), [recipe, avatar.choices]);
@@ -374,7 +376,7 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
               </button>
             )}
             <Suspense fallback={<p className="muted small">{tr("Cargando…")}</p>}>
-              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={!!avatar.sheathed} sheathedRanged={!!avatar.sheathedRanged} effects={effects} />
+              <Viewer3D chrModelId={entry.chrModel} race={shownRace} selection={selection} equipped={equipped} onRecipe={setRecipe} onClips={setClips} onMissing={setMissing} paused={paused} pose={pose || undefined} sheathed={away.melee} sheathedRanged={away.ranged} effects={effects} />
             </Suspense>
           </div>
           {missing.length > 0 && (
@@ -430,10 +432,10 @@ export function AvatarPanel({ raceId, races, avatar, setAvatar, gear, setGear, d
             <button type="button" {...tip(tr("Rehacer"))} onClick={history.redo} disabled={!history.canRedo}><ToolGlyph name="redo" /></button>
           </span>
           <span className="tool-sep" aria-hidden="true" />
-          <button type="button" {...tip(avatar.sheathed ? tr("Desenvainar armas cuerpo a cuerpo") : tr("Envainar armas cuerpo a cuerpo"))} className={avatar.sheathed ? "active" : ""} aria-pressed={!!avatar.sheathed} onClick={() => setAvatar({ ...avatar, sheathed: !avatar.sheathed })}>
+          <button type="button" {...tip(away.melee ? tr("Desenvainar armas cuerpo a cuerpo") : tr("Envainar armas cuerpo a cuerpo"))} className={away.melee ? "active" : ""} aria-pressed={away.melee} onClick={() => setAvatar(toggleSheathe(avatar, "melee"))}>
             <ToolGlyph name="sheathe" />
           </button>
-          <button type="button" {...tip(avatar.sheathedRanged ? tr("Desenvainar arma de distancia") : tr("Envainar arma de distancia"))} className={avatar.sheathedRanged ? "active" : ""} aria-pressed={!!avatar.sheathedRanged} onClick={() => setAvatar({ ...avatar, sheathedRanged: !avatar.sheathedRanged })}>
+          <button type="button" {...tip(away.ranged ? tr("Desenvainar arma de distancia") : tr("Envainar arma de distancia"))} className={away.ranged ? "active" : ""} aria-pressed={away.ranged} onClick={() => setAvatar(toggleSheathe(avatar, "ranged"))}>
             <ToolGlyph name="sheatheRanged" />
           </button>
           <button type="button" {...tip(paused ? tr("Reanudar") : tr("Pausar"))} className={paused ? "active" : ""} aria-pressed={paused} onClick={() => setPaused((p) => !p)}>

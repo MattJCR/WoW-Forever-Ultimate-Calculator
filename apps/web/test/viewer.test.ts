@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { decodeAvatar, encodeAvatar } from "../src/viewer/avatar";
+import { decodeAvatar, encodeAvatar, sheatheState, toggleSheathe, type Avatar } from "../src/viewer/avatar";
 import { resolveEquipment, type AppearanceData, type Equipped } from "../src/viewer/equipment";
 import { defaultChoice, defaultSelection, groupOfOption, isColorOption, resolveSelection, stepChoice, swatchCss, type Recipe } from "../src/viewer/recipe";
 
@@ -43,6 +43,37 @@ describe("estado del avatar en el enlace", () => {
   });
   it("ignora basura", () => {
     expect(decodeAvatar("0.x-y~3")).toEqual({ sex: 0, choices: {} });
+  });
+  it("nunca hay dos clases de arma en la mano a la vez", () => {
+    const base: Avatar = { sex: 0, choices: {} };
+    const hands = (a: Avatar) => {
+      const s = sheatheState(a);
+      return { melee: !s.melee, ranged: !s.ranged };
+    };
+    // por defecto (y en los enlaces antiguos sin letra) queda en la mano la de cuerpo a cuerpo
+    expect(hands(base)).toEqual({ melee: true, ranged: false });
+    expect(hands(decodeAvatar("0"))).toEqual({ melee: true, ranged: false });
+    // desenvainar la de distancia envaina la de cuerpo a cuerpo, y al revés
+    const bow = toggleSheathe(base, "ranged");
+    expect(hands(bow)).toEqual({ melee: false, ranged: true });
+    expect(hands(toggleSheathe(bow, "melee"))).toEqual({ melee: true, ranged: false });
+    // envainar la que está en la mano deja las dos envainadas; desde ahí se desenvaina una sola
+    const none = toggleSheathe(base, "melee");
+    expect(hands(none)).toEqual({ melee: false, ranged: false });
+    expect(hands(toggleSheathe(none, "melee"))).toEqual({ melee: true, ranged: false });
+    expect(hands(toggleSheathe(none, "ranged"))).toEqual({ melee: false, ranged: true });
+    expect(hands(toggleSheathe(bow, "ranged"))).toEqual({ melee: false, ranged: false });
+    // cualquier secuencia de pulsaciones respeta la regla, y el valor por defecto sigue siendo la cadena vacía
+    let a: Avatar = base;
+    for (const k of ["melee", "ranged", "ranged", "melee", "melee", "ranged", "melee", "melee"] as const) {
+      a = toggleSheathe(a, k);
+      const h = hands(a);
+      expect(h.melee && h.ranged, `${k}`).toBe(false);
+      expect(hands(decodeAvatar(encodeAvatar(a)))).toEqual(h);
+    }
+    expect(encodeAvatar(toggleSheathe(toggleSheathe(base, "ranged"), "melee"))).toBe("");
+    // un enlace con solo la de distancia envainada es lo mismo que el valor por defecto
+    expect(hands(decodeAvatar("0d"))).toEqual({ melee: true, ranged: false });
   });
 });
 

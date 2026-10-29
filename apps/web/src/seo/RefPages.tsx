@@ -43,14 +43,14 @@ export async function loadRefData(page: Page, manifest: Manifest): Promise<RefDa
     return { ...data, legacy, races, buffs };
   }
   const view = page.kind === "calc" ? page.view : null;
-  if (page.kind === "races" || page.kind === "race" || view === "race") data.races = (await loadRaces(manifest.races.file)).races;
+  if (page.kind === "races" || page.kind === "race" || page.kind === "class" || view === "race") data.races = (await loadRaces(manifest.races.file)).races;
   const entry = "cls" in page ? manifest.classes.find((c) => classTokenOf(c.file) === page.cls) : undefined;
   if (!entry || !("cls" in page)) return data;
   const [cls, abilities, rules, stats, legacy] = await Promise.all([
     ["class", "class-talents", "talent", "ability"].includes(page.kind) || view === "talents" ? loadClass(entry.file) : undefined,
-    ["class-abilities", "talent", "ability"].includes(page.kind) || view === "summary" ? loadAbilities(page.cls) : undefined,
-    view === "gear" && manifest.equipRules ? getJson(manifest.equipRules.file, (v) => EquipRules.parse(v)) : undefined,
-    view === "summary" ? getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)) : undefined,
+    ["class", "class-abilities", "talent", "ability"].includes(page.kind) || view === "summary" ? loadAbilities(page.cls) : undefined,
+    (view === "gear" || page.kind === "class") && manifest.equipRules ? getJson(manifest.equipRules.file, (v) => EquipRules.parse(v)) : undefined,
+    view === "summary" || page.kind === "class" ? getJson(manifest.stats.file, (v) => BaseStatsSchema.parse(v)) : undefined,
     view === "legacy" ? loadLegacy(manifest.legacy.file) : undefined,
   ]);
   return { ...data, cls, abilities, rules, stats, legacy };
@@ -823,17 +823,40 @@ function StepLinks({ token, current }: { token: string; current?: CalcView }) {
   );
 }
 
-/** Página de la clase: qué se puede hacer con ella y la entrada a cada paso de la calculadora. */
+/** «Tipo de armadura o arma (desde el nivel N)» según la competencia de la clase. */
+const proficiencyLine = (p: { name: string; minLevel: number }): string => (p.minLevel > 0 ? tr("{tipo} (desde el nivel {n})", { tipo: tr(p.name), n: p.minLevel }) : tr(p.name));
+
+/** Intervalos de nivel en que se agrupan las habilidades de la página de la clase: 1–9, 10–19… y el nivel 60 aparte. */
+const levelBands = (max: number): { from: number; to: number }[] => {
+  const bands = [{ from: 1, to: 9 }];
+  for (let from = 10; from <= max; from += 10) bands.push({ from, to: Math.min(from + 9, max) });
+  return bands;
+};
+
+/** Página de la clase: datos propios de la clase, sus árboles, cuándo aprende cada habilidad y la entrada a cada paso de la calculadora. */
 export function ClassIntroView({ data, token }: { data: RefData; token: string }) {
   const cls = data.cls;
   if (!cls) return null;
   const cname = classNameOf(data.manifest, token);
+  const entry = data.manifest.classes.find((c) => classTokenOf(c.file) === token);
   const total = cls.specs.reduce((a, s) => a + s.talents.length, 0);
+  const specNames = cls.specs.map((s) => specLabel(token, s.index, s.name ?? ""));
+  const prof = data.rules && entry ? classProficiencies(data.rules, entry.classId) : null;
+  const base = data.stats?.classBase.find((c) => c.classId === entry?.classId);
+  const races = (data.races ?? []).filter((r) => entry && r.classIds.includes(entry.classId));
+  const abilities = data.abilities ? sortedAbilities(data.abilities) : [];
+  // Las que se aprenden con un talento no tienen nivel de maestro: van aparte de la lista por nivel
+  const byTalent = abilities.filter((a) => a.ranks.some((r) => r.learnedByTalent));
+  const trained = abilities.filter((a) => !a.ranks.some((r) => r.learnedByTalent)).sort((a, b) => a.ranks[0]!.level - b.ranks[0]!.level || abilityLabel(a).localeCompare(abilityLabel(b), currentLang()));
+  const levels = trained.map((a) => a.ranks[0]!.level);
+  const abilityLink = (a: Ability) => (
+    <a href={href({ kind: "ability", cls: token, id: a.ranks[0]!.spellId })}>{abilityLabel(a)}</a>
+  );
   return (
     <div className="ref wrap">
       <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: cname }]} />
       <RefHead
-        icon={data.manifest.classes.find((c) => classTokenOf(c.file) === token)?.iconFileDataId}
+        icon={entry?.iconFileDataId}
         eyebrow={tr("Calculadora de clase")}
         title={tr("{clase} en WoW Forever", { clase: cname })}
         lead={tr("Planifica tu {clase} de WoW Forever: {n} talentos en {m} árboles, raza, Puntos de Legado, equipo y beneficios, con el daño y la curación de cada habilidad. Tu build se guarda en el enlace.", { clase: cname, n: total, m: cls.specs.length })}
@@ -844,19 +867,96 @@ export function ClassIntroView({ data, token }: { data: RefData; token: string }
         <CalculatorLink token={token} view="talents" label={tr("Ir a los talentos")} />
       </p>
       <section className="ref-section">
+        <h2>{tr("Datos de la clase")}</h2>
+        <ul>
+          <li>{tr("{max} puntos de talento, uno por nivel desde el nivel {first}, repartidos en {m} árboles ({specs}).", { max: cls.rules.maxPoints, first: cls.rules.firstPointLevel ?? 10, m: cls.specs.length, specs: joinNames(specNames) })}</li>
+          {base && (
+            <li>
+              {tr("Al nivel 60, {clase} tiene {hp} de vida base (sin equipo ni talentos).", { clase: cname, hp: fmt(base.hp[59] ?? 0) })}{" "}
+              {(base.mana[59] ?? 0) > 0 ? tr("Su maná base es {mana}.", { mana: fmt(base.mana[59] ?? 0) }) : tr("No usa maná.")}
+            </li>
+          )}
+          {prof && <li>{tr("Armaduras: {armor}. Armas: {weapons}.", { armor: joinNames(prof.armor.map(proficiencyLine)), weapons: joinNames(prof.weapons.map(proficiencyLine)) })}</li>}
+          {races.length > 0 && <li>{tr("Puede ser de {n} razas: {razas}.", { n: races.length, razas: joinNames(races.map((r) => raceLabel(r.id, r.name))) })}</li>}
+          {abilities.length > 0 && (
+            <li>{tr("{n} habilidades, {t} de ellas aprendidas con un talento; las demás se aprenden entre el nivel {a} y el {b}.", { n: abilities.length, t: byTalent.length, a: Math.min(...levels), b: Math.max(...levels) })}</li>
+          )}
+        </ul>
+      </section>
+      <section className="ref-section">
         <h2>{tr("Los pasos de la calculadora")}</h2>
         <StepLinks token={token} />
       </section>
       <section className="ref-section">
         <h2>{tr("Árboles de talentos")}</h2>
-        <ul className="ref-links">
-          {cls.specs.map((s) => (
-            <li key={s.index}>
-              <b>{specLabel(token, s.index, s.name ?? "")}</b>: {tr("{n} talentos", { n: s.talents.filter((t) => t.name).length })}
-            </li>
-          ))}
+        <ul className="ref-links ref-rows">
+          {cls.specs.map((s) => {
+            const named = s.talents.filter((t) => t.name);
+            const last = Math.max(...named.map((t) => t.row));
+            const ends = named.filter((t) => t.row === last).sort((a, b) => a.col - b.col);
+            return (
+              <li key={s.index}>
+                <b>{specLabel(token, s.index, s.name ?? "")}</b>: {tr("{n} talentos", { n: named.length })}. {tr("Termina en")}{" "}
+                {ends.map((t, i) => (
+                  <span key={t.nodeId}>
+                    {i > 0 && ", "}
+                    <a href={href({ kind: "talent", cls: token, id: t.nodeId })}>{talentLabel(t)}</a>
+                  </span>
+                ))}
+                {"; "}
+                {tr("para llegar a la última fila hacen falta {req} puntos en el árbol.", { req: Math.max(...ends.map((t) => t.requiredPoints)) })}
+              </li>
+            );
+          })}
         </ul>
       </section>
+      {trained.length > 0 && (
+        <section className="ref-section">
+          <h2>{tr("Habilidades por nivel")}</h2>
+          <p>{tr("Cuándo aprende {clase} cada habilidad, con el nivel entre paréntesis (el de su primer rango):", { clase: cname })}</p>
+          <ul className="ref-links ref-rows">
+            {levelBands(Math.max(...levels)).map(({ from, to }) => {
+              const list = trained.filter((a) => a.ranks[0]!.level >= from && a.ranks[0]!.level <= to);
+              if (list.length === 0) return null;
+              return (
+                <li key={from}>
+                  <b>{from === to ? tr("Nivel {n}", { n: from }) : tr("Niveles {a}–{b}", { a: from, b: to })}</b>:{" "}
+                  {list.map((a, i) => (
+                    <span key={a.ranks[0]!.spellId}>
+                      {i > 0 && ", "}
+                      {abilityLink(a)} ({a.ranks[0]!.level})
+                    </span>
+                  ))}
+                </li>
+              );
+            })}
+          </ul>
+          {byTalent.length > 0 && (
+            <p>
+              {tr("Se aprenden con un talento:")}{" "}
+              {byTalent.map((a, i) => (
+                <span key={a.ranks[0]!.spellId}>
+                  {i > 0 && ", "}
+                  {abilityLink(a)}
+                </span>
+              ))}
+              .
+            </p>
+          )}
+        </section>
+      )}
+      {races.length > 0 && (
+        <section className="ref-section">
+          <h2>{tr("Razas de {clase}", { clase: cname })}</h2>
+          <ul className="ref-links">
+            {races.map((r) => (
+              <li key={r.id}>
+                <a href={href({ kind: "race", id: r.id })}>{raceLabel(r.id, r.name)}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <p className="ref-actions">
         <a className="btn" href={href({ kind: "class-talents", cls: token })}>
           {tr("Talentos de {clase}", { clase: cname })}
@@ -954,7 +1054,6 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
 
   if (view === "gear") {
     const prof = data.rules ? classProficiencies(data.rules, entry?.classId ?? 0) : null;
-    const line = (p: { name: string; minLevel: number }) => (p.minLevel > 0 ? tr("{tipo} (desde el nivel {n})", { tipo: tr(p.name), n: p.minLevel }) : tr(p.name));
     return (
       <div className="ref wrap">
         {head(tr("Equipo de {clase} en WoW Forever", { clase: cname }), tr("Qué armaduras y armas puede llevar {clase} según el cliente de la beta, y cómo probar el equipo en el probador 3D con encantamientos y sufijos aleatorios.", { clase: cname }))}
@@ -962,12 +1061,12 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
           <>
             <section className="ref-section">
               <h2>{tr("Armaduras")}</h2>
-              <p>{joinNames(prof.armor.map(line))}.</p>
+              <p>{joinNames(prof.armor.map(proficiencyLine))}.</p>
             </section>
             <section className="ref-section">
               <h2>{tr("Armas")}</h2>
               <p>
-                {joinNames(prof.weapons.map(line))}.{" "}
+                {joinNames(prof.weapons.map(proficiencyLine))}.{" "}
                 {prof.dualWieldLevel === null ? tr("No puede llevar un arma en cada mano.") : tr("Puede llevar un arma en cada mano desde el nivel {n}.", { n: prof.dualWieldLevel })}
               </p>
             </section>

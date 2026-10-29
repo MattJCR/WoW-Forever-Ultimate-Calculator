@@ -101,6 +101,12 @@
   padding: 0;
   margin: 0;
 }
+/* Listas de frases (pasos, árboles, habilidades por nivel): una por línea, no en fila como los enlaces sueltos */
+.ref-links.ref-steps,
+.ref-links.ref-rows {
+  display: grid;
+  gap: 6px;
+}
 .ref-ranks {
   margin: 0;
   padding-left: 20px;
