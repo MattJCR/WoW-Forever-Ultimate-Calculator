@@ -48,6 +48,21 @@ describe("rutas", () => {
     expect(isIndexable({ kind: "class", cls: "mage" })).toBe(true);
   });
 
+  it("las guías generales (sin clase) tienen su dirección en cada idioma y se indexan", () => {
+    expect(pagePath({ kind: "guide", topic: "legacy" }, "es", index)).toBe("/es/puntos-de-legado/");
+    expect(pagePath({ kind: "guide", topic: "legacy" }, "en", index)).toBe("/en/legacy-points/");
+    expect(pagePath({ kind: "guide", topic: "fitting-room" }, "es", index)).toBe("/es/probador-3d/");
+    expect(pagePath({ kind: "guide", topic: "fitting-room" }, "en", index)).toBe("/en/3d-dressing-room/");
+    expect(pagePath({ kind: "guide", topic: "buffs" }, "en", index)).toBe("/en/buffs/");
+    expect(parsePath("/en/3d-dressing-room", index)).toEqual({ lang: "en", page: { kind: "guide", topic: "fitting-room" } });
+    expect(parsePath("/es/beneficios/", index)).toEqual({ lang: "es", page: { kind: "guide", topic: "buffs" } });
+    expect(alternates({ kind: "guide", topic: "legacy" }, index)).toEqual({ es: "/es/puntos-de-legado/", en: "/en/legacy-points/" });
+    expect(isIndexable({ kind: "guide", topic: "legacy" })).toBe(true);
+    expect(allPages(index).filter((p) => p.kind === "guide")).toHaveLength(3);
+    // la palabra de otro idioma o una subruta no es una guía
+    for (const p of ["/es/legacy-points", "/en/puntos-de-legado", "/es/probador-3d/extra"]) expect(parsePath(p, index).page.kind, p).toBe("not-found");
+  });
+
   it("un enlace antiguo de la clase elige el paso como antes", () => {
     expect(legacyView(new URLSearchParams("v=gear&b=1"))).toBe("gear");
     expect(legacyView(new URLSearchParams("b=1-2"))).toBe("talents");

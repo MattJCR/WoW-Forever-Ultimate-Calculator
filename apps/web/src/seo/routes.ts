@@ -29,8 +29,13 @@ export const CALC_VIEWS = ["race", "legacy", "talents", "gear", "buffs", "summar
 export type CalcView = (typeof CALC_VIEWS)[number];
 export const isCalcView = (v: string | null | undefined): v is CalcView => (CALC_VIEWS as readonly string[]).includes(v ?? "");
 
+/** Páginas generales sin clase: explican una parte de la web con los datos del cliente (Legado, probador 3D, beneficios). */
+export const GUIDE_TOPICS = ["legacy", "fitting-room", "buffs"] as const;
+export type GuideTopic = (typeof GUIDE_TOPICS)[number];
+
 export type Page =
   | { kind: "home" }
+  | { kind: "guide"; topic: GuideTopic }
   | { kind: "class"; cls: string }
   | { kind: "calc"; cls: string; view: CalcView }
   | { kind: "class-talents"; cls: string }
@@ -55,10 +60,12 @@ const WORDS = {
   es: {
     classes: "clases", talents: "talentos", abilities: "habilidades", races: "razas", unassigned: "sin-asignar", calc: "calculadora",
     views: { race: "raza", legacy: "legado", talents: "talentos", gear: "equipo", buffs: "beneficios", summary: "resumen" },
+    guides: { legacy: "puntos-de-legado", "fitting-room": "probador-3d", buffs: "beneficios" },
   },
   en: {
     classes: "classes", talents: "talents", abilities: "abilities", races: "races", unassigned: "unassigned", calc: "calculator",
     views: { race: "race", legacy: "legacy", talents: "talents", gear: "gear", buffs: "buffs", summary: "summary" },
+    guides: { legacy: "legacy-points", "fitting-room": "3d-dressing-room", buffs: "buffs" },
   },
 } as const;
 
@@ -100,6 +107,8 @@ export function parsePath(pathname: string, index: SeoIndex): ParsedPath {
 
   if (!area) return at({ kind: "home" });
   if (area === w.unassigned && !a) return at({ kind: "unassigned" });
+  const topic = GUIDE_TOPICS.find((t) => w.guides[t] === area);
+  if (topic) return a ? notFound : at({ kind: "guide", topic });
   if (area === w.races) {
     if (!a) return at({ kind: "races" });
     const race = find(index.races, lang, a);
@@ -147,6 +156,8 @@ function pagePathBare(page: Page, lang: Lang, index: SeoIndex): string | null {
       return root;
     case "unassigned":
       return `${root}/${w.unassigned}`;
+    case "guide":
+      return `${root}/${w.guides[page.topic]}`;
     case "races":
       return `${root}/${w.races}`;
     case "race": {
@@ -193,7 +204,7 @@ export function alternates(page: Page, index: SeoIndex): Partial<Record<Lang, st
 
 /** Todas las páginas indexables, para el prerender y el sitemap. */
 export function allPages(index: SeoIndex): Page[] {
-  const pages: Page[] = [{ kind: "home" }, { kind: "races" }];
+  const pages: Page[] = [{ kind: "home" }, ...GUIDE_TOPICS.map((topic): Page => ({ kind: "guide", topic })), { kind: "races" }];
   for (const r of index.races) pages.push({ kind: "race", id: r.id });
   for (const c of index.classes) {
     pages.push({ kind: "class", cls: c.token }, { kind: "class-talents", cls: c.token }, { kind: "class-abilities", cls: c.token });

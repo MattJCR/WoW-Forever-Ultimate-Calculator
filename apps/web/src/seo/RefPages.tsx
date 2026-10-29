@@ -1,15 +1,16 @@
 // Páginas de consulta (talentos, habilidades y razas): contenido de solo lectura que sale de los datos del cliente.
 // Son componentes puros: la web los pinta con los datos que descarga y el prerender los convierte en HTML con los mismos datos.
-import { classProficiencies } from "@wfuc/engine";
-import { EquipRules, type Abilities, type Ability, type AbilityRank, type BaseStats, type ClassTalents, type Manifest, type Race, type Talent } from "@wfuc/schema";
+import { classProficiencies, GEAR_SLOTS, SLOT_LABEL } from "@wfuc/engine";
+import { Buffs as BuffsSchema, EquipRules, type Abilities, type Ability, type AbilityRank, type BaseStats, type Buff, type ClassTalents, type Manifest, type Race, type Talent } from "@wfuc/schema";
 import { VIEWS } from "../components/ClassShell";
+import { effectLabel } from "../components/gear-format";
 import { Icon } from "../components/Icon";
 import { CLASS_COLORS, getJson, loadAbilities, loadClass, loadLegacy, loadRaces, STATIC_RACE_ICONS } from "../data";
-import { abilityName, classLabel, currentLang, fmtNum, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr } from "../i18n";
+import { abilityName, classLabel, currentLang, fmtNum, legacyTreeName, raceLabel, racialEn, specLabel, spellEn, talentName, talentText, tr, trn } from "../i18n";
 import { getSeoIndex, href } from "../router";
 import { breadcrumbs, clip, plain, type PageMeta } from "./meta";
 import { BaseStats as BaseStatsSchema } from "@wfuc/schema";
-import { CALC_VIEWS, pagePath, type CalcView, type Page } from "./routes";
+import { CALC_VIEWS, pagePath, type CalcView, type GuideTopic, type Page } from "./routes";
 import { calcMeta, classMeta } from "./siteMeta";
 
 /** Datos que necesita cada página de consulta (solo se rellena lo que su tipo pide). */
@@ -22,8 +23,10 @@ export interface RefData {
   rules?: EquipRules;
   /** Estadísticas base por clase y nivel (paso Resumen). */
   stats?: BaseStats;
-  /** Árboles de Puntos de Legado (paso Legado). */
+  /** Árboles de Puntos de Legado (paso Legado y guía de Legado). */
   legacy?: ClassTalents;
+  /** Beneficios y consumibles (guía de beneficios). */
+  buffs?: Buff[];
 }
 
 export const classTokenOf = (file: string): string => file.replace(/^classes\//, "").replace(/\.json$/, "");
@@ -31,6 +34,14 @@ export const classTokenOf = (file: string): string => file.replace(/^classes\//,
 /** Descarga lo que pide una página de consulta. */
 export async function loadRefData(page: Page, manifest: Manifest): Promise<RefData> {
   const data: RefData = { manifest };
+  if (page.kind === "guide") {
+    const [legacy, races, buffs] = await Promise.all([
+      page.topic === "legacy" ? loadLegacy(manifest.legacy.file) : undefined,
+      page.topic === "fitting-room" ? loadRaces(manifest.races.file).then((r) => r.races) : undefined,
+      page.topic === "buffs" && manifest.buffs ? getJson(manifest.buffs.file, (v) => BuffsSchema.parse(v)).then((b) => b.buffs) : undefined,
+    ]);
+    return { ...data, legacy, races, buffs };
+  }
   const view = page.kind === "calc" ? page.view : null;
   if (page.kind === "races" || page.kind === "race" || view === "race") data.races = (await loadRaces(manifest.races.file)).races;
   const entry = "cls" in page ? manifest.classes.find((c) => classTokenOf(c.file) === page.cls) : undefined;
@@ -148,6 +159,8 @@ export function refMeta(page: Page, data: RefData): PageMeta {
         jsonLd: [breadcrumbs([home, ...classCrumb, { name: tr("Habilidades"), path: path({ kind: "class-abilities", cls: token }) }, { name, path: path(page) }])],
       };
     }
+    case "guide":
+      return guideMeta(page.topic, data, home, path(page));
     case "races":
       return {
         title: tr("Razas de WoW Forever: raciales y clases disponibles"),
@@ -166,6 +179,33 @@ export function refMeta(page: Page, data: RefData): PageMeta {
     }
     default:
       return { title: "WoW Forever", description: "" };
+  }
+}
+
+/** Título, descripción y migas de las guías generales (sin clase). */
+function guideMeta(topic: GuideTopic, data: RefData, home: { name: string; path: string }, here: string): PageMeta {
+  const crumbs = (name: string) => [breadcrumbs([home, { name, path: here }])];
+  switch (topic) {
+    case "legacy": {
+      const trees = (data.legacy?.specs ?? []).map((s) => legacyTreeName(s.index, s.name ?? "")).join(", ");
+      return {
+        title: tr("Puntos de Legado de WoW Forever: ventajas de cuenta y árboles"),
+        description: clip(tr("Los {max} Puntos de Legado de WoW Forever en {m} árboles ({trees}): cada ventaja con sus rangos y requisitos.", { max: data.legacy?.rules.maxPoints ?? 16, m: data.legacy?.specs.length ?? 3, trees })),
+        jsonLd: crumbs(tr("Puntos de Legado")),
+      };
+    }
+    case "fitting-room":
+      return {
+        title: tr("Probador 3D de WoW Forever: prueba tu equipo antes de tenerlo"),
+        description: clip(tr("Prueba en 3D las {n} ranuras de tu personaje de WoW Forever sobre el modelo de tu raza, con encantamientos y bonos de conjunto. Gratis y sin cuenta.", { n: GEAR_SLOTS.length })),
+        jsonLd: crumbs(tr("Probador 3D")),
+      };
+    case "buffs":
+      return {
+        title: tr("Beneficios y consumibles de WoW Forever: elixires, frascos y comida"),
+        description: clip(tr("Los {n} beneficios de WoW Forever con las cifras del cliente: bendiciones, tótems, elixires, frascos, comida, pociones y objetos de campamento.", { n: data.buffs?.length ?? 0 })),
+        jsonLd: crumbs(tr("Beneficios")),
+      };
   }
 }
 
@@ -542,6 +582,219 @@ export function RaceView({ data, id }: { data: RefData; id: number }) {
   );
 }
 
+// ---------- Guías generales (sin clase) ----------
+
+/** Árboles de Legado con su nombre en el idioma elegido. */
+const legacyTrees = (data: RefData): { index: number; name: string; talents: Talent[] }[] =>
+  (data.legacy?.specs ?? []).map((s) => ({ index: s.index, name: legacyTreeName(s.index, s.name ?? ""), talents: s.talents }));
+
+/** Los huecos de Legado que el cliente aún no rellena se llaman «Desconocido» (nombre original, no el traducido). */
+const isPlaceholder = (t: Talent): boolean => t.name === "Desconocido";
+
+const buffName = (b: Buff): string => (currentLang() === "en" && b.nameEn ? b.nameEn : b.name).replace(/(?<=\w\w)\.$/, "");
+
+/** Enlaces a un paso de la calculadora para cada clase. */
+function ClassStepLinks({ manifest, view, label }: { manifest: Manifest; view: CalcView; label: string }) {
+  return (
+    <ul className="ref-links">
+      {manifest.classes.map((c) => {
+        const token = classTokenOf(c.file);
+        return (
+          <li key={c.classId}>
+            <a href={href({ kind: "calc", cls: token, view })}>{tr(label, { clase: classLabel(token, c.className ?? "") })}</a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function GuideShell({ title, eyebrow, lead, children }: { title: string; eyebrow: string; lead: string; children: React.ReactNode }) {
+  return (
+    <div className="ref wrap">
+      <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: title }]} />
+      <RefHead eyebrow={eyebrow} title={title} lead={lead} />
+      {children}
+    </div>
+  );
+}
+
+/** Puntos de Legado: qué son y todas sus ventajas (iguales para todas las clases). */
+export function LegacyGuideView({ data }: { data: RefData }) {
+  const trees = legacyTrees(data);
+  if (!data.legacy || trees.length === 0) return null;
+  const max = data.legacy.rules.maxPoints;
+  const real = (t: Talent): boolean => !!t.name && !isPlaceholder(t);
+  // Talentoso adelanta el primer punto de talento: las cifras salen de su texto en el cliente («a partir del nivel N, en vez de … nivel 10 … M puntos de talento en total»)
+  const earlier = trees
+    .flatMap((s) => s.talents)
+    .map((t) => {
+      const m = /a partir del nivel (\d+), en vez de a partir del nivel (\d+).*?(\d+) puntos de talento en total/s.exec(t.descriptions[t.maxRank - 1] ?? "");
+      return m ? { name: talentLabel(t), level: m[1]!, normal: m[2]!, total: m[3]! } : null;
+    })
+    .find((x) => x !== null);
+  const unknown = trees.reduce((n, s) => n + s.talents.filter(isPlaceholder).length, 0);
+  return (
+    <GuideShell
+      title={tr("Puntos de Legado")}
+      eyebrow={tr("Guía")}
+      lead={tr("Los Puntos de Legado son ventajas que se eligen antes que los talentos de clase: {max} puntos para repartir en {m} árboles ({trees}). Estas son todas, con sus rangos y requisitos, tal como las trae el cliente de la beta.", { max, m: trees.length, trees: trees.map((s) => s.name).join(", ") })}
+    >
+      <section className="ref-section">
+        <h2>{tr("Cómo funcionan")}</h2>
+        <ul>
+          <li>{tr("Tienes {max} puntos en total y se gastan por árbol, como los talentos.", { max })}</li>
+          <li>{tr("Cada ventaja pide haber gastado cierto número de puntos en su árbol antes de poder elegirla; el requisito aparece en cada una.")}</li>
+          <li>{tr("Se conservan al cambiar de clase en la calculadora: no dependen de tu personaje.")}</li>
+          {earlier && (
+            <li>{tr("{perk} adelanta el primer punto de talento: con todos sus rangos llega al nivel {level} en lugar del {normal}, aunque el máximo sigue siendo {total} puntos de talento.", { perk: earlier.name, level: earlier.level, normal: earlier.normal, total: earlier.total })}</li>
+          )}
+          {unknown > 0 && <li>{tr("{n} huecos de los árboles figuran aún como «Desconocido»: el cliente indica que se añadirán en una actualización futura.", { n: unknown })}</li>}
+        </ul>
+      </section>
+      {trees.map((s) => (
+        <section key={s.index} className="ref-section">
+          <h2>{s.name}</h2>
+          <ul className="ref-list">
+            {s.talents
+              .filter(real)
+              .sort((a, b) => a.row - b.row || a.col - b.col)
+              .map((t) => (
+                <li key={t.nodeId} className="ref-item">
+                  <Icon id={t.iconFileDataId} name={talentLabel(t)} />
+                  <div>
+                    <h3>
+                      {talentLabel(t)}
+                      <span className="rank-chip">{t.maxRank > 1 ? tr("Rangos: {n}", { n: t.maxRank }) : tr("1 rango")}</span>
+                    </h3>
+                    <p>{talentRankText(t, t.maxRank - 1)}</p>
+                    <p className="muted small">{t.requiredPoints > 0 ? tr("Requiere {n} puntos en este árbol.", { n: t.requiredPoints }) : tr("Sin requisito de puntos.")}</p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </section>
+      ))}
+      <section className="ref-section">
+        <h2>{tr("Repartirlos en la calculadora")}</h2>
+        <p>{tr("El paso de Legado es el mismo para todas las clases. Elige la tuya para repartir los puntos y seguir con la raza y los talentos:")}</p>
+        <ClassStepLinks manifest={data.manifest} view="legacy" label="Puntos de Legado de {clase}" />
+      </section>
+    </GuideShell>
+  );
+}
+
+/** Probador 3D: qué hace y con qué datos. */
+export function FittingRoomGuideView({ data }: { data: RefData }) {
+  const { manifest } = data;
+  const slots = GEAR_SLOTS.map((s) => tr(SLOT_LABEL[s])).join(", ");
+  return (
+    <GuideShell
+      title={tr("Probador 3D")}
+      eyebrow={tr("Guía")}
+      lead={tr("El probador 3D te deja vestir a tu personaje con todas las ranuras de equipo sobre el modelo de su raza y ver al momento las estadísticas del equipo, sus bonos de conjunto y lo que cambia cada pieza.")}
+    >
+      <section className="ref-section">
+        <h2>{tr("Qué puedes hacer")}</h2>
+        <ul>
+          <li>{tr("Probar piezas en las {n} ranuras ({slots}) sobre el modelo de cualquiera de las {razas} razas.", { n: GEAR_SLOTS.length, slots, razas: data.races?.length ?? 0 })}</li>
+          <li>{tr("Añadir encantamientos ({enchants} en los datos) y sufijos aleatorios ({suffixes}) a cada pieza, y mejoras temporales a las armas ({weapon}).", { enchants: manifest.enchants?.count ?? 0, suffixes: manifest.randomSuffixes?.count ?? 0, weapon: manifest.weaponEnhancements?.count ?? 0 })}</li>
+          <li>{tr("Ver los conjuntos de objetos y sus bonos, con una galería que se puede filtrar por estilo.")}</li>
+          <li>{tr("Consultar la tabla «Equipado», con el nivel de objeto y las mejoras de cada pieza, y copiarla como texto.")}</li>
+          <li>{tr("Sacar capturas con fondo o transparentes, o copiar la imagen.")}</li>
+          <li>{tr("Generar un equipo aleatorio con lo que tu clase puede llevar.")}</li>
+          <li>{tr("Compartir tu equipo: viaja en el enlace, y también hay un enlace solo del probador y un código para insertarlo en otra web.")}</li>
+        </ul>
+      </section>
+      <section className="ref-section">
+        <h2>{tr("Qué hay que saber")}</h2>
+        <ul>
+          <li>{tr("Los modelos, texturas y objetos salen del cliente de la beta. Algunos objetos (los de prueba, por ejemplo) no traen modelo y el probador lo avisa.")}</li>
+          <li>{tr("Los materiales se dibujan con un sombreado sencillo, sin brillos especulares ni texturas animadas.")}</li>
+          <li>{tr("Lo que el cliente no confirma (una parte de las puntuaciones de objeto, por ejemplo) se marca como estimación.")}</li>
+        </ul>
+      </section>
+      <section className="ref-section">
+        <h2>{tr("Probar el equipo de tu clase")}</h2>
+        <p>{tr("Cada clase tiene su paso de equipo, con las armaduras y armas que puede llevar:")}</p>
+        <ClassStepLinks manifest={manifest} view="gear" label="Equipo de {clase}" />
+      </section>
+    </GuideShell>
+  );
+}
+
+const BUFF_SECTIONS: { category: Buff["category"]; title: string; withText: boolean }[] = [
+  { category: "camp", title: "Campamento (objetos de profesión)", withText: true },
+  { category: "profession", title: "Pasivos de profesión (estimación)", withText: true },
+  { category: "flask", title: "Frascos", withText: true },
+  { category: "elixir", title: "Elixires", withText: false },
+  { category: "food", title: "Comida y bebida", withText: false },
+  { category: "potion", title: "Pociones", withText: false },
+  { category: "scroll", title: "Pergaminos", withText: false },
+  { category: "other", title: "Otros consumibles", withText: false },
+];
+
+/** Beneficios y consumibles: qué se puede marcar y de dónde sale cada cifra. */
+export function BuffsGuideView({ data }: { data: RefData }) {
+  const buffs = data.buffs ?? [];
+  if (buffs.length === 0) return null;
+  const byName = (a: Buff, b: Buff) => buffName(a).localeCompare(buffName(b), currentLang());
+  const forClass = data.manifest.classes
+    .map((c) => ({ c, token: classTokenOf(c.file), list: buffs.filter((b) => b.classId === c.classId && (b.category === "class" || b.category === "totem" || b.category === "pet")).sort(byName) }))
+    .filter((x) => x.list.length > 0);
+  return (
+    <GuideShell
+      title={tr("Beneficios y consumibles")}
+      eyebrow={tr("Guía")}
+      lead={tr("{n} beneficios de clase, tótems y consumibles con las cifras del cliente. En la calculadora marcas los que tendrías y se suman a tus estadísticas; los del mismo grupo no se acumulan, así que al marcar uno se quita el otro.", { n: buffs.length })}
+    >
+      {BUFF_SECTIONS.map(({ category, title, withText }) => {
+        const list = buffs.filter((b) => b.category === category).sort(byName);
+        if (list.length === 0) return null;
+        return (
+          <section key={category} className="ref-section">
+            <h2>
+              {tr(title)} <span className="rank-chip">{list.length}</span>
+            </h2>
+            {category === "profession" && <p className="muted small">{tr("Son una estimación: el cliente aún no trae estos pasivos y la cifra viene de la comunidad.")}</p>}
+            {withText ? (
+              <ul className="ref-list">
+                {list.map((b) => (
+                  <li key={b.id} className="ref-item">
+                    <Icon id={b.iconFileDataId} name={buffName(b)} />
+                    <div>
+                      <h3>{buffName(b)}</h3>
+                      <p>{plain(trn(effectLabel({ spellId: b.id, text: b.text, name: b.name })))}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>{list.map(buffName).join(" · ")}</p>
+            )}
+          </section>
+        );
+      })}
+      <section className="ref-section">
+        <h2>{tr("Beneficios de clase")}</h2>
+        <p>{tr("Bendiciones, gritos, auras, tótems y demás beneficios que lanza cada clase:")}</p>
+        {forClass.map(({ c, token, list }) => (
+          <div key={c.classId}>
+            <h3>
+              {classLabel(token, c.className ?? "")} <span className="rank-chip">{list.length}</span>
+            </h3>
+            <p>{list.map(buffName).join(" · ")}</p>
+          </div>
+        ))}
+      </section>
+      <section className="ref-section">
+        <h2>{tr("Marcarlos en la calculadora")}</h2>
+        <ClassStepLinks manifest={data.manifest} view="buffs" label="Beneficios de {clase}" />
+      </section>
+    </GuideShell>
+  );
+}
+
 // ---------- Calculadora de una clase: página de la clase y un paso por dirección ----------
 
 /** Frase que explica cada paso de la calculadora (clave en español, como el resto de textos). */
@@ -691,6 +944,14 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
     );
   }
 
+  const guideLink = (topic: GuideTopic, label: string) => (
+    <p className="ref-actions">
+      <a className="btn" href={href({ kind: "guide", topic })}>
+        {tr(label)}
+      </a>
+    </p>
+  );
+
   if (view === "gear") {
     const prof = data.rules ? classProficiencies(data.rules, entry?.classId ?? 0) : null;
     const line = (p: { name: string; minLevel: number }) => (p.minLevel > 0 ? tr("{tipo} (desde el nivel {n})", { tipo: tr(p.name), n: p.minLevel }) : tr(p.name));
@@ -715,6 +976,7 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
         <section className="ref-section">
           <h2>{tr("Probador 3D")}</h2>
           <p>{tr("Las 19 ranuras del personaje se prueban sobre el modelo de tu raza, con las estadísticas del equipo, sus conjuntos y el daño que cambia cada pieza.")}</p>
+          {guideLink("fitting-room", "Cómo funciona el probador 3D")}
         </section>
         {foot}
       </div>
@@ -762,6 +1024,7 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
     return (
       <div className="ref wrap">
         {head(tr("Puntos de Legado para {clase}", { clase: cname }), tr("Los Puntos de Legado son ventajas de cuenta: {max} puntos repartidos en {m} árboles que se eligen antes que los talentos de {clase}. Una de ellas adelanta el primer punto de talento.", { max: legacy?.rules.maxPoints ?? 16, m: legacy?.specs.length ?? 3, clase: cname }))}
+        {guideLink("legacy", "Todas las ventajas de Legado")}
         {legacy?.specs.map((s) => (
           <section key={s.index} className="ref-section">
             <h2>{s.name}</h2>
@@ -776,6 +1039,7 @@ export function CalcStepView({ data, token, view }: { data: RefData; token: stri
   return (
     <div className="ref wrap">
       {head(tr("Beneficios y consumibles para {clase}", { clase: cname }), tr("Marca los beneficios que tendría tu {clase}: objetos de campamento, bendiciones, gritos, auras, elixires, frascos y comida, con las cifras del cliente. Los que no se acumulan se desmarcan solos.", { clase: cname }))}
+      {guideLink("buffs", "Todos los beneficios y consumibles")}
       {foot}
     </div>
   );
@@ -792,6 +1056,8 @@ export function RefContent({ page, data }: { page: Page; data: RefData }) {
       return <ClassAbilitiesView data={data} token={page.cls} />;
     case "ability":
       return <AbilityView data={data} token={page.cls} id={page.id} />;
+    case "guide":
+      return page.topic === "legacy" ? <LegacyGuideView data={data} /> : page.topic === "fitting-room" ? <FittingRoomGuideView data={data} /> : <BuffsGuideView data={data} />;
     case "races":
       return <RacesView data={data} />;
     case "race":
@@ -805,4 +1071,4 @@ export function RefContent({ page, data }: { page: Page; data: RefData }) {
   }
 }
 
-export const isRefPage = (p: Page): boolean => ["class", "calc", "class-talents", "talent", "class-abilities", "ability", "races", "race"].includes(p.kind);
+export const isRefPage = (p: Page): boolean => ["class", "calc", "class-talents", "talent", "class-abilities", "ability", "races", "race", "guide"].includes(p.kind);

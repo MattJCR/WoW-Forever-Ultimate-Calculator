@@ -122,6 +122,11 @@ export function SiteFooter({ manifest, q }: { manifest: Manifest; q: Record<stri
           })}
           <a href={href({ kind: "races" }, q)}>{tr("Razas")}</a>
         </nav>
+        <nav className="footer-links" aria-label={tr("Guías")}>
+          <a href={href({ kind: "guide", topic: "legacy" }, q)}>{tr("Puntos de Legado")}</a>
+          <a href={href({ kind: "guide", topic: "fitting-room" }, q)}>{tr("Probador 3D")}</a>
+          <a href={href({ kind: "guide", topic: "buffs" }, q)}>{tr("Beneficios y consumibles")}</a>
+        </nav>
         <p>
           {tr("Datos del cliente de la beta de WoW Forever, build {build}", { build: number || manifest.build })}
           {manifest.hotfixesApplied ? ` ${tr("(con hotfixes del servidor)")}` : ""} · {tr("extraídos el {date}. Pueden cambiar durante la beta.", { date: manifest.generatedAt.slice(0, 10) })}
