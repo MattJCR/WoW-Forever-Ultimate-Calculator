@@ -154,23 +154,56 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
           <h2>{tr("Talentos, habilidades y guías")}</h2>
           <p>{tr("Todo lo que el cliente de la beta trae de cada clase, página a página y sin calculadora, para leerlo y compartirlo.")}</p>
         </header>
-        <ul className="ref-links ref-rows">
+        <ul className="consulta-grid">
           {manifest.classes.map((c) => {
             const token = classToken(c.file);
+            const name = classLabel(token, c.className ?? "");
             return (
-              <li key={c.classId}>
-                <b>
-                  <a href={href({ kind: "class", cls: token })}>{classLabel(token, c.className ?? "")}</a>
-                </b>
-                : <a href={href({ kind: "class-talents", cls: token })}>{tr("Talentos")}</a> · <a href={href({ kind: "class-abilities", cls: token })}>{tr("Habilidades")}</a>
+              <li key={c.classId} className="consulta-item" style={{ ["--c" as string]: CLASS_COLORS[token] ?? "#e0b04a" }}>
+                <Icon id={c.iconFileDataId} name={name} />
+                <div className="consulta-text">
+                  <a className="consulta-name" href={href({ kind: "class", cls: token })}>
+                    {name}
+                  </a>
+                  <span className="consulta-links">
+                    <a className="chip chip-link" href={href({ kind: "class-talents", cls: token })}>
+                      {tr("Talentos")}
+                    </a>
+                    <a className="chip chip-link" href={href({ kind: "class-abilities", cls: token })}>
+                      {tr("Habilidades")}
+                    </a>
+                  </span>
+                </div>
               </li>
             );
           })}
         </ul>
-        <p className="ref-links home-guides">
-          <a href={href({ kind: "races" })}>{tr("Razas de WoW Forever")}</a> · <a href={href({ kind: "guide", topic: "legacy" })}>{tr("Puntos de Legado")}</a> ·{" "}
-          <a href={href({ kind: "guide", topic: "fitting-room" })}>{tr("Probador 3D")}</a> · <a href={href({ kind: "guide", topic: "buffs" })}>{tr("Beneficios y consumibles")}</a>
-        </p>
+        <ul className="home-guides">
+          <li>
+            <a className="btn" href={href({ kind: "races" })}>
+              {tr("Razas de WoW Forever")}
+              {ARROW}
+            </a>
+          </li>
+          <li>
+            <a className="btn" href={href({ kind: "guide", topic: "legacy" })}>
+              {tr("Puntos de Legado")}
+              {ARROW}
+            </a>
+          </li>
+          <li>
+            <a className="btn" href={href({ kind: "guide", topic: "fitting-room" })}>
+              {tr("Probador 3D")}
+              {ARROW}
+            </a>
+          </li>
+          <li>
+            <a className="btn" href={href({ kind: "guide", topic: "buffs" })}>
+              {tr("Beneficios y consumibles")}
+              {ARROW}
+            </a>
+          </li>
+        </ul>
       </section>
 
       <section id="pasos" className="band">

@@ -339,8 +339,69 @@
   color: var(--muted);
   font-size: 14px;
 }
-.ref-links.home-guides {
-  margin-top: 20px;
+/* Consulta: clases en columnas sin tarjetas (las tarjetas ya estan en «¿Qué clase juegas?») y las guias debajo */
+.consulta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0 48px;
+}
+.consulta-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--line);
+}
+.consulta-item .icon,
+.consulta-item .initials {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 2px solid var(--c);
+}
+.consulta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.consulta-name {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.015em;
+  color: var(--text);
+  text-decoration: none;
+}
+.consulta-name:hover {
+  color: var(--gold-2);
+}
+.consulta-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.consulta-links .chip {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+.consulta-links .chip:hover {
+  background: var(--panel-3);
+  border-color: var(--line-3);
+}
+.home-guides {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.home-guides .btn svg {
+  color: var(--gold);
 }
 
 .roadmap-foot {
