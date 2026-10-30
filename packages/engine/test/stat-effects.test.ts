@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, decodeBuild, indexClass, rankOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -14,6 +14,7 @@ const abilities = Abilities.parse(json("abilities/mage.json"));
 const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
 
 // Build de un usuario (Mago Humano, Escarcha/Fuego + Legacy completo)
+// Los 2 puntos del nodo 105802 eran «Tromba de misiles» hasta el 70658; el 70685 intercambia las definiciones de los nodos 105802 y 105809 y ahora son «Recuperación Arcana»
 const classBuild = decodeBuild(mage, "V229luA1E1B2A1A1C2B4C3E1C1E6C8B1E1E1C6B")!;
 const legacyBuild = decodeBuild(legacy, "V22d3uE3E2B2B8B")!;
 
@@ -57,7 +58,7 @@ describe("suma de los efectos de talentos, Legacy y raza", () => {
 
   it("lo que no se puede cuantificar se conserva con su texto (procs, efectos con condicion y habilidades activas)", () => {
     const names = fx.conditional.map((c) => c.source.name);
-    expect(names).toEqual(expect.arrayContaining(["Tromba de misiles", "Ignición", "Maestro de los elementos", "Trizar", "Dedos de Escarcha", "Escalofrío del invierno", "Barrera de hielo", "Lanza de hielo"]));
+    expect(names).toEqual(expect.arrayContaining(["Recuperación Arcana", "Ignición", "Maestro de los elementos", "Trizar", "Dedos de Escarcha", "Escalofrío del invierno", "Barrera de hielo", "Lanza de hielo"]));
     expect(fx.conditional.find((c) => c.source.name === "Barrera de hielo")!.active).toBe(true);
     for (const c of fx.conditional) expect(c.text.length).toBeGreaterThan(0);
   });

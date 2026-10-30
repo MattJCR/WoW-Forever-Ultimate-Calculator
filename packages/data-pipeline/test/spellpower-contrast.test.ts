@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const OUT = join(root, "data", "forever", "1.60.1.70658", "abilities");
+const OUT = join(root, "data", "forever", "1.60.1.70685", "abilities");
 const READINGS = join(root, "data", "external", "lootified", "SpellPower.lua");
 const ready = existsSync(READINGS) && existsSync(OUT);
 

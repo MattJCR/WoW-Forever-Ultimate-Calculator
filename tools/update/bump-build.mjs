@@ -20,7 +20,8 @@ if (!/^\d+\.\d+\.\d+\.\d+$/.test(from ?? "") || !/^\d+\.\d+\.\d+\.\d+$/.test(to 
 }
 
 const MODEL_FILES = [/^tools\/model\//, /^apps\/web\/src\/viewer\/config\.ts$/];
-const SKIP = [/^data\//, /^docs\//, /^apps\/web\/public\//, /^apps\/web\/dist\//, /^node_modules\//, /\.(glb|webp|png|jpg|bin)$/];
+// patch-check.test.mjs fija a propósito el parche 70532 -> 70658 (reproduce hallazgos conocidos): no debe seguir al build vigente
+const SKIP = [/^tools\/update\/test\/patch-check\.test\.mjs$/, /^data\//, /^docs\//, /^apps\/web\/public\//, /^apps\/web\/dist\//, /^node_modules\//, /\.(glb|webp|png|jpg|bin)$/];
 
 const files = execFileSync("git", ["grep", "-l", "-F", from], { cwd: root, encoding: "utf8" })
   .split(/\r?\n/)

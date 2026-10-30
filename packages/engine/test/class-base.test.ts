@@ -12,7 +12,7 @@ import { baseAttackPower, classBaseOf, deriveCombatStats, deriveStats, dodgePerA
  * viven en data/rules/combat-formulas.json con procedencia community.
  */
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const formulas = CombatFormulas.parse(json("combat-formulas.json"));
 const client = ClientStats.parse(json("client-stats.json"));

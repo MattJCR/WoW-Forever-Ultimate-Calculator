@@ -4,7 +4,7 @@
 // excepciones de la página, `undefined` / `NaN` / `[object Object]` en el texto o marcadores del cliente sin resolver que no sean
 // los huecos conocidos. Además busca en Beneficios un beneficio del dataset y comprueba que sale en la lista.
 //
-// Uso: node tools/update/visual-check.mjs [--build 1.60.1.70658] [--port 5173] [--class mage]
+// Uso: node tools/update/visual-check.mjs [--build 1.60.1.70685] [--port 5173] [--class mage]
 // Salida: una línea por problema y, al final, «N páginas revisadas, M problemas». Código 1 si hay problemas.
 import { spawn } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";

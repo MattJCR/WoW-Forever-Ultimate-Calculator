@@ -8,7 +8,7 @@ import { SpellTables } from "../src/spell-tables.js";
 import { Items } from "../src/model.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70658";
+const BUILD = "1.60.1.70685";
 const ITEM_READINGS = join(root, "data", "external", "lootified", "ItemStats.lua");
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const haveRaw = existsSync(join(RAW, "RandPropPoints.csv"));

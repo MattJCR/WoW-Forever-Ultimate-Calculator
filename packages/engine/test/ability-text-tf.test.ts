@@ -15,7 +15,7 @@ const nums = (s: string) => [...s.replace(/\n/g, " ").replace(/(\d),(\d{3})/g, "
 const close = (a: number, b: number) => Math.abs(a - b) <= Math.max(1, Math.abs(b) * 0.005);
 
 function load(c: string) {
-  const ab = Abilities.parse(JSON.parse(readFileSync(join(root, `data/forever/1.60.1.70658/abilities/${c}.json`), "utf8")));
+  const ab = Abilities.parse(JSON.parse(readFileSync(join(root, `data/forever/1.60.1.70685/abilities/${c}.json`), "utf8")));
   const tf = JSON.parse(readFileSync(join(root, `data/external/talentsforever/${c}.json`), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
   const by = new Map<number, { name: string; rank: (typeof ab.abilities)[number]["ranks"][number] }>();
   for (const a of ab.abilities) for (const r of a.ranks) by.set(r.spellId, { name: a.name, rank: r });
@@ -31,7 +31,7 @@ describe("textos de las habilidades frente a la referencia (nivel 60, sin talent
   // Cazador, Aspecto del halcón ×5 (20/35/50/70/90 → 15/22/30/38/47) y Aura de disparo certero ×4 (30/40/50/75 → 15/22/30/40). Sacerdote, Chamán y Brujo +1 cada uno
   // porque la referencia ya trae los hotfixes del servidor que antes la separaban.
   const EXPECTED: Record<string, [number, number]> = {
-    warrior: [116, 110], paladin: [167, 143], rogue: [119, 98], priest: [238, 235], mage: [197, 189], hunter: [145, 106], shaman: [183, 182], warlock: [171, 166], druid: [207, 194],
+    warrior: [116, 110], paladin: [167, 143], rogue: [119, 98], priest: [238, 235], mage: [194, 186], hunter: [145, 110], shaman: [183, 182], warlock: [171, 166], druid: [207, 194],
   };
   for (const c of CLASSES) {
     it(`${c}: ${EXPECTED[c]![1]} de ${EXPECTED[c]![0]} textos con las mismas cifras`, () => {

@@ -5,7 +5,7 @@ import { Abilities } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658", "abilities");
+const D = join(root, "data", "forever", "1.60.1.70685", "abilities");
 const has = existsSync(D);
 
 /**

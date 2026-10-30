@@ -6,12 +6,12 @@ import { describe, expect, it } from "vitest";
 import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, improveBuff, indexBuffs, indexClass, isLastingBuff, spellModifiersOf, toggleBuff } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const has = existsSync(join(D, "buffs.json")) && existsSync(join(D, "classes", "warrior.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 /** Beneficios (sesión 12): habilidades de clase propias y de otras clases, tótems, mascota y consumibles, todo del cliente. */
-describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70658", () => {
+describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70685", () => {
   const data = Buffs.parse(json("buffs.json"));
   const index = indexBuffs(data);
   const byName = (name: string, category?: string) => data.buffs.find((b) => b.name === name && (!category || b.category === category))!;

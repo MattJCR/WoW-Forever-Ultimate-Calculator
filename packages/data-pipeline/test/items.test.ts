@@ -8,10 +8,10 @@ import { Items } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70658";
+const BUILD = "1.60.1.70685";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 
-describe.skipIf(!existsSync(join(RAW, "ItemSetSpell.csv")))("conjuntos y efectos de objeto (cliente 1.60.1.70658, con hotfixes)", () => {
+describe.skipIf(!existsSync(join(RAW, "ItemSetSpell.csv")))("conjuntos y efectos de objeto (cliente 1.60.1.70685, con hotfixes)", () => {
   const raw = openRawTables(RAW);
   const data = Items.parse(buildItems(raw, BUILD, new SpellTables(raw)));
   const byId = new Map(data.items.map((i) => [i.id, i]));

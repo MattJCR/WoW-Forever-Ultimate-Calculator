@@ -27,7 +27,7 @@ import {
 } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const has = existsSync(join(D, "items.json")) && existsSync(join(D, "equip-rules.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
@@ -36,7 +36,7 @@ const WARRIOR = 1, PALADIN = 2, HUNTER = 3, ROGUE = 4, PRIEST = 5, MAGE = 8;
 const HUMAN = 1;
 const ctx = (classId: number, level = 60, raceId = HUMAN): GearContext => ({ classId, raceId, level });
 
-describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70658 con hotfixes)", () => {
+describe.skipIf(!has)("equipo: reglas para equipar y sumas (cliente 1.60.1.70685 con hotfixes)", () => {
   const data = indexGearData({
     items: Items.parse(json("items.json")),
     rules: EquipRules.parse(json("equip-rules.json")),

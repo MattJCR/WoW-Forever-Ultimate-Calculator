@@ -10,7 +10,7 @@ if (!template || !template.includes("{table}") || !template.includes("{build}"))
   console.error('Falta ENUS_TABLES_URL con {table} y {build}, p. ej. "https://…/db2/{table}/csv?build={build}"');
   process.exit(1);
 }
-const build = process.argv[2] ?? "1.60.1.70658";
+const build = process.argv[2] ?? "1.60.1.70685";
 const out = resolve(import.meta.dirname, "../../data/external/enus");
 mkdirSync(out, { recursive: true });
 

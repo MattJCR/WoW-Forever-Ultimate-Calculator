@@ -17,7 +17,7 @@ import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70658";
+const BUILD = "1.60.1.70685";
 const load = (dir: string) => buildClassTalents(openRawTables(join(root, "data", "raw", dir)), BUILD, "esES");
 
 /** Con los hotfixes de la cache del juego aplicados: la verdad "en vivo". */
@@ -28,7 +28,7 @@ const legacyData = buildLegacy(openRawTables(join(root, "data", "raw", `${BUILD}
 const byToken = (r: typeof live, t: string) => r.classes.find((c) => c.classToken === t)!;
 const TOKENS = ["DRUID", "HUNTER", "MAGE", "PALADIN", "PRIEST", "ROGUE", "SHAMAN", "WARLOCK", "WARRIOR"];
 
-describe("arboles de talentos de Forever (cliente 1.60.1.70658, con hotfixes)", () => {
+describe("arboles de talentos de Forever (cliente 1.60.1.70685, con hotfixes)", () => {
   it("cumple el esquema en todas las clases", () => {
     for (const c of live.classes) expect(() => ClassTalents.parse(c)).not.toThrow();
   });
@@ -44,10 +44,10 @@ describe("arboles de talentos de Forever (cliente 1.60.1.70658, con hotfixes)", 
     expect(live.unresolved.map((u) => u.traitTreeId)).toEqual([1066, 1083]);
   });
 
-  it("el Mago tiene 54 talentos en 3 especializaciones (19/17/18; Piercing Ice se retiró con el hotfix del 20/10) con la rejilla de 7x4", () => {
+  it("el Mago tiene 53 talentos en 3 especializaciones (18/17/18; Piercing Ice se retiró con el hotfix del 20/10 y Enfoque Arcano con el 70685) con la rejilla de 7x4", () => {
     const mage = byToken(live, "MAGE");
     expect(mage.traitTreeId).toBe(1112);
-    expect(mage.specs.map((s) => s.talents.length)).toEqual([19, 17, 18]);
+    expect(mage.specs.map((s) => s.talents.length)).toEqual([18, 17, 18]);
     for (const t of mage.specs.flatMap((s) => s.talents)) {
       expect(t.row).toBeGreaterThanOrEqual(0);
       expect(t.row).toBeLessThanOrEqual(6);
@@ -141,10 +141,11 @@ describe("descripciones por rango e iconos", () => {
     }
   });
 
-  it("los valores por rango salen de las curvas del cliente (Enfoque Arcano: 1 %, 2 %... 5 %)", () => {
-    const focus = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 11222)!;
-    expect(focus.descriptions.map((d) => /(\d+)%/.exec(d)![1])).toEqual(["1", "2", "3", "4", "5"]);
-    expect(focus.descriptions[0]).toBe("Aumenta un 1% tu probabilidad de golpear con hechizos Arcanos.");
+  it("los valores por rango salen de las curvas del cliente (Incineración: 2 %, 4 %... 10 %)", () => {
+    // Incineración pasó de 3 a 5 rangos en el 70685 (Enfoque Arcano, que se usaba aquí, se retiró en ese parche)
+    const focus = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 18459)!;
+    expect(focus.descriptions.map((d) => /(\d+)%/.exec(d)![1])).toEqual(["2", "4", "6", "8", "10"]);
+    expect(focus.descriptions[0]).toBe("Aumenta un 2% la probabilidad de golpe crítico de tus hechizos Explosión de Fuego, Lanza de hielo, Explosión Arcana y Chamuscar.");
   });
 
   it("interpreta expresiones ${...} con signo y decimales fijos (Eclipse: 0,17 / 0,33 / 0,50 s)", () => {
@@ -161,7 +162,7 @@ describe("descripciones por rango e iconos", () => {
   it("marca como aproximados los valores que dependen del nivel (Explosion Arcana)", () => {
     const blast = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 400574)!;
     expect(blast.descriptionsApproximate).toBe(true);
-    const focus = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 11222)!;
+    const focus = byToken(live, "MAGE").specs.flatMap((s) => s.talents).find((t) => t.spellId === 18459)!;
     expect(focus.descriptionsApproximate).toBe(false);
   });
 
@@ -262,7 +263,7 @@ describe("seccion aparte: datos sin asignar", () => {
     const entries = raw.table("TraitNodeEntry").length;
     const linked = new Set(raw.table("TraitNodeXTraitNodeEntry").map((l) => l.TraitNodeEntryID)).size;
     expect(un.orphanEntries).toHaveLength(entries - linked);
-    expect(un.orphanEntries.length).toBe(99); // 98 + Hielo penetrante (Piercing Ice), retirado el 20/10: se conserva sin nodo
+    expect(un.orphanEntries.length).toBe(100); // 98 + Hielo penetrante (Piercing Ice), retirado el 20/10 + Enfoque Arcano, retirado en el 70685: se conservan sin nodo
     for (const e of un.orphanEntries) expect(e.selectable).toBe(false);
     expect(new Set(un.orphanEntries.map((e) => e.entryId)).size).toBe(un.orphanEntries.length);
   });
@@ -293,11 +294,11 @@ describe("seccion aparte: datos sin asignar", () => {
     for (const e of unplaced) expect(inTrees.has(e.spellId!)).toBe(false);
   });
 
-  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 45)", () => {
+  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 46)", () => {
     const legacyOnes = un.orphanEntries.filter((e) => e.isLegacy);
     const others = un.orphanEntries.filter((e) => !e.isLegacy);
     expect(legacyOnes).toHaveLength(54);
-    expect(others).toHaveLength(45);
+    expect(others).toHaveLength(46);
     const legacyIds = legacyData.specs.flatMap((s) => s.talents.map((t) => t.spellId)).filter((id) => id < 1_300_000);
     const lo = Math.min(...legacyIds);
     for (const e of legacyOnes) expect(e.spellId!).toBeGreaterThanOrEqual(lo);
@@ -347,9 +348,9 @@ describe("contraste con la referencia (CC BY 4.0)", () => {
     expect(report!.ok).toBe(true);
   });
 
-  it("suman 465 talentos en total", () => {
+  it("suman 464 talentos en total (465 hasta el 70658; Enfoque Arcano retirado, la referencia ya lo trae igual)", () => {
     const total = live.classes.reduce((s, c) => s + c.specs.reduce((n, sp) => n + sp.talents.length, 0), 0);
-    expect(total).toBe(465);
+    expect(total).toBe(464);
   });
 });
 
@@ -775,8 +776,8 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
 
   it("cumple el esquema y solo hay Mago configurado (una clase sin lineas configuradas devuelve null)", () => {
     expect(() => Abilities.parse(data)).not.toThrow();
-    expect(data.abilities).toHaveLength(72);
-    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(220);
+    expect(data.abilities).toHaveLength(71); // Explosión de Escarcha ya no se entrena (70685): sin SkillLineAbility
+    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(217); // 220 hasta el 70658: -3 rangos de Explosión de Escarcha
     expect(buildAbilities(raw, live.spells, 99, BUILD, "esES")).toBeNull(); // una clase sin SkillLines configuradas no devuelve nada
   });
 
@@ -787,7 +788,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
     }
   });
 
-  it("coste, lanzamiento, enfriamiento y alcance coinciden con la referencia en los 197 hechizos que comparten", () => {
+  it("coste, lanzamiento, enfriamiento y alcance coinciden con la referencia en los 194 hechizos que comparten", () => {
     let compared = 0;
     const bad: string[] = [];
     for (const [key, v] of Object.entries(tf)) {
@@ -805,7 +806,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
       const range = /(\d+) yd range/.exec(flat);
       if (range && r.rangeYd !== Number(range[1])) bad.push(`${key} alcance`);
     }
-    expect(compared).toBe(197);
+    expect(compared).toBe(194); // 197 hasta el 70658: faltan los 3 rangos de Explosión de Escarcha, que ya no se entrena
     expect(bad).toEqual([]);
   });
 
@@ -1194,8 +1195,8 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a la 
   // Diferencias esperadas: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia) o formulas del texto sin resolver
   const CASES = [
     { token: "SHAMAN", file: "shaman", total: 148, diff: ["Ráfaga de lava r1", "Mareas vivas r1"], notApprox: [] as string[] },
-    // Aura de disparo certero r1: el 70658 baja el poder de ataque a distancia de 30 a 15 (y Aspecto del halcón, Pies de plomo); la referencia (70630) aún trae 30
-    { token: "HUNTER", file: "hunter", total: 148, diff: ["Aura de disparo certero r1", "Contraataque r1"], notApprox: ["Aura de disparo certero r1", "Contraataque r1"] },
+    // Aura de disparo certero r1: el 70658 bajó el poder de ataque a distancia de 30 a 15 (y Aspecto del halcón, Pies de plomo); la referencia ya lo trae desde su export del 29/10
+    { token: "HUNTER", file: "hunter", total: 148, diff: ["Contraataque r1"], notApprox: ["Contraataque r1"] },
     // Amplificar maldición r1 (hotfix del 16/10, Maldición de agotamiento 50 % → 20 %): la referencia ya lo trae desde su export del 27/10.
     { token: "WARLOCK", file: "warlock", total: 146, diff: ["Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Terror de caos r1"] },
     { token: "DRUID", file: "druid", total: 148, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
@@ -1317,8 +1318,8 @@ describe("entradas de talento sin nodo frente a la referencia", () => {
   it("la mayoria tiene gemela en la referencia (mismas cifras); las que no, quedan listadas con su nombre", () => {
     const un = JSON.parse(readFileSync(join(root, "data", "forever", BUILD, "unassigned.json"), "utf8")) as { orphanEntries: { name: string | null; descriptions: string[] }[] };
     const oc = contrastOrphans(un.orphanEntries, join(root, "data", "external", "talentsforever"))!;
-    expect(oc.total).toBe(99);
-    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(99);
+    expect(oc.total).toBe(100);
+    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(100);
     expect(oc.withTfTwin).toBeGreaterThanOrEqual(60);
     // Las ventajas de Legacy sin colocar con otras cifras que las de la referencia (la referencia viene de un cliente mas antiguo)
     expect(oc.withoutTfTwin.map((o) => o.name)).toContain("Estudio dedicado");
@@ -1422,7 +1423,7 @@ describe("estadisticas por clase y nivel del cliente (PlayerExpectedStat y ChrCl
 });
 
 
-describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70658)", () => {
+describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70685)", () => {
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
   const abilitiesOf = (classId: number) => buildAbilities(raw, live.spells, classId, BUILD, "esES", live.classes.find((c) => c.classId === classId))!;
   const COND = /\uE000([sa]\d+(?:\|[sa]\d+)*)\uE001([^\uE001]*)\uE001([^\uE002]*)\uE002/;

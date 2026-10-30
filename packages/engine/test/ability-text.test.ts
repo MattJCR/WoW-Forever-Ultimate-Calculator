@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, decodeBuild, findAbility, indexClass, rankAtLevel, renderAbilityText, ruleAbilityDetail, ruleAppliesTo, ruleLines, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -115,7 +115,7 @@ describe("reglas de talentos clasificadas a mano (Ignicion, Maestro de los eleme
     const ign = fx.ruleEffects.find((r) => r.source.name === "Ignición")!;
     expect(ign.scope).toEqual(expect.arrayContaining(["Bola de Fuego", "Chamuscar", "Piroexplosión"]));
     expect(ign.scope).not.toContain("Descarga de Escarcha");
-    const covered = ["Ignición", "Maestro de los elementos", "Trizar", "Mordiescarcha", "Dedos de Escarcha", "Escalofrío del invierno", "Tromba de misiles"];
+    const covered = ["Ignición", "Maestro de los elementos", "Trizar", "Mordiescarcha", "Dedos de Escarcha", "Escalofrío del invierno", "Recuperación Arcana"];
     for (const n of covered) expect(fx.conditional.some((c) => c.source.name === n), n).toBe(false);
     // Los que no tienen regla (Legacy, activas) siguen como texto: nada se pierde
     expect(fx.conditional.some((c) => c.source.name === "Barrera de hielo")).toBe(true);

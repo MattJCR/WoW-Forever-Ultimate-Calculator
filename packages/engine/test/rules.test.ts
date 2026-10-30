@@ -5,7 +5,7 @@ import { ClassTalents } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import { addPoint, canAdd, canRemove, decodeBuild, decodeBuildReport, encodeBuild, indexClass, removePoint, requiredLevel, totalPoints, validateBuild, type Build, type ClassIndex } from "../src/index.js";
 
-const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70658/classes");
+const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70685/classes");
 const load = (file: string): ClassIndex => indexClass(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, `${file}.json`), "utf8"))));
 const mage = load("mage");
 const hunter = load("hunter");

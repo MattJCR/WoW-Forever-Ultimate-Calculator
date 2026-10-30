@@ -241,9 +241,13 @@ describe("patch-check sobre el parche 70532 → 70658 (criterio «hecho» a)", {
   ];
   for (const [name, re] of KNOWN) it(`reproduce sin ayuda: ${name}`, () => assert.match(report, re));
 
-  it("la referencia va por detrás en Cazador y contradice o no compara Revancha", () => {
-    assert.match(report, /referencia por detrás \| 10/);
-    assert.match(report, /texto del cliente sin cifras \| 6/);
+  it("la referencia no contradice nada y Revancha no se compara (sin cifras)", () => {
+    // Los exports de la referencia no se versionan y se actualizan solos: el 28/10 iba por detrás en Cazador (10 cambios) y el 29/10 ya los trae
+    // (10 «cliente + referencia»). Se fija el total de cambios con cifras (10), sea cual sea el reparto, y que ninguno la contradice.
+    const n = (label) => Number(new RegExp(`\\| ${label} \\| (\\d+) \\|`).exec(report)?.[1]);
+    assert.equal(n("cliente \\+ referencia") + n("referencia por detrás"), 10);
+    assert.equal(n("contradice al cliente"), 0);
+    assert.equal(n("texto del cliente sin cifras"), 6);
   });
 
   it("modo rápido de hotfix: línea base = git (HEAD) y solo diffs y auditorías", { timeout: 300_000 }, () => {

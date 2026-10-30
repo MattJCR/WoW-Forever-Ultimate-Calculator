@@ -22,7 +22,7 @@ import {
 } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const has = ["items.json", "equip-rules.json", "weapon-enhancements.json"].every((f) => existsSync(join(D, f)));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
@@ -40,7 +40,7 @@ const ELEMENTAL_STONE = 18262; // Piedra de afilar elemental: +2 % de crítico
 const INSTANT_POISON = 6947; // Veneno instantáneo: solo pícaros
 const WIZARD_OIL = 20744; // Aceite de zahorí menor
 
-describe.skipIf(!has)("mejoras temporales de arma (cliente 1.60.1.70658 con hotfixes)", () => {
+describe.skipIf(!has)("mejoras temporales de arma (cliente 1.60.1.70685 con hotfixes)", () => {
   const enhancements = WeaponEnhancements.parse(json("weapon-enhancements.json"));
   const data = indexGearData({
     items: Items.parse(json("items.json")),

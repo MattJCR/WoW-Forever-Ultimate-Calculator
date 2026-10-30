@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { applyModifiers, effectAt, findAbility, indexClass, rankAtLevel, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70658", "abilities", "mage.json"), "utf8")));
+const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "abilities", "mage.json"), "utf8")));
 const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "mage.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
 
 describe("habilidades del Mago (libro de hechizos del cliente)", () => {
@@ -65,7 +65,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
       if (Math.abs(got.min - want[0]!) <= 1 && Math.abs(got.max - want[1]!) <= 1) ok++;
       else bad.push(`${key}: La referencia ${want.join("-")} vs ${got.min}-${got.max}`);
     }
-    expect(checked).toBeGreaterThanOrEqual(90);
+    expect(checked).toBeGreaterThanOrEqual(88); // 90 hasta el 70658: Explosión de Escarcha ya no se entrena (70685) y sus rangos salen del libro
     expect(bad, bad.slice(0, 8).join("; ")).toEqual([]);
     expect(ok).toBe(checked);
   });
@@ -73,7 +73,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
 
 describe("talentos como modificadores de habilidades (Mago)", () => {
   // Se carga la clase y se simulan builds
-  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70658", "classes", "mage.json"), "utf8"));
+  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "classes", "mage.json"), "utf8"));
   const idx = indexClass(ClassTalents.parse(cls));
   const nodeOf = (name: string) => idx.ordered.find((i) => i.talent.name === name)!.talent.nodeId;
   /** Build con esos talentos al rango maximo, saltandose los requisitos (solo para probar el calculo). */
@@ -81,21 +81,24 @@ describe("talentos como modificadores de habilidades (Mago)", () => {
   const fireball = findAbility(mage, "Bola de Fuego")!;
   const r12 = fireball.ranks[11]!;
 
-  it("Bola de Fuego mejorada 5/5 quita 0,5 s al lanzamiento de Bola de Fuego (3,5 s -> 3,0 s) y no a otras", () => {
-    const m = applyModifiers(r12, 60, spellModifiersOf(idx, full("Bola de Fuego mejorada")));
+  it("Acelerante (antes Bola de Fuego mejorada) 5/5 quita 0,5 s al lanzamiento de Bola de Fuego (3,5 s -> 3,0 s) y de Cólera Arcana, y no a otras", () => {
+    const m = applyModifiers(r12, 60, spellModifiersOf(idx, full("Acelerante")));
     expect(m.castMs).toBe(3000);
     const flamestrike = findAbility(mage, "Fogonazo")!.ranks.at(-1)!;
-    expect(applyModifiers(flamestrike, 60, spellModifiersOf(idx, full("Bola de Fuego mejorada"))).castMs).toBe(flamestrike.castMs);
+    expect(applyModifiers(flamestrike, 60, spellModifiersOf(idx, full("Acelerante"))).castMs).toBe(flamestrike.castMs);
+    // El 70685 suma Cólera Arcana a la máscara (36864 = 4096 + 32768)
+    const wrath = findAbility(mage, "Cólera Arcana")!.ranks.at(-1)!;
+    expect(applyModifiers(wrath, 60, spellModifiersOf(idx, full("Acelerante"))).castMs).toBe(wrath.castMs - 500);
   });
 
   it("Presencia mental hace instantaneos los hechizos que no son suyos pero no cuenta como pasivo (es una habilidad)", () => {
     expect(spellModifiersOf(idx, full("Presencia mental"))).toEqual([]);
   });
 
-  it("Masa crítica 5/5 suma +10 % de critico a Bola de Fuego, Explosion de Fuego y Fogonazo", () => {
+  it("Masa crítica 3/3 suma +6 % de critico (5 rangos y 10 % hasta el 70658) a Bola de Fuego, Explosion de Fuego y Fogonazo", () => {
     for (const n of ["Bola de Fuego", "Explosión de Fuego", "Fogonazo"]) {
       const rk = findAbility(mage, n)!.ranks.at(-1)!;
-      expect(applyModifiers(rk, 60, spellModifiersOf(idx, full("Masa crítica"))).critChanceBonus, n).toBe(10);
+      expect(applyModifiers(rk, 60, spellModifiersOf(idx, full("Masa crítica"))).critChanceBonus, n).toBe(6);
     }
     const frostbolt = findAbility(mage, "Descarga de Escarcha")!.ranks.at(-1)!;
     expect(applyModifiers(frostbolt, 60, spellModifiersOf(idx, full("Masa crítica"))).critChanceBonus).toBe(0);

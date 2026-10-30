@@ -6,7 +6,7 @@ import { hideUnresolved, sameNumbers } from "../src/english-official.js";
 import { Abilities, ClassTalents, EnglishText, Items, Races, Unassigned } from "../src/model.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const DATA = join(root, "data", "forever", "1.60.1.70658");
+const DATA = join(root, "data", "forever", "1.60.1.70685");
 const ready = existsSync(join(DATA, "i18n", "en.json")) && existsSync(join(DATA, "classes", "mage.json"));
 const TOKENS = ["warrior", "paladin", "hunter", "rogue", "priest", "shaman", "mage", "warlock", "druid"];
 

@@ -5,7 +5,7 @@ import { ClassTalents } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 import { addPoint, canAdd, characterRequiredLevel, decodeBuild, firstPointLevel, encodeBuild, formatBuildForAI, indexClass, summarizeCharacter, totalPoints, validateBuild, type Build, type ClassIndex } from "../src/index.js";
 
-const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70658");
+const dataDir = resolve(dirname(fileURLToPath(import.meta.url)), "../../../data/forever/1.60.1.70685");
 const load = (file: string): ClassIndex => indexClass(ClassTalents.parse(JSON.parse(readFileSync(join(dataDir, file), "utf8"))));
 const mage = load("classes/mage.json");
 const legacy = load("legacy.json");
@@ -67,13 +67,14 @@ describe("personaje = clase + Legacy", () => {
   });
 
   it("los talentos escogidos llevan el texto del rango elegido", () => {
-    const focus = byName(mage, "Enfoque Arcano");
+    // Enfoque Arcano (3 %) se retiró en el 70685: Incineración (5 rangos, 2 % por rango) es otra de la fila 1 con el mismo formato
+    const focus = byName(mage, "Incineración");
     let b: Build = {};
     for (let i = 0; i < 3; i++) b = addPoint(mage, b, focus.nodeId);
     const s = summarizeCharacter(mage, b, null, {});
     expect(s.selected).toHaveLength(1);
-    expect(s.selected[0]).toMatchObject({ source: "class", name: "Enfoque Arcano", rank: 3, maxRank: 5 });
-    expect(s.selected[0]!.text).toContain("3%");
+    expect(s.selected[0]).toMatchObject({ source: "class", name: "Incineración", rank: 3, maxRank: 5 });
+    expect(s.selected[0]!.text).toContain("6%");
   });
 });
 
@@ -132,7 +133,7 @@ describe("Copiar build para IA", () => {
     expect(text).toMatch(/^WoW Forever Humano Mago talent build: \d+\/\d+\/\d+ \(Arcano \/ Fuego \/ Escarcha\), level 21 needed/);
     expect(text).toContain("12/51 class points spent, 5/16 Legacy points spent");
     expect(text).toContain("Arcano (");
-    expect(text).toMatch(/- Enfoque Arcano \d\/5: Aumenta un \d%/);
+    expect(text).toMatch(/- Canalización mejorada \d\/5: Da a tu hechizo Misiles Arcanos un \d+%/);
     expect(text).toContain("Legacy perks (5/16 points");
     expect(text).toContain("https://example.test/#/class/mage?b=x");
     expect(text).toContain("Notes: each line is the in-game tooltip at the rank chosen");

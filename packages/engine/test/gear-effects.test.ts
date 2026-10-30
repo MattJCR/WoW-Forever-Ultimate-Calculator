@@ -18,11 +18,11 @@ import {
 } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70658");
+const D = join(root, "data", "forever", "1.60.1.70685");
 const has = existsSync(join(D, "items.json")) && existsSync(join(D, "equip-rules.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
-describe.skipIf(!has)("bonos de conjunto y efectos de objeto (cliente 1.60.1.70658)", () => {
+describe.skipIf(!has)("bonos de conjunto y efectos de objeto (cliente 1.60.1.70685)", () => {
   const items = Items.parse(json("items.json"));
   const data = indexGearData({ items, rules: EquipRules.parse(json("equip-rules.json")) });
   const ratings = CombatRatings.parse(json("combat-ratings.json"));

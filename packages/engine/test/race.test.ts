@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { describeEffect, raceBonuses } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70658", "races.json"), "utf8"))).races;
+const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "races.json"), "utf8"))).races;
 const race = (id: number) => races.find((r) => r.id === id)!;
 const WARRIOR = 1;
 const ROGUE = 4;

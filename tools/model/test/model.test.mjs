@@ -10,7 +10,7 @@ import { parseM2, parseParticles, parseSkin, readChunks, readTrack } from "../m2
 import { SCENES } from "../scenes.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = process.env.BUILD ?? "1.60.1.70658";
+const BUILD = process.env.BUILD ?? "1.60.1.70685";
 const MODELS = path.join(ROOT, "data", "models", BUILD);
 
 /** Lee un .glb: cabecera, chunk JSON y chunk binario. Lanza si no es un glTF binario bien formado. */
