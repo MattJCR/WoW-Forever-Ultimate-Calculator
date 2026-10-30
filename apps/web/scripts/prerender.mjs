@@ -94,15 +94,16 @@ if (siteUrl && !process.env.CI) {
 
 // Sitemap con las dos versiones de cada página y sus alternativas de idioma
 if (siteUrl) {
-  const urls = indexable
-    .map(({ page, path }) => {
-      const alts = alternates(page, index);
-      const links = LANGS.filter((l) => alts[l]).map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${siteUrl}${alts[l]}"/>`);
-      if (alts.en) links.push(`<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${alts.en}"/>`);
-      return `  <url><loc>${siteUrl}${path}</loc><lastmod>${lastmods[path].split(" ")[1]}</lastmod>${links.join("")}</url>`;
-    })
-    .join("\n");
-  writeFileSync(join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`);
+  const entry = ({ page, path }) => {
+    const alts = alternates(page, index);
+    const links = LANGS.filter((l) => alts[l]).map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${siteUrl}${alts[l]}"/>`);
+    if (alts.en) links.push(`<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}${alts.en}"/>`);
+    return `  <url><loc>${siteUrl}${path}</loc><lastmod>${lastmods[path].split(" ")[1]}</lastmod>${links.join("")}</url>`;
+  };
+  const urlset = (list) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${list.map(entry).join("\n")}\n</urlset>\n`;
+  writeFileSync(join(dist, "sitemap.xml"), urlset(indexable));
+  // Un archivo por idioma (≈ la mitad de peso): para enviarlos por separado a Search Console si el único no se puede obtener
+  for (const lang of LANGS) writeFileSync(join(dist, `sitemap-${lang}.xml`), urlset(indexable.filter(({ path }) => path.startsWith(`/${lang}/`))));
 } else {
   console.warn("⚠ SITE_URL no está definida: no se genera sitemap.xml ni las URLs absolutas de canonical/hreflang. Defínela (p. ej. SITE_URL=https://tudominio.com) en el despliegue.");
 }
