@@ -614,7 +614,7 @@ function Workspace({
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M6 9l6 6 6-6" />
               </svg>
-              <h3 id="inactive-title">{tr("Nodos no activos")} ({idx.data.inactiveTalents.length})</h3>
+              <h3 id="inactive-title">{tr("Datamining")} ({idx.data.inactiveTalents.length})</h3>
               <span className="chip">{tr("No seleccionables")}</span>
             </summary>
             <div className="inactive-body">
@@ -626,7 +626,7 @@ function Workspace({
                       type="button"
                       className="talent inactive"
                       aria-disabled="true"
-                      aria-label={tr("{name}: nodo no activo, no seleccionable", { name: talentName(t.nodeId, t.name ?? tr("Talento")) })}
+                      aria-label={tr("{name}: datamining, no seleccionable", { name: talentName(t.nodeId, t.name ?? tr("Talento")) })}
                       data-node={t.nodeId}
                       onMouseEnter={() => setHover({ kind: "inactive", nodeId: t.nodeId })}
                       onMouseLeave={() => setHover(null)}
@@ -638,7 +638,7 @@ function Workspace({
                       <span className="rank">0/{t.maxRank}</span>
                     </button>
                     <span className="inactive-name">{talentName(t.nodeId, t.name ?? tr("Hechizo {id}", { id: t.spellId }))}</span>
-                    <span className="tag tag-inactive">{tr("nodo no activo")}</span>
+                    <span className="tag tag-inactive">{tr("datamining")}</span>
                   </div>
                 ))}
               </div>

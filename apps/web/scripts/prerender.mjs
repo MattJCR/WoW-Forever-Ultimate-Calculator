@@ -110,7 +110,7 @@ if (siteUrl) {
 // robots.txt solo lo leen los buscadores en la raíz del dominio: en GitHub Pages sin dominio propio (web en /repositorio/) no
 // cuenta, y entonces valen las etiquetas noindex y el sitemap enviado desde Search Console. Con dominio propio, la ruta base es «».
 const prefix = siteUrl ? new URL(siteUrl).pathname.replace(/\/+$/, "") : "";
-const robots = ["User-agent: *", "Allow: /", `Disallow: ${prefix}/embed/`, `Disallow: ${prefix}/models/`, `Disallow: ${prefix}/es/sin-asignar/`, `Disallow: ${prefix}/en/unassigned/`];
+const robots = ["User-agent: *", "Allow: /", `Disallow: ${prefix}/embed/`, `Disallow: ${prefix}/models/`, `Disallow: ${prefix}/es/datamining/`, `Disallow: ${prefix}/en/datamining/`, `Disallow: ${prefix}/es/sin-asignar/`, `Disallow: ${prefix}/en/unassigned/`];
 if (siteUrl) robots.push("", `Sitemap: ${siteUrl}/sitemap.xml`);
 writeFileSync(join(dist, "robots.txt"), `${robots.join("\n")}\n`);
 

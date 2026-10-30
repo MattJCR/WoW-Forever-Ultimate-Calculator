@@ -73,7 +73,7 @@ export const SEO: Record<string, string> = {
   "Viste a tu personaje en el probador 3D, con encantamientos y sufijos aleatorios.": "Dress your character in the 3D dressing room, with enchantments and random suffixes.",
   "Marca los beneficios que tendrías: consumibles, bendiciones, objetos de campamento…": "Tick the buffs you would have: consumables, blessings, camp items…",
   "Estadísticas, daño y sanación de cada habilidad con tu build.": "Stats, damage and healing of every ability with your build.",
-  "Datos del cliente sin asignar – WoW Forever": "Unassigned client data – WoW Forever",
+  "Datamining – WoW Forever": "Datamining – WoW Forever",
   "Talentos y árboles que el cliente de la beta trae pero no están en ningún árbol activo.": "Talents and trees that the beta client ships but that are not in any active tree.",
   "Página no encontrada – WoW Forever": "Page not found – WoW Forever",
   "Esta página no existe.": "This page does not exist.",

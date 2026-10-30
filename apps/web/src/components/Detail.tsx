@@ -122,7 +122,7 @@ export function TalentInspector({ idx, build, shown, onAdd, onRemove, footer }: 
     const loc = talentText(t.nodeId, 0, t.descriptions[0] ?? "");
     return (
       <section className="card inspector inactive" aria-live="polite">
-        <div className="tag tag-inactive">{tr("Nodo no activo")}</div>
+        <div className="tag tag-inactive">{tr("Datamining")}</div>
         <div className="inspector-head">
           <Icon id={t.iconFileDataId} name={name} />
           <div>

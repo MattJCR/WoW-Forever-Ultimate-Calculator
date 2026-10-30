@@ -110,7 +110,7 @@ function PreviewTree({ tree }: { tree: UnassignedTree }) {
       </div>
 
       <aside className="preview-detail" aria-live="polite">
-        <div className="tag tag-unassigned">{tr("sin asignar · prueba libre")}</div>
+        <div className="tag tag-unassigned">{tr("datamining · prueba libre")}</div>
         {active ? (
           <>
             <div className="detail-head">
@@ -191,7 +191,7 @@ export function UnassignedPage() {
   const data = state.status === "ready" ? state.value : null;
   const classes = useMemo(() => (data ? [...new Set(data.orphanEntries.filter((e) => !e.isLegacy).map((e) => e.className ?? "Sin clase"))].sort() : []), [data]);
 
-  if (state.status === "loading") return <p className="status">{tr("Cargando datos sin asignar…")}</p>;
+  if (state.status === "loading") return <p className="status">{tr("Cargando el datamining…")}</p>;
   if (state.status === "error") return <p className="status error">{state.message}</p>;
   const { orphanEntries, alternativeTrees, build } = state.value;
   const legacyEntries = orphanEntries.filter((e) => e.isLegacy);
@@ -205,7 +205,7 @@ export function UnassignedPage() {
 
   return (
     <div className="unassigned">
-      <h2>{tr("Datos del cliente sin asignar")}</h2>
+      <h2>{tr("Datamining")}</h2>
       <p className="muted">
        {tr("Lo que el cliente (build")} {build}) {tr("trae pero no forma parte de un árbol de clase activo ni de Puntos de Legado. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos")}{" "}
         <strong>{tr("gratis")}</strong>: {tr("no cuesta puntos, no tiene requisitos y no cuenta en ningún build.")}
@@ -219,7 +219,7 @@ export function UnassignedPage() {
           {alternativeTrees.map((t) => (
             <details key={t.traitTreeId} className="tree-card" open={t.nodeCount > 1 && t.nodeCount <= 40 && t.traitTreeId === alternativeTrees.find((x) => x.nodeCount > 1)?.traitTreeId}>
               <summary>
-                <span className="tag tag-unassigned">{tr("sin asignar")}</span>
+                <span className="tag tag-unassigned">{tr("datamining")}</span>
                 <strong>{tr("Árbol")} {t.traitTreeId}</strong>
                 <span>{t.className ? tr(t.className) : tr("clase desconocida")}</span>
                 <span className="muted">{plural(t.nodeCount, "nodo", "nodos")}</span>

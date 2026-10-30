@@ -1,4 +1,4 @@
-/** Textos de las páginas: estadísticas, árboles, clase, portada y datos sin asignar. */
+/** Textos de las páginas: estadísticas, árboles, clase, portada y datamining. */
 export const PAGES: Record<string, string> = {
   // ---- Efectos sumados y estadísticas
   "Aún no hay cifras que sumar: gasta puntos en talentos o Puntos de Legado, o elige una raza.": "There is nothing to add up yet: spend points on talents or Legacy Points, or choose a race.",
@@ -41,7 +41,7 @@ export const PAGES: Record<string, string> = {
   "Reiniciar este árbol": "Reset this tree",
   "{name}, rango {rank} de {max}": "{name}, rank {rank} of {max}",
   "Talento desconocido": "Unknown talent",
-  "Nodo no activo: no se puede seleccionar": "Inactive node: cannot be selected",
+  "Datamining: no se puede seleccionar": "Datamining: cannot be selected",
   "Ya está al rango máximo": "Already at max rank",
   "No quedan puntos de talento": "No talent points left",
   "Faltan puntos para desbloquearlo": "More points are needed to unlock it",
@@ -128,11 +128,10 @@ export const PAGES: Record<string, string> = {
   "Bloqueado": "Locked",
   "Árbol que se muestra": "Tree shown",
   "{n} puntos": "{n} points",
-  "Nodos no activos": "Inactive nodes",
   "No seleccionables": "Not selectable",
   "El cliente los incluye pero no forman parte de la rejilla: se muestran para observarlos; no se pueden seleccionar ni cuentan.": "The client includes them but they are not part of the grid: they are shown for observation; they cannot be selected and do not count.",
-  "{name}: nodo no activo, no seleccionable": "{name}: inactive node, not selectable",
-  "nodo no activo": "inactive node",
+  "{name}: datamining, no seleccionable": "{name}: datamining, not selectable",
+  "datamining": "datamining",
   "Así queda tu personaje": "Your character at a glance",
   "Estadísticas y daño con tus talentos, Puntos de Legado, raza y equipo. Cambia el nivel para ver cómo escala.": "Stats and damage with your talents, Legacy Points, race and gear. Change the level to see how it scales.",
   "Con Talentoso (Puntos de Legado) el primer punto de talento llega al nivel {n}.": "With Talented (Legacy Points) the first talent point comes at level {n}.",
@@ -199,10 +198,10 @@ export const PAGES: Record<string, string> = {
   "Próximamente": "Coming soon",
   "Simulación por rotación": "Rotation simulation",
   "Escalado real de cada clase con equipo y talentos": "Real scaling of each class with gear and talents",
-  "Ver datos del cliente sin asignar": "See unassigned client data",
+  "Ver el datamining del cliente": "See the client datamining",
   "{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos": "{a} talents without a node and {b} discarded trees, with free rank trial",
 
-  // ---- Datos sin asignar
+  // ---- Datamining
   "Rango de {name} (prueba libre)": "Rank of {name} (free trial)",
   "Bajar rango": "Lower rank",
   "Subir rango": "Raise rank",
@@ -210,7 +209,7 @@ export const PAGES: Record<string, string> = {
   "Sin descripción en el cliente.": "No description in the client.",
   "{name}, rango {r} de {max} (prueba libre)": "{name}, rank {r} of {max} (free trial)",
   "Nodo sin hechizo": "Node without a spell",
-  "sin asignar · prueba libre": "unassigned · free trial",
+  "datamining · prueba libre": "datamining · free trial",
   "(nodo sin hechizo)": "(node without a spell)",
   "sin entrada": "no entry",
   "nodo": "node",
@@ -228,14 +227,12 @@ export const PAGES: Record<string, string> = {
   "entradas": "entries",
   "entrada": "entry",
   "hechizo": "spell",
-  "Cargando datos sin asignar…": "Loading unassigned data…",
-  "Datos del cliente sin asignar": "Unassigned client data",
+  "Cargando el datamining…": "Loading the datamining…",
   "Lo que el cliente (build": "What the client (build",
   "trae pero no forma parte de un árbol de clase activo ni de Puntos de Legado. Se ve como sería, con su descripción, y se puede probar subiendo y bajando rangos": "ships but is not part of an active class tree or of Legacy Points. You can see how it would look, with its description, and try it by raising and lowering ranks",
   "gratis": "for free",
   "no cuesta puntos, no tiene requisitos y no cuenta en ningún build.": "it costs no points, has no requirements and does not count in any build.",
   "Árboles descartados": "Discarded trees",
-  "sin asignar": "unassigned",
   "Árbol": "Tree",
   "clase desconocida": "unknown class",
   "Sin nodos.": "No nodes.",

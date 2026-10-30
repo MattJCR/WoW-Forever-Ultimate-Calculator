@@ -298,7 +298,7 @@ export const GEAR: Record<string, string> = {
   "ya no se cumple el requisito de puntos en las filas superiores": "the points requirement in the upper rows is no longer met",
   "ya no se cumple su prerrequisito": "its prerequisite is no longer met",
   "se supera el máximo de puntos": "the maximum number of points is exceeded",
-  "ahora es un nodo no activo": "it is now an inactive node",
+  "ahora es datamining": "it is now datamining",
   "punto": "point",
   "puntos": "points",
   "1 talento que ya no existe en esta versión de los datos ({pts} liberados).": "1 talent that no longer exists in this version of the data ({pts} freed).",

@@ -73,7 +73,7 @@ export function calcMeta(manifest: Manifest, token: string, view: CalcView): Pag
 }
 
 export const unassignedMeta = (): PageMeta => ({
-  title: tr("Datos del cliente sin asignar – WoW Forever"),
+  title: tr("Datamining – WoW Forever"),
   description: tr("Talentos y árboles que el cliente de la beta trae pero no están en ningún árbol activo."),
   noindex: true,
 });

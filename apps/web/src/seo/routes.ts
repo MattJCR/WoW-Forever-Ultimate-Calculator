@@ -55,15 +55,18 @@ export interface ParsedPath {
   page: Page;
 }
 
+/** Direcciones anteriores de la página de datamining (antes «datos sin asignar»). */
+const OLD_UNASSIGNED = { es: "sin-asignar", en: "unassigned" } as const;
+
 /** Palabras fijas de cada ruta. */
 const WORDS = {
   es: {
-    classes: "clases", talents: "talentos", abilities: "habilidades", races: "razas", unassigned: "sin-asignar", calc: "calculadora",
+    classes: "clases", talents: "talentos", abilities: "habilidades", races: "razas", unassigned: "datamining", calc: "calculadora",
     views: { race: "raza", legacy: "legado", talents: "talentos", gear: "equipo", buffs: "beneficios", summary: "resumen" },
     guides: { legacy: "puntos-de-legado", "fitting-room": "probador-3d", buffs: "beneficios" },
   },
   en: {
-    classes: "classes", talents: "talents", abilities: "abilities", races: "races", unassigned: "unassigned", calc: "calculator",
+    classes: "classes", talents: "talents", abilities: "abilities", races: "races", unassigned: "datamining", calc: "calculator",
     views: { race: "race", legacy: "legacy", talents: "talents", gear: "gear", buffs: "buffs", summary: "summary" },
     guides: { legacy: "legacy-points", "fitting-room": "3d-dressing-room", buffs: "buffs" },
   },
@@ -106,7 +109,8 @@ export function parsePath(pathname: string, index: SeoIndex): ParsedPath {
   const at = (page: Page): ParsedPath => ({ lang, page });
 
   if (!area) return at({ kind: "home" });
-  if (area === w.unassigned && !a) return at({ kind: "unassigned" });
+  // «datamining» es el nombre vigente; las direcciones anteriores (sin-asignar / unassigned) siguen llevando a la misma página
+  if ((area === w.unassigned || area === OLD_UNASSIGNED[lang]) && !a) return at({ kind: "unassigned" });
   const topic = GUIDE_TOPICS.find((t) => w.guides[t] === area);
   if (topic) return a ? notFound : at({ kind: "guide", topic });
   if (area === w.races) {

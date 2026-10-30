@@ -11,7 +11,7 @@ Web estática (React + TypeScript + Vite), sin servidor: se despliega en GitHub 
 - «Copiar build para IA» (Theorycraft) con el texto completo de cada talento.
 - Iconos y descripciones de cada talento por rango, con los valores calculados a partir de los datos del cliente.
 - Enlace compartible con el build (`/es/clases/mago/?b=…`).
-- Nodos que el cliente trae pero no están activos: visibles, marcados "nodo no activo" y no seleccionables. Datos sin asignar (árboles descartados en cuadrícula y talentos sin nodo) en una sección aparte (`/es/sin-asignar/`) con prueba libre de rangos.
+- Datamining: lo que el cliente trae pero no está activo, visible y no seleccionable: nodos fuera de la rejilla (marcados «datamining» en los talentos) y, en una sección aparte (`/es/datamining/`), árboles descartados en cuadrícula y talentos sin nodo, con prueba libre de rangos.
 - Pendiente: valores exactos según el nivel, estadísticas por raza y clase, daño/curación/costes, builds de equipo. Las novedades y el siguiente paso se comentan en los issues.
 
 ## Ejecutar

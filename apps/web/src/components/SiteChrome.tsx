@@ -89,7 +89,7 @@ export function SiteHeader({ manifest, page, section, q, query }: ChromeProps) {
             {tr("De dónde salen los datos")}
           </a>
           <a href={href({ kind: "unassigned" }, q)} className="nav-link" aria-current={page.kind === "unassigned" ? "page" : undefined}>
-            {tr("Datos sin asignar")}
+            {tr("Datamining")}
           </a>
         </nav>
         <LanguageSwitch page={page} query={query} />

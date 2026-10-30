@@ -288,7 +288,7 @@ export function Home({ manifest, query }: { manifest: Manifest; query: Route["qu
             </div>
           </div>
           <p className="roadmap-foot">
-            <a href={href({ kind: "unassigned" }, q)}>{tr("Ver datos del cliente sin asignar")}</a> ({tr("{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos", { a: manifest.unassigned.orphanEntries, b: manifest.unassigned.alternativeTrees })}).
+            <a href={href({ kind: "unassigned" }, q)}>{tr("Ver el datamining del cliente")}</a> ({tr("{a} talentos sin nodo y {b} árboles descartados, con prueba libre de rangos", { a: manifest.unassigned.orphanEntries, b: manifest.unassigned.alternativeTrees })}).
           </p>
         </div>
       </section>

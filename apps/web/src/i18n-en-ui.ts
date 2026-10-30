@@ -14,7 +14,7 @@ export const UI: Record<string, string> = {
   "Clases": "Classes",
   "Cómo funciona": "How it works",
   "De dónde salen los datos": "Where the data comes from",
-  "Datos sin asignar": "Unassigned data",
+  "Datamining": "Datamining",
   "Datos extraídos el {date}": "Data extracted on {date}",
   "web actualizada el {date}": "site updated {date}",
   "Datos del cliente de la beta de WoW Forever, build {build}": "Data from the WoW Forever beta client, build {build}",
@@ -185,7 +185,6 @@ export const UI: Record<string, string> = {
   "Pasa el cursor por un talento o tócalo para ver aquí su descripción, sus requisitos y los botones para sumar o quitar puntos.":
     "Hover over a talent or tap it to see its description, its requirements and the buttons to add or remove points here.",
   "Hechizo {id}": "Spell {id}",
-  "Nodo no activo": "Inactive node",
   "{n} rangos · no seleccionable": "{n} ranks · not selectable",
   "El cliente trae este nodo, pero está fuera de la rejilla del árbol (posición {x}, {y}). No se puede seleccionar ni cuenta en los puntos.":
     "The client ships this node, but it lies outside the tree grid (position {x}, {y}). It cannot be selected and does not count towards points.",

@@ -4,7 +4,7 @@ import { tr } from "./i18n";
 /** Motivo por el que no se puede sumar o quitar un punto (claves en español: se traducen con `tr`). */
 export const BLOCKER_TEXT: Record<Blocker, string> = {
   "unknown-node": "Talento desconocido",
-  inactive: "Nodo no activo: no se puede seleccionar",
+  inactive: "Datamining: no se puede seleccionar",
   "max-rank": "Ya está al rango máximo",
   "no-points": "No quedan puntos de talento",
   "row-locked": "Faltan puntos para desbloquearlo",

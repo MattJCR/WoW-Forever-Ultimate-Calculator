@@ -198,7 +198,7 @@ export const ENGINE: Record<string, string> = {
   "{#} % de probabilidad: drena hasta {#} % de tu salud máxima": "{#} % chance: drains up to {#} % of your max health",
   "drena hasta {#} % de tu salud máxima": "drains up to {#} % of your max health",
   "{*} (enfriamiento interno {#} s)": "{*} (internal cooldown {#} sec)",
-  // Datos sin asignar (motivos del pipeline)
+  // Datamining (motivos del pipeline)
   "Sin clase": "No class",
   "arbol demasiado pequeno para ser de clase ({#} nodos); Flags={#} (otro tipo de arbol)": "tree too small to be a class tree ({#} nodes); Flags={#} (another kind of tree)",
   "arbol demasiado pequeno para ser de clase ({#} nodos)": "tree too small to be a class tree ({#} nodes)",

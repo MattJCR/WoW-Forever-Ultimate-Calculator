@@ -6,7 +6,7 @@ const REASON: Partial<Record<LostPoints["reason"], string>> = {
   "row-locked": "ya no se cumple el requisito de puntos en las filas superiores",
   prerequisite: "ya no se cumple su prerrequisito",
   "no-points": "se supera el máximo de puntos",
-  inactive: "ahora es un nodo no activo",
+  inactive: "ahora es datamining",
 };
 
 const pts = (n: number) => `${n} ${n === 1 ? tr("punto") : tr("puntos")}`;

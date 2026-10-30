@@ -90,7 +90,7 @@ describe("rutas", () => {
     expect(legacyHashToUrl("#/class/mage?b=1-2&v=talents", "es", index)).toBe("/es/clases/mago/calculadora/talentos/?b=1-2");
     expect(legacyHashToUrl("#/class/mage?b=1-2", "es", index)).toBe("/es/clases/mago/calculadora/talentos/?b=1-2");
     expect(legacyHashToUrl("#/class/mage?lang=en&r=2", "es", index)).toBe("/en/classes/mage/calculator/race/?r=2");
-    expect(legacyHashToUrl("#/unassigned", "en", index)).toBe("/en/unassigned/");
+    expect(legacyHashToUrl("#/unassigned", "en", index)).toBe("/en/datamining/");
     expect(legacyHashToUrl("#/embed?r=1&g=abc", "es", index)).toBe("/embed/?r=1&g=abc");
     expect(legacyHashToUrl("#/class/zzz", "es", index)).toBe("/es/");
     expect(legacyHashToUrl("", "es", index)).toBeNull();
