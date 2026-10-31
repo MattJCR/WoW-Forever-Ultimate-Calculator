@@ -331,6 +331,7 @@ export function buildAbilities(raw: RawTables, spells: SpellTables, classId: num
     }
     const rank: AbilityRank = {
       rank: 0,
+      retired: null,
       spellId,
       level: baseLevel,
       learnedByTalent: fromTalent !== undefined,

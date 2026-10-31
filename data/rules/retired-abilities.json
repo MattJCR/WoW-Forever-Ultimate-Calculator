@@ -1,0 +1,15 @@
+{
+  "_readme": "Habilidades que el cliente deja de traer o de enseñar pero que se conservan, marcadas «ya no se entrena» (decisión del usuario, 2026-10-31: nunca se descarta en silencio un dato del cliente). La ficha se copia de data/forever/<fromBuild>/abilities/<clase>.json (client-db2 de esa versión). Si el cliente vuelve a traer la habilidad, el pipeline avisa y deja la del cliente. Procedencia: client-db2 de una versión anterior.",
+  "classes": {
+    "paladin": [
+      { "name": "Salvación", "fromBuild": "1.60.1.70685", "since": "1.60.1.70707", "note": "El hotfix del 70707 borra el hechizo del cliente (las filas siguen en las tablas estáticas)." },
+      { "name": "Salvación en masa", "fromBuild": "1.60.1.70685", "since": "1.60.1.70707", "note": "El hotfix del 70707 borra el hechizo del cliente (las filas siguen en las tablas estáticas)." },
+      { "name": "Bendición de la luz", "fromBuild": "1.60.1.70685", "since": "1.60.1.70707", "note": "El hotfix del 70707 borra el hechizo del cliente (las filas siguen en las tablas estáticas)." },
+      { "name": "Bendición superior de Luz", "fromBuild": "1.60.1.70685", "since": "1.60.1.70707", "note": "El hotfix del 70707 borra el hechizo del cliente (las filas siguen en las tablas estáticas)." },
+      { "name": "Revocar", "fromBuild": "1.60.1.70685", "since": "1.60.1.70707", "note": "El hotfix del 70707 borra el hechizo del cliente (las filas siguen en las tablas estáticas)." }
+    ],
+    "mage": [
+      { "name": "Explosión de Escarcha", "fromBuild": "1.60.1.70658", "since": "1.60.1.70685", "note": "El 70685 quita sus filas de SkillLineAbility: el hechizo sigue en el cliente pero ya no se aprende." }
+    ]
+  }
+}

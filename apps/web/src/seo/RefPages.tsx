@@ -500,6 +500,7 @@ export function ClassAbilitiesView({ data, token }: { data: RefData; token: stri
                   <a href={href({ kind: "ability", cls: token, id: first.spellId })}>{abilityLabel(a)}</a>
                   <span className="rank-chip">{tr("Nivel {level}", { level: first.level })}</span>
                   {a.ranks.length > 1 && <span className="rank-chip">{tr("Rangos: {n}", { n: a.ranks.length })}</span>}
+                  {first.retired && <span className="tf-chip tf-retired" title={trn(first.retired.note)}>{tr("ya no se entrena")}</span>}
                 </h3>
                 <p>{rankText(last)}</p>
                 <p className="muted small">
@@ -532,7 +533,7 @@ export function AbilityView({ data, token, id }: { data: RefData; token: string;
       <Crumbs items={[{ name: "WoW Forever", to: { kind: "home" } }, { name: cname, to: { kind: "class", cls: token } }, { name: tr("Habilidades"), to: { kind: "class-abilities", cls: token } }, { name }]} />
       <RefHead
         icon={a.iconFileDataId}
-        eyebrow={`${cname} · ${tr("Nivel {level}", { level: a.ranks[0]!.level })}`}
+        eyebrow={`${cname} · ${tr("Nivel {level}", { level: a.ranks[0]!.level })}${a.ranks[0]!.retired ? ` · ${tr("ya no se entrena")}` : ""}`}
         title={name}
         lead={rankText(last)}
         color={CLASS_COLORS[token]}

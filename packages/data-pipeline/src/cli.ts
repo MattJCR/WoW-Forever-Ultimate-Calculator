@@ -13,6 +13,7 @@ import { buildBuffs, type BuffRules } from "./buffs.js";
 import { buildWeaponEnhancements } from "./weapon-enhancements.js";
 import { applyWowsims, buildCombatRatings, buildEnchants, buildRandomSuffixes, type WowsimsDb } from "./wowsims.js";
 import { buildAbilities } from "./abilities.js";
+import { keepRetiredAbilities, seedRetiredEnglish } from "./retired-abilities.js";
 import { buildEnglish } from "./english.js";
 import { applyOfficialEnglish, loadEnglishOverrides } from "./english-apply.js";
 import { applyOfficialRacials, loadOfficialEnglish } from "./english-official.js";
@@ -178,8 +179,10 @@ function build(): void {
   for (const cls of classes) {
     const data = buildAbilities(raw, spells, cls.classId, buildId, locale, cls);
     if (!data) continue;
-    // Contraste con la referencia: cada habilidad lleva su estado (lista / parcial / no la lista / retirada)
     const token = (cls.classToken ?? "").toLowerCase();
+    // Habilidades que el cliente ya no trae o no enseña: se conservan marcadas «ya no se entrena»
+    for (const w of keepRetiredAbilities(data, token, repoRoot)) data.warnings.push(w);
+    // Contraste con la referencia: cada habilidad lleva su estado (lista / parcial / no la lista / retirada)
     const contrasted = contrastAbilities(Abilities.parse(data), token, tfDir, goneByClass[token] ?? {}, officialByClass[token] ?? {});
     if (contrasted) {
       const r = contrasted.report;
@@ -263,6 +266,7 @@ function build(): void {
   let englishEntry: Manifest["english"];
   if (existsSync(tfDir)) {
     const { english, report } = buildEnglish(buildId, classes, legacy, races, abilityData, itemsData, tfDir, wsDb);
+    seedRetiredEnglish(english, abilityData, repoRoot);
     // Tablas oficiales del juego en inglés (data/external/enus): rellenan y contrastan lo que la referencia externa no trae
     const enusDir = resolve(arg("enus", join(repoRoot, "data", "external", "enus")));
     const official = loadOfficialEnglish(enusDir, raw, spells);

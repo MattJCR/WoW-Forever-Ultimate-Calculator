@@ -228,7 +228,12 @@ function Row({ d, races, selected, onHover, onToggle }: { d: RowData; /** Razas 
                   {tr("Solo {races}", { races: racesText(d.rank.races, races) })}
                 </span>
               )}
-              {ability.talentsForever && ability.talentsForever.status !== "listed" && (
+              {d.rank.retired && (
+                <span className="tf-chip tf-retired" title={trn(d.rank.retired.note)}>
+                  {tr("ya no se entrena")}
+                </span>
+              )}
+              {!d.rank.retired && ability.talentsForever && ability.talentsForever.status !== "listed" && (
                 <span className={`tf-chip tf-${ability.talentsForever.status}`} title={ability.talentsForever.note ? trn(ability.talentsForever.note) : undefined}>
                   {ability.talentsForever.status === "retired" ? tr("retirada según la referencia") : tr("sin referencia")}
                 </span>
@@ -347,7 +352,8 @@ function AbilityCard({ tip, races, base: showBase, onClose, chancesInput, power,
           {tr("Rango")} {rank.rank} · {rank.learnedByTalent ? tr("lo enseña un talento") : tr("se aprende")} {tr("al nivel")} {rank.level}
           {rank.races && ` · ${tr("Solo {races}", { races: racesText(rank.races, races) })}`}
           </p>
-          {ability.talentsForever && ability.talentsForever.status !== "listed" && (
+          {rank.retired && <p className="tf-note tf-retired">{tr("Ya no se entrena desde el build {build}.", { build: rank.retired.since.split(".").pop() ?? rank.retired.since })} {trn(rank.retired.note)}</p>}
+          {!rank.retired && ability.talentsForever && ability.talentsForever.status !== "listed" && (
             <p className={`tf-note tf-${ability.talentsForever.status}`}>{trn(ability.talentsForever.note ?? "")}</p>
           )}
         </div>
@@ -790,7 +796,7 @@ export function AbilitiesTable({
   if (state.status === "error") return <p className="status error">{state.message}</p>;
 
   // «Activa en Forever» = la lista de la referencia (o no hay referencia para la clase). Las runas de Forever que la referencia no lista y las que da por retiradas se ven al desmarcar
-  const isActive = (d: (typeof data)[number]): boolean => !d.ability.talentsForever || d.ability.talentsForever.status === "listed" || d.ability.talentsForever.status === "partial";
+  const isActive = (d: (typeof data)[number]): boolean => !d.rank.retired && (!d.ability.talentsForever || d.ability.talentsForever.status === "listed" || d.ability.talentsForever.status === "partial");
   const hiddenInactive = data.filter((d) => (!onlyAffected || d.count > 0) && !isActive(d)).length;
   // Con raza elegida, solo las habilidades de clase de tu raza o sin raza (el Enano ve Rezo desesperado, no Toque de debilidad)
   const ofMyRace = (d: (typeof data)[number]): boolean => !race || !d.rank.races || d.rank.races.includes(race.id);

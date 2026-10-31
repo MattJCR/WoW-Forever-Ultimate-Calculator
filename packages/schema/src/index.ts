@@ -583,6 +583,11 @@ export const AbilityRank = z.object({
   /** SkillLineAbility.AcquireMethod: 0 se aprende (entrenador), 2 viene con la clase, 3 habilidad de runa de Forever; null = la ensena un talento. */
   acquireMethod: z.number().int().nullable().default(null),
   /**
+   * El cliente ya no la trae o ya no la enseña: se conserva la ficha de la última versión que la tenía (`data/rules/retired-abilities.json`),
+   * marcada «ya no se entrena». `since` = build en el que dejó de estar; `fromBuild` = dataset del que se copió. null = vigente.
+   */
+  retired: z.object({ since: z.string(), fromBuild: z.string(), note: z.string() }).nullable().default(null),
+  /**
    * Razas que pueden usarla (id de ChrRaces: 1 Humano … 8 Trol, 95/96 Cielonato), de las mascaras de raza de SkillLineAbility (client-db2);
    * null = todas. Hay habilidades de clase ligadas a una raza (Sacerdote: Rezo desesperado, Toque de debilidad…) o a una faccion (portales del Mago).
    */
