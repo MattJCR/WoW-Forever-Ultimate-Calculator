@@ -8,7 +8,7 @@ import { SpellTables } from "../src/spell-tables.js";
 import { buildWeaponEnhancements } from "../src/weapon-enhancements.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70685";
+const BUILD = "1.60.1.70707";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 
 describe.skipIf(!["ItemSparse", "SpellItemEnchantment", "SpellEquippedItems"].every((t) => existsSync(join(RAW, `${t}.csv`))))("mejoras temporales de arma del cliente", () => {

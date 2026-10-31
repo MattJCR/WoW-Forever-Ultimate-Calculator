@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, decodeBuild, findAbility, indexClass, rankAtLevel, renderAbilityText, ruleAbilityDetail, ruleAppliesTo, ruleLines, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -128,20 +128,20 @@ describe("resumen de efectos por habilidad (tarjeta)", () => {
   const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
   const fx = collectStatEffects({ cls: mage, classBuild, legacy, legacyBuild, race: human, abilities, rules });
 
-  it("Descarga de Escarcha suma crítico (+2 de la raza), impacto +6 y bonus de crítico +100 (sin daño: Hielo penetrante se retiró el 20/10)", () => {
+  it("Descarga de Escarcha suma crítico (+1 de la raza; +2 hasta el 70685), impacto +6 y bonus de crítico +100 (sin daño: Hielo penetrante se retiró el 20/10)", () => {
     const s = abilityEffectSummary("Descarga de Escarcha", fx);
     const get = (cat: string) => s.lines.find((l) => l.category === cat)!;
-    expect(get("Probabilidad de crítico")).toMatchObject({ value: 2, unit: "puntos porcentuales" });
+    expect(get("Probabilidad de crítico")).toMatchObject({ value: 1, unit: "puntos porcentuales" });
     expect(get("Probabilidad de crítico").sources.map((x) => x.name)).toEqual(["Humano: Crueldad"]);
     expect(get("Probabilidad de impacto").value).toBe(6);
     expect(get("Bonus de daño crítico").value).toBe(100);
     expect(s.lines.some((l) => l.category === "Daño y curación")).toBe(false);
   });
 
-  it("Explosión de Fuego suma el crítico de la raza y el de Incineración en una sola línea (+8)", () => {
+  it("Explosión de Fuego suma el crítico de la raza y el de Incineración en una sola línea (+7: 1 de Crueldad y 6 de Incineración)", () => {
     const s = abilityEffectSummary("Explosión de Fuego", fx);
     const crit = s.lines.find((l) => l.category === "Probabilidad de crítico")!;
-    expect(crit.value).toBe(8);
+    expect(crit.value).toBe(7);
     expect(crit.sources.map((x) => x.name).sort()).toEqual(["Humano: Crueldad", "Incineración"]);
   });
 

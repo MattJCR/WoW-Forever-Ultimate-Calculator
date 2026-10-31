@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70707",
+  "classId": 8,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 11119,
+      "name": "Ignición",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Ignición: en golpe crítico el enemigo recibe un {v} % del daño del hechizo durante 4 s",
+          "scope": {
+            "schools": [
+              4
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 29074,
+      "name": "Maestro de los elementos",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Maestro de los elementos: en golpe crítico devuelve un {v} % del coste base de maná",
+          "scope": {
+            "schools": [
+              4,
+              16
+            ],
+            "damagingOnly": true
+          },
+          "action": "mana-return-pct-of-cost",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11170,
+      "name": "Trizar",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Trizar: +{v} % de probabilidad de crítico contra objetivos congelados",
+          "scope": {
+            "all": true,
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11071,
+      "name": "Mordiescarcha",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Mordiescarcha: {v} % de probabilidad de congelar al objetivo 5 s con tus efectos de escalofrío",
+          "scope": {
+            "schools": [
+              16
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 400647,
+      "name": "Dedos de Escarcha",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Dedos de Escarcha: {v} % de probabilidad con tus efectos de enfriamiento de que tus siguientes 2 hechizos traten al objetivo como congelado (15 s)",
+          "scope": {
+            "schools": [
+              16
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11180,
+      "name": "Escalofrío del invierno",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {},
+          "label": "Escalofrío del invierno: {v} % de probabilidad de aplicarlo; +5 % de daño recibido de tu siguiente Cono de frío por acumulación, hasta 5",
+          "scope": {
+            "spells": [
+              "Descarga de Escarcha",
+              "Lanza de hielo"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 400588,
+      "name": "Tromba de misiles",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Tromba de misiles: {v} % de probabilidad de que tu siguiente Misiles Arcanos dure un 50 % menos, cueste menos y dispare más rápido",
+          "scope": {
+            "spells": [
+              "Explosión Arcana"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        },
+        {
+          "index": 0,
+          "factor": 0.5,
+          "extras": {},
+          "label": "Tromba de misiles: {v} % de probabilidad de que tu siguiente Misiles Arcanos dure un 50 % menos, cueste menos y dispare más rápido",
+          "scope": {
+            "spells": [
+              "Cólera Arcana",
+              "Bola de Fuego",
+              "Descarga de Escarcha",
+              "Descarga de Pirofrío"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11213,
+      "name": "Concentración Arcana",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Concentración Arcana: {v} % de probabilidad, tras golpear con un hechizo de daño, de que tu siguiente hechizo de daño no cueste maná (Lanzamiento libre)",
+          "scope": {
+            "all": true,
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11103,
+      "name": "Impacto",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Impacto: {v} % de probabilidad de aturdir al objetivo 2 s",
+          "scope": {
+            "schools": [
+              4
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11124,
+      "name": "Poder de Fuego",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Poder de Fuego: +{v} % de daño de Fuego por cada efecto de Fuego en el objetivo, hasta +12 %",
+          "scope": {
+            "schools": [
+              4
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11095,
+      "name": "Chamuscar mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Chamuscar mejorado: {v} % de probabilidad de dejar al objetivo vulnerable al Fuego (+3 % de daño de Fuego, hasta 5 veces, 30 s)",
+          "scope": {
+            "spells": [
+              "Chamuscar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 400624,
+      "name": "Calentamiento",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Calentamiento: los golpes críticos no periódicos reducen un 25 % el tiempo de lanzamiento de tu próxima Piroexplosión (hasta 3 veces, 20 s)",
+          "scope": {
+            "spells": [
+              "Bola de Fuego",
+              "Descarga de Pirofrío",
+              "Explosión de Fuego",
+              "Chamuscar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11185,
+      "name": "Ventisca mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": -1,
+          "extras": {},
+          "label": "Ventisca mejorada: añade un efecto de escalofrío que baja un {v} % la velocidad de movimiento 1,5 s",
+          "scope": {
+            "spells": [
+              "Ventisca"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 11255,
+      "name": "Contrahechizo mejorado",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 0.001,
+          "extras": {},
+          "label": "Contrahechizo mejorado: silencia además al objetivo {v} s",
+          "scope": {
+            "spells": [
+              "Contrahechizo"
+            ]
+          },
+          "action": "none",
+          "unit": "s"
+        }
+      ]
+    },
+    {
+      "spellId": 11210,
+      "name": "Sutileza Arcana",
+      "effects": [
+        {
+          "index": 1,
+          "factor": -1,
+          "extras": {},
+          "label": "Sutileza Arcana: reduce {v} puntos la resistencia del objetivo a tus hechizos",
+          "scope": {
+            "all": true,
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 29441,
+      "name": "Absorción mágica",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 0,
+              "factor": 1
+            }
+          },
+          "label": "Absorción mágica: +{v} a todas tus resistencias; los hechizos que resistas por completo restauran un {w} % del maná total (máx. 1 vez por segundo)",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 28574,
+      "name": "Recuperación Arcana",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Recuperación Arcana: +{v} % de tu intelecto como armadura",
+          "scope": {
+            "all": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

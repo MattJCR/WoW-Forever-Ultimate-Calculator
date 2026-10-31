@@ -6,7 +6,7 @@ import { hideUnresolved, sameNumbers } from "../src/english-official.js";
 import { Abilities, ClassTalents, EnglishText, Items, Races, Unassigned } from "../src/model.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const DATA = join(root, "data", "forever", "1.60.1.70685");
+const DATA = join(root, "data", "forever", "1.60.1.70707");
 const ready = existsSync(join(DATA, "i18n", "en.json")) && existsSync(join(DATA, "classes", "mage.json"));
 const TOKENS = ["warrior", "paladin", "hunter", "rogue", "priest", "shaman", "mage", "warlock", "druid"];
 
@@ -102,9 +102,9 @@ describe.skipIf(!ready)("textos en inglés (del juego, contrastados con las cifr
     const lines = readFileSync(enus, "utf8").split(/\r?\n/).slice(1).filter(Boolean);
     expect(lines).toHaveLength(40);
     expect(en.races[7]!.racials[2]!.description).toBe("Maximum Mana, Rage, or Energy increased by 5%");
-    // las dos que la tabla da con otra duración se leen del hechizo: 30 sec / 15 min
-    expect(en.races[95]!.racials[1]!.description).toMatch(/Lasts 30 sec .* 15 min/);
-    expect(en.races[96]!.racials[1]!.description).toMatch(/Lasts 30 sec .* 15 min/);
+    // las dos que la tabla da con otra duración se leen del hechizo (70707: 15 s con línea Ley / 30 s con convergencia elemental, y «Attuned» / «Charged» 1 h)
+    expect(en.races[95]!.racials[1]!.description).toMatch(/for 15 sec. If a leyline is nearby, you will become Attuned for the next 1 hr/);
+    expect(en.races[96]!.racials[1]!.description).toMatch(/for 30 sec. If an elemental convergence is nearby, you will become Charged for the next 1 hr/);
   });
 
   it("los objetos visibles en la web tienen nombre inglés", () => {

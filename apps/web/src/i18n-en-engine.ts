@@ -142,7 +142,7 @@ export const ENGINE: Record<string, string> = {
   "Proc de {*}: daño por segundo": "{*} proc: damage per second",
   "caída lenta": "slow fall",
   "elimina tu amenaza": "removes your threat",
-  "+1 % velocidad de movimiento cada {#} s moviéndote (máx. {#} %)": "+1 % movement speed every {#} s while moving (max {#} %)",
+  "{#} % velocidad de movimiento cada {#} s moviéndote (máx. {#} %)": "{#} % movement speed every {#} s while moving (max {#} %)",
   "{#} % duración de la respiración bajo el agua": "{#} % underwater breathing time",
   "inmune a {*}": "immune to {*}",
   "efectos de control": "control effects",
@@ -163,6 +163,7 @@ export const ENGINE: Record<string, string> = {
   "Sombras": "Shadow",
   // Efectos de raciales (describeEffect)
   "{#} % probabilidad de crítico": "{#} % crit chance",
+  "{#} % probabilidad de impacto": "{#} % hit chance",
   "{#} % espíritu": "{#} % spirit",
   "{#} % maná máximo": "{#} % max mana",
   "{#} % ira máximo": "{#} % max rage",

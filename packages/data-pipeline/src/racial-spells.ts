@@ -16,7 +16,7 @@ export const RACIAL_SKILL_LINES: Record<number, number> = { 1: 754, 2: 125, 3: 1
  */
 export const RACIAL_SPELLS: Record<number, number[][]> = {
   1: [[1259718], [20600], [20597], [20598]], // Humano
-  2: [[20572], [1299026], [20574], [20573]], // Orco
+  2: [[20572], [1299026], [20575, 20576, 21563], [20573]], // Orco (Ordenar: una variante por clase, Brujo 256, Cazador 4 y el resto sin mascota)
   3: [[20594], [2481], [1259719], [1259721]], // Enano
   4: [[1259799], [20580], [20582], [20585]], // Elfo de la noche
   5: [[7744], [20577], [5227], [1260189, 1260201]], // No-muerto
@@ -28,16 +28,17 @@ export const RACIAL_SPELLS: Record<number, number[][]> = {
 };
 
 /**
- * Raciales cuyo texto de ChrRaceRacialAbility contradice al de su propio hechizo (el cliente trae «5 min» en la tabla, pero el hechizo dura
- * 30 s sin línea Ley / convergencia cerca y 15 min con ella): la web usa el texto del hechizo, que lleva las duraciones que sí se aplican.
+ * Raciales cuyo texto de ChrRaceRacialAbility contradice al de su propio hechizo (en el 70685 la tabla traía «5 min» y el hechizo 30 s sin línea Ley / convergencia cerca; en el 70707 la tabla de Visión cielonata dice 15 s y el hechizo 30 s; la de Precisión de artesano dice «crítico» y el hechizo, igual que la referencia, «golpear»): la web usa el texto del hechizo, que lleva las duraciones que sí se aplican.
  */
-export const RACIAL_TEXT_FROM_SPELL = new Set([1259705 /* Leer línea Ley */, 1259686 /* Visión cielonata */]);
+export const RACIAL_TEXT_FROM_SPELL = new Set([1259705 /* Lectura de línea Ley */, 1259686 /* Visión cielonata */, 1259719 /* Precisión de artesano */]);
 
 /** Aura del cliente -> significado. Cada una se comprobo contra el texto de las raciales que la usan. */
 const AURA_KINDS: Record<number, RacialEffect["kind"]> = {
   290: "crit-chance",
   178: "max-power-pct",
   133: "health-pct",
+  54: "hit-chance",
+  55: "hit-chance",
   163: "crit-damage-bonus",
   50: "crit-healing-bonus",
   49: "dodge-pct",
@@ -72,7 +73,7 @@ const AURA_KINDS: Record<number, RacialEffect["kind"]> = {
 const DUMMY_KINDS: Record<number, RacialEffect["kind"]> = { 1260189: "proc-drain-health-pct", 1260201: "proc-drain-health-pct", 20593: "engineering-failure-pct" };
 const AURA_DUMMY = 4;
 const AURA_TOTAL_THREAT = 103;
-/** Correr planicies (Tauren): aura periodica «dummy» cada 1 s con dos valores dummy (5 y 30). Las guias de la comunidad dicen «+1 % de velocidad cada 5 s moviendote, hasta un 30 %». */
+/** Correr planicies (Tauren): aura periodica «dummy» cada 1 s con dos valores dummy (5 y 60) y el % por paso en el propio efecto periodico (2 desde el 70707, 1 antes); el texto del cliente dice «+2 % de velocidad cada 5 s moviendote, hasta un 60 %». */
 const PLAINS_RUNNING = 1259918;
 const AURA_STAT_PCT = 137; // MOD_TOTAL_STAT_PERCENTAGE: solo el espiritu (miscValue 4) esta comprobado
 const AURA_MECHANIC_DURATION = 232; // MOD_MECHANIC_DURATION: solo el aturdimiento (miscValue 12)
@@ -101,7 +102,7 @@ function effectsOf(spells: SpellTables, spellId: number, fromSpellId: number | n
     const tick = out.find((x) => x.aura === 226);
     if (tick && dummies.length === 2) {
       const rest = out.filter((x) => x !== tick && x.aura !== AURA_DUMMY);
-      return [{ kind: "stacking-speed-pct", aura: 226, value: dummies[1]!, miscValue: dummies[0]!, periodMs: tick.periodMs, fromSpellId }, ...rest];
+      return [{ kind: "stacking-speed-pct", aura: 226, value: dummies[1]!, miscValue: dummies[0]!, periodMs: tick.periodMs, fromSpellId, stepPct: tick.value }, ...rest];
     }
   }
   return out;

@@ -154,7 +154,7 @@ export function buildClassTalents(raw: RawTables, build: string, locale: string)
         talents.push({
           nodeId: int(n.ID),
           spellId: sp.spellId,
-          name: spellName.get(String(sp.spellId)) ?? null,
+          name: spells.name(sp.spellId),
           ...trait.textForNode(sp),
           maxRank: sp.maxRank,
           row,
@@ -189,7 +189,7 @@ export function buildClassTalents(raw: RawTables, build: string, locale: string)
         {
           nodeId: int(n.ID),
           spellId: sp.spellId,
-          name: spellName.get(String(sp.spellId)) ?? null,
+          name: spells.name(sp.spellId),
           ...trait.textForNode(sp),
           maxRank: sp.maxRank,
           selectable: false as const,

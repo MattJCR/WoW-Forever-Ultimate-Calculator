@@ -3,7 +3,7 @@ import { classLabel, tr, useLang } from "../i18n";
 import { href, navigate, scrollToSection } from "../router";
 import { LANGS, type Lang, type Page } from "../seo/routes";
 
-/** «1.60.1.70685» -> versión «1.60.1» y número de compilación «70450». */
+/** «1.60.1.70707» -> versión «1.60.1» y número de compilación «70450». */
 function splitBuild(build: string): { version: string; number: string } {
   const parts = build.split(".");
   return parts.length > 3 ? { version: parts.slice(0, 3).join("."), number: parts.slice(3).join(".") } : { version: build, number: "" };

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { classifyGearAuras, collectStatEffects, enchantEffectText, enchantStatLines, gearSpellModifiers, indexClass, isZoneOnlyEffect, type GearEffectSource } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const has = existsSync(join(D, "items.json")) && existsSync(join(D, "enchants.json")) && existsSync(join(D, "classes", "mage.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
@@ -63,7 +63,7 @@ describe.skipIf(!has)("auditoría del equipo: encantamientos frente a la comunid
     expect(extra.get("physical-damage")).toHaveLength(13);
   });
 
-  it("el nombre del cliente no coincide con la cifra de su efecto en 3 encantamientos (el cliente y la comunidad coinciden en la cifra del efecto): se usa la del efecto", () => {
+  it("el nombre del cliente no coincide con la cifra de su efecto en 2 encantamientos (3 hasta el 70685: el hotfix corrige «Defensa +6», que ya trae su 6; el cliente y la comunidad coinciden en la cifra del efecto): se usa la del efecto", () => {
     const differs: string[] = [];
     for (const e of unique) {
       const lines = enchantStatLines(e).filter((l) => l.source === "client");
@@ -71,7 +71,7 @@ describe.skipIf(!has)("auditoría del equipo: encantamientos frente a la comunid
       if (lines.length === 0 || nums.length === 0) continue;
       if (!lines.some((l) => nums.includes(l.value))) differs.push(`${e.effectId} «${e.name}» → ${lines.map((l) => `${l.key}=${l.value}`).join(", ")}`);
     }
-    expect(differs).toEqual(["925 «Defensa +5» → defense=2", "2618 «Agilidad +15» → agility=9", "8214 «Defensa +6» → defense=9"]);
+    expect(differs).toEqual(["925 «Defensa +5» → defense=2", "2618 «Agilidad +15» → agility=9"]);
   });
 
   it("el encantamiento 7664 («+$1220596M1% de probabilidad de golpe crítico») ya no lleva marcadores y su porcentaje sale de su hechizo", () => {

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { describeEffect, raceBonuses } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "races.json"), "utf8"))).races;
+const races = Races.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70707", "races.json"), "utf8"))).races;
 const race = (id: number) => races.find((r) => r.id === id)!;
 const WARRIOR = 1;
 const ROGUE = 4;
@@ -14,10 +14,10 @@ const PRIEST = 5;
 const MAGE = 8;
 
 describe("bonificaciones de raza (solo pasivas; datos del cliente)", () => {
-  it("Humano: +2 % critico y +5 % espiritu", () => {
+  it("Humano: +1 % critico y +10 % espiritu (2 % y 5 % hasta el 70685)", () => {
     const b = raceBonuses(race(1), MAGE);
-    expect(b.critChancePct).toBe(2);
-    expect(b.spiritPct).toBe(5);
+    expect(b.critChancePct).toBe(1);
+    expect(b.spiritPct).toBe(10);
     expect(b.passives.map((p) => p.racialName)).toEqual(["Crueldad", "El espíritu humano"]);
   });
 
@@ -28,21 +28,23 @@ describe("bonificaciones de raza (solo pasivas; datos del cliente)", () => {
     expect(raceBonuses(race(7), PRIEST).maxPowerPct.mana).toBe(5);
   });
 
-  it("Tauren: +5 % salud y +2 % bonus de critico; Enano: +5 % contra bestias; Trol: regeneracion", () => {
-    expect(raceBonuses(race(6), WARRIOR)).toMatchObject({ healthPct: 5, critDamageBonusPct: 2, critHealingBonusPct: 2 });
+  it("Tauren: +5 % salud y ya sin bonus de critico (2 % hasta el 70685); Enano: +5 % contra bestias y +1 % de impacto; Trol: regeneracion", () => {
+    expect(raceBonuses(race(6), WARRIOR)).toMatchObject({ healthPct: 5, critDamageBonusPct: 0, critHealingBonusPct: 0 });
     expect(raceBonuses(race(3), WARRIOR).damageVsCreature).toEqual([{ mask: 1, label: "bestias", pct: 5 }]);
+    // Precisión de artesano: las auras 54 y 55 traen el mismo 1 %, se cuenta una vez
+    expect(raceBonuses(race(3), WARRIOR).hitChancePct).toBe(1);
     expect(raceBonuses(race(8), WARRIOR)).toMatchObject({ healthRegenPct: 20, healthRegenInCombatPct: 20 });
   });
 
-  it("Cielonato: 3 % de celeridad en las tres y 5 % contra elementales", () => {
+  it("Cielonato: 2 % de celeridad en las tres (3 % hasta el 70685) y 5 % contra elementales", () => {
     const b = raceBonuses(race(95), MAGE);
-    expect(b.hastePct).toEqual({ spell: 3, melee: 3, ranged: 3 });
+    expect(b.hastePct).toEqual({ spell: 2, melee: 2, ranged: 2 });
     expect(b.damageVsCreature).toEqual([{ mask: 8, label: "elementales", pct: 5 }]);
   });
 
   it("las activas no entran en los totales pero se listan con duracion y enfriamiento", () => {
     const b = raceBonuses(race(2), WARRIOR);
-    expect(b.critChancePct).toBe(1); // solo Salvajismo
+    expect(b.critChancePct).toBe(0); // Salvajismo (+1 %) se sustituyó por Ordenar (daño de mascotas) en el 70707
     expect(b.stunDurationPct).toBe(-20);
     const bf = b.actives.find((a) => a.name === "Furia sangrienta")!;
     expect(bf).toMatchObject({ durationMs: 15000, cooldownMs: 120000 });
@@ -131,13 +133,13 @@ describe("efectos disparados y procs", () => {
     expect(b.movementSpeedPct).toBe(2); // solo Prontitud (+2 %), no el +75 % de fantasma
   });
 
-  it("Planicies del Tauren: +3 % de velocidad al montar", () => {
-    expect(raceBonuses(race(6), WARRIOR).mountedSpeedPct).toBe(3);
+  it("Planicies del Tauren: desde el 70707 ya no aumenta la velocidad al montar", () => {
+    expect(raceBonuses(race(6), WARRIOR).mountedSpeedPct).toBe(0);
   });
 
   it("describeEffect explica procs y regeneraciones periodicas con su contexto", () => {
     const touch = race(5).racials.find((a) => a.name === "Toque de la tumba")!.spells.find((s) => s.classMask === 400)!;
-    expect(describeEffect(touch.effects[0]!, touch)).toBe("30 % de probabilidad: drena hasta 5 % de tu salud máxima (enfriamiento interno 25 s)");
+    expect(describeEffect(touch.effects[0]!, touch)).toBe("30 % de probabilidad: drena hasta 5 % de tu salud máxima (enfriamiento interno 15 s)");
     const cannibalize = race(5).racials.find((a) => a.name === "Canibalizar")!.spells[0]!;
     expect(describeEffect(cannibalize.effects.find((e) => e.kind === "periodic-health-pct")!, cannibalize)).toBe("35 % de la salud total (7 % cada 2 s)");
   });

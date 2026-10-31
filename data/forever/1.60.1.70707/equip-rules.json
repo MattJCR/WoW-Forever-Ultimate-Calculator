@@ -1,0 +1,353 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70707",
+  "provenance": "client-db2",
+  "armor": {
+    "1": [
+      {
+        "classMask": 1503,
+        "minLevel": 0
+      }
+    ],
+    "2": [
+      {
+        "classMask": 1103,
+        "minLevel": 0
+      }
+    ],
+    "3": [
+      {
+        "classMask": 3,
+        "minLevel": 0
+      },
+      {
+        "classMask": 68,
+        "minLevel": 40
+      }
+    ],
+    "4": [
+      {
+        "classMask": 3,
+        "minLevel": 40
+      }
+    ],
+    "6": [
+      {
+        "classMask": 67,
+        "minLevel": 0
+      }
+    ]
+  },
+  "weapons": {
+    "0": [
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 9,
+        "minLevel": 0
+      },
+      {
+        "classMask": 66,
+        "minLevel": 0
+      }
+    ],
+    "1": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 6,
+        "minLevel": 0
+      },
+      {
+        "classMask": 64,
+        "minLevel": 0
+      }
+    ],
+    "2": [
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 9,
+        "minLevel": 0
+      },
+      {
+        "classMask": 13,
+        "minLevel": 0
+      }
+    ],
+    "3": [
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 9,
+        "minLevel": 0
+      }
+    ],
+    "4": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 8,
+        "minLevel": 0
+      },
+      {
+        "classMask": 82,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1024,
+        "minLevel": 0
+      }
+    ],
+    "5": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 2,
+        "minLevel": 0
+      },
+      {
+        "classMask": 64,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1024,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1089,
+        "minLevel": 0
+      }
+    ],
+    "6": [
+      {
+        "classMask": 7,
+        "minLevel": 20
+      },
+      {
+        "classMask": 1024,
+        "minLevel": 20
+      }
+    ],
+    "7": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 12,
+        "minLevel": 0
+      },
+      {
+        "classMask": 128,
+        "minLevel": 0
+      },
+      {
+        "classMask": 398,
+        "minLevel": 0
+      }
+    ],
+    "8": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 6,
+        "minLevel": 0
+      }
+    ],
+    "10": [
+      {
+        "classMask": 277,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1216,
+        "minLevel": 0
+      }
+    ],
+    "13": [
+      {
+        "classMask": 1101,
+        "minLevel": 0
+      }
+    ],
+    "15": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 208,
+        "minLevel": 0
+      },
+      {
+        "classMask": 268,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1024,
+        "minLevel": 0
+      },
+      {
+        "classMask": 1217,
+        "minLevel": 0
+      }
+    ],
+    "16": [
+      {
+        "classMask": 1,
+        "minLevel": 0
+      },
+      {
+        "classMask": 4,
+        "minLevel": 0
+      },
+      {
+        "classMask": 8,
+        "minLevel": 0
+      }
+    ],
+    "18": [
+      {
+        "classMask": 13,
+        "minLevel": 0
+      }
+    ],
+    "19": [
+      {
+        "classMask": 400,
+        "minLevel": 0
+      }
+    ]
+  },
+  "dualWield": [
+    {
+      "classMask": 5,
+      "minLevel": 20
+    },
+    {
+      "classMask": 8,
+      "minLevel": 10
+    },
+    {
+      "classMask": 64,
+      "minLevel": 0
+    }
+  ],
+  "relics": {
+    "provenance": "assumption",
+    "byClassMask": {
+      "7": 2,
+      "8": 1024,
+      "9": 64
+    }
+  },
+  "warnings": [
+    "SkillRaceClassInfo 40: la habilidad 98 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 41: la habilidad 98 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 42: la habilidad 113 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 43: la habilidad 113 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 44: la habilidad 111 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 45: la habilidad 111 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 46: la habilidad 313 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 47: la habilidad 313 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 48: la habilidad 109 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 49: la habilidad 109 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 50: la habilidad 115 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 51: la habilidad 115 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 52: la habilidad 315 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 53: la habilidad 315 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 68: la habilidad 101 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 69: la habilidad 126 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 70: la habilidad 125 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 71: la habilidad 124 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 72: la habilidad 220 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 87: la habilidad 148 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 89: la habilidad 152 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 92: la habilidad 150 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 94: la habilidad 149 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 117: la habilidad 44 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 124: la habilidad 160 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 125: la habilidad 55 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 126: la habilidad 45 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 127: la habilidad 45 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 133: la habilidad 46 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 140: la habilidad 43 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 323: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 325: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 328: la habilidad 43 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 441: la habilidad 148 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 442: la habilidad 152 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 443: la habilidad 149 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 445: la habilidad 533 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 446: la habilidad 533 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 461: la habilidad 553 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 463: la habilidad 554 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 464: la habilidad 554 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 481: la habilidad 150 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 501: la habilidad 553 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 621: la habilidad 172 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 622: la habilidad 172 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 624: la habilidad 160 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 625: la habilidad 160 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 626: la habilidad 55 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 627: la habilidad 55 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 628: la habilidad 44 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 629: la habilidad 44 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 630: la habilidad 44 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 631: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 632: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 633: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 634: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 635: la habilidad 46 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 636: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 637: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 638: la habilidad 43 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 639: la habilidad 176 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 640: la habilidad 176 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 641: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 642: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 643: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 644: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 702: la habilidad 160 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 741: la habilidad 673 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 742: la habilidad 673 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 781: la habilidad 713 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 841: la habilidad 733 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 861: la habilidad 753 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 862: la habilidad 754 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2482: la habilidad 2904 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2525: la habilidad 2980 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2526: la habilidad 55 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2527: la habilidad 173 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2533: la habilidad 160 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2534: la habilidad 45 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2535: la habilidad 43 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2536: la habilidad 54 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2549: la habilidad 3011 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2555: la habilidad 43 tiene restriccion de raza (no se aplica)",
+    "SkillRaceClassInfo 2560: la habilidad 713 tiene restriccion de raza (no se aplica)"
+  ]
+}

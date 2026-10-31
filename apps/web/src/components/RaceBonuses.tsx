@@ -168,6 +168,7 @@ export function raceTotalRows(race: Race, classId: number): TotalRow[] {
   const pct = (v: number) => `${v > 0 ? "+" : ""}${v} %`;
   const rows: TotalRow[] = [];
   if (b.critChancePct) rows.push({ label: tr("Probabilidad de crítico"), value: pct(b.critChancePct) });
+  if (b.hitChancePct) rows.push({ label: tr("Probabilidad de impacto"), value: pct(b.hitChancePct) });
   if (b.spiritPct) rows.push({ label: tr("Espíritu"), value: pct(b.spiritPct), note: tr("se aplica sobre el espíritu base; mira «Con tus talentos, Puntos de Legado y raza»") });
   for (const [power, label] of [["mana", "Maná máximo"], ["rage", "Ira máxima"], ["energy", "Energía máxima"]] as const) {
     if (b.maxPowerPct[power]) rows.push({ label: tr(label), value: pct(b.maxPowerPct[power]) });

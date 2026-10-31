@@ -10,7 +10,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const build = process.argv.find((a, i) => i >= 2 && !a.startsWith("--")) ?? "1.60.1.70685";
+const build = process.argv.find((a, i) => i >= 2 && !a.startsWith("--")) ?? "1.60.1.70707";
 const force = process.argv.includes("--force");
 const dir = join(root, "data", "forever", build);
 const outDir = join(dir, "icons");

@@ -15,7 +15,7 @@ import { activatableTalents, allModifiersFor, applyModifiers, canCrit, collectSt
  * Cada lista de abajo es EXACTA: si cambia (para bien o para mal) la prueba falla y obliga a revisarla.
  */
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const classes = readdirSync(join(D, "classes")).map((f) => {
   const token = f.replace(".json", "");
@@ -159,7 +159,7 @@ describe("habilidades que el texto de un talento nombra y su máscara (propia o 
     "paladin: Enjuiciador Sagrado → Sentencia": "ruido: idem",
     "paladin: Furia justa mejorada → Furia recta": "ruido: Furia recta es la condición («mientras está activa»)",
     "paladin: Credo férreo → Furia recta": "ruido: idem",
-    "paladin: Instrumento de la ley → Furia recta": "ruido: idem",
+    "paladin: Juramento de escudo → Escudo Sagrado": "ruido: el texto describe que Golpe Sagrado activa Escudo Sagrado y Especialización en escudos (mecánica); la cifra que modifica el talento (−4 s de Golpe Sagrado) sí llega a Golpe Sagrado por máscara",
     "rogue: Venenos inmundos → Veneno": "ruido: palabra genérica (los venenos concretos sí están cubiertos)",
     "rogue: Venenos inmundos → Venenos": "ruido: palabra genérica",
     "rogue: Venenos mejorados → Veneno": "ruido: palabra genérica",
@@ -174,8 +174,7 @@ describe("habilidades que el texto de un talento nombra y su máscara (propia o 
     "warlock: Cauce de salud mejorado → Amenaza": "ruido: palabra genérica",
     "warlock: Marca demoníaca → Amenaza": "ruido: palabra genérica",
     "warlock: Secuelas → Conflagrar": "ruido: Conflagrar solo recibe un aturdimiento (aura 42), sin cifra de daño",
-    "druid: Rabia → Forma de oso": "ruido: formas, son condiciones",
-    "druid: Rabia → Forma felina": "ruido: formas, son condiciones",
+    "druid: Forma de lechúcico lunar → Forma de lechúcico lunar": "ruido: el talento se llama así",
   };
 
   it("lista exacta (propia o por hechizo disparado)", () => {
@@ -206,6 +205,8 @@ describe("las cifras que se suman salen del texto del cliente y se aplican donde
 
   // Líneas sumadas cuya cifra no aparece en el texto del cliente (en valor absoluto, o minutos/ms), con el motivo
   const NOT_IN_TEXT: Record<string, string> = {
+    // 70707: el cliente guarda un modificador de coste (aura 108, miscValue 14) con valor 0; la mecánica del talento (guardar copias del sello) es texto y no tiene cifra de coste
+    "paladin: Cólera desellada → coste 0": "el efecto del cliente es un modificador de coste de valor 0; el texto describe otra mecánica sin cifra",
   };
   it("cada línea sumada de un talento pasivo aparece en su texto (lista exacta de excepciones)", () => {
     const found: string[] = [];

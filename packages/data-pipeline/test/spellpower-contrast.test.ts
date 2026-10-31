@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const OUT = join(root, "data", "forever", "1.60.1.70685", "abilities");
+const OUT = join(root, "data", "forever", "1.60.1.70707", "abilities");
 const READINGS = join(root, "data", "external", "lootified", "SpellPower.lua");
 const ready = existsSync(READINGS) && existsSync(OUT);
 
@@ -56,7 +56,8 @@ describe.skipIf(!ready)("coeficientes de poder con hechizos frente a las lectura
     expect(same).toBeGreaterThan(480);
     // Consagración 0,095 frente a 0,042, Explosión Arcana 0,714 frente a 0,429, Penitencia 0,285 frente a 0,19 y Nova de fuego 0,1 frente a 0,143:
     // el cliente trae nuestra cifra en las dos copias que tenemos (70425 y 70450); la referencia es de un build anterior (70205)
-    expect(different).toEqual([20116, 20922, 20923, 20924, 26573, 400574, 402174, 408341, 1239696, 1239697, 1239699, 1239700, 1240720, 1240721, 1316995]);
+    expect(different).toEqual([20116, 20922, 20923, 20924, 26573, 400574, 402174, 408341, 1239696, 1239697, 1239699, 1239700, 1240720, 1240721, 1310911, 1311590, 1311595, 1316995]);
+    // 1310911, 1311590 y 1311595 (Vigilia de la Luz): desde el 70707 sana a un aliado (antes dañaba) y el cliente trae otro coeficiente que la lectura antigua de la comunidad
   });
 
   it("los hechizos que la referencia no ve en nuestras habilidades son disparados, un hechizo de objeto o una raza", () => {

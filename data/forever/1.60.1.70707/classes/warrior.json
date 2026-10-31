@@ -1,0 +1,4006 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70707",
+  "locale": "esES",
+  "classId": 1,
+  "className": "Guerrero",
+  "classToken": "WARRIOR",
+  "iconFileDataId": 626008,
+  "traitTreeId": 1117,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Armas",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132292,
+      "backgroundFile": "WarriorArms",
+      "talents": [
+        {
+          "nodeId": 105958,
+          "spellId": 12282,
+          "name": "Golpe heroico mejorado",
+          "iconFileDataId": 132282,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                64,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10
+            ],
+            [
+              -20
+            ],
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 p. el coste de ira de tu facultad Golpe heroico.",
+            "Reduce 2 p. el coste de ira de tu facultad Golpe heroico.",
+            "Reduce 3 p. el coste de ira de tu facultad Golpe heroico."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83317
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105957,
+          "spellId": 16462,
+          "name": "Desvío",
+          "iconFileDataId": 132269,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 47,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu probabilidad de parar en un 1%.",
+            "Aumenta tu probabilidad de parar en un 2%.",
+            "Aumenta tu probabilidad de parar en un 3%.",
+            "Aumenta tu probabilidad de parar en un 4%.",
+            "Aumenta tu probabilidad de parar en un 5%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83316
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105956,
+          "spellId": 12286,
+          "name": "Desgarrar mejorado",
+          "iconFileDataId": 132155,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 22,
+              "miscValueB": 0,
+              "classMask": [
+                32,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              12
+            ],
+            [
+              23
+            ],
+            [
+              35
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 12% el daño de sangrado infligido por tu facultad Desgarrar.",
+            "Aumenta un 23% el daño de sangrado infligido por tu facultad Desgarrar.",
+            "Aumenta un 35% el daño de sangrado infligido por tu facultad Desgarrar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83315
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105955,
+          "spellId": 12285,
+          "name": "Embestir mejorado",
+          "iconFileDataId": 132337,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30
+            ],
+            [
+              60
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 3 p. la ira generada por tu facultad Cargar.",
+            "Aumenta 6 p. la ira generada por tu facultad Cargar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83314
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105954,
+          "spellId": 12295,
+          "name": "Maestría táctica mejorada",
+          "iconFileDataId": 136031,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Maestría táctica te permite retener hasta 3 p. más de tu ira cuando cambias de actitud.",
+            "Maestría táctica te permite retener hasta 6 p. más de tu ira cuando cambias de actitud.",
+            "Maestría táctica te permite retener hasta 9 p. más de tu ira cuando cambias de actitud.",
+            "Maestría táctica te permite retener hasta 12 p. más de tu ira cuando cambias de actitud.",
+            "Maestría táctica te permite retener hasta 15 p. más de tu ira cuando cambias de actitud."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83313
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105952,
+          "spellId": 12290,
+          "name": "Abrumar mejorado",
+          "iconFileDataId": 135275,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                4,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 25% la probabilidad de golpe crítico de tu facultad Abrumar.",
+            "Aumenta en un 50% la probabilidad de golpe crítico de tu facultad Abrumar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83310
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105951,
+          "spellId": 12296,
+          "name": "Control de furia",
+          "iconFileDataId": 135881,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 85,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              1,
+              3,
+              30
+            ]
+          ],
+          "descriptions": [
+            "Genera 1 p. de ira cada 3 s durante el combate y reduce un 30% la pérdida de ira mientras no estás en combate."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105954,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105950,
+          "spellId": 12834,
+          "name": "Heridas profundas",
+          "iconFileDataId": 132090,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ]
+          ],
+          "descriptions": [
+            "Tus golpes críticos provocan que tu adversario sangre, lo que inflige un 20% del daño medio de tu arma cuerpo a cuerpo durante 12 s.",
+            "Tus golpes críticos provocan que tu adversario sangre, lo que inflige un 40% del daño medio de tu arma cuerpo a cuerpo durante 12 s.",
+            "Tus golpes críticos provocan que tu adversario sangre, lo que inflige un 60% del daño medio de tu arma cuerpo a cuerpo durante 12 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105956,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83309
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105949,
+          "spellId": 1310222,
+          "name": "Lanzazo",
+          "iconFileDataId": 135124,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              40,
+              2
+            ]
+          ],
+          "descriptions": [
+            "Un ataque brutal que inflige un 40% de daño con arma. Inflige un 80% de daño con arma adicional contra gigantes, dragonantes y objetivos sobre montura. Estos últimos se ven obligados a desmontar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105948,
+          "spellId": 12163,
+          "name": "Especialización en armas de dos manos",
+          "iconFileDataId": 132400,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 136546
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ]
+          ],
+          "descriptions": [
+            "Aumenta en un 1% el daño infligido con las armas cuerpo a cuerpo de dos manos.",
+            "Aumenta en un 2% el daño infligido con las armas cuerpo a cuerpo de dos manos.",
+            "Aumenta en un 3% el daño infligido con las armas cuerpo a cuerpo de dos manos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83308
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105947,
+          "spellId": 16493,
+          "name": "Clavar",
+          "iconFileDataId": 132312,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 15,
+              "miscValueB": 0,
+              "classMask": [
+                -295678738,
+                33088,
+                1,
+                268436480
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el bonus de daño por golpe crítico de tus facultades.",
+            "Aumenta un 20% el bonus de daño por golpe crítico de tus facultades."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105950,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83307
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 110524,
+          "spellId": 1289682,
+          "name": "Fragor de la sangre",
+          "iconFileDataId": 135271,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ],
+            [
+              16
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Tus ataques cuerpo a cuerpo con el arma de mano principal contra enemigos afectados por tu Desgarrar tienen un 4% de probabilidad de permitir la activación de Abrumar.",
+            "Tus ataques cuerpo a cuerpo con el arma de mano principal contra enemigos afectados por tu Desgarrar tienen un 8% de probabilidad de permitir la activación de Abrumar.",
+            "Tus ataques cuerpo a cuerpo con el arma de mano principal contra enemigos afectados por tu Desgarrar tienen un 12% de probabilidad de permitir la activación de Abrumar.",
+            "Tus ataques cuerpo a cuerpo con el arma de mano principal contra enemigos afectados por tu Desgarrar tienen un 16% de probabilidad de permitir la activación de Abrumar.",
+            "Tus ataques cuerpo a cuerpo con el arma de mano principal contra enemigos afectados por tu Desgarrar tienen un 20% de probabilidad de permitir la activación de Abrumar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109366
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105945,
+          "spellId": 12292,
+          "name": "Golpes de barrido",
+          "iconFileDataId": 132306,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Tus próximos 5 ataques cuerpo a cuerpo golpearán a otro enemigo cercano."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105944,
+          "spellId": 1290261,
+          "name": "Maestro de armas",
+          "iconFileDataId": 1085608,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 0
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              3,
+              1
+            ],
+            [
+              2,
+              6,
+              2
+            ],
+            [
+              3,
+              9,
+              3
+            ],
+            [
+              4,
+              12,
+              4
+            ],
+            [
+              5,
+              15,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Tus ataques con arma cuerpo a cuerpo obtienen un beneficio según el arma en cuestión.\r\n\r\n    Hacha/arma de asta: aumenta un 1%\r\n    tu probabilidad de golpe crítico.\r\n\r\n    Maza/bastón: tus ataques ignoran\r\n    un 3% de la armadura del objetivo.\r\n\r\n    Espada: tus ataques cuerpo a cuerpo\r\n con éxito tienen un 1% de probabilidad\r\n    de desencadenar un ataque extra contra\r\n    el objetivo.",
+            "Tus ataques con arma cuerpo a cuerpo obtienen un beneficio según el arma en cuestión.\r\n\r\n    Hacha/arma de asta: aumenta un 2%\r\n    tu probabilidad de golpe crítico.\r\n\r\n    Maza/bastón: tus ataques ignoran\r\n    un 6% de la armadura del objetivo.\r\n\r\n    Espada: tus ataques cuerpo a cuerpo\r\n con éxito tienen un 2% de probabilidad\r\n    de desencadenar un ataque extra contra\r\n    el objetivo.",
+            "Tus ataques con arma cuerpo a cuerpo obtienen un beneficio según el arma en cuestión.\r\n\r\n    Hacha/arma de asta: aumenta un 3%\r\n    tu probabilidad de golpe crítico.\r\n\r\n    Maza/bastón: tus ataques ignoran\r\n    un 9% de la armadura del objetivo.\r\n\r\n    Espada: tus ataques cuerpo a cuerpo\r\n con éxito tienen un 3% de probabilidad\r\n    de desencadenar un ataque extra contra\r\n    el objetivo.",
+            "Tus ataques con arma cuerpo a cuerpo obtienen un beneficio según el arma en cuestión.\r\n\r\n    Hacha/arma de asta: aumenta un 4%\r\n    tu probabilidad de golpe crítico.\r\n\r\n    Maza/bastón: tus ataques ignoran\r\n    un 12% de la armadura del objetivo.\r\n\r\n    Espada: tus ataques cuerpo a cuerpo\r\n con éxito tienen un 4% de probabilidad\r\n    de desencadenar un ataque extra contra\r\n    el objetivo.",
+            "Tus ataques con arma cuerpo a cuerpo obtienen un beneficio según el arma en cuestión.\r\n\r\n    Hacha/arma de asta: aumenta un 5%\r\n    tu probabilidad de golpe crítico.\r\n\r\n    Maza/bastón: tus ataques ignoran\r\n    un 15% de la armadura del objetivo.\r\n\r\n    Espada: tus ataques cuerpo a cuerpo\r\n con éxito tienen un 5% de probabilidad\r\n    de desencadenar un ataque extra contra\r\n    el objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83305
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 100832
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 100831
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110858,
+          "spellId": 12862,
+          "name": "Embate mejorado",
+          "iconFileDataId": 132340,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                2097152,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 21,
+              "miscValueB": 0,
+              "classMask": [
+                2097152,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                2097152,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 332,
+              "miscValue": 1240193,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 4,
+              "aura": 332,
+              "miscValue": 1464,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 5,
+              "aura": 332,
+              "miscValue": 8820,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 6,
+              "aura": 332,
+              "miscValue": 11604,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 7,
+              "aura": 332,
+              "miscValue": 11605,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -250,
+              -250,
+              -3000,
+              1310196,
+              1310197,
+              1310198,
+              1310199,
+              1310200
+            ],
+            [
+              -500,
+              -500,
+              -3000,
+              1310196,
+              1310197,
+              1310198,
+              1310199,
+              1310200
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,25 s el tiempo de reutilización global y el tiempo de lanzamiento de tu facultad Embate. Además, Embate ya no interrumpe ni retrasa el tiempo de ataque cuerpo a cuerpo, y su tiempo de reutilización se reduce 3,0 s.",
+            "Reduce 0,50 s el tiempo de reutilización global y el tiempo de lanzamiento de tu facultad Embate. Además, Embate ya no interrumpe ni retrasa el tiempo de ataque cuerpo a cuerpo, y su tiempo de reutilización se reduce 3,0 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 5,
+          "col": 0,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105944,
+              105945,
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958,
+              110524
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109365
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 109364
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105942,
+          "spellId": 12289,
+          "name": "Seccionar mejorado",
+          "iconFileDataId": 132316,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Da a tu facultad Seccionar un 5% de probabilidad de inmovilizar el objetivo durante 5 s.",
+            "Da a tu facultad Seccionar un 10% de probabilidad de inmovilizar el objetivo durante 5 s.",
+            "Da a tu facultad Seccionar un 15% de probabilidad de inmovilizar el objetivo durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105944,
+              105945,
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958,
+              110524
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83303
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105941,
+          "spellId": 12294,
+          "name": "Golpe mortal",
+          "iconFileDataId": 132355,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 118,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -50,
+              85
+            ]
+          ],
+          "descriptions": [
+            "Un golpe sanguinario que inflige daño con arma más 85 p. y hiere al objetivo, lo que reduce un 50% la efectividad de cualquier sanación durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105941,
+              105942,
+              105944,
+              105945,
+              105947,
+              105948,
+              105949,
+              105950,
+              105951,
+              105952,
+              105954,
+              105955,
+              105956,
+              105957,
+              105958,
+              110524,
+              110858
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105945,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Furia",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 132347,
+      "backgroundFile": "WarriorFury",
+      "talents": [
+        {
+          "nodeId": 105938,
+          "spellId": 12321,
+          "name": "Voz retumbante",
+          "iconFileDataId": 136075,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 6,
+              "miscValueB": 0,
+              "classMask": [
+                983040,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                983040,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              -5
+            ],
+            [
+              20,
+              -10
+            ],
+            [
+              30,
+              -15
+            ],
+            [
+              40,
+              -20
+            ],
+            [
+              50,
+              -25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el área de efecto de tus Gritos y reduce su coste de ira un 5%.",
+            "Aumenta un 20% el área de efecto de tus Gritos y reduce su coste de ira un 10%.",
+            "Aumenta un 30% el área de efecto de tus Gritos y reduce su coste de ira un 15%.",
+            "Aumenta un 40% el área de efecto de tus Gritos y reduce su coste de ira un 20%.",
+            "Aumenta un 50% el área de efecto de tus Gritos y reduce su coste de ira un 25%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83300
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 125261
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105939,
+          "spellId": 12320,
+          "name": "Crueldad",
+          "iconFileDataId": 132292,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 52,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Mejora un 1% tu probabilidad de conseguir un golpe crítico con ataques cuerpo a cuerpo.",
+            "Mejora un 2% tu probabilidad de conseguir un golpe crítico con ataques cuerpo a cuerpo.",
+            "Mejora un 3% tu probabilidad de conseguir un golpe crítico con ataques cuerpo a cuerpo.",
+            "Mejora un 4% tu probabilidad de conseguir un golpe crítico con ataques cuerpo a cuerpo.",
+            "Mejora un 5% tu probabilidad de conseguir un golpe crítico con ataques cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83301
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 110857,
+          "spellId": 1323964,
+          "name": "Ira persistente",
+          "iconFileDataId": 132356,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2000
+            ],
+            [
+              4000
+            ],
+            [
+              6000
+            ],
+            [
+              8000
+            ],
+            [
+              10000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta el tiempo antes de que empieces a perder tu ira después de abandonar un combate en 2 s.",
+            "Aumenta el tiempo antes de que empieces a perder tu ira después de abandonar un combate en 4 s.",
+            "Aumenta el tiempo antes de que empieces a perder tu ira después de abandonar un combate en 6 s.",
+            "Aumenta el tiempo antes de que empieces a perder tu ira después de abandonar un combate en 8 s.",
+            "Aumenta el tiempo antes de que empieces a perder tu ira después de abandonar un combate en 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105938,
+              105939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 125260
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105937,
+          "spellId": 12322,
+          "name": "Cólera desbocada",
+          "iconFileDataId": 136097,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              12
+            ],
+            [
+              24
+            ],
+            [
+              36
+            ],
+            [
+              48
+            ],
+            [
+              60
+            ]
+          ],
+          "descriptions": [
+            "Te da un 12% de probabilidad de generar 1 p. de ira adicionales al infligir daño con un arma en un ataque cuerpo a cuerpo.",
+            "Te da un 24% de probabilidad de generar 1 p. de ira adicionales al infligir daño con un arma en un ataque cuerpo a cuerpo.",
+            "Te da un 36% de probabilidad de generar 1 p. de ira adicionales al infligir daño con un arma en un ataque cuerpo a cuerpo.",
+            "Te da un 48% de probabilidad de generar 1 p. de ira adicionales al infligir daño con un arma en un ataque cuerpo a cuerpo.",
+            "Te da un 60% de probabilidad de generar 1 p. de ira adicionales al infligir daño con un arma en un ataque cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105938,
+              105939
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83299
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105953,
+          "spellId": 1323963,
+          "name": "Precisión furiosa",
+          "iconFileDataId": 236309,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 4194304,
+              "subclassMask": 41105
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              7
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 4% tu probabilidad de golpear con ataques de mano secundaria.",
+            "Aumenta un 7% tu probabilidad de golpear con ataques de mano secundaria.",
+            "Aumenta un 10% tu probabilidad de golpear con ataques de mano secundaria."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105937,
+              105938,
+              105939,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 125259
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105935,
+          "spellId": 12323,
+          "name": "Aullido penetrante",
+          "iconFileDataId": 136147,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 33,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Provoca que todos los enemigos situados en un radio de 10 m queden atontados y reduce su velocidad de movimiento un 50% durante 6 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105937,
+              105938,
+              105939,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105934,
+          "spellId": 16487,
+          "name": "Manía sangrienta",
+          "iconFileDataId": 136218,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              20
+            ],
+            [
+              2,
+              20
+            ],
+            [
+              3,
+              20
+            ]
+          ],
+          "descriptions": [
+            "Regenera un 1% de tu salud total durante 6 s después de ser víctima de un golpe crítico o de sufrir más de un 20% de tu salud máxima en un solo ataque.",
+            "Regenera un 2% de tu salud total durante 6 s después de ser víctima de un golpe crítico o de sufrir más de un 20% de tu salud máxima en un solo ataque.",
+            "Regenera un 3% de tu salud total durante 6 s después de ser víctima de un golpe crítico o de sufrir más de un 20% de tu salud máxima en un solo ataque."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105937,
+              105938,
+              105939,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83297
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105933,
+          "spellId": 23584,
+          "name": "Especialización en doble empuñadura",
+          "iconFileDataId": 132147,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 4194304,
+              "subclassMask": 41105
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 122,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5,
+              10
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              15,
+              30
+            ],
+            [
+              20,
+              40
+            ],
+            [
+              25,
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño de tu arma de mano izquierda y un 10% la ira generada por tus ataques con la mano izquierda.",
+            "Aumenta un 10% el daño de tu arma de mano izquierda y un 20% la ira generada por tus ataques con la mano izquierda.",
+            "Aumenta un 15% el daño de tu arma de mano izquierda y un 30% la ira generada por tus ataques con la mano izquierda.",
+            "Aumenta un 20% el daño de tu arma de mano izquierda y un 40% la ira generada por tus ataques con la mano izquierda.",
+            "Aumenta un 25% el daño de tu arma de mano izquierda y un 50% la ira generada por tus ataques con la mano izquierda."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83296
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 111755
+            },
+            {
+              "effectIndex": 2,
+              "operationType": 0,
+              "curveId": 112760
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105977,
+          "spellId": 1310315,
+          "name": "Golpes enfurecidos",
+          "iconFileDataId": 132369,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                4194304,
+                4,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce en 3 p. el coste de ira de tus habilidades Mellar y Huracán."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105931,
+          "spellId": 12317,
+          "name": "Enfurecer",
+          "iconFileDataId": 136224,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Te da un 30% de probabilidades de infligir un 2% más de daño físico 12 s después de ser víctima de cualquier ataque dañino.",
+            "Te da un 30% de probabilidades de infligir un 4% más de daño físico 12 s después de ser víctima de cualquier ataque dañino.",
+            "Te da un 30% de probabilidades de infligir un 6% más de daño físico 12 s después de ser víctima de cualquier ataque dañino.",
+            "Te da un 30% de probabilidades de infligir un 8% más de daño físico 12 s después de ser víctima de cualquier ataque dañino.",
+            "Te da un 30% de probabilidades de infligir un 10% más de daño físico 12 s después de ser víctima de cualquier ataque dañino."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83294
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105932,
+          "spellId": 20502,
+          "name": "Ejecutar mejorado",
+          "iconFileDataId": 135358,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                536870912,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -30
+            ],
+            [
+              -50
+            ]
+          ],
+          "descriptions": [
+            "Reduce el consumo de ira de tu facultad Ejecutar en 3 p.",
+            "Reduce el consumo de ira de tu facultad Ejecutar en 5 p."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83295
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105978,
+          "spellId": 20500,
+          "name": "Ira rabiosa mejorada",
+          "iconFileDataId": 136009,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50,
+              50
+            ],
+            [
+              100,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Tu facultad Ira rabiosa genera instantáneamente 5 p. de ira y tiene un 50% de probabilidad de eliminar todos los efectos de reducción de movimiento.",
+            "Tu facultad Ira rabiosa genera instantáneamente 10 p. de ira y tiene un 100% de probabilidad de eliminar todos los efectos de reducción de movimiento."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83290
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 109360
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105927,
+          "spellId": 12328,
+          "name": "Deseo de la Muerte",
+          "iconFileDataId": 136146,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 77,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 87,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              100,
+              5
+            ]
+          ],
+          "descriptions": [
+            "Cuando se activa, aumenta el daño físico que infliges un 20% y te vuelve inmune a los efectos de miedo, pero aumenta un 5% todo el daño que recibes. Dura 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105926,
+          "spellId": 20504,
+          "name": "Intercepción mejorada",
+          "iconFileDataId": 132307,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                1073741824,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5000
+            ],
+            [
+              -10000
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de regeneración de tu facultad Interceptar en 5 s.",
+            "Reduce el tiempo de regeneración de tu facultad Interceptar en 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 3,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              110857
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83291
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105928,
+          "spellId": 12319,
+          "name": "Aluvión",
+          "iconFileDataId": 132152,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ],
+            [
+              20
+            ],
+            [
+              25
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% la velocidad de ataque cuerpo a cuerpo de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 10% la velocidad de ataque cuerpo a cuerpo de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 15% la velocidad de ataque cuerpo a cuerpo de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 20% la velocidad de ataque cuerpo a cuerpo de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo.",
+            "Aumenta un 25% la velocidad de ataque cuerpo a cuerpo de tus siguientes 3 golpes tras infligir un golpe crítico cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 1,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105926,
+              105927,
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              105978,
+              110857
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105927,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83289
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 113569,
+          "spellId": 1323967,
+          "name": "Bebedor de entrañas",
+          "iconFileDataId": 135727,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              0.5
+            ],
+            [
+              3,
+              1
+            ]
+          ],
+          "descriptions": [
+            "Tras usar las facultades Enfurecer, Ira rabiosa, Ira sangrienta, Deseo de muerte y Sed de sangre, recuperarás un 0,5% de tu salud máxima con tus próximos 3 ataques cuerpo a cuerpo.",
+            "Tras usar las facultades Enfurecer, Ira rabiosa, Ira sangrienta, Deseo de muerte y Sed de sangre, recuperarás un 1,0% de tu salud máxima con tus próximos 3 ataques cuerpo a cuerpo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105926,
+              105927,
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              105978,
+              110857
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105931,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 125264
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105930,
+          "spellId": 23881,
+          "name": "Sed de sangre",
+          "iconFileDataId": 136012,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 2,
+              "aura": 31,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30,
+              45,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Ataca instantáneamente al objetivo, lo que inflige un daño equivalente al 45% de tu poder de ataque y 30 p. más. Además, aumenta un 10% tu velocidad de movimiento durante 10 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105926,
+              105927,
+              105928,
+              105930,
+              105931,
+              105932,
+              105933,
+              105934,
+              105935,
+              105937,
+              105938,
+              105939,
+              105953,
+              105977,
+              105978,
+              110857,
+              113569
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Protección",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 134952,
+      "backgroundFile": "WarriorProtection",
+      "talents": [
+        {
+          "nodeId": 105974,
+          "spellId": 12301,
+          "name": "Sanguinario mejorado",
+          "iconFileDataId": 132277,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 8,
+              "miscValueB": 0,
+              "classMask": [
+                256,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              25
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 25 p. toda la ira generada por tu facultad Ira sangrienta.",
+            "Aumenta 50 p. toda la ira generada por tu facultad Ira sangrienta."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 0,
+          "col": 0,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83285
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105976,
+          "spellId": 12298,
+          "name": "Especialización en escudos",
+          "iconFileDataId": 134952,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 51,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              20
+            ],
+            [
+              2,
+              40
+            ],
+            [
+              3,
+              60
+            ],
+            [
+              4,
+              80
+            ],
+            [
+              5,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% la probabilidad de bloquear ataques con un escudo. Te otorga un 20% de probabilidad de generar 5 p. de ira cuando bloqueas.",
+            "Aumenta un 2% la probabilidad de bloquear ataques con un escudo. Te otorga un 40% de probabilidad de generar 5 p. de ira cuando bloqueas.",
+            "Aumenta un 3% la probabilidad de bloquear ataques con un escudo. Te otorga un 60% de probabilidad de generar 5 p. de ira cuando bloqueas.",
+            "Aumenta un 4% la probabilidad de bloquear ataques con un escudo. Te otorga un 80% de probabilidad de generar 5 p. de ira cuando bloqueas.",
+            "Aumenta un 5% la probabilidad de bloquear ataques con un escudo. Te otorga un 100% de probabilidad de generar 5 p. de ira cuando bloqueas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83288
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 83287
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 113570,
+          "spellId": 12962,
+          "name": "Voluntad férrea",
+          "iconFileDataId": 135995,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 232,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3,
+              -15
+            ],
+            [
+              6,
+              -15
+            ],
+            [
+              9,
+              -15
+            ],
+            [
+              12,
+              -15
+            ],
+            [
+              15,
+              -15
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 3% la duración de los efectos de aturdimiento y miedo sobre ti.",
+            "Reduce un 6% la duración de los efectos de aturdimiento y miedo sobre ti.",
+            "Reduce un 9% la duración de los efectos de aturdimiento y miedo sobre ti.",
+            "Reduce un 12% la duración de los efectos de aturdimiento y miedo sobre ti.",
+            "Reduce un 15% la duración de los efectos de aturdimiento y miedo sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 125265
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105975,
+          "spellId": 12297,
+          "name": "Anticipación",
+          "iconFileDataId": 136056,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 30,
+              "miscValue": 95,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ],
+            [
+              16
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 4 p. tu habilidad en defensa.",
+            "Aumenta 8 p. tu habilidad en defensa.",
+            "Aumenta 12 p. tu habilidad en defensa.",
+            "Aumenta 16 p. tu habilidad en defensa.",
+            "Aumenta 20 p. tu habilidad en defensa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105974,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83286
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105969,
+          "spellId": 12797,
+          "name": "Revancha mejorada",
+          "iconFileDataId": 132353,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                1024,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ],
+            [
+              40
+            ],
+            [
+              60
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 20% el daño infligido por tu facultad Revancha.",
+            "Aumenta un 40% el daño infligido por tu facultad Revancha.",
+            "Aumenta un 60% el daño infligido por tu facultad Revancha."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105974,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83281
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105972,
+          "spellId": 12287,
+          "name": "Trueno mejorado",
+          "iconFileDataId": 132326,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -20
+            ],
+            [
+              -40
+            ],
+            [
+              -60
+            ]
+          ],
+          "descriptions": [
+            "Reduce 2 p. el coste de ira de tu facultad Atronar.",
+            "Reduce 4 p. el coste de ira de tu facultad Atronar.",
+            "Reduce 6 p. el coste de ira de tu facultad Atronar."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105974,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83283
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105970,
+          "spellId": 12975,
+          "name": "Última posición",
+          "iconFileDataId": 135871,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Cuando se activa, esta facultad te otorga temporalmente un 30% de tu salud máxima durante 20 s. Cuando se agota el efecto, la salud se pierde."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105969,
+              105972,
+              105974,
+              105975,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83282
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105971,
+          "spellId": 1310316,
+          "name": "Maestro de defensa",
+          "iconFileDataId": 132359,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Te otorga un 50% de probabilidad de generar 5 p. de ira cuando esquivas o paras mientras llevas un escudo.",
+            "Te otorga un 100% de probabilidad de generar 5 p. de ira cuando esquivas o paras mientras llevas un escudo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105969,
+              105972,
+              105974,
+              105975,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105976,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109359
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105967,
+          "spellId": 12313,
+          "name": "Desarmar mejorado",
+          "iconFileDataId": 132343,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                512,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -7000
+            ],
+            [
+              -13000
+            ],
+            [
+              -20000
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de reutilización de tu facultad Desarmar en 7 s.",
+            "Reduce el tiempo de reutilización de tu facultad Desarmar en 13 s.",
+            "Reduce el tiempo de reutilización de tu facultad Desarmar en 20 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105969,
+              105972,
+              105974,
+              105975,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83279
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 110856,
+          "spellId": 12792,
+          "name": "Desafío",
+          "iconFileDataId": 132347,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 10,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% más toda la amenaza generada en actitud defensiva mientras llevas un escudo.",
+            "Aumenta un 10% más toda la amenaza generada en actitud defensiva mientras llevas un escudo.",
+            "Aumenta un 15% más toda la amenaza generada en actitud defensiva mientras llevas un escudo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105969,
+              105972,
+              105974,
+              105975,
+              105976,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109358
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105968,
+          "spellId": 12308,
+          "name": "Hender armadura mejorado",
+          "iconFileDataId": 132363,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                16384,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10
+            ],
+            [
+              -20
+            ],
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 p. el coste de ira de tu facultad Hender armadura.",
+            "Reduce 2 p. el coste de ira de tu facultad Hender armadura.",
+            "Reduce 3 p. el coste de ira de tu facultad Hender armadura."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105967,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83280
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105966,
+          "spellId": 1310317,
+          "name": "Vanguardia",
+          "iconFileDataId": 4667427,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 332,
+              "miscValue": 11578,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 332,
+              "miscValue": 6178,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 332,
+              "miscValue": 100,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1240289,
+              1240288,
+              1240287
+            ]
+          ],
+          "descriptions": [
+            "Ahora, tu facultad Cargar se puede utilizar mientras estás en actitud defensiva."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105967,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105963,
+          "spellId": 12311,
+          "name": "Azote de escudo mejorado",
+          "iconFileDataId": 132357,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              50
+            ],
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Da a tu facultad Azote de escudo un 50% de probabilidad de silenciar al objetivo durante 3 s.",
+            "Da a tu facultad Azote de escudo un 100% de probabilidad de silenciar al objetivo durante 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105967,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83277
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105964,
+          "spellId": 12312,
+          "name": "Muro de escudo mejorado",
+          "iconFileDataId": 132362,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                8192,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -330000
+            ],
+            [
+              -660000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 5,5 min el tiempo de reutilización de tu facultad Muro de escudo.",
+            "Reduce 11,0 min el tiempo de reutilización de tu facultad Muro de escudo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105963,
+              105966,
+              105967,
+              105968,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 109357
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105965,
+          "spellId": 12809,
+          "name": "Golpe de concusión",
+          "iconFileDataId": 132325,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 12,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Aturde al objetivo durante 5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105963,
+              105966,
+              105967,
+              105968,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105961,
+          "spellId": 29787,
+          "name": "Ira enfocada",
+          "iconFileDataId": 132345,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                1852722926,
+                1057316,
+                1,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10
+            ],
+            [
+              -20
+            ],
+            [
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 p. el coste de ira de tus facultades ofensivas.",
+            "Reduce 2 p. el coste de ira de tus facultades ofensivas.",
+            "Reduce 3 p. el coste de ira de tus facultades ofensivas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105963,
+              105966,
+              105967,
+              105968,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83274
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105962,
+          "spellId": 16538,
+          "name": "Bastión",
+          "iconFileDataId": 134950,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% todo el daño que infliges mientras llevas un escudo.",
+            "Aumenta un 4% todo el daño que infliges mientras llevas un escudo.",
+            "Aumenta un 6% todo el daño que infliges mientras llevas un escudo.",
+            "Aumenta un 8% todo el daño que infliges mientras llevas un escudo.",
+            "Aumenta un 10% todo el daño que infliges mientras llevas un escudo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105961,
+              105963,
+              105964,
+              105965,
+              105966,
+              105967,
+              105968,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 83276
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105959,
+          "spellId": 23922,
+          "name": "Embate con escudo",
+          "iconFileDataId": 134951,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              430
+            ]
+          ],
+          "descriptions": [
+            "Embistes al objetivo con tu escudo y le infliges 430 p. de daño. El daño se modifica por tu valor de bloqueo, y tiene un 50% de probabilidad de disipar 1 efecto mágico del objetivo. Genera una gran cantidad de amenaza."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105959,
+              105961,
+              105962,
+              105963,
+              105964,
+              105965,
+              105966,
+              105967,
+              105968,
+              105969,
+              105970,
+              105971,
+              105972,
+              105974,
+              105975,
+              105976,
+              110856,
+              113570
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105965,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": []
+}

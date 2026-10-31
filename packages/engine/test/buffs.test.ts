@@ -6,12 +6,12 @@ import { describe, expect, it } from "vitest";
 import { addStats, buffAsEffect, buffEffects, buffFlatStats, collectStatEffects, decodeBuffs, encodeBuffs, improveBuff, indexBuffs, indexClass, isLastingBuff, spellModifiersOf, toggleBuff } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const has = existsSync(join(D, "buffs.json")) && existsSync(join(D, "classes", "warrior.json"));
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 /** Beneficios (sesión 12): habilidades de clase propias y de otras clases, tótems, mascota y consumibles, todo del cliente. */
-describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70685", () => {
+describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70707", () => {
   const data = Buffs.parse(json("buffs.json"));
   const index = indexBuffs(data);
   const byName = (name: string, category?: string) => data.buffs.find((b) => b.name === name && (!category || b.category === category))!;
@@ -92,7 +92,10 @@ describe.skipIf(!has)("beneficios (buffs) del cliente 1.60.1.70685", () => {
     // Nombre y texto: traducción propia (el cliente los trae en inglés) con su aviso y el inglés oficial como nombre en inglés
     const own = data.buffs.filter((b) => /interminable$/.test(b.name));
     expect(own).toHaveLength(10);
-    expect(own.every((b) => b.textOrigin === "translated-by-us" && /^(Elixir|Scroll) of Endless /.test(b.nameEn ?? ""))).toBe(true);
+    // El 70707 trae en español el texto de 3 (Elixir de crecimiento y de experiencia, Pergamino de velocidad): la traducción propia sobra y manda el cliente; las otras 7 siguen con aviso
+    expect(own.filter((b) => b.textOrigin === "client").map((b) => b.name).sort()).toEqual(["Elixir de crecimiento interminable", "Elixir de experiencia interminable", "Pergamino de velocidad interminable"]);
+    expect(own.filter((b) => b.textOrigin !== "client").every((b) => b.textOrigin === "translated-by-us")).toBe(true);
+    expect(own.every((b) => /^(Elixir|Scroll) of Endless /.test(b.nameEn ?? ""))).toBe(true);
     expect(data.buffs.filter((b) => b.textOrigin !== "client" && !/interminable$/.test(b.name) && b.category !== "profession")).toEqual([]);
   });
 

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, deriveStats, healthFromStamina, indexClass, manaFromIntellect, type StatTotal } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 
 const src = { from: "class" as const, name: "Talento", rank: 1, maxRank: 1 };
@@ -83,7 +83,7 @@ describe("estadísticas con talentos", () => {
 });
 
 describe("poder de ataque y poder con hechizos de talentos (cliente + notas de Blizzard)", () => {
-  const D2 = join(root, "data", "forever", "1.60.1.70685");
+  const D2 = join(root, "data", "forever", "1.60.1.70707");
   const j = (f: string) => JSON.parse(readFileSync(join(D2, f), "utf8"));
   const client = ClientStats.parse(j("client-stats.json"));
   const cls = (token: string) => ({
@@ -121,7 +121,7 @@ describe("poder de ataque y poder con hechizos de talentos (cliente + notas de B
   });
 });
 
-describe("El espíritu humano (+5 %) es una racial, no parte de la base", () => {
+describe("El espíritu humano (+10 %; 5 % hasta el 70685) es una racial, no parte de la base", () => {
   const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
   const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
   const abilities = Abilities.parse(json("abilities/mage.json"));
@@ -130,9 +130,9 @@ describe("El espíritu humano (+5 %) es una racial, no parte de la base", () => 
     return deriveStats({ attributes: [30, 35, 45, 125, base], hpBase: 1000, manaBase: 500, totals: fx.totals }).rows.find((r) => r.key === "spi")!;
   };
 
-  it("el Humano suma +5 % al espíritu base (120 -> 126, 20 -> 21) y lo muestra con su origen", () => {
-    expect(spirit(human, 120)).toMatchObject({ base: 120, final: 126, bonusPct: 5 });
-    expect(spirit(human, 20).final).toBe(21);
+  it("el Humano suma +10 % al espíritu base (120 -> 132, 20 -> 22) y lo muestra con su origen", () => {
+    expect(spirit(human, 120)).toMatchObject({ base: 120, final: 132, bonusPct: 10 });
+    expect(spirit(human, 20).final).toBe(22);
     expect(spirit(human, 120).sources.map((s) => s.name)).toContain("Humano: El espíritu humano");
   });
 

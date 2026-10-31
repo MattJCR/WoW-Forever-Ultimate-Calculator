@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { applyModifiers, effectAt, findAbility, indexClass, rankAtLevel, spellModifiersOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "abilities", "mage.json"), "utf8")));
+const mage = Abilities.parse(JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70707", "abilities", "mage.json"), "utf8")));
 const tf = JSON.parse(readFileSync(join(root, "data", "external", "talentsforever", "mage.json"), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
 
 describe("habilidades del Mago (libro de hechizos del cliente)", () => {
@@ -73,7 +73,7 @@ describe("habilidades del Mago (libro de hechizos del cliente)", () => {
 
 describe("talentos como modificadores de habilidades (Mago)", () => {
   // Se carga la clase y se simulan builds
-  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70685", "classes", "mage.json"), "utf8"));
+  const cls = JSON.parse(readFileSync(join(root, "data", "forever", "1.60.1.70707", "classes", "mage.json"), "utf8"));
   const idx = indexClass(ClassTalents.parse(cls));
   const nodeOf = (name: string) => idx.ordered.find((i) => i.talent.name === name)!.talent.nodeId;
   /** Build con esos talentos al rango maximo, saltandose los requisitos (solo para probar el calculo). */

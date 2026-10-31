@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, decodeBuild, indexClass, rankOf } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -27,9 +27,9 @@ describe("suma de los efectos de talentos, Legacy y raza", () => {
     expect(Object.values(legacyBuild).reduce((a, b) => a + b, 0)).toBe(16);
   });
 
-  it("suma el critico: +2 puntos de la raza a todo y +6 de Incineracion solo a Explosion de Fuego, Lanza de hielo, Explosion Arcana y Chamuscar", () => {
+  it("suma el critico: +1 punto de la raza (+2 hasta el 70685) a todo y +6 de Incineracion solo a Explosion de Fuego, Lanza de hielo, Explosion Arcana y Chamuscar", () => {
     const crit = find("Probabilidad de crítico", "probabilidad de crítico");
-    expect(crit.find((t) => t.scope === null)?.value).toBe(2);
+    expect(crit.find((t) => t.scope === null)?.value).toBe(1);
     const incin = crit.find((t) => t.scope !== null)!;
     expect(incin.value).toBe(6);
     expect(incin.scope!.sort()).toEqual(["Chamuscar", "Explosión Arcana", "Explosión de Fuego", "Explosión de Fuego (runa)", "Lanza de hielo"]);

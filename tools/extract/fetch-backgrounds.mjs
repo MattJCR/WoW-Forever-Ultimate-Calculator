@@ -14,7 +14,7 @@ const flag = (name) => {
   const i = args.indexOf(`--${name}`);
   return i >= 0 ? args[i + 1] : undefined;
 };
-const build = args.find((a, i) => !a.startsWith("--") && args[i - 1] !== "--listfile") ?? "1.60.1.70685";
+const build = args.find((a, i) => !a.startsWith("--") && args[i - 1] !== "--listfile") ?? "1.60.1.70707";
 const listfile = flag("listfile") ?? process.env.WTL_LISTFILE;
 const base = process.env.WTL_URL ?? "http://localhost:5000";
 if (!listfile || !existsSync(listfile)) {

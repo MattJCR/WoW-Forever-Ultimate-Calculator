@@ -8,14 +8,14 @@ import { Items } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70685";
+const BUILD = "1.60.1.70707";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 
 /**
  * Tipos de estadística de objeto 83-140 (sesión 12): su significado sale de los textos ITEM_MOD_* de GlobalStrings del cliente, que van
  * numerados seguidos; los objetos conocidos (hacha a dos manos, caña de pescar, Marca del Campeón…) confirman el orden.
  */
-describe.skipIf(!existsSync(join(RAW, "GlobalStrings.csv")) || !existsSync(join(RAW, "ItemSparse.csv")))("tipos de estadística de objeto (cliente 1.60.1.70685)", () => {
+describe.skipIf(!existsSync(join(RAW, "GlobalStrings.csv")) || !existsSync(join(RAW, "ItemSparse.csv")))("tipos de estadística de objeto (cliente 1.60.1.70707)", () => {
   const raw = openRawTables(RAW);
   const strings = new Map(raw.table("GlobalStrings").map((r) => [r.BaseTag!, { id: Number(r.ID), text: r.TagText_lang ?? "" }]));
   const data = Items.parse(buildItems(raw, BUILD, new SpellTables(raw)));

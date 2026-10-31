@@ -1,11 +1,31 @@
 {
   "_readme": "Traducciones PROPIAS al español de textos que el cliente de la beta trae todavía en inglés (los hotfixes de Forever no estan localizados). Solo se usan mientras el texto del cliente siga en ingles: en cuanto el cliente traiga el español, manda el del cliente. Se marcan en la web como 'traduccion propia'. Mantienen los marcadores del cliente ($m1, $s1, ${$m1/2}...) y los nombres de hechizo en español del propio cliente.",
   "spells": {
+    "467": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "782": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "1075": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "6495": "Invoca a tus pies un tótem centinela inmóvil con $s1 p. de salud durante $d, que permite ver la zona cercana y avisa de los enemigos que lo ataquen. Haz clic derecho en el beneficio para alternar entre la vista del tótem y la del chamán.",
+    "8914": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "9756": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "9910": "Hace que salgan espinas del objetivo amistoso que infligen $w1 p. de daño de Naturaleza a los atacantes cuando golpean. Dura $d.",
+    "11237": "Otorga a tu hechizo Misiles Arcanos un $m1% de probabilidad, y a tus hechizos Explosión Arcana y Cólera Arcana un $m2% de probabilidad, de no perder tiempo de lanzamiento cuando recibes daño.",
+    "14913": "Otorga a tus hechizos un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+    "16181": "Otorga a tus hechizos de sanación un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+    "17063": "Otorga a tus hechizos Arcanos y de Naturaleza un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+    "17783": "Otorga a tus hechizos Drenar vida, Drenar maná, Drenar alma y Arruinar un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+    "17917": "Aumenta un $s1% el alcance de tus hechizos de Destrucción.",
+    "18135": "Otorga a tus hechizos de Destrucción un $s1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+    "20111": "Aumenta un $s1% el daño físico que infliges y reduce un $m2% toda la amenaza que generas mientras llevas equipada un arma cuerpo a cuerpo de dos manos.",
+    "20177": "Te otorga un $m1% de probabilidad tras bloquear, y un ${$m1*2.5}% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta $1326084u ataques adicionales. No puede producirse por bloqueos más de una vez cada ${$proccooldown}.1 s.",
     "24118": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "24119": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
     "24120": "Hiere al objetivo y lo hace sangrar por $o1 p. de daño durante $d.",
+    "29062": "Otorga a tus hechizos Descarga de relámpagos, Cadena de relámpagos y Ráfaga de lava un $m1% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
     "400588": "Da a tu hechizo Explosión Arcana un $m1% de probabilidad, y a tus hechizos Cólera Arcana, Bola de Fuego, Descarga de Escarcha, Explosión de Escarcha y Descarga de Pirofrío un ${$m1/2}% de probabilidad, de reducir un $400589s1% la duración canalizada de tu próximo hechizo Misiles Arcanos, reducir su coste de maná un $400589s3% y hacer que los misiles se lancen cada ${$m2/10}.1 s.",
     "1225435": "Descubres un $s1% más de materiales escasos con minería, herboristería y desuello.",
+    "1309969": "Tus hechizos Acometida y Penitencia infligen un $m1% más de daño a los objetivos afectados por tu Fuego Sagrado o tu Palabra de las Sombras: Dolor.",
+    "1310627": "Aumenta un $s1% el daño crítico de tus habilidades cuerpo a cuerpo y un $s2% el daño de tu arma de la mano izquierda.",
+    "1310994": "Libera la energía de un hechizo de Sello sobre un enemigo. No consume el Sello. Consulta cada Sello para ver su efecto de Juicio. No comparte tiempo de reutilización con tu facultad Juicio.",
     "1327736": "Aumenta el intelecto un $s1% durante $d. Este efecto se acumula hasta $u veces.",
     "1327737": "Aumenta el daño infligido un $s1% durante $d. Este efecto se acumula hasta $u veces.",
     "1327738": "Aumenta la sanación realizada un $s1% durante $d. Este efecto se acumula hasta $u veces.",
@@ -13,9 +33,12 @@
     "1327753": "Mejora un $s1% tu probabilidad de conseguir un golpe crítico durante $d. Este efecto se acumula hasta $u veces.",
     "1327754": "Aumenta el aguante de los aliados cercanos un $s1% durante $d.",
     "1328032": "Aumenta la regeneración de maná un $s1% durante $d.",
-    "1328118": "Aumenta mucho el tamaño de quien lo bebe durante $d. Este efecto se acumula hasta $u veces.",
-    "1328119": "Aumenta la velocidad de carrera de los aliados cercanos un $s1% durante $d.",
-    "1328127": "Aumenta la experiencia obtenida un $s1% durante $d."
+    "1328370": "Reduce ${$s1/1000}.1 s el tiempo de lanzamiento de tu hechizo Ahuyentar a no-muerto y ${$s2/1000} s su tiempo de reutilización, y le permite afectar a demonios.",
+    "1328544": "Reduce ${$m1/-1000} s el tiempo de reutilización de tu facultad Golpe Sagrado. Además, Golpe Sagrado golpea ahora con tu escudo, lo que activa tus talentos Escudo Sagrado y Especialización en escudos sin consumir sus cargas ni activar sus tiempos de reutilización, y te permite bloquear hechizos durante $1328551d.",
+    "1328569": "Cada vez que sanas con Destello curativo a un objetivo que no seas tú, te sanas un $s1% de esa cantidad. Esta sanación no genera amenaza.",
+    "1328613": "Tu facultad Mordedura feroz ya no convierte la energía adicional en daño, pero sigue infligiendo daño adicional en función de tu exceso de energía.",
+    "1328618": "Remate que inflige daño por cada punto de combo y convierte cada punto extra de energía en ${$m2/100}.1 p. de daño adicional. El daño aumenta según tu poder de ataque.\n   1 punto  : 33-43 p. de daño\n   2 puntos: 57-67 p. de daño\n   3 puntos: 81-91 p. de daño\n   4 puntos: 105-115 p. de daño\n   5 puntos: 129-139 p. de daño\n",
+    "1328621": "Cuando tu hechizo Rejuvenecimiento o Recrecimiento expira por su duración, el objetivo recibe al instante una sanación equivalente al $s1% de tu espíritu. Si alguno de los dos hechizos expira por haber sido disipado, el objetivo recibe en su lugar una sanación equivalente al $s2% de tu espíritu."
   },
   "names": {
     "Elixir of Endless Intellect": "Elixir de intelecto interminable",
@@ -38,7 +61,12 @@
     "Gilded Blademaster's Banner": "Estandarte dorado de maestro de la espada",
     "Gilded Blademaster's Collar": "Collar dorado de maestro de la espada",
     "Gilded Blademaster's Shoulders": "Hombreras doradas de maestro de la espada",
-    "Gilded Blademaster's Greatsword": "Espadón dorado de maestro de la espada"
+    "Gilded Blademaster's Greatsword": "Espadón dorado de maestro de la espada",
+    "Predatory Discipline": "Disciplina depredadora",
+    "Bloom": "Floración",
+    "Turn Evil": "Ahuyentar el mal",
+    "Holy Binding": "Vínculo sagrado",
+    "Read Leyline": "Lectura de línea Ley"
   },
   "racials": {}
 }

@@ -510,6 +510,8 @@ function raceLine(kind: string | null, value: number, misc: number | null): Omit
   switch (kind) {
     case "crit-chance":
       return { category: "Probabilidad de crítico", label: "probabilidad de crítico", value, unit: "puntos porcentuales", scope: null };
+    case "hit-chance":
+      return { category: "Probabilidad de impacto", label: "probabilidad de impacto", value, unit: "puntos porcentuales", scope: null };
     case "spirit-pct":
       return { category: "Atributos, salud y recursos", label: "Espíritu", value, unit: "%", scope: null, target: "spi" };
     case "max-power-pct": {

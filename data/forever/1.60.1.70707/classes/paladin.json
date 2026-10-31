@@ -1,0 +1,3909 @@
+{
+  "schemaVersion": 1,
+  "kind": "class",
+  "build": "1.60.1.70707",
+  "locale": "esES",
+  "classId": 2,
+  "className": "Paladín",
+  "classToken": "PALADIN",
+  "iconFileDataId": 626003,
+  "traitTreeId": 1100,
+  "rules": {
+    "maxPoints": 51,
+    "maxPointsProvenance": "client-db2",
+    "pointsPerRowDerived": 5,
+    "prerequisiteRule": "max-rank-of-prerequisite",
+    "prerequisiteRuleProvenance": "assumption",
+    "firstPointLevel": 10,
+    "firstPointLevelProvenance": "community"
+  },
+  "specs": [
+    {
+      "index": 0,
+      "name": "Sagrado",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135920,
+      "backgroundFile": "PaladinHoly",
+      "talents": [
+        {
+          "nodeId": 105335,
+          "spellId": 20205,
+          "name": "Enfoque espiritual",
+          "iconFileDataId": 135736,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                -1073741824,
+                0,
+                0,
+                67108864
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              14
+            ],
+            [
+              28
+            ],
+            [
+              42
+            ],
+            [
+              56
+            ],
+            [
+              70
+            ]
+          ],
+          "descriptions": [
+            "Da a tus hechizos Destello de Luz, Luz Sagrada y Vigilia de la Luz un 14% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Destello de Luz, Luz Sagrada y Vigilia de la Luz un 28% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Destello de Luz, Luz Sagrada y Vigilia de la Luz un 42% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Destello de Luz, Luz Sagrada y Vigilia de la Luz un 56% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño.",
+            "Da a tus hechizos Destello de Luz, Luz Sagrada y Vigilia de la Luz un 70% de probabilidad de no perder tiempo de lanzamiento cuando recibes daño."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82976
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 113630,
+          "spellId": 20262,
+          "name": "Fuerza divina",
+          "iconFileDataId": 132154,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 1,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu fuerza en un 2%.",
+            "Aumenta tu fuerza en un 4%.",
+            "Aumenta tu fuerza en un 6%.",
+            "Aumenta tu fuerza en un 8%.",
+            "Aumenta tu fuerza en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 127941
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105333,
+          "spellId": 20237,
+          "name": "Luz curativa",
+          "iconFileDataId": 135920,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                24576,
+                65536,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 4% la cantidad sanada por tus hechizos Luz Sagrada, Destello de Luz y Choque Sagrado.",
+            "Aumenta un 8% la cantidad sanada por tus hechizos Luz Sagrada, Destello de Luz y Choque Sagrado.",
+            "Aumenta un 12% la cantidad sanada por tus hechizos Luz Sagrada, Destello de Luz y Choque Sagrado."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105335,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82974
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 110871,
+          "spellId": 1310899,
+          "name": "Reverencia",
+          "iconFileDataId": 135895,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 134,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Permite que un 15% de la regeneración de maná continúe mientras lanzas hechizos.",
+            "Permite que un 30% de la regeneración de maná continúe mientras lanzas hechizos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105335,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110321
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105334,
+          "spellId": 20224,
+          "name": "Sellos mejorados",
+          "iconFileDataId": 132325,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                33555456,
+                536873472,
+                64,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              3
+            ],
+            [
+              6
+            ],
+            [
+              9
+            ],
+            [
+              12
+            ],
+            [
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 3% el daño que infligen todos tus sellos y sentencias.",
+            "Aumenta un 6% el daño que infligen todos tus sellos y sentencias.",
+            "Aumenta un 9% el daño que infligen todos tus sellos y sentencias.",
+            "Aumenta un 12% el daño que infligen todos tus sellos y sentencias.",
+            "Aumenta un 15% el daño que infligen todos tus sellos y sentencias."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105335,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82975
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105327,
+          "spellId": 429144,
+          "name": "Poder purificador",
+          "iconFileDataId": 135950,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                2,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 108,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                2097152,
+                1073750016,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10,
+              -17
+            ],
+            [
+              -20,
+              -33
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 10% el coste de maná de tus hechizos Limpiar y Purificar, así como un 17% el tiempo de reutilización de tus hechizos Exorcismo y Cólera Sagrada.",
+            "Reduce un 20% el coste de maná de tus hechizos Limpiar y Purificar, así como un 33% el tiempo de reutilización de tus hechizos Exorcismo y Cólera Sagrada."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105335,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82968
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82967
+            }
+          ],
+          "raw": {
+            "posX": 2820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105325,
+          "spellId": 20216,
+          "name": "Favor divino",
+          "iconFileDataId": 135915,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 7,
+              "miscValueB": 0,
+              "classMask": [
+                -2145361920,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Otorga al siguiente Destello de Luz, Luz Sagrada o hechizo de choque Sagrado una probabilidad de efecto crítico del 100%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105327,
+              105333,
+              105334,
+              105335,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105329,
+          "spellId": 20210,
+          "name": "Iluminación",
+          "iconFileDataId": 135913,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20,
+              10,
+              50,
+              10
+            ],
+            [
+              40,
+              20,
+              50,
+              10
+            ],
+            [
+              60,
+              30,
+              50,
+              10
+            ],
+            [
+              80,
+              40,
+              50,
+              10
+            ],
+            [
+              100,
+              50,
+              50,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Tras haber obtenido un efecto crítico con los hechizos de sanación Destello de Luz, Luz Sagrada, Vigilia de la Luz o Choque Sagrado, tienes un 20% de probabilidad de obtener maná igual a un 50% del coste base del hechizo.",
+            "Tras haber obtenido un efecto crítico con los hechizos de sanación Destello de Luz, Luz Sagrada, Vigilia de la Luz o Choque Sagrado, tienes un 40% de probabilidad de obtener maná igual a un 50% del coste base del hechizo.",
+            "Tras haber obtenido un efecto crítico con los hechizos de sanación Destello de Luz, Luz Sagrada, Vigilia de la Luz o Choque Sagrado, tienes un 60% de probabilidad de obtener maná igual a un 50% del coste base del hechizo.",
+            "Tras haber obtenido un efecto crítico con los hechizos de sanación Destello de Luz, Luz Sagrada, Vigilia de la Luz o Choque Sagrado, tienes un 80% de probabilidad de obtener maná igual a un 50% del coste base del hechizo.",
+            "Tras haber obtenido un efecto crítico con los hechizos de sanación Destello de Luz, Luz Sagrada, Vigilia de la Luz o Choque Sagrado, tienes un 100% de probabilidad de obtener maná igual a un 50% del coste base del hechizo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105327,
+              105333,
+              105334,
+              105335,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 110871,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82971
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 85182
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105704,
+          "spellId": 1237268,
+          "name": "Conducto Sagrado",
+          "iconFileDataId": 237539,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                32,
+                2097280,
+                1073750016,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -20
+            ],
+            [
+              -40
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 20% el coste de maná de tus hechizos Consagración, Cólera Sagrada, Exorcismo y Martillo de cólera.",
+            "Reduce un 40% el coste de maná de tus hechizos Consagración, Cólera Sagrada, Exorcismo y Martillo de cólera."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105327,
+              105333,
+              105334,
+              105335,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82987
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105324,
+          "spellId": 1310904,
+          "name": "Precisión divina",
+          "iconFileDataId": 135933,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 16,
+              "miscValueB": 0,
+              "classMask": [
+                2099236,
+                2097152,
+                1056768,
+                67141632
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 9,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4,
+              -10
+            ],
+            [
+              8,
+              -20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 4% tu probabilidad de golpear con hechizos Sagrados y reduce un 10% la duración de los efectos de silencio sobre ti.",
+            "Aumenta un 8% tu probabilidad de golpear con hechizos Sagrados y reduce un 20% la duración de los efectos de silencio sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105325,
+              105327,
+              105329,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82964
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 127944
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 110873,
+          "spellId": 426065,
+          "name": "Infusión de Luz",
+          "iconFileDataId": 236254,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -500
+            ],
+            [
+              -1000
+            ]
+          ],
+          "descriptions": [
+            "Los golpes críticos de Choque Sagrado y Destello de Luz reducen 0,5 s el tiempo de lanzamiento de la siguiente Luz Sagrada que lances en 15 s.",
+            "Los golpes críticos de Choque Sagrado y Destello de Luz reducen 1,0 s el tiempo de lanzamiento de la siguiente Luz Sagrada que lances en 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105325,
+              105327,
+              105329,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110323
+            }
+          ],
+          "raw": {
+            "posX": 1620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105330,
+          "spellId": 1328548,
+          "name": "Juramento de luz",
+          "iconFileDataId": 135909,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 226,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Haces un juramento para proteger a un aliado durante 5 min, lo que aumenta hasta 0 p. la sanación de tu Luz Sagrada, hasta 0 p. la de Destello de Luz y hasta 0 p. la de Choque Sagrado. El paladín solo puede hacer un Juramento de luz a la vez."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105325,
+              105327,
+              105329,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 2220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 110872,
+          "spellId": 1310905,
+          "name": "Suelo consagrado",
+          "iconFileDataId": 135926,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 5% el daño que infligen tus hechizos Sagrados contra los 4 primeros enemigos que pisan tu Consagración.",
+            "Aumenta un 10% el daño que infligen tus hechizos Sagrados contra los 4 primeros enemigos que pisan tu Consagración."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105324,
+              105325,
+              105327,
+              105329,
+              105330,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              110873,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110322
+            }
+          ],
+          "raw": {
+            "posX": 1020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105323,
+          "spellId": 1311606,
+          "name": "Choque Sagrado",
+          "iconFileDataId": 135972,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Golpea al objetivo con energía Sagrada que inflige 134 p. de daño Sagrado a un enemigo o sana 114 p. a un aliado."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105324,
+              105325,
+              105327,
+              105329,
+              105330,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              110873,
+              113630
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 113631,
+          "spellId": 1328550,
+          "name": "Luz sin límites",
+          "iconFileDataId": 236261,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% la probabilidad de golpe crítico de tu hechizo Choque Sagrado cuando lo lanzas sobre aliados a los que no afecte tu Juramento de luz.",
+            "Aumenta un 30% la probabilidad de golpe crítico de tu hechizo Choque Sagrado cuando lo lanzas sobre aliados a los que no afecte tu Juramento de luz."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105324,
+              105325,
+              105327,
+              105329,
+              105330,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              110873,
+              113630
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105323,
+              "edgeType": 3
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 127943
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105321,
+          "spellId": 5923,
+          "name": "Poder Sagrado",
+          "iconFileDataId": 135938,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 50,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10
+            ],
+            [
+              20
+            ],
+            [
+              30
+            ],
+            [
+              40
+            ],
+            [
+              50
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% el bonus de sanación crítica de tus hechizos Sagrados.",
+            "Aumenta un 20% el bonus de sanación crítica de tus hechizos Sagrados.",
+            "Aumenta un 30% el bonus de sanación crítica de tus hechizos Sagrados.",
+            "Aumenta un 40% el bonus de sanación crítica de tus hechizos Sagrados.",
+            "Aumenta un 50% el bonus de sanación crítica de tus hechizos Sagrados."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105323,
+              105324,
+              105325,
+              105327,
+              105329,
+              105330,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              110872,
+              110873,
+              113630,
+              113631
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82962
+            }
+          ],
+          "raw": {
+            "posX": 2220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105320,
+          "spellId": 1310911,
+          "name": "Vigilia de la Luz",
+          "iconFileDataId": 236256,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0,
+              75
+            ]
+          ],
+          "descriptions": [
+            "Aplica Vigilia de la Luz a un objetivo amistoso durante 30 s. El siguiente Choque Sagrado que lances sobre el objetivo no activa el tiempo de reutilización y sana 324 p. al objetivo y su grupo. Solo se puede tener una Vigilia activa por paladín y grupo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105320,
+              105321,
+              105323,
+              105324,
+              105325,
+              105327,
+              105329,
+              105330,
+              105333,
+              105334,
+              105335,
+              105704,
+              110871,
+              110872,
+              110873,
+              113630,
+              113631
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105323,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 1620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Protección",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135893,
+      "backgroundFile": "PaladinProtection",
+      "talents": [
+        {
+          "nodeId": 105332,
+          "spellId": 20257,
+          "name": "Intelecto divino",
+          "iconFileDataId": 136090,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 137,
+              "miscValue": 0,
+              "miscValueB": 8,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ],
+            [
+              8
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu intelecto total en un 2%.",
+            "Aumenta tu intelecto total en un 4%.",
+            "Aumenta tu intelecto total en un 6%.",
+            "Aumenta tu intelecto total en un 8%.",
+            "Aumenta tu intelecto total en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82973
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105626,
+          "spellId": 20127,
+          "name": "Baluarte",
+          "iconFileDataId": 132110,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              6
+            ],
+            [
+              12
+            ],
+            [
+              18
+            ],
+            [
+              24
+            ],
+            [
+              30
+            ]
+          ],
+          "descriptions": [
+            "Los ataques cuerpo a cuerpo que te asesten tienen un 10% de probabilidad de aumentar tu probabilidad de bloqueo un 6%. Dura 10 s o 5 bloqueos.",
+            "Los ataques cuerpo a cuerpo que te asesten tienen un 10% de probabilidad de aumentar tu probabilidad de bloqueo un 12%. Dura 10 s o 5 bloqueos.",
+            "Los ataques cuerpo a cuerpo que te asesten tienen un 10% de probabilidad de aumentar tu probabilidad de bloqueo un 18%. Dura 10 s o 5 bloqueos.",
+            "Los ataques cuerpo a cuerpo que te asesten tienen un 10% de probabilidad de aumentar tu probabilidad de bloqueo un 24%. Dura 10 s o 5 bloqueos.",
+            "Los ataques cuerpo a cuerpo que te asesten tienen un 10% de probabilidad de aumentar tu probabilidad de bloqueo un 30%. Dura 10 s o 5 bloqueos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82946
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82945
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105638,
+          "spellId": 20189,
+          "name": "Precisión",
+          "iconFileDataId": 132282,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 54,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 55,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ],
+            [
+              3,
+              3
+            ]
+          ],
+          "descriptions": [
+            "Mejora un 1% tu probabilidad de golpear.",
+            "Mejora un 2% tu probabilidad de golpear.",
+            "Mejora un 3% tu probabilidad de golpear."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105332,
+              105626
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82958
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 104822
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105637,
+          "spellId": 20174,
+          "name": "Favor del Guardián",
+          "iconFileDataId": 135964,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                128,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                16,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -60000,
+              3000
+            ],
+            [
+              -120000,
+              6000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 min el tiempo de reutilización de tu Bendición de protección y aumenta 3 s la duración de tu Bendición de libertad.",
+            "Reduce 2 min el tiempo de reutilización de tu Bendición de protección y aumenta 6 s la duración de tu Bendición de libertad."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105332,
+              105626
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82957
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82956
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105632,
+          "spellId": 1224697,
+          "name": "Deber sagrado",
+          "iconFileDataId": 135896,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                128,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                4194304,
+                0,
+                2097408,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5000,
+              -30000
+            ],
+            [
+              -10000,
+              -60000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 30 s el tiempo de reutilización de tus hechizos Escudo divino, Protección divina y Baluarte de templario, y reduce 5 s la duración de Abstinencia.",
+            "Reduce 60 s el tiempo de reutilización de tus hechizos Escudo divino, Protección divina y Baluarte de templario, y reduce 10 s la duración de Abstinencia."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 3,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105332,
+              105626
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82952
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 82951
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105625,
+          "spellId": 1311015,
+          "name": "Baluarte de templario",
+          "iconFileDataId": 236264,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 69,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              100
+            ]
+          ],
+          "descriptions": [
+            "Al activarse, esta facultad te otorga un escudo de absorción equivalente a un 100% de tu salud máxima durante 8 s. Aplica Abstinencia durante 1 min. No se puede lanzar mientras Abstinencia está activa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105332,
+              105626,
+              105632,
+              105637,
+              105638
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5020,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105633,
+          "spellId": 20487,
+          "name": "Martillo de justicia mejorado",
+          "iconFileDataId": 135963,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                2048,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -5000
+            ],
+            [
+              -10000
+            ],
+            [
+              -15000
+            ]
+          ],
+          "descriptions": [
+            "Reduce el tiempo de reutilización de tu hechizo Martillo de justicia en 5 s.",
+            "Reduce el tiempo de reutilización de tu hechizo Martillo de justicia en 10 s.",
+            "Reduce el tiempo de reutilización de tu hechizo Martillo de justicia en 15 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105332,
+              105626,
+              105632,
+              105637,
+              105638
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82953
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 110874,
+          "spellId": 20150,
+          "name": "Especialización en escudos",
+          "iconFileDataId": 134952,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 272,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              15,
+              50
+            ],
+            [
+              30,
+              100
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 15% la absorción de daño de tu escudo y da a tus bloqueos un 50% de probabilidad de restaurar un 4% de tu maná máximo. Solo puede ocurrir una vez cada 3 s.",
+            "Aumenta un 30% la absorción de daño de tu escudo y da a tus bloqueos un 100% de probabilidad de restaurar un 4% de tu maná máximo. Solo puede ocurrir una vez cada 3 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105332,
+              105626,
+              105632,
+              105637,
+              105638
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105626,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110325
+            },
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110326
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105630,
+          "spellId": 20143,
+          "name": "Dureza",
+          "iconFileDataId": 135892,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 142,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 466,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2,
+              2
+            ],
+            [
+              4,
+              4
+            ],
+            [
+              6,
+              6
+            ],
+            [
+              8,
+              8
+            ],
+            [
+              10,
+              10
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu valor de objetos a armadura en un 2%.",
+            "Aumenta tu valor de objetos a armadura en un 4%.",
+            "Aumenta tu valor de objetos a armadura en un 6%.",
+            "Aumenta tu valor de objetos a armadura en un 8%.",
+            "Aumenta tu valor de objetos a armadura en un 10%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105332,
+              105626,
+              105632,
+              105637,
+              105638
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82950
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 103189
+            }
+          ],
+          "raw": {
+            "posX": 6820,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 110878,
+          "spellId": 1310994,
+          "name": "Juicio presto",
+          "iconFileDataId": 236258,
+          "equipped": [],
+          "effectInfo": [],
+          "passive": false,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Libera la energía de un hechizo de Sello sobre un enemigo. No consume el Sello. Consulta cada Sello para ver su efecto de Juicio. No comparte tiempo de reutilización con tu facultad Juicio."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105637,
+              105638,
+              110874
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105625,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5020,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105634,
+          "spellId": 20468,
+          "name": "Furia justa mejorada",
+          "iconFileDataId": 135962,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -3
+            ],
+            [
+              -6
+            ],
+            [
+              -9
+            ]
+          ],
+          "descriptions": [
+            "Mientras Furia recta está activa, todo el daño recibido se reduce un 3%.",
+            "Mientras Furia recta está activa, todo el daño recibido se reduce un 6%.",
+            "Mientras Furia recta está activa, todo el daño recibido se reduce un 9%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105637,
+              105638,
+              110874
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82954
+            }
+          ],
+          "raw": {
+            "posX": 5620,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105636,
+          "spellId": 20096,
+          "name": "Anticipación",
+          "iconFileDataId": 135994,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 30,
+              "miscValue": 95,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              4
+            ],
+            [
+              8
+            ],
+            [
+              12
+            ],
+            [
+              16
+            ],
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta 4 p. tu habilidad en defensa.",
+            "Aumenta 8 p. tu habilidad en defensa.",
+            "Aumenta 12 p. tu habilidad en defensa.",
+            "Aumenta 16 p. tu habilidad en defensa.",
+            "Aumenta 20 p. tu habilidad en defensa."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 3,
+          "col": 2,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105637,
+              105638,
+              110874
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82955
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105639,
+          "spellId": 1328546,
+          "name": "Estoicismo",
+          "iconFileDataId": 135978,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 232,
+              "miscValue": 12,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -10,
+              -10
+            ],
+            [
+              -20,
+              -20
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 10% la duración de los efectos de aturdimiento y embelsamiento sobre ti.",
+            "Reduce un 20% la duración de los efectos de aturdimiento y embelsamiento sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105634,
+              105636,
+              105637,
+              105638,
+              110874,
+              110878
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82959
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 127942
+            }
+          ],
+          "raw": {
+            "posX": 5020,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105628,
+          "spellId": 20925,
+          "name": "Escudo Sagrado",
+          "iconFileDataId": 135880,
+          "equipped": [
+            {
+              "itemClass": 4,
+              "invTypeMask": 0,
+              "subclassMask": 64
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 51,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 43,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              30,
+              75,
+              1
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 30% la probabilidad de bloquear durante 10 s e inflige 75 p. de daño Sagrado por cada ataque bloqueado mientras está activo. El daño que inflige Escudo Sagrado genera un 20% más de amenaza. Cada bloqueo gasta una carga. 4 cargas."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105634,
+              105636,
+              105637,
+              105638,
+              110874,
+              110878
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105627,
+          "spellId": 20177,
+          "name": "La hora de la verdad",
+          "iconFileDataId": 135882,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              8
+            ],
+            [
+              16
+            ],
+            [
+              24
+            ],
+            [
+              32
+            ],
+            [
+              40
+            ]
+          ],
+          "descriptions": [
+            "Te otorga un 8% de probabilidad tras bloquear, y un 20% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta 4 ataques adicionales. No puede producirse por bloqueos más de una vez cada 1,5 s.",
+            "Te otorga un 16% de probabilidad tras bloquear, y un 40% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta 4 ataques adicionales. No puede producirse por bloqueos más de una vez cada 1,5 s.",
+            "Te otorga un 24% de probabilidad tras bloquear, y un 60% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta 4 ataques adicionales. No puede producirse por bloqueos más de una vez cada 1,5 s.",
+            "Te otorga un 32% de probabilidad tras bloquear, y un 80% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta 4 ataques adicionales. No puede producirse por bloqueos más de una vez cada 1,5 s.",
+            "Te otorga un 40% de probabilidad tras bloquear, y un 100% de probabilidad tras recibir un golpe crítico no periódico, de obtener un ataque adicional. Almacena hasta 4 ataques adicionales. No puede producirse por bloqueos más de una vez cada 1,5 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105630,
+              105632,
+              105633,
+              105634,
+              105636,
+              105637,
+              105638,
+              110874,
+              110878
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82947
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110879,
+          "spellId": 1311034,
+          "name": "Credo férreo",
+          "iconFileDataId": 135925,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                32768
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 231,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              10,
+              -2
+            ],
+            [
+              20,
+              -4
+            ],
+            [
+              30,
+              -6
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 10% la amenaza generada por tu facultad Golpe Sagrado. Mientras Furia recta está activa, Golpe Sagrado también reduce un 2% el daño que recibes durante 6 s.",
+            "Aumenta un 20% la amenaza generada por tu facultad Golpe Sagrado. Mientras Furia recta está activa, Golpe Sagrado también reduce un 4% el daño que recibes durante 6 s.",
+            "Aumenta un 30% la amenaza generada por tu facultad Golpe Sagrado. Mientras Furia recta está activa, Golpe Sagrado también reduce un 6% el daño que recibes durante 6 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105627,
+              105628,
+              105630,
+              105632,
+              105633,
+              105634,
+              105636,
+              105637,
+              105638,
+              105639,
+              110874,
+              110878
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110346
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110345
+            }
+          ],
+          "raw": {
+            "posX": 6220,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 110875,
+          "spellId": 1328544,
+          "name": "Juramento de escudo",
+          "iconFileDataId": 135911,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                32768
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              -4000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 4 s el tiempo de reutilización de tu facultad Golpe Sagrado. Además, Golpe Sagrado golpea ahora con tu escudo, lo que activa tus talentos Escudo Sagrado y Especialización en escudos sin consumir sus cargas ni activar sus tiempos de reutilización, y te permite bloquear hechizos durante 6 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105332,
+              105625,
+              105626,
+              105627,
+              105628,
+              105630,
+              105632,
+              105633,
+              105634,
+              105636,
+              105637,
+              105638,
+              105639,
+              110874,
+              110875,
+              110878,
+              110879
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105628,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 5620,
+            "posY": 5730
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Reprensión",
+      "nameProvenance": "assumption",
+      "iconFileDataId": 135873,
+      "backgroundFile": "PaladinCombat",
+      "talents": [
+        {
+          "nodeId": 105707,
+          "spellId": 20060,
+          "name": "Desvío",
+          "iconFileDataId": 132269,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 47,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ],
+            [
+              4
+            ],
+            [
+              5
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu probabilidad de parar en un 1%.",
+            "Aumenta tu probabilidad de parar en un 2%.",
+            "Aumenta tu probabilidad de parar en un 3%.",
+            "Aumenta tu probabilidad de parar en un 4%.",
+            "Aumenta tu probabilidad de parar en un 5%."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 1,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82991
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105706,
+          "spellId": 20101,
+          "name": "Oración",
+          "iconFileDataId": 135863,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                467738559,
+                637633090,
+                539042048,
+                34816
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -2
+            ],
+            [
+              -4
+            ],
+            [
+              -6
+            ],
+            [
+              -8
+            ],
+            [
+              -10
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 2% el coste de maná de todos los hechizos y facultades de lanzamiento instantáneo.",
+            "Reduce un 4% el coste de maná de todos los hechizos y facultades de lanzamiento instantáneo.",
+            "Reduce un 6% el coste de maná de todos los hechizos y facultades de lanzamiento instantáneo.",
+            "Reduce un 8% el coste de maná de todos los hechizos y facultades de lanzamiento instantáneo.",
+            "Reduce un 10% el coste de maná de todos los hechizos y facultades de lanzamiento instantáneo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 0,
+          "col": 2,
+          "requiredPoints": 0,
+          "gate": null,
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82990
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2130
+          }
+        },
+        {
+          "nodeId": 105705,
+          "spellId": 25956,
+          "name": "Sentencia mejorada",
+          "iconFileDataId": 135959,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                8388608,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -1000
+            ],
+            [
+              -2000
+            ]
+          ],
+          "descriptions": [
+            "Reduce 1 s el tiempo de reutilización de tu facultad Sentencia.",
+            "Reduce 2 s el tiempo de reutilización de tu facultad Sentencia."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 1,
+          "col": 0,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82988
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105703,
+          "spellId": 20117,
+          "name": "Convicción",
+          "iconFileDataId": 135957,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 173555
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 290,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              2
+            ],
+            [
+              4
+            ],
+            [
+              6
+            ]
+          ],
+          "descriptions": [
+            "Mejora un 2% tu probabilidad de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 4% tu probabilidad de conseguir un golpe crítico con todos los hechizos y ataques.",
+            "Mejora un 6% tu probabilidad de conseguir un golpe crítico con todos los hechizos y ataques."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 1,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82985
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105701,
+          "spellId": 1311074,
+          "name": "Sentencia santificada",
+          "iconFileDataId": 236255,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              33,
+              20
+            ],
+            [
+              66,
+              40
+            ],
+            [
+              100,
+              60
+            ]
+          ],
+          "descriptions": [
+            "Da a tu facultad Sentencia un 33% de probabilidades de devolver un 20% del coste de maná del sello sentenciado.",
+            "Da a tu facultad Sentencia un 66% de probabilidades de devolver un 40% del coste de maná del sello sentenciado.",
+            "Da a tu facultad Sentencia un 100% de probabilidades de devolver un 60% del coste de maná del sello sentenciado."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 1,
+          "col": 2,
+          "requiredPoints": 5,
+          "gate": {
+            "points": 5,
+            "fromNodeIds": [
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82983
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 110347
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 2730
+          }
+        },
+        {
+          "nodeId": 105702,
+          "spellId": 9452,
+          "name": "Reivindicación",
+          "iconFileDataId": 135985,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              3,
+              0
+            ]
+          ],
+          "descriptions": [
+            "Otorga a tus ataques cuerpo a cuerpo que inflijan daño la posibilidad de reducir -2 p. el poder de ataque del objetivo durante 30 s.",
+            "Otorga a tus ataques cuerpo a cuerpo que inflijan daño la posibilidad de reducir -4 p. el poder de ataque del objetivo durante 30 s.",
+            "Otorga a tus ataques cuerpo a cuerpo que inflijan daño la posibilidad de reducir -6 p. el poder de ataque del objetivo durante 30 s."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 3,
+          "row": 2,
+          "col": 0,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105701,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82984
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105331,
+          "spellId": 9453,
+          "name": "Fe implacable",
+          "iconFileDataId": 135984,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 232,
+              "miscValue": 5,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 232,
+              "miscValue": 2,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              -15,
+              -15
+            ],
+            [
+              -30,
+              -30
+            ]
+          ],
+          "descriptions": [
+            "Reduce un 15% la duración de todos los efectos de miedo y desorientación sobre ti.",
+            "Reduce un 30% la duración de todos los efectos de miedo y desorientación sobre ti."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 1,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105701,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82972
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87383
+            }
+          ],
+          "raw": {
+            "posX": 9680,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105696,
+          "spellId": 20375,
+          "name": "Sello de orden",
+          "iconFileDataId": 132347,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 42,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Otorga al paladín una probabilidad de infligir daño Sagrado adicional equivalente al 70% del daño normal con arma. El paladín solo puede tener un sello activo a la vez. Dura 30 s.\r\n\r\nDesatar la energía de este sello juzgará a un enemigo para infligirle al instante 48,5 p. de daño Sagrado. Le infligirá 97 p. si el objetivo está aturdido o incapacitado."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": true,
+          "maxRank": 1,
+          "row": 2,
+          "col": 2,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105701,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 10280,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105699,
+          "spellId": 26022,
+          "name": "Búsqueda de justicia",
+          "iconFileDataId": 135937,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 31,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 172,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              8,
+              8
+            ],
+            [
+              15,
+              15
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 8% la velocidad de movimiento y la velocidad de movimiento sobre montura. No se acumula con otros efectos de aumento de velocidad de movimiento.",
+            "Aumenta un 15% la velocidad de movimiento y la velocidad de movimiento sobre montura. No se acumula con otros efectos de aumento de velocidad de movimiento."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 2,
+          "col": 3,
+          "requiredPoints": 10,
+          "gate": {
+            "points": 10,
+            "fromNodeIds": [
+              105701,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82982
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 87390
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 3330
+          }
+        },
+        {
+          "nodeId": 105698,
+          "spellId": 9799,
+          "name": "Ojo por ojo",
+          "iconFileDataId": 135904,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 4,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              5
+            ],
+            [
+              10
+            ]
+          ],
+          "descriptions": [
+            "Todos los golpes críticos contra ti infligen también un 5% del daño recibido al atacante. El daño causado por Ojo por ojo no superará el 50% de la salud total del paladín.",
+            "Todos los golpes críticos contra ti infligen también un 10% del daño recibido al atacante. El daño causado por Ojo por ojo no superará el 50% de la salud total del paladín."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 3,
+          "col": 0,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105699,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82981
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105700,
+          "spellId": 1311087,
+          "name": "Enjuiciador Sagrado",
+          "iconFileDataId": 135278,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                32768
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 20% el daño de tu facultad Golpe Sagrado y reinicia todos los efectos de tus sentencias sobre el objetivo."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 3,
+          "col": 1,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105699,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 105697,
+          "spellId": 20111,
+          "name": "Especialización en armas de dos manos",
+          "iconFileDataId": 133041,
+          "equipped": [
+            {
+              "itemClass": 2,
+              "invTypeMask": 0,
+              "subclassMask": 136546
+            }
+          ],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 79,
+              "miscValue": 1,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 10,
+              "miscValue": 127,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              2,
+              -7
+            ],
+            [
+              4,
+              -14
+            ],
+            [
+              6,
+              -20
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 2% el daño físico que infliges y reduce un 7% toda la amenaza que generas mientras llevas equipada un arma cuerpo a cuerpo de dos manos.",
+            "Aumenta un 4% el daño físico que infliges y reduce un 14% toda la amenaza que generas mientras llevas equipada un arma cuerpo a cuerpo de dos manos.",
+            "Aumenta un 6% el daño físico que infliges y reduce un 20% toda la amenaza que generas mientras llevas equipada un arma cuerpo a cuerpo de dos manos."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 3,
+          "col": 3,
+          "requiredPoints": 15,
+          "gate": {
+            "points": 15,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105699,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82980
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 127869
+            }
+          ],
+          "raw": {
+            "posX": 10880,
+            "posY": 3930
+          }
+        },
+        {
+          "nodeId": 113629,
+          "spellId": 1328370,
+          "name": "Ahuyentar el mal",
+          "iconFileDataId": 135983,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                1048576,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 11,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                1048576,
+                0
+              ]
+            },
+            {
+              "index": 2,
+              "aura": 332,
+              "miscValue": 2878,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 3,
+              "aura": 332,
+              "miscValue": 5627,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 4,
+              "aura": 332,
+              "miscValue": 10326,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "translated-by-us",
+          "rankValues": [
+            [
+              -500,
+              -5000,
+              1328374,
+              1328373,
+              1328372
+            ],
+            [
+              -1000,
+              -10000,
+              1328374,
+              1328373,
+              1328372
+            ]
+          ],
+          "descriptions": [
+            "Reduce 0,5 s el tiempo de lanzamiento de tu hechizo Ahuyentar a no-muerto y 5 s su tiempo de reutilización, y le permite afectar a demonios.",
+            "Reduce 1,0 s el tiempo de lanzamiento de tu hechizo Ahuyentar a no-muerto y 10 s su tiempo de reutilización, y le permite afectar a demonios."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 2,
+          "row": 4,
+          "col": 0,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105697,
+              105698,
+              105699,
+              105700,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 127913
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 127912
+            }
+          ],
+          "raw": {
+            "posX": 9080,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105694,
+          "spellId": 20066,
+          "name": "Arrepentimiento",
+          "iconFileDataId": 135942,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 12,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": false,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Sume al enemigo objetivo en un estado de meditación, lo que lo deja incapacitado hasta 6 s. Cualquier daño que reciba hará que se despierte. Solo funciona contra humanoides."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 4,
+          "col": 1,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105697,
+              105698,
+              105699,
+              105700,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 105693,
+          "spellId": 20049,
+          "name": "Venganza",
+          "iconFileDataId": 132275,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 231,
+              "miscValue": 0,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ]
+          ],
+          "descriptions": [
+            "Aumenta un 1% el daño físico y Sagrado que infliges durante 30 s tras asestar un golpe crítico no periódico. Se acumula hasta 3 veces.",
+            "Aumenta un 2% el daño físico y Sagrado que infliges durante 30 s tras asestar un golpe crítico no periódico. Se acumula hasta 3 veces.",
+            "Aumenta un 3% el daño físico y Sagrado que infliges durante 30 s tras asestar un golpe crítico no periódico. Se acumula hasta 3 veces."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 3,
+          "row": 4,
+          "col": 2,
+          "requiredPoints": 20,
+          "gate": {
+            "points": 20,
+            "fromNodeIds": [
+              105331,
+              105696,
+              105697,
+              105698,
+              105699,
+              105700,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105696,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 82978
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 4530
+          }
+        },
+        {
+          "nodeId": 110882,
+          "spellId": 1311084,
+          "name": "Campeón de la Luz",
+          "iconFileDataId": 236251,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 174,
+              "miscValue": 126,
+              "miscValueB": 3,
+              "classMask": [
+                0,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "index": 1,
+              "aura": 107,
+              "miscValue": 10,
+              "miscValueB": 0,
+              "classMask": [
+                0,
+                128,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              12,
+              -200
+            ],
+            [
+              24,
+              -400
+            ],
+            [
+              36,
+              -600
+            ],
+            [
+              48,
+              -800
+            ],
+            [
+              60,
+              -1000
+            ]
+          ],
+          "descriptions": [
+            "Aumenta tu daño con hechizos hasta un 12% de tu intelecto y reduce 0,2 s el tiempo de lanzamiento de tu Martillo de cólera.",
+            "Aumenta tu daño con hechizos hasta un 24% de tu intelecto y reduce 0,4 s el tiempo de lanzamiento de tu Martillo de cólera.",
+            "Aumenta tu daño con hechizos hasta un 36% de tu intelecto y reduce 0,6 s el tiempo de lanzamiento de tu Martillo de cólera.",
+            "Aumenta tu daño con hechizos hasta un 48% de tu intelecto y reduce 0,8 s el tiempo de lanzamiento de tu Martillo de cólera.",
+            "Aumenta tu daño con hechizos hasta un 60% de tu intelecto y reduce 1,0 s el tiempo de lanzamiento de tu Martillo de cólera."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 5,
+          "row": 5,
+          "col": 2,
+          "requiredPoints": 25,
+          "gate": {
+            "points": 25,
+            "fromNodeIds": [
+              105331,
+              105693,
+              105694,
+              105696,
+              105697,
+              105698,
+              105699,
+              105700,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707,
+              113629
+            ]
+          },
+          "prerequisites": [],
+          "effectPoints": [
+            {
+              "effectIndex": 0,
+              "operationType": 0,
+              "curveId": 110350
+            },
+            {
+              "effectIndex": 1,
+              "operationType": 0,
+              "curveId": 127867
+            }
+          ],
+          "raw": {
+            "posX": 10280,
+            "posY": 5130
+          }
+        },
+        {
+          "nodeId": 105692,
+          "spellId": 1310735,
+          "name": "Cólera desellada",
+          "iconFileDataId": 135878,
+          "equipped": [],
+          "effectInfo": [
+            {
+              "index": 0,
+              "aura": 108,
+              "miscValue": 14,
+              "miscValueB": 0,
+              "classMask": [
+                167773696,
+                637534208,
+                0,
+                0
+              ]
+            }
+          ],
+          "passive": true,
+          "textOrigin": "client",
+          "rankValues": [
+            [
+              0
+            ]
+          ],
+          "descriptions": [
+            "Tus ataques cuerpo a cuerpo guardan una copia de tu sello activo durante 15 s, lo que se acumula hasta 3 veces. Acertar un ataque con un sello diferente consume todas las acumulaciones y le otorga al sello guardado su probabilidad de activarse una vez por acumulación."
+          ],
+          "descriptionsComplete": true,
+          "descriptionsApproximate": false,
+          "maxRank": 1,
+          "row": 6,
+          "col": 1,
+          "requiredPoints": 30,
+          "gate": {
+            "points": 30,
+            "fromNodeIds": [
+              105331,
+              105692,
+              105693,
+              105694,
+              105696,
+              105697,
+              105698,
+              105699,
+              105700,
+              105701,
+              105702,
+              105703,
+              105705,
+              105706,
+              105707,
+              110882,
+              113629
+            ]
+          },
+          "prerequisites": [
+            {
+              "nodeId": 105694,
+              "edgeType": 2
+            }
+          ],
+          "effectPoints": [],
+          "raw": {
+            "posX": 9680,
+            "posY": 5730
+          }
+        }
+      ]
+    }
+  ],
+  "inactiveTalents": [],
+  "warnings": []
+}

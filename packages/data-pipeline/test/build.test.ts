@@ -17,7 +17,7 @@ import { buildLegacy } from "../src/legacy.js";
 import { buildUnassigned } from "../src/unassigned.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70685";
+const BUILD = "1.60.1.70707";
 const load = (dir: string) => buildClassTalents(openRawTables(join(root, "data", "raw", dir)), BUILD, "esES");
 
 /** Con los hotfixes de la cache del juego aplicados: la verdad "en vivo". */
@@ -28,7 +28,7 @@ const legacyData = buildLegacy(openRawTables(join(root, "data", "raw", `${BUILD}
 const byToken = (r: typeof live, t: string) => r.classes.find((c) => c.classToken === t)!;
 const TOKENS = ["DRUID", "HUNTER", "MAGE", "PALADIN", "PRIEST", "ROGUE", "SHAMAN", "WARLOCK", "WARRIOR"];
 
-describe("arboles de talentos de Forever (cliente 1.60.1.70685, con hotfixes)", () => {
+describe("arboles de talentos de Forever (cliente 1.60.1.70707, con hotfixes)", () => {
   it("cumple el esquema en todas las clases", () => {
     for (const c of live.classes) expect(() => ClassTalents.parse(c)).not.toThrow();
   });
@@ -229,7 +229,9 @@ describe("Legacy (ventajas de cuenta)", () => {
           const extra = [...from].filter((id) => !above.has(id) && !inactive.has(id));
           const missing = [...above].filter((id) => !from.has(id));
           expect(missing).toEqual([]);
-          expect(extra.length).toBeLessThanOrEqual(1); // el propio nodo de la ultima fila
+          // el propio nodo de la ultima fila y, desde el 70707, el otro nodo de esa misma fila en el arbol Feral (Mordisco primigenio y Poder cambiante se cuentan mutuamente)
+          expect(extra.length).toBeLessThanOrEqual(2);
+          for (const id of extra) expect(s.talents.find((x) => x.nodeId === id)?.row).toBe(t.row);
         }
       }
     }
@@ -263,7 +265,7 @@ describe("seccion aparte: datos sin asignar", () => {
     const entries = raw.table("TraitNodeEntry").length;
     const linked = new Set(raw.table("TraitNodeXTraitNodeEntry").map((l) => l.TraitNodeEntryID)).size;
     expect(un.orphanEntries).toHaveLength(entries - linked);
-    expect(un.orphanEntries.length).toBe(100); // 98 + Hielo penetrante (Piercing Ice), retirado el 20/10 + Enfoque Arcano, retirado en el 70685: se conservan sin nodo
+    expect(un.orphanEntries.length).toBe(102); // 98 + Hielo penetrante (Piercing Ice), retirado el 20/10 + Enfoque Arcano, retirado en el 70685 + Especialización en armas de una mano y Sello de furia mejorado, retirados en el 70707: se conservan sin nodo
     for (const e of un.orphanEntries) expect(e.selectable).toBe(false);
     expect(new Set(un.orphanEntries.map((e) => e.entryId)).size).toBe(un.orphanEntries.length);
   });
@@ -294,11 +296,11 @@ describe("seccion aparte: datos sin asignar", () => {
     for (const e of unplaced) expect(inTrees.has(e.spellId!)).toBe(false);
   });
 
-  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 46)", () => {
+  it("separa las ventajas de Legacy sin colocar de los demas talentos sin nodo (54 + 48)", () => {
     const legacyOnes = un.orphanEntries.filter((e) => e.isLegacy);
     const others = un.orphanEntries.filter((e) => !e.isLegacy);
     expect(legacyOnes).toHaveLength(54);
-    expect(others).toHaveLength(46);
+    expect(others).toHaveLength(48);
     const legacyIds = legacyData.specs.flatMap((s) => s.talents.map((t) => t.spellId)).filter((id) => id < 1_300_000);
     const lo = Math.min(...legacyIds);
     for (const e of legacyOnes) expect(e.spellId!).toBeGreaterThanOrEqual(lo);
@@ -331,12 +333,11 @@ describe("hotfixes del servidor frente a los ficheros estaticos", () => {
     }
   });
 
-  it("no cambian la estructura del resto de clases", () => {
-    for (const t of TOKENS.filter((x) => x !== "MAGE")) {
-      const sig = (r: typeof live) =>
-        byToken(r, t).specs.flatMap((s) => s.talents).map((x) => `${x.nodeId}:${x.row}:${x.col}:${x.maxRank}`).join("|");
-      expect(sig(live)).toBe(sig(stat));
-    }
+  it("no cambian la estructura del resto de clases (el 70707 reordena por hotfix Druida, Cazador y Paladín)", () => {
+    const sig = (r: typeof live, tk: string) => byToken(r, tk).specs.flatMap((s) => s.talents).map((x) => `${x.nodeId}:${x.row}:${x.col}:${x.maxRank}`).join("|");
+    // Mago (hotfixes del 19/10) y las tres clases del 70707 sí cambian su estructura respecto al estático
+    const changed = TOKENS.filter((tk) => sig(live, tk) !== sig(stat, tk));
+    expect(changed).toEqual(["DRUID", "HUNTER", "MAGE", "PALADIN"]);
   });
 });
 
@@ -348,9 +349,9 @@ describe("contraste con la referencia (CC BY 4.0)", () => {
     expect(report!.ok).toBe(true);
   });
 
-  it("suman 464 talentos en total (465 hasta el 70658; Enfoque Arcano retirado, la referencia ya lo trae igual)", () => {
+  it("suman 465 talentos en total (464 en el 70685, 465 hasta el 70658; el 70707 retira 2 del Paladín y añade 3)", () => {
     const total = live.classes.reduce((s, c) => s + c.specs.reduce((n, sp) => n + sp.talents.length, 0), 0);
-    expect(total).toBe(464);
+    expect(total).toBe(465);
   });
 });
 
@@ -382,6 +383,8 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
         // Guías de la comunidad (fuentes de terceros, 2026-10-22): «Eureka!»: 8 s sin cargas, −10 % de coste y +10 % de daño o sanación; los valores 10 y 1 de las auras dummy son el
         // porcentaje y el consumo de cargas de los periódicos, sin cifra propia que enseñar (el coste y el 10 % salen de las auras 108).
         "7|¡Eureka!|4:null",
+        // «Ordenar» (Orco): +5 % de daño de las mascotas de Brujo y Cazador (aura 107 con miscValue 8); el motor no modela mascotas, se enseña el texto del cliente
+        "2|Ordenar|107:8",
         // «Caminar sobre el aire»: planeo de 10 s (la caída lenta, aura 105, ya tiene significado); 409 y 139 son efectos visuales y de reacción sin cifra
         "95|Caminar sobre el aire|409:null",
         "95|Caminar sobre el aire|139:2402",
@@ -395,9 +398,9 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
         "6|Pisotón de guerra|12:null",
       ].sort(),
     );
-    // Correr planicies (Tauren): +1 % de velocidad cada 5 s moviéndote, hasta un 30 % (valores del cliente 5 y 30; el significado, de guías de la comunidad)
+    // Correr planicies (Tauren): +2 % de velocidad cada 5 s moviéndote, hasta un 60 % (70707; hasta el 70685 eran +1 % y 30 %; valores del cliente 5 y 60 y el 2 del efecto periódico)
     const plains = byId(6).racials.find((a) => a.name === "Correr planicies")!.spells[0]!.effects.find((e) => e.kind === "stacking-speed-pct")!;
-    expect([plains.miscValue, plains.value]).toEqual([5, 30]);
+    expect([plains.miscValue, plains.value, plains.stepPct]).toEqual([5, 60, 2]);
     expect(byId(4).racials.find((a) => a.name === "Fusión de las Sombras")!.spells[0]!.effects.map((e) => e.kind)).toContain("threat-drop");
     expect(byId(95).racials.find((a) => a.name === "Caminar sobre el aire")!.spells[0]!.effects.map((e) => e.kind)).toContain("slow-fall");
     // Los de utilidad: cifras del cliente
@@ -415,7 +418,7 @@ describe("razas (CharBaseInfo + ChrRaceRacialAbility)", () => {
       expect(r.racials.map((a) => a.order)).toEqual([0, 1, 2, 3]);
     }
     expect(byId(1).racials.map((a) => `${a.kind}:${a.name}`)).toContain("passive:Crueldad");
-    expect(byId(95).racials.find((a) => a.name === "Leer línea Ley")?.kind).toBe("active");
+    expect(byId(95).racials.find((a) => a.name === "Lectura de línea Ley")?.kind).toBe("active");
   });
 
   it("interpreta los nombres de raciales en espanol e ingles", () => {
@@ -612,7 +615,7 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
         // Cielonato trae los nombres en inglés en la tabla (sus hechizos sí están en español)
         "Elemental Insight -> Perspicacia elemental",
         "Elemental Insight -> Perspicacia elemental",
-        "Read Leyline -> Leer línea Ley",
+        "Read Leyline -> Lectura de línea Ley",
         "Skysight -> Visión cielonata",
         "Walk on Air -> Caminar sobre el aire",
         "Walk on Air -> Caminar sobre el aire",
@@ -622,15 +625,21 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     );
   });
 
-  it("Leer línea Ley y Visión cielonata: la tabla dice «5 min» pero sus hechizos duran 30 s / 15 min; se muestra el texto del hechizo (si el cliente corrige la tabla, esta prueba avisa)", () => {
+  it("Lectura de línea Ley y Visión cielonata: se muestra el texto del hechizo, que lleva la duración con la línea Ley / convergencia cerca (la tabla del 70707 dice 15 s en ambas y el hechizo de Visión cielonata 30 s)", () => {
     const rows = parseRawDescriptions(join(root, "data", "raw", `${BUILD}-hotfix`));
-    expect(rows.get("95:1")).toContain("5 min");
-    expect(rows.get("96:1")).toContain("5 min");
-    for (const [raceId, name] of [[95, "Leer línea Ley"], [96, "Visión cielonata"]] as const) {
+    expect(rows.get("95:1")).toContain("15 s");
+    expect(rows.get("96:1")).toContain("15 s");
+    for (const [raceId, name, text] of [[95, "Lectura de línea Ley", /durante 15 s. Si hay una línea Ley cerca, obtienes En armonía durante 1 h/], [96, "Visión cielonata", /durante 30 s. Si hay una convergencia elemental cerca, obtienes Cargado durante 1 h/]] as const) {
       const a = racesData.races.find((r) => r.id === raceId)!.racials.find((x) => x.name === name)!;
-      expect(a.description, name).toMatch(/Dura 30 s .* 15 min/);
-      expect(a.description, name).not.toMatch(/b5 min/);
+      expect(a.description, name).toMatch(text);
     }
+  });
+
+  it("Precisión de artesano (Enano): la tabla del cliente dice «crítico» pero el hechizo y la referencia dicen «golpear»; se muestra el texto del hechizo", () => {
+    const a = racesData.races.find((r) => r.id === 3)!.racials.find((x) => x.name === "Precisión de artesano")!;
+    expect(a.description).toBe("Aumenta un 1% tu probabilidad de golpear con todos los hechizos y ataques.");
+    // las auras 54 (cuerpo a cuerpo) y 55 (hechizos) traen la misma cifra: una sola vez en el motor
+    expect(a.spells[0]!.effects.map((e) => `${e.kind}=${e.value}`)).toEqual(["hit-chance=1", "hit-chance=1"]);
   });
 
   it("erratas del cliente corregidas: solo «amentados» (Mente expansiva)", () => {
@@ -639,12 +648,12 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     expect(text).toBe("Maná, ira o energía máximos aumentados un 5%.");
   });
 
-  it("pasivas: Crueldad +2 % critico, Espiritu humano +5 % espiritu, Salvajismo +1 %, Aguante +5 % salud", () => {
-    expect(effect(1, "Crueldad", "crit-chance")?.value).toBe(2);
-    expect(effect(1, "El espíritu humano", "spirit-pct")).toMatchObject({ value: 5, miscValue: 4 });
-    expect(effect(2, "Salvajismo", "crit-chance")?.value).toBe(1);
+  it("pasivas (70707): Crueldad +1 % critico, Espiritu humano +10 % espiritu, Ordenar +5 % de dano de mascotas (sin interpretar), Aguante +5 % salud sin bonus de critico", () => {
+    expect(effect(1, "Crueldad", "crit-chance")?.value).toBe(1);
+    expect(effect(1, "El espíritu humano", "spirit-pct")).toMatchObject({ value: 10, miscValue: 4 });
+    expect(racesData.races.find((r) => r.id === 2)!.racials.find((a) => a.name === "Ordenar")!.spells.map((s) => s.classMask).sort((a, b) => a - b)).toEqual([4, 256, 1243]);
     expect(effect(6, "Aguante", "health-pct")?.value).toBe(5);
-    expect(effect(6, "Aguante", "crit-damage-bonus")?.value).toBe(2);
+    expect(effect(6, "Aguante", "crit-damage-bonus")).toBeUndefined();
   });
 
   it("activas: Furia sangrienta +10 % poder de ataque y con hechizos, 15 s, 2 min (3 min hasta el 70532); Iracundia +10 % celeridad", () => {
@@ -653,7 +662,7 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     expect(bf.cooldownMs).toBe(120000);
     expect(bf.effects.map((e) => e.kind).sort()).toEqual(["attack-power-pct", "ranged-attack-power-pct", "spell-power-pct"]);
     expect(effect(8, "Iracundia", "haste-spell-pct")?.value).toBe(10);
-    expect(spell(8, "Iracundia").durationMs).toBe(10000);
+    expect(spell(8, "Iracundia").durationMs).toBe(15000); // 10 s hasta el 70685
   });
 
   it("variantes por clase: Mente expansiva del Gnomo (5 % de mana, ira o energia segun clase)", () => {
@@ -663,9 +672,9 @@ describe("cifras de las raciales (hechizos del cliente)", () => {
     expect(variants.find((v) => v.classMask === 8)!.effects[0]).toMatchObject({ kind: "max-power-pct", value: 5, miscValue: 3 });
   });
 
-  it("Cielonato: Bendicion del viento da 3 % de celeridad y Perspicacia elemental 5 % contra elementales", () => {
+  it("Cielonato: Bendicion del viento da 2 % de celeridad (3 % hasta el 70685) y Perspicacia elemental 5 % contra elementales", () => {
     for (const id of [95, 96]) {
-      expect(effect(id, "Bendición del viento", "haste-spell-pct")?.value).toBe(3);
+      expect(effect(id, "Bendición del viento", "haste-spell-pct")?.value).toBe(2);
       expect(effect(id, "Perspicacia elemental", "damage-vs-creature")).toMatchObject({ value: 5, miscValue: 8 });
     }
   });
@@ -736,22 +745,22 @@ describe("raciales cuyo valor esta en otro hechizo o es un proc", () => {
   const racesData = buildRaces(openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`)), BUILD, "esES", live.spells);
   const spells = (raceId: number, name: string) => racesData.races.find((r) => r.id === raceId)!.racials.find((a) => a.name === name)!.spells;
 
-  it("Toque de la tumba: 20 % (guerrero, paladin, picaro) o 30 % (lanzadores), 5 % de la salud maxima, 25 s de enfriamiento interno", () => {
+  it("Toque de la tumba: 20 % (guerrero, paladin, picaro) o 30 % (lanzadores), 5 % de la salud maxima, 15 s de enfriamiento interno (25 s hasta el 70685)", () => {
     const [melee, casters] = [spells(5, "Toque de la tumba").find((s) => s.classMask === 11)!, spells(5, "Toque de la tumba").find((s) => s.classMask === 400)!];
-    expect(melee).toMatchObject({ procChance: 20, procCooldownMs: 25000 });
-    expect(casters).toMatchObject({ procChance: 30, procCooldownMs: 25000 });
+    expect(melee).toMatchObject({ procChance: 20, procCooldownMs: 15000 });
+    expect(casters).toMatchObject({ procChance: 30, procCooldownMs: 15000 });
     expect(melee.effects[0]).toMatchObject({ kind: "proc-drain-health-pct", value: 5 });
   });
 
-  it("Leyline remite a 'Energizado': +100 % de regeneracion de salud y de mana, sin duplicados", () => {
-    const e = spells(95, "Leer línea Ley")[0]!.effects;
+  it("Leyline remite a 'En armonía': +50 % de regeneracion de salud y de mana (el texto dice que cerca de una línea Ley se duplica), sin duplicados", () => {
+    const e = spells(95, "Lectura de línea Ley")[0]!.effects;
     expect(e.map((x) => x.kind).sort()).toEqual(["health-regen-pct", "mana-regen-pct"]);
-    expect(e.every((x) => x.value === 100 && x.fromSpellId !== null)).toBe(true);
+    expect(e.every((x) => x.value === 50 && x.fromSpellId !== null)).toBe(true);
   });
 
-  it("Visión cielonata (Horda) da +10 % de velocidad, tambien al montar", () => {
+  it("Visión cielonata (Horda) da +15 % de velocidad, tambien al montar", () => {
     const e = spells(96, "Visión cielonata")[0]!.effects;
-    expect(e.map((x) => `${x.kind}=${x.value}`).sort()).toEqual(["mounted-speed-pct=10", "movement-speed-pct=10"]);
+    expect(e.map((x) => `${x.kind}=${x.value}`).sort()).toEqual(["mounted-speed-pct=15", "movement-speed-pct=15"]);
   });
 
   it("Canibalizar recupera 7 % de salud y de mana cada 2 s durante 10 s (35 % en total)", () => {
@@ -840,10 +849,18 @@ describe("idioma: el cliente trae algunos textos de Forever en ingles", () => {
     expect(looksEnglish("")).toBe(false);
   });
 
-  it("ningun talento de clase se muestra en ingles: los que el cliente trae sin traducir llevan traduccion propia marcada (hoy solo Tromba de misiles)", () => {
+  it("ningun talento de clase se muestra en ingles: los que el cliente trae sin traducir llevan traduccion propia marcada (19 desde el 70707)", () => {
     const own = all.filter(({ t }) => t.textOrigin === "translated-by-us").map(({ cls, t }) => `${cls}: ${t.name}`);
     // Hasta el 17/10 eran 13; los hotfixes del 19/10 traducen 12 y dejan Tromba de misiles en ingles (y le anaden Explosion de Escarcha)
-    expect(own).toEqual(["Mago: Tromba de misiles"]);
+    // El 70707 devuelve al inglés 18 textos de talentos (rediseño del Paladín y Druida, enfoques de lanzamiento…): traducción propia marcada en data/i18n/esES-overrides.json
+    expect([...own].sort()).toEqual(
+      [
+        "Druida: Disciplina depredadora", "Druida: Enfoque de la naturaleza", "Druida: Floración", "Cazador: Filo de depredador", "Mago: Canalización mejorada", "Mago: Tromba de misiles",
+        "Paladín: Juicio presto", "Paladín: La hora de la verdad", "Paladín: Juramento de escudo", "Paladín: Especialización en armas de dos manos", "Paladín: Ahuyentar el mal",
+        "Sacerdote: Poder en la Luz", "Sacerdote: Enfoque crepuscular", "Sacerdote: Vínculo sagrado", "Chamán: Ojo de la tormenta", "Chamán: Enfoque curativo",
+        "Brujo: Concentración vil", "Brujo: Alcance destructivo", "Brujo: Intensidad",
+      ].sort(),
+    );
     expect(all.filter(({ t }) => t.textOrigin === "untranslated")).toEqual([]);
     for (const { t } of all) for (const d of t.descriptions) expect(looksEnglish(d), `${t.name}: ${d}`).toBe(false);
   });
@@ -858,7 +875,7 @@ describe("idioma: el cliente trae algunos textos de Forever en ingles", () => {
     const skyborne = racesData.races.filter((r) => r.id >= 95).flatMap((r) => r.racials);
     expect(skyborne.map((a) => a.name)).not.toContain("Walk on Air");
     // Desde el hotfix del 19/10 el cliente trae el nombre y el texto en espanol (antes eran traduccion propia)
-    expect(skyborne.find((a) => a.name === "Leer línea Ley")!.textOrigin).toBe("client");
+    expect(skyborne.find((a) => a.name === "Lectura de línea Ley")!.textOrigin).toBe("client");
     expect(skyborne.filter((a) => looksEnglish(a.description))).toEqual([]);
     expect(skyborne.filter((a) => a.name === "Caminar sobre el aire")).toHaveLength(2);
   });
@@ -964,8 +981,9 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
 
   it("cumple el esquema y trae las lineas de Sagrado, Proteccion y Reprension", () => {
     expect(() => Abilities.parse(data)).not.toThrow();
-    expect(data.abilities).toHaveLength(66);
-    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(184);
+    // 62 y 178 desde el 70707: Revocar, Salvación, Salvación en masa y las dos Bendiciones de luz dejan de enseñarse (SkillLineAbility quitadas) y entra Juramento de luz (de un talento); eran 66 y 184
+    expect(data.abilities).toHaveLength(62);
+    expect(data.abilities.reduce((n, a) => n + a.ranks.length, 0)).toBe(178);
   });
 
   it("los hechizos auxiliares (1 punto de Luz Sagrada, mitades de Choque Sagrado, debilitamientos de las Sentencias) no son rangos: los rangos por nombre cuadran con la referencia", () => {
@@ -998,9 +1016,9 @@ describe("habilidades del Paladin (libro de hechizos del cliente)", () => {
       const lv = /Learned at level (\d+)/.exec(v.lv ?? "");
       if (lv && r.level !== Number(lv[1])) bad.push(`${key} nivel`);
     }
-    expect(compared).toBe(167);
-    // Furia justa: el hotfix del 23/10 la baja de nivel 16 a 10 (SpellLevels del cliente); la referencia externa aún dice 16
-    expect(bad).toEqual(["Paladin|Righteous Fury| nivel"]);
+    expect(compared).toBe(161); // 167 hasta el 70685: salen 5 habilidades del libro (ver arriba) y la referencia ya no las lista
+    // Furia justa: el hotfix del 23/10 la baja de nivel 16 a 10 (SpellLevels del cliente); la referencia externa lo trae igual desde su export del 30/10
+    expect(bad).toEqual([]);
   });
 });
 
@@ -1101,9 +1119,10 @@ describe("textos de los talentos del Paladin frente a la referencia", () => {
         }
       }
     });
-    expect(total).toBe(138);
-    // Choque Sagrado, Vigilia de la Luz, Sello de orden (nivel), Sello de furia mejorado (1 p. por nivel), Reivindicacion x3 (poder de ataque por nivel)
-    expect(diff).toEqual(["Choque Sagrado r1", "Vigilia de la Luz r1", "Sello de furia mejorado r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1"]);
+    expect(total).toBe(139); // 138 hasta el 70685
+    // Choque Sagrado, Vigilia de la Luz, Sello de orden (nivel), Reivindicacion x3 (poder de ataque por nivel)
+    // Juramento de luz r1 (70707): el cliente trae las cifras del servidor a 0 («hasta 0 p.»), la referencia no las trae; el talento sale marcado como valor base. Sello de furia mejorado se retiró
+    expect(diff).toEqual(["Juramento de luz r1", "Choque Sagrado r1", "Vigilia de la Luz r1", "Reivindicación r1", "Reivindicación r2", "Reivindicación r3", "Sello de orden r1"]);
     // Campeón de la Luz (10/20/30 % del intelecto) ya coincide con la referencia desde su export del 27/10 (build 70630)
   });
 
@@ -1137,8 +1156,8 @@ describe("textos de los talentos del Sacerdote frente a la referencia", () => {
       }
     });
     expect(total).toBe(148);
-    // Penitencia, Nova Sagrada y Sanacion conjunta: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia)
-    expect(diff).toEqual(["Penitencia r1", "Nova Sagrada r1", "Sanación conjunta r1"]);
+    // Penitencia y Nova Sagrada: cifras que escalan con el nivel (valor base frente al del nivel 60 de la referencia). Sanación conjunta ya coincide con la referencia (70707: sale del árbol y se entrena)
+    expect(diff).toEqual(["Penitencia r1", "Nova Sagrada r1"]);
   });
 
   it("las variables del personaje se resuelven sin poder con hechizos: Egida divina 1200 (20 x $pl) y Rezo de alivio 172 ($bh y $bc valen 0), como la referencia", () => {
@@ -1155,7 +1174,7 @@ describe("habilidades de Chaman, Cazador, Brujo y Druida frente a la referencia 
     { id: 7, token: "shaman", name: "Chaman", abilities: 66, ranks: 207, compared: 183 },
     { id: 3, token: "hunter", name: "Cazador", abilities: 68, ranks: 171, compared: 145 },
     { id: 9, token: "warlock", name: "Brujo", abilities: 66, ranks: 198, compared: 171 },
-    { id: 11, token: "druid", name: "Druida", abilities: 69, ranks: 221, compared: 207 },
+    { id: 11, token: "druid", name: "Druida", abilities: 69, ranks: 223, compared: 208 }, // 221 y 207 hasta el 70685: Lacerar y Mordedura feroz ganan rangos de entrenador
   ];
   for (const c of classes) {
     it(`${c.name}: cumple el esquema y coincide con la referencia`, () => {
@@ -1199,7 +1218,7 @@ describe("textos de los talentos de Chaman, Cazador, Brujo y Druida frente a la 
     { token: "HUNTER", file: "hunter", total: 148, diff: ["Contraataque r1"], notApprox: ["Contraataque r1"] },
     // Amplificar maldición r1 (hotfix del 16/10, Maldición de agotamiento 50 % → 20 %): la referencia ya lo trae desde su export del 27/10.
     { token: "WARLOCK", file: "warlock", total: 146, diff: ["Quemadura de las Sombras r1", "Conflagrar r1", "Terror de caos r1", "Incinerar r1"], notApprox: ["Terror de caos r1"] },
-    { token: "DRUID", file: "druid", total: 148, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
+    { token: "DRUID", file: "druid", total: 147, diff: ["Carga feral r1", "Crecimiento salvaje r1"], notApprox: ["Carga feral r1"] },
   ];
   for (const c of CASES) {
     it(`${c.token}: las cifras de cada rango coinciden con la referencia salvo ${c.diff.length} (nivel / formulas conocidas)`, () => {
@@ -1318,8 +1337,8 @@ describe("entradas de talento sin nodo frente a la referencia", () => {
   it("la mayoria tiene gemela en la referencia (mismas cifras); las que no, quedan listadas con su nombre", () => {
     const un = JSON.parse(readFileSync(join(root, "data", "forever", BUILD, "unassigned.json"), "utf8")) as { orphanEntries: { name: string | null; descriptions: string[] }[] };
     const oc = contrastOrphans(un.orphanEntries, join(root, "data", "external", "talentsforever"))!;
-    expect(oc.total).toBe(100);
-    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(100);
+    expect(oc.total).toBe(102); // 100 hasta el 70685; el 70707 retira Especialización en armas de una mano y Sello de furia mejorado
+    expect(oc.withTfTwin + oc.withoutTfTwin.length).toBe(102);
     expect(oc.withTfTwin).toBeGreaterThanOrEqual(60);
     // Las ventajas de Legacy sin colocar con otras cifras que las de la referencia (la referencia viene de un cliente mas antiguo)
     expect(oc.withoutTfTwin.map((o) => o.name)).toContain("Estudio dedicado");
@@ -1423,7 +1442,7 @@ describe("estadisticas por clase y nivel del cliente (PlayerExpectedStat y ChrCl
 });
 
 
-describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70685)", () => {
+describe("condicionales de la plantilla, requisitos de objeto equipado y mano de las armas (cliente 1.60.1.70707)", () => {
   const raw = openRawTables(join(root, "data", "raw", `${BUILD}-hotfix`));
   const abilitiesOf = (classId: number) => buildAbilities(raw, live.spells, classId, BUILD, "esES", live.classes.find((c) => c.classId === classId))!;
   const COND = /\uE000([sa]\d+(?:\|[sa]\d+)*)\uE001([^\uE001]*)\uE001([^\uE002]*)\uE002/;
@@ -1565,27 +1584,15 @@ describe("raciales frente a la referencia externa (cambios futuros que el client
     expect(figuresOf("heals for 1,285 to 1,513 and 0.5 sec")).toEqual(["1285", "1513", "0.5"]);
   });
 
-  it.skipIf(!existsSync(tfDir))("lista exacta de lo que la referencia ve distinto (Espíritu humano 5 → 10 %, etc.); el cliente no se toca", () => {
-    expect(report!.differs.sort()).toEqual(
-      [
-        "Cielonato Formavientos: Bendición del viento",
-        "Cielonato Formavientos: Visión cielonata",
-        "Cielonato de la Orden Eminente: Bendición del viento",
-        "Cielonato de la Orden Eminente: Leer línea Ley",
-        "Humano: Crueldad",
-        "Humano: El espíritu humano",
-        "No-muerto: Toque de la tumba",
-        "Tauren: Aguante",
-        "Tauren: Correr planicies",
-        "Tauren: Cultivo",
-        "Trol: Iracundia",
-      ].sort(),
-    );
-    expect(report!.notListed.sort()).toEqual(["Enano: Furia de la tierra", "Orco: Salvajismo"]);
-    expect(report!.referenceOnly.sort()).toEqual(["Enano: Artisan's Precision", "Orco: Command"]);
+  it.skipIf(!existsSync(tfDir))("lista exacta de lo que la referencia ve distinto (tras el 70707 el cliente ya trae casi todo lo que la referencia anunciaba); el cliente no se toca", () => {
+    // Visión cielonata (15 s en la referencia, 30 s en el hechizo del cliente), Toque de la tumba y Cultivo (texto con nota de la referencia), Iracundia (10 s frente a 15 s del cliente)
+    expect(report!.differs.sort()).toEqual(["Cielonato Formavientos: Visión cielonata", "No-muerto: Toque de la tumba", "Tauren: Cultivo", "Trol: Iracundia"]);
+    // Precisión de artesano y Ordenar (antes «Artisan's Precision» y «Command» solo de la referencia) ya están en el cliente
+    expect(report!.notListed.sort()).toEqual([]);
+    expect(report!.referenceOnly.sort()).toEqual([]);
     // El valor del cliente sigue siendo el del cliente
     const human = races.races.find((r) => r.id === 1)!;
-    expect(human.racials.find((a) => a.name === "El espíritu humano")!.spells[0]!.effects.find((e) => e.kind === "spirit-pct")!.value).toBe(5);
-    expect(human.racials.find((a) => a.name === "El espíritu humano")!.reference).toMatchObject({ status: "differs", text: "Spirit increased by 10%." });
+    expect(human.racials.find((a) => a.name === "El espíritu humano")!.spells[0]!.effects.find((e) => e.kind === "spirit-pct")!.value).toBe(10);
+    expect(human.racials.find((a) => a.name === "El espíritu humano")!.reference).toMatchObject({ status: "same", text: "Spirit increased by 10%." });
   });
 });

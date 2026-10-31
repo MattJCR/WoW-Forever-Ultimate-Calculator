@@ -15,7 +15,7 @@ const nums = (s: string) => [...s.replace(/\n/g, " ").replace(/(\d),(\d{3})/g, "
 const close = (a: number, b: number) => Math.abs(a - b) <= Math.max(1, Math.abs(b) * 0.005);
 
 function load(c: string) {
-  const ab = Abilities.parse(JSON.parse(readFileSync(join(root, `data/forever/1.60.1.70685/abilities/${c}.json`), "utf8")));
+  const ab = Abilities.parse(JSON.parse(readFileSync(join(root, `data/forever/1.60.1.70707/abilities/${c}.json`), "utf8")));
   const tf = JSON.parse(readFileSync(join(root, `data/external/talentsforever/${c}.json`), "utf8")).spell_desc as Record<string, { id?: number; d?: string }>;
   const by = new Map<number, { name: string; rank: (typeof ab.abilities)[number]["ranks"][number] }>();
   for (const a of ab.abilities) for (const r of a.ranks) by.set(r.spellId, { name: a.name, rank: r });
@@ -30,8 +30,10 @@ describe("textos de las habilidades frente a la referencia (nivel 60, sin talent
   // Parche 70658 (la referencia declara el 70630, 27/10): Guerrero, Revancha ×6 (el cliente ahora suma poder de ataque a su daño; la referencia trae la cifra fija);
   // Cazador, Aspecto del halcón ×5 (20/35/50/70/90 → 15/22/30/38/47) y Aura de disparo certero ×4 (30/40/50/75 → 15/22/30/40). Sacerdote, Chamán y Brujo +1 cada uno
   // porque la referencia ya trae los hotfixes del servidor que antes la separaban.
+  // 70707: Paladín 161 de 167 (salen 5 habilidades del libro y entra Juramento de luz, que la referencia no lista) y 25 distintas (24 antes: Escudo Sagrado, Vigilia de la Luz y Furia justa
+  // cambian por hotfix y la referencia declara el build 70630); Druida 208 (Lacerar y Mordedura feroz ganan rangos de entrenador)
   const EXPECTED: Record<string, [number, number]> = {
-    warrior: [116, 110], paladin: [167, 143], rogue: [119, 98], priest: [238, 235], mage: [194, 186], hunter: [145, 110], shaman: [183, 182], warlock: [171, 166], druid: [207, 194],
+    warrior: [116, 110], paladin: [161, 136], rogue: [119, 98], priest: [238, 235], mage: [194, 186], hunter: [145, 110], shaman: [183, 182], warlock: [171, 166], druid: [208, 195],
   };
   for (const c of CLASSES) {
     it(`${c}: ${EXPECTED[c]![1]} de ${EXPECTED[c]![0]} textos con las mismas cifras`, () => {

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70707",
+  "classId": 11,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 17245,
+      "name": "Sobrecrecimiento",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Sobrecrecimiento: +{v} objetivos máximos de Enredaderas",
+          "scope": {
+            "spells": [
+              "Enredaderas"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 16880,
+      "name": "Gracia de la naturaleza",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Gracia de la naturaleza: tus críticos con hechizos no periódicos te dan 3 s de {v} % más de velocidad de lanzamiento y menos reutilización global",
+          "scope": {
+            "all": true,
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 1223246,
+      "name": "Desgarrar y rasgar",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Desgarrar y rasgar: +{v} % de daño de tus facultades cuerpo a cuerpo contra objetivos que sangran",
+          "scope": {
+            "schools": [
+              1
+            ],
+            "damagingOnly": true
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 408248,
+      "name": "Eclipse",
+      "effects": [
+        {
+          "index": 1,
+          "factor": -0.001,
+          "extras": {},
+          "label": "Eclipse: tu Cólera reduce {v} s el lanzamiento de tus siguientes 2 Fuego estelar (hasta 4 cargas, 15 s)",
+          "scope": {
+            "spells": [
+              "Fuego estelar"
+            ]
+          },
+          "action": "none",
+          "unit": "s"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

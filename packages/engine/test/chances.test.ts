@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityChances, abilityEffectSummary, collectStatEffects, decodeBuild, findAbility, indexClass } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const mage = indexClass(ClassTalents.parse(json("classes/mage.json")));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
@@ -56,9 +56,9 @@ describe("probabilidades de impacto y critico por habilidad (cliente + comunidad
     expect(c.crit.stat).toBe("int");
     expect(c.crit.statPerPercent).toBe(59.5);
     expect(c.crit.fromStat).toBeCloseTo(base.int * cs(8, 60)!.spellCritPerIntellect * 100, 1);
-    expect(c.crit.bonusPct).toBe(2); // Crueldad del Humano; Incineracion no afecta a Descarga de Escarcha
+    expect(c.crit.bonusPct).toBe(1); // Crueldad del Humano (2 hasta el 70685); Incineracion no afecta a Descarga de Escarcha
     expect(c.crit.baseClassPct).toBe(0.2);
-    expect(c.crit.total).toBeCloseTo(0.2 + c.crit.fromStat! + 2, 1);
+    expect(c.crit.total).toBeCloseTo(0.2 + c.crit.fromStat! + 1, 1);
     expect(c.crit.suppressionPct).toBe(0); // contra el mismo nivel no hay supresion
     expect(c.crit.unavailable).toBeNull();
   });
@@ -68,7 +68,7 @@ describe("probabilidades de impacto y critico por habilidad (cliente + comunidad
     const c = abilityChances({ rank, classId: 8, level: 30, target: "same", formulas, stats: { agi: l30[1]!, int: l30[3]! }, classStats: cs(8, 30), lines });
     expect(c.crit.statPerPercent).toBe(27.3);
     expect(c.crit.fromStat).toBeCloseTo(l30[3]! / 27.3, 0);
-    expect(c.crit.bonusPct).toBe(2);
+    expect(c.crit.bonusPct).toBe(1);
     expect(c.hit.total).toBe(100);
   });
 

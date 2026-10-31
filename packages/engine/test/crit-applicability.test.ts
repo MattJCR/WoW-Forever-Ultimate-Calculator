@@ -6,13 +6,13 @@ import { describe, expect, it } from "vitest";
 import { abilityChances, abilityEffectSummary, canCrit, collectStatEffects, dealsDamage, findAbility, indexClass } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const rogue = indexClass(ClassTalents.parse(json("classes/rogue.json")));
 const abilities = Abilities.parse(json("abilities/rogue.json"));
 const formulas = CombatFormulas.parse(json("combat-formulas.json"));
 const human = Races.parse(json("races.json")).races.find((r) => r.id === 1)!;
-// Humano: +2 % de crítico "a todo el personaje" (Crueldad racial); antes se colaba en Robar
+// Humano: +1 % de crítico (2 % hasta el 70685) "a todo el personaje" (Crueldad racial); antes se colaba en Robar
 const fx = collectStatEffects({ cls: rogue, classBuild: {}, legacy: null, legacyBuild: {}, race: human, abilities });
 const CRIT = ["Probabilidad de crítico", "Bonus de daño crítico"];
 
@@ -34,7 +34,7 @@ describe("el crítico solo afecta a lo que hace daño o sana", () => {
     const rank = sinister.ranks.at(-1)!;
     expect(dealsDamage(rank) && canCrit(rank)).toBe(true);
     const summary = abilityEffectSummary("Golpe siniestro", fx, { canCrit: true });
-    expect(summary.lines.find((l) => l.category === "Probabilidad de crítico")?.value).toBe(2);
+    expect(summary.lines.find((l) => l.category === "Probabilidad de crítico")?.value).toBe(1);
   });
 });
 

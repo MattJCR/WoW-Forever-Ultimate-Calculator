@@ -18,8 +18,7 @@
       { "spellId": 426065, "effects": [ { "index": 0, "label": "Infusión de Luz: los golpes críticos de Choque Sagrado y Destello de Luz reducen {v} s el lanzamiento de tu siguiente Luz Sagrada (15 s)", "scope": { "spells": ["Luz Sagrada"] }, "factor": -0.001, "unit": "s" } ] },
       { "spellId": 1310905, "effects": [ { "index": 0, "label": "Suelo consagrado: +{v} % de daño de tus hechizos Sagrados contra los 4 primeros enemigos que pisan tu Consagración", "scope": { "schools": [2], "damagingOnly": true } } ] },
       { "spellId": 1311074, "effects": [ { "index": 0, "label": "Sentencia santificada: {v} % de probabilidad de que Sentencia devuelva un {w} % del coste de maná del sello sentenciado", "scope": { "spells": ["Sentencia"] }, "extras": { "w": { "index": 1 } } } ] },
-      { "spellId": 1314103, "effects": [ { "index": 1, "label": "Sello de furia mejorado: al absorberse por completo el escudo de Sello de furia, restaura maná (1 p. por nivel tuyo: 60 p. a nivel 60), aumentado un {v} % por cada nivel que te saque el atacante, hasta un máximo del 45 %", "scope": { "spells": ["Sello de furia"] } } ] },
-      { "spellId": 9452, "effects": [ { "index": 0, "label": "Reivindicación: tus ataques cuerpo a cuerpo que infligen daño pueden reducir el poder de ataque del objetivo y aumentar un {v} % el tuyo durante 30 s", "scope": { "schools": [1], "damagingOnly": true } } ] },
+      { "spellId": 9452, "effects": [ { "index": 0, "label": "Reivindicación: tus ataques cuerpo a cuerpo que infligen daño pueden reducir el poder de ataque del objetivo durante 30 s (desde el 70707 ya no aumentan el tuyo)", "scope": { "schools": [1], "damagingOnly": true } } ] },
       { "spellId": 20049, "effects": [ { "index": 0, "label": "Venganza: +{v} % de daño físico y Sagrado durante 30 s tras un golpe crítico no periódico (se acumula hasta 3 veces)", "scope": { "schools": [1, 2], "damagingOnly": true } } ] }
     ],
     "7": [

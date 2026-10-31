@@ -22,7 +22,7 @@ import {
 } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const legacy = indexClass(ClassTalents.parse(json("legacy.json")));
 const warrior = indexClass(ClassTalents.parse(json("classes/warrior.json")));

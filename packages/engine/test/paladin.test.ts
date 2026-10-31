@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { collectStatEffects, effectAt, findAbility, indexClass, ruleAppliesTo, ruleLines, type Build } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const paladin = indexClass(ClassTalents.parse(json("classes/paladin.json")));
 const abilities = Abilities.parse(json("abilities/paladin.json"));
@@ -53,11 +53,11 @@ describe("Paladín: habilidades, talentos y reglas", () => {
     for (const { talent } of paladin.ordered) expect(covered.has(talent.name ?? ""), talent.name ?? "").toBe(true);
   });
 
-  it("Convicción suma crítico cuerpo a cuerpo a habilidades físicas que hacen daño", () => {
+  it("Convicción suma crítico con todos los hechizos y ataques (6 %, 3 rangos; hasta el 70685 era un 5 % solo cuerpo a cuerpo)", () => {
     const fx = collectStatEffects({ cls: paladin, classBuild: only("Convicción"), legacy: null, legacyBuild: {}, race: null, abilities, rules });
-    const crit = fx.totals.find((t) => t.label === "probabilidad de crítico cuerpo a cuerpo")!;
-    expect(crit.value).toBe(5);
-    expect(crit.scope).not.toContain("Luz Sagrada");
+    const crit = fx.totals.find((t) => t.label === "probabilidad de crítico")!;
+    expect(crit.value).toBe(6);
+    expect(crit.scope).toBeNull();
   });
 });
 
@@ -66,7 +66,7 @@ describe("Paladín: cifras directas frente a la referencia (a nivel min(60, nive
   const byId = new Map<number, (typeof abilities.abilities)[number]["ranks"][number]>();
   for (const a of abilities.abilities) for (const r of a.ranks) byId.set(r.spellId, r);
 
-  it("daño y sanación «X a Y» coinciden (±1) en 59 de 80 cifras; el resto son fórmulas por velocidad de arma o daño de arma normalizado", () => {
+  it("daño y sanación «X a Y» coinciden (±1) en 56 de 77 cifras; el resto son fórmulas por velocidad de arma o daño de arma normalizado", () => {
     let pairs = 0;
     let ok = 0;
     const bad = new Set<string>();
@@ -81,8 +81,8 @@ describe("Paladín: cifras directas frente a la referencia (a nivel min(60, nive
         else bad.add(key.split("|")[1]!);
       }
     }
-    expect(pairs).toBe(80);
-    expect(ok).toBe(59);
+    expect(pairs).toBe(77); // 80 hasta el 70685: salen 5 habilidades del libro y entra Juramento de luz
+    expect(ok).toBe(56); // 59 hasta el 70685: las 3 cifras que salen (habilidades retiradas del libro) coincidían
     // Sello de rectitud (por golpe: valor/87 a valor/25 según la velocidad del arma), Golpe Sagrado (el 25-50 % de arma multiplica también el extra: La referencia muestra la mitad o menos) y la mitad sin aturdir de Sello de orden
     expect([...bad].sort()).toEqual(["Holy Strike", "Seal of Command", "Seal of Righteousness"]);
   });

@@ -32,6 +32,8 @@ export interface ActiveRacial {
  */
 export interface RaceBonuses {
   critChancePct: number;
+  /** Probabilidad de impacto (puntos porcentuales); las auras gemelas 54/55 de un mismo hechizo cuentan una vez. */
+  hitChancePct: number;
   /** Espiritu: ya incluido en la tabla de estadisticas base de Classic. */
   spiritPct: number;
   maxPowerPct: Record<PowerKind, number>;
@@ -58,6 +60,7 @@ const appliesTo = (s: RacialSpell, classId: number): boolean => s.classMask === 
 export function raceBonuses(race: Race, classId: number): RaceBonuses {
   const out: RaceBonuses = {
     critChancePct: 0,
+    hitChancePct: 0,
     spiritPct: 0,
     maxPowerPct: { mana: 0, rage: 0, energy: 0 },
     healthPct: 0,
@@ -86,9 +89,15 @@ export function raceBonuses(race: Race, classId: number): RaceBonuses {
         });
         continue;
       }
+      let hitCounted = false;
       for (const e of spell.effects) {
         // Los efectos que viven en otro hechizo al que remite el texto (p. ej. ser fantasma) son condicionales: no cuentan
         if (!e.kind || e.fromSpellId !== null) continue;
+        // Impacto cuerpo a cuerpo (54) y con hechizos (55): el texto da una sola cifra
+        if (e.kind === "hit-chance") {
+          if (hitCounted) continue;
+          hitCounted = true;
+        }
         out.passives.push({ racialName: racial.name, spellId: spell.spellId, effect: e });
         add(out, e);
       }
@@ -101,6 +110,9 @@ function add(out: RaceBonuses, e: RacialEffect): void {
   switch (e.kind) {
     case "crit-chance":
       out.critChancePct += e.value;
+      break;
+    case "hit-chance":
+      out.hitChancePct += e.value;
       break;
     case "spirit-pct":
       out.spiritPct += e.value;
@@ -171,6 +183,8 @@ export function describeEffect(e: RacialEffect, spell?: Pick<RacialSpell, "durat
   switch (e.kind) {
     case "crit-chance":
       return `${pct(e.value)} probabilidad de crítico`;
+    case "hit-chance":
+      return `${pct(e.value)} probabilidad de impacto`;
     case "spirit-pct":
       return `${pct(e.value)} espíritu`;
     case "max-power-pct":
@@ -241,7 +255,7 @@ export function describeEffect(e: RacialEffect, spell?: Pick<RacialSpell, "durat
     case "threat-drop":
       return "elimina tu amenaza";
     case "stacking-speed-pct":
-      return `+1 % velocidad de movimiento cada ${e.miscValue} s moviéndote (máx. ${e.value} %)`;
+      return `+${e.stepPct ?? 1} % velocidad de movimiento cada ${e.miscValue} s moviéndote (máx. ${e.value} %)`;
     case "engineering-failure-pct":
       return `${pct(-e.value)} fallo de dispositivos de ingeniería`;
     default:

@@ -26,7 +26,7 @@ import { buildClientStats } from "./client-stats.js";
 import { buildUnassigned } from "./unassigned.js";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const DEFAULT_BUILD = "1.60.1.70685";
+const DEFAULT_BUILD = "1.60.1.70707";
 const DEFAULT_LOCALE = "esES";
 
 function arg(name: string, fallback: string): string {

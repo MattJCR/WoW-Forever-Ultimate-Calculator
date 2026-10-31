@@ -5,7 +5,7 @@ import { Abilities } from "@wfuc/schema";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685", "abilities");
+const D = join(root, "data", "forever", "1.60.1.70707", "abilities");
 const has = existsSync(D);
 
 /**
@@ -22,7 +22,7 @@ const KNOWN_AURAS = [
   127, 133, 134, 135, 136, 137, 140, 142, 149, 151, 161, 168, 174, 175, 184, 185, 197, 226, 227, 230, 232, 270, 271, 290, 319, 332, 342, 378, 466, 560, 562, 588, 668, 674,
 ];
 /** Efectos sin aura (`SpellEffect.Effect`): invocaciones (28, 56, 97), creación de objetos (24, 94), disipación (38), portales y teletransportes (50, 252), resurrección (329), encantar arma (54/360)… */
-const KNOWN_EFFECTS = [0, 1, 3, 8, 17, 19, 24, 28, 29, 30, 31, 32, 33, 38, 47, 50, 56, 58, 62, 63, 64, 67, 68, 69, 71, 72, 77, 79, 94, 96, 97, 101, 102, 104, 108, 109, 110, 114, 118, 121, 131, 136, 137, 142, 167, 179, 203, 252, 329, 360];
+const KNOWN_EFFECTS = [0, 1, 3, 8, 17, 19, 24, 28, 29, 30, 31, 32, 33, 38, 47, 50, 56, 58, 62, 63, 64, 67, 68, 69, 71, 72, 77, 79, 94, 96, 97, 101, 102, 104, 108, 109, 110, 114, 118, 121, 131, 136, 137, 142, 167, 179, 252, 329, 360];
 
 describe.skipIf(!has)("auditoría: efectos de habilidades que no son daño, curación ni absorción", () => {
   const auras = new Set<number>();

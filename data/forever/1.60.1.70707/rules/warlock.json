@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "build": "1.60.1.70707",
+  "classId": 9,
+  "provenance": "assumption",
+  "rules": [
+    {
+      "spellId": 18182,
+      "name": "Transfusión de  vida mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Transfusión de vida mejorada: +{v} % de maná generado",
+          "scope": {
+            "spells": [
+              "Transfusión de vida"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 18094,
+      "name": "Ocaso",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Ocaso: {v} % de probabilidad, tras dañar al enemigo, de entrar en trance de las Sombras (tu siguiente Descarga de las Sombras sin tiempo de lanzamiento)",
+          "scope": {
+            "spells": [
+              "Corrupción",
+              "Drenar alma",
+              "Drenar vida",
+              "Drenar vida (runa)",
+              "Arruinar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 17804,
+      "name": "Succión de alma",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Succión de alma: +{v} % de daño o salud drenada por cada efecto de aflicción en el objetivo (máximo triple)",
+          "scope": {
+            "spells": [
+              "Drenar vida",
+              "Drenar vida (runa)",
+              "Drenar alma",
+              "Arruinar"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 17793,
+      "name": "Descarga de Sombras mejorada",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Descarga de Sombras mejorada: tus críticos de Descarga de las Sombras aumentan un {v} % el daño de las Sombras que recibe el objetivo 12 s",
+          "scope": {
+            "spells": [
+              "Descarga de las Sombras"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 18073,
+      "name": "Piroclasma",
+      "effects": [
+        {
+          "index": 0,
+          "factor": 1,
+          "extras": {},
+          "label": "Piroclasma: {v} % de probabilidad de aturdir 3 s con Fuego de alma, Lluvia de Fuego y Piroinferno",
+          "scope": {
+            "spells": [
+              "Fuego de alma",
+              "Lluvia de Fuego",
+              "Piroinferno"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    },
+    {
+      "spellId": 426316,
+      "name": "Sombras y llamas",
+      "effects": [
+        {
+          "index": 1,
+          "factor": 1,
+          "extras": {
+            "w": {
+              "index": 2,
+              "factor": 1
+            }
+          },
+          "label": "Sombras y llamas: Conflagrar aumenta un {w} % tu daño de las Sombras y Quemadura de las Sombras tu daño de Fuego durante 20 s; ambas tienen {v} % de probabilidad de ahorro (Conflagrar no consume Inmolar, Quemadura devuelve un fragmento de alma)",
+          "scope": {
+            "spells": [
+              "Conflagrar",
+              "Quemadura de las Sombras"
+            ]
+          },
+          "action": "none",
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

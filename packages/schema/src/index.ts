@@ -251,6 +251,7 @@ export const RacialEffectKind = z.enum([
   "spirit-pct", // % de espiritu
   "max-power-pct", // % del maximo de mana/ira/energia (miscValue = tipo de poder: 0 mana, 1 ira, 3 energia)
   "health-pct", // % de salud maxima
+  "hit-chance", // puntos porcentuales de probabilidad de impacto con hechizos y ataques (auras 54 y 55: el cliente las trae gemelas con la misma cifra)
   "crit-damage-bonus", // % al bonus de dano critico
   "crit-healing-bonus", // % al bonus de sanacion critica
   "dodge-pct",
@@ -282,7 +283,7 @@ export const RacialEffectKind = z.enum([
   "track-resources", // rastrea recursos en el minimapa (aura 45; miscValue 6 = arquetas)
   "slow-fall", // caida lenta / planeo (aura 105; los Cielonato planean 10 s)
   "threat-drop", // elimina la amenaza (aura 103 con -999999: Fusion de las Sombras)
-  "stacking-speed-pct", // acumula +1 % de velocidad de movimiento cada `miscValue` s moviendote hasta `value` % (Correr planicies; guias de la comunidad)
+  "stacking-speed-pct", // acumula +`stepPct` % (1 si falta) de velocidad de movimiento cada `miscValue` s moviendote hasta `value` % (Correr planicies)
   "engineering-failure-pct", // % de fallo de los dispositivos de ingenieria (aura dummy del Gnomo: el valor es el % de reduccion)
 ]);
 export type RacialEffectKind = z.infer<typeof RacialEffectKind>;
@@ -298,6 +299,8 @@ export const RacialEffect = z.object({
   periodMs: z.number().int().nullable(),
   /** Si el efecto vive en otro hechizo al que remite el texto (`$1259691s1`): su id. Estos efectos son condicionales (no cuentan como pasivas permanentes). */
   fromSpellId: z.number().int().nullable(),
+  /** Solo `stacking-speed-pct`: % que se suma en cada paso (1 hasta el 70685, 2 desde el 70707). Ausente = 1. */
+  stepPct: z.number().optional(),
 });
 export type RacialEffect = z.infer<typeof RacialEffect>;
 

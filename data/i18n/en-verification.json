@@ -1,10 +1,10 @@
 {
-  "build": "1.60.1.70685",
-  "tablesBuild": "1.60.1.70685",
+  "build": "1.60.1.70707",
+  "tablesBuild": "1.60.1.70707",
   "ranks": {
-    "total": 1727,
-    "templated": 1716,
-    "named": 1727,
+    "total": 1723,
+    "templated": 1712,
+    "named": 1723,
     "filledByOfficial": 186,
     "own": 10
   },
@@ -12,14 +12,14 @@
   "pending": [],
   "ownMismatches": [],
   "talents": {
-    "checked": 491,
-    "official": 30,
-    "reference": 1340,
+    "checked": 492,
+    "official": 29,
+    "reference": 1342,
     "own": 8
   },
   "unassigned": {
-    "entries": 100,
-    "entriesNamed": 92,
+    "entries": 102,
+    "entriesNamed": 93,
     "nodes": 62,
     "nodesNamed": 58
   },

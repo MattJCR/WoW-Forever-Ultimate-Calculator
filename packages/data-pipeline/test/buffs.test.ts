@@ -8,7 +8,7 @@ import { Abilities, Buffs } from "../src/model.js";
 import { SpellTables } from "../src/spell-tables.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const BUILD = "1.60.1.70685";
+const BUILD = "1.60.1.70707";
 const RAW = join(root, "data", "raw", `${BUILD}-hotfix`);
 const OUT = join(root, "data", "forever", BUILD);
 

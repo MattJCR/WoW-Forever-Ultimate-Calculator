@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityEffectSummary, applyModifiers, collectStatEffects, damageDonePct, dealsDamage, healsTarget, indexClass, rankAtLevel, spellModifiersOf, type Build } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const load = (token: string) => ({ cls: indexClass(ClassTalents.parse(json(`classes/${token}.json`))), abilities: Abilities.parse(json(`abilities/${token}.json`)), rules: TalentRules.parse(json(`rules/${token}.json`)) });
 const only = (cls: ReturnType<typeof indexClass>, name: string): Build => {
@@ -55,7 +55,7 @@ describe("daño infligido por escuela", () => {
 
   it("los condicionados al equipo o al estado de las demás clases tampoco suman (armas de una o dos manos, escudo, sin mascota, armas a distancia)", () => {
     const CONDITIONAL: [string, string][] = [
-      ["paladin", "Especialización en armas de una mano"],
+      // «Especialización en armas de una mano» (Paladín) se retiró del árbol en el 70707
       ["paladin", "Especialización en armas de dos manos"],
       ["warrior", "Especialización en armas de dos manos"],
       ["warrior", "Bastión"],
@@ -70,13 +70,13 @@ describe("daño infligido por escuela", () => {
     }
   });
 
-  it("los permanentes sí suman: Furia de luna (+10 % Naturaleza y Arcano), Naturalista (+5 % a todo), Luz abrasadora (+5 % Sagrado)", () => {
+  it("los permanentes sí suman: Furia de luna (+10 % Naturaleza y Arcano), Naturalista (+10 % a todo; +5 % hasta el 70685), Luz abrasadora (+5 % Sagrado)", () => {
     const druid = load("druid");
     const dfx = (name: string) => collectStatEffects({ cls: druid.cls, classBuild: only(druid.cls, name), legacy: null, legacyBuild: {}, race: null, abilities: druid.abilities, rules: druid.rules });
     expect(damageDonePct(dfx("Furia de luna"), 8 | 64)).toBe(10);
     expect(damageDonePct(dfx("Furia de luna"), 4)).toBe(0);
-    expect(damageDonePct(dfx("Naturalista"), 1)).toBe(5);
-    expect(damageDonePct(dfx("Naturalista"), 4)).toBe(5);
+    expect(damageDonePct(dfx("Naturalista"), 1)).toBe(10);
+    expect(damageDonePct(dfx("Naturalista"), 4)).toBe(10);
     expect(damageDonePct(fx("Luz abrasadora"), 2)).toBe(5);
     expect(damageDonePct(fx("Luz abrasadora"), 32)).toBe(0);
   });

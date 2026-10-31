@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { abilityOutcome, findAbility, formFlatAttackPower, formOfRank, formPowerContext, rankAtLevel, type PowerContext } from "../src/index.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const D = join(root, "data", "forever", "1.60.1.70685");
+const D = join(root, "data", "forever", "1.60.1.70707");
 const json = (f: string) => JSON.parse(readFileSync(join(D, f), "utf8"));
 const rogue = Abilities.parse(json("abilities/rogue.json"));
 const warrior = Abilities.parse(json("abilities/warrior.json"));
@@ -104,6 +104,7 @@ const NO_OUTCOME: Record<string, string> = {
   // Daño o sanación reactivos: dependen de lo que ocurra en combate (golpes recibidos, sanaciones, maná del objetivo)
   "paladin: Aura de castigo": "daño por cada golpe recibido por el grupo",
   "paladin: Escudo Sagrado": "daño por cada ataque bloqueado",
+  "paladin: Juramento de luz": "aumenta la sanación de otros hechizos sobre el aliado; el cliente trae sus cifras a 0 («hasta 0 p.») hasta que lleguen las del servidor",
   "druid: Espinas": "daño por cada golpe recibido",
   "priest: Rebote": "quema el maná del atacante",
   "priest: Quemar maná": "el daño es la mitad del maná que tenga el objetivo",
